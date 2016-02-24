@@ -1,0 +1,234 @@
+\begin{thebibliography}{}
+
+\bibitem[Wickham]{Wickham}
+Hadley Wickham. (2004).
+\newblock {Tidy Data}. 
+
+\bibitem[Dong]{Dong}
+Wei Dong, Moses Charikar,Kai Li. (2011).
+\newblock {Efficient K-Nearest Neighbor Graph Construction for Generic Similarity Measures}.
+
+\bibitem[Hajebi]{Hajebi}
+Kiana Hajebi, Yasin Abbasi-Yadkori, Hossein Shahbazi, Hong Zhang.
+\newblock {Fast Approximate Nearest-Neighbor Search with k-Nearest Neighbor Graph}
+
+\bibitem[Gou]{Gou}
+Janping Gou, Lan Du,Yuhong Zhang,Taisong Xiong. (2012).
+\newblock {A New Distance-weighted k-nearest Neighbor Classifier}
+
+\bibitem[Banko,Brill]{Banko,Brill} 
+Michele Banko, Eric Brill. (2001).
+\newblock {Scaling to Very Very Large Corpora forNatural Language Disambiguation}
+
+\bibitem[Aggarwal,Hinneburg,Keim]{Aggarwal,Hinneburg,Keim}
+Charu Aggarwal, Alexander Hinneburg, Daniel KEim.
+\newblock {On the Surprising Behavior of Distance Metrics in High Dimensional Space}
+
+\bibitem[Beyer]{Beyer}
+Beyer K., Goldstein J., Ramakrishnan R., Shaft U.
+\newblock {When is Nearest Neighbors Meaningful?}
+
+\bibitem[Houle]{Houle}
+Michael E. Houle,Hans-Peter Kriegel,Peer Kroger,Erich Schubert,Arthur Zimek.
+\newblock {Can Shared-Neighbor Distances Defeat the Curse of Dimensionality?}
+
+\bibitem[Dean]{Dean}
+Jeffrey Dean, Sanjay Ghemawat.
+\newblock {MapReduce: Simplified Data Processing on Large Clusters}
+
+\bibitem[Shannon]{Shannon}
+Shannon Claude.
+\newblock {A Mathematical Theory of Communication}
+
+\bibitem[Vitanyi]{Vitanyi}
+Rudi Cilibrasi and Paul M.B. Vitanyi.
+\newblock {Clustering by Compression}
+
+\bibitem[Clearly-Witten]{Clearly-Witten}
+Cleary, J.; Witten, I. 
+\newblock {Data Compression Using Adaptive Coding and Partial String Matching}
+
+ \bibitem[Witten-Bell]{Witten-Bell}
+ I.H. Witten and T.C. Bell. 
+ \newblock {The zero-frequency problem: estimating the probabilities of novel events in adaptive text compression.}
+
+\bibitem[Cormack-Horspool]{Cormack-Horspool}
+Gordon Cormack;Nigel Horspool.
+ \newblock {Data Compression using Dynamic Markov Modelling.}
+
+ \bibitem[Burrows-Wheeler]{Burrows-Wheeler}
+M. Burrows; David J Wheeler.
+ \newblock {A block-sorting lossless data compression algorithm.}
+
+\bibitem[Pagh-Rodler]{Pagh-Rodler}
+Rasmus Pagh; Flemming Rodler.
+ \newblock {Cuckoo Hashing.}
+
+\bibitem[Shi]{Shi-Petterson-Langford-Smola-Strehl-Dror-Vishwanathan]}
+Qinfeng Shi; James Petterson; John Langford;Alex Smola;Alex Strehl;Gideon Dror;Vishy Vishwanathan.
+ \newblock {Hash Kernels.}
+
+\bibitem[Weinberger]{Weinberger-Dasgupta-Langford-Smola-Attenberg}
+Killian Weinberger; Anirban Dasgupta; John Langford; Alex Smola; Josh Attenberg.
+ \newblock {Feature Hashing for Large Scale Multitask Learning.}
+
+\bibitem[Shi2]{Shi-Petterson-Dror-Langford-Smola-Vishwanathan}
+Qinfeng Shi; James Petterson; John Langford;Alex Smola;Alex Strehl;Gideon Dror;Vishy Vishwanathan.
+ \newblock {Hash Kernels for Structured Data.}
+
+\bibitem[Attenberg]{Attenberg-Weinberger}
+Joshua Attenberg;Killian Weinberger.
+ \newblock {Collaborative Email Spam Filtering with the Hashing Trick.}
+
+\bibitem[Dasgupta]{Dasgupta-Gupta}
+Sanjoy Dasgupta;Anupam Gupta.
+ \newblock {An elementary proof of the Johnson-Lindenstrauss Lemma.}
+
+\bibitem[Chazelle]{Chazelle-Ailon}
+Bernard Chazelle;Nor Ailon.
+ \newblock {Approximate Nearest Neighbors and the Fast Johnson-Lindenstrauss Transform.}
+
+\bibitem[Achlioptas]{Achlioptas}
+Dimitris Achlioptas.
+ \newblock {Database friendly random projections Johnson-Lindestrauss with Binary Coins.}
+
+\bibitem[Indyk-Motwani]{Indyk-Motwani-Gionis}
+Piotr Indyk; Rajeev Motwani; Aristides Gionis.
+ \newblock {Similarity Search in High Dimensions vis Hashing.}
+
+\bibitem[Indyk-Andoni]{Indyk-Andoni}
+Piotr Indyk; Alexandr Andoni.
+ \newblock {Near Optimal Hashing Algorithms for Approximate Nearest Neigbor in High Dimensions.}
+
+\bibitem[Bawa]{Bawa-Condie-Ganesan}
+Mayank Bawa; Tyson Condie; Prasanna Ganesan.
+ \newblock {LSH Forest Self Tuning Indexes for Similarity Search.}
+
+\bibitem[Andoni]{Andoni-Indyk-Nguyen-Razenshteyn}
+Alexandr Andoni; Piotr Indyk; Huy Nguyen; Ilya Razenshteyn.
+ \newblock {Beyond Locality Sensitive Hashing.}
+
+\bibitem[Belkin]{Belkin-Niyogi}
+Mikhail Belkin;Partha Niyogi.
+ \newblock {Laplacian Eigenmaps for Dimensionality Reduction and Data Representation.}
+
+
+\bibitem[van der Maaten-Hinton]{van der Maaten-Hinton}
+Laurens van der Maaten;Geoffrey Hinton.
+ \newblock {Visualizing Data using t-SNE.}
+
+\bibitem[van de Maaten]{van der Maaten}
+Laurens van der Maaten.
+ \newblock {Learning a Parametric Embedding by Preserving Local Structure.}
+
+\bibitem[Flajolet-Martin]{Flajolet-Martin}
+Philippe Flajolet; Nigel Martin.
+\newblock {Probabilistic Counting Algorithms for Data Base Applications.}
+
+\bibitem[Flajolet]{Flajolet}
+Philippe Flajolet;Eric Fusy; Olivier Gandouet; Frederic Meunier.
+ \newblock {The analysis of a near-optimal cardinality estimation algorithm.}
+
+\bibitem[Alon-Matias-Szegedy]{Alon-Matias-Szegedy}
+Noga Alon;Yossi Matias;Mario Szegedy.
+ \newblock {The space complexity of approximating the frequency moments.}
+
+\bibitem[Datar-Gionis-Indyk-Motwani]{Datar-Gionis-Indyk-Motwani}
+M. Datar; A Gionis; P Indyk; R. Motwani.
+ \newblock {Maintaining stream statistics over sliding windows.}
+
+\bibitem[Swamidass-Baldi]{Swamidass-Baldi}
+S Joshua Swamidass; Pierre Baldi.
+ \newblock {Bounds and algorithms for fast exact searches of chemical fingerprints in linear and sublinear time.}
+
+\bibitem[Muthukrishnan-Cormode]{Muthukrishnan-Cormode}
+S. Muthukrishnan; Graham Cormode.
+ \newblock {The Count-Min Sketch and its Applications.}
+
+\bibitem[Wolpert]{Wolpert-Macready}
+D.H. Wolpert; W.G. Macready.
+ \newblock {No Free Lunch Theorems for Optimization.}
+
+\bibitem[Ward]{Ward}
+J.H Ward Jr.
+ \newblock {Hierarchical Grouping to Optimize an Objective Function.}
+
+\bibitem[Weiss-Ng-Jordan]{Weiss-Ng-Jordan}
+Yair Weiss; Andrew Ng; Michael Jordan.
+ \newblock {On Spectral Clustering Analysis and Algorithm.}
+
+\bibitem[Yan-Huang-Jordan]{Yan-Huang-Jordan}
+Donghui Yan; Lin Huang; Michael Jordan.
+ \newblock {Fast Approximate Spectral Clustering.}
+
+\bibitem[Guha-Rastogi-Shim]{Guha-Rastogi=Shim}
+Guha, Sudipto; Rastogi, Rajeev; Shim, Kyuseok.
+ \newblock {CURE An Efficient Clustering Algorithm for Large Databases.}
+
+\bibitem[Campello-Moulavi-Sander]{Campello-Moulavi-Sander}
+Ricardo J. G. B. Campello; Davoud Moulavi; Joerg Sander
+ \newblock {Density Based Clustering Based on Hierarchical Density Estimates.}
+
+\bibitem[Eldridge-Belkin]{Eldridge-Belkin}
+Justin Eldridge; Mikhail Belkin.
+ \newblock {Beyond Hartigan Consistency Merge Distortion Metric for Hierarchical Clustering.}
+
+\bibitem[Page-Brin]{Brin-Page}
+Larry Page; Sergey Brin.
+ \newblock {The PageRank Citation Ranking  Bringing Order to the Web.}
+
+\bibitem[Kleinberg]{Kleinberg}
+Jon Kleinberg.
+ \newblock {Authoritative sources in a hyperlinked environment.}
+
+\bibitem[Ugander]{Ugander}
+Johan Ugander; Brian Karrer; Lars Backstrom; Cameron Marlow.
+ \newblock {The Anatomy of the Facebook Social Graph.}
+
+\bibitem[Charalampos]{Tsourakakis}
+Charalampos;Tsourakakis.
+ \newblock {Fast Counting of Triangles in Large Real Networks.}
+
+\bibitem[Kang-Meeder-Faloutsos]{Kang-Meeder-Faloutsos}
+U Kang;Brendan Meeder;Christos Faloutsos.
+ \newblock {Spectral Analysis for Billion Scale Graphs Discoveries and Implementation.}
+
+
+\bibitem[Clauset-Newman-Moore]{Clauset-Newman-Moore}
+Aaron Clauset; M. E. J. Newman; Cristopher Moore.
+ \newblock {Finding community structure in very large networks.}
+\bibitem[Good-Montjoye-Clauset]{Good-Montjoye-Clauset}
+Good; Montjoye; Aaron Clauset.
+ \newblock {The performance of modularity maximization in practical contexts.}
+
+\bibitem[Louvain]{Blondel-Guillaume-Lambiotte-Lefebvre}
+Vincent D Blondel; Jean-Loup Guillaume; Renaud Lambiotte; Etienne Lefebvre.
+ \newblock {Fast unfolding of communities in large networks.}
+
+\bibitem[Leskovec]{Yang-Leskovec}
+J Yang; Jure Leskovec.
+ \newblock {Overlapping Community Detection at Scale A Nonnegative Matrix Factorization Approach.}
+
+\bibitem[Koren]{Koren}
+Yehuda Koren.
+ \newblock {Factorization Meets the Neighborhood.}
+
+\bibitem[Carlson]{Carlson}
+Gunnar Carlson.
+ \newblock {Topology and Data.}
+
+\bibitem[Singh-Memoli-Carlson]{Singh-Memoli-Carlson}
+Gruheet Singh; Facundo Memoli; Gunnar Carlson.
+ \newblock {Topological Methods for the Analysis of High Dimensional Data Sets and 3D Object Recognition.}
+
+\bibitem[Fredman-Komlos-Szemeredi]{Fredman-Komlos-Szemeredi}
+Michael Fredman; Janos Komlos; Endre Szemeredi.
+ \newblock {Storing a Sparse Table with O(1) Worst Case Access Time.}
+
+\bibitem[Dietzfelbinger]{Dietzfelbinger-Karlin-Mehlorn-Heide-Rohnert-Tarjan}
+M. Dietzfelbinger; A. Karlin; K. Mehlhorn; F. Meyer auf der Heide; H. Rohnert; R. E. Tarjan.
+ \newblock {Dynamic perfect hashing upper and lower bounds.}
+
+\end{thebibliography}
+
+
