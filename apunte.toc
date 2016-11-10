@@ -624,57 +624,63 @@
 \contentsline {subsubsection}{La influencia del tiempo}{607}
 \contentsline {subsubsection}{El usuario a veces quiere ver cosas que no le gustan}{607}
 \contentsline {subsubsection}{Lo que el usuario califica vs lo que el usuario ve}{607}
-\contentsline {section}{\numberline {17.3}Sistemas Basados en Contenidos (Content Based)}{608}
-\contentsline {section}{\numberline {17.4}Collaborative Filtering}{609}
-\contentsline {subsection}{\numberline {17.4.1}Semejanza User User}{610}
-\contentsline {subsection}{\numberline {17.4.2}Semejanza Item Item}{611}
-\contentsline {subsection}{\numberline {17.4.3}Collaborative Filtering en base a Desviaciones}{612}
-\contentsline {section}{\numberline {17.5}Evaluaci\IeC {\'o}n de Sistemas de Recomendaci\IeC {\'o}n}{615}
-\contentsline {section}{\numberline {17.6}Modelos Latentes}{616}
-\contentsline {subsection}{\numberline {17.6.1}SVD++}{616}
-\contentsline {subsubsection}{Algoritmo de Gradient Descent para calcular $Q$ y $P$}{618}
-\contentsline {section}{\numberline {17.7}Factores Temporales}{619}
-\contentsline {section}{\numberline {17.8}Factorization Machines}{620}
-\contentsline {subsection}{\numberline {17.8.1}Expresividad de FM}{621}
-\contentsline {subsection}{\numberline {17.8.2}Como funcionan los par\IeC {\'a}metros de una FM}{622}
-\contentsline {subsection}{\numberline {17.8.3}Algoritmos basados en FMs}{622}
-\contentsline {subsection}{\numberline {17.8.4}Aprendizaje de FMs}{623}
-\contentsline {subsection}{\numberline {17.8.5}LibFM}{623}
-\contentsline {section}{\numberline {17.9}El Problema del Cold-Start: Multi-Armed Bandits}{624}
-\contentsline {subsection}{\numberline {17.9.1}Multi-Armed Bandits}{624}
-\contentsline {subsection}{\numberline {17.9.2}Algoritmo Epsilon}{625}
-\contentsline {subsection}{\numberline {17.9.3}Algoritmo UCB1}{625}
-\contentsline {section}{\numberline {17.10}Diversidad: Optimizaci\IeC {\'o}n Submodular}{625}
-\contentsline {subsection}{\numberline {17.10.1}Recomendaciones Personalizadas}{628}
-\contentsline {section}{\numberline {17.11}Learning to Rank}{629}
-\contentsline {section}{\numberline {17.12}El Sistema Completo}{629}
-\contentsline {chapter}{\numberline {18}An\IeC {\'a}lisis Topol\IeC {\'o}gico de Datos}{631}
-\contentsline {section}{\numberline {18.1}Propiedades del An\IeC {\'a}lisis Topol\IeC {\'o}gico}{632}
-\contentsline {section}{\numberline {18.2}Los Datos como un Grafo}{633}
-\contentsline {subsection}{\numberline {18.2.1}Complejo Vietoris-Rips}{633}
-\contentsline {subsection}{\numberline {18.2.2}Complejo de Cech}{636}
-\contentsline {section}{\numberline {18.3}Homolog\IeC {\'\i }a Persistente}{636}
-\contentsline {subsection}{\numberline {18.3.1}N\IeC {\'u}meros de Betti y Barcodes}{637}
-\contentsline {subsection}{\numberline {18.3.2}BarCodes}{638}
-\contentsline {subsection}{\numberline {18.3.3}Otros puntos de An\IeC {\'a}lisis}{639}
-\contentsline {section}{\numberline {18.4}Algoritmo Mapper}{640}
-\contentsline {subsection}{\numberline {18.4.1}Lentes Topol\IeC {\'o}gicos Comunes}{640}
-\contentsline {subsection}{\numberline {18.4.2}Cubriendo los Datos}{641}
-\contentsline {subsection}{\numberline {18.4.3}Fase de Clustering}{643}
-\contentsline {subsection}{\numberline {18.4.4}Construcci\IeC {\'o}n del Grafo}{644}
-\contentsline {subsection}{\numberline {18.4.5}Ejemplo}{644}
-\contentsline {subsection}{\numberline {18.4.6}Ejemplo}{647}
-\contentsline {section}{\numberline {18.5}Conclusiones}{651}
-\contentsline {chapter}{\numberline {19}Metadatos}{653}
-\contentsline {section}{\numberline {19.1}Dublin Core}{654}
-\contentsline {section}{\numberline {19.2}RDF}{655}
-\contentsline {subsection}{\numberline {19.2.1}El Modelo RDF}{655}
-\contentsline {subsection}{\numberline {19.2.2}RDF mediante Grafos}{656}
-\contentsline {subsection}{\numberline {19.2.3}Recursos An\IeC {\'o}nimos}{656}
-\contentsline {section}{\numberline {19.3}Turtle}{657}
-\contentsline {section}{\numberline {19.4}Ontolog\IeC {\'\i }as}{658}
-\contentsline {subsection}{\numberline {19.4.1}RDF-Schema (RDFs)}{658}
-\contentsline {subsubsection}{Clases}{659}
-\contentsline {subsubsection}{Domain y Range}{659}
-\contentsline {subsection}{\numberline {19.4.2}Otros elementos de RDFs}{660}
-\contentsline {section}{\numberline {19.5}SPARQL}{660}
+\contentsline {section}{\numberline {17.3}Sistemas No Personalizados}{608}
+\contentsline {subsection}{\numberline {17.3.1}Recomendando Comentarios en Reddit}{608}
+\contentsline {subsubsection}{Primera Aproximaci\IeC {\'o}n Diferencia entre Upvotes y Downvotes}{608}
+\contentsline {subsubsection}{Seugunda Aproximaci\IeC {\'o}n Proporci\IeC {\'o}n de Upvotes sobre el total}{608}
+\contentsline {subsection}{\numberline {17.3.2}Intervalos de Confianza}{609}
+\contentsline {subsection}{\numberline {17.3.3}Ordenando las noticias en Reddit}{610}
+\contentsline {section}{\numberline {17.4}Sistemas Basados en Contenidos (Content Based)}{612}
+\contentsline {section}{\numberline {17.5}Collaborative Filtering}{613}
+\contentsline {subsection}{\numberline {17.5.1}Semejanza User User}{614}
+\contentsline {subsection}{\numberline {17.5.2}Semejanza Item Item}{615}
+\contentsline {subsection}{\numberline {17.5.3}Collaborative Filtering en base a Desviaciones}{618}
+\contentsline {section}{\numberline {17.6}Evaluaci\IeC {\'o}n de Sistemas de Recomendaci\IeC {\'o}n}{620}
+\contentsline {section}{\numberline {17.7}Modelos Latentes}{621}
+\contentsline {subsection}{\numberline {17.7.1}SVD++}{621}
+\contentsline {subsubsection}{Algoritmo de Gradient Descent para calcular $Q$ y $P$}{623}
+\contentsline {section}{\numberline {17.8}Factores Temporales}{624}
+\contentsline {section}{\numberline {17.9}Factorization Machines}{624}
+\contentsline {subsection}{\numberline {17.9.1}Expresividad de FM}{626}
+\contentsline {subsection}{\numberline {17.9.2}Como funcionan los par\IeC {\'a}metros de una FM}{626}
+\contentsline {subsection}{\numberline {17.9.3}Algoritmos basados en FMs}{627}
+\contentsline {subsection}{\numberline {17.9.4}Aprendizaje de FMs}{627}
+\contentsline {subsection}{\numberline {17.9.5}LibFM}{627}
+\contentsline {section}{\numberline {17.10}El Problema del Cold-Start: Multi-Armed Bandits}{629}
+\contentsline {subsection}{\numberline {17.10.1}Multi-Armed Bandits}{629}
+\contentsline {subsection}{\numberline {17.10.2}Algoritmo Epsilon}{630}
+\contentsline {subsection}{\numberline {17.10.3}Algoritmo UCB1}{630}
+\contentsline {section}{\numberline {17.11}Diversidad: Optimizaci\IeC {\'o}n Submodular}{630}
+\contentsline {subsection}{\numberline {17.11.1}Recomendaciones Personalizadas}{634}
+\contentsline {section}{\numberline {17.12}Learning to Rank}{634}
+\contentsline {section}{\numberline {17.13}El Sistema Completo}{634}
+\contentsline {chapter}{\numberline {18}An\IeC {\'a}lisis Topol\IeC {\'o}gico de Datos}{637}
+\contentsline {section}{\numberline {18.1}Propiedades del An\IeC {\'a}lisis Topol\IeC {\'o}gico}{638}
+\contentsline {section}{\numberline {18.2}Los Datos como un Grafo}{639}
+\contentsline {subsection}{\numberline {18.2.1}Complejo Vietoris-Rips}{639}
+\contentsline {subsection}{\numberline {18.2.2}Complejo de Cech}{642}
+\contentsline {section}{\numberline {18.3}Homolog\IeC {\'\i }a Persistente}{642}
+\contentsline {subsection}{\numberline {18.3.1}N\IeC {\'u}meros de Betti y Barcodes}{643}
+\contentsline {subsection}{\numberline {18.3.2}BarCodes}{644}
+\contentsline {subsection}{\numberline {18.3.3}Otros puntos de An\IeC {\'a}lisis}{645}
+\contentsline {section}{\numberline {18.4}Algoritmo Mapper}{646}
+\contentsline {subsection}{\numberline {18.4.1}Lentes Topol\IeC {\'o}gicos Comunes}{646}
+\contentsline {subsection}{\numberline {18.4.2}Cubriendo los Datos}{647}
+\contentsline {subsection}{\numberline {18.4.3}Fase de Clustering}{649}
+\contentsline {subsection}{\numberline {18.4.4}Construcci\IeC {\'o}n del Grafo}{650}
+\contentsline {subsection}{\numberline {18.4.5}Ejemplo}{650}
+\contentsline {subsection}{\numberline {18.4.6}Ejemplo}{653}
+\contentsline {section}{\numberline {18.5}Conclusiones}{657}
+\contentsline {chapter}{\numberline {19}Metadatos}{659}
+\contentsline {section}{\numberline {19.1}Dublin Core}{660}
+\contentsline {section}{\numberline {19.2}RDF}{661}
+\contentsline {subsection}{\numberline {19.2.1}El Modelo RDF}{661}
+\contentsline {subsection}{\numberline {19.2.2}RDF mediante Grafos}{662}
+\contentsline {subsection}{\numberline {19.2.3}Recursos An\IeC {\'o}nimos}{662}
+\contentsline {section}{\numberline {19.3}Turtle}{663}
+\contentsline {section}{\numberline {19.4}Ontolog\IeC {\'\i }as}{664}
+\contentsline {subsection}{\numberline {19.4.1}RDF-Schema (RDFs)}{664}
+\contentsline {subsubsection}{Clases}{665}
+\contentsline {subsubsection}{Domain y Range}{665}
+\contentsline {subsection}{\numberline {19.4.2}Otros elementos de RDFs}{666}
+\contentsline {section}{\numberline {19.5}SPARQL}{666}

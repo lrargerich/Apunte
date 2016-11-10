@@ -508,6 +508,7 @@ Los tipos de datos mas comunes en un data frame son entonces:
 \item Categóricos o Factores (n valores posibles) ordinales (el orden importa ejemplo: low, medium, high)
 \end{enumerate}
 
+
 \subsubsection{Codificación de Atributos Categóricos}
 
 Consideremos el caso de atributos categóricos es decir en el cual tenemos una lista de valores posibles. Algunos ejemplos son atributos de tipo Si/No, provincia, sexo, color de un objeto, la clase a la cual pertenecía un pasajero del Titanic, etc. En todos los casos cada observación toma para el atributo en cuestión un valor que pertenece a una lista de valores posibles.
@@ -652,7 +653,7 @@ Para la matriz de nuestro ejemplo los vectores serían los siguientes:
 
 \begin{verbatim}
 V1 = (4,3,3,2)
-V2 = (2,6,1,2)
+V2 = (2,5,1,2)
 V3 = (1,3,4)
 \end{verbatim}
 
@@ -5656,7 +5657,7 @@ En estas secciones vamos a desarrollar la construcción de una función de hashi
 
 Vamos a ver en primer lugar un algoritmo conocido como HDC (Hash Displace & Compress) cuyo origen podemos rastrear a [Pagh], [Botelho-Pagh-Ziviani] y [Bellazzougui-Botelho-Dietzfelbinger]. Este algoritmo está fuertemente inspirado en el esquema FKS y es altamente eficiente para generar funciones de hashing perfectas y mínimas.
 
-El funcionamiento del algoritmo es muy sencillo, necesitamos una familia de funciones de hashing universales que podamos parametrizar con un número entero $h(i,x)$, las funciones de esta familia nos generan un número entre 0 y $n-1$ que es la cantidad de claves que tenemos.
+El funcionamiento del algoritmo es 9 sencillo, necesitamos una familia de funciones de hashing universales que podamos parametrizar con un número entero $h(i,x)$, las funciones de esta familia nos generan un número entre 0 y $n-1$ que es la cantidad de claves que tenemos.
 
 En un primer paso vamos a hashear todas las claves a una tabla $G$ usando $h(0,x)$ encadenando los sinónimos. El resultado es una simple tabla de hash con encadenamiento de sinónimos. 
 
@@ -9361,7 +9362,7 @@ Los algoritmos para Learning to Rank se dividen en tres grupos:
 
 \begin{itemize}
 \item Por puntos (pointwise)
-\item Por parse (pairwise)
+\item Por pares (pairwise)
 \item Por listas (listwise)
 \end{itemize}
 
@@ -16746,6 +16747,145 @@ y establecer de esta forma un grado de “confianza” en las calificaciones del
 usarse luego en el sistema de recomendaciones.
 A continuación veremos el primero y más importante de los algoritmos que suelen usarse en
 sistemas de recomendaciones.
+
+\section{Sistemas No Personalizados}
+
+Una primera aproximación a un sistema de recomendaciones consiste en recomendarle a todos los usuarios las mismas cosas, es decir suponer que la opinión de los usuarios como grupo es suficiente para recomendarle ítems a cualquiera de ellos. Un buen ejemplo de esto son sistemas del estilo de Tripadvisor en donde las recomendaciones dependen exclusivamente del promedio de calificaciones que todos los usuarios hicieron de cada ítem, a todos los usuarios se les muestra luego las mismas recomendaciones.
+
+Vamos a usar como ejemplo de un sistema no-personalizado a Reddit en donde es necesario ordenar tanto los comentarios de las noticias como las noticias que van a aparecer en la página principal. Recomendar noticias es mas complejo que recomendar comentarios porque las noticias envejecen, es decir son afectadas por el factor tiempo mientras que los comentarios son atemporales, queremos mostrar los mejores comentarios primero independientemente del momento en que fueron realizados.
+
+\subsection{Recomendando Comentarios en Reddit}
+
+En Reddit los usuarios pueden comentar noticias y además pueden votar a favor (upvote) o en contra (downvote) de cada comentario realizado, este sistema de upvotes y downvotes aplica en muchas situaciones por lo que es interesante estudiarlo. El objetivo es muy simple: mostrar los comentarios ordenados desde el mejor al peor, vamos a ver que esta tarea aunque muy simple puede resultar compleja y para demostrar esto vamos a comenzar con algunas ideas simples que lamentablemente no funcionan.
+
+\subsubsection{Primera Aproximación Diferencia entre Upvotes y Downvotes}
+
+En este esquema le damos un puntaje a su comentario de la forma $\text{Upvotes}-\text{Downvotes}$ el problema de esta aproximación es bastante simple, supongamos que un comentario $X$ tiene 200 upvotes y 100 downvotes, es decir un total de $2/3$ de votos positivos mienstras que otro comentario $Y$ tiene 3500 comentarios positivos y 3300 comentarios negativos, es decir un total de 51.8\% de comentarios positivos. El primer comentario debería aparecer primero por tener mayor proporción de upvotes pero con nuestra fórmula el score del primero es 100 y el score del segundo es 200, es decir que un comentario que tiene menor proporción de votos positivos que otro tiene el doble de puntaje. Claramente esto no está bien. La forma intuitiva de corregir esto es calculando la proporción de votos positivos sobre el total.
+
+\subsubsection{Seugunda Aproximación Proporción de Upvotes sobre el total}
+
+Calcularemos el puntaje de cada comentario con la fórmula $\text{Upvotes}/\text{Upvotes}+\text{Downvotes}$ esto nos da la proporción de votos positivos sobre el total que aparentemente podemos usar para rankear los comentarios. Lamentablemente esta aproximación también está mal, supongamos que un comentario tiene 2 votos positivos y ningún voto negativo mientras que otro comentario tiene 100 votos positivos y un voto negativo. En nuestra fórmula el primero tiene 100\% de votos positivos y estaría adelante del segundo que tiene "sólo" un 99\% de votos positivos. 
+
+Estamos siendo víctimas de la ecuación mas peligrosa de la historia, que hace nuevamente una aparición para complicar las cosas. Los comentarios con pocos votos van a ser tanto los peores como los mejores porque tienen muy pocos votos pero mucha varianza. Una posible solución es filtrar los comentarios con pocos votos pero esto no es posible en Reddit porque no podemos hacer que los comentarios simplemente desaparezcan(!). Necesitamos entonces una fórmula que corrija el score de los comentarios de acuerdo a la variabilidad de los mismos. Y la solución para esto no es precisamente del todo simple....
+
+\subsection{Intervalos de Confianza}
+
+La pregunta que nos queremos hacer es de la forma: "Dados los upvotes y downvotes que tenemos, queremos saber con una confianza del 95\% cual es el límite inferior para la probabilidad de que el comentario sea positivo." Esto es equivalente a determinar si una moneda está desbalanceada en base a la cantidad de caras y secas que obtenemos. Si vemos 100 caras y 1 seca pensaremos que la moneda no es legal mientras que 2 caras y 0 secas no nos dan tanta confianza. El problema se reduce entonces al cálculo del intervalo de confianza para un proceso de tipo Bernoulli, tema que se puede solucionar de forma sencilla con la fórmula de Wilson para el cálculo de intervalos de confianza en una distribución Bernoulli.
+
+Vamos a definir a $p = U / U+D$ como la proporción de upvotes. Y $n=U+D$ como el total de votos. La fórmula de Wilson es entonces:
+
+\begin{myequation}
+\frac{(p + \frac{z^2}{2n} \pm z \sqrt{[p(1-p)+z^2/4n]/n})}{1+z^2/n}
+\end{myequation}
+
+Donde $z$ es el cuantil correspondiente a la distribución normal. Por ejemplo si queremos una confianza del 95\% entonces $z=1.96$. En base al nivel de confianza que queremos podemos calcular $z$ usando la fórmula o las tablas correspondientes a la distribución normal.
+
+Usando un intervalo de confianza del 95\% y reemplazando $z=1.96$ la fórmula se reduce a:
+
+\begin{myequation}
+\frac{((U + 1.9208) / (U + D) - 1.96 *  \sqrt((U *  D) / (U +  D) + 0.9604)}{(U +  D)) / (1 + 3.8416 / (U +  D))}
+\end{myequation}
+
+Usando esta fórmula podemos calcular la probabilidad de que un comentario sea positivo. Por ejemplo veamos los siguientes casos:
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|c|c|c|}\hline
+\textbf{Upvotes} & \textbf{Downvotes} & \textbf{Probabilidad} \\ \hline
+3090 & 14 & 0.9610 \\
+103 & 8 & 0.835 \\
+11 & 0 & 0.02 \\
+205 & 3 & 0.077 \\
+2105 & 2100 & 0.9965 \\
+2 & 0 & 0.005 \\
+107 & 3 & 0.910 \\
+4 & 1 & 0.188 \\
+5 & 4 & 0.5655 \\ \hline
+\end{tabular}
+}
+\end{table}
+
+En la tabla podemos ver que la probabilidad de que el comentario sea positivo es el valor que podemos usar para ordenar los comentarios que mostramos al usuario. Este es el sistema usado por Reddit para evitar caer en la ecuación mas peligrosa de la historia. El mismo sistema puede aplicarse en todos los casos en los cuales tengamos un sistema con votos a favor y en contra o positivos y negativos, es decir cualquier proceso tipo Bernoulli. Por ejemplo si votamos si un Tweet es interesante o no podemos ordenar Tweets de acuerdo a la probabilidad de que sean interesantes, o estimar la probabilidad de que un texto sea Spam o no en base a la opinión de los usuarios, etc.
+La belleza del sistema radica en que las probabilidades nos dan un ordenamiento independientemente del volumen de votos que haya en el sistema y de que haya ítems con muchos mas votos que otros debido a su popularidad.
+
+\subsection{Ordenando las noticias en Reddit}
+
+El homepage de Reddit es una pieza crítica para el éxito del sitio, la idea es mostrar las noticias ordenadas por importancia, esto es claramente un sistema de recomendaciones no-personalizado ya que estamos recomendando noticias a los usuarios pero a todos los usuarios les recomendamos las mismas noticias.
+
+Los factores ue influyen en la dificultad del sistema radican en la edad de las noticias. Si basamos el score de cada noticia en la misma fórmula que usamos para los comentarios entonces las noticias nuevas son penalizadas por no tener muchos votos. Por otro lado a medida que pasa el tiempo queremos que el score de las noticias disminuya ya que las noticias van perdiendo relevancia a medida que pasa el tiempo. Estas diferencias hacen que, para ordenar las noticias, necesitemos una fórmula completamente diferente a la que usamos en los comentarios.
+
+\begin{figure}[!htb]
+\begin{center}
+\includegraphics[width=3.5in]{figures/reddit-fig1.png}
+\caption{El Homepage de Reddit}
+\end{center}
+\end{figure}
+
+Supongamos que un usuario de Reddit visita el sitio cada una cierta cantidad de segundos, por ejemplo $S=120$, llamemos a la tasa de reload $\lambda=1/S$. Cuando un usuario ve una historia hay cuatro posibles escenarios:
+
+\begin{itemize}
+1. a = Es una noticia nueva que al usuario le gusta.
+2. b = Es una noticia nueva que al usuario no le gusta.
+3. c = Es una noticia vieja que al usuario le gusta.
+4. d = Es una noticia vieja que al usuario no le gusta.
+\end{itemize}
+
+Donde "nueva" o "vieja" indican si la noticia ya existía en la visita previa del usuario $S$ segundos atŕas.
+Llamemos $p$ a la probabilidad de que una noticia le guste al usuario y $q$ a la probabilidad de que al usuario no le guste.
+
+Podemos ahora calcular una función de utilidad en base a los 4 escenarios posibles y sus respectivas probabilidades.
+
+\begin{myequation}
+u(p,q) =  a*pq + (1-p)q * b + p(1-q)*c + (1-p)(1-q)*d
+\end{myequation}
+
+Para estimar la probabilidad de que a un usuario le guste una noticia podemos usar la siguiente fórmula:
+
+\begin{myequation}
+p = \frac{U+1}{U+D+2}
+\end{myequation}
+
+Esta es una estimación bayesiana generada a partir de una distribución beta con parámetros 1 y 2 (ver capítulo 1). 
+
+Para $q$ que es la probabilidad de que una noticia sea nueva podemos usar la suposición que hicimos acerca de las visitas de los usuarios al sitio, si los usuarios visitan Reddit cada $S$ segundos tenemos un proceso de tipo Poisson con una tasa de arribo de $\lambda = 1/S$. La probabilidad de que hayan pasado al menos $S$ segundos desde la última visita es entonces $q$ y se calcula como:
+
+\begin{myequation}
+q = e^{-\lambda t}
+\end{myequation}
+
+Es decir que si una noticia tiene $t$ segundos de edad entonces $q$ nos da la probabilidad de que un visitante al azar no la haya visto previamente. Reemplazando $p$ y $q$ en nuestra función de utilidad: 
+
+$$
+u(U,D,t) = \frac{U+1}{U+D+2} e^{-\lambda t} a + \frac{D+1}{U+D+2} e^{-\lambda t} b + \frac{U+1}{U+D+2} (1-e^{-\lambda t}) c + \frac{D+1}{U+D+2} (1-e^{-\lambda t}) d
+$$
+
+Podemos asumir que para las noticias viejas no obtenemos ninguna ganancia (c=d=0) y que para las noticias que al usuario le gustan la utilidad es 1 (a=1) y que la utilidad es -1 para las noticias que al usuario no le gustan (b=-1). Reemplazando obtenemos:
+
+\begin{myequation}
+u(U,D,t) = \frac{U+1}{U+D+2} e^{-\lambda t} - \frac{D+1}{U+D+2} e^{-\lambda t}
+\end{myequation}
+
+Simplificanding...
+
+\begin{myequation}
+u(U,D,t) = \frac{U-D}{U+D+2} e^{-\lambda t}
+\end{myequation}
+
+Calculando el logaritmo de $u$ lo cual no afecta el ordenamiento:
+
+\begin{myequation}
+\log u(U,D,t) = \log{(U-D)} 0 \log{(U+D+2)} - \lambda t
+\end{myequation}
+
+La fórmula real usada por Reddit es una variante de esta fórmula de la forma:
+
+\begin{myequation}
+u(U,D,A,B) = \log(U-D) + \frac{A-B}{45000}
+\end{myequation}
+
+Donde $A$ es el timestamp de la noticia y $B$ es el timestamp en que fue creado Reddit. La hora actual no hace falta, podemos calcular la edad de una noticia como la diferencia con respecto a la fecha de nacimiento de Reddit, lo importante es que la diferencia relativa entre noticias se mantiene.
+
+Podemos demostrar que la fórmula de Reddit corresponde a la fórmula de utilidad que hemos derivado previamente, no lo haremos por cuestiones de espacio. Mas información al respecto en http://www.evanmiller.org/deriving-the-reddit-formula.html.
 
 \section{Sistemas Basados en Contenidos (Content Based)}
 
