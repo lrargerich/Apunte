@@ -1,0 +1,10 @@
+Capitulo sobre análisis exploratorio con Dplyr y GGplot2
+Manejo de grafos en Spark
+Montecarlo en Spark
+Flajolet Martin para Small World calculation
+Label Propagation
+
+
+
+
+
