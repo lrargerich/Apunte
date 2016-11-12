@@ -547,7 +547,7 @@ Willie Wilburg & 2\\ \hline
 \caption{Codificación Ordinal.}
 \end{table}
 
-La codificación ordinal no suele tener muy buenos resultados pero es el método que menor cantidad de columnas agrega a nuestros datos, en los casos en los cuales la cantidad de valores posibles para el atributo es enorme puede ser la única representación posible.
+La codificación ordinal no suele tener muy buenos resultados, al codificar valores categóricos como numéricos introducimos en nuestros datos propiedades que no son ciertas. Por ejemplo si codificamos 1=azul, 2=verde, 3=rojo un algoritmo puede deducir que 2*azul = verde o que azul+verde = rojo y esas relaciones no son ciertas.
 
 La siguiente codificación se denomina \textbf{"one hot encoding"} y consiste en dividir el atributo en tantas columnas como valores posibles puede tener y usar cada columna como un dato binario indicando si el atributo toma o no dicho valor.
 
@@ -565,7 +565,9 @@ Willie Wilburg & 0&1&0\\ \hline
 \caption{One Hot Encoding.}
 \end{table}
 
-One-hot encoding es la codificación mas popular, se usa de forma casi ubicua en la representación de datos para algoritmos de Data Science.
+One-hot encoding es una codificación muy popular pero lamentablemente no escala muy bien. En primer lugar es necesario construir en memoria un diccionario por cada feature en donde asociaremos un número a cada posible valor de cada columna, este diccionario puede ser demasiado grande. Otro problema serio es que si una columna puede tomar muchos valores diferentes posibles, por ejemplo una URL, entonces podemos necesitar miles o millones de nuevas columnas para representar los datos, en muchos problemas concretos esto no es viable.
+
+One-hot encoding es un método simple pero frecuentemente no es viable.
 
 Una tercera variante consiste en convertir los datos a un número como hicimos en la codificación ordinal y luego representar dicho número como un binario de $\log(k)$ bits siendo $k$ la cantidad de valores que puede tomar el atributo. Luego representamos cada bit como una columna binaria.
 
@@ -584,6 +586,72 @@ Willie Wilburg & 1&0\\ \hline
 \end{table}
 
 La \textbf{codificación binaria} es un compromiso entre one-hot encoding y la codificación ordinal. Funciona mejor que la codificación ordinal pero requiere menos columnas que one-hot enconding. Notar que usamos 01,10 y 11 para las clases pero podríamos haber usado 00,01 y 10 respectivamente. 
+
+Nuestro siguiente esquema de codificación se denomina \textbf{Feature Hashing} o \textbf{The hashing trick} y está basado en el uso de una función de hashing para determinar el número de columna de cada dato. 
+Usando feature-hashing podemos definir la cantidad de columnas que queremos usar: $m$ y luego simplemente aplicar a cada valor de las variables categóricas una función de hashing que devuelva un número entre $0$ y $m-1$ incrementando dicha posición. Notemos que usando este esquema podemos mezclar muchas columnas categóricas en un mismo espacio de features de dimensión $m$ y que no es necesario conocer cuáles pueden ser todos los valores posibles, tampoco es importante la cantidad de valores diferentes que puede tomar cada variable categórica.
+
+Feature-hashing es un método extremadamente eficiente y terriblemente popular, para que funcione muy bien es conveniente minimizar las colisiones lo cual se logra usando un número $m$ grande, frecuentemente $m$ puede estar en el orden de los miles o incluso millones de dimensiones. En algunos casos esta cantidad de dimensiones es muy grande y el método se vuelve poco-práctico.
+
+Vamos a desarrollar feature-hashing con mayor detalle y estudiar sus fundamentos teóricos mas adelante.
+
+\subsubsection{Codificación de atributos categóricos en gran escala}
+
+Abordamos ahora el caso extremo de codificación de atributos categóricos, tenemos millones o billones de datos en donde los atributos categóricos pueden tener millones de valores posibles. Este caso es muy frecuente en problemas de análisis de datos y machine learning por lo que debemos dedicarle un cierto tiempo.
+
+A modo de ejemplo consideremos el caso en el cuál queremos predecir si un usuario va a hacer click o no en un aviso de una página web. Nuestro set de datos puede tener el siguiente formato:
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|c|c|c|c|c|}\hline
+UserId & URL & AdId & Referer & Click \\ \hline
+10983 & http://... & 89318 & http://.... & 1 \\ \hline
+\end{tabular}
+}
+\vskip 0.25cm
+\caption{Atributos categóricos en gran escala.}
+\end{table}
+
+Aquí tanto el UserId como el AddId, la URL o el referer son variables categóricas que pueden tomar millones de valores posibles. Si queremos usar un algoritmo de MachineLearning para predecir la variable click tendremos como problema la codificación de las variables categóricas, si agregamos que la cantidad de datos es enorme el problema se convierte en un caso difícil.
+
+Una solución sumamente elegante a este problema es reemplazar cada variable categórica por un conjunto muy limitado de contadores. Por ejemplo podemos reemplazar cada variable categórica por dos contadores: $N+$ y $N-$ que indican la cantidad de veces que dicho valor aparece en las filas para las cuales clicks=1 y clicks=0 respectivamente. Por ejemplo si tenemos AdId=8907 y sabemos que el aviso 8907 fue clickeado 20 veces y fue ignorado 1097 veces entonces reemplazamos la columna AdId por los valores 20 y 1097.
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|c|c|c|c|c|c|}\hline
+UserId & URL & AdId N+ & AdId N- & Referer & Click \\ \hline
+10983 & http://... & 20 & 1097 & http://.... & 1 \\ \hline
+\end{tabular}
+}
+\vskip 0.25cm
+\caption{Count encoding.}
+\end{table}
+
+A este método lo denominamos \textbf{count-encoding} y lo podemos aplicar a todas las columnas de nuestro set de datos. Podemos agregar también una columna que exprese el logarimo de la relación entre N+ y N-, por ejemplo $\log(N+ - N-)$, de esta forma cada columna categórica de nuestro Datset queda representada  como una cantidad muy pequeña de nuevas columnas y la cantidad de columnas a crear no depende de la cantida de valores posibles del atributo categórico.
+
+Para aplicar count-encoding hay que tener cuidado con una cuestión muy importante: si usamos el set de entrenamiento para obtener los contadores y luego codificamos el mismo set hay una enorme posibilidad de que el algoritmo sea capaz de deducir el label de un dato en función de los contadores lo cual es muy perjudicial para construir algoritmos predictores.
+
+Hay dos posibles soluciones a este problema: una es separar el set de entrenamiento en dos partes (split count-encoding) usando la primera parte para obtener los contadores por cada feature y la segunda parte para codificar y entrenar al algoritmo. Este método tiene como ventaja que es muy simple pero desperdicia gran parte del set de entrenamiento, si tenemos billones de datos para entrenar es perfectamente viable.
+
+Si la cantidad de datos hace que el método anterior no sea viable entonces podemos solucionar el problema agregando algo de ruido a los contadores, el método mas usado está basado en principios de privacidad diferencial y consiste en agregar ruido a partir de la distribución de Laplace. L(0,3) es suficiente en la mayoría de los casos. Este ruido hace que cada dato se "mezcle" un poco con sus vecinos y por lo tanto no es posible determinar el label a partir de los contadores ya que hay varios casos posibles. 
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|c|c|c|c|}\hline
+atributos & Datos & Algoritmo &Codificación \\ \hline
+Pocos, decenas & - & - & One-hot encoding \\
+cientos o miles & - & - & Binary encoding \\
+Miles o millones & - & Lineales & Feature-Hashing \\
+Miles o millones & millones & No-lineales & split Count-encoding o Laplace Count-encoding\\
+Miles o millones & no tantos & No-lineales & Laplace Count-encoding \\ \hline
+\end{tabular}
+}
+\vskip 0.25cm
+\caption{Codificación de atributos categóricos.}
+\end{table}
+
+Finalmente queremos destacar que el proceso de obtener los contadores puede realizarse de forma muy eficiente usando el algoritmo Count-Min que vamos a ver en el capítulo sobre algoritmos de streaming.
+
+La tabla nos puede ayudar a terminar de entender el tema de codificiación de atributos categóricos:
 
 \subsection{Texto}
 
