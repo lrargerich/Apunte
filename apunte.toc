@@ -70,9 +70,9 @@
 \contentsline {section}{\numberline {2.1}Introducci\IeC {\'o}n al An\IeC {\'a}lisis Exploratorio de Datos}{59}
 \contentsline {section}{\numberline {2.2}Estructura L\IeC {\'o}gica de un Dataframe}{59}
 \contentsline {subsection}{\numberline {2.2.1}Columnas}{59}
-\contentsline {subsection}{\numberline {2.2.2}Dataframes}{59}
-\contentsline {section}{\numberline {2.3}Operaciones Basicas con Dataframes}{59}
-\contentsline {section}{\numberline {2.4}El Paradigma Split,Apply,Combine}{59}
+\contentsline {subsection}{\numberline {2.2.2}Dataframes}{60}
+\contentsline {section}{\numberline {2.3}Operaciones Basicas con Dataframes}{60}
+\contentsline {section}{\numberline {2.4}El Paradigma Split,Apply,Combine}{60}
 \contentsline {chapter}{\numberline {3}Nuestro Primer Algoritmo:KNN}{61}
 \contentsline {section}{\numberline {3.1}La M\IeC {\'e}trica a emplear}{62}
 \contentsline {subsection}{\numberline {3.1.1}Distancia Minkowsky}{63}

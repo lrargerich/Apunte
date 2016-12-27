@@ -1527,7 +1527,37 @@ Como cierre de este capítulo que ha sido tan largo y tan extenso queremos queda
 \section{Estructura Lógica de un Dataframe}
 ***SEGUIR
 \subsection{Columnas}
-***SEGUIR
+
+Una columna es un vector de tamaño fijo de elementos de un mismo tipo acompañado de un índice para los mismos. Por ejemplo si creamos una columna con los elementos ("Londres","Roma","Estocolmo"), la columna creada tendrá la siguiente estructura:
+
+\begin{verbatim}
+0: "Londres"
+1: "Roma"
+2: "Estocolmo"
+\end{verbatim}
+
+Notar que si no se explicita el índice es simplemente el número de orden (fila) de cada valor de la columna, si el índice se explicita podemos tener algo de tipo:
+
+\begin{verbatim}
+"Inglaterra": "Londres"
+"Italia": "Roma"
+"Suecia": "Estocolmo"
+\end{verbatim}
+
+Una columna es entonces similar a un diccionario con la salvedad de que en una columna pueden repetirse claves en el índice mientras que en un diccionario de Python esto no es posible. La siguiente columna es válida:
+
+\begin{verbatim}
+'A':1
+'B':2
+'C':3
+'A':4
+'B':5
+\end{verbatim}
+
+Para crear esta columna debemos explicitar los datos (1,2,3,4,5) y el índice ('A','B','C','A','B'). 
+
+En Pandas las columnas se denominan "Series".
+
 \subsection{Dataframes}
 MENCIONAR MAS DE UNA DIMENSION MEDIANTE INDICE COMPUESTO
 \section{Operaciones Basicas con Dataframes}
