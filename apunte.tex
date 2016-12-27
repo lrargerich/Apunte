@@ -1520,6 +1520,22 @@ Como cierre de este capítulo que ha sido tan largo y tan extenso queremos queda
 \item La unión de varios algoritmos suele ser mejor que el resultado individual de cada uno de ellos.
 \end{enumerate}
 
+\chapter{Dataframes y Análisis Exploratorio de Datos}
+***SEGUIR
+\section{Introducción al Análisis Exploratorio de Datos}
+***SEGUIR
+\section{Estructura Lógica de un Dataframe}
+***SEGUIR
+\subsection{Columnas}
+***SEGUIR
+\subsection{Dataframes}
+MENCIONAR MAS DE UNA DIMENSION MEDIANTE INDICE COMPUESTO
+\section{Operaciones Basicas con Dataframes}
+***SEGUIR
+\section{El Paradigma Split,Apply,Combine}
+***SEGUIR
+
+
 \chapter{Nuestro Primer Algoritmo:KNN}
 
 En este capítulo vamos a presentar el primero de los muchos algoritmos que vamos a estudiar a lo largo del curso, elegimos este algoritmo por ser muy simple de entender y porque suele dar muy buenos resultados aun en problemas complejos, es un algoritmo que permite realizar tareas tanto de clasificación como de regresión y que también es usado luego en otros algoritmos como parte del proceso. Mencionamos todo esto para destacar la importancia que tiene y la necesidad de conocerlo en detalle. 
@@ -5941,6 +5957,30 @@ V & 0 & 11 & 0 & 10 & 10\\ \hline
 Observemos que la función generada es perfecta ya que a cada clave le asigna un único número entre 0 y 10 ($m=11$), es también mínima ya que no hay ninguna posición en nuestra tabla final sin usar y finalmente preserva el orden de las claves originales lo cual a veces es un efecto colateral deseable.
 
 Con este algoritmo es posible entonces construir una función de hashing perfecta, mínima y preservadora del orden. Para poder hacerlo es  necesario conocer de antemano todas las claves que queremos almacenar en la tabla, generar la función y almacenar g. Un detalle sumamente importante es que esta función no admite altas, bajas o modificaciones, es decir que solo tiene sentido cuando los datos son estáticos siendo esta la principal limitación del método.
+
+\section{Hashing Consistente}
+
+Consideramos ahora el caso en el cual tenemos que almacenar datos de tipo (clave,valor) en un entorno distribuido, es decir con múltiples máquinas. Esta es la base para muchos sistemas de Bases de Datos NoSQL como por ejemplo DynamoDB o Cassandra.
+
+El objetivo es poder determinar dado un dato (clave,valor) en que equipo debemos almacenar el dato. Una primera aproximación podría ser simplemente hashear la clave y hacer mod "m", siendo "m" la cantidad de equipos para determinar en donde almacenar la misma. El problema de esta solución es que si se agrega un nuevo equipo al cluster entonces nuestra función de hashing cambia de $x \mod m$ a $x \mod m+1$ y esto implica que \textbf{todas} las claves deben re-ubicarse ya que potencialmente cualquiera puede cambiar de equipo, esto claramente no es bueno. Necesitamos entonces un método que reduzca la cantidad de claves a reubicar en caso de agregarse o quitarse nuevos equipos al cluster y esa solución se llama "Hashing Consistente"
+
+El principio es muy simple, mapeamos cada máquina de nuestro cluster a un número en el intervalo $[0,1)$, esto se puede hacer simplemente hasheando el nombre del equipo y normalizando al intervalo $[0,1)$. Lo mismo hacemos con nuestras claves, hasheamos cada clave y normalizamos el resultado a un número en el intervalo $[0,1)$, el esquema que llamamos "Hashing Consistente" propuesto en [Karger] es muy simple: A cada clave se le asigna el número de máquina o servidor que se encuentre inmediatamente a su derecha en el intervalo $[0,1)$ tomando el intervalo de forma circular.
+
+\begin{figure}[!htb]
+\begin{center}
+\includegraphics[width=3in]{figures/consistent.png}
+\caption{Hashing Consistente.}
+\end{center}
+\label{fig:consistente}
+\end{figure}
+
+En el ejemplo de la figura ~\ref{fig:consistente} tenemos 3 equipos: A,B y C y 4 claves: 1,2,3 y 4. Las claves 1 y 4 se almacenan en el equipo A, la clave 2 en B y la clave 3 en C.
+
+Observemos ahora que este esquema permite agregar o quitar equipos en el cluster con un mínimo de movimiento de claves. Por ejemplo si se agrega un nuevo equipo "Z" entre los servidores A y B entonces solamente las claves que están en B pueden necesitar ser reubicadas, simplemente hasheando esas claves sabemos cuales quedan en B y cuales deben pasar a Z. Lo mismo ocurre si se quita un equipo, se re-hashean las claves de dicho equipo sin afectar a las demás.
+
+En la mayoría de los sistemas No-SQL clave-valor distribuidos este esquema se complementa con mecanismos de replicación y consistencia en los cuales cada clave no se almacena en un único servidor sino en "N", esto se hace simplemente tomando los "N" equipos hacia la derecha a partir de la posición de la clave en el intervalo $[0,1)$, luego deben agregarse polícitcas de read/write para asegurar la consistencia de los datos, estas políticas escapan al alcance de este apunte.
+
+Mediante Hashing Consistente es posible manejar el almacenamiento de datos de tipo (clave,valor) de forma eficiente y descentralizada usando cientos, miles o millones de servidores por lo que practicamente no existe un límite con respecto a la cantidad de datos que podemos almacenar. Es la estructura clave de proyectos de gran importancia como DynamoDB o Cassandra.
 
 \section{The Hashing Trick}
 
@@ -15183,7 +15223,7 @@ Este método se puede usar en Redes Sociales para recomendar amigos o usuarios a
 
 \subsection{Panther}
 
-Existe un algoritmo muy similar a la versión MonteCarlo de SimRank que tiene propiedades muy diferentes denominado Panther [Panther]. En este algoritmo creamos Random Walks al azar pero a partir de cualquier nodo, no solo a partir del nodo que nos interesa. La semejanza entre dos nodos se define luego simplemente como el porcentaje de caminos en los cuáles los nodos aparecen juntos.
+Existe un algoritmo muy similar a la versión MonteCarlo de SimRank que tiene propiedades muy diferentes denominado Panther [Zhang]. En este algoritmo creamos Random Walks al azar pero a partir de cualquier nodo, no solo a partir del nodo que nos interesa. La semejanza entre dos nodos se define luego simplemente como el porcentaje de caminos en los cuáles los nodos aparecen juntos.
 
 Por ejemplo si tenemos los siguientes caminos:
 
@@ -18506,9 +18546,354 @@ Es decir person1 tiene que tener nombre, person2 tiene que tener nombre y person
 En el WHERE escribimos entonces cuales son las condiciones que tienen que cumplirse en nuestro modelo RDF es decir que triplas tienen que existir para que un resultado sea válido, con este sencillo modelo y esta sintáxis simple podemos consultar cualquier modelo RDF y como hemos planteado que con RDF podemos almacenar cualquier conocimiento resulta ser que con SPARQL podemos averiguar cualquier cosa.
 
 O al menos esa es la teoría....
-\footnotesize
-\bibliographystyle{apalike}
-\bibliography{sample}
+
+\chapter*{Bibliography}
+
+\begin{enumerate}
+
+\item
+\[Aggarwal,Hinneburg,Keim\]
+Charu Aggarwal, Alexander Hinneburg, Daniel KEim.
+\textbf{On the Surprising Behavior of Distance Metrics in High Dimensional Space}
+
+\item
+\[Achlioptas\]
+Dimitris Achlioptas.
+\textbf{Database friendly random projections Johnson-Lindestrauss with Binary Coins.}
+
+\item
+\[Alon-Matias-Szegedy\]
+Noga Alon;Yossi Matias;Mario Szegedy.
+\textbf{The space complexity of approximating the frequency moments.}
+
+\item
+\[Andoni\]
+Alexandr Andoni; Piotr Indyk; Thijs Laarhoven; Ilya Razenshteyn.
+\textbf{Beyond Locality Sensitive Hashing.}
+
+\item
+\[Andoni2\]
+Alexandr Andoni; Piotr Indyk; Thijs Laarhoven; Ilya Razenshteyn.
+\textbf{Practical and Optimal LSH for Angular Distance.}
+
+\item
+\[Attenberg\]
+Joshua Attenberg;Killian Weinberger.
+Collaborative Email Spam Filtering with the Hashing Trick.
+\textbf{}
+
+\item
+\[Babenko-Lempitsky\]
+Artem Babenko; Victor Lempitsky.
+\textbf{The Inverted Multi Index.}
+\item \item \[Bahmani\]
+Bahman Bahmani; Benjamin Mosley; Andrea Vattani; Ravi Kumar; Sergei Vassilvistkii
+\textbf{Scalable Kmeans plus plus.}
+
+
+\item \[Banko-Brill\] 
+Michele Banko, Eric Brill. (2001).
+\textbf{Scaling to Very Very Large Corpora forNatural Language Disambiguation}
+
+\item \[Bawa\]
+Mayank Bawa; Tyson Condie; Prasanna Ganesan.
+\textbf{LSH Forest Self Tuning Indexes for Similarity Search.}
+
+
+\item \[Belazzougui-Botelho-Dietzfelbinger\] 
+Djamal Belazzougui, Fabiano Botelho, Martin Dietzfelbinger.
+\textbf{Hash Displace and Compress}
+
+\item \[Belkin\]
+Mikhail Belkin;Partha Niyogi.
+\textbf{Laplacian Eigenmaps for Dimensionality Reduction and Data Representation.}
+
+\item \[Beyer\]
+Beyer K., Goldstein J., Ramakrishnan R., Shaft U.
+\textbf{When is Nearest Neighbors Meaningful?}
+
+\item \[Botelho-Pagh-Ziviani\]
+Fabiano Botelho, Rasmus Pagh, Nivio Ziviani.
+\textbf{Simple and Space Efficient Minimal Perfect Hash Functions.}
+
+\item \[Bottou-Bengio\]
+Leon Bottoul;; Yoshua Bengio.
+\textbf{Convergence Properties of the K-Means Algorithms}
+
+\item \[Burrows-Wheeler\]
+M. Burrows; David J Wheeler.
+\textbf{A block-sorting lossless data compression algorithm.}
+
+\item \[Campello-Moulavi-Sander\]
+Ricardo J. G. B. Campello; Davoud Moulavi; Joerg Sander
+\textbf{Density Based Clustering Based on Hierarchical Density Estimates.}
+
+\item \[Carlson\]
+Gunnar Carlson.
+\textbf{Topology and Data.}
+
+\item \[Charalampos\]
+Charalampos;Tsourakakis.
+\textbf{Fast Counting of Triangles in Large Real Networks.}
+
+
+\item \[Charikar\]
+M Charikar.
+\textbf{Similarity Estimation Techniques from Rounding Algorithms.}
+
+\item \[Chazelle\]
+Bernard Chazelle;Nor Ailon.
+\textbf{Approximate Nearest Neighbors and the Fast Johnson-Lindenstrauss Transform.}
+
+\item \[Chen-Guestrin\]
+Tianqi Chen;Carlos Guestin.
+\textbf{XGBoost: A Scalable Tree Boosting System.}
+https://drive.google.com/folderview?id=0B8rBD4QSqWnSRml5R3dsNEdGTHM&usp=sharin+\item \[Clauset-Newman-Moore\]
+Aaron Clauset; M. E. J. Newman; Cristopher Moore.
+\textbf{Finding community structure in very large networks.}
+
+\item \[Clearly-Witten\]
+Cleary, J.; Witten, I. 
+\textbf{Data Compression Using Adaptive Coding and Partial String Matching}
+
+\item \[Cormack-Horspool\]
+Gordon Cormack;Nigel Horspool.
+\textbf{Data Compression using Dynamic Markov Modelling.}
+
+\item \[Dasgupta\]
+Sanjoy Dasgupta;Anupam Gupta.
+\textbf{An elementary proof of the Johnson-Lindenstrauss Lemma.}
+
+\item \[Datar-Gionis-Indyk-Motwani\]
+M. Datar; A Gionis; P Indyk; R. Motwani.
+\textbf{Maintaining stream statistics over sliding windows.}
+
+\item \[Dean\]
+Jeffrey Dean, Sanjay Ghemawat.
+\textbf{MapReduce: Simplified Data Processing on Large Clusters}
+
+\item \[Dhillon\]
+Inderjit S Dhillon.
+\textbf{Co-clustering documents and words using bipartite spectral graph partitioning}
+
+
+\item \[Dietzfelbinger\]
+M. Dietzfelbinger; A. Karlin; K. Mehlhorn; F. Meyer auf der Heide; H. Rohnert; R. E. Tarjan.
+\textbf{Dynamic perfect hashing upper and lower bounds.}
+
+\item \[Dimitropoulos\]
+Xenofontas Dimitropoulos; Marc Stoecklin; Paul Hurley; Andreas Kind.
+\textbf{The Eternal Sunshine of the Sketch Data Structure.}
+
+
+\item \[Dong\]
+Wei Dong, Moses Charikar,Kai Li. (2011).
+\textbf{Efficient K-Nearest Neighbor Graph Construction for Generic Similarity Measures}.
+
+\item \[Eldridge-Belkin\]
+Justin Eldridge; Mikhail Belkin.
+\textbf{Beyond Hartigan Consistency Merge Distortion Metric for Hierarchical Clustering.}
+
+\item \[Flajolet-Martin\]
+Philippe Flajolet; Nigel Martin.
+\textbf{Probabilistic Counting Algorithms for Data Base Applications.}
+
+\item \[Flajolet\]
+Philippe Flajolet;Eric Fusy; Olivier Gandouet; Frederic Meunier.
+\textbf{The analysis of a near-optimal cardinality estimation algorithm.}
+
+\item \[Fredman-Komlos-Szemeredi\]
+Michael Fredman; Janos Komlos; Endre Szemeredi.
+\textbf{Storing a Sparse Table with O(1) Worst Case Access Time.}
+
+\item \[Good-Montjoye-Clauset\]
+Good; Montjoye; Aaron Clauset.
+\textbf{The performance of modularity maximization in practical contexts.}
+
+\item \[Gou\]
+Janping Gou, Lan Du,Yuhong Zhang,Taisong Xiong. (2012).
+\textbf{A New Distance-weighted k-nearest Neighbor Classifier}
+
+\item \[Grumwald\]
+Peter Grumwald.
+\textbf{A Tutorial Introduction to the Minimum Description Length Principle.}
+
+\item \[Guha-Rastogi-Shim\]{Guha-Rastogi=Shim}
+Guha, Sudipto; Rastogi, Rajeev; Shim, Kyuseok.
+\textbf{CURE An Efficient Clustering Algorithm for Large Databases.}
+
+\item \[Hajebi\]
+Kiana Hajebi, Yasin Abbasi-Yadkori, Hossein Shahbazi, Hong Zhang.
+\textbf{Fast Approximate Nearest-Neighbor Search with k-Nearest Neighbor Graph}
+
+\item \[Houle\]
+Michael E. Houle,Hans-Peter Kriegel,Peer Kroger,Erich Schubert,Arthur Zimek.
+\textbf{Can Shared-Neighbor Distances Defeat the Curse of Dimensionality?}
+
+\item \[Indyk-Motwani\]
+Piotr Indyk; Rajeev Motwani; Aristides Gionis.
+\textbf{Similarity Search in High Dimensions vis Hashing.}
+
+\item \[Indyk-Andoni\]
+Piotr Indyk; Alexandr Andoni.
+\textbf{Near Optimal Hashing Algorithms for Approximate Nearest Neigbor in High Dimensions.}
+
+\item \[Kalantidis-Avrithis\]
+Yannis Kalantidis;Yannis Avrithis
+\textbf{Locally Optimized Product Quantization for Approximate Nearest Neighbor Search.}
+
+
+\item \[Kang-Meeder-Faloutsos\]
+U Kang;Brendan Meeder;Christos Faloutsos.
+\textbf{Spectral Analysis for Billion Scale Graphs Discoveries and Implementation.}
+
+\item \[Karger\]
+David Karger;Eric Lehman;Tom Leighton;Matthew Levine;Daniel Lewin;Rina Panigrahy
+\textbf{Consistent Hashing and Random Trees:Distributed Caching Protocols for Relieving Hot Spots on the World Wide Web.}
+
+\item \[Kennedy\]
+Cristopher Kennedy; Rachel Ward.
+\textbf{Fast Cross Polytope LSH.}
+
+
+\item \[Kleinberg\]
+Jon Kleinberg.
+\textbf{Authoritative sources in a hyperlinked environment.}
+
+\item \[Knoll-de Freitas\]{Knoll-de Freitas}
+Byron Knoll;Nando de Freitas.
+\textbf{A Machine Learning Perspective on Predictive Coding with PAQ.}
+
+\item \[Koren\]
+Yehuda Koren.
+\textbf{Factorization Meets the Neighborhood.}
+
+\item \[Lempel-Ziv-C\]
+Lempel, A.; Ziv, J.
+\textbf{On the complexity of finite sequences.}
+
+\item \[Leskovec\]
+J Yang; Jure Leskovec.
+\textbf{Overlapping Community Detection at Scale A Nonnegative Matrix Factorization Approach.}
+
+\item \[Louvain\]
+Vincent D Blondel; Jean-Loup Guillaume; Renaud Lambiotte; Etienne Lefebvre.
+\textbf{Fast unfolding of communities in large networks.}
+
+\item \[Muthukrishnan-Cormode\]
+S. Muthukrishnan; Graham Cormode.
+\textbf{The Count-Min Sketch and its Applications.}
+
+\item \[Page-Brin\]
+Larry Page; Sergey Brin.
+\textbf{The PageRank Citation Ranking  Bringing Order to the Web.}
+
+\item \[Park-Leckie\]
+Laurence A F  Park; Christopher A Leckie; Kotagiri Ramamohanarao;James C Bezdek.
+\textbf{Adapting spectral coclustering to documents and terms using latent semantic analysis.}
+
+\item \[Rendle\]
+Steffen Rendle.
+\textbf{Factorization Machines.}
+
+\item \[Rendle2\]{Rendle2}
+Steffen Rendle.
+\textbf{Factorization Machines with LibFM.}
+
+\item \[Rissanen\]
+Rissanen, J.
+\textbf{Modeling by the shortest data description.}
+
+\item \[Rosvall-Bergstrom\]
+Martin Rosvall; Carl T Bergstrom.
+\textbf{Maps of random walks on complex networks reveal community structure.}
+
+\item \[Pagh\]
+Rasmus Pagh
+\textbf{Hash and Displace Efficient Evaluation of Minimal Perfect Hash Functions.}
+
+\item \[Pagh-Rodler\]
+Rasmus Pagh; Flemming Rodler.
+\textbf{Cuckoo Hashing.}
+
+\item \[Shannon\]
+Shannon Claude.
+\textbf{A Mathematical Theory of Communication}
+
+\item \[Shi\]
+Qinfeng Shi; James Petterson; John Langford;Alex Smola;Alex Strehl;Gideon Dror;Vishy Vishwanathan.
+\textbf{Hash Kernels.}
+
+\item \[Shi2\]
+Qinfeng Shi; James Petterson; John Langford;Alex Smola;Alex Strehl;Gideon Dror;Vishy Vishwanathan.
+\textbf{Hash Kernels for Structured Data.}
+
+\item \[Singh-Memoli-Carlson\]
+Gruheet Singh; Facundo Memoli; Gunnar Carlson.
+\textbf{Topological Methods for the Analysis of High Dimensional Data Sets and 3D Object Recognition.}
+
+\item \[Swamidass-Baldi\]
+S Joshua Swamidass; Pierre Baldi.
+\textbf{Bounds and algorithms for fast exact searches of chemical fingerprints in linear and sublinear time.}
+
+\item \[Ugander\]
+Johan Ugander; Brian Karrer; Lars Backstrom; Cameron Marlow.
+\textbf{The Anatomy of the Facebook Social Graph.}
+
+\item \[Valiant\]
+Leslie Valiant.
+\textbf{A Theory of the Learnable.}
+
+\item \[van der Maaten-Hinton\]{van der Maaten-Hinton}
+Laurens van der Maaten;Geoffrey Hinton.
+\textbf{Visualizing Data using t-SNE.}
+
+\item \[van de Maaten\]{van der Maaten}
+Laurens van der Maaten.
+\textbf{Learning a Parametric Embedding by Preserving Local Structure.}
+
+\item \[Vitanyi\]
+Rudi Cilibrasi and Paul M.B. Vitanyi.
+\textbf{Clustering by Compression}
+
+\item \[Ward\]
+J.H Ward Jr.
+\textbf{Hierarchical Grouping to Optimize an Objective Function.}
+
+\item \[Weinberger\]
+Killian Weinberger; Anirban Dasgupta; John Langford; Alex Smola; Josh Attenberg.
+\textbf{Feature Hashing for Large Scale Multitask Learning.}
+
+\item \[Weiss-Ng-Jordan\]
+Yair Weiss; Andrew Ng; Michael Jordan.
+\textbf{On Spectral Clustering Analysis and Algorithm.}
+
+\item \[Wickham\]
+Hadley Wickham. (2004).
+\textbf{Tidy Data}. 
+
+\item \[Witten-Bell\]
+I.H. Witten and T.C. Bell. 
+\textbf{The zero-frequency problem: estimating the probabilities of novel events in adaptive text compression.}
+
+\item \[Wolpert\]
+D.H. Wolpert; W.G. Macready.
+\textbf{No Free Lunch Theorems for Optimization.}
+
+\item \[Yan-Huang-Jordan\]
+Donghui Yan; Lin Huang; Michael Jordan.
+\textbf{Fast Approximate Spectral Clustering.}
+
+\item \[Zhang\]
+Jing Zhang; Jie Tang; Cong Ma; Hanghang Tong; Yu Jing; Juanzi Li.
+\textbf{Panther Fast Top K Similarity Search in Large Networks}
+
+
+\item \[Zhou-Li-Andersen-Smola\]
+Li Zhou; Mu Li; David Andersen; Alexander Smola.
+\textbf{Cuckoo Linear Algebra.}
+
+\end
 
 
 \end{document}
