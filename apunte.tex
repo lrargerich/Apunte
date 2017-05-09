@@ -3730,6 +3730,229 @@ Una posible explicación a esta tabla sería investigar si estos directores se c
 
 En este ejemplo hemos visto algunas preguntas interesantes que podemos responder en el análisis exploratorio del set de datos IMDB5000, podríamos completar cientos de páginas extras del apunte con otros plots, rankins, listados y respuestas a preguntas que puedan ser interesantes. Lo que nos importa es que hemos visto como aplicando las operaciones básicas que hemos visto para dataframes podemos resolver todo tipo de problemas.
 
+\section{Manejo Interno de DataFrames}
+
+En esta sección analizaremos algunos algoritmos que suelen ser efectivos para el manejo interno de Dataframes en memoria. 
+
+\subsection{Valores Únicos}
+
+Para obtener los valores únicos en una columna podemos usar un simple algoritmo que usa una tabla de hashing para verificar si el valor encontrado en la columna es nuevo. Este algoritmo es $O(n)$ y no requiere ordenar los datos.
+
+\begin{algorithm}
+\KwData{VALUES: a list of values}
+\KwResult{LABELS: unique values}
+TABLE = \{\}\\
+LABELS = []\\
+\For{VALUE in vVALUES} {
+  \If {VALUE not in TABLE} {
+  LABELS.append(VALUE)\\
+  TABLE[VALUE]='dummy'\\
+  }
+}
+
+ \caption{Unique}
+\end{algorithm}
+
+\subsection{Factorize}
+
+Factorize es un algoritmo que permite crear un índice numérico para una columna con datos categóricos, cada valor numérico corresponde a un valor diferente posible para el dato de la columna. Por ejemplo si una columna fuera de la forma: ['a','b', 'a', 'c', 'b', 'b','a'] la convertiríamos en algo de la forma [0,1,0,2,1,1,0]
+
+Factorize también puede implementarse de forma sencilla usando un contador y una tabla de hashing.
+
+\begin{algorithm}
+\KwData{VALUES: a list of values}
+\KwResult{INDEX: a vector of same length of values with a different integer for each different value}
+TABLE = \{\}\\
+LABEL = 0\\
+INDEX = []
+\For{VALUE in VALUES} {
+  \If {VALUE not in TABLE} {
+  INDEX.append(LABEL)\\
+  TABLE[VALUE]=LABEL\\
+  LABEL++\\
+  } \Else {
+  INDEX.append(TABLE[VALUE])\\
+  }
+}
+\caption{Factorize}
+\end{algorithm}
+
+Factorize es un algoritmo importante ya que se aplica velozmente en tiempo $O(n)$ y permite crear un índice de valores enteros para cualquier tipo de columna. Este índice puede luego usarse en otros algoritmos como por ejemplo SORT, GROUP BY  o en JOIN. La implementación de la tabla de hash es importante en factorize, la tabla tendrá tantos elementos como valores diferentes tenga la columna. En el peor caso la columna no contiene valores repetidos y por lo tanto la cantidad de elementos diferentes es igual a la cantidad de elementos de la columna en este caso un índice numérico desde 0 a $n-1$ sería lo mas adecuado ya que se podría aplicar sin necesidad de usar algoritmo alguno. 
+
+\subsection{Counting Sort}
+
+Una consecuencia interesante de aplicar "Factorize" a una columna categórica es que obtenemos como resultado una lista de valores enteros, esto nos permite aplicar Counting-Sort si necesitamos ordenar los valores de la columna en tiempo $O(n)$.
+
+Recordemos que Counting-Sort es un algoritmo que permite ordenar listas de enteros sin compararlos y por lo tanto permite ir mas allá del límite teórico de $O(n \log n)$ para los algoritmos de sort.
+
+El algoritmo parte de un vector de datos en los cuáles las claves son enteros, vamos a mostrar unicamente las claves en el ejemplo.
+
+\begin{verbatim}
+[3,2,0,0,1,0,3,2,1,4,0]
+\end{verbatim}
+
+Nuestro algoritmo necesita saber cuál es el valor máximo ($k$) para los enteros (en nuestro caso 4) y usará como estructura auxilizar un vector de $k$ elementos.
+
+\begin{verbatim}
+[3,2,0,0,1,0,3,2,1,4,0]
+[0,0,0,0,0]
+\end{verbatim}
+
+En un primer loop el algoritmo cuenta cuántas veces aparece cada número en el vector incrementando en el vector auxiliar.
+
+\begin{verbatim}
+[3,2,0,0,1,0,3,2,1,4,0]
+[4,2,2,2,1]
+\end{verbatim}
+
+Luego el algoritmo hace una pasada al vector auxiliar e incrementa en cada posición la suma de las anteriores.
+
+\begin{verbatim}
+[3,2,0,0,1,0,3,2,1,4,0]
+[4,6,8,10,11]
+\end{verbatim}
+
+Finalmente recorremos el vector original de atrás hacia adelante y para cada clave accedemos al contador que le corresponde el cuál nos determina su posición en el vector de salida (menos 1). Luego de esto decrementamos el contador que corresponde a la clave.
+
+\begin{verbatim}
+[3,2,0,0,1,0,3,2,1,4,0]
+[3,6,8,10,11]
+[ , , ,0, , , , , , , ]
+
+[3,2,0,0,1,0,3,2,1,4,0]
+[3,6,8,10,10]
+[ , , ,0, , , , , , ,4]
+
+[3,2,0,0,1,0,3,2,1,4,0]
+[3,5,8,10,10]
+[ , , ,0, ,1, , , , ,4]
+
+[3,2,0,0,1,0,3,2,1,4,0]
+[3,5,7,10,10]
+[ , , ,0, ,1, ,2, , ,4]
+
+[3,2,0,0,1,0,3,2,1,4,0]
+[3,5,7,9,10]
+[ , , ,0, ,1, ,2, ,3,4]
+
+[3,2,0,0,1,0,3,2,1,4,0]
+[2,5,7,9,10]
+[ , ,0,0, ,1, ,2, ,3,4]
+
+[3,2,0,0,1,0,3,2,1,4,0]
+[2,4,7,9,10]
+[ , ,0,0,1,1, ,2, ,3,4]
+
+[3,2,0,0,1,0,3,2,1,4,0]
+[1,4,7,9,10]
+[ ,0,0,0,1,1, ,2, ,3,4]
+
+[3,2,0,0,1,0,3,2,1,4,0]
+[0,4,7,9,10]
+[0,0,0,0,1,1, ,2, ,3,4]
+
+[3,2,0,0,1,0,3,2,1,4,0]
+[0,4,6,9,10]
+[0,0,0,0,1,1,2,2, ,3,4]
+
+[3,2,0,0,1,0,3,2,1,4,0]
+[0,4,6,8,10]
+[0,0,0,0,1,1,2,2,3,3,4]
+
+\end{verbatim}
+
+Counting sort hace 2 pasadas al vector original y una pasada al vector auxiliar, por lo tanto es $O(n)$
+
+\subsection{Algoritmos para Group By}
+
+Supongamos que queremos hacer una operación GROUP BY usando como clave una determinada columna, realizando luego una agregación por grupo. Por ejemplo: df.groupby('color').sum()
+
+Es sencillo realizar esta operación si usamos el algoritmo Factorize primero. Una vez que convertimos cada valor diferente en un entero podemos usar un vector con tantas posiciones como diferentes valores tiene la columna e ir acumulando.
+
+\begin{algorithm}
+LABELS = FACTORIZE(column)\\
+RESULT = np.zeros(len(LABELS))\\
+\For{i,j in enumerate(LABELS)} {
+  RESULT[j]+=VALUES[i]
+}
+\caption{GROUPBY(sum)}
+\end{algorithm}
+
+Este algoritmo es extremadamente eficiente y permite realizar operaciones de GROUPBY con funciones de agregación en muy poco tiempo. Si la función a aplicar a cada grupo fuera mas compleja se puede hacer un SORT del resultado de FACTORIZE (usando Counting-Sort) y recorrer los elementos de cada grupo aplicando la función corrrespondiente.
+
+Si la operación de GROUP BY es por mas de un campo (varias columnas) podemos aplicar factorize a cada una de las columnas y luego crear un índice único para cada elemento del dataframe. Por ejemplo supongamos que tenemos las siguientes columnas:
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|l|}\hline
+column1 & column2 \\ \hline
+red & A \\
+blue & B \\
+red & C \\
+green & A \\
+blue & D \\
+red & C \\ \hline
+\end{tabular}
+}
+\vskip 0.25cm
+\end{table}
+
+La primer columna tiene 3 valores posibles (red,blue,green) y la segunda columna tiene 4 valores posibles (A,B,C,D) sin embargo no se dan las 12 combinaciones posibles.
+
+Si aplicamos factorize a cada columna:
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|l|l|l|}\hline
+column1 & F1 & column2 & F2\\ \hline
+red & 0& A &0\\
+blue& 1 & B&1 \\
+red& 0 & C& 2 \\
+green& 2 & A& 0 \\
+blue& 1 & D& 3 \\
+red& 0 & C& 2 \\ \hline
+\end{tabular}
+}
+\vskip 0.25cm
+\end{table}
+
+Podemos calcular ahora el "GROUP ID" de cada fila mediante los valores de F1 y F2. Si $k_1$ es la cantidad de valores diferentes para F1 y $k_2$ es la cantidad de valores diferentes para F2 entonces podemos crear el GROUP ID con la sencilla fórmula: $k_2*F1 + F2$
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|l|l|l|l|}\hline
+column1 & F1 & column2 & F2 & GID\\ \hline
+red & 0& A &0 & 0\\
+blue& 1 & B&1 & 5\\
+red& 0 & C& 2 & 2\\
+green& 2 & A& 0 & 8\\
+blue& 1 & D& 3 & 7\\
+red& 0 & C& 2 & 2\\ \hline
+\end{tabular}
+}
+\vskip 0.25cm
+\end{table}
+
+Si la cantidad de GIDs fuera muy grande podríamos ahora llamar a factorize sobre GID para generar una representación mas compacta aun.
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|l|l|l|l|l|}\hline
+column1 & F1 & column2 & F2 & GID & FGID\\ \hline
+red & 0& A &0 & 0 & 0\\
+blue& 1 & B&1 & 5 & 1\\
+red& 0 & C& 2 & 2& 2\\
+green& 2 & A& 0 & 8& 3\\
+blue& 1 & D& 3 & 7& 4\\
+red& 0 & C& 2 & 2& 2\\ \hline
+\end{tabular}
+}
+\vskip 0.25cm
+\end{table}
+
+Y una vez que tenemos los Ids de los grupos factorizados podemos aplicar una función de agregación tal y como lo hicimos antes o bien ordenar usando Counting-Sort y aplicar cualquier función a cada grupo.
+
+Métodos similares pueden usarse para computar de forma eficiente el Join entre dos o mas dataframes.
 
 \chapter{Big Data y Almacenamiento Distribuido}
 
@@ -5472,7 +5695,7 @@ ESC & [0.1458333-0.1666) \\ \hline
 \vskip 0.25cm
 \end{table}
 
-Nuestro nuevo intervalo es entonces [0.1458333-0.1666). Estamos ahora en el modelo de orden 1 en donde tenemos que excluir la "A" y la "B" ya que las hemos observado en modelos anteriores en los que emitimos un ESC, por lo tanto ninguno de estos caracteres es posible. Nos quedan solo C y EOF con probabilidad 1/2 cada uno. Aplicando el modelo de orden -1 a nuestro intervalo tenemos:
+Nuestro nuevo intervalo es entonces [0.1458333-0.1666). Estamos ahora en el modelo de orden -1 en donde tenemos que excluir la "A" y la "B" ya que las hemos observado en modelos anteriores en los que emitimos un ESC, por lo tanto ninguno de estos caracteres es posible. Nos quedan solo C y EOF con probabilidad 1/2 cada uno. Aplicando el modelo de orden -1 a nuestro intervalo tenemos:
 
 \begin{table}[!hbt]
 \center{
@@ -5918,7 +6141,7 @@ ARCHIVO: ABCDADADAABDAA
 MODELO: 0A 0B 0C 0D 0A 1(1,4) 0A 0B 1(3,3)
 \end{verbatim}
 
-Observemos algunas particularidades. "0A" implica un bit en 0 y luego un caracter "A" es decir que en total usamos 9 bits. De la misma forma codificamos B,C,D y A. Luego de comprimir ABCDA tenemos en la ventana "BCDA" y el archivo "DADAABCAA" encontramos una repetición en la posicion 1 del buffer, contamos a partir de 0 de izquierda a derecha. Y la longitud del match es 4 ya que "DADA" en el archivo matchea con "DADA" a partir de la posicion 1 del buffer. Notemos que el buffer está limitado hacia atrás pero no hacia adelante, podríamos emitir un match de longitud 1Gb siempre y cuando esta longitud sea representable. Luego de este match emitimos una A, B,C y finalmente encontramos un match de longitud 2 en la posición 3 del buffer para los últimos tres caracteres del archivo. 
+Observemos algunas particularidades. "0A" implica un bit en 0 y luego un caracter "A" es decir que en total usamos 9 bits. De la misma forma codificamos B,C,D y A. Luego de comprimir ABCDA tenemos en la ventana "BCDA" y el archivo "DADAABCAA" encontramos una repetición en la posicion 1 del buffer, contamos a partir de 0 de derecha a izquierda. Y la longitud del match es 4 ya que "DADA" en el archivo matchea con "DADA" a partir de la posicion 1 del buffer. Notemos que el buffer está limitado hacia atrás pero no hacia adelante, podríamos emitir un match de longitud 1Gb siempre y cuando esta longitud sea representable. Luego de este match emitimos una A, B,C y finalmente encontramos un match de longitud 2 en la posición 3 del buffer para los últimos tres caracteres del archivo. 
 
 Usando LZSS un archivo que solo tiene un caracter repetido $n$ veces como por ejemplo AAAAAAAAAAAAAAAAAAAAA se comprime en un literal y luego una cierta cantidad de matches de longitud máxima (excepto el último). Si la longitud máxima representable es mayor o igual a la longitud del archivo menos uno el archivo entero queda comprimido a un literal y un match. Notemos que las limitaciones en el tamaño de la máxima longitud representable y el tamaño de la ventana hacen que LZSS no sea un compresor adecuado para aproximarnos a la complejidad de un string y por lo tanto no es usable en el cálculo de la distancia normalizada de compresión\footnote{LZMA sí lo es y pertenece a la misma familia que LZSS}
 
@@ -5929,7 +6152,7 @@ Para comprimir lo único que nos resta definir es como representar los pares de 
 En nuestro caso el archivo quedaría representado de la siguiente forma:
 
 \begin{verbatim}
-MODELO: 0A 0B 0C 0D 0A 1(1,4) 0A 0B 1(3,39)
+MODELO: 0A 0B 0C 0D 0A 1(1,4) 0A 0B 1(3,3)
 
 ARCHIVO COMPRIMIDO: 0A 0B 0C 0D 0A 10110 0A 0B 0C 11101  (73 bits)
 \end{verbatim}
@@ -6462,6 +6685,186 @@ Para revertir la transformación de Burrows y Wheeler lo que haremos es en prime
 Una vez que llegamos a esto empezamos por el índice que es "4" y vemos una P que está asociada con un 0 que es "A" que está asociada con un 3 que es "N" y así sucesivamente hasta descomprimir "PANQUEQUE".
 
 Una vez realizada la transformación de BW tenemos un archivo localizado por lo que podemos aplicarle MTF y finalmente codificar con Huffman o compresión aritmética. Este "stack" es capaz de comprimir con un excelente nivel de compresión y se basa en principios completamente diferentes a los que vimos en PPMC o LZMA. El compresor BZIP2 es una implementación directa del algoritmo de Block Sorting, MTF y Huffman para codificar. 
+
+\section{Índices FM}
+
+En esta sección planteamos el problema de buscar strings dentro de un texto, esta tarea es diferente a la tarea de buscar palabras en textos ya que se plantea la posibilidad de buscar cualquier string, por ejemplo "zo en la" que podría matchear un texto que contiene "Marzo en la costa" o "Gatuzzo en la mira del Inter". En principio para resolver este tipo de consultas se necesita una estructura tipo "índice de sufijos", que explicamos a continuación:
+
+\subsection{Índices de Sufijos}
+
+Un índice de sufijos es simplemente una estructura en donde todos los sufijos de un texto se han ordenado alfabeticamente. Por ejemplo para el string "banana\$" en donde usamos el símbolo \$ para indicar el fin del string los sufijos son:
+
+\begin{verbatim}
+banana\$
+anana\$
+nana\$
+ana\$
+na\$
+a\$
+\$
+\end{verbatim}
+
+Ordenando:
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|l|}\hline
+\textbf{sufijo} & \textbf{offset} \\ \hline
+\$ & 6 \\
+a\$ & 5 \\
+ana\$ & 3\\
+anana\$ & 1\\
+banana\$ & 0\\
+na\$ & 4\\
+nana\$ & 2\\ \hline
+\end{tabular}
+}
+\vskip 0.25cm
+\caption{Sufijos de "banana\$"}
+\end{table}
+
+Podemos observar que la búsqueda de cualquier string en el texto puede resolverse realizando una búsqueda binaria sobre la tabla de sufijos. El problema es que la estructura necesaria para mantener esta tabla es extremadamente costosa, en el orden de $O(n^2)$ siendo n la longitud del texto que puede ser muy grande, por ejemplo Wikipedia.
+
+Los índices FM son una forma de representar todos los sufijos de un string de forma compacta de forma tal de soportar consultas \textit{"full-text"}.
+
+\subsection{Mapeo LF}
+
+El Mapeo LF es simplemente el mapeo que existe entre el resultado de la transformación de Burrows y Wheeler y la primer columna, que no es ni mas ni menos que el texto ordenado alfabeticamente.
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|l|}\hline
+\textbf{F} & \textbf{L} \\ \hline
+\$ & $a_0$ \\
+$a_0$ & $n_0$ \\
+$a_1$ & $n_1$ \\
+$a_2$ & $b_0$ \\
+$b_0$ & \$ \\
+$n_0$ & $a_1$ \\
+$n_1$ & $a_2$ \\ \hline
+\end{tabular}
+}
+\vskip 0.25cm
+\caption{LF Mapping para "banana\$"}
+\end{table}
+
+Los subíndices indican el número de ocurrencia de cada caracter en el texto de atrás hacia adelante, $a_0$ es la última "a" en el texto. La transformación de Block Sorting mantiene el orden de los caracteres, es sencillo demostrar esto analizando la forma en la cual se construye el string "L" a partir de las rotaciones del texto original. 
+
+\textit{La columna "L" indica el caracter anterior al de la columna "F" en el texto original.}
+
+Observemos que el texto original puede deducirse a partir de las columnas "F" y "L" partiendo de la posición del símbolo \$ en la columna "F", sabemos que el caracter anterior es $a_0$ y el anterior a $a_0$ es $n_0$ y el anterior a $n_0$ es $a_1$ y el anterior a $a_1$ es $n_1$ y el anterior a $n_1$ es $a_2$ y el anterior a $a_2$ es $b_0$ y el anterior a $b_0$ es \$ por lo que de atrás hacia adelante reconstruimos "banana\$"
+
+El Mapeo LF sirve también para buscar cualquier substring en el texto. Por ejemplo consideremos que buscamos "ban", podemos buscar "ban" realizando una búsqueda binaria de atrás hacia adelante sobre F que está ordenado. Es decir que comenzamos buscando "n" en F, el caracter anterior a n lo encontramos en L, observamos que para $n_0$ y $n_1$ tenemos $a_1$ y $a_2$ por lo que hay 2 substrings que terminan en "an", ahora tenemos que ir a F y buscar $a_1$ y $a_2$ y observar la columna L, vemos que para $a_2$ tenemos $b_0$ en L por lo que hemos encontrado "ban", para $a_1$ encontramos "n" pero "nan" no nos interesa.
+
+Lo único que nos restaría es agregar al índice LF una columna que indique la posición del caracter en el string original. 
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|l|l|}\hline
+\textbf{F} & \textbf{L} & \textbf{Pos} \\ \hline
+\$ & $a_0$ & 6\\
+$a_0$ & $n_0$ & 5\\
+$a_1$ & $n_1$ & 3\\
+$a_2$ & $b_0$ & 1\\
+$b_0$ & \$ & 0\\
+$n_0$ & $a_1$ & 4\\
+$n_1$ & $a_2$ & 2\\ \hline
+\end{tabular}
+}
+\vskip 0.25cm
+\caption{LF Mapping para "banana\$"}
+\end{table}
+
+Notar que la posición coincide con el número de posición de lo que era el índice de sufijos. \textit{Es decir que luego de aplicar Block Sorting las columnas F y L son una representación compacta del árbol de sufijos del texto (!!)}
+
+Cuando resolvemos "ban" observamos que ocurre en la posición 0 del texto original. La columna POS se obtiene automaticamente ya que surge del proceso de ordenar los offsets de $0$ a $n-1$ de acuerdo al orden de las rotaciones. 
+
+\section{Comprimiendo el Índice FM}
+
+Hasta el momento el índice FM tiene los siguientes problemas:
+
+\begin{enumerate}
+\item Buscar en la columna L es costoso porque no está ordenada.
+\item Hay que almacenar los offsets
+\item Almacenar el rango de cada caracter es costoso
+\end{enumerate}
+
+Estos problemas se pueden solucionar de varias formas. Para el rango de cada caracter podemos pensar en una matriz que tenga tantas filas como longitud tiene el string y tantas columnas como caracteres diferentes tiene el texto. Esto nos permite eliminar el subíndice (rango) de la columna L, el subíndice de la columna F tampoco es necesario ya que los caracteres están ordenados, por lo tanto su posición indica el rango mismo.
+
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|l|l||l|l|l|}\hline
+\textbf{F} & \textbf{L} & \textbf{Pos} & \textbf{a} & \textbf{b} & \texbf{n}\\ \hline
+\$ & $a$ & 6 & 1& 0 & 0\\ 
+$a$ & $n$ & 5 & 1 & 0 & 1\\
+$a$ & $n$ & 3& 1 & 0 & 2\\
+$a$ & $b$ & 1 & 1 & 1 & 2\\
+$b$ & \$ & 0& 1 & 1 & 2\\
+$n$ & $a$ & 4& 2 & 1 & 2\\
+$n$ & $a$ & 2& 3 & 1 & 2\\ \hline
+\end{tabular}
+}
+\vskip 0.25cm
+\caption{Rangos acumulados}
+\end{table}
+
+En cada columna almacenamos el número de caracteres que ocurrieron hasta la posición en la que estamos. Observemos ahora que el 'indice' del caracter en la columna L puede obtenerse en $O(1)$ simplemente restando 1 al número que aparece en la columna correspondiente. Volvamos al ejemplo en el cual buscamos "ban", empezamos haciendo una búsqueda binaria de "n" en la columna F, y vemos que en L hay dos "a", en la columna que corresponde a la "a" vemos que se trata de la segunda y tercera ocurrencia de "a", por lo tanto tenemos que ir luego a F y buscar la segunda y tercera "a" es decir $a_1$ y $a_2$.
+
+La matriz de rangos acumulados es costosa, la solución pasa por no almacenarla de forma completa sino cada "n" filas.
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|l|l||l|l|l|}\hline
+\textbf{F} & \textbf{L} & \textbf{Pos} & \textbf{a} & \textbf{b} & \texbf{n}\\ \hline
+\$ & $a$ & 6 & 1& 0 & 0\\ 
+$a$ & $n$ & 5 &  &  & \\
+$a$ & $n$ & 3& 1 & 0 & 2\\
+$a$ & $b$ & 1 &  &  & \\
+$b$ & \$ & 0& 1 & 1 & 2\\
+$n$ & $a$ & 4&  &  & \\
+$n$ & $a$ & 2& 3 & 1 & 2\\ \hline
+\end{tabular}
+}
+\vskip 0.25cm
+\caption{Rangos acumulados}
+\end{table}
+
+Si caemos en una fila para la cual no tenemos rangos acumulados tenemos que ir a la fila que tiene los rangos mas cercana (hacia arriba o abajo), observar el rango del caracter y simplemente contar cuántas veces aparece dicho caracter en L en el camino hacia la fila actual. Por ejemplo en la fila de $n_0$ observamos una "a" en la columna L, no sabemos el rango de esta "a", pero en la fila siguiente "a""tiene rango 3 y en L hay una "a" por lo tanto el rango debe ser 2. Es decir que se trata de $a_1$.
+
+Finalmente podemos reducir también la cantidad de posiciones a almacenar guardando solamente algunas de estas posiciones:
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|l|l||l|l|l|}\hline
+\textbf{F} & \textbf{L} & \textbf{Pos} & \textbf{a} & \textbf{b} & \texbf{n}\\ \hline
+\$ & $a$ & 6 & 1& 0 & 0\\ 
+$a$ & $n$ &  &  &  & \\
+$a$ & $n$ & 3& 1 & 0 & 2\\
+$a$ & $b$ &  &  &  & \\
+$b$ & \$ & 0& 1 & 1 & 2\\
+$n$ & $a$ & &  &  & \\
+$n$ & $a$ & 2& 3 & 1 & 2\\ \hline
+\end{tabular}
+}
+\vskip 0.25cm
+\caption{Rangos acumulados}
+\end{table}
+
+Si caemos, por ejemplo en la fila 1 (la primer "a") observamos que no tenemos posición. Sin embargo vemos que el caracter anterior a dicha "a" que es el que aparece en la columna "L" es $n_0$ para $n_0$ tampoco tenemos posición pero el anterior es $a_1$ para el cual la posición es 3 por lo tanto la posición de nuestra "a" es 3+2=5. 
+
+\section{Estructura Final del Índice FM}
+
+Nuestro índice tiene finalmente los siguientes componentes:
+
+\begin{enumerate}
+\item El vector F, que contiene los caracteres del texto ordenados, por lo tanto solo hace falta un número por cada caracter indicando la cantidad de veces que aparece, en nuestro caso \$=1, a=3, b=1, n=2. Es sencillo ver que con dicha información se tiene el vector F en su totalidad. F se puede almacenar de forma muy compacta.
+\item El vector L, que tiene igual longitud al texto original.
+\item El vector POS que tiene posiciones almacenadas cada $\alpha$ caracteres del texto original.
+\item La matriz de rangos que tiene tantas columnas como caracteres diferentes el texto y 1 fila cada $\beta$ caracteres en el texto original.
+\end{enumerate}
+
+Estas estructuras permiten resolver una búsqueda de cualquier substring en el texto original de forma eficiente por lo que son ideales para almacenar grandes volumenes de información en memoria soportanto la búsqueda de cualquier substring. En aplicaciones genéticas estas estructuras son cruciales ya que la búsqueda de substrings arbitrarios es una tarea sumamente frecuente.
 
 \section{PAQ}
 
@@ -7117,7 +7520,7 @@ En estas secciones vamos a desarrollar la construcción de una función de hashi
 
 Vamos a ver en primer lugar un algoritmo conocido como HDC (Hash Displace & Compress) cuyo origen podemos rastrear a [Pagh], [Botelho-Pagh-Ziviani] y [Bellazzougui-Botelho-Dietzfelbinger]. Este algoritmo está fuertemente inspirado en el esquema FKS y es altamente eficiente para generar funciones de hashing perfectas y mínimas.
 
-El funcionamiento del algoritmo es 9 sencillo, necesitamos una familia de funciones de hashing universales que podamos parametrizar con un número entero $h(i,x)$, las funciones de esta familia nos generan un número entre 0 y $n-1$ que es la cantidad de claves que tenemos.
+El funcionamiento del algoritmo es muy sencillo, necesitamos una familia de funciones de hashing universales que podamos parametrizar con un número entero $h(i,x)$, las funciones de esta familia nos generan un número entre 0 y $n-1$ que es la cantidad de claves que tenemos.
 
 En un primer paso vamos a hashear todas las claves a una tabla $G$ usando $h(0,x)$ encadenando los sinónimos. El resultado es una simple tabla de hash con encadenamiento de sinónimos. 
 
@@ -7759,7 +8162,7 @@ En este momento es importante notar que el tamaño de la tabla de hashing tambi�
 
 \subsection{Reducción de Falsos Negativos}
 
-Reducir los falsos positivos implica poder recuperar mas objetos, es decir que no se nos escapen objetos que son similares a la query pero no son recuperados por LSH. La idea consiste en usar mas de una tabla de hashing, si usamos $b$ tablas de hashing podemos entonces considerar objetos candidatos a aquellos que son candidatos en \textbf{alguna} de las $b$ tablas.
+Reducir los falsos negativos implica poder recuperar mas objetos, es decir que no se nos escapen objetos que son similares a la query pero no son recuperados por LSH. La idea consiste en usar mas de una tabla de hashing, si usamos $b$ tablas de hashing podemos entonces considerar objetos candidatos a aquellos que son candidatos en \textbf{alguna} de las $b$ tablas.
 
 Si la probabilidad de que dos claves colisionen es $p$ entonces la probabilidad de que dos claves no colisionen es $1-p$ y la probabilidad de que dos claves no colisionen en ninguna de las $b$ tablas es $(1-p)^b$, por lo tanto la probabilidad de que colisionen en alguna de las $b$ tablas es $1-(1-p)^b$
 
@@ -8411,7 +8814,7 @@ $$A^t A V = V \Sigma^2$$
 Donde $V$ son los autovectores y $\Sigma^2$ son autovalores de $A^tAV$
 Y de la misma forma:
 
-$$AA^t = (U \Sigma V^t)(U \Sigma U^t)^t$$
+$$AA^t = (U \Sigma V^t)(U \Sigma V^t)^t$$
 $$AA^t = (U \Sigma V^t V \Sigma U^t)$$
 $$AA^t = U \Sigma^2 U^t$$
 $$AA^tU = U \Sigma^2 U^t U$$
@@ -8681,7 +9084,7 @@ La SVD no es un mecanismo adecuado para comprimir imágenes ya que existen algor
 
 \subsection{Eigenfaces}
 
-Vamos a aplicar la SVD a un set de datos que tiene 400 imágenes de 64x64 píxeles cada una, es decir que tenemos una matriz de 400x4096 en donde cada fila es una imagen y cada columna (dimensión es un píxel).
+Vamos a aplicar la SVD a un set de datos que tiene 400 imágenes de 64x64 píxeles cada una, es decir que tenemos una matriz de 400x4096 en donde cada fila es una imagen y cada columna (dimensión) es un píxel.
 
 \begin{figure}[!htb]
 \centering
@@ -9696,7 +10099,7 @@ Pedro y Pablo
 Pedro corre
 Pablo respira
 Pedro corre y respira
-Pedro corre Perdo
+Pedro corre Pedro
 \end{verbatim}
 
 El bitmap correspondiente es:
@@ -9819,7 +10222,7 @@ Para solucionar este problema pasaremos al mundialmente famoso modelo TF-IDF.
 
 Una mejora lógica y automática es contar la cantidad de veces que aparece cada término de la consulta en cada documento. A esto se lo llama \textit{term frequency} y es la parte TF de TF-IDF. Con esta modificación el documento 3 tendría ahora peso 4 en lugar de 3 y sería el primero en nuestra lista de documentos relevantes. 
 
-Para solucionar el problema de "about" vs "presidential" recurrimos a IDF. La idea de IDF es muy simple: darle a cada término un peso que sea inversamente proporcional a su frecuencia. Los documentos que aparecen en muchos documentos serán entonces menos importantes que los documentos que solo aparecen en unos pocos documentos. 
+Para solucionar el problema de "about" vs "presidential" recurrimos a IDF. La idea de IDF es muy simple: darle a cada término un peso que sea inversamente proporcional a su frecuencia. Los términos que aparecen en muchos documentos serán entonces menos importantes que los documentos que solo aparecen en unos pocos documentos. 
 
 El IDF de un término se calcula de la forma: 
 
@@ -14665,18 +15068,15 @@ usuario con ese ítem y que se calcula en base a la semejanza ítem-ítem o usua
 
 \section{Evaluación de Sistemas de Recomendación}
 
-Esta sección es muy importante no sólo para poder determinar cómo evaluar un sistema de
-recomendaciones sino porque de aquí pueden derivarse mejoras al algoritmo que hemos visto
-hasta el momento.
+Evaluar un sistema de recomendación es una tarea compleja. En definitiva queremos saber si lo que recomendamos es realmente útil para el usuario lo cual es algo netamente subjetivo, es difícil construir métricas que sirvan para evaluar y comparar un sistema de recomendaciones. 
 
-Para construir un sistema de recomendaciones es necesario contar con un set de datos que en
-general consiste en la matriz de utilidad con las calificaciones de los usuarios a los distintos
-ítems. El objetivo es predecir de la mejor forma posible las calificaciones que faltan. Evaluar
-ésto no es tarea sencilla ya que necesitaríamos que los usuarios nos devuelvan feedback sobre
-las recomendaciones que hemos realizado, sería deseable que el sistema pueda realizar
-recomendaciones buenas sin necesitar retro-alimentarse de la opinión de los usuarios sobre las
-recomendaciones del mismo.
+Una paradoja interesante es la siguiente: Evaluamos un sistema de recomendación en base a las calificaciones que los usuarios hicieron de ciertos ítems, esto supone que los usuarios son "perfectos", pero si los usuarios son perfectos entonces ya consumieron todos los ítems que les resultaban interesantes y no necesitamos recomendarles cosas nuevas. Visto de otra forma, evaluamos los sistemas de recomendaciones en base a lo que los usuarios hicieron en el pasado suponiendo que un buen sistema es aquel que es capaz de predecir lo que el usuario consumió, esto tiene una falla fatal, a lo mejor los usuarios hubieran consumido otras cosas si se las hubiéramos recomendado. Como podemos ver el tema no es nada sencillo y hay que tomar con extremo cuidado el resultado de cualquier métrica.
 
+En esta sección veremos algunas de las métricas populares.
+
+\subsection{Evaluación basada en las predicciones}
+
+La primer familia de métricas se basa en realizar predicciones para los ítems que los usuarios ya han calificado usando el sistema y luego comparar estas predicciones con los ratings conocidos. 
 
 \begin{figure}[!htb]
 \centering
@@ -14692,11 +15092,12 @@ calificaciones que hemos removido. Como conocemos el valor real de estas calific
 podemos calcular la efectividad del sistema mediante un simple cálculo:
 
 \begin{myequation}
-J=\frac{1}{N} \sqrt{\sum_{ij}(\hat{r}_{ij} - r_{ij})^2}
+J=\sqrt{\frac{1}{N} \sum_{ij}(\hat{r}_{ij} - r_{ij})^2}
 \end{myequation}
 
 A esta métrica se la denomina RMSE (root mean squared error), también puede calcularse sin
-la raíz en cuyo caso se denomina SSE.
+la raíz en cuyo caso se denomina MSE. El cuadrado cumple la función de hacer que el error
+sea mayor a medida que la diferencia entre la predicción y el valor conocido para el rating aumenta. 
 
 Gracias a esta métrica podemos probar diferentes algoritmos y diferentes parámetros para
 nuestros algoritmos de forma tal de encontrar el algoritmo que minimice el error total. Es
@@ -14704,6 +15105,79 @@ recomendable realizar varios tests tomando cada vez un 80\% y 20\% al azar de la
 calificaciones y calcular el promedio de error de todas las pruebas. De esta forma evitamos que
 un cierto muestreo de las calificaciones sea muy influyente en cuanto al rendimiento del
 sistema. A esta técnica en aprendizaje automático se la llama “cross validation”
+
+La principal crítica a las métricas basadas en RMSE o MSE es que ciertos errores no son tan importantes como otros, por ejemplo si un usuario le dio 5 estrellas a una película y el sistema predice 4 tenemos un error igual a 1, que es el mismo error entre darle 2.5 o 3.5 estrellas a una película, sin embargo el primero es bastante mas importante que el segundo ya que a la hora de recomendar queremos encontrar las películas de 5 estrellas. En definitiva cometer errores con las películas que mas le gustaron al usuario es mas grave que cometer errores sobre las películas que no le han gustado o con calificaciones intermedias. Las métricas basadas en el orden intentan atacar este problema.
+
+\subsection{Evaluación basada en el orden de las recomendaciones}
+
+En esta familia de métricas el sistema de recomendaciones realiza predicciones y las mismas se ordenan de mayor a menor, luego comparamos el orden de los ítems recomendados con el orden de los ítems conocido por el usuario. Hay varias formas de hacer esto.
+
+\subsubsection{MPR: Mean Reciprocal Rank}
+
+En esta métrica tenemos para cada usuario una lista de ítems relevantes, una vez que el sistema realiza sus recomendaciones buscamos en que número de orden aparece el primer ítem relevante y calculamos 1 sobre esa posición como valor de la métrica. El promedio para todos los usuarios es la evaluación del sistema.
+
+\begin{myequation}
+MRR(O,U)=\frac{1}{n} \sum_{u \in U} \frac{1}{p_u}
+\end{myequation}
+
+Donde $p_u$ es la posición en la lista de recomendaciones del primer ítem que sabemos es relevante para el usuario.
+
+Esta métrica es sencilla y sirve para evaluar escenarios en los cuales queremos evaluar que tan rápido el sistema permite encontrar lo que el usuario está buscando. Es una métrica muy usada en Information Retrieval en escenarios en los cuales el usuario busca la solución a un problema. Dado que hemos usado una métrica popular en Information Retrieval podemos ver otra.
+
+\subsubsection{MAP: Mean Average Precision}
+
+Aquí usamos los conceptos de Precisión y Recall de Information Retrieval. Recordemos que precisión es calcular la cantidad de ítems relevantes sobre la cantidad de ítems recomendados mientras que Recall es calcular la cantidad de ítems relevantes sobre el total de ítems relevantes. Si calculamos un promedio de la precisión para cada nivel de recall diferente obtenemos la métrica conocida como "Average Precision", el promedio de está métrica para todos los usuarios nos da MAP: "Mean Average Precision"
+
+Ejemplo: Supongamos que nuestro sistema recomienda los ítems A,B,C,D,E y que A,C y D son realmente relevantes para el usuario.
+
+\begin{verbatim}
+A (R=1/3) (P=1)
+B (R=1/3)
+C (R=2/3) (P=2/3)
+D (R=3/3) (P=3/4)
+E (R=3/3)
+\end{verbatim}
+
+El valor de $AP$ es $(1+2/3+3/4)/3$.
+
+\begin{myequation}
+MAP(O,U)=\frac{1}{n} \sum_{u \in U} AP(O(u))
+\end{myequation}
+
+\subsubsection{Correlación de Spearman}
+
+En Collaborative Filtering hemos usado el coeficiente de correlación de Pearson para decidir la semejanza entre usuarios o ítems, el coeficiente de Pearson compara los valores de los ratings, el coeficiente de Spearman es similar pero en lugar de los valores de los ratings comparamos la posición o ranking de los valores. Es decir que si un vector es (5,3,4) lo convertimos en (1,3,2) que son las posiciones que tendrían 5,3 y 4 en el vector ordenado de mayor a menor. Los empates obtienen el promedio de las posiciones es decir que el vector (5,2,2) se convierte en (1,2.5,2.5) ya que para "2" promediamos las posiciones 2 y 3. Una vez transformados los valores en posiciones calculamos la correlación igual que lo hacíamos con la fórmula de Pearson. 
+
+El principal problema de la fórmula de Spearman es que castiga todos los errores de la misma forma. Si un sistema se equivoca en el orden de los ítems 1 a 3 el error debería ser mayor que equivocarse en el orden de los ítems 11 a 13. En general queremos que un error en el ordenamiento de los ítems recomendados sea mas grave cuanto mas chico es el ranking del ítem. Lo cual nos lleva a nuestra última métrica.
+
+\subsubsection{Normalized Discounted Cumulative Gain}
+
+En primer lugar veamos como calcular DCG (Discounted Cumulative Gain), la idea es muy simple: dividimos el rating real (puntaje) de cada ítem por el logaritmo de su posición en la lista de recomendaciones, pero para los dos primeros ítems no dividimos (o dividimos por 1)
+
+Por ejemplo supongamos que nuestro sistema recomienda los ítems A,B,C,D en ese orden. Consultamos en nuestro set de test los ratings de los ítems y obtenemos 4,3,0,5 que son las calificaciones que el usuario le había dado a esos ítems. El cálculo de DCG es:
+
+\begin{verbatim}
+A 4
+B 3
+C 0
+D 5
+
+DCG = 4/1 + 3/1 + 0/log(3) + 5/log(4) = 9.5
+\end{verbatim}
+
+Para normalizar y obtener la métrica nDCG lo que vamos a hacer es calcular cuál sería el valor de DCG si nuestro sistema de recomendación hubiese devuelto los ítems ordenados de acuerdo a las calificaciones del usuario:
+
+\begin{verbatim}
+D 5
+A 4
+B 3
+C 0
+
+Perfect DCG = 5/1 + 4/1 + 3/log(3) + 0/log(4) = 10.9
+\end{verbatim}
+
+Y simplemente calculamos DCG/Perfect DCG para obtener nDCG es decir nDCG = 9.5/10.9 = 0.872. Luego simplemente promediamos el nDCG para todos los usuarios para obtener un promedio para el sistema de recomendaciones. 
+
 
 \section{Modelos Latentes}
 
