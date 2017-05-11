@@ -16166,6 +16166,71 @@ posiciones sean todas distintas de cero.
 
 La desventaja, evidente, es la mayor cantidad de espacio necesaria.
 
+\section{Cuckoo Filters}
+
+Una variante muy interesante a los filtros de Bloom son los \textit{Cuckoo Filters} [Andersen] que implementan una estrcutura del estilo de los filtros de Bloom, para responder si un objeto es miembro de un conjunto, usando Cuckoo hashing como estructura principal.
+
+Las diferencias entre los filtros Cuckoo y los filtros de Bloom son las siguientes:
+
+\begin{itemize}
+\item Los filtros Cuckoo requieren menos espacio que los filtros de Bloom
+\item Los filtros Cuckoo son mas rápidos para consultas
+\item Los filtros Cuckoo son mas lentos para inserciones
+\item Los filtros Cuckoo permiten la operación de borrado, los filtros de Bloom no
+\end{itemize}
+
+Al igual que en un filtro de Bloom la idea de los filtros Cuckoo es poder responder a la pregunta "¿es x miembro del conjunto S?" de forma eficiente y usando una estructura de datos compacta. Almacenar las claves usando Cuckoo hashing es una opción pero entonces la estructura ocuparía una cantidad de espacio que depende del tamaño de las claves y la cantidad de claves lo cual haría que un filtro de Bloom sea mucho mas compacto. Para solucionar este problema en los Cuckoo Filters no se almacena la clave sino un hash de la misma llamado fingerprint, los fingerprints son pequeños en general en el orden de los 6 a 8 bits. Para almacenar estros fingerprints usaremos una tabla Cuckoo de $m$ buckets en donde cada bucket puede almacenar $b$ fingerprints. Como vimos al estudiar Cuckoo hashing $b$ determina que tanto podemos llenar la tabla antes de que las inserciones fallen, para los filtros Cuckoo es típico usar $b=4$ con lo cual podemos usar en promedio un 95\% de la tabla antes de tener problemas con las inserciones.
+
+Al igual que en Cuckoo hashing necesitamos 2 posiciones alternativas para las claves, la primera posición estará determinada por aplicarle a la clave una función de hashing $f(x)=[0...m]$ esta función de hashing se aplica a la clave (no al fingerprint) y nos indica en que bucket almacenar la clave. Si el bucket tiene lugar libre entonces calculamos el fingerprint de la clave, tipicamente con otra función de hashing, y lo almacenamos. Si el bucket no tiene lugar entonces procedemos al igual que en el método del Cuckoo, guardamos \textbf{el fingerprint de la clave} en el bucket indicado por $f(x)$ y aleatoriamente removemos algun fingerprint. Pero ahora tenemos un problema: no podemos aplicar una segunda función de hashing a la clave porque ¡no tenemos clave!, lo que tenemos es un fingerprint. La solución es aplicar la función de hashing al fingerprint y hacer un XOR entre la posición original y el hash del fingerprint. Por lo tanto las posiciones alternativas son:
+
+\begin{enumerate}
+\item $\text{hash}(x)$
+\item $\text{hash}(x) \oplus \text{hash}(\text{fingerprint})$
+\end{enumerate}
+
+El algoritmo de búsqueda es muy simple:
+
+\begin{algorithm}
+f = fingerprint(x) \\
+i1 = hash(x) \\
+i2 = i1 xor hash(f) \\
+\If{table[i1] or table[i2] has f} {
+  return True \\
+}
+return False \\
+\caption{lookup(x)}
+\end{algorithm}
+
+Hay una limitación muy importante que debemos mencionar: como los fingerprints son pequeños la segunda posición para una clave solo puede variar en $2^f$ con respecto a la primera. Es decir que para la primera posición puede haber millones (dependiendo de $m$) de posiciones posibles pero para la segunda posición la cantidad de posiciones es limitada es decir que no es uniforme en $m$ condicionada a la primera posición. En teoría esto implica que los filtros Cuckoo no deberían funcionar bien, sin embargo en la práctica funcionan perfectamente. Hay una pregunta abierta muy importante que es la siguiente: ¿Por qué este esquema funciona igual de bien que el esquema tradicional del Cuckoo hashing cuando en teoría es claramente inferior?
+
+Las inserciones ya las hemos descripto y funcionan igual que en el Cuckoo Hashing, a efectos de implementación simplemente hacemos un ciclo de "n" intentos y si luego de estos "n" intentos no hemos insertado el fingerprint entonces la estructura falla, esto ocurre cuando hay colecciones de $2b+1$ claves que hashean al mismo bucket inicial, ya que no habrá lugar para ellas ni en el bucket inicial (b posiciones) ni en el alternativo (otras b posiciones). 
+
+Esto tiene un efecto colateral interesante: En los filtros de Bloom las inserciones nunca fallan, por lo tanto a medida que insertamos mas y mas datos lo que ocurre es que la cantidad de falsos positivos aumenta. En el límite cuando todos los bits del filtro de bloom son 1 para cualquier consulta la respuesta es positiva; en los filtros Cuckoo las inserciones pueden fallar por lo que la cantidad de falsos positivos se mantiene acotada independientemente de la cantidad de datos que insertemos en el filtro, esta es una propiedad muy importante y sumamente interesante.
+
+Otra propiedad interesante es que los filtros Cuckoo soportan el borrado y ésta es una operación muy simple, si queremos eliminar una cierta clave obtenemos los dos buckets alternativos y si encontramos el fingerprint de la clave en alguno de ellos eliminamos una copia, cualquiera es suficiente. Si dos claves x e y diferentes tienen el mismo fingerprint $f$ y además colisionan en un mismo bucket $i1$ entonces también colisionan en $i2$ y por lo tanto no importa si estamos elimando a x o y ya que son absolutamente indistinguibles dentro del filtro. Una vez eliminado uno una consulta por cualquiera de las dos claves nos va a seguir dando positivo. Es decir que puede pasar que luego de insert(x), insert(y), delete(x) la consulta lookup(x) nos de positivo y lookup(y) también nos de positivo (!). 
+
+Para que esta operación tenga sentido es necesario que la clave haya sido insertada antes, borrar algo que no fue insertado puede traer como consecuencia eliminar algo indebidamente pero este es un problema de cualquier filtro de este estilo.
+
+
+Para finalizar detallamos los parámetros necesarios para crear un Cuckoo Filter:
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|l|}\hline
+\textbf{Parámetro} & \textbf{valor} \\ \hline
+n & cantidad de claves \\
+m & cantidad de buckets \\
+b & cantidad de registros por bucket \\
+f & tamaño de los fingerprints \\ \hline
+\end{tabular}
+}
+\vskip 0.25cm
+\caption{Parámetros para Cuckoo filters.}
+\end{table}
+
+En general $b=4$ y $f=6$ y $m$ depende de la cantidad de claves que se quieran insertar calculando que $4m$ debe tener menos de un 95\% de las $n$ claves que queremos almacenar. La probabildiad de falsos positivos en un filtro Cuckoo se puede estimar mediante $8\lambda/2^f$ siendo $\lambda$ el factor de carga es decir $n/4m$ usando buckets de tamaño 4. Esto es porque en promedio una búsqueda compara contra 8 posiciones, 4 por bucket y hay 2 buckets alternativos y para cada una de estas posiciones la probabilidad de un falso positivo es $2^-f$. Como podemos ver aumentando $f$ es decir el tamaño de los fingeprints podemos reducir la cantidad de falsos positivos a costa de aumentar el tamaño de la estructura, un tradeoff que es ya lógico y conocido. 
+
+
 \section{Count-Min}
 
 El algortimo \textit{Count-Min Sketch} [Muthukrishnan-Cormode] es uno de los algoritmos de streaming mas importantes porque permite para cualquier dato de un stream estimar cuántas veces ocurrió el mismo hasta el momento. Esto permite responder todo tipo de problemas siendo uno de los mas frecuentes el denominado \textit{Heavy Hitters Problem} por lo que empezamos esta sección con un análisis teórico de este problema.
@@ -16208,6 +16273,7 @@ En el problema aproximado tenemos un stream $S$ de $n$ elementos y dado un ciert
 \end{enumerate}
 
 Notemos que si $\epsilon$ tiende a cero en cuyo caso el problema aproximado se vuelve el problema exacto el costo de almacenamiento $1/\epsilon$ tiende a infinito. Supongamos que usamos $\epsilon=\frac{1}{2k}$, el algoritmo aproximado tiene que emitir cualquier valor con frecuencia al menos $\frac{n}{k}$ pero puede también emitir valores con frecuencia al menos $\frac{n}{2k}$ el espacio usado por el algoritmo debe ser $1/\epsilon = 2k$ que es perfectamente viable por ser $k$ un número manejable.
+
 
 \subsection{The Count-Min Sketch}
 
@@ -19469,6 +19535,11 @@ O al menos esa es la teoría....
 \begin{enumerate}
 
 \item
+\[Andersen\]
+Bin Fan, David Andersen, Michael Kamisnku, Michael Mitzenmacher
+\textbf{Cuckoo Filter: Practically Better Than Bloom}
+
+
 \[Aggarwal,Hinneburg,Keim\]
 Charu Aggarwal, Alexander Hinneburg, Daniel KEim.
 \textbf{On the Surprising Behavior of Distance Metrics in High Dimensional Space}

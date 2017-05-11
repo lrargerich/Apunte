@@ -275,16 +275,16 @@
 \contentsline {subsubsection}{Tama\IeC {\~n}o de la Ventana y Optimal Parsing}{239}
 \contentsline {subsubsection}{Uso de Exclusi\IeC {\'o}n}{239}
 \contentsline {section}{\numberline {6.9}Block Sorting}{239}
-\contentsline {subsection}{\numberline {6.9.1}Archivos localizados y MTF}{239}
+\contentsline {subsection}{\numberline {6.9.1}Archivos localizados y MTF}{240}
 \contentsline {subsection}{\numberline {6.9.2}La Transformaci\IeC {\'o}n de Burrows y Wheeler}{241}
-\contentsline {section}{\numberline {6.10}\IeC {\'I}ndices FM}{242}
+\contentsline {section}{\numberline {6.10}\IeC {\'I}ndices FM}{243}
 \contentsline {subsection}{\numberline {6.10.1}\IeC {\'I}ndices de Sufijos}{243}
-\contentsline {subsection}{\numberline {6.10.2}Mapeo LF}{243}
+\contentsline {subsection}{\numberline {6.10.2}Mapeo LF}{244}
 \contentsline {section}{\numberline {6.11}Comprimiendo el \IeC {\'I}ndice FM}{245}
-\contentsline {section}{\numberline {6.12}Estructura Final del \IeC {\'I}ndice FM}{246}
+\contentsline {section}{\numberline {6.12}Estructura Final del \IeC {\'I}ndice FM}{247}
 \contentsline {section}{\numberline {6.13}PAQ}{247}
 \contentsline {subsection}{\numberline {6.13.1}Modelos de PAQ}{248}
-\contentsline {subsection}{\numberline {6.13.2}SSE}{248}
+\contentsline {subsection}{\numberline {6.13.2}SSE}{249}
 \contentsline {chapter}{\numberline {7}Hashing}{251}
 \contentsline {section}{\numberline {7.1}Introducci\IeC {\'o}n}{251}
 \contentsline {subsection}{\numberline {7.1.1}Funciones de Hashing Elementales}{251}
@@ -620,131 +620,132 @@
 \contentsline {section}{\numberline {15.6}Decaying Windows}{567}
 \contentsline {section}{\numberline {15.7}Filtros de Bloom}{568}
 \contentsline {subsection}{\numberline {15.7.1}Extensi\IeC {\'o}n para admitir borrado}{570}
-\contentsline {section}{\numberline {15.8}Count-Min}{570}
-\contentsline {subsection}{\numberline {15.8.1}The Heavy Hitters Problem}{571}
-\contentsline {subsubsection}{El problema de los HH aproximado}{572}
-\contentsline {subsection}{\numberline {15.8.2}The Count-Min Sketch}{572}
-\contentsline {subsection}{\numberline {15.8.3}Claves Transistorias: Bit-Marking}{573}
-\contentsline {subsection}{\numberline {15.8.4}Teor\IeC {\'\i }a de Count-Min}{575}
-\contentsline {subsubsection}{Conclusiones obtenidas}{578}
-\contentsline {chapter}{\numberline {16}PageRank y sus Derivados}{579}
-\contentsline {section}{\numberline {16.1}Random Surfers}{580}
-\contentsline {section}{\numberline {16.2}Convergencia}{582}
-\contentsline {section}{\numberline {16.3}Dead Ends}{584}
-\contentsline {section}{\numberline {16.4}Spider Traps y Teletransportaci\IeC {\'o}n}{585}
-\contentsline {subsubsection}{Interpretando $\beta $}{587}
-\contentsline {section}{\numberline {16.5}Page Rank en la pr\IeC {\'a}ctica}{587}
-\contentsline {subsection}{\numberline {16.5.1}PageRank via Map Reduce}{588}
-\contentsline {section}{\numberline {16.6}TopicRank}{589}
-\contentsline {section}{\numberline {16.7}TrustRank}{590}
-\contentsline {section}{\numberline {16.8}SimRank}{591}
-\contentsline {subsection}{\numberline {16.8.1}Sim Rank via Montecarlo}{592}
-\contentsline {subsection}{\numberline {16.8.2}Panther}{593}
-\contentsline {section}{\numberline {16.9}VisualRank}{593}
-\contentsline {section}{\numberline {16.10}TextRank}{595}
-\contentsline {section}{\numberline {16.11}HITS}{596}
-\contentsline {chapter}{\numberline {17}Redes Sociales}{601}
-\contentsline {section}{\numberline {17.1}Propiedades de los Grafos}{601}
-\contentsline {subsection}{\numberline {17.1.1}Propiedades B\IeC {\'a}sicas}{601}
-\contentsline {subsection}{\numberline {17.1.2}Almacenamiento del Grafo}{602}
-\contentsline {subsection}{\numberline {17.1.3}Componentes Conexos}{602}
-\contentsline {subsection}{\numberline {17.1.4}Di\IeC {\'a}metro}{603}
-\contentsline {subsection}{\numberline {17.1.5}Coeficiente de Clustering}{603}
-\contentsline {subsection}{\numberline {17.1.6}Distribuci\IeC {\'o}n del Grado}{604}
-\contentsline {section}{\numberline {17.2}Propiedades del Grafo de una Red Social}{604}
-\contentsline {subsection}{\numberline {17.2.1}Componente Conexo}{604}
-\contentsline {subsection}{\numberline {17.2.2}Distribuci\IeC {\'o}n del Grado}{604}
-\contentsline {subsection}{\numberline {17.2.3}Di\IeC {\'a}metro y Camino M\IeC {\'\i }nimo Promedio}{605}
-\contentsline {subsection}{\numberline {17.2.4}Coeficiente de Clustering}{606}
-\contentsline {section}{\numberline {17.3}Modelos de Grafos}{606}
-\contentsline {subsection}{\numberline {17.3.1}Modelo de Erd\"{o}s-Renyi}{607}
-\contentsline {subsubsection}{Di\IeC {\'a}metro}{607}
-\contentsline {subsubsection}{Distribuci\IeC {\'o}n del Grado}{607}
-\contentsline {subsubsection}{Coeficiente de Clustering}{608}
-\contentsline {subsection}{\numberline {17.3.2}Modelo de Barabasi-Albert}{608}
-\contentsline {subsection}{\numberline {17.3.3}Modelo de Jackson-Rodgers}{609}
-\contentsline {section}{\numberline {17.4}El Mundo Peque\IeC {\~n}o}{609}
-\contentsline {subsection}{\numberline {17.4.1}Modelo de Watts Strogratz}{610}
-\contentsline {section}{\numberline {17.5}La Clausura Triangular}{611}
-\contentsline {subsection}{\numberline {17.5.1}Contando Tri\IeC {\'a}ngulos en un Grafo}{611}
-\contentsline {subsection}{\numberline {17.5.2}Tri\IeC {\'a}ngulos Locales}{614}
-\contentsline {subsection}{\numberline {17.5.3}EE Eigenplots}{615}
-\contentsline {section}{\numberline {17.6}Centralidad}{616}
-\contentsline {subsection}{\numberline {17.6.1}Grado}{617}
-\contentsline {subsection}{\numberline {17.6.2}Betweenness}{617}
-\contentsline {subsection}{\numberline {17.6.3}Closeness}{619}
-\contentsline {subsection}{\numberline {17.6.4}Eigenvector Centrality y PageRank}{620}
-\contentsline {subsection}{\numberline {17.6.5}Centralidad de Bonacich}{621}
-\contentsline {subsection}{\numberline {17.6.6}Centralidad de la Red (Freeman)}{621}
-\contentsline {section}{\numberline {17.7}Detecci\IeC {\'o}n de Comunidades}{622}
-\contentsline {subsection}{\numberline {17.7.1}Uniones Fuertes y D\IeC {\'e}biles}{622}
-\contentsline {subsection}{\numberline {17.7.2}Modularidad}{623}
-\contentsline {subsubsection}{Algoritmo de Louvain}{623}
-\contentsline {subsection}{\numberline {17.7.3}Algoritmo de Girwan-Newman}{625}
-\contentsline {subsection}{\numberline {17.7.4}Clustering Espectral}{626}
-\contentsline {subsection}{\numberline {17.7.5}Infomap}{626}
-\contentsline {subsection}{\numberline {17.7.6}Comunidades con Solapamiento: Big Clam}{630}
-\contentsline {section}{\numberline {17.8}An\IeC {\'a}lisis de comunidades en Redes Sociales}{632}
-\contentsline {section}{\numberline {17.9}Cascadas en Redes Sociales}{634}
-\contentsline {subsection}{\numberline {17.9.1}Cascadas}{634}
-\contentsline {subsection}{\numberline {17.9.2}Maximizaci\IeC {\'o}n de Influencia}{637}
-\contentsline {section}{\numberline {17.10}Redes Sociales con Signo}{638}
-\contentsline {section}{\numberline {17.11}Motifs}{641}
-\contentsline {section}{\numberline {17.12}El Lenguaje en las Redes Sociales}{643}
-\contentsline {section}{\numberline {17.13}Evoluci\IeC {\'o}n de una Red Social}{644}
-\contentsline {subsection}{\numberline {17.13.1}Cantidad de Nodos y Aristas}{644}
-\contentsline {subsection}{\numberline {17.13.2}Di\IeC {\'a}metro}{646}
-\contentsline {section}{\numberline {17.14}Grafos de Kronecker}{647}
-\contentsline {subsection}{\numberline {17.14.1}Propiedades}{648}
-\contentsline {subsection}{\numberline {17.14.2}Grafos de Kronecker Estoc\IeC {\'a}sticos}{649}
-\contentsline {subsection}{\numberline {17.14.3}Estimaci\IeC {\'o}n de la matriz generadora}{649}
-\contentsline {subsection}{\numberline {17.14.4}Generando Redes Sociales con Grafos de Kronecker}{650}
-\contentsline {chapter}{\numberline {18}An\IeC {\'a}lisis Topol\IeC {\'o}gico de Datos}{653}
-\contentsline {section}{\numberline {18.1}Propiedades del An\IeC {\'a}lisis Topol\IeC {\'o}gico}{654}
-\contentsline {section}{\numberline {18.2}Los Datos como un Grafo}{655}
-\contentsline {subsection}{\numberline {18.2.1}Complejo Vietoris-Rips}{655}
-\contentsline {subsection}{\numberline {18.2.2}Complejo de Cech}{657}
-\contentsline {section}{\numberline {18.3}Homolog\IeC {\'\i }a Persistente}{658}
-\contentsline {subsection}{\numberline {18.3.1}N\IeC {\'u}meros de Betti y Barcodes}{659}
-\contentsline {subsection}{\numberline {18.3.2}BarCodes}{660}
-\contentsline {subsection}{\numberline {18.3.3}Otros puntos de An\IeC {\'a}lisis}{660}
-\contentsline {section}{\numberline {18.4}Algoritmo Mapper}{661}
-\contentsline {subsection}{\numberline {18.4.1}Lentes Topol\IeC {\'o}gicos Comunes}{662}
-\contentsline {subsection}{\numberline {18.4.2}Cubriendo los Datos}{663}
-\contentsline {subsection}{\numberline {18.4.3}Fase de Clustering}{665}
-\contentsline {subsection}{\numberline {18.4.4}Construcci\IeC {\'o}n del Grafo}{665}
-\contentsline {subsection}{\numberline {18.4.5}Ejemplo}{666}
-\contentsline {subsection}{\numberline {18.4.6}Ejemplo}{669}
-\contentsline {section}{\numberline {18.5}Conclusiones}{672}
-\contentsline {part}{II\hspace {1em}Temas Adicionales}{675}
-\contentsline {chapter}{\numberline {19}Patrones Frecuentes}{677}
-\contentsline {section}{\numberline {19.1}A-Priori}{678}
-\contentsline {subsection}{\numberline {19.1.1}Generaci\IeC {\'o}n de Candidatos Intermedia}{680}
-\contentsline {section}{\numberline {19.2}PCY}{681}
-\contentsline {section}{\numberline {19.3}Algoritmos Aleatorizados}{681}
-\contentsline {subsection}{\numberline {19.3.1}Muestreo Aleatorio}{682}
-\contentsline {subsection}{\numberline {19.3.2}Algoritmo SON}{682}
-\contentsline {subsubsection}{SON en Map-Reduce}{683}
-\contentsline {subsection}{\numberline {19.3.3}Algoritmo de Toivonen}{686}
-\contentsline {section}{\numberline {19.4}Reglas de Asociaci\IeC {\'o}n}{687}
-\contentsline {subsection}{\numberline {19.4.1}Soporte y Confianza en Reglas de Asociaci\IeC {\'o}n}{688}
-\contentsline {subsubsection}{Soporte Alto, Confianza Alta}{688}
-\contentsline {subsubsection}{Soporte Alto, Baja Confianza}{688}
-\contentsline {subsubsection}{Soporte Bajo, Confianza Baja}{688}
-\contentsline {subsubsection}{Soporte Bajo, Confianza Alta}{688}
-\contentsline {subsection}{\numberline {19.4.2}Limitaciones del Soporte y Confianza para encontrar asociaciones interesantes}{688}
-\contentsline {subsection}{\numberline {19.4.3}Lift}{689}
-\contentsline {subsection}{\numberline {19.4.4}M\IeC {\'e}tricas invariantes a los valores nulos}{690}
-\contentsline {chapter}{\numberline {20}Metadatos}{691}
-\contentsline {section}{\numberline {20.1}Dublin Core}{692}
-\contentsline {section}{\numberline {20.2}RDF}{693}
-\contentsline {subsection}{\numberline {20.2.1}El Modelo RDF}{693}
-\contentsline {subsection}{\numberline {20.2.2}RDF mediante Grafos}{694}
-\contentsline {subsection}{\numberline {20.2.3}Recursos An\IeC {\'o}nimos}{694}
-\contentsline {section}{\numberline {20.3}Turtle}{695}
-\contentsline {section}{\numberline {20.4}Ontolog\IeC {\'\i }as}{696}
-\contentsline {subsection}{\numberline {20.4.1}RDF-Schema (RDFs)}{696}
-\contentsline {subsubsection}{Clases}{696}
-\contentsline {subsubsection}{Domain y Range}{697}
-\contentsline {subsection}{\numberline {20.4.2}Otros elementos de RDFs}{698}
-\contentsline {section}{\numberline {20.5}SPARQL}{698}
+\contentsline {section}{\numberline {15.8}Cuckoo Filters}{570}
+\contentsline {section}{\numberline {15.9}Count-Min}{573}
+\contentsline {subsection}{\numberline {15.9.1}The Heavy Hitters Problem}{573}
+\contentsline {subsubsection}{El problema de los HH aproximado}{574}
+\contentsline {subsection}{\numberline {15.9.2}The Count-Min Sketch}{575}
+\contentsline {subsection}{\numberline {15.9.3}Claves Transistorias: Bit-Marking}{576}
+\contentsline {subsection}{\numberline {15.9.4}Teor\IeC {\'\i }a de Count-Min}{576}
+\contentsline {subsubsection}{Conclusiones obtenidas}{580}
+\contentsline {chapter}{\numberline {16}PageRank y sus Derivados}{581}
+\contentsline {section}{\numberline {16.1}Random Surfers}{582}
+\contentsline {section}{\numberline {16.2}Convergencia}{584}
+\contentsline {section}{\numberline {16.3}Dead Ends}{586}
+\contentsline {section}{\numberline {16.4}Spider Traps y Teletransportaci\IeC {\'o}n}{587}
+\contentsline {subsubsection}{Interpretando $\beta $}{589}
+\contentsline {section}{\numberline {16.5}Page Rank en la pr\IeC {\'a}ctica}{589}
+\contentsline {subsection}{\numberline {16.5.1}PageRank via Map Reduce}{590}
+\contentsline {section}{\numberline {16.6}TopicRank}{591}
+\contentsline {section}{\numberline {16.7}TrustRank}{592}
+\contentsline {section}{\numberline {16.8}SimRank}{593}
+\contentsline {subsection}{\numberline {16.8.1}Sim Rank via Montecarlo}{594}
+\contentsline {subsection}{\numberline {16.8.2}Panther}{595}
+\contentsline {section}{\numberline {16.9}VisualRank}{595}
+\contentsline {section}{\numberline {16.10}TextRank}{597}
+\contentsline {section}{\numberline {16.11}HITS}{598}
+\contentsline {chapter}{\numberline {17}Redes Sociales}{603}
+\contentsline {section}{\numberline {17.1}Propiedades de los Grafos}{603}
+\contentsline {subsection}{\numberline {17.1.1}Propiedades B\IeC {\'a}sicas}{603}
+\contentsline {subsection}{\numberline {17.1.2}Almacenamiento del Grafo}{604}
+\contentsline {subsection}{\numberline {17.1.3}Componentes Conexos}{604}
+\contentsline {subsection}{\numberline {17.1.4}Di\IeC {\'a}metro}{605}
+\contentsline {subsection}{\numberline {17.1.5}Coeficiente de Clustering}{605}
+\contentsline {subsection}{\numberline {17.1.6}Distribuci\IeC {\'o}n del Grado}{606}
+\contentsline {section}{\numberline {17.2}Propiedades del Grafo de una Red Social}{606}
+\contentsline {subsection}{\numberline {17.2.1}Componente Conexo}{606}
+\contentsline {subsection}{\numberline {17.2.2}Distribuci\IeC {\'o}n del Grado}{606}
+\contentsline {subsection}{\numberline {17.2.3}Di\IeC {\'a}metro y Camino M\IeC {\'\i }nimo Promedio}{607}
+\contentsline {subsection}{\numberline {17.2.4}Coeficiente de Clustering}{608}
+\contentsline {section}{\numberline {17.3}Modelos de Grafos}{608}
+\contentsline {subsection}{\numberline {17.3.1}Modelo de Erd\"{o}s-Renyi}{609}
+\contentsline {subsubsection}{Di\IeC {\'a}metro}{609}
+\contentsline {subsubsection}{Distribuci\IeC {\'o}n del Grado}{609}
+\contentsline {subsubsection}{Coeficiente de Clustering}{610}
+\contentsline {subsection}{\numberline {17.3.2}Modelo de Barabasi-Albert}{610}
+\contentsline {subsection}{\numberline {17.3.3}Modelo de Jackson-Rodgers}{611}
+\contentsline {section}{\numberline {17.4}El Mundo Peque\IeC {\~n}o}{611}
+\contentsline {subsection}{\numberline {17.4.1}Modelo de Watts Strogratz}{612}
+\contentsline {section}{\numberline {17.5}La Clausura Triangular}{613}
+\contentsline {subsection}{\numberline {17.5.1}Contando Tri\IeC {\'a}ngulos en un Grafo}{613}
+\contentsline {subsection}{\numberline {17.5.2}Tri\IeC {\'a}ngulos Locales}{616}
+\contentsline {subsection}{\numberline {17.5.3}EE Eigenplots}{617}
+\contentsline {section}{\numberline {17.6}Centralidad}{618}
+\contentsline {subsection}{\numberline {17.6.1}Grado}{619}
+\contentsline {subsection}{\numberline {17.6.2}Betweenness}{619}
+\contentsline {subsection}{\numberline {17.6.3}Closeness}{621}
+\contentsline {subsection}{\numberline {17.6.4}Eigenvector Centrality y PageRank}{622}
+\contentsline {subsection}{\numberline {17.6.5}Centralidad de Bonacich}{623}
+\contentsline {subsection}{\numberline {17.6.6}Centralidad de la Red (Freeman)}{623}
+\contentsline {section}{\numberline {17.7}Detecci\IeC {\'o}n de Comunidades}{624}
+\contentsline {subsection}{\numberline {17.7.1}Uniones Fuertes y D\IeC {\'e}biles}{624}
+\contentsline {subsection}{\numberline {17.7.2}Modularidad}{625}
+\contentsline {subsubsection}{Algoritmo de Louvain}{625}
+\contentsline {subsection}{\numberline {17.7.3}Algoritmo de Girwan-Newman}{627}
+\contentsline {subsection}{\numberline {17.7.4}Clustering Espectral}{628}
+\contentsline {subsection}{\numberline {17.7.5}Infomap}{628}
+\contentsline {subsection}{\numberline {17.7.6}Comunidades con Solapamiento: Big Clam}{632}
+\contentsline {section}{\numberline {17.8}An\IeC {\'a}lisis de comunidades en Redes Sociales}{634}
+\contentsline {section}{\numberline {17.9}Cascadas en Redes Sociales}{636}
+\contentsline {subsection}{\numberline {17.9.1}Cascadas}{636}
+\contentsline {subsection}{\numberline {17.9.2}Maximizaci\IeC {\'o}n de Influencia}{639}
+\contentsline {section}{\numberline {17.10}Redes Sociales con Signo}{640}
+\contentsline {section}{\numberline {17.11}Motifs}{643}
+\contentsline {section}{\numberline {17.12}El Lenguaje en las Redes Sociales}{645}
+\contentsline {section}{\numberline {17.13}Evoluci\IeC {\'o}n de una Red Social}{646}
+\contentsline {subsection}{\numberline {17.13.1}Cantidad de Nodos y Aristas}{646}
+\contentsline {subsection}{\numberline {17.13.2}Di\IeC {\'a}metro}{648}
+\contentsline {section}{\numberline {17.14}Grafos de Kronecker}{649}
+\contentsline {subsection}{\numberline {17.14.1}Propiedades}{650}
+\contentsline {subsection}{\numberline {17.14.2}Grafos de Kronecker Estoc\IeC {\'a}sticos}{651}
+\contentsline {subsection}{\numberline {17.14.3}Estimaci\IeC {\'o}n de la matriz generadora}{651}
+\contentsline {subsection}{\numberline {17.14.4}Generando Redes Sociales con Grafos de Kronecker}{652}
+\contentsline {chapter}{\numberline {18}An\IeC {\'a}lisis Topol\IeC {\'o}gico de Datos}{655}
+\contentsline {section}{\numberline {18.1}Propiedades del An\IeC {\'a}lisis Topol\IeC {\'o}gico}{656}
+\contentsline {section}{\numberline {18.2}Los Datos como un Grafo}{657}
+\contentsline {subsection}{\numberline {18.2.1}Complejo Vietoris-Rips}{657}
+\contentsline {subsection}{\numberline {18.2.2}Complejo de Cech}{659}
+\contentsline {section}{\numberline {18.3}Homolog\IeC {\'\i }a Persistente}{660}
+\contentsline {subsection}{\numberline {18.3.1}N\IeC {\'u}meros de Betti y Barcodes}{661}
+\contentsline {subsection}{\numberline {18.3.2}BarCodes}{662}
+\contentsline {subsection}{\numberline {18.3.3}Otros puntos de An\IeC {\'a}lisis}{662}
+\contentsline {section}{\numberline {18.4}Algoritmo Mapper}{663}
+\contentsline {subsection}{\numberline {18.4.1}Lentes Topol\IeC {\'o}gicos Comunes}{664}
+\contentsline {subsection}{\numberline {18.4.2}Cubriendo los Datos}{665}
+\contentsline {subsection}{\numberline {18.4.3}Fase de Clustering}{667}
+\contentsline {subsection}{\numberline {18.4.4}Construcci\IeC {\'o}n del Grafo}{667}
+\contentsline {subsection}{\numberline {18.4.5}Ejemplo}{668}
+\contentsline {subsection}{\numberline {18.4.6}Ejemplo}{671}
+\contentsline {section}{\numberline {18.5}Conclusiones}{674}
+\contentsline {part}{II\hspace {1em}Temas Adicionales}{677}
+\contentsline {chapter}{\numberline {19}Patrones Frecuentes}{679}
+\contentsline {section}{\numberline {19.1}A-Priori}{680}
+\contentsline {subsection}{\numberline {19.1.1}Generaci\IeC {\'o}n de Candidatos Intermedia}{682}
+\contentsline {section}{\numberline {19.2}PCY}{683}
+\contentsline {section}{\numberline {19.3}Algoritmos Aleatorizados}{683}
+\contentsline {subsection}{\numberline {19.3.1}Muestreo Aleatorio}{684}
+\contentsline {subsection}{\numberline {19.3.2}Algoritmo SON}{684}
+\contentsline {subsubsection}{SON en Map-Reduce}{685}
+\contentsline {subsection}{\numberline {19.3.3}Algoritmo de Toivonen}{688}
+\contentsline {section}{\numberline {19.4}Reglas de Asociaci\IeC {\'o}n}{689}
+\contentsline {subsection}{\numberline {19.4.1}Soporte y Confianza en Reglas de Asociaci\IeC {\'o}n}{690}
+\contentsline {subsubsection}{Soporte Alto, Confianza Alta}{690}
+\contentsline {subsubsection}{Soporte Alto, Baja Confianza}{690}
+\contentsline {subsubsection}{Soporte Bajo, Confianza Baja}{690}
+\contentsline {subsubsection}{Soporte Bajo, Confianza Alta}{690}
+\contentsline {subsection}{\numberline {19.4.2}Limitaciones del Soporte y Confianza para encontrar asociaciones interesantes}{690}
+\contentsline {subsection}{\numberline {19.4.3}Lift}{691}
+\contentsline {subsection}{\numberline {19.4.4}M\IeC {\'e}tricas invariantes a los valores nulos}{692}
+\contentsline {chapter}{\numberline {20}Metadatos}{693}
+\contentsline {section}{\numberline {20.1}Dublin Core}{694}
+\contentsline {section}{\numberline {20.2}RDF}{695}
+\contentsline {subsection}{\numberline {20.2.1}El Modelo RDF}{695}
+\contentsline {subsection}{\numberline {20.2.2}RDF mediante Grafos}{696}
+\contentsline {subsection}{\numberline {20.2.3}Recursos An\IeC {\'o}nimos}{696}
+\contentsline {section}{\numberline {20.3}Turtle}{697}
+\contentsline {section}{\numberline {20.4}Ontolog\IeC {\'\i }as}{698}
+\contentsline {subsection}{\numberline {20.4.1}RDF-Schema (RDFs)}{698}
+\contentsline {subsubsection}{Clases}{698}
+\contentsline {subsubsection}{Domain y Range}{699}
+\contentsline {subsection}{\numberline {20.4.2}Otros elementos de RDFs}{700}
+\contentsline {section}{\numberline {20.5}SPARQL}{700}
