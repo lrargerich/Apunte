@@ -6019,18 +6019,6 @@ Por cada bit a comprimir DMC intenta predecir la probabilidad de que el bit sea 
 
 Inicialmente DMC comienza con una tabla con todos los posibles contextos de 8 a 15 bits en donde considera al 0 y al 1 equiprobables. A efectos de simplificar vamos a hacer el ejemplo usando 2 bits como contexto.
 
-\begin{table}[!hbt]
-\center{
-\begin{tabular}{|l|l|l|l|l|l|}\hline
-\textbf{state}&\textbf{contexto}&\textbf{bit 0 count}&next_state&\textbf{bit 1 count}&next state\\ \hline
-0&00&1&0&1&1\\
-1&01&1&2&1&3\\
-2&10&1&0&1&1\\
-3&11&1&2&1&3\\ \hline
-\end{tabular}	
-}
-\caption{}
-\end{table}
 
 Observemos que, por ejemplo, cuando el estado es "10" que es el estado 2, si el próximo bit es un 0 pasamos al estado 0 ya que nuestro contexto va a ser 00 mientras que si el próximo bit es un 1 pasamos al estado 1 porque el contexto es 01. 
 
@@ -6058,7 +6046,7 @@ Supongamos el siguiente ejemplo: el estado "A" representa el contexto 11111 cuan
 \begin{table}[!hbt]
 \center{
 \begin{tabular}{|l|l|l|l|l|l|}\hline
-\textbf{state}&\textbf{contexto}&\textbf{bit 0 count}&next_state&\textbf{bit 1 count}&next state\\ \hline
+\textbf{state} & \textbf{contexto} &\textbf{bit 0 count}&next state&\textbf{bit 1 count}&next state\\ \hline
 A&11111&4&B&1&J\\ 
 B&110&3&E&7&F\\ \hline
 \end{tabular}	
@@ -6071,7 +6059,7 @@ Clonamos al estado "C" a partir de B representado el contexto 111110. Las transi
 \begin{table}[!hbt]
 \center{
 \begin{tabular}{|l|l|l|l|l|l|}\hline
-\textbf{state}&\textbf{contexto}&\textbf{bit 0 count}&next_state&\textbf{bit 1 count}&next state\\ \hline
+\textbf{state}&\textbf{contexto}&\textbf{bit 0 count}&next state&\textbf{bit 1 count}&next state\\ \hline
 A&11111&4&\textbf{C}&1&J\\ 
 B&110&3&E&7&F\\ 
 C&111110&4&E&9.33&F\\\hline
@@ -6799,7 +6787,7 @@ Estos problemas se pueden solucionar de varias formas. Para el rango de cada car
 \begin{table}[!hbt]
 \center{
 \begin{tabular}{|l|l|l||l|l|l|}\hline
-\textbf{F} & \textbf{L} & \textbf{Pos} & \textbf{a} & \textbf{b} & \texbf{n}\\ \hline
+\textbf{F} & \textbf{L} & \textbf{Pos} & \textbf{a} & \textbf{b} & \textbf{n}\\ \hline
 \$ & $a$ & 6 & 1& 0 & 0\\ 
 $a$ & $n$ & 5 & 1 & 0 & 1\\
 $a$ & $n$ & 3& 1 & 0 & 2\\
@@ -6820,7 +6808,7 @@ La matriz de rangos acumulados es costosa, la solución pasa por no almacenarla 
 \begin{table}[!hbt]
 \center{
 \begin{tabular}{|l|l|l||l|l|l|}\hline
-\textbf{F} & \textbf{L} & \textbf{Pos} & \textbf{a} & \textbf{b} & \texbf{n}\\ \hline
+\textbf{F} & \textbf{L} & \textbf{Pos} & \textbf{a} & \textbf{b} & \textbf{n}\\ \hline
 \$ & $a$ & 6 & 1& 0 & 0\\ 
 $a$ & $n$ & 5 &  &  & \\
 $a$ & $n$ & 3& 1 & 0 & 2\\
@@ -6841,7 +6829,7 @@ Finalmente podemos reducir también la cantidad de posiciones a almacenar guarda
 \begin{table}[!hbt]
 \center{
 \begin{tabular}{|l|l|l||l|l|l|}\hline
-\textbf{F} & \textbf{L} & \textbf{Pos} & \textbf{a} & \textbf{b} & \texbf{n}\\ \hline
+\textbf{F} & \textbf{L} & \textbf{Pos} & \textbf{a} & \textbf{b} & \textbf{n}\\ \hline
 \$ & $a$ & 6 & 1& 0 & 0\\ 
 $a$ & $n$ &  &  &  & \\
 $a$ & $n$ & 3& 1 & 0 & 2\\
@@ -7522,7 +7510,7 @@ La posibilidad de mantener una función de hashing perfecta con bajo costo para 
 
 En estas secciones vamos a desarrollar la construcción de una función de hashing perfecta y mínima es decir que tengamos $O(1)$ para las consultas y $O(m)$ espacio. Esto sólo es posible cuando conocemos cuáles son todas las claves que queremos almacenar en la tabla y los datos son estáticos. Cuando eso pasa es posible desarrollar una función que mapee cada clave a una única posición de forma tal de no tener colisiones. 
 
-Vamos a ver en primer lugar un algoritmo conocido como HDC (Hash Displace & Compress) cuyo origen podemos rastrear a [Pagh], [Botelho-Pagh-Ziviani] y [Bellazzougui-Botelho-Dietzfelbinger]. Este algoritmo está fuertemente inspirado en el esquema FKS y es altamente eficiente para generar funciones de hashing perfectas y mínimas.
+Vamos a ver en primer lugar un algoritmo conocido como HDC (Hash Displace \& Compress) cuyo origen podemos rastrear a [Pagh], [Botelho-Pagh-Ziviani] y [Bellazzougui-Botelho-Dietzfelbinger]. Este algoritmo está fuertemente inspirado en el esquema FKS y es altamente eficiente para generar funciones de hashing perfectas y mínimas.
 
 El funcionamiento del algoritmo es muy sencillo, necesitamos una familia de funciones de hashing universales que podamos parametrizar con un número entero $h(i,x)$, las funciones de esta familia nos generan un número entre 0 y $n-1$ que es la cantidad de claves que tenemos.
 
@@ -7983,16 +7971,16 @@ Observemos que cada columna de nuestra matriz de $dxm$ equivale a una proyecció
 Sabemos que con $d$ +1 o -1 el cuadrado de la proyección tiene como valor esperado el cuadrado de la norma. Por lo tanto si tenemos $\frac{k}{m}$ +1 o -1 el cuadrado de la proyección tiene como valor esperado $\frac{k}{m}||x_d||^2$
 
 \begin{myequation}
-v_m_i^2 = \frac{k}{m}||x_d||^2
+vm_i^2 = \frac{k}{m}||x_d||^2
 \end{myequation}
 
 Podemos ahora calcular el valor esperado de la norma de $v_m$ de la forma:
 
 \begin{myequation}
 \begin{aligned}
-v_m_i^2 = \frac{k}{m}||x_d||^2\\
-\sum_i v_m_i^2 = m\frac{k}{m}||x_d||^2\\
-\sqrt{\sum_i v_m_i^2} = \sqrt{m\frac{k}{m}||x_d||^2} \\
+vm_i^2 = \frac{k}{m}||x_d||^2\\
+\sum_i vm_i^2 = m\frac{k}{m}||x_d||^2\\
+\sqrt{\sum_i vm_i^2} = \sqrt{m\frac{k}{m}||x_d||^2} \\
 ||v_m|| = \sqrt{k} ||x_d||\\
 \end{aligned}
 \end{myequation}
@@ -10253,7 +10241,7 @@ Donde $ft_{ij}$ es la frecuencia del término $i$ en el documento $j$ es decir c
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=5in]{tfidf-fig-1.png}
+\includegraphics[width=5in]{figures/tfidf-fig-1.png}
 
 \caption{Primer Ejemplo de TF-IDF}
 \label{fig:tfidfuno}
@@ -13823,7 +13811,7 @@ Es posible acotar la cantidad de comparaciones que hacemos en cada punto constru
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=3in]{figures/ W2QW kmeanstrees.png}
+\includegraphics[width=3in]{figures/kmeanstrees.png}
 
 \caption{Ejemplo de K-Means recursivo en dos niveles. En primer lugar se hace un K-Means con $k=9$, luego un K-Means de estos 9 centroides con $k=3$. Si nuestro query es el punto rojo tenemos que comparar primero con los tres centroides fucsias ir al mas cercano y repetir el proceso, usando backtracking si es necesario hasta recolectar los $k$ vecinos mas cercanos al query.}
 \label{fig:kmeanstrees}
@@ -14280,7 +14268,7 @@ Notar que el algoritmo está usando la matriz $U$ de la SVD para agrupar las fil
 
 El algoritmo de bi-clustering entonces es el siguiente:
 
-\begin{algorithm}[Spectral Co-Clustering]
+\begin{algorithm}
 \SetAlgoLined
 \KwData{A: document term matrix, k: number of clusters}
 \KwResult{Documents and terms partitioned into clusters C}
@@ -14313,7 +14301,7 @@ Luego simplemente concatenamos los dos resultados por filas y aplicamos K-Means 
 
 El algoritmo completo es:
 
-\begin{algorithm}[LSI Co-Clustering]
+\begin{algorithm}
 \SetAlgoLined
 \KwData{A: TF-IDF matrix, k: number of clusters}
 \KwResult{Documents and terms partitioned into clusters C}
@@ -14689,7 +14677,7 @@ Donde $z$ es el cuantil correspondiente a la distribución normal. Por ejemplo s
 Usando un intervalo de confianza del 95\% y reemplazando $z=1.96$ la fórmula se reduce a:
 
 \begin{myequation}
-\frac{((U + 1.9208) / (U + D) - 1.96 *  \sqrt((U *  D) / (U +  D) + 0.9604)}{(U +  D)) / (1 + 3.8416 / (U +  D))}
+\frac{\frac{U + 1.9208}{U + D} - 1.96 *  \frac{\sqrt{(U *  D) / (U +  D) + 0.9604}}{U +  D}}{ (1 + 3.8416 / (U +  D))}
 \end{myequation}
 
 Usando esta fórmula podemos calcular la probabilidad de que un comentario sea positivo. Por ejemplo veamos los siguientes casos:
@@ -14698,15 +14686,15 @@ Usando esta fórmula podemos calcular la probabilidad de que un comentario sea p
 \center{
 \begin{tabular}{|c|c|c|}\hline
 \textbf{Upvotes} & \textbf{Downvotes} & \textbf{Probabilidad} \\ \hline
-3090 & 14 & 0.9610 \\
-103 & 8 & 0.835 \\
-11 & 0 & 0.02 \\
-205 & 3 & 0.077 \\
-2105 & 2100 & 0.9965 \\
-2 & 0 & 0.005 \\
-107 & 3 & 0.910 \\
-4 & 1 & 0.188 \\
-5 & 4 & 0.5655 \\ \hline
+3090 & 14 & 0.99247 \\
+103 & 8 & 0.8641 \\
+11 & 0 & 0.7411 \\
+205 & 3 & 0.9584 \\
+2105 & 2100 & 0.4854 \\
+2 & 0 & 0.3423 \\
+107 & 3 & 0.9228 \\
+4 & 1 & 0.3755 \\
+5 & 4 & 0.2666 \\ \hline
 \end{tabular}
 }
 \end{table}
@@ -14730,10 +14718,10 @@ Los factores ue influyen en la dificultad del sistema radican en la edad de las 
 Supongamos que un usuario de Reddit visita el sitio cada una cierta cantidad de segundos, por ejemplo $S=120$, llamemos a la tasa de reload $\lambda=1/S$. Cuando un usuario ve una historia hay cuatro posibles escenarios:
 
 \begin{itemize}
-1. a = Es una noticia nueva que al usuario le gusta.
-2. b = Es una noticia nueva que al usuario no le gusta.
-3. c = Es una noticia vieja que al usuario le gusta.
-4. d = Es una noticia vieja que al usuario no le gusta.
+\item 1. a = Es una noticia nueva que al usuario le gusta.
+\item 2. b = Es una noticia nueva que al usuario no le gusta.
+\item 3. c = Es una noticia vieja que al usuario le gusta.
+\item 4. d = Es una noticia vieja que al usuario no le gusta.
 \end{itemize}
 
 Donde "nueva" o "vieja" indican si la noticia ya existía en la visita previa del usuario $S$ segundos atŕas.
@@ -15378,7 +15366,7 @@ Por supuesto que esto no funcionaría ya que no tiene sentido usar el userid y m
 Esto nos lleva a un modelo de regresión lineal de la forma:
 
 $$
-\hat{y} = w_0 + \sum\limit_{i=1}^{n} w_i * x_i + \sum\limit_{j=1+n}^{m+n} w_j * x_j
+\hat{y} = w_0 + \sum\limits_{i=1}^{n} w_i * x_i + \sum\limits_{j=1+n}^{m+n} w_j * x_j
 $$
 
 Este modelo captura un "coeficiente" por cada una de las variables del modelo y estima la calificación en base a estos coeficientes. En otras palabras la calificación va a depender del usuario y la película. Es muy similar al modelo en el cuál usábamos la desviación del usuario y la película para estimar la calificación. Podemos extender este modelo agregando otras variables codificadas mediante one-hot encoding como por ejemplo cuáles son otras películas calificadas por el usuario, en que momento hizo la calificación o cuál es la última película calificada.
@@ -15396,7 +15384,7 @@ En la figura ~\ref{fig:fm1} podemos observar como quedarían los vectores, notem
 Con este modelo podríamos crear una regresión lineal usando todos los features, este modelo sin embargo no capturaría la interacción entre las diferentes variables, por ejemplo tendríamos un coeficiente para el usuario, otro para la película pero no tendríamos un coeficiente que relacione el usuario o la película. Al "factorizar" lo que hacemos es agregar todos los coeficientes de interacción entre cada una de las variables del modelo en total agregamos $\choose{n}{2}$ nuevas variables de tipo $w_{ij}$ indicando la relación entre la variable $i$ y la variable $j$ del modelo. 
 
 $$
-\hat{y} = w_0 + \sum\limit_{i=1}^{n} w_i * x_i + \sum\limit_{i=1}^{n}\sum\limit_{j=i+1}^{n} w_{ij} * x_i * x_j
+\hat{y} = w_0 + \sum\limits_{i=1}^{n} w_i * x_i + \sum\limits_{i=1}^{n}\sum\limits_{j=i+1}^{n} w_{ij} * x_i * x_j
 $$
 
 Este modelo es muy completo pero tiene como problema que la cantidad de coeficientes sufre de un problema de explosión combinatoria, teniendo millones de usuarios y millones de películas no hay forma de manejar todas las interacciones posibles entre las variables del modelo. Este es el punto en el cuál el algoritmo de Factorization Machines aporta una solución muy ingeniosa y elegante. 
@@ -15404,7 +15392,7 @@ Este modelo es muy completo pero tiene como problema que la cantidad de coeficie
 La idea es representar a cada variable (columna) de nuestro modelo mediante un vector de "k" elementos siendo "k" la cantidad de factores latentes que queremos usar. Si hacemos esto entonces podemos re-escribir nuestro modelo de regresión de la forma:
 
 \begin{myequation}
-\hat{y} = w_0 + \sum\limit_{i=1}^{n} w_i * x_i + \sum\limit_{i=1}^{n}\sum\limit_{j=i+1}^{n} <v_i,v_j> * x_i * x_j
+\hat{y} = w_0 + \sum\limits_{i=1}^{n} w_i * x_i + \sum\limits_{i=1}^{n}\sum\limits_{j=i+1}^{n} <v_i,v_j> * x_i * x_j
 \end{myequation}
 
 La cantidad total de parámetros a estimar ahora es: $w_0$, "n" coeficientes $w_i$ y "n" vectores $v_i$ de $k$ dimensiones cada uno. Este número de parámetros es perfectamente manejable incluso en sistemas con millones de usuarios e ítems.
@@ -17789,9 +17777,9 @@ While(bestResult $<$ lastResult) {
   lastResult = bestResult\\
   \For{Node in ListOfClusters} {
     bestNode = []\\
-    \For{Node2 $<>$ Node in ListOfClusters} { \\
+    \For{Node2 $<>$ Node in ListOfClusters} { 
         NewListOfclusters= merge(Node,Node2,ListOfClusters)\\
-        \If {newResult=Infomap(NewListOfClusters) $<$ bestResult} \\{
+        \If {newResult=Infomap(NewListOfClusters) $<$ bestResult} {
             bestNode = Node2\\
             bestResult = newResult\\
         }
@@ -19636,7 +19624,8 @@ Bernard Chazelle;Nor Ailon.
 \item \[Chen-Guestrin\]
 Tianqi Chen;Carlos Guestin.
 \textbf{XGBoost: A Scalable Tree Boosting System.}
-https://drive.google.com/folderview?id=0B8rBD4QSqWnSRml5R3dsNEdGTHM&usp=sharin+\item \[Clauset-Newman-Moore\]
+
+\item \[Clauset-Newman-Moore\]
 Aaron Clauset; M. E. J. Newman; Cristopher Moore.
 \textbf{Finding community structure in very large networks.}
 
@@ -19885,7 +19874,7 @@ Jing Zhang; Jie Tang; Cong Ma; Hanghang Tong; Yu Jing; Juanzi Li.
 Li Zhou; Mu Li; David Andersen; Alexander Smola.
 \textbf{Cuckoo Linear Algebra.}
 
-\end
+\end{enumerate}
 
 
 \end{document}

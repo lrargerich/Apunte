@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.8.11)  11 MAY 2017 00:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.8.11)  22 MAY 2017 14:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2244,45 +2244,6 @@ OR[]IA DE LA INFORMACI[]ON
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [221]
-! Missing $ inserted.
-<inserted text> 
-                $
-l.6025 ...tbf{contexto}&\textbf{bit 0 count}&next_
-                                                  state&\textbf{bit 1 count}...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Extra }, or forgotten $.
-<template> \unskip \hfil }
-                          \hskip \tabcolsep \hskip -.5\arrayrulewidth \vrule...
-l.6025 ...ntexto}&\textbf{bit 0 count}&next_state&
-                                                  \textbf{bit 1 count}&next ...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.6025 ...ntexto}&\textbf{bit 0 count}&next_state&
-                                                  \textbf{bit 1 count}&next ...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.6025 ...ntexto}&\textbf{bit 0 count}&next_state&
-                                                  \textbf{bit 1 count}&next ...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
 Overfull \hbox (48.65259pt too wide) has occurred while \output is active
 \OT1/cmr/m/n/10 222 \OT1/cmr/m/sl/10 CHAPTER 6.  COMPLEJIDAD, COMPRESI[]ON Y TE
 OR[]IA DE LA INFORMACI[]ON
@@ -2292,7 +2253,7 @@ OR[]IA DE LA INFORMACI[]ON
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.6061 ...tbf{contexto}&\textbf{bit 0 count}&next_
+l.6049 ...tbf{contexto}&\textbf{bit 0 count}&next_
                                                   state&\textbf{bit 1 count}...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -2300,7 +2261,7 @@ you left one out. Proceed, with fingers crossed.
 ! Extra }, or forgotten $.
 <template> \unskip \hfil }
                           \hskip \tabcolsep \hskip -.5\arrayrulewidth \vrule...
-l.6061 ...ntexto}&\textbf{bit 0 count}&next_state&
+l.6049 ...ntexto}&\textbf{bit 0 count}&next_state&
                                                   \textbf{bit 1 count}&next ...
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -2311,7 +2272,7 @@ deleted material, e.g., by typing `I$}'.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.6061 ...ntexto}&\textbf{bit 0 count}&next_state&
+l.6049 ...ntexto}&\textbf{bit 0 count}&next_state&
                                                   \textbf{bit 1 count}&next ...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -2319,7 +2280,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.6061 ...ntexto}&\textbf{bit 0 count}&next_state&
+l.6049 ...ntexto}&\textbf{bit 0 count}&next_state&
                                                   \textbf{bit 1 count}&next ...
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -2330,7 +2291,7 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.6074 ...tbf{contexto}&\textbf{bit 0 count}&next_
+l.6062 ...tbf{contexto}&\textbf{bit 0 count}&next_
                                                   state&\textbf{bit 1 count}...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -2338,7 +2299,7 @@ you left one out. Proceed, with fingers crossed.
 ! Extra }, or forgotten $.
 <template> \unskip \hfil }
                           \hskip \tabcolsep \hskip -.5\arrayrulewidth \vrule...
-l.6074 ...ntexto}&\textbf{bit 0 count}&next_state&
+l.6062 ...ntexto}&\textbf{bit 0 count}&next_state&
                                                   \textbf{bit 1 count}&next ...
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -2349,7 +2310,7 @@ deleted material, e.g., by typing `I$}'.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.6074 ...ntexto}&\textbf{bit 0 count}&next_state&
+l.6062 ...ntexto}&\textbf{bit 0 count}&next_state&
                                                   \textbf{bit 1 count}&next ...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -2357,7 +2318,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.6074 ...ntexto}&\textbf{bit 0 count}&next_state&
+l.6062 ...ntexto}&\textbf{bit 0 count}&next_state&
                                                   \textbf{bit 1 count}&next ...
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -2369,7 +2330,7 @@ my insertion and my current dilemma will both disappear.
 File: figures/lz77-fig-1.png Graphic file (type png)
 
 <use figures/lz77-fig-1.png>
-Package pdftex.def Info: figures/lz77-fig-1.png used on input line 6101.
+Package pdftex.def Info: figures/lz77-fig-1.png used on input line 6089.
 (pdftex.def)             Requested size: 216.81pt x 50.13576pt.
 
 Overfull \hbox (48.65259pt too wide) has occurred while \output is active
@@ -2377,14 +2338,14 @@ Overfull \hbox (48.65259pt too wide) has occurred while \output is active
 OR[]IA DE LA INFORMACI[]ON
  []
 
-[224] [225 </home/boyto/Dropbox/Work/Apunte/figures/lz77-fig-1.png>]
+[224 </home/boyto/Dropbox/Work/Apunte/figures/lz77-fig-1.png>] [225]
 Overfull \hbox (48.65259pt too wide) has occurred while \output is active
 \OT1/cmr/m/n/10 226 \OT1/cmr/m/sl/10 CHAPTER 6.  COMPLEJIDAD, COMPRESI[]ON Y TE
 OR[]IA DE LA INFORMACI[]ON
  []
 
 [226]
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 6158--6158
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 6146--6146
 []\OT1/cmtt/m/n/10 ARCHIVO COMPRIMIDO: 0A 0B 0C 0D 0A 10110 0A 0B 0C 11101  (73
  bits)[] 
  []
@@ -2396,7 +2357,7 @@ OR[]IA DE LA INFORMACI[]ON
  []
 
 [228]
-Overfull \hbox (3.58398pt too wide) in paragraph at lines 6226--6227
+Overfull \hbox (3.58398pt too wide) in paragraph at lines 6214--6215
 []\OT1/cmr/m/n/10 Vamos a hacer primero una nar-ra-tiva del fun-cionamiento: em
 -pezamos leyendo
  []
@@ -2419,40 +2380,43 @@ Overfull \hbox (48.65259pt too wide) has occurred while \output is active
 OR[]IA DE LA INFORMACI[]ON
  []
 
-[234] [235]
-Overfull \hbox (27.74675pt too wide) in paragraph at lines 6471--6471
+[234]
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 6459--6459
 []\OT1/cmtt/m/n/10 60: La cantidad de literales se indica en el pr^^Soximo byte
 .(61 a 61+256)[] 
  []
 
 
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 6471--6471
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 6459--6459
 []\OT1/cmtt/m/n/10 62: La cantidad de literales se indica en los pr^^Soximos tr
 es bytes.[] 
  []
 
 
-Overfull \hbox (11.99689pt too wide) in paragraph at lines 6471--6471
+Overfull \hbox (11.99689pt too wide) in paragraph at lines 6459--6459
 []\OT1/cmtt/m/n/10 63: La cantidad de literales se indica en los pr^^Soximos cu
 atro bytes.[] 
  []
 
-
+[235]
 Overfull \hbox (48.65259pt too wide) has occurred while \output is active
 \OT1/cmr/m/n/10 236 \OT1/cmr/m/sl/10 CHAPTER 6.  COMPLEJIDAD, COMPRESI[]ON Y TE
 OR[]IA DE LA INFORMACI[]ON
  []
 
-[236] [237] <figures/lzma-fig-1.png, id=959, 504.88625pt x 467.7475pt>
+[236] <figures/lzma-fig-1.png, id=956, 504.88625pt x 467.7475pt>
 File: figures/lzma-fig-1.png Graphic file (type png)
 
 <use figures/lzma-fig-1.png>
-Package pdftex.def Info: figures/lzma-fig-1.png used on input line 6538.
+Package pdftex.def Info: figures/lzma-fig-1.png used on input line 6526.
 (pdftex.def)             Requested size: 361.34999pt x 334.77235pt.
 
-Overfull \hbox (16.34999pt too wide) in paragraph at lines 6538--6539
+Overfull \hbox (16.34999pt too wide) in paragraph at lines 6526--6527
  [][] 
  []
+
+[237]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Overfull \hbox (48.65259pt too wide) has occurred while \output is active
@@ -2462,7 +2426,7 @@ OR[]IA DE LA INFORMACI[]ON
 
 [238 </home/boyto/Dropbox/Work/Apunte/figures/lzma-fig-1.png (PNG copy)>]
 [239]
-Overfull \hbox (88.16644pt too wide) in paragraph at lines 6622--6623
+Overfull \hbox (88.16644pt too wide) in paragraph at lines 6610--6611
 []\OT1/cmr/m/n/10 Observemos que MTF cam-bia la en-trop^^S^^Pa del archivo, pas
 amos de H[5/15;3/15;4/15;3/15]=1.9656
  []
@@ -2474,9 +2438,6 @@ OR[]IA DE LA INFORMACI[]ON
  []
 
 [240] [241]
-Underfull \vbox (badness 4805) has occurred while \output is active []
-
-
 Overfull \hbox (48.65259pt too wide) has occurred while \output is active
 \OT1/cmr/m/n/10 242 \OT1/cmr/m/sl/10 CHAPTER 6.  COMPLEJIDAD, COMPRESI[]ON Y TE
 OR[]IA DE LA INFORMACI[]ON
@@ -2490,7 +2451,25 @@ OR[]IA DE LA INFORMACI[]ON
 
 [244]
 ! Undefined control sequence.
-l.6802 ...{Pos} & \textbf{a} & \textbf{b} & \texbf
+l.6790 ...{Pos} & \textbf{a} & \textbf{b} & \texbf
+                                                  {n}\\ \hline
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.6811 ...{Pos} & \textbf{a} & \textbf{b} & \texbf
+                                                  {n}\\ \hline
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.6832 ...{Pos} & \textbf{a} & \textbf{b} & \texbf
                                                   {n}\\ \hline
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2499,28 +2478,6 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 [245]
-! Undefined control sequence.
-l.6823 ...{Pos} & \textbf{a} & \textbf{b} & \texbf
-                                                  {n}\\ \hline
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.6844 ...{Pos} & \textbf{a} & \textbf{b} & \texbf
-                                                  {n}\\ \hline
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-Underfull \vbox (badness 6188) has occurred while \output is active []
-
-
 Overfull \hbox (48.65259pt too wide) has occurred while \output is active
 \OT1/cmr/m/n/10 246 \OT1/cmr/m/sl/10 CHAPTER 6.  COMPLEJIDAD, COMPRESI[]ON Y TE
 OR[]IA DE LA INFORMACI[]ON
@@ -2546,7 +2503,7 @@ Chapter 7.
 File: figures/chain.png Graphic file (type png)
 
 <use figures/chain.png>
-Package pdftex.def Info: figures/chain.png used on input line 6964.
+Package pdftex.def Info: figures/chain.png used on input line 6952.
 (pdftex.def)             Requested size: 216.81pt x 197.49103pt.
 
 Underfull \vbox (badness 1394) has occurred while \output is active []
@@ -2556,14 +2513,14 @@ Underfull \vbox (badness 1394) has occurred while \output is active []
 <figures/dicc1.png, id=1015, 420.57124pt x 258.9675pt>
 File: figures/dicc1.png Graphic file (type png)
  <use figures/dicc1.png>
-Package pdftex.def Info: figures/dicc1.png used on input line 6998.
+Package pdftex.def Info: figures/dicc1.png used on input line 6986.
 (pdftex.def)             Requested size: 216.81pt x 133.5021pt.
 
 [255 </home/boyto/Dropbox/Work/Apunte/figures/dicc1.png (PNG copy)>]
 <figures/dicc2.png, id=1019, 552.0625pt x 427.5975pt>
 File: figures/dicc2.png Graphic file (type png)
  <use figures/dicc2.png>
-Package pdftex.def Info: figures/dicc2.png used on input line 7014.
+Package pdftex.def Info: figures/dicc2.png used on input line 7002.
 (pdftex.def)             Requested size: 216.81pt x 167.93025pt.
 
 [256 </home/boyto/Dropbox/Work/Apunte/figures/dicc2.png (PNG copy)>]
@@ -2571,27 +2528,27 @@ Package pdftex.def Info: figures/dicc2.png used on input line 7014.
 File: figures/hopscotch-fig.png Graphic file (type png)
 
 <use figures/hopscotch-fig.png>
-Package pdftex.def Info: figures/hopscotch-fig.png used on input line 7036.
+Package pdftex.def Info: figures/hopscotch-fig.png used on input line 7024.
 (pdftex.def)             Requested size: 216.81pt x 92.63414pt.
  [257 </home/boyto/Dropbox/Work/Apunte/figures/hopscotch-fig.png (PNG copy)>]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 7066.
+               Default added (so using `htbp') on input line 7054.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 7084.
+               Default added (so using `htbp') on input line 7072.
 
 [258]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 7107.
+               Default added (so using `htbp') on input line 7095.
 
 [259] <figures/merkle-damgard-fig.png, id=1034, 393.47pt x 181.67876pt>
 File: figures/merkle-damgard-fig.png Graphic file (type png)
 
 <use figures/merkle-damgard-fig.png>
-Package pdftex.def Info: figures/merkle-damgard-fig.png used on input line 7146
+Package pdftex.def Info: figures/merkle-damgard-fig.png used on input line 7134
 .
 (pdftex.def)             Requested size: 216.81pt x 100.10658pt.
  [260 </home/boyto/Dropbox/Work/Apunte/figures/merkle-damgard-fig.png (PNG copy
@@ -2600,11 +2557,11 @@ Package pdftex.def Info: figures/merkle-damgard-fig.png used on input line 7146
 File: figures/davis-meyer-fig.png Graphic file (type png)
 
 <use figures/davis-meyer-fig.png>
-Package pdftex.def Info: figures/davis-meyer-fig.png used on input line 7165.
+Package pdftex.def Info: figures/davis-meyer-fig.png used on input line 7153.
 (pdftex.def)             Requested size: 216.81pt x 244.66122pt.
  [261 </home/boyto/Dropbox/Work/Apunte/figures/davis-meyer-fig.png (PNG copy)>]
 
-Overfull \hbox (2.9654pt too wide) in paragraph at lines 7186--7186
+Overfull \hbox (2.9654pt too wide) in paragraph at lines 7174--7174
 []\OT1/cmr/bx/n/12 Hashing Uni-ver-sal para val-ores at^^Somicos (num^^Sericos)
  
  []
@@ -2612,13 +2569,13 @@ Overfull \hbox (2.9654pt too wide) in paragraph at lines 7186--7186
 [262] [263] [264]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 7267.
+               Default added (so using `htbp') on input line 7255.
 
 [265] [266] <figures/cuckoo-fig.png, id=1058, 223.83624pt x 240.9pt>
 File: figures/cuckoo-fig.png Graphic file (type png)
 
 <use figures/cuckoo-fig.png>
-Package pdftex.def Info: figures/cuckoo-fig.png used on input line 7359.
+Package pdftex.def Info: figures/cuckoo-fig.png used on input line 7347.
 (pdftex.def)             Requested size: 216.81pt x 233.34555pt.
  [267 </home/boyto/Dropbox/Work/Apunte/figures/cuckoo-fig.png (PNG copy)>] [268
 ] [269]
@@ -2626,14 +2583,14 @@ Package pdftex.def Info: figures/cuckoo-fig.png used on input line 7359.
 File: figures/ballsbins-fig-2.png Graphic file (type png)
 
 <use figures/ballsbins-fig-2.png>
-Package pdftex.def Info: figures/ballsbins-fig-2.png used on input line 7440.
+Package pdftex.def Info: figures/ballsbins-fig-2.png used on input line 7428.
 (pdftex.def)             Requested size: 144.54pt x 104.91678pt.
 
 <figures/ballsbins-fig-1.png, id=1069, 211.79124pt x 193.72375pt>
 File: figures/ballsbins-fig-1.png Graphic file (type png)
 
 <use figures/ballsbins-fig-1.png>
-Package pdftex.def Info: figures/ballsbins-fig-1.png used on input line 7449.
+Package pdftex.def Info: figures/ballsbins-fig-1.png used on input line 7437.
 (pdftex.def)             Requested size: 144.54pt x 132.21518pt.
  [270 </home/boyto/Dropbox/Work/Apunte/figures/ballsbins-fig-2.png (PNG copy)>]
 
@@ -2641,17 +2598,17 @@ Package pdftex.def Info: figures/ballsbins-fig-1.png used on input line 7449.
 File: figures/fks-fig-1.png Graphic file (type png)
 
 <use figures/fks-fig-1.png>
-Package pdftex.def Info: figures/fks-fig-1.png used on input line 7470.
+Package pdftex.def Info: figures/fks-fig-1.png used on input line 7458.
 (pdftex.def)             Requested size: 325.215pt x 215.30026pt.
  [271 </home/boyto/Dropbox/Work/Apunte/figures/ballsbins-fig-1.png (PNG copy)>]
  [272 </home/boyto/Dropbox/Work/Apunte/figures/fks-fig-1.png (PNG copy)>]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 7507.
+(amsmath)                 on input line 7495.
 
 ! Misplaced alignment tab character &.
-l.7525 ...ritmo conocido como HDC (Hash Displace &
+l.7513 ...ritmo conocido como HDC (Hash Displace &
                                                    Compress) cuyo origen pod...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -2661,7 +2618,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 [273]
-Overfull \hbox (26.77853pt too wide) in paragraph at lines 7545--7546
+Overfull \hbox (26.77853pt too wide) in paragraph at lines 7533--7534
 []\OT1/cmr/m/n/10 Comenzamos con 10 claves que, de forma imag-i-na-tiva, lla-ma
 re-mos a,b,c,d,e,f,g,h,i,j. 
  []
@@ -2672,7 +2629,7 @@ File: figures/hashing-perfecto-fig-1.png Graphic file (type png)
 
 <use figures/hashing-perfecto-fig-1.png>
 Package pdftex.def Info: figures/hashing-perfecto-fig-1.png used on input line 
-7664.
+7652.
 (pdftex.def)             Requested size: 289.07999pt x 231.65668pt.
  [276]
 <figures/hashing-perfecto-fig-2.png, id=1094, 455.7025pt x 362.35374pt>
@@ -2680,7 +2637,7 @@ File: figures/hashing-perfecto-fig-2.png Graphic file (type png)
 
 <use figures/hashing-perfecto-fig-2.png>
 Package pdftex.def Info: figures/hashing-perfecto-fig-2.png used on input line 
-7677.
+7665.
 (pdftex.def)             Requested size: 289.07999pt x 229.86537pt.
  [277 </home/boyto/Dropbox/Work/Apunte/figures/hashing-perfecto-fig-1.png (PNG 
 copy)>] [278 </home/boyto/Dropbox/Work/Apunte/figures/hashing-perfecto-fig-2.pn
@@ -2689,14 +2646,14 @@ g (PNG copy)>] [279]
 File: figures/consistent.png Graphic file (type png)
 
 <use figures/consistent.png>
-Package pdftex.def Info: figures/consistent.png used on input line 7754.
+Package pdftex.def Info: figures/consistent.png used on input line 7742.
 (pdftex.def)             Requested size: 216.81pt x 218.65001pt.
  [280 </home/boyto/Dropbox/Work/Apunte/figures/consistent.png>]
 <figures/hashingtrick-fig-1.png, id=1109, 549.05125pt x 470.75874pt>
 File: figures/hashingtrick-fig-1.png Graphic file (type png)
 
 <use figures/hashingtrick-fig-1.png>
-Package pdftex.def Info: figures/hashingtrick-fig-1.png used on input line 7778
+Package pdftex.def Info: figures/hashingtrick-fig-1.png used on input line 7766
 .
 (pdftex.def)             Requested size: 289.07999pt x 247.86317pt.
  [281] [282 </home/boyto/Dropbox/Work/Apunte/figures/hashingtrick-fig-1.png (PN
@@ -2704,7 +2661,7 @@ G copy)>]
 Underfull \vbox (badness 6741) has occurred while \output is active []
 
  [283]
-Overfull \hbox (5.80501pt too wide) in paragraph at lines 7838--7839
+Overfull \hbox (5.80501pt too wide) in paragraph at lines 7826--7827
 []\OT1/cmr/m/n/10 Hasta el mo-mento el teo-rema de JL nos in-forma la ex-is-ten
 -cia de una proyecci^^Son
  []
@@ -2713,7 +2670,7 @@ Overfull \hbox (5.80501pt too wide) in paragraph at lines 7838--7839
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [286]
-Overfull \hbox (3.38937pt too wide) in paragraph at lines 7945--7946
+Overfull \hbox (3.38937pt too wide) in paragraph at lines 7933--7934
 []\OT1/cmr/m/n/10 Notemos que el teo-rema de con-cen-tra-tion of mea-sures nos 
 dice que el cuadrado
  []
@@ -2722,28 +2679,28 @@ dice que el cuadrado
 ! Double subscript.
 \BODY ->v_m_
             i^2 = \frac {k}{m}||x_d||^2
-l.7987 \end{myequation}
+l.7975 \end{myequation}
                        
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 ! Double subscript.
 \BODY ->\begin {aligned} v_m_
                              i^2 = \frac {k}{m}||x_d||^2\\ \sum _i v_m_i^2 =...
-l.7998 \end{myequation}
+l.7986 \end{myequation}
                        
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 ! Double subscript.
 \BODY ...^2 = \frac {k}{m}||x_d||^2\\ \sum _i v_m_
                                                   i^2 = m\frac {k}{m}||x_d||...
-l.7998 \end{myequation}
+l.7986 \end{myequation}
                        
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 ! Double subscript.
 \BODY ...rac {k}{m}||x_d||^2\\ \sqrt {\sum _i v_m_
                                                   i^2} = \sqrt {m\frac {k}{m...
-l.7998 \end{myequation}
+l.7986 \end{myequation}
                        
 I treat `x_1_2' essentially like `x_1{}_2'.
 
@@ -2755,39 +2712,39 @@ Chapter 8.
 File: figures/nn-fig-1.png Graphic file (type png)
 
 <use figures/nn-fig-1.png>
-Package pdftex.def Info: figures/nn-fig-1.png used on input line 8072.
+Package pdftex.def Info: figures/nn-fig-1.png used on input line 8060.
 (pdftex.def)             Requested size: 144.54pt x 130.74788pt.
  [293 </home/boyto/Dropbox/Work/Apunte/figures/nn-fig-1.png>] [294] <figures/mi
 nhash1.png, id=1159, 843.15pt x 472.76625pt>
 File: figures/minhash1.png Graphic file (type png)
 
 <use figures/minhash1.png>
-Package pdftex.def Info: figures/minhash1.png used on input line 8124.
+Package pdftex.def Info: figures/minhash1.png used on input line 8112.
 (pdftex.def)             Requested size: 289.07999pt x 162.09459pt.
  [295] [296 </home/boyto/Dropbox/Work/Apunte/figures/minhash1.png>] <figures/mi
 nhash2.png, id=1168, 843.15pt x 472.76625pt>
 File: figures/minhash2.png Graphic file (type png)
 
 <use figures/minhash2.png>
-Package pdftex.def Info: figures/minhash2.png used on input line 8158.
+Package pdftex.def Info: figures/minhash2.png used on input line 8146.
 (pdftex.def)             Requested size: 289.07999pt x 162.09459pt.
 
 <figures/minhash3.png, id=1169, 1181.41376pt x 663.47874pt>
 File: figures/minhash3.png Graphic file (type png)
 
 <use figures/minhash3.png>
-Package pdftex.def Info: figures/minhash3.png used on input line 8177.
+Package pdftex.def Info: figures/minhash3.png used on input line 8165.
 (pdftex.def)             Requested size: 289.07999pt x 162.34616pt.
  [297 </home/boyto/Dropbox/Work/Apunte/figures/minhash2.png>] <figures/minhash4
 .png, id=1174, 1181.41376pt x 663.47874pt>
 File: figures/minhash4.png Graphic file (type png)
 
 <use figures/minhash4.png>
-Package pdftex.def Info: figures/minhash4.png used on input line 8196.
+Package pdftex.def Info: figures/minhash4.png used on input line 8184.
 (pdftex.def)             Requested size: 289.07999pt x 162.34616pt.
  [298 </home/boyto/Dropbox/Work/Apunte/figures/minhash3.png> </home/boyto/Dropb
 ox/Work/Apunte/figures/minhash4.png>] [299] [300]
-Overfull \hbox (1.63945pt too wide) in paragraph at lines 8290--8291
+Overfull \hbox (1.63945pt too wide) in paragraph at lines 8278--8279
 []\OT1/cmr/m/n/10 Para de-mostrar esto va-mos a con-sid-erar dos doc-u-men-tos 
 ais-la-dos cua-lesquiera
  []
@@ -2796,7 +2753,7 @@ ais-la-dos cua-lesquiera
 File: figures/lsh-fig-7.png Graphic file (type png)
 
 <use figures/lsh-fig-7.png>
-Package pdftex.def Info: figures/lsh-fig-7.png used on input line 8385.
+Package pdftex.def Info: figures/lsh-fig-7.png used on input line 8373.
 (pdftex.def)             Requested size: 289.07999pt x 184.18451pt.
  [304 </home/boyto/Dropbox/Work/Apunte/figures/lsh-fig-7.png (PNG copy)>] [305]
  [306]
@@ -2804,21 +2761,21 @@ Package pdftex.def Info: figures/lsh-fig-7.png used on input line 8385.
 File: figures/lsh-fig-9.png Graphic file (type png)
 
 <use figures/lsh-fig-9.png>
-Package pdftex.def Info: figures/lsh-fig-9.png used on input line 8465.
+Package pdftex.def Info: figures/lsh-fig-9.png used on input line 8453.
 (pdftex.def)             Requested size: 144.54pt x 150.47626pt.
  [307 </home/boyto/Dropbox/Work/Apunte/figures/lsh-fig-9.png (PNG copy)>]
 <figures/lsh-fig-8.png, id=1211, 624.3325pt x 173.64874pt>
 File: figures/lsh-fig-8.png Graphic file (type png)
 
 <use figures/lsh-fig-8.png>
-Package pdftex.def Info: figures/lsh-fig-8.png used on input line 8480.
+Package pdftex.def Info: figures/lsh-fig-8.png used on input line 8468.
 (pdftex.def)             Requested size: 289.07999pt x 80.40402pt.
 
 <figures/lsh-fig-11.png, id=1212, 421.575pt x 201.75375pt>
 File: figures/lsh-fig-11.png Graphic file (type png)
 
 <use figures/lsh-fig-11.png>
-Package pdftex.def Info: figures/lsh-fig-11.png used on input line 8491.
+Package pdftex.def Info: figures/lsh-fig-11.png used on input line 8479.
 (pdftex.def)             Requested size: 216.81pt x 103.76118pt.
  [308 </home/boyto/Dropbox/Work/Apunte/figures/lsh-fig-8.png (PNG copy)> </home
 /boyto/Dropbox/Work/Apunte/figures/lsh-fig-11.png (PNG copy)>] <figures/klsh.pn
@@ -2826,23 +2783,23 @@ g, id=1216, 702.625pt x 193.72375pt>
 File: figures/klsh.png Graphic file (type png)
 
 <use figures/klsh.png>
-Package pdftex.def Info: figures/klsh.png used on input line 8512.
+Package pdftex.def Info: figures/klsh.png used on input line 8500.
 (pdftex.def)             Requested size: 310.76122pt x 85.6821pt.
 
-Overfull \hbox (0.445pt too wide) in paragraph at lines 8520--8521
+Overfull \hbox (0.445pt too wide) in paragraph at lines 8508--8509
 []\OT1/cmr/m/n/10 Con es-tos min-hashes pode-mos pro-ceder ex-ac-ta-mente como 
 lo hac^^S^^Pamos antes,
  []
 
 [309 </home/boyto/Dropbox/Work/Apunte/figures/klsh.png (PNG copy)>] [310]
 [311] [312]
-Overfull \hbox (7.45894pt too wide) in paragraph at lines 8601--8602
+Overfull \hbox (7.45894pt too wide) in paragraph at lines 8589--8590
 []\OT1/cmr/m/n/10 En gen-eral va-mos a definir $\OML/cmm/m/it/10 b$ \OT1/cmr/m/
 n/10 en funci^^Son de la memo-ria que teng-amos disponible,
  []
 
 [313]
-Overfull \hbox (3.22284pt too wide) in paragraph at lines 8615--8616
+Overfull \hbox (3.22284pt too wide) in paragraph at lines 8603--8604
 \OT1/cmr/m/n/10 bucket de acuerdo a su lon-gi-tud y luego com-parar el doc-u-me
 nto query ^^Sunicamente
  []
@@ -2851,14 +2808,14 @@ nto query ^^Sunicamente
 File: figures/lsh-fig-14.png Graphic file (type png)
 
 <use figures/lsh-fig-14.png>
-Package pdftex.def Info: figures/lsh-fig-14.png used on input line 8712.
+Package pdftex.def Info: figures/lsh-fig-14.png used on input line 8700.
 (pdftex.def)             Requested size: 216.81pt x 151.70564pt.
 
 <figures/lsh-fig-15.png, id=1243, 195.73125pt x 165.61874pt>
 File: figures/lsh-fig-15.png Graphic file (type png)
 
 <use figures/lsh-fig-15.png>
-Package pdftex.def Info: figures/lsh-fig-15.png used on input line 8730.
+Package pdftex.def Info: figures/lsh-fig-15.png used on input line 8718.
 (pdftex.def)             Requested size: 144.54pt x 122.30829pt.
  [317 </home/boyto/Dropbox/Work/Apunte/figures/lsh-fig-14.png (PNG copy)>] [318
  </home/boyto/Dropbox/Work/Apunte/figures/lsh-fig-15.png (PNG copy)>]
@@ -2869,10 +2826,10 @@ Chapter 9.
 File: figures/manifold-1-fig.png Graphic file (type png)
 
 <use figures/manifold-1-fig.png>
-Package pdftex.def Info: figures/manifold-1-fig.png used on input line 8769.
+Package pdftex.def Info: figures/manifold-1-fig.png used on input line 8757.
 (pdftex.def)             Requested size: 361.34999pt x 235.38211pt.
 
-Overfull \hbox (16.34999pt too wide) in paragraph at lines 8769--8770
+Overfull \hbox (16.34999pt too wide) in paragraph at lines 8757--8758
  [][] 
  []
 
@@ -2880,11 +2837,11 @@ Overfull \hbox (16.34999pt too wide) in paragraph at lines 8769--8770
 File: figures/svd-fig-2.png Graphic file (type png)
 
 <use figures/svd-fig-2.png>
-Package pdftex.def Info: figures/svd-fig-2.png used on input line 8787.
+Package pdftex.def Info: figures/svd-fig-2.png used on input line 8775.
 (pdftex.def)             Requested size: 216.81pt x 112.11098pt.
  [321 </home/boyto/Dropbox/Work/Apunte/figures/manifold-1-fig.png (PNG copy)> <
 /home/boyto/Dropbox/Work/Apunte/figures/svd-fig-2.png (PNG copy)>] [322] [323]
-Overfull \hbox (77.26468pt too wide) detected at line 8925
+Overfull \hbox (77.26468pt too wide) detected at line 8913
 \OML/cmm/m/it/10 A[] \OT1/cmr/m/n/10 = [] [] []
  []
 
@@ -2892,21 +2849,21 @@ Overfull \hbox (77.26468pt too wide) detected at line 8925
 File: figures/sigma-fig-1.png Graphic file (type png)
 
 <use figures/sigma-fig-1.png>
-Package pdftex.def Info: figures/sigma-fig-1.png used on input line 9028.
+Package pdftex.def Info: figures/sigma-fig-1.png used on input line 9016.
 (pdftex.def)             Requested size: 216.81pt x 175.02745pt.
  [326 </home/boyto/Dropbox/Work/Apunte/figures/sigma-fig-1.png (PNG copy)>]
 <figures/and-fig-1.png, id=1279, 448.67625pt x 608.2725pt>
 File: figures/and-fig-1.png Graphic file (type png)
 
 <use figures/and-fig-1.png>
-Package pdftex.def Info: figures/and-fig-1.png used on input line 9063.
+Package pdftex.def Info: figures/and-fig-1.png used on input line 9051.
 (pdftex.def)             Requested size: 216.81pt x 293.92587pt.
 
 <figures/and-fig-2.png, id=1280, 449.68pt x 608.2725pt>
 File: figures/and-fig-2.png Graphic file (type png)
 
 <use figures/and-fig-2.png>
-Package pdftex.def Info: figures/and-fig-2.png used on input line 9070.
+Package pdftex.def Info: figures/and-fig-2.png used on input line 9058.
 (pdftex.def)             Requested size: 216.81pt x 293.27617pt.
  [327] [328 </home/boyto/Dropbox/Work/Apunte/figures/and-fig-1.png (PNG copy)>]
 
@@ -2914,17 +2871,17 @@ Package pdftex.def Info: figures/and-fig-2.png used on input line 9070.
 File: figures/ef-fig-1.png Graphic file (type png)
 
 <use figures/ef-fig-1.png>
-Package pdftex.def Info: figures/ef-fig-1.png used on input line 9095.
+Package pdftex.def Info: figures/ef-fig-1.png used on input line 9083.
 (pdftex.def)             Requested size: 289.07999pt x 293.59616pt.
 
 <figures/ef-fig-2.png, id=1288, 641.39626pt x 645.41125pt>
 File: figures/ef-fig-2.png Graphic file (type png)
 
 <use figures/ef-fig-2.png>
-Package pdftex.def Info: figures/ef-fig-2.png used on input line 9104.
+Package pdftex.def Info: figures/ef-fig-2.png used on input line 9092.
 (pdftex.def)             Requested size: 252.94499pt x 254.52596pt.
 
-Overfull \hbox (2.24954pt too wide) in paragraph at lines 9109--9110
+Overfull \hbox (2.24954pt too wide) in paragraph at lines 9097--9098
 \OT1/cmr/m/n/10 en la SVD pode-mos usar co-or-de-nadas neg-a-ti-vas para al-gun
 o de los vec-tores.Como
  []
@@ -2938,17 +2895,17 @@ Underfull \vbox (badness 1783) has occurred while \output is active []
 File: figures/pca-fig-1.png Graphic file (type png)
 
 <use figures/pca-fig-1.png>
-Package pdftex.def Info: figures/pca-fig-1.png used on input line 9142.
+Package pdftex.def Info: figures/pca-fig-1.png used on input line 9130.
 (pdftex.def)             Requested size: 216.81pt x 210.4621pt.
  [332]
 <figures/pca-fig-2.png, id=1304, 453.695pt x 377.41pt>
 File: figures/pca-fig-2.png Graphic file (type png)
 
 <use figures/pca-fig-2.png>
-Package pdftex.def Info: figures/pca-fig-2.png used on input line 9176.
+Package pdftex.def Info: figures/pca-fig-2.png used on input line 9164.
 (pdftex.def)             Requested size: 216.81pt x 180.35426pt.
  [333 </home/boyto/Dropbox/Work/Apunte/figures/pca-fig-1.png (PNG copy)>]
-Overfull \hbox (38.6533pt too wide) detected at line 9197
+Overfull \hbox (38.6533pt too wide) detected at line 9185
 \OML/cmm/m/it/10 V \OT1/cmr/m/n/10 = [] \OML/cmm/m/it/10 S \OT1/cmr/m/n/10 = []
 
  []
@@ -2958,10 +2915,10 @@ Overfull \hbox (38.6533pt too wide) detected at line 9197
 File: figures/mds-fig-1.png Graphic file (type png)
 
 <use figures/mds-fig-1.png>
-Package pdftex.def Info: figures/mds-fig-1.png used on input line 9236.
+Package pdftex.def Info: figures/mds-fig-1.png used on input line 9224.
 (pdftex.def)             Requested size: 361.34999pt x 188.04504pt.
 
-Overfull \hbox (16.34999pt too wide) in paragraph at lines 9236--9237
+Overfull \hbox (16.34999pt too wide) in paragraph at lines 9224--9225
  [][] 
  []
 
@@ -2970,14 +2927,14 @@ Overfull \hbox (16.34999pt too wide) in paragraph at lines 9236--9237
 File: figures/mds-fig-2.png Graphic file (type png)
 
 <use figures/mds-fig-2.png>
-Package pdftex.def Info: figures/mds-fig-2.png used on input line 9317.
+Package pdftex.def Info: figures/mds-fig-2.png used on input line 9305.
 (pdftex.def)             Requested size: 289.07999pt x 233.35121pt.
 
 <figures/mds-fig-3.png, id=1319, 532.99126pt x 399.4925pt>
 File: figures/mds-fig-3.png Graphic file (type png)
 
 <use figures/mds-fig-3.png>
-Package pdftex.def Info: figures/mds-fig-3.png used on input line 9326.
+Package pdftex.def Info: figures/mds-fig-3.png used on input line 9314.
 (pdftex.def)             Requested size: 289.07999pt x 216.67976pt.
  [337]
 Underfull \vbox (badness 1596) has occurred while \output is active []
@@ -2988,14 +2945,14 @@ Underfull \vbox (badness 1596) has occurred while \output is active []
 File: figures/swiss-fig-1.png Graphic file (type png)
 
 <use figures/swiss-fig-1.png>
-Package pdftex.def Info: figures/swiss-fig-1.png used on input line 9360.
+Package pdftex.def Info: figures/swiss-fig-1.png used on input line 9348.
 (pdftex.def)             Requested size: 216.81pt x 177.16516pt.
 
 <figures/isomap-fig-1.png, id=1331, 419.5675pt x 341.275pt>
 File: figures/isomap-fig-1.png Graphic file (type png)
 
 <use figures/isomap-fig-1.png>
-Package pdftex.def Info: figures/isomap-fig-1.png used on input line 9367.
+Package pdftex.def Info: figures/isomap-fig-1.png used on input line 9355.
 (pdftex.def)             Requested size: 216.81pt x 176.34962pt.
  [340 </home/boyto/Dropbox/Work/Apunte/figures/swiss-fig-1.png (PNG copy)>] [34
 1 </home/boyto/Dropbox/Work/Apunte/figures/isomap-fig-1.png (PNG copy)>] [342] 
@@ -3004,17 +2961,17 @@ Package pdftex.def Info: figures/isomap-fig-1.png used on input line 9367.
 File: figures/eigen-fig-1.png Graphic file (type png)
 
 <use figures/eigen-fig-1.png>
-Package pdftex.def Info: figures/eigen-fig-1.png used on input line 9476.
+Package pdftex.def Info: figures/eigen-fig-1.png used on input line 9464.
 (pdftex.def)             Requested size: 216.81pt x 173.35518pt.
 
 <figures/eigen-fig-2.png, id=1346, 1027.84pt x 276.03125pt>
 File: figures/eigen-fig-2.png Graphic file (type png)
 
 <use figures/eigen-fig-2.png>
-Package pdftex.def Info: figures/eigen-fig-2.png used on input line 9487.
+Package pdftex.def Info: figures/eigen-fig-2.png used on input line 9475.
 (pdftex.def)             Requested size: 361.34999pt x 97.04199pt.
 
-Overfull \hbox (16.34999pt too wide) in paragraph at lines 9487--9488
+Overfull \hbox (16.34999pt too wide) in paragraph at lines 9475--9476
  [][] 
  []
 
@@ -3022,10 +2979,10 @@ Overfull \hbox (16.34999pt too wide) in paragraph at lines 9487--9488
 File: figures/eigen-fig-3.png Graphic file (type png)
 
 <use figures/eigen-fig-3.png>
-Package pdftex.def Info: figures/eigen-fig-3.png used on input line 9496.
+Package pdftex.def Info: figures/eigen-fig-3.png used on input line 9484.
 (pdftex.def)             Requested size: 361.34999pt x 85.34995pt.
 
-Overfull \hbox (16.34999pt too wide) in paragraph at lines 9496--9497
+Overfull \hbox (16.34999pt too wide) in paragraph at lines 9484--9485
  [][] 
  []
 
@@ -3033,10 +2990,10 @@ Overfull \hbox (16.34999pt too wide) in paragraph at lines 9496--9497
 File: figures/eigen-fig-4.png Graphic file (type png)
 
 <use figures/eigen-fig-4.png>
-Package pdftex.def Info: figures/eigen-fig-4.png used on input line 9505.
+Package pdftex.def Info: figures/eigen-fig-4.png used on input line 9493.
 (pdftex.def)             Requested size: 361.34999pt x 111.93045pt.
 
-Overfull \hbox (16.34999pt too wide) in paragraph at lines 9505--9506
+Overfull \hbox (16.34999pt too wide) in paragraph at lines 9493--9494
  [][] 
  []
 
@@ -3044,10 +3001,10 @@ Overfull \hbox (16.34999pt too wide) in paragraph at lines 9505--9506
 File: figures/eigen-fig-5.png Graphic file (type png)
 
 <use figures/eigen-fig-5.png>
-Package pdftex.def Info: figures/eigen-fig-5.png used on input line 9512.
+Package pdftex.def Info: figures/eigen-fig-5.png used on input line 9500.
 (pdftex.def)             Requested size: 361.34999pt x 119.35283pt.
 
-Overfull \hbox (16.34999pt too wide) in paragraph at lines 9512--9513
+Overfull \hbox (16.34999pt too wide) in paragraph at lines 9500--9501
  [][] 
  []
 
@@ -3062,21 +3019,21 @@ opbox/Work/Apunte/figures/eigen-fig-5.png (PNG copy)>]
 File: figures/swiss-fig-1.png Graphic file (type png)
 
 <use figures/swiss-fig-1.png>
-Package pdftex.def Info: figures/swiss-fig-1.png used on input line 9543.
+Package pdftex.def Info: figures/swiss-fig-1.png used on input line 9531.
 (pdftex.def)             Requested size: 144.54pt x 118.11195pt.
 
 <figures/eigen-fig-6.png, id=1356, 317.185pt x 287.0725pt>
 File: figures/eigen-fig-6.png Graphic file (type png)
 
 <use figures/eigen-fig-6.png>
-Package pdftex.def Info: figures/eigen-fig-6.png used on input line 9543.
+Package pdftex.def Info: figures/eigen-fig-6.png used on input line 9531.
 (pdftex.def)             Requested size: 144.54pt x 130.81969pt.
  [346 </home/boyto/Dropbox/Work/Apunte/figures/eigen-fig-6.png (PNG copy)>]
 <figures/tsne-fig-1.png, id=1360, 713.66624pt x 610.28pt>
 File: figures/tsne-fig-1.png Graphic file (type png)
 
 <use figures/tsne-fig-1.png>
-Package pdftex.def Info: figures/tsne-fig-1.png used on input line 9590.
+Package pdftex.def Info: figures/tsne-fig-1.png used on input line 9578.
 (pdftex.def)             Requested size: 216.81pt x 185.3948pt.
 
 Underfull \vbox (badness 1533) has occurred while \output is active []
@@ -3090,10 +3047,10 @@ Chapter 10.
 File: figures/reuters-fig-1.png Graphic file (type png)
 
 <use figures/reuters-fig-1.png>
-Package pdftex.def Info: figures/reuters-fig-1.png used on input line 9660.
+Package pdftex.def Info: figures/reuters-fig-1.png used on input line 9648.
 (pdftex.def)             Requested size: 216.81pt x 94.11436pt.
 
-Overfull \hbox (1.7506pt too wide) in paragraph at lines 9669--9670
+Overfull \hbox (1.7506pt too wide) in paragraph at lines 9657--9658
 \OT1/cmr/m/n/10 Es de-cir que el al-ma-ce-namiento del l^^Sexico com-prende al-
 ma-ce-nar 400.000 t^^Serminos
  []
@@ -3104,7 +3061,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [360]
 [361]
-Overfull \hbox (0.94493pt too wide) in paragraph at lines 10038--10039
+Overfull \hbox (0.94493pt too wide) in paragraph at lines 10026--10027
 []\OT1/cmr/m/n/10 Los par^^Sentesis con-tienen la lista de posi-ciones en donde
  apare-cen los t^^Serminos,
  []
@@ -3114,11 +3071,11 @@ Overfull \hbox (0.94493pt too wide) in paragraph at lines 10038--10039
 File: figures/idf-fig-1.png Graphic file (type png)
 
 <use figures/idf-fig-1.png>
-Package pdftex.def Info: figures/idf-fig-1.png used on input line 10241.
+Package pdftex.def Info: figures/idf-fig-1.png used on input line 10229.
 (pdftex.def)             Requested size: 289.07999pt x 132.03409pt.
 
 
-LaTeX Warning: File `tfidf-fig-1.png' not found on input line 10256.
+LaTeX Warning: File `tfidf-fig-1.png' not found on input line 10244.
 
 
 ! Package pdftex.def Error: File `tfidf-fig-1.png' not found.
@@ -3127,14 +3084,14 @@ See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.10256 ...udegraphics[width=5in]{tfidf-fig-1.png}
+l.10244 ...udegraphics[width=5in]{tfidf-fig-1.png}
                                                   
 Using draft setting for this image.
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Overfull \hbox (16.34999pt too wide) in paragraph at lines 10256--10257
+Overfull \hbox (16.34999pt too wide) in paragraph at lines 10244--10245
  [][] 
  []
 
@@ -3143,26 +3100,26 @@ Overfull \hbox (16.34999pt too wide) in paragraph at lines 10256--10257
 File: figures/tfidf-fig-2.png Graphic file (type png)
 
 <use figures/tfidf-fig-2.png>
-Package pdftex.def Info: figures/tfidf-fig-2.png used on input line 10273.
+Package pdftex.def Info: figures/tfidf-fig-2.png used on input line 10261.
 (pdftex.def)             Requested size: 361.34999pt x 181.85106pt.
 
-Overfull \hbox (16.34999pt too wide) in paragraph at lines 10273--10274
+Overfull \hbox (16.34999pt too wide) in paragraph at lines 10261--10262
  [][] 
  []
 
 [370 </home/boyto/Dropbox/Work/Apunte/figures/tfidf-fig-2.png (PNG copy)>]
-Overfull \hbox (17.99086pt too wide) detected at line 10310
+Overfull \hbox (17.99086pt too wide) detected at line 10298
 []
  []
 
 
-Overfull \hbox (5.22278pt too wide) in paragraph at lines 10326--10327
+Overfull \hbox (5.22278pt too wide) in paragraph at lines 10314--10315
 []\OT1/cmr/m/n/10 En primer lu-gar re-duci-mos el ruido de nues-tra ma-triz, en
  donde antes ten^^S^^Pamos
  []
 
 [371]
-Overfull \hbox (49.44505pt too wide) in paragraph at lines 10342--10347
+Overfull \hbox (49.44505pt too wide) in paragraph at lines 10330--10335
  [][] 
  []
 
@@ -3170,21 +3127,21 @@ Overfull \hbox (49.44505pt too wide) in paragraph at lines 10342--10347
 File: figures/precision-fig-1.png Graphic file (type png)
 
 <use figures/precision-fig-1.png>
-Package pdftex.def Info: figures/precision-fig-1.png used on input line 10392.
+Package pdftex.def Info: figures/precision-fig-1.png used on input line 10380.
 (pdftex.def)             Requested size: 216.81pt x 151.21228pt.
  [373] [374 </home/boyto/Dropbox/Work/Apunte/figures/precision-fig-1.png (PNG c
 opy)>] [375]
-Underfull \hbox (badness 10000) in paragraph at lines 10482--10487
+Underfull \hbox (badness 10000) in paragraph at lines 10470--10475
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 10482--10487
+Underfull \hbox (badness 10000) in paragraph at lines 10470--10475
 
  []
 
 
-Overfull \hbox (19.28291pt too wide) detected at line 10492
+Overfull \hbox (19.28291pt too wide) detected at line 10480
 \OML/cmm/m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w\OT1/cmr/m/n/10 1\OML/cmm/
 m/it/10 ; w\OT1/cmr/m/n/10 2\OML/cmm/m/it/10 ; w\OT1/cmr/m/n/10 3\OML/cmm/m/it/
 10 ; w\OT1/cmr/m/n/10 4\OML/cmm/m/it/10 ; w\OT1/cmr/m/n/10 5) = \OML/cmm/m/it/1
@@ -3201,32 +3158,32 @@ ML/cmm/m/it/10 s\OT1/cmr/m/n/10 4)
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 10494--10503
+Underfull \hbox (badness 10000) in paragraph at lines 10482--10491
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 10494--10503
+Underfull \hbox (badness 10000) in paragraph at lines 10482--10491
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 10494--10503
+Underfull \hbox (badness 10000) in paragraph at lines 10482--10491
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 10494--10503
+Underfull \hbox (badness 10000) in paragraph at lines 10482--10491
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 10494--10503
+Underfull \hbox (badness 10000) in paragraph at lines 10482--10491
 
  []
 
 [376] [377] [378]
-Overfull \hbox (51.84395pt too wide) detected at line 10590
+Overfull \hbox (51.84395pt too wide) detected at line 10578
 []
  []
 
@@ -3235,12 +3192,12 @@ Overfull \hbox (51.84395pt too wide) detected at line 10590
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [381] [382]
-Overfull \hbox (5.30264pt too wide) detected at line 10705
+Overfull \hbox (5.30264pt too wide) detected at line 10693
 []
  []
 
 
-Overfull \hbox (27.15976pt too wide) detected at line 10719
+Overfull \hbox (27.15976pt too wide) detected at line 10707
 []
  []
 
@@ -3248,14 +3205,14 @@ Overfull \hbox (27.15976pt too wide) detected at line 10719
 File: figures/letor-fig-1.png Graphic file (type png)
 
 <use figures/letor-fig-1.png>
-Package pdftex.def Info: figures/letor-fig-1.png used on input line 10781.
+Package pdftex.def Info: figures/letor-fig-1.png used on input line 10769.
 (pdftex.def)             Requested size: 325.215pt x 91.29195pt.
  [385 </home/boyto/Dropbox/Work/Apunte/figures/letor-fig-1.png (PNG copy)>]
 <figures/letor-fig-2.png, id=1492, 327.2225pt x 240.9pt>
 File: figures/letor-fig-2.png Graphic file (type png)
 
 <use figures/letor-fig-2.png>
-Package pdftex.def Info: figures/letor-fig-2.png used on input line 10822.
+Package pdftex.def Info: figures/letor-fig-2.png used on input line 10810.
 (pdftex.def)             Requested size: 180.67499pt x 133.01001pt.
  [386 </home/boyto/Dropbox/Work/Apunte/figures/letor-fig-2.png (PNG copy)>] [38
 7] [388
@@ -3266,7 +3223,7 @@ Chapter 11.
 File: figures/overfit-fig-1.png Graphic file (type png)
 
 <use figures/overfit-fig-1.png>
-Package pdftex.def Info: figures/overfit-fig-1.png used on input line 10881.
+Package pdftex.def Info: figures/overfit-fig-1.png used on input line 10869.
 (pdftex.def)             Requested size: 325.215pt x 81.03741pt.
  [391 </home/boyto/Dropbox/Work/Apunte/figures/overfit-fig-1.png (PNG copy)>]
 <figures/bias-variance-fig-1.png, id=1513, 531.9875pt x 332.24126pt>
@@ -3274,15 +3231,15 @@ File: figures/bias-variance-fig-1.png Graphic file (type png)
 
 <use figures/bias-variance-fig-1.png>
 Package pdftex.def Info: figures/bias-variance-fig-1.png used on input line 108
-92.
+80.
 (pdftex.def)             Requested size: 289.07999pt x 180.54318pt.
 
 <figures/bias-variance-fig-2.png, id=1514, 531.9875pt x 520.94624pt>
 File: figures/bias-variance-fig-2.png Graphic file (type png)
 
 <use figures/bias-variance-fig-2.png>
-Package pdftex.def Info: figures/bias-variance-fig-2.png used on input line 109
-01.
+Package pdftex.def Info: figures/bias-variance-fig-2.png used on input line 108
+89.
 (pdftex.def)             Requested size: 216.81pt x 212.30956pt.
 
 <figures/bias-variance-fig-3.png, id=1515, 976.64874pt x 471.7625pt>
@@ -3290,7 +3247,7 @@ File: figures/bias-variance-fig-3.png Graphic file (type png)
 
 <use figures/bias-variance-fig-3.png>
 Package pdftex.def Info: figures/bias-variance-fig-3.png used on input line 109
-12.
+00.
 (pdftex.def)             Requested size: 325.215pt x 157.093pt.
 
 <figures/bias-variance-fig-4.png, id=1516, 991.705pt x 451.6875pt>
@@ -3298,7 +3255,7 @@ File: figures/bias-variance-fig-4.png Graphic file (type png)
 
 <use figures/bias-variance-fig-4.png>
 Package pdftex.def Info: figures/bias-variance-fig-4.png used on input line 109
-21.
+09.
 (pdftex.def)             Requested size: 325.215pt x 148.12pt.
  [392 </home/boyto/Dropbox/Work/Apunte/figures/bias-variance-fig-1.png (PNG cop
 y)>] [393 </home/boyto/Dropbox/Work/Apunte/figures/bias-variance-fig-2.png (PNG
@@ -3309,40 +3266,40 @@ NG copy)>] [395] [396] [397] [398]
 File: figures/averaging-fig-1.png Graphic file (type png)
 
 <use figures/averaging-fig-1.png>
-Package pdftex.def Info: figures/averaging-fig-1.png used on input line 11082.
+Package pdftex.def Info: figures/averaging-fig-1.png used on input line 11070.
 (pdftex.def)             Requested size: 216.81pt x 109.09619pt.
 
-Overfull \hbox (10.47495pt too wide) in paragraph at lines 11107--11108
+Overfull \hbox (10.47495pt too wide) in paragraph at lines 11095--11096
 []\OT1/cmr/m/n/10 Para cal-cu-lar la prob-a-bil-i-dad fi-nal sim-ple-mente nor-
 mal-izamos $\OML/cmm/m/it/10 prob \OT1/cmr/m/n/10 = []$. 
  []
 
 [399] [400 </home/boyto/Dropbox/Work/Apunte/figures/averaging-fig-1.png (PNG co
 py)>] [401] [402]
-Overfull \hbox (0.98361pt too wide) in paragraph at lines 11166--11167
+Overfull \hbox (0.98361pt too wide) in paragraph at lines 11154--11155
 []\OT1/cmr/m/n/10 Al re-sul-tado del al-go-ritmo que en-tren-emos lo va-mos a l
 la-mar nues-tra \OT1/cmr/m/it/10 hip^^Sotesis
  []
 
 [403] [404]
-Overfull \hbox (55.79164pt too wide) detected at line 11256
+Overfull \hbox (55.79164pt too wide) detected at line 11244
 []
  []
 
 [405] [406]
-Overfull \hbox (3.43121pt too wide) in paragraph at lines 11324--11325
+Overfull \hbox (3.43121pt too wide) in paragraph at lines 11312--11313
 \OT1/cmr/m/n/10 hip^^Sotesis $\OMS/cmsy/m/n/10 H$ \OT1/cmr/m/n/10 y que con-sid
 -er-amos cam-biar a otro al-go-ritmo cuya fa-milia de hip^^Sotesis
  []
 
 
-Overfull \hbox (6.31627pt too wide) in paragraph at lines 11331--11332
+Overfull \hbox (6.31627pt too wide) in paragraph at lines 11319--11320
 []\OT1/cmr/m/it/10 Sea $\OMS/cmsy/m/n/10 jHj \OT1/cmr/m/n/10 = \OML/cmm/m/it/10
  k$ \OT1/cmr/m/it/10 y sean
  []
 
 [407]
-Overfull \hbox (13.43124pt too wide) in paragraph at lines 11353--11354
+Overfull \hbox (13.43124pt too wide) in paragraph at lines 11341--11342
 []\OT1/cmr/m/n/10 Dada una fa-milia de hip^^Sotesis $\OMS/cmsy/m/n/10 H$ \OT1/c
 mr/m/n/10 defin-i-mos la di-mensi^^Son de Vapnik-Chervonenkis
  []
@@ -3351,18 +3308,18 @@ mr/m/n/10 defin-i-mos la di-mensi^^Son de Vapnik-Chervonenkis
 File: figures/vc-fig-1.png Graphic file (type png)
 
 <use figures/vc-fig-1.png>
-Package pdftex.def Info: figures/vc-fig-1.png used on input line 11359.
+Package pdftex.def Info: figures/vc-fig-1.png used on input line 11347.
 (pdftex.def)             Requested size: 144.54pt x 130.40355pt.
 
 <figures/vc-fig-2.png, id=1569, 637.38126pt x 316.18124pt>
 File: figures/vc-fig-2.png Graphic file (type png)
 
 <use figures/vc-fig-2.png>
-Package pdftex.def Info: figures/vc-fig-2.png used on input line 11369.
+Package pdftex.def Info: figures/vc-fig-2.png used on input line 11357.
 (pdftex.def)             Requested size: 289.07999pt x 143.39952pt.
 File: figures/vc-fig-2.png Graphic file (type png)
  <use figures/vc-fig-2.png>
-Package pdftex.def Info: figures/vc-fig-2.png used on input line 11379.
+Package pdftex.def Info: figures/vc-fig-2.png used on input line 11367.
 (pdftex.def)             Requested size: 289.07999pt x 143.39952pt.
  [408]
 
@@ -3370,7 +3327,7 @@ LaTeX Warning: Text page 409 contains only floats.
 
 [409 </home/boyto/Dropbox/Work/Apunte/figures/vc-fig-1.png (PNG copy)> </home/b
 oyto/Dropbox/Work/Apunte/figures/vc-fig-2.png (PNG copy)>] [410]
-Overfull \hbox (15.94377pt too wide) in paragraph at lines 11425--11426
+Overfull \hbox (15.94377pt too wide) in paragraph at lines 11413--11414
 []\OT1/cmr/m/it/10 Para que valga $\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 ^^O\OT1/c
 mr/m/n/10 (\OML/cmm/m/it/10 h\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^^@ []\OT1/cmr/
 m/n/10 (\OML/cmm/m/it/10 h\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 j ^^T
@@ -3380,7 +3337,7 @@ m/n/10 (\OML/cmm/m/it/10 h\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 j ^^T
 File: figures/mdl-fig-1.png Graphic file (type png)
 
 <use figures/mdl-fig-1.png>
-Package pdftex.def Info: figures/mdl-fig-1.png used on input line 11464.
+Package pdftex.def Info: figures/mdl-fig-1.png used on input line 11452.
 (pdftex.def)             Requested size: 252.94499pt x 209.17204pt.
  [412 </home/boyto/Dropbox/Work/Apunte/figures/mdl-fig-1.png (PNG copy)>] [413]
  [414]
@@ -3388,7 +3345,7 @@ Chapter 12.
 [415
 
 ] [416]
-Overfull \hbox (2.17255pt too wide) detected at line 11584
+Overfull \hbox (2.17255pt too wide) detected at line 11572
 [] \OT1/cmr/m/n/10 = 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 9544 \OMS/cmsy/m/n/10 ^
 ^@ \OT1/cmr/m/n/10 ([]\OML/cmm/m/it/10 H\OT1/cmr/m/n/10 [2\OML/cmm/m/it/10 =\OT
 1/cmr/m/n/10 2; 0\OML/cmm/m/it/10 =\OT1/cmr/m/n/10 0] + []\OML/cmm/m/it/10 H\OT
@@ -3402,14 +3359,14 @@ n/10 5488
 File: figures/tree-fig-1.png Graphic file (type png)
 
 <use figures/tree-fig-1.png>
-Package pdftex.def Info: figures/tree-fig-1.png used on input line 11590.
+Package pdftex.def Info: figures/tree-fig-1.png used on input line 11578.
 (pdftex.def)             Requested size: 289.07999pt x 106.27385pt.
 
 <figures/tree-fig-2.png, id=1601, 876.27374pt x 423.5825pt>
 File: figures/tree-fig-2.png Graphic file (type png)
 
 <use figures/tree-fig-2.png>
-Package pdftex.def Info: figures/tree-fig-2.png used on input line 11599.
+Package pdftex.def Info: figures/tree-fig-2.png used on input line 11587.
 (pdftex.def)             Requested size: 289.07999pt x 139.73741pt.
  [417 </home/boyto/Dropbox/Work/Apunte/figures/tree-fig-1.png (PNG copy)>] [418
  </home/boyto/Dropbox/Work/Apunte/figures/tree-fig-2.png (PNG copy)>] <figures/
@@ -3417,26 +3374,26 @@ rf-fig-1.png, id=1608, 685.56125pt x 222.8325pt>
 File: figures/rf-fig-1.png Graphic file (type png)
 
 <use figures/rf-fig-1.png>
-Package pdftex.def Info: figures/rf-fig-1.png used on input line 11673.
+Package pdftex.def Info: figures/rf-fig-1.png used on input line 11661.
 (pdftex.def)             Requested size: 325.215pt x 105.71053pt.
  [419] [420 </home/boyto/Dropbox/Work/Apunte/figures/rf-fig-1.png (PNG copy)>] 
 [421]
-Overfull \hbox (10.42636pt too wide) detected at line 11746
+Overfull \hbox (10.42636pt too wide) detected at line 11734
 []
  []
 
 
-Overfull \hbox (33.21805pt too wide) detected at line 11754
+Overfull \hbox (33.21805pt too wide) detected at line 11742
 []
  []
 
 
-Overfull \hbox (75.24332pt too wide) detected at line 11758
+Overfull \hbox (75.24332pt too wide) detected at line 11746
 []
  []
 
 [422]
-Overfull \hbox (67.17166pt too wide) detected at line 11789
+Overfull \hbox (67.17166pt too wide) detected at line 11777
 []
  []
 
@@ -3444,20 +3401,20 @@ Overfull \hbox (67.17166pt too wide) detected at line 11789
 File: figures/xgboost-fig-1.png Graphic file (type png)
 
 <use figures/xgboost-fig-1.png>
-Package pdftex.def Info: figures/xgboost-fig-1.png used on input line 11816.
+Package pdftex.def Info: figures/xgboost-fig-1.png used on input line 11804.
 (pdftex.def)             Requested size: 252.94499pt x 178.28838pt.
 
-Overfull \hbox (24.3592pt too wide) detected at line 11838
+Overfull \hbox (24.3592pt too wide) detected at line 11826
 []
  []
 
 
-Overfull \hbox (22.23454pt too wide) detected at line 11842
+Overfull \hbox (22.23454pt too wide) detected at line 11830
 []
  []
 
 [423]
-Overfull \hbox (22.23454pt too wide) detected at line 11866
+Overfull \hbox (22.23454pt too wide) detected at line 11854
 []
  []
 
@@ -3466,23 +3423,23 @@ Overfull \hbox (22.23454pt too wide) detected at line 11866
 File: figures/xgboost-fig-2.png Graphic file (type png)
 
 <use figures/xgboost-fig-2.png>
-Package pdftex.def Info: figures/xgboost-fig-2.png used on input line 11886.
+Package pdftex.def Info: figures/xgboost-fig-2.png used on input line 11874.
 (pdftex.def)             Requested size: 325.215pt x 168.79863pt.
  [425 </home/boyto/Dropbox/Work/Apunte/figures/xgboost-fig-2.png (PNG copy)>] [
 426] [427] [428]
-Overfull \hbox (9.50084pt too wide) in paragraph at lines 12007--12008
+Overfull \hbox (9.50084pt too wide) in paragraph at lines 11995--11996
 []\OT1/cmr/m/n/10 P(polo|deporte,equipo,caballo) = P(polo) P(deporte|polo) P(eq
 uipo|polo)
  []
 
 
-Overfull \hbox (63.50073pt too wide) in paragraph at lines 12009--12010
+Overfull \hbox (63.50073pt too wide) in paragraph at lines 11997--11998
 []\OT1/cmr/m/n/10 P(ajedrez|deporte,eqiuipo,caballo) = P(ajedrez) P(deporte|aje
 drez) P(equipo|ajedrez)
  []
 
 
-Overfull \hbox (39.50096pt too wide) in paragraph at lines 12011--12012
+Overfull \hbox (39.50096pt too wide) in paragraph at lines 11999--12000
 []\OT1/cmr/m/n/10 P(futbol|deporte,equipo,caballo) = P(f^^Sutbol) P(deporte|f^^
 Sutbol) P(equipo|f^^Sutbol)
  []
@@ -3491,24 +3448,24 @@ Sutbol) P(equipo|f^^Sutbol)
 File: figures/perceptron-fig-1.png Graphic file (type png)
 
 <use figures/perceptron-fig-1.png>
-Package pdftex.def Info: figures/perceptron-fig-1.png used on input line 12028.
+Package pdftex.def Info: figures/perceptron-fig-1.png used on input line 12016.
 
 (pdftex.def)             Requested size: 325.215pt x 168.30707pt.
  [430 </home/boyto/Dropbox/Work/Apunte/figures/perceptron-fig-1.png (PNG copy)>
 ]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 12052.
+               Default added (so using `htbp') on input line 12040.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 12067.
+               Default added (so using `htbp') on input line 12055.
 
 [431] <figures/perceptron-fig-2.png, id=1653, 783.92876pt x 438.63875pt>
 File: figures/perceptron-fig-2.png Graphic file (type png)
 
 <use figures/perceptron-fig-2.png>
-Package pdftex.def Info: figures/perceptron-fig-2.png used on input line 12108.
+Package pdftex.def Info: figures/perceptron-fig-2.png used on input line 12096.
 
 (pdftex.def)             Requested size: 325.215pt x 181.97144pt.
  [432] [433 </home/boyto/Dropbox/Work/Apunte/figures/perceptron-fig-2.png (PNG 
@@ -3517,7 +3474,7 @@ copy)>]
 File: figures/perceptron-fig-4.png Graphic file (type png)
 
 <use figures/perceptron-fig-4.png>
-Package pdftex.def Info: figures/perceptron-fig-4.png used on input line 12174.
+Package pdftex.def Info: figures/perceptron-fig-4.png used on input line 12162.
 
 (pdftex.def)             Requested size: 180.67499pt x 144.16331pt.
 
@@ -3525,7 +3482,7 @@ Package pdftex.def Info: figures/perceptron-fig-4.png used on input line 12174.
 File: figures/perceptron-fig-5.png Graphic file (type png)
 
 <use figures/perceptron-fig-5.png>
-Package pdftex.def Info: figures/perceptron-fig-5.png used on input line 12190.
+Package pdftex.def Info: figures/perceptron-fig-5.png used on input line 12178.
 
 (pdftex.def)             Requested size: 180.67499pt x 143.30786pt.
  [434 </home/boyto/Dropbox/Work/Apunte/figures/perceptron-fig-4.png (PNG copy)>
@@ -3534,7 +3491,7 @@ Package pdftex.def Info: figures/perceptron-fig-5.png used on input line 12190.
 File: figures/perceptron-fig-6.png Graphic file (type png)
 
 <use figures/perceptron-fig-6.png>
-Package pdftex.def Info: figures/perceptron-fig-6.png used on input line 12215.
+Package pdftex.def Info: figures/perceptron-fig-6.png used on input line 12203.
 
 (pdftex.def)             Requested size: 180.67499pt x 139.15308pt.
  [435 </home/boyto/Dropbox/Work/Apunte/figures/perceptron-fig-5.png (PNG copy)>
@@ -3544,14 +3501,14 @@ Package pdftex.def Info: figures/perceptron-fig-6.png used on input line 12215.
 File: figures/svm-fig-1.png Graphic file (type png)
 
 <use figures/svm-fig-1.png>
-Package pdftex.def Info: figures/svm-fig-1.png used on input line 12266.
+Package pdftex.def Info: figures/svm-fig-1.png used on input line 12254.
 (pdftex.def)             Requested size: 180.67499pt x 107.48953pt.
  [437]
 <figures/svm-fig-2.png, id=1678, 264.99pt x 244.915pt>
 File: figures/svm-fig-2.png Graphic file (type png)
 
 <use figures/svm-fig-2.png>
-Package pdftex.def Info: figures/svm-fig-2.png used on input line 12291.
+Package pdftex.def Info: figures/svm-fig-2.png used on input line 12279.
 (pdftex.def)             Requested size: 180.67499pt x 166.98843pt.
  [438 </home/boyto/Dropbox/Work/Apunte/figures/svm-fig-1.png (PNG copy)> </home
 /boyto/Dropbox/Work/Apunte/figures/svm-fig-2.png (PNG copy)>] <figures/svm-fig-
@@ -3559,7 +3516,7 @@ Package pdftex.def Info: figures/svm-fig-2.png used on input line 12291.
 File: figures/svm-fig-3.png Graphic file (type png)
 
 <use figures/svm-fig-3.png>
-Package pdftex.def Info: figures/svm-fig-3.png used on input line 12324.
+Package pdftex.def Info: figures/svm-fig-3.png used on input line 12312.
 (pdftex.def)             Requested size: 180.67499pt x 172.52898pt.
  [439] [440 </home/boyto/Dropbox/Work/Apunte/figures/svm-fig-3.png (PNG copy)>]
 
@@ -3567,7 +3524,7 @@ Package pdftex.def Info: figures/svm-fig-3.png used on input line 12324.
 File: figures/svm-fig-4.png Graphic file (type png)
 
 <use figures/svm-fig-4.png>
-Package pdftex.def Info: figures/svm-fig-4.png used on input line 12401.
+Package pdftex.def Info: figures/svm-fig-4.png used on input line 12389.
 (pdftex.def)             Requested size: 252.94499pt x 227.05428pt.
  [441] [442 </home/boyto/Dropbox/Work/Apunte/figures/svm-fig-4.png (PNG copy)>]
 
@@ -3575,22 +3532,22 @@ Package pdftex.def Info: figures/svm-fig-4.png used on input line 12401.
 File: figures/svm-fig-7.png Graphic file (type png)
 
 <use figures/svm-fig-7.png>
-Package pdftex.def Info: figures/svm-fig-7.png used on input line 12430.
+Package pdftex.def Info: figures/svm-fig-7.png used on input line 12418.
 (pdftex.def)             Requested size: 252.94499pt x 217.81796pt.
  [443 </home/boyto/Dropbox/Work/Apunte/figures/svm-fig-7.png (PNG copy)>]
-Overfull \hbox (5.66733pt too wide) in paragraph at lines 12467--12468
+Overfull \hbox (5.66733pt too wide) in paragraph at lines 12455--12456
 []\OT1/cmr/m/n/10 Una ob-ser-vaci^^Son ex-tremada-mente im-por-tante es que min
 -i-mizar el La-grangiano
  []
 
 
-Overfull \hbox (2.16731pt too wide) in paragraph at lines 12489--12490
+Overfull \hbox (2.16731pt too wide) in paragraph at lines 12477--12478
 []\OT1/cmr/m/n/10 Consideremos ahora el prob-lema pri-mal y quer-e-mos min-i-mi
 zar el La-grangiano
  []
 
 [444]
-Overfull \hbox (32.12445pt too wide) detected at line 12519
+Overfull \hbox (32.12445pt too wide) detected at line 12507
 []
  []
 
@@ -3598,29 +3555,29 @@ Overfull \hbox (32.12445pt too wide) detected at line 12519
 Underfull \vbox (badness 1112) has occurred while \output is active []
 
  [445]
-Overfull \hbox (3.60266pt too wide) in paragraph at lines 12551--12551
+Overfull \hbox (3.60266pt too wide) in paragraph at lines 12539--12539
 []\OT1/cmr/bx/n/12 Algoritmo SMO (Se-quen-tial Min-i-mal Op-ti-miza-tion)
  []
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 12555.
+               Default added (so using `htbp') on input line 12543.
 
 [446]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 12585.
+               Default added (so using `htbp') on input line 12573.
 
 [447]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 12613.
+               Default added (so using `htbp') on input line 12601.
 
 [448] <figures/svm-fig-5.png, id=1717, 334.24875pt x 287.0725pt>
 File: figures/svm-fig-5.png Graphic file (type png)
 
 <use figures/svm-fig-5.png>
-Package pdftex.def Info: figures/svm-fig-5.png used on input line 12641.
+Package pdftex.def Info: figures/svm-fig-5.png used on input line 12629.
 (pdftex.def)             Requested size: 252.94499pt x 217.24872pt.
  [449 </home/boyto/Dropbox/Work/Apunte/figures/svm-fig-5.png (PNG copy)>] [450]
 
@@ -3628,44 +3585,44 @@ Package pdftex.def Info: figures/svm-fig-5.png used on input line 12641.
 File: figures/svm-fig-6.png Graphic file (type png)
 
 <use figures/svm-fig-6.png>
-Package pdftex.def Info: figures/svm-fig-6.png used on input line 12693.
+Package pdftex.def Info: figures/svm-fig-6.png used on input line 12681.
 (pdftex.def)             Requested size: 252.94499pt x 193.3683pt.
 
 <figures/svm-fig-8.png, id=1725, 608.2725pt x 506.89375pt>
 File: figures/svm-fig-8.png Graphic file (type png)
 
 <use figures/svm-fig-8.png>
-Package pdftex.def Info: figures/svm-fig-8.png used on input line 12708.
+Package pdftex.def Info: figures/svm-fig-8.png used on input line 12696.
 (pdftex.def)             Requested size: 252.94499pt x 210.78238pt.
  [451 </home/boyto/Dropbox/Work/Apunte/figures/svm-fig-6.png (PNG copy)>]
 <figures/kernel-fig-1.png, id=1730, 576.1525pt x 477.785pt>
 File: figures/kernel-fig-1.png Graphic file (type png)
 
 <use figures/kernel-fig-1.png>
-Package pdftex.def Info: figures/kernel-fig-1.png used on input line 12731.
+Package pdftex.def Info: figures/kernel-fig-1.png used on input line 12719.
 (pdftex.def)             Requested size: 180.67499pt x 149.82506pt.
 
 <figures/kernel-fig-2.png, id=1731, 957.5775pt x 311.1625pt>
 File: figures/kernel-fig-2.png Graphic file (type png)
 
 <use figures/kernel-fig-2.png>
-Package pdftex.def Info: figures/kernel-fig-2.png used on input line 12741.
+Package pdftex.def Info: figures/kernel-fig-2.png used on input line 12729.
 (pdftex.def)             Requested size: 325.215pt x 105.67514pt.
  [452 </home/boyto/Dropbox/Work/Apunte/figures/svm-fig-8.png (PNG copy)>]
 <figures/kernel-fig-3.png, id=1735, 667.49374pt x 509.905pt>
 File: figures/kernel-fig-3.png Graphic file (type png)
 
 <use figures/kernel-fig-3.png>
-Package pdftex.def Info: figures/kernel-fig-3.png used on input line 12752.
+Package pdftex.def Info: figures/kernel-fig-3.png used on input line 12740.
 (pdftex.def)             Requested size: 180.67499pt x 138.01852pt.
  [453 </home/boyto/Dropbox/Work/Apunte/figures/kernel-fig-1.png (PNG copy)> </h
 ome/boyto/Dropbox/Work/Apunte/figures/kernel-fig-2.png (PNG copy)>]
-Overfull \hbox (49.15744pt too wide) detected at line 12787
+Overfull \hbox (49.15744pt too wide) detected at line 12775
 [] []
  []
 
 [454 </home/boyto/Dropbox/Work/Apunte/figures/kernel-fig-3.png (PNG copy)>]
-Overfull \hbox (29.00453pt too wide) detected at line 12804
+Overfull \hbox (29.00453pt too wide) detected at line 12792
 \OML/cmm/m/it/10 ^^^\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ) = [\OM
 L/cmm/m/it/10 x\OT1/cmr/m/n/10 1\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 1\OML/cmm/m/i
 t/10 ; x\OT1/cmr/m/n/10 1\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 2\OML/cmm/m/it/10 ; 
@@ -3679,7 +3636,7 @@ mr/m/n/10 3\OML/cmm/m/it/10 ; []; []; []; c\OT1/cmr/m/n/10 ]
  []
 
 
-Overfull \hbox (12.844pt too wide) in paragraph at lines 12824--12825
+Overfull \hbox (12.844pt too wide) in paragraph at lines 12812--12813
 []\OT1/cmr/m/n/10 Por propiedad del pro-ducto in-terno: $\OML/cmm/m/it/10 K[] \
 OT1/cmr/m/n/10 =\OML/cmm/m/it/10 < ^^^\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]\OT1
 /cmr/m/n/10 )\OML/cmm/m/it/10 ; ^^^\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]\OT1/cm
@@ -3689,7 +3646,7 @@ n/10 (\OML/cmm/m/it/10 x[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; ^^^\OT1/cmr/m/n/1
  []
 
 [455]
-Overfull \hbox (14.62907pt too wide) in paragraph at lines 12839--12840
+Overfull \hbox (14.62907pt too wide) in paragraph at lines 12827--12828
 []\OT1/cmr/m/n/10 En el ante-^^Sultimo paso us-amos la sigu-iente propiedad: $[
 ][] [][] \OML/cmm/m/it/10 z[]x[]x[]z[] \OT1/cmr/m/n/10 =\OML/cmm/m/it/10 <
  []
@@ -3698,21 +3655,21 @@ Overfull \hbox (14.62907pt too wide) in paragraph at lines 12839--12840
 File: figures/kernel-fig-4.png Graphic file (type png)
 
 <use figures/kernel-fig-4.png>
-Package pdftex.def Info: figures/kernel-fig-4.png used on input line 12864.
+Package pdftex.def Info: figures/kernel-fig-4.png used on input line 12852.
 (pdftex.def)             Requested size: 180.67499pt x 140.11926pt.
 
 <figures/kernel-fig-5.png, id=1749, 914.41624pt x 359.3425pt>
 File: figures/kernel-fig-5.png Graphic file (type png)
 
 <use figures/kernel-fig-5.png>
-Package pdftex.def Info: figures/kernel-fig-5.png used on input line 12877.
+Package pdftex.def Info: figures/kernel-fig-5.png used on input line 12865.
 (pdftex.def)             Requested size: 325.215pt x 127.8005pt.
 
 <figures/kernel-fig-6.png, id=1750, 884.30376pt x 338.26375pt>
 File: figures/kernel-fig-6.png Graphic file (type png)
 
 <use figures/kernel-fig-6.png>
-Package pdftex.def Info: figures/kernel-fig-6.png used on input line 12886.
+Package pdftex.def Info: figures/kernel-fig-6.png used on input line 12874.
 (pdftex.def)             Requested size: 325.215pt x 124.40204pt.
  [457 </home/boyto/Dropbox/Work/Apunte/figures/kernel-fig-4.png (PNG copy)> </h
 ome/boyto/Dropbox/Work/Apunte/figures/kernel-fig-5.png (PNG copy)>] [458 </home
@@ -3721,7 +3678,7 @@ l-fig-7.png, id=1758, 657.45625pt x 540.0175pt>
 File: figures/kernel-fig-7.png Graphic file (type png)
 
 <use figures/kernel-fig-7.png>
-Package pdftex.def Info: figures/kernel-fig-7.png used on input line 12916.
+Package pdftex.def Info: figures/kernel-fig-7.png used on input line 12904.
 (pdftex.def)             Requested size: 252.94499pt x 207.75493pt.
 
 Underfull \vbox (badness 2277) has occurred while \output is active []
@@ -3731,15 +3688,15 @@ Underfull \vbox (badness 2277) has occurred while \output is active []
 File: figures/kernel-fig-8.png Graphic file (type png)
 
 <use figures/kernel-fig-8.png>
-Package pdftex.def Info: figures/kernel-fig-8.png used on input line 12931.
+Package pdftex.def Info: figures/kernel-fig-8.png used on input line 12919.
 (pdftex.def)             Requested size: 397.48499pt x 347.55333pt.
 
-Overfull \hbox (52.48499pt too wide) in paragraph at lines 12931--12932
+Overfull \hbox (52.48499pt too wide) in paragraph at lines 12919--12920
  [][] 
  []
 
 [460 </home/boyto/Dropbox/Work/Apunte/figures/kernel-fig-8.png (PNG copy)>]
-Overfull \hbox (36.13954pt too wide) in paragraph at lines 12946--12951
+Overfull \hbox (36.13954pt too wide) in paragraph at lines 12934--12939
  [] 
  []
 
@@ -3747,7 +3704,7 @@ Overfull \hbox (36.13954pt too wide) in paragraph at lines 12946--12951
 File: figures/svm-fig-9.png Graphic file (type png)
 
 <use figures/svm-fig-9.png>
-Package pdftex.def Info: figures/svm-fig-9.png used on input line 12963.
+Package pdftex.def Info: figures/svm-fig-9.png used on input line 12951.
 (pdftex.def)             Requested size: 252.94499pt x 258.65515pt.
  [461] [462 </home/boyto/Dropbox/Work/Apunte/figures/svm-fig-9.png (PNG copy)>]
  [463] [464
@@ -3762,33 +3719,33 @@ Underfull \vbox (badness 6252) has occurred while \output is active []
 File: figures/hclus-fig-1.png Graphic file (type png)
 
 <use figures/hclus-fig-1.png>
-Package pdftex.def Info: figures/hclus-fig-1.png used on input line 13053.
+Package pdftex.def Info: figures/hclus-fig-1.png used on input line 13041.
 (pdftex.def)             Requested size: 252.94499pt x 209.90773pt.
 
 <figures/hclus-fig-2.png, id=1787, 562.1pt x 441.65pt>
 File: figures/hclus-fig-2.png Graphic file (type png)
 
 <use figures/hclus-fig-2.png>
-Package pdftex.def Info: figures/hclus-fig-2.png used on input line 13084.
+Package pdftex.def Info: figures/hclus-fig-2.png used on input line 13072.
 (pdftex.def)             Requested size: 252.94499pt x 198.74066pt.
  [467 </home/boyto/Dropbox/Work/Apunte/figures/hclus-fig-1.png (PNG copy)>]
 <figures/hclus-fig-3.png, id=1791, 800.9925pt x 486.81876pt>
 File: figures/hclus-fig-3.png Graphic file (type png)
 
 <use figures/hclus-fig-3.png>
-Package pdftex.def Info: figures/hclus-fig-3.png used on input line 13098.
+Package pdftex.def Info: figures/hclus-fig-3.png used on input line 13086.
 (pdftex.def)             Requested size: 325.215pt x 197.6582pt.
 
 <figures/hclus-fig-4.png, id=1792, 534.99875pt x 469.755pt>
 File: figures/hclus-fig-4.png Graphic file (type png)
 
 <use figures/hclus-fig-4.png>
-Package pdftex.def Info: figures/hclus-fig-4.png used on input line 13109.
+Package pdftex.def Info: figures/hclus-fig-4.png used on input line 13097.
 (pdftex.def)             Requested size: 252.94499pt x 222.0966pt.
  [468 </home/boyto/Dropbox/Work/Apunte/figures/hclus-fig-2.png (PNG copy)>] [46
 9 </home/boyto/Dropbox/Work/Apunte/figures/hclus-fig-3.png (PNG copy)> </home/b
 oyto/Dropbox/Work/Apunte/figures/hclus-fig-4.png (PNG copy)>]
-Overfull \hbox (0.13937pt too wide) in paragraph at lines 13124--13125
+Overfull \hbox (0.13937pt too wide) in paragraph at lines 13112--13113
 []\OT1/cmr/m/n/10 Es nece-sario en cada paso en-con-trar los clus-ters que est^
 ^San a dis-tan-cia m^^S^^Pnima,
  []
@@ -3801,19 +3758,19 @@ Underfull \vbox (badness 1248) has occurred while \output is active []
 File: figures/kmeans-fig-1.png Graphic file (type png)
 
 <use figures/kmeans-fig-1.png>
-Package pdftex.def Info: figures/kmeans-fig-1.png used on input line 13154.
+Package pdftex.def Info: figures/kmeans-fig-1.png used on input line 13142.
 (pdftex.def)             Requested size: 325.215pt x 132.79204pt.
 
 <figures/kmeans-fig-2.png, id=1804, 772.8875pt x 252.945pt>
 File: figures/kmeans-fig-2.png Graphic file (type png)
 
 <use figures/kmeans-fig-2.png>
-Package pdftex.def Info: figures/kmeans-fig-2.png used on input line 13165.
+Package pdftex.def Info: figures/kmeans-fig-2.png used on input line 13153.
 (pdftex.def)             Requested size: 325.215pt x 106.43301pt.
  [471]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 13176.
+               Default added (so using `htbp') on input line 13164.
 
 [472 </home/boyto/Dropbox/Work/Apunte/figures/kmeans-fig-1.png (PNG copy)> </ho
 me/boyto/Dropbox/Work/Apunte/figures/kmeans-fig-2.png (PNG copy)>]
@@ -3821,33 +3778,33 @@ me/boyto/Dropbox/Work/Apunte/figures/kmeans-fig-2.png (PNG copy)>]
 File: figures/kmeans-fig-3.png Graphic file (type png)
 
 <use figures/kmeans-fig-3.png>
-Package pdftex.def Info: figures/kmeans-fig-3.png used on input line 13202.
+Package pdftex.def Info: figures/kmeans-fig-3.png used on input line 13190.
 (pdftex.def)             Requested size: 252.94499pt x 211.61717pt.
  [473 </home/boyto/Dropbox/Work/Apunte/figures/kmeans-fig-3.png (PNG copy)>]
 <figures/kmeans-fig-4.png, id=1815, 766.865pt x 323.2075pt>
 File: figures/kmeans-fig-4.png Graphic file (type png)
 
 <use figures/kmeans-fig-4.png>
-Package pdftex.def Info: figures/kmeans-fig-4.png used on input line 13213.
+Package pdftex.def Info: figures/kmeans-fig-4.png used on input line 13201.
 (pdftex.def)             Requested size: 325.215pt x 137.06793pt.
 
 <figures/kmeans-fig-5.png, id=1816, 803.0pt x 376.40625pt>
 File: figures/kmeans-fig-5.png Graphic file (type png)
 
 <use figures/kmeans-fig-5.png>
-Package pdftex.def Info: figures/kmeans-fig-5.png used on input line 13228.
+Package pdftex.def Info: figures/kmeans-fig-5.png used on input line 13216.
 (pdftex.def)             Requested size: 325.215pt x 152.44943pt.
 
 <figures/kmeans-fig-6.png, id=1817, 775.89874pt x 311.1625pt>
 File: figures/kmeans-fig-6.png Graphic file (type png)
 
 <use figures/kmeans-fig-6.png>
-Package pdftex.def Info: figures/kmeans-fig-6.png used on input line 13239.
+Package pdftex.def Info: figures/kmeans-fig-6.png used on input line 13227.
 (pdftex.def)             Requested size: 325.215pt x 130.42622pt.
  [474 </home/boyto/Dropbox/Work/Apunte/figures/kmeans-fig-4.png (PNG copy)>]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 13252.
+               Default added (so using `htbp') on input line 13240.
 
 [475 </home/boyto/Dropbox/Work/Apunte/figures/kmeans-fig-5.png (PNG copy)> </ho
 me/boyto/Dropbox/Work/Apunte/figures/kmeans-fig-6.png (PNG copy)>]
@@ -3855,10 +3812,10 @@ me/boyto/Dropbox/Work/Apunte/figures/kmeans-fig-6.png (PNG copy)>]
 File: figures/kmeans-fig-8.png Graphic file (type png)
 
 <use figures/kmeans-fig-8.png>
-Package pdftex.def Info: figures/kmeans-fig-8.png used on input line 13267.
+Package pdftex.def Info: figures/kmeans-fig-8.png used on input line 13255.
 (pdftex.def)             Requested size: 397.48499pt x 161.28833pt.
 
-Overfull \hbox (52.48499pt too wide) in paragraph at lines 13267--13268
+Overfull \hbox (52.48499pt too wide) in paragraph at lines 13255--13256
  [][] 
  []
 
@@ -3866,21 +3823,21 @@ Overfull \hbox (52.48499pt too wide) in paragraph at lines 13267--13268
 File: figures/kmeansp1.png Graphic file (type png)
 
 <use figures/kmeansp1.png>
-Package pdftex.def Info: figures/kmeansp1.png used on input line 13276.
+Package pdftex.def Info: figures/kmeansp1.png used on input line 13264.
 (pdftex.def)             Requested size: 216.81pt x 117.26674pt.
 
 <figures/kmeansp2.png, id=1827, 526.96875pt x 283.0575pt>
 File: figures/kmeansp2.png Graphic file (type png)
 
 <use figures/kmeansp2.png>
-Package pdftex.def Info: figures/kmeansp2.png used on input line 13285.
+Package pdftex.def Info: figures/kmeansp2.png used on input line 13273.
 (pdftex.def)             Requested size: 216.81pt x 116.46031pt.
 
 <figures/kmeans-fig-9.png, id=1828, 500.87125pt x 397.485pt>
 File: figures/kmeans-fig-9.png Graphic file (type png)
 
 <use figures/kmeans-fig-9.png>
-Package pdftex.def Info: figures/kmeans-fig-9.png used on input line 13297.
+Package pdftex.def Info: figures/kmeans-fig-9.png used on input line 13285.
 (pdftex.def)             Requested size: 252.94499pt x 200.73743pt.
  [476 </home/boyto/Dropbox/Work/Apunte/figures/kmeans-fig-8.png (PNG copy)>] [4
 77 </home/boyto/Dropbox/Work/Apunte/figures/kmeansp1.png (PNG copy)> </home/boy
@@ -3889,7 +3846,7 @@ to/Dropbox/Work/Apunte/figures/kmeansp2.png (PNG copy)>] <figures/kmeans-fig-10
 File: figures/kmeans-fig-10.png Graphic file (type png)
 
 <use figures/kmeans-fig-10.png>
-Package pdftex.def Info: figures/kmeans-fig-10.png used on input line 13316.
+Package pdftex.def Info: figures/kmeans-fig-10.png used on input line 13304.
 (pdftex.def)             Requested size: 325.215pt x 121.11728pt.
  [478 </home/boyto/Dropbox/Work/Apunte/figures/kmeans-fig-9.png (PNG copy)> </h
 ome/boyto/Dropbox/Work/Apunte/figures/kmeans-fig-10.png (PNG copy)>]
@@ -3897,25 +3854,25 @@ ome/boyto/Dropbox/Work/Apunte/figures/kmeans-fig-10.png (PNG copy)>]
 File: figures/kmeans-fig-11.png Graphic file (type png)
 
 <use figures/kmeans-fig-11.png>
-Package pdftex.def Info: figures/kmeans-fig-11.png used on input line 13325.
+Package pdftex.def Info: figures/kmeans-fig-11.png used on input line 13313.
 (pdftex.def)             Requested size: 252.94499pt x 205.95456pt.
  [479 </home/boyto/Dropbox/Work/Apunte/figures/kmeans-fig-11.png (PNG copy)>]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 13340.
+               Default added (so using `htbp') on input line 13328.
 
 <figures/kmeans-fig-12.png, id=1843, 441.65pt x 338.26375pt>
 File: figures/kmeans-fig-12.png Graphic file (type png)
 
 <use figures/kmeans-fig-12.png>
-Package pdftex.def Info: figures/kmeans-fig-12.png used on input line 13361.
+Package pdftex.def Info: figures/kmeans-fig-12.png used on input line 13349.
 (pdftex.def)             Requested size: 216.81pt x 166.0552pt.
  [480 </home/boyto/Dropbox/Work/Apunte/figures/kmeans-fig-12.png (PNG copy)>]
 <figures/kmeans-fig-16.png, id=1847, 575.14874pt x 449.68pt>
 File: figures/kmeans-fig-16.png Graphic file (type png)
 
 <use figures/kmeans-fig-16.png>
-Package pdftex.def Info: figures/kmeans-fig-16.png used on input line 13374.
+Package pdftex.def Info: figures/kmeans-fig-16.png used on input line 13362.
 (pdftex.def)             Requested size: 252.94499pt x 197.76375pt.
  [481 </home/boyto/Dropbox/Work/Apunte/figures/kmeans-fig-16.png (PNG copy)>] [
 482]
@@ -3923,14 +3880,14 @@ Package pdftex.def Info: figures/kmeans-fig-16.png used on input line 13374.
 File: figures/skmeans-fig-5.png Graphic file (type png)
 
 <use figures/skmeans-fig-5.png>
-Package pdftex.def Info: figures/skmeans-fig-5.png used on input line 13461.
+Package pdftex.def Info: figures/skmeans-fig-5.png used on input line 13449.
 (pdftex.def)             Requested size: 252.94499pt x 206.14679pt.
 
 <figures/skmeans-fig-6.png, id=1857, 420.57124pt x 350.30875pt>
 File: figures/skmeans-fig-6.png Graphic file (type png)
 
 <use figures/skmeans-fig-6.png>
-Package pdftex.def Info: figures/skmeans-fig-6.png used on input line 13472.
+Package pdftex.def Info: figures/skmeans-fig-6.png used on input line 13460.
 (pdftex.def)             Requested size: 252.94499pt x 210.68932pt.
  [483] [484 </home/boyto/Dropbox/Work/Apunte/figures/skmeans-fig-5.png (PNG cop
 y)> </home/boyto/Dropbox/Work/Apunte/figures/skmeans-fig-6.png (PNG copy)>] [48
@@ -3939,14 +3896,14 @@ y)> </home/boyto/Dropbox/Work/Apunte/figures/skmeans-fig-6.png (PNG copy)>] [48
 File: figures/kmeans-fig-17.png Graphic file (type png)
 
 <use figures/kmeans-fig-17.png>
-Package pdftex.def Info: figures/kmeans-fig-17.png used on input line 13554.
+Package pdftex.def Info: figures/kmeans-fig-17.png used on input line 13542.
 (pdftex.def)             Requested size: 325.215pt x 55.6341pt.
  [486]
 <figures/kmeans-fig-18.png, id=1871, 587.19376pt x 587.19376pt>
 File: figures/kmeans-fig-18.png Graphic file (type png)
 
 <use figures/kmeans-fig-18.png>
-Package pdftex.def Info: figures/kmeans-fig-18.png used on input line 13563.
+Package pdftex.def Info: figures/kmeans-fig-18.png used on input line 13551.
 (pdftex.def)             Requested size: 289.07999pt x 289.0804pt.
  [487 </home/boyto/Dropbox/Work/Apunte/figures/kmeans-fig-17.png (PNG copy)> </
 home/boyto/Dropbox/Work/Apunte/figures/kmeans-fig-18.png (PNG copy)>] <figures/
@@ -3954,29 +3911,29 @@ gamma-fig-1.png, id=1876, 395.4775pt x 321.2pt>
 File: figures/gamma-fig-1.png Graphic file (type png)
 
 <use figures/gamma-fig-1.png>
-Package pdftex.def Info: figures/gamma-fig-1.png used on input line 13586.
+Package pdftex.def Info: figures/gamma-fig-1.png used on input line 13574.
 (pdftex.def)             Requested size: 252.94499pt x 205.43987pt.
  [488 </home/boyto/Dropbox/Work/Apunte/figures/gamma-fig-1.png (PNG copy)>] [48
 9]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 13658.
+               Default added (so using `htbp') on input line 13646.
 
 [490] <figures/sfe-fig-1.png, id=1886, 509.905pt x 468.75125pt>
 File: figures/sfe-fig-1.png Graphic file (type png)
 
 <use figures/sfe-fig-1.png>
-Package pdftex.def Info: figures/sfe-fig-1.png used on input line 13685.
+Package pdftex.def Info: figures/sfe-fig-1.png used on input line 13673.
 (pdftex.def)             Requested size: 252.94499pt x 232.52968pt.
 
 <figures/sfe-fig-2.png, id=1887, 466.74374pt x 356.33125pt>
 File: figures/sfe-fig-2.png Graphic file (type png)
 
 <use figures/sfe-fig-2.png>
-Package pdftex.def Info: figures/sfe-fig-2.png used on input line 13695.
+Package pdftex.def Info: figures/sfe-fig-2.png used on input line 13683.
 (pdftex.def)             Requested size: 252.94499pt x 193.10652pt.
  [491]
-Overfull \hbox (43.14464pt too wide) detected at line 13710
+Overfull \hbox (43.14464pt too wide) detected at line 13698
 []
  []
 
@@ -3985,12 +3942,12 @@ Underfull \vbox (badness 1789) has occurred while \output is active []
 
  [492 </home/boyto/Dropbox/Work/Apunte/figures/sfe-fig-1.png (PNG copy)> </home
 /boyto/Dropbox/Work/Apunte/figures/sfe-fig-2.png (PNG copy)>]
-Overfull \hbox (16.22932pt too wide) detected at line 13732
+Overfull \hbox (16.22932pt too wide) detected at line 13720
 []
  []
 
 [493]
-Overfull \hbox (2.66724pt too wide) in paragraph at lines 13748--13749
+Overfull \hbox (2.66724pt too wide) in paragraph at lines 13736--13737
 \OT1/cmr/m/n/10 K-Modes es una vari-ante de K-Means para datos que tienen atrib
 -u-tos categ^^Soricos.
  []
@@ -3999,14 +3956,14 @@ Overfull \hbox (2.66724pt too wide) in paragraph at lines 13748--13749
 File: figures/klsh-fig-1.png Graphic file (type png)
 
 <use figures/klsh-fig-1.png>
-Package pdftex.def Info: figures/klsh-fig-1.png used on input line 13770.
+Package pdftex.def Info: figures/klsh-fig-1.png used on input line 13758.
 (pdftex.def)             Requested size: 252.94499pt x 202.1058pt.
  [494]
 <figures/klsh-fig-2.png, id=1902, 793.96625pt x 645.41125pt>
 File: figures/klsh-fig-2.png Graphic file (type png)
 
 <use figures/klsh-fig-2.png>
-Package pdftex.def Info: figures/klsh-fig-2.png used on input line 13781.
+Package pdftex.def Info: figures/klsh-fig-2.png used on input line 13769.
 (pdftex.def)             Requested size: 325.215pt x 264.37411pt.
  [495 </home/boyto/Dropbox/Work/Apunte/figures/klsh-fig-1.png (PNG copy)>] [496
  </home/boyto/Dropbox/Work/Apunte/figures/klsh-fig-2.png (PNG copy)>] <figures/
@@ -4014,7 +3971,7 @@ invertedmulti.png, id=1909, 867.24pt x 413.545pt>
 File: figures/invertedmulti.png Graphic file (type png)
 
 <use figures/invertedmulti.png>
-Package pdftex.def Info: figures/invertedmulti.png used on input line 13806.
+Package pdftex.def Info: figures/invertedmulti.png used on input line 13794.
 (pdftex.def)             Requested size: 325.215pt x 155.07898pt.
  [497 </home/boyto/Dropbox/Work/Apunte/figures/invertedmulti.png (PNG copy)>]
 
@@ -4024,7 +3981,7 @@ See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.13826 ...dth=3in]{figures/ W2QW kmeanstrees.png}
+l.13814 ...dth=3in]{figures/ W2QW kmeanstrees.png}
                                                   
 Using draft setting for this image.
 Try typing  <return>  to proceed.
@@ -4034,32 +3991,32 @@ If that doesn't work, type  X <return>  to quit.
 File: figures/spec-fig-2.png Graphic file (type png)
 
 <use figures/spec-fig-2.png>
-Package pdftex.def Info: figures/spec-fig-2.png used on input line 13882.
+Package pdftex.def Info: figures/spec-fig-2.png used on input line 13870.
 (pdftex.def)             Requested size: 252.94499pt x 200.79376pt.
  [500 </home/boyto/Dropbox/Work/Apunte/figures/spec-fig-2.png (PNG copy)>]
 <figures/spec-fig-3.png, id=1924, 919.435pt x 627.34375pt>
 File: figures/spec-fig-3.png Graphic file (type png)
 
 <use figures/spec-fig-3.png>
-Package pdftex.def Info: figures/spec-fig-3.png used on input line 13895.
+Package pdftex.def Info: figures/spec-fig-3.png used on input line 13883.
 (pdftex.def)             Requested size: 325.215pt x 221.8997pt.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 13910.
+               Default added (so using `htbp') on input line 13898.
 
 <figures/spec-fig-4.png, id=1925, 928.46875pt x 377.41pt>
 File: figures/spec-fig-4.png Graphic file (type png)
 
 <use figures/spec-fig-4.png>
-Package pdftex.def Info: figures/spec-fig-4.png used on input line 13924.
+Package pdftex.def Info: figures/spec-fig-4.png used on input line 13912.
 (pdftex.def)             Requested size: 325.215pt x 132.19913pt.
 
 <figures/spec-fig-5.png, id=1926, 939.51pt x 382.42876pt>
 File: figures/spec-fig-5.png Graphic file (type png)
 
 <use figures/spec-fig-5.png>
-Package pdftex.def Info: figures/spec-fig-5.png used on input line 13933.
+Package pdftex.def Info: figures/spec-fig-5.png used on input line 13921.
 (pdftex.def)             Requested size: 325.215pt x 132.3757pt.
  [501 </home/boyto/Dropbox/Work/Apunte/figures/spec-fig-3.png (PNG copy)>] [502
  </home/boyto/Dropbox/Work/Apunte/figures/spec-fig-4.png (PNG copy)> </home/boy
@@ -4068,19 +4025,19 @@ fig-1.png, id=1936, 770.88pt x 524.96124pt>
 File: figures/cure-fig-1.png Graphic file (type png)
 
 <use figures/cure-fig-1.png>
-Package pdftex.def Info: figures/cure-fig-1.png used on input line 13977.
+Package pdftex.def Info: figures/cure-fig-1.png used on input line 13965.
 (pdftex.def)             Requested size: 252.94499pt x 172.25249pt.
 
 <figures/cure-fig-2.png, id=1937, 922.44624pt x 567.11874pt>
 File: figures/cure-fig-2.png Graphic file (type png)
 
 <use figures/cure-fig-2.png>
-Package pdftex.def Info: figures/cure-fig-2.png used on input line 13987.
+Package pdftex.def Info: figures/cure-fig-2.png used on input line 13975.
 (pdftex.def)             Requested size: 252.94499pt x 155.50381pt.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 13994.
+               Default added (so using `htbp') on input line 13982.
 
 
 Underfull \vbox (badness 4084) has occurred while \output is active []
@@ -4091,14 +4048,14 @@ Underfull \vbox (badness 4084) has occurred while \output is active []
 File: figures/dbscan-fig-1.png Graphic file (type png)
 
 <use figures/dbscan-fig-1.png>
-Package pdftex.def Info: figures/dbscan-fig-1.png used on input line 14022.
+Package pdftex.def Info: figures/dbscan-fig-1.png used on input line 14010.
 (pdftex.def)             Requested size: 252.94499pt x 194.79787pt.
 
 <figures/dbscan-fig-3.png, id=1946, 487.8225pt x 404.51125pt>
 File: figures/dbscan-fig-3.png Graphic file (type png)
 
 <use figures/dbscan-fig-3.png>
-Package pdftex.def Info: figures/dbscan-fig-3.png used on input line 14031.
+Package pdftex.def Info: figures/dbscan-fig-3.png used on input line 14019.
 (pdftex.def)             Requested size: 252.94499pt x 209.74834pt.
  [506 </home/boyto/Dropbox/Work/Apunte/figures/dbscan-fig-1.png (PNG copy)> </h
 ome/boyto/Dropbox/Work/Apunte/figures/dbscan-fig-3.png (PNG copy)>]
@@ -4106,7 +4063,7 @@ ome/boyto/Dropbox/Work/Apunte/figures/dbscan-fig-3.png (PNG copy)>]
 File: figures/hdbscan-fig-9.png Graphic file (type png)
 
 <use figures/hdbscan-fig-9.png>
-Package pdftex.def Info: figures/hdbscan-fig-9.png used on input line 14048.
+Package pdftex.def Info: figures/hdbscan-fig-9.png used on input line 14036.
 (pdftex.def)             Requested size: 252.94499pt x 171.07787pt.
 
 Underfull \vbox (badness 5460) has occurred while \output is active []
@@ -4116,42 +4073,42 @@ Underfull \vbox (badness 5460) has occurred while \output is active []
 File: figures/hdbscan-fig-1.png Graphic file (type png)
 
 <use figures/hdbscan-fig-1.png>
-Package pdftex.def Info: figures/hdbscan-fig-1.png used on input line 14061.
+Package pdftex.def Info: figures/hdbscan-fig-1.png used on input line 14049.
 (pdftex.def)             Requested size: 252.94499pt x 175.75113pt.
  [508 </home/boyto/Dropbox/Work/Apunte/figures/hdbscan-fig-1.png (PNG copy)>]
 <figures/hdbscan-fig-4.png, id=1958, 916.42375pt x 636.3775pt>
 File: figures/hdbscan-fig-4.png Graphic file (type png)
 
 <use figures/hdbscan-fig-4.png>
-Package pdftex.def Info: figures/hdbscan-fig-4.png used on input line 14086.
+Package pdftex.def Info: figures/hdbscan-fig-4.png used on input line 14074.
 (pdftex.def)             Requested size: 325.215pt x 225.83305pt.
 
 <figures/hdbscan-fig-5.png, id=1959, 990.70125pt x 658.46pt>
 File: figures/hdbscan-fig-5.png Graphic file (type png)
 
 <use figures/hdbscan-fig-5.png>
-Package pdftex.def Info: figures/hdbscan-fig-5.png used on input line 14097.
+Package pdftex.def Info: figures/hdbscan-fig-5.png used on input line 14085.
 (pdftex.def)             Requested size: 325.215pt x 216.14708pt.
  [509 </home/boyto/Dropbox/Work/Apunte/figures/hdbscan-fig-4.png (PNG copy)>]
 <figures/hdbscan-fig-6.png, id=1963, 905.3825pt x 675.52374pt>
 File: figures/hdbscan-fig-6.png Graphic file (type png)
 
 <use figures/hdbscan-fig-6.png>
-Package pdftex.def Info: figures/hdbscan-fig-6.png used on input line 14108.
+Package pdftex.def Info: figures/hdbscan-fig-6.png used on input line 14096.
 (pdftex.def)             Requested size: 325.215pt x 242.64206pt.
  [510 </home/boyto/Dropbox/Work/Apunte/figures/hdbscan-fig-5.png (PNG copy)>]
 <figures/hdbscan-fig-7.png, id=1967, 938.50626pt x 666.49pt>
 File: figures/hdbscan-fig-7.png Graphic file (type png)
 
 <use figures/hdbscan-fig-7.png>
-Package pdftex.def Info: figures/hdbscan-fig-7.png used on input line 14135.
+Package pdftex.def Info: figures/hdbscan-fig-7.png used on input line 14123.
 (pdftex.def)             Requested size: 325.215pt x 230.9461pt.
  [511 </home/boyto/Dropbox/Work/Apunte/figures/hdbscan-fig-6.png (PNG copy)>]
 <figures/hdbscan-fig-8.png, id=1972, 985.6825pt x 683.55376pt>
 File: figures/hdbscan-fig-8.png Graphic file (type png)
 
 <use figures/hdbscan-fig-8.png>
-Package pdftex.def Info: figures/hdbscan-fig-8.png used on input line 14144.
+Package pdftex.def Info: figures/hdbscan-fig-8.png used on input line 14132.
 (pdftex.def)             Requested size: 252.94499pt x 175.40428pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -4162,7 +4119,7 @@ home/boyto/Dropbox/Work/Apunte/figures/hdbscan-fig-8.png (PNG copy)>]
 File: figures/hdbscan-fig-10.png Graphic file (type png)
 
 <use figures/hdbscan-fig-10.png>
-Package pdftex.def Info: figures/hdbscan-fig-10.png used on input line 14153.
+Package pdftex.def Info: figures/hdbscan-fig-10.png used on input line 14141.
 (pdftex.def)             Requested size: 252.94499pt x 176.27875pt.
  [513 </home/boyto/Dropbox/Work/Apunte/figures/hdbscan-fig-10.png (PNG copy)>] 
 [514]
@@ -4173,7 +4130,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14283 \begin{algorithm}[Spectral Co-Clustering]
+l.14271 \begin{algorithm}[Spectral Co-Clustering]
                                                  
 Option `S' ignored and `p' used.
 
@@ -4184,7 +4141,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14283 \begin{algorithm}[Spectral Co-Clustering]
+l.14271 \begin{algorithm}[Spectral Co-Clustering]
                                                  
 Option `e' ignored and `p' used.
 
@@ -4195,7 +4152,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14283 \begin{algorithm}[Spectral Co-Clustering]
+l.14271 \begin{algorithm}[Spectral Co-Clustering]
                                                  
 Option `c' ignored and `p' used.
 
@@ -4206,7 +4163,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14283 \begin{algorithm}[Spectral Co-Clustering]
+l.14271 \begin{algorithm}[Spectral Co-Clustering]
                                                  
 Option `r' ignored and `p' used.
 
@@ -4217,7 +4174,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14283 \begin{algorithm}[Spectral Co-Clustering]
+l.14271 \begin{algorithm}[Spectral Co-Clustering]
                                                  
 Option `a' ignored and `p' used.
 
@@ -4228,7 +4185,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14283 \begin{algorithm}[Spectral Co-Clustering]
+l.14271 \begin{algorithm}[Spectral Co-Clustering]
                                                  
 Option `l' ignored and `p' used.
 
@@ -4239,7 +4196,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14283 \begin{algorithm}[Spectral Co-Clustering]
+l.14271 \begin{algorithm}[Spectral Co-Clustering]
                                                  
 Option `C' ignored and `p' used.
 
@@ -4250,7 +4207,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14283 \begin{algorithm}[Spectral Co-Clustering]
+l.14271 \begin{algorithm}[Spectral Co-Clustering]
                                                  
 Option `o' ignored and `p' used.
 
@@ -4261,7 +4218,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14283 \begin{algorithm}[Spectral Co-Clustering]
+l.14271 \begin{algorithm}[Spectral Co-Clustering]
                                                  
 Option `-' ignored and `p' used.
 
@@ -4272,7 +4229,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14283 \begin{algorithm}[Spectral Co-Clustering]
+l.14271 \begin{algorithm}[Spectral Co-Clustering]
                                                  
 Option `C' ignored and `p' used.
 
@@ -4283,7 +4240,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14283 \begin{algorithm}[Spectral Co-Clustering]
+l.14271 \begin{algorithm}[Spectral Co-Clustering]
                                                  
 Option `l' ignored and `p' used.
 
@@ -4294,7 +4251,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14283 \begin{algorithm}[Spectral Co-Clustering]
+l.14271 \begin{algorithm}[Spectral Co-Clustering]
                                                  
 Option `u' ignored and `p' used.
 
@@ -4305,7 +4262,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14283 \begin{algorithm}[Spectral Co-Clustering]
+l.14271 \begin{algorithm}[Spectral Co-Clustering]
                                                  
 Option `s' ignored and `p' used.
 
@@ -4316,7 +4273,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14283 \begin{algorithm}[Spectral Co-Clustering]
+l.14271 \begin{algorithm}[Spectral Co-Clustering]
                                                  
 Option `e' ignored and `p' used.
 
@@ -4327,7 +4284,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14283 \begin{algorithm}[Spectral Co-Clustering]
+l.14271 \begin{algorithm}[Spectral Co-Clustering]
                                                  
 Option `r' ignored and `p' used.
 
@@ -4338,7 +4295,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14283 \begin{algorithm}[Spectral Co-Clustering]
+l.14271 \begin{algorithm}[Spectral Co-Clustering]
                                                  
 Option `i' ignored and `p' used.
 
@@ -4349,7 +4306,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14283 \begin{algorithm}[Spectral Co-Clustering]
+l.14271 \begin{algorithm}[Spectral Co-Clustering]
                                                  
 Option `n' ignored and `p' used.
 
@@ -4360,7 +4317,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14283 \begin{algorithm}[Spectral Co-Clustering]
+l.14271 \begin{algorithm}[Spectral Co-Clustering]
                                                  
 Option `g' ignored and `p' used.
 
@@ -4372,7 +4329,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14316 \begin{algorithm}[LSI Co-Clustering]
+l.14304 \begin{algorithm}[LSI Co-Clustering]
                                             
 Option `L' ignored and `p' used.
 
@@ -4383,7 +4340,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14316 \begin{algorithm}[LSI Co-Clustering]
+l.14304 \begin{algorithm}[LSI Co-Clustering]
                                             
 Option `S' ignored and `p' used.
 
@@ -4394,7 +4351,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14316 \begin{algorithm}[LSI Co-Clustering]
+l.14304 \begin{algorithm}[LSI Co-Clustering]
                                             
 Option `I' ignored and `p' used.
 
@@ -4405,7 +4362,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14316 \begin{algorithm}[LSI Co-Clustering]
+l.14304 \begin{algorithm}[LSI Co-Clustering]
                                             
 Option `C' ignored and `p' used.
 
@@ -4416,7 +4373,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14316 \begin{algorithm}[LSI Co-Clustering]
+l.14304 \begin{algorithm}[LSI Co-Clustering]
                                             
 Option `o' ignored and `p' used.
 
@@ -4427,7 +4384,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14316 \begin{algorithm}[LSI Co-Clustering]
+l.14304 \begin{algorithm}[LSI Co-Clustering]
                                             
 Option `-' ignored and `p' used.
 
@@ -4438,7 +4395,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14316 \begin{algorithm}[LSI Co-Clustering]
+l.14304 \begin{algorithm}[LSI Co-Clustering]
                                             
 Option `C' ignored and `p' used.
 
@@ -4449,7 +4406,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14316 \begin{algorithm}[LSI Co-Clustering]
+l.14304 \begin{algorithm}[LSI Co-Clustering]
                                             
 Option `l' ignored and `p' used.
 
@@ -4460,7 +4417,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14316 \begin{algorithm}[LSI Co-Clustering]
+l.14304 \begin{algorithm}[LSI Co-Clustering]
                                             
 Option `u' ignored and `p' used.
 
@@ -4471,7 +4428,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14316 \begin{algorithm}[LSI Co-Clustering]
+l.14304 \begin{algorithm}[LSI Co-Clustering]
                                             
 Option `s' ignored and `p' used.
 
@@ -4482,7 +4439,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14316 \begin{algorithm}[LSI Co-Clustering]
+l.14304 \begin{algorithm}[LSI Co-Clustering]
                                             
 Option `e' ignored and `p' used.
 
@@ -4493,7 +4450,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14316 \begin{algorithm}[LSI Co-Clustering]
+l.14304 \begin{algorithm}[LSI Co-Clustering]
                                             
 Option `r' ignored and `p' used.
 
@@ -4504,7 +4461,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14316 \begin{algorithm}[LSI Co-Clustering]
+l.14304 \begin{algorithm}[LSI Co-Clustering]
                                             
 Option `i' ignored and `p' used.
 
@@ -4515,7 +4472,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14316 \begin{algorithm}[LSI Co-Clustering]
+l.14304 \begin{algorithm}[LSI Co-Clustering]
                                             
 Option `n' ignored and `p' used.
 
@@ -4526,60 +4483,60 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14316 \begin{algorithm}[LSI Co-Clustering]
+l.14304 \begin{algorithm}[LSI Co-Clustering]
                                             
 Option `g' ignored and `p' used.
 
 [516]
-Overfull \hbox (43.49661pt too wide) in paragraph at lines 14354--14354
+Overfull \hbox (43.49661pt too wide) in paragraph at lines 14342--14342
 []\OT1/cmtt/m/n/10 categories   : 23% talk.politics.guns, 19% talk.politics.mis
 c, 14% sci.med[] 
  []
 
 
-Overfull \hbox (106.49606pt too wide) in paragraph at lines 14354--14354
+Overfull \hbox (106.49606pt too wide) in paragraph at lines 14342--14342
 []\OT1/cmtt/m/n/10 words        : gun, guns, geb, banks, firearms, drugs, gordo
 n, clinton, cdt, amendment[] 
  []
 
 
-Overfull \hbox (101.24611pt too wide) in paragraph at lines 14354--14354
+Overfull \hbox (101.24611pt too wide) in paragraph at lines 14342--14342
 []\OT1/cmtt/m/n/10 categories   : 29% talk.politics.mideast, 26% soc.religion.c
 hristian, 25% alt.atheism[] 
  []
 
 
-Overfull \hbox (179.99542pt too wide) in paragraph at lines 14354--14354
+Overfull \hbox (179.99542pt too wide) in paragraph at lines 14342--14342
 []\OT1/cmtt/m/n/10 words        : god, jesus, christians, atheists, kent, sin, 
 morality, belief, resurrection, marriage[] 
  []
 
 
-Overfull \hbox (122.24593pt too wide) in paragraph at lines 14354--14354
+Overfull \hbox (122.24593pt too wide) in paragraph at lines 14342--14342
 []\OT1/cmtt/m/n/10 categories   : 18% comp.sys.mac.hardware, 16% comp.sys.ibm.p
 c.hardware, 16% comp.graphics[] 
  []
 
 
-Overfull \hbox (195.74529pt too wide) in paragraph at lines 14354--14354
+Overfull \hbox (195.74529pt too wide) in paragraph at lines 14342--14342
 []\OT1/cmtt/m/n/10 words        : voltage, dsp, board, receiver, circuit, shipp
 ing, packages, stereo, compression, package[] 
  []
 
 
-Overfull \hbox (6.74693pt too wide) in paragraph at lines 14354--14354
+Overfull \hbox (6.74693pt too wide) in paragraph at lines 14342--14342
 []\OT1/cmtt/m/n/10 categories   : 26% rec.motorcycles, 23% rec.autos, 13% misc.
 forsale[] 
  []
 
 
-Overfull \hbox (74.99634pt too wide) in paragraph at lines 14354--14354
+Overfull \hbox (74.99634pt too wide) in paragraph at lines 14342--14342
 []\OT1/cmtt/m/n/10 words        : bike, car, dod, engine, motorcycle, ride, hon
 da, cars, bmw, bikes[] 
  []
 
 
-Overfull \hbox (190.49533pt too wide) in paragraph at lines 14354--14354
+Overfull \hbox (190.49533pt too wide) in paragraph at lines 14342--14342
 []\OT1/cmtt/m/n/10 words        : scorer, unassisted, reichel, semak, sweeney, 
 kovalenko, ricci, audette, momesso, nedved[] 
  []
@@ -4587,10 +4544,10 @@ kovalenko, ricci, audette, momesso, nedved[]
 [517]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 14380.
+               Default added (so using `htbp') on input line 14368.
 
 
-Overfull \hbox (89.90347pt too wide) detected at line 14415
+Overfull \hbox (89.90347pt too wide) detected at line 14403
 \OML/cmm/m/it/10 X \OMS/cmsy/m/n/10 ^^Y [] [] \OT1/cmr/m/n/10 = []
  []
 
@@ -4598,10 +4555,10 @@ Overfull \hbox (89.90347pt too wide) detected at line 14415
 File: figures/nmf-fig-1.png Graphic file (type png)
 
 <use figures/nmf-fig-1.png>
-Package pdftex.def Info: figures/nmf-fig-1.png used on input line 14429.
+Package pdftex.def Info: figures/nmf-fig-1.png used on input line 14417.
 (pdftex.def)             Requested size: 325.215pt x 123.01874pt.
  [519 </home/boyto/Dropbox/Work/Apunte/figures/nmf-fig-1.png (PNG copy)>]
-Overfull \hbox (53.08406pt too wide) in paragraph at lines 14444--14453
+Overfull \hbox (53.08406pt too wide) in paragraph at lines 14432--14441
  [] 
  []
 
@@ -4609,14 +4566,14 @@ Overfull \hbox (53.08406pt too wide) in paragraph at lines 14444--14453
 File: figures/nmf-fig-2.png Graphic file (type png)
 
 <use figures/nmf-fig-2.png>
-Package pdftex.def Info: figures/nmf-fig-2.png used on input line 14461.
+Package pdftex.def Info: figures/nmf-fig-2.png used on input line 14449.
 (pdftex.def)             Requested size: 180.67499pt x 182.81831pt.
 
 <figures/nmf-fig-3.png, id=2001, 933.4875pt x 369.38pt>
 File: figures/nmf-fig-3.png Graphic file (type png)
 
 <use figures/nmf-fig-3.png>
-Package pdftex.def Info: figures/nmf-fig-3.png used on input line 14470.
+Package pdftex.def Info: figures/nmf-fig-3.png used on input line 14458.
 (pdftex.def)             Requested size: 325.215pt x 128.68748pt.
  [520] [521 </home/boyto/Dropbox/Work/Apunte/figures/nmf-fig-2.png (PNG copy)> 
 </home/boyto/Dropbox/Work/Apunte/figures/nmf-fig-3.png (PNG copy)>] [522
@@ -4624,12 +4581,12 @@ Package pdftex.def Info: figures/nmf-fig-3.png used on input line 14470.
 ]
 Chapter 14.
 
-Overfull \hbox (1.65623pt too wide) in paragraph at lines 14484--14484
+Overfull \hbox (1.65623pt too wide) in paragraph at lines 14472--14472
 []\OT1/cmr/bx/n/14.4 Introducci^^Son: El mod-elo de de-s-cubrim-iento 
  []
 
 
-Overfull \hbox (0.38013pt too wide) in paragraph at lines 14486--14491
+Overfull \hbox (0.38013pt too wide) in paragraph at lines 14474--14479
 \OT1/cmr/m/n/10 puedan ser in-tere-santes para el usuario. Es-tos con-tenidos p
 ueden ser de cualquier
  []
@@ -4638,14 +4595,14 @@ ueden ser de cualquier
 File: figures/rec-fig-1.png Graphic file (type png)
 
 <use figures/rec-fig-1.png>
-Package pdftex.def Info: figures/rec-fig-1.png used on input line 14549.
+Package pdftex.def Info: figures/rec-fig-1.png used on input line 14537.
 (pdftex.def)             Requested size: 325.215pt x 221.42924pt.
  [524]
 <figures/rec-fig-2.png, id=2019, 561.09625pt x 264.99pt>
 File: figures/rec-fig-2.png Graphic file (type png)
 
 <use figures/rec-fig-2.png>
-Package pdftex.def Info: figures/rec-fig-2.png used on input line 14568.
+Package pdftex.def Info: figures/rec-fig-2.png used on input line 14556.
 (pdftex.def)             Requested size: 252.94499pt x 119.4587pt.
 
 Overfull \hbox (1.1525pt too wide) has occurred while \output is active
@@ -4659,7 +4616,7 @@ boyto/Dropbox/Work/Apunte/figures/rec-fig-2.png (PNG copy)>]
 File: figures/rec-fig-3.png Graphic file (type png)
 
 <use figures/rec-fig-3.png>
-Package pdftex.def Info: figures/rec-fig-3.png used on input line 14590.
+Package pdftex.def Info: figures/rec-fig-3.png used on input line 14578.
 (pdftex.def)             Requested size: 325.215pt x 115.5903pt.
  [526 </home/boyto/Dropbox/Work/Apunte/figures/rec-fig-3.png (PNG copy)>]
 Overfull \hbox (1.1525pt too wide) has occurred while \output is active
@@ -4672,7 +4629,7 @@ Overfull \hbox (1.1525pt too wide) has occurred while \output is active
 File: figures/reddit-fig1.png Graphic file (type png)
 
 <use figures/reddit-fig1.png>
-Package pdftex.def Info: figures/reddit-fig1.png used on input line 14725.
+Package pdftex.def Info: figures/reddit-fig1.png used on input line 14713.
 (pdftex.def)             Requested size: 252.94499pt x 160.52345pt.
 
 
@@ -4682,18 +4639,18 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14737 \end{itemize}
+l.14725 \end{itemize}
                      
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 [530]
-Overfull \hbox (66.1566pt too wide) detected at line 14746
+Overfull \hbox (66.1566pt too wide) detected at line 14734
 []
  []
 
 
-Overfull \hbox (63.21182pt too wide) detected at line 14766
+Overfull \hbox (63.21182pt too wide) detected at line 14754
 \OML/cmm/m/it/10 u\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 U; D; t\OT1/cmr/m/n/10 ) = 
 []\OML/cmm/m/it/10 e[]a \OT1/cmr/m/n/10 + []\OML/cmm/m/it/10 e[]b \OT1/cmr/m/n/
 10 + [](1 \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 e[]\OT1/cmr/m/n/10 )\OML/cmm/m/
@@ -4706,11 +4663,11 @@ r/m/n/10 )\OML/cmm/m/it/10 d
 File: figures/rec-fig-4.png Graphic file (type png)
 
 <use figures/rec-fig-4.png>
-Package pdftex.def Info: figures/rec-fig-4.png used on input line 14840.
+Package pdftex.def Info: figures/rec-fig-4.png used on input line 14828.
 (pdftex.def)             Requested size: 252.94499pt x 263.37125pt.
  [533] [534 </home/boyto/Dropbox/Work/Apunte/figures/rec-fig-4.png (PNG copy)>]
 
-Overfull \hbox (3.02844pt too wide) in paragraph at lines 14901--14902
+Overfull \hbox (3.02844pt too wide) in paragraph at lines 14889--14890
 []\OT1/cmr/m/n/10 Ahora pode-mos cal-cu-lar cada cal-i-fi-caci^^Son fal-tante u
 s-ando la sigu-iente f^^Sormula: 
  []
@@ -4719,10 +4676,10 @@ s-ando la sigu-iente f^^Sormula:
 File: figures/rec-fig-5.png Graphic file (type png)
 
 <use figures/rec-fig-5.png>
-Package pdftex.def Info: figures/rec-fig-5.png used on input line 14933.
+Package pdftex.def Info: figures/rec-fig-5.png used on input line 14921.
 (pdftex.def)             Requested size: 325.215pt x 242.69919pt.
 
-Overfull \hbox (3.66728pt too wide) in paragraph at lines 14938--14941
+Overfull \hbox (3.66728pt too wide) in paragraph at lines 14926--14929
 []\OT1/cmr/m/n/10 Supongamos que quer-e-mos es-ti-mar la cal-i-fi-caci^^Son del
  usuario 5 para la pel^^S^^Pcula
  []
@@ -4731,14 +4688,14 @@ Overfull \hbox (3.66728pt too wide) in paragraph at lines 14938--14941
 File: figures/rec-fig-6.png Graphic file (type png)
 
 <use figures/rec-fig-6.png>
-Package pdftex.def Info: figures/rec-fig-6.png used on input line 14947.
+Package pdftex.def Info: figures/rec-fig-6.png used on input line 14935.
 (pdftex.def)             Requested size: 325.215pt x 177.34354pt.
 
 <figures/rec-fig-7.png, id=2061, 606.265pt x 393.47pt>
 File: figures/rec-fig-7.png Graphic file (type png)
 
 <use figures/rec-fig-7.png>
-Package pdftex.def Info: figures/rec-fig-7.png used on input line 14962.
+Package pdftex.def Info: figures/rec-fig-7.png used on input line 14950.
 (pdftex.def)             Requested size: 325.215pt x 211.06572pt.
  [536 </home/boyto/Dropbox/Work/Apunte/figures/rec-fig-5.png (PNG copy)>] [537 
 </home/boyto/Dropbox/Work/Apunte/figures/rec-fig-6.png (PNG copy)> </home/boyto
@@ -4747,7 +4704,7 @@ Package pdftex.def Info: figures/rec-fig-7.png used on input line 14962.
 File: figures/rec-fig-8.png Graphic file (type png)
 
 <use figures/rec-fig-8.png>
-Package pdftex.def Info: figures/rec-fig-8.png used on input line 15012.
+Package pdftex.def Info: figures/rec-fig-8.png used on input line 15000.
 (pdftex.def)             Requested size: 325.215pt x 236.4794pt.
  [538 </home/boyto/Dropbox/Work/Apunte/figures/rec-fig-8.png (PNG copy)>] [539]
 
@@ -4755,7 +4712,7 @@ Package pdftex.def Info: figures/rec-fig-8.png used on input line 15012.
 File: figures/rec-fig-9.png Graphic file (type png)
 
 <use figures/rec-fig-9.png>
-Package pdftex.def Info: figures/rec-fig-9.png used on input line 15087.
+Package pdftex.def Info: figures/rec-fig-9.png used on input line 15075.
 (pdftex.def)             Requested size: 252.94499pt x 183.10236pt.
  [540 </home/boyto/Dropbox/Work/Apunte/figures/rec-fig-9.png (PNG copy)>] [541]
  [542] [543]
@@ -4763,19 +4720,19 @@ Package pdftex.def Info: figures/rec-fig-9.png used on input line 15087.
 File: figures/rec-fig-10.png Graphic file (type png)
 
 <use figures/rec-fig-10.png>
-Package pdftex.def Info: figures/rec-fig-10.png used on input line 15224.
+Package pdftex.def Info: figures/rec-fig-10.png used on input line 15212.
 (pdftex.def)             Requested size: 325.215pt x 102.58943pt.
  [544 </home/boyto/Dropbox/Work/Apunte/figures/rec-fig-10.png (PNG copy)>]
-Overfull \hbox (49.46967pt too wide) detected at line 15275
+Overfull \hbox (49.46967pt too wide) detected at line 15263
 []
  []
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 15286.
+               Default added (so using `htbp') on input line 15274.
 
 [545]
-Overfull \hbox (28.05026pt too wide) detected at line 15337
+Overfull \hbox (28.05026pt too wide) detected at line 15325
 [] []\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 r[] \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10
  (\OML/cmm/m/it/10 ^^V \OT1/cmr/m/n/10 + \OML/cmm/m/it/10 b[] \OT1/cmr/m/n/10 +
  \OML/cmm/m/it/10 b[] \OT1/cmr/m/n/10 + \OML/cmm/m/it/10 q[]p[]\OT1/cmr/m/n/10 
@@ -4789,7 +4746,7 @@ n/10 jj[]
 
 [546]
 ! Undefined control sequence.
-l.15381 \hat{y} = w_0 + \sum\limit
+l.15369 \hat{y} = w_0 + \sum\limit
                                   _{i=1}^{n} w_i * x_i + \sum\limit_{j=1+n}^...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4798,7 +4755,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.15381 ...\limit_{i=1}^{n} w_i * x_i + \sum\limit
+l.15369 ...\limit_{i=1}^{n} w_i * x_i + \sum\limit
                                                   _{j=1+n}^{m+n} w_j * x_j
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4810,11 +4767,11 @@ and I'll forget about whatever was undefined.
 File: figures/fm-fig-1.png Graphic file (type png)
 
 <use figures/fm-fig-1.png>
-Package pdftex.def Info: figures/fm-fig-1.png used on input line 15388.
+Package pdftex.def Info: figures/fm-fig-1.png used on input line 15376.
 (pdftex.def)             Requested size: 216.81pt x 104.41432pt.
  [547]
 ! Undefined control sequence.
-l.15399 \hat{y} = w_0 + \sum\limit
+l.15387 \hat{y} = w_0 + \sum\limit
                                   _{i=1}^{n} w_i * x_i + \sum\limit_{i=1}^{n...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4823,7 +4780,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.15399 ...\limit_{i=1}^{n} w_i * x_i + \sum\limit
+l.15387 ...\limit_{i=1}^{n} w_i * x_i + \sum\limit
                                                   _{i=1}^{n}\sum\limit_{j=i+...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4832,7 +4789,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.15399 ... * x_i + \sum\limit_{i=1}^{n}\sum\limit
+l.15387 ... * x_i + \sum\limit_{i=1}^{n}\sum\limit
                                                   _{j=i+1}^{n} w_{ij} * x_i ...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4843,7 +4800,7 @@ and I'll forget about whatever was undefined.
 ! Undefined control sequence.
 \BODY ->\hat {y} = w_0 + \sum \limit 
                                      _{i=1}^{n} w_i * x_i + \sum \limit _{i=...
-l.15408 \end{myequation}
+l.15396 \end{myequation}
                         
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4854,7 +4811,7 @@ and I'll forget about whatever was undefined.
 ! Undefined control sequence.
 \BODY ...limit _{i=1}^{n} w_i * x_i + \sum \limit 
                                                   _{i=1}^{n}\sum \limit _{j=...
-l.15408 \end{myequation}
+l.15396 \end{myequation}
                         
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4865,7 +4822,7 @@ and I'll forget about whatever was undefined.
 ! Undefined control sequence.
 \BODY ... x_i + \sum \limit _{i=1}^{n}\sum \limit 
                                                   _{j=i+1}^{n} <v_i,v_j> * x...
-l.15408 \end{myequation}
+l.15396 \end{myequation}
                         
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4874,19 +4831,19 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (30.9647pt too wide) detected at line 15408
+Overfull \hbox (30.9647pt too wide) detected at line 15396
 []
  []
 
 [548 </home/boyto/Dropbox/Work/Apunte/figures/fm-fig-1.png (PNG copy)>]
 [549] [550]
-Overfull \hbox (279.74455pt too wide) in paragraph at lines 15488--15488
+Overfull \hbox (279.74455pt too wide) in paragraph at lines 15476--15476
 []\OT1/cmtt/m/n/10 libfm -task r -method mcmc -train train.libfm -test test.lib
 fm -init_stdev 0.5 -iter 100 -dim '1,1,2' -out output.libfm[] 
  []
 
 
-Overfull \hbox (2.37459pt too wide) in paragraph at lines 15504--15504
+Overfull \hbox (2.37459pt too wide) in paragraph at lines 15492--15492
 []\OT1/cmr/bx/n/14.4 El Prob-lema del Cold-Start: Multi-Armed
  []
 
@@ -4894,26 +4851,26 @@ Overfull \hbox (2.37459pt too wide) in paragraph at lines 15504--15504
 File: figures/rec-fig-11.png Graphic file (type png)
 
 <use figures/rec-fig-11.png>
-Package pdftex.def Info: figures/rec-fig-11.png used on input line 15546.
+Package pdftex.def Info: figures/rec-fig-11.png used on input line 15534.
 (pdftex.def)             Requested size: 325.215pt x 74.19301pt.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 15555.
+               Default added (so using `htbp') on input line 15543.
 
 [553 </home/boyto/Dropbox/Work/Apunte/figures/rec-fig-11.png (PNG copy)>]
 <figures/rec-fig-12.png, id=2124, 818.05624pt x 432.61626pt>
 File: figures/rec-fig-12.png Graphic file (type png)
 
 <use figures/rec-fig-12.png>
-Package pdftex.def Info: figures/rec-fig-12.png used on input line 15583.
+Package pdftex.def Info: figures/rec-fig-12.png used on input line 15571.
 (pdftex.def)             Requested size: 325.215pt x 171.98724pt.
  [554 </home/boyto/Dropbox/Work/Apunte/figures/rec-fig-12.png (PNG copy)>]
 <figures/rec-fig-13.png, id=2128, 605.26125pt x 401.5pt>
 File: figures/rec-fig-13.png Graphic file (type png)
 
 <use figures/rec-fig-13.png>
-Package pdftex.def Info: figures/rec-fig-13.png used on input line 15645.
+Package pdftex.def Info: figures/rec-fig-13.png used on input line 15633.
 (pdftex.def)             Requested size: 252.94499pt x 167.78952pt.
  [555] [556 </home/boyto/Dropbox/Work/Apunte/figures/rec-fig-13.png (PNG copy)>
 ] [557] [558
@@ -4921,79 +4878,79 @@ Package pdftex.def Info: figures/rec-fig-13.png used on input line 15645.
 ]
 Chapter 15.
 
-Overfull \hbox (0.72285pt too wide) in paragraph at lines 15695--15696
+Overfull \hbox (0.72285pt too wide) in paragraph at lines 15683--15684
 \OT1/cmr/m/n/10 Nuestro primer al-go-ritmo es muy im-por-tante porque per-mite 
 con-ver-tir un stream
  []
 
 [559] [560] [561] [562] [563]
-Overfull \hbox (20.57695pt too wide) in paragraph at lines 15837--15838
+Overfull \hbox (20.57695pt too wide) in paragraph at lines 15825--15826
 []\OT1/cmr/m/n/10 Ejemplo: Us-amos 3 es-ti-madores ($\OML/cmm/m/it/10 k \OT1/cm
 r/m/n/10 = 3$) y nue-stro stream es 1,2,3,2,4,2,5,3,4,4,3,1.
  []
 
 
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 15852--15852
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 15840--15840
 []\OT1/cmtt/m/n/10 Dato = 3 k1.elem=1 k1.val=1; k2.elem=2 k2.val=1;k3.elem=3 k3
 .val=1[] 
  []
 
 
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 15852--15852
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 15840--15840
 []\OT1/cmtt/m/n/10 Dato = 2 k1.elem=1 k1.val=1; k2.elem=2 k2.val=2;k3.elem=3 k3
 .val=1[] 
  []
 
 
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 15852--15852
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 15840--15840
 []\OT1/cmtt/m/n/10 Dato = 4 k1.elem=1 k1.val=1; k2.elem=2 k2.val=2;k3.elem=3 k3
 .val=1[] 
  []
 
 
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 15852--15852
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 15840--15840
 []\OT1/cmtt/m/n/10 Dato = 2 k1.elem=1 k1.val=1; k2.elem=2 k2.val=3;k3.elem=3 k3
 .val=1[] 
  []
 
 
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 15852--15852
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 15840--15840
 []\OT1/cmtt/m/n/10 Dato = 5*k1.elem=1 k1.val=1; k2.elem=2 k2.val=3;k3.elem=5 k3
 .val=1[] 
  []
 
 
-Overfull \hbox (6.74693pt too wide) in paragraph at lines 15852--15852
+Overfull \hbox (6.74693pt too wide) in paragraph at lines 15840--15840
 []\OT1/cmtt/m/n/10 Dato = 3  k1.elem=1 k1.val=1; k2.elem=2 k2.val=3;k3.elem=5 k
 3.val=1[] 
  []
 
 
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 15852--15852
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 15840--15840
 []\OT1/cmtt/m/n/10 Dato = 4*k1.elem=4 k1.val=1; k2.elem=2 k2.val=3;k3.elem=5 k3
 .val=1[] 
  []
 
 
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 15852--15852
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 15840--15840
 []\OT1/cmtt/m/n/10 Dato = 4 k1.elem=4 k1.val=2; k2.elem=2 k2.val=3;k3.elem=5 k3
 .val=1[] 
  []
 
 
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 15852--15852
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 15840--15840
 []\OT1/cmtt/m/n/10 Dato = 3 k1.elem=4 k1.val=2; k2.elem=2 k2.val=3;k3.elem=5 k3
 .val=1[] 
  []
 
 
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 15852--15852
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 15840--15840
 []\OT1/cmtt/m/n/10 Dato = 1 k1.elem=4 k1.val=2; k2.elem=2 k2.val=3;k3.elem=5 k3
 .val=1[] 
  []
 
 [564]
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 15946--15946
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 15934--15934
 []\OT1/cmtt/m/n/10 Aqui tenemos 3 sub-ventas con 1 bit, combinamos las dos mas 
 viejas[] 
  []
@@ -5006,7 +4963,7 @@ Underfull \vbox (badness 1077) has occurred while \output is active []
 File: figures/bloom-fig-1.png Graphic file (type png)
 
 <use figures/bloom-fig-1.png>
-Package pdftex.def Info: figures/bloom-fig-1.png used on input line 16114.
+Package pdftex.def Info: figures/bloom-fig-1.png used on input line 16102.
 (pdftex.def)             Requested size: 216.81pt x 168.77118pt.
  [569 </home/boyto/Dropbox/Work/Apunte/figures/bloom-fig-1.png (PNG copy)>] [57
 0] [571] [572] [573] [574]
@@ -5014,17 +4971,17 @@ Package pdftex.def Info: figures/bloom-fig-1.png used on input line 16114.
 File: figures/countmin-fig-1.png Graphic file (type png)
 
 <use figures/countmin-fig-1.png>
-Package pdftex.def Info: figures/countmin-fig-1.png used on input line 16284.
+Package pdftex.def Info: figures/countmin-fig-1.png used on input line 16272.
 (pdftex.def)             Requested size: 325.215pt x 206.75145pt.
  [575 </home/boyto/Dropbox/Work/Apunte/figures/countmin-fig-1.png (PNG copy)>]
 <figures/bitmarking.png, id=2197, 562.1pt x 385.44pt>
 File: figures/bitmarking.png Graphic file (type png)
 
 <use figures/bitmarking.png>
-Package pdftex.def Info: figures/bitmarking.png used on input line 16349.
+Package pdftex.def Info: figures/bitmarking.png used on input line 16337.
 (pdftex.def)             Requested size: 260.17244pt x 178.40436pt.
 
-Overfull \hbox (1.26453pt too wide) in paragraph at lines 16359--16360
+Overfull \hbox (1.26453pt too wide) in paragraph at lines 16347--16348
 \OT1/cmr/m/n/10 El al-go-ritmo Count-Min so-porta ^^Sunicamente dos op-era-cion
 es: $[](\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 )$ y $[](\OML/cmm/m/it/10 x\OT1/cmr/m
 /n/10 )$.
@@ -5035,10 +4992,10 @@ es: $[](\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 )$ y $[](\OML/cmm/m/it/10 x\OT1/cmr/m
 File: figures/countmin-fig-2.png Graphic file (type png)
 
 <use figures/countmin-fig-2.png>
-Package pdftex.def Info: figures/countmin-fig-2.png used on input line 16376.
+Package pdftex.def Info: figures/countmin-fig-2.png used on input line 16364.
 (pdftex.def)             Requested size: 325.215pt x 161.01509pt.
 
-Overfull \hbox (18.30733pt too wide) in paragraph at lines 16390--16391
+Overfull \hbox (18.30733pt too wide) in paragraph at lines 16378--16379
 []\OT1/cmr/m/n/10 Como los con-ta-dores nunca se decre-men-tan pode-mos afir-ma
 r que $[][\OML/cmm/m/it/10 i\OT1/cmr/m/n/10 ][\OML/cmm/m/it/10 h[]\OT1/cmr/m/n/
 10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 )] \OMS/cmsy/m/n/10 ^^U
@@ -5046,7 +5003,7 @@ r que $[][\OML/cmm/m/it/10 i\OT1/cmr/m/n/10 ][\OML/cmm/m/it/10 h[]\OT1/cmr/m/n/
 
 [578 </home/boyto/Dropbox/Work/Apunte/figures/countmin-fig-2.png (PNG copy)>]
 [579]
-Overfull \hbox (1.25255pt too wide) detected at line 16444
+Overfull \hbox (1.25255pt too wide) detected at line 16432
 []
  []
 
@@ -5055,7 +5012,7 @@ Chapter 16.
 [581
 
 ]
-Overfull \hbox (1.54489pt too wide) in paragraph at lines 16490--16491
+Overfull \hbox (1.54489pt too wide) in paragraph at lines 16478--16479
 \OT1/cmr/m/n/10 Un \OT1/cmr/m/it/10 Ran-dom Surfer \OT1/cmr/m/n/10 es un nave-g
 -ante aleato-rio en la web. Este nave-g-ante comienza
  []
@@ -5064,17 +5021,17 @@ Overfull \hbox (1.54489pt too wide) in paragraph at lines 16490--16491
 File: figures/pr-fig-1.png Graphic file (type png)
 
 <use figures/pr-fig-1.png>
-Package pdftex.def Info: figures/pr-fig-1.png used on input line 16498.
+Package pdftex.def Info: figures/pr-fig-1.png used on input line 16486.
 (pdftex.def)             Requested size: 216.81pt x 150.64458pt.
  [582 </home/boyto/Dropbox/Work/Apunte/figures/pr-fig-1.png (PNG copy)>] [583] 
 [584]
-Overfull \hbox (8.50061pt too wide) in paragraph at lines 16628--16629
+Overfull \hbox (8.50061pt too wide) in paragraph at lines 16616--16617
 []\OT1/cmr/m/n/10 En nue-stro ejem-plo si repeti-mos el m^^Setodo it-er-a-tivo 
 lleg-amos a que PR(A)=0.4,
  []
 
 
-Overfull \hbox (2.48277pt too wide) in paragraph at lines 16633--16634
+Overfull \hbox (2.48277pt too wide) in paragraph at lines 16621--16622
 []\OT1/cmr/m/it/10 Para
  []
 
@@ -5082,55 +5039,55 @@ Overfull \hbox (2.48277pt too wide) in paragraph at lines 16633--16634
 File: figures/pr-fig-2.png Graphic file (type png)
 
 <use figures/pr-fig-2.png>
-Package pdftex.def Info: figures/pr-fig-2.png used on input line 16646.
+Package pdftex.def Info: figures/pr-fig-2.png used on input line 16634.
 (pdftex.def)             Requested size: 216.81pt x 144.69281pt.
  [586 </home/boyto/Dropbox/Work/Apunte/figures/pr-fig-2.png (PNG copy)>] <figur
 es/pr-fig-3.png, id=2237, 454.69875pt x 338.26375pt>
 File: figures/pr-fig-3.png Graphic file (type png)
 
 <use figures/pr-fig-3.png>
-Package pdftex.def Info: figures/pr-fig-3.png used on input line 16683.
+Package pdftex.def Info: figures/pr-fig-3.png used on input line 16671.
 (pdftex.def)             Requested size: 252.94499pt x 188.17732pt.
  [587 </home/boyto/Dropbox/Work/Apunte/figures/pr-fig-3.png (PNG copy)>]
 <figures/pr-fig-10.png, id=2241, 591.20876pt x 563.10374pt>
 File: figures/pr-fig-10.png Graphic file (type png)
 
 <use figures/pr-fig-10.png>
-Package pdftex.def Info: figures/pr-fig-10.png used on input line 16770.
+Package pdftex.def Info: figures/pr-fig-10.png used on input line 16758.
 (pdftex.def)             Requested size: 216.81pt x 206.49779pt.
  [588] [589 </home/boyto/Dropbox/Work/Apunte/figures/pr-fig-10.png (PNG copy)>]
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 16789.
+               Default added (so using `htbp') on input line 16777.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 16812.
+               Default added (so using `htbp') on input line 16800.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 16820.
+               Default added (so using `htbp') on input line 16808.
 
 [590] <figures/pr-fig-5.png, id=2252, 542.025pt x 401.5pt>
 File: figures/pr-fig-5.png Graphic file (type png)
 
 <use figures/pr-fig-5.png>
-Package pdftex.def Info: figures/pr-fig-5.png used on input line 16838.
+Package pdftex.def Info: figures/pr-fig-5.png used on input line 16826.
 (pdftex.def)             Requested size: 252.94499pt x 187.36334pt.
 
 <figures/pr-fig-6.png, id=2253, 542.025pt x 401.5pt>
 File: figures/pr-fig-6.png Graphic file (type png)
 
 <use figures/pr-fig-6.png>
-Package pdftex.def Info: figures/pr-fig-6.png used on input line 16847.
+Package pdftex.def Info: figures/pr-fig-6.png used on input line 16835.
 (pdftex.def)             Requested size: 252.94499pt x 187.36334pt.
  [591]
 <figures/pr-fig-8.png, id=2257, 558.085pt x 297.11pt>
 File: figures/pr-fig-8.png Graphic file (type png)
 
 <use figures/pr-fig-8.png>
-Package pdftex.def Info: figures/pr-fig-8.png used on input line 16874.
+Package pdftex.def Info: figures/pr-fig-8.png used on input line 16862.
 (pdftex.def)             Requested size: 252.94499pt x 134.65936pt.
  [592 </home/boyto/Dropbox/Work/Apunte/figures/pr-fig-5.png (PNG copy)> </home/
 boyto/Dropbox/Work/Apunte/figures/pr-fig-6.png (PNG copy)>] [593 </home/boyto/D
@@ -5139,21 +5096,21 @@ ropbox/Work/Apunte/figures/pr-fig-8.png (PNG copy)>]
 File: figures/pr-fig-9.png Graphic file (type png)
 
 <use figures/pr-fig-9.png>
-Package pdftex.def Info: figures/pr-fig-9.png used on input line 16899.
+Package pdftex.def Info: figures/pr-fig-9.png used on input line 16887.
 (pdftex.def)             Requested size: 252.94499pt x 164.89153pt.
  [594 </home/boyto/Dropbox/Work/Apunte/figures/pr-fig-9.png (PNG copy)>] [595]
 <figures/vrank-fig-1.png, id=2272, 918.43124pt x 587.19376pt>
 File: figures/vrank-fig-1.png Graphic file (type png)
 
 <use figures/vrank-fig-1.png>
-Package pdftex.def Info: figures/vrank-fig-1.png used on input line 16950.
+Package pdftex.def Info: figures/vrank-fig-1.png used on input line 16938.
 (pdftex.def)             Requested size: 325.215pt x 207.92213pt.
 
 <figures/vrank-fig-2.png, id=2273, 619.31375pt x 345.29pt>
 File: figures/vrank-fig-2.png Graphic file (type png)
 
 <use figures/vrank-fig-2.png>
-Package pdftex.def Info: figures/vrank-fig-2.png used on input line 16964.
+Package pdftex.def Info: figures/vrank-fig-2.png used on input line 16952.
 (pdftex.def)             Requested size: 325.215pt x 181.32738pt.
  [596 </home/boyto/Dropbox/Work/Apunte/figures/vrank-fig-1.png (PNG copy)>] [59
 7 </home/boyto/Dropbox/Work/Apunte/figures/vrank-fig-2.png (PNG copy)>]
@@ -5161,28 +5118,28 @@ Package pdftex.def Info: figures/vrank-fig-2.png used on input line 16964.
 File: figures/trank-fig-1.png Graphic file (type png)
 
 <use figures/trank-fig-1.png>
-Package pdftex.def Info: figures/trank-fig-1.png used on input line 16991.
+Package pdftex.def Info: figures/trank-fig-1.png used on input line 16979.
 (pdftex.def)             Requested size: 325.215pt x 177.30257pt.
  [598 </home/boyto/Dropbox/Work/Apunte/figures/trank-fig-1.png (PNG copy)>]
 <figures/hits-fig-1.png, id=2284, 746.79pt x 466.74374pt>
 File: figures/hits-fig-1.png Graphic file (type png)
 
 <use figures/hits-fig-1.png>
-Package pdftex.def Info: figures/hits-fig-1.png used on input line 17012.
+Package pdftex.def Info: figures/hits-fig-1.png used on input line 17000.
 (pdftex.def)             Requested size: 325.215pt x 203.25978pt.
 
 <figures/hits-fig-2.png, id=2285, 821.0675pt x 464.73625pt>
 File: figures/hits-fig-2.png Graphic file (type png)
 
 <use figures/hits-fig-2.png>
-Package pdftex.def Info: figures/hits-fig-2.png used on input line 17021.
+Package pdftex.def Info: figures/hits-fig-2.png used on input line 17009.
 (pdftex.def)             Requested size: 325.215pt x 184.07582pt.
 
 <figures/hits-fig-3.png, id=2286, 734.745pt x 466.74374pt>
 File: figures/hits-fig-3.png Graphic file (type png)
 
 <use figures/hits-fig-3.png>
-Package pdftex.def Info: figures/hits-fig-3.png used on input line 17030.
+Package pdftex.def Info: figures/hits-fig-3.png used on input line 17018.
 (pdftex.def)             Requested size: 325.215pt x 206.59285pt.
  [599 </home/boyto/Dropbox/Work/Apunte/figures/hits-fig-1.png (PNG copy)>]
 Underfull \vbox (badness 1314) has occurred while \output is active []
@@ -5193,13 +5150,13 @@ e/boyto/Dropbox/Work/Apunte/figures/hits-fig-3.png (PNG copy)>]
 File: figures/hits-fig-4.png Graphic file (type png)
 
 <use figures/hits-fig-4.png>
-Package pdftex.def Info: figures/hits-fig-4.png used on input line 17063.
+Package pdftex.def Info: figures/hits-fig-4.png used on input line 17051.
 (pdftex.def)             Requested size: 216.81pt x 190.98433pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [601 </home/boyto/Dropbox/Work/Apunte/figures/hits-fig-4.png (PNG copy)>]
-Overfull \hbox (3.02856pt too wide) in paragraph at lines 17085--17086
+Overfull \hbox (3.02856pt too wide) in paragraph at lines 17073--17074
 []\OT1/cmr/m/n/10 El rank-ing como Hubs nos da Ya-hoo=0.788, Ama-zon=0.577, Mi-
 crosoft=0.211
  []
@@ -5210,7 +5167,7 @@ Chapter 17.
 File: figures/rs-fig-1.png Graphic file (type png)
 
 <use figures/rs-fig-1.png>
-Package pdftex.def Info: figures/rs-fig-1.png used on input line 17101.
+Package pdftex.def Info: figures/rs-fig-1.png used on input line 17089.
 (pdftex.def)             Requested size: 216.81pt x 158.8548pt.
  [603
 
@@ -5219,21 +5176,21 @@ Package pdftex.def Info: figures/rs-fig-1.png used on input line 17101.
 File: figures/rs-fig-2.png Graphic file (type png)
 
 <use figures/rs-fig-2.png>
-Package pdftex.def Info: figures/rs-fig-2.png used on input line 17140.
+Package pdftex.def Info: figures/rs-fig-2.png used on input line 17128.
 (pdftex.def)             Requested size: 216.81pt x 62.48056pt.
  [605 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-2.png (PNG copy)>] <figur
 es/rs-fig-6.png, id=2312, 477.785pt x 406.51875pt>
 File: figures/rs-fig-6.png Graphic file (type png)
 
 <use figures/rs-fig-6.png>
-Package pdftex.def Info: figures/rs-fig-6.png used on input line 17173.
+Package pdftex.def Info: figures/rs-fig-6.png used on input line 17161.
 (pdftex.def)             Requested size: 238.49121pt x 202.91771pt.
 
 <figures/rs-fig-7.png, id=2313, 529.98pt x 405.515pt>
 File: figures/rs-fig-7.png Graphic file (type png)
 
 <use figures/rs-fig-7.png>
-Package pdftex.def Info: figures/rs-fig-7.png used on input line 17186.
+Package pdftex.def Info: figures/rs-fig-7.png used on input line 17174.
 (pdftex.def)             Requested size: 238.49121pt x 182.48006pt.
  [606] [607 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-6.png (PNG copy)> <
 /home/boyto/Dropbox/Work/Apunte/figures/rs-fig-7.png (PNG copy)>] <figures/rs-f
@@ -5241,14 +5198,14 @@ ig-8.png, id=2321, 498.86375pt x 407.5225pt>
 File: figures/rs-fig-8.png Graphic file (type png)
 
 <use figures/rs-fig-8.png>
-Package pdftex.def Info: figures/rs-fig-8.png used on input line 17199.
+Package pdftex.def Info: figures/rs-fig-8.png used on input line 17187.
 (pdftex.def)             Requested size: 238.49121pt x 194.81885pt.
 
 <figures/rs-fig-9.png, id=2322, 652.4375pt x 202.7575pt>
 File: figures/rs-fig-9.png Graphic file (type png)
 
 <use figures/rs-fig-9.png>
-Package pdftex.def Info: figures/rs-fig-9.png used on input line 17234.
+Package pdftex.def Info: figures/rs-fig-9.png used on input line 17222.
 (pdftex.def)             Requested size: 238.49121pt x 74.11569pt.
  [608 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-8.png (PNG copy)>] [609 <
 /home/boyto/Dropbox/Work/Apunte/figures/rs-fig-9.png (PNG copy)>] [610] <figure
@@ -5256,17 +5213,17 @@ s/rs-fig-11.png, id=2332, 501.875pt x 344.28625pt>
 File: figures/rs-fig-11.png Graphic file (type png)
 
 <use figures/rs-fig-11.png>
-Package pdftex.def Info: figures/rs-fig-11.png used on input line 17299.
+Package pdftex.def Info: figures/rs-fig-11.png used on input line 17287.
 (pdftex.def)             Requested size: 310.76122pt x 213.1926pt.
  [611]
 <figures/rs-fig-12.png, id=2336, 1129.21875pt x 520.94624pt>
 File: figures/rs-fig-12.png Graphic file (type png)
 
 <use figures/rs-fig-12.png>
-Package pdftex.def Info: figures/rs-fig-12.png used on input line 17316.
+Package pdftex.def Info: figures/rs-fig-12.png used on input line 17304.
 (pdftex.def)             Requested size: 310.76122pt x 143.36797pt.
  [612 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-11.png>]
-Overfull \hbox (10.05621pt too wide) in paragraph at lines 17329--17330
+Overfull \hbox (10.05621pt too wide) in paragraph at lines 17317--17318
 []\OT1/cmr/m/n/10 La ex-is-ten-cia de una can-ti-dad inusual-mente alta de tri^
 ^Sangulos au-tom^^Saticamente
  []
@@ -5275,7 +5232,7 @@ Overfull \hbox (10.05621pt too wide) in paragraph at lines 17329--17330
 File: figures/rs-fig-13.png Graphic file (type png)
 
 <use figures/rs-fig-13.png>
-Package pdftex.def Info: figures/rs-fig-13.png used on input line 17335.
+Package pdftex.def Info: figures/rs-fig-13.png used on input line 17323.
 (pdftex.def)             Requested size: 289.07999pt x 194.05228pt.
  [613 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-12.png (PNG copy)>] [614 
 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-13.png (PNG copy)>] [615]
@@ -5283,35 +5240,35 @@ Package pdftex.def Info: figures/rs-fig-13.png used on input line 17335.
 File: figures/rs-fig-14.png Graphic file (type png)
 
 <use figures/rs-fig-14.png>
-Package pdftex.def Info: figures/rs-fig-14.png used on input line 17439.
+Package pdftex.def Info: figures/rs-fig-14.png used on input line 17427.
 (pdftex.def)             Requested size: 332.44243pt x 149.81055pt.
  [616 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-14.png (PNG copy)>]
 <figures/rs-fig-15.png, id=2355, 438.63875pt x 306.14375pt>
 File: figures/rs-fig-15.png Graphic file (type png)
 
 <use figures/rs-fig-15.png>
-Package pdftex.def Info: figures/rs-fig-15.png used on input line 17448.
+Package pdftex.def Info: figures/rs-fig-15.png used on input line 17436.
 (pdftex.def)             Requested size: 238.49121pt x 166.45497pt.
 
 <figures/rs-fig-16.png, id=2356, 959.585pt x 536.0025pt>
 File: figures/rs-fig-16.png Graphic file (type png)
 
 <use figures/rs-fig-16.png>
-Package pdftex.def Info: figures/rs-fig-16.png used on input line 17461.
+Package pdftex.def Info: figures/rs-fig-16.png used on input line 17449.
 (pdftex.def)             Requested size: 332.44243pt x 185.69804pt.
 
 <figures/rs-fig-17.png, id=2357, 900.36375pt x 305.14pt>
 File: figures/rs-fig-17.png Graphic file (type png)
 
 <use figures/rs-fig-17.png>
-Package pdftex.def Info: figures/rs-fig-17.png used on input line 17470.
+Package pdftex.def Info: figures/rs-fig-17.png used on input line 17458.
 (pdftex.def)             Requested size: 332.44243pt x 112.66722pt.
  [617 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-15.png (PNG copy)>]
 <figures/rs-fig-18.png, id=2361, 274.02374pt x 300.12125pt>
 File: figures/rs-fig-18.png Graphic file (type png)
 
 <use figures/rs-fig-18.png>
-Package pdftex.def Info: figures/rs-fig-18.png used on input line 17485.
+Package pdftex.def Info: figures/rs-fig-18.png used on input line 17473.
 (pdftex.def)             Requested size: 180.67499pt x 197.88371pt.
  [618 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-16.png (PNG copy)> </home
 /boyto/Dropbox/Work/Apunte/figures/rs-fig-17.png (PNG copy)>] <figures/rs-fig-1
@@ -5319,21 +5276,21 @@ Package pdftex.def Info: figures/rs-fig-18.png used on input line 17485.
 File: figures/rs-fig-19.png Graphic file (type png)
 
 <use figures/rs-fig-19.png>
-Package pdftex.def Info: figures/rs-fig-19.png used on input line 17494.
+Package pdftex.def Info: figures/rs-fig-19.png used on input line 17482.
 (pdftex.def)             Requested size: 216.81pt x 224.2226pt.
 
 <figures/rs-fig-20.png, id=2366, 410.53375pt x 291.0875pt>
 File: figures/rs-fig-20.png Graphic file (type png)
 
 <use figures/rs-fig-20.png>
-Package pdftex.def Info: figures/rs-fig-20.png used on input line 17503.
+Package pdftex.def Info: figures/rs-fig-20.png used on input line 17491.
 (pdftex.def)             Requested size: 216.81pt x 153.72487pt.
  [619 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-18.png (PNG copy)>]
 <figures/rs-fig-21.png, id=2371, 442.65375pt x 452.69125pt>
 File: figures/rs-fig-21.png Graphic file (type png)
 
 <use figures/rs-fig-21.png>
-Package pdftex.def Info: figures/rs-fig-21.png used on input line 17526.
+Package pdftex.def Info: figures/rs-fig-21.png used on input line 17514.
 (pdftex.def)             Requested size: 252.94499pt x 258.68599pt.
  [620 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-19.png (PNG copy)> </home
 /boyto/Dropbox/Work/Apunte/figures/rs-fig-20.png (PNG copy)>] <figures/rs-fig-2
@@ -5341,14 +5298,14 @@ Package pdftex.def Info: figures/rs-fig-21.png used on input line 17526.
 File: figures/rs-fig-22.png Graphic file (type png)
 
 <use figures/rs-fig-22.png>
-Package pdftex.def Info: figures/rs-fig-22.png used on input line 17554.
+Package pdftex.def Info: figures/rs-fig-22.png used on input line 17542.
 (pdftex.def)             Requested size: 180.67499pt x 145.24304pt.
  [621 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-21.png (PNG copy)>]
 <figures/rs-fig-23.png, id=2379, 715.67375pt x 174.6525pt>
 File: figures/rs-fig-23.png Graphic file (type png)
 
 <use figures/rs-fig-23.png>
-Package pdftex.def Info: figures/rs-fig-23.png used on input line 17570.
+Package pdftex.def Info: figures/rs-fig-23.png used on input line 17558.
 (pdftex.def)             Requested size: 252.94499pt x 61.72624pt.
  [622 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-22.png (PNG copy)> </home
 /boyto/Dropbox/Work/Apunte/figures/rs-fig-23.png (PNG copy)>] <figures/rs-fig-2
@@ -5356,31 +5313,31 @@ Package pdftex.def Info: figures/rs-fig-23.png used on input line 17570.
 File: figures/rs-fig-24.png Graphic file (type png)
 
 <use figures/rs-fig-24.png>
-Package pdftex.def Info: figures/rs-fig-24.png used on input line 17604.
+Package pdftex.def Info: figures/rs-fig-24.png used on input line 17592.
 (pdftex.def)             Requested size: 252.94499pt x 90.05293pt.
 
 <figures/rs-fig-25.png, id=2384, 403.5075pt x 269.005pt>
 File: figures/rs-fig-25.png Graphic file (type png)
 
 <use figures/rs-fig-25.png>
-Package pdftex.def Info: figures/rs-fig-25.png used on input line 17624.
+Package pdftex.def Info: figures/rs-fig-25.png used on input line 17612.
 (pdftex.def)             Requested size: 252.94499pt x 168.63258pt.
  [623 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-24.png (PNG copy)>]
 <figures/rs-fig-26.png, id=2388, 514.92375pt x 400.49625pt>
 File: figures/rs-fig-26.png Graphic file (type png)
 
 <use figures/rs-fig-26.png>
-Package pdftex.def Info: figures/rs-fig-26.png used on input line 17639.
+Package pdftex.def Info: figures/rs-fig-26.png used on input line 17627.
 (pdftex.def)             Requested size: 252.94499pt x 196.73376pt.
  [624 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-25.png (PNG copy)>]
 <figures/rs-fig-27.png, id=2392, 399.4925pt x 326.21875pt>
 File: figures/rs-fig-27.png Graphic file (type png)
 
 <use figures/rs-fig-27.png>
-Package pdftex.def Info: figures/rs-fig-27.png used on input line 17662.
+Package pdftex.def Info: figures/rs-fig-27.png used on input line 17650.
 (pdftex.def)             Requested size: 252.94499pt x 206.54927pt.
 
-Overfull \hbox (14.82018pt too wide) in paragraph at lines 17668--17669
+Overfull \hbox (14.82018pt too wide) in paragraph at lines 17656--17657
 []\OT1/cmr/m/n/10 La funci^^Son de mod-u-lar-i-dad tiene una forma bas-tante pa
 r-tic-u-lar [Good-Montjoye-
  []
@@ -5390,7 +5347,7 @@ r-tic-u-lar [Good-Montjoye-
 File: figures/rs-fig-28.png Graphic file (type png)
 
 <use figures/rs-fig-28.png>
-Package pdftex.def Info: figures/rs-fig-28.png used on input line 17676.
+Package pdftex.def Info: figures/rs-fig-28.png used on input line 17664.
 (pdftex.def)             Requested size: 325.215pt x 202.25592pt.
  [626 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-27.png (PNG copy)> </home
 /boyto/Dropbox/Work/Apunte/figures/rs-fig-28.png (PNG copy)>] <figures/rs-fig-2
@@ -5398,13 +5355,13 @@ Package pdftex.def Info: figures/rs-fig-28.png used on input line 17676.
 File: figures/rs-fig-29.png Graphic file (type png)
 
 <use figures/rs-fig-29.png>
-Package pdftex.def Info: figures/rs-fig-29.png used on input line 17691.
+Package pdftex.def Info: figures/rs-fig-29.png used on input line 17679.
 (pdftex.def)             Requested size: 325.215pt x 180.96101pt.
 
 Underfull \vbox (badness 2726) has occurred while \output is active []
 
  [627 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-29.png (PNG copy)>]
-Overfull \hbox (20.11174pt too wide) in paragraph at lines 17712--17713
+Overfull \hbox (20.11174pt too wide) in paragraph at lines 17700--17701
 \OT1/cmr/m/n/10 cluster-A,A1,A3,A2,A4,A1,A2,salir-cluster-A, entrar-cluster-C, 
 C2,C1,C3,C2,C1,C3,
  []
@@ -5413,17 +5370,17 @@ C2,C1,C3,C2,C1,C3,
 File: figures/infomap4.png Graphic file (type png)
 
 <use figures/infomap4.png>
-Package pdftex.def Info: figures/infomap4.png used on input line 17716.
+Package pdftex.def Info: figures/infomap4.png used on input line 17704.
 (pdftex.def)             Requested size: 216.81pt x 276.6579pt.
  [628] [629 </home/boyto/Dropbox/Work/Apunte/figures/infomap4.png (PNG copy)>]
-Overfull \hbox (22.4968pt too wide) in paragraph at lines 17759--17759
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 17747--17747
 []\OT1/cmtt/m/n/10 RW = CL1,A,B,C,B,A,C,EXIT1,CL2,D,E,F,D,F,D,EXIT2,CL1,C,B,A,C
 ,C,B,EXIT1[] 
  []
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 17784.
+               Default added (so using `htbp') on input line 17772.
 
 
 ! LaTeX Error: There's no line here to end.
@@ -5432,7 +5389,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.17801 }
+l.17789 }
          
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -5445,7 +5402,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.17801 }
+l.17789 }
          
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -5455,27 +5412,27 @@ or  <return>  to continue without it.
 File: figures/infomap5.png Graphic file (type png)
 
 <use figures/infomap5.png>
-Package pdftex.def Info: figures/infomap5.png used on input line 17811.
+Package pdftex.def Info: figures/infomap5.png used on input line 17799.
 (pdftex.def)             Requested size: 137.9979pt x 156.57353pt.
 
 <figures/infomap6.png, id=2417, 476.78125pt x 572.1375pt>
 File: figures/infomap6.png Graphic file (type png)
 
 <use figures/infomap6.png>
-Package pdftex.def Info: figures/infomap6.png used on input line 17816.
+Package pdftex.def Info: figures/infomap6.png used on input line 17804.
 (pdftex.def)             Requested size: 137.9979pt x 165.60133pt.
  [631 </home/boyto/Dropbox/Work/Apunte/figures/infomap5.png (PNG copy)> </home/
 boyto/Dropbox/Work/Apunte/figures/infomap6.png (PNG copy)>] [632]
-Overfull \hbox (19.53452pt too wide) detected at line 17881
+Overfull \hbox (19.53452pt too wide) detected at line 17869
 []
  []
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `htbp') on input line 17893.
+               Default added (so using `htbp') on input line 17881.
 
 
-Overfull \hbox (0.16617pt too wide) in paragraph at lines 17908--17909
+Overfull \hbox (0.16617pt too wide) in paragraph at lines 17896--17897
 []\OT1/cmr/m/n/10 En la ma-triz F ten-emos la prob-a-bil-i-dad de que cada nodo
  del grafo pertenezca
  []
@@ -5484,28 +5441,28 @@ Overfull \hbox (0.16617pt too wide) in paragraph at lines 17908--17909
 File: figures/rs-fig-31.png Graphic file (type png)
 
 <use figures/rs-fig-31.png>
-Package pdftex.def Info: figures/rs-fig-31.png used on input line 17922.
+Package pdftex.def Info: figures/rs-fig-31.png used on input line 17910.
 (pdftex.def)             Requested size: 180.67499pt x 213.44176pt.
 
 <figures/rs-fig-32.png, id=2430, 1046.91125pt x 457.71pt>
 File: figures/rs-fig-32.png Graphic file (type png)
 
 <use figures/rs-fig-32.png>
-Package pdftex.def Info: figures/rs-fig-32.png used on input line 17933.
+Package pdftex.def Info: figures/rs-fig-32.png used on input line 17921.
 (pdftex.def)             Requested size: 325.215pt x 142.18196pt.
  [634 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-31.png (PNG copy)>]
 <figures/rs-fig-33.png, id=2434, 1049.9225pt x 540.0175pt>
 File: figures/rs-fig-33.png Graphic file (type png)
 
 <use figures/rs-fig-33.png>
-Package pdftex.def Info: figures/rs-fig-33.png used on input line 17942.
+Package pdftex.def Info: figures/rs-fig-33.png used on input line 17930.
 (pdftex.def)             Requested size: 325.215pt x 167.27185pt.
 
 <figures/rs-fig-34.png, id=2435, 520.94624pt x 357.335pt>
 File: figures/rs-fig-34.png Graphic file (type png)
 
 <use figures/rs-fig-34.png>
-Package pdftex.def Info: figures/rs-fig-34.png used on input line 17951.
+Package pdftex.def Info: figures/rs-fig-34.png used on input line 17939.
 (pdftex.def)             Requested size: 252.94499pt x 173.50356pt.
  [635 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-32.png (PNG copy)> </home
 /boyto/Dropbox/Work/Apunte/figures/rs-fig-33.png (PNG copy)>] <figures/rs-fig-3
@@ -5513,21 +5470,21 @@ Package pdftex.def Info: figures/rs-fig-34.png used on input line 17951.
 File: figures/rs-fig-35.png Graphic file (type png)
 
 <use figures/rs-fig-35.png>
-Package pdftex.def Info: figures/rs-fig-35.png used on input line 17971.
+Package pdftex.def Info: figures/rs-fig-35.png used on input line 17959.
 (pdftex.def)             Requested size: 289.07999pt x 164.52927pt.
  [636 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-34.png (PNG copy)>] <figu
 res/rs-fig-36.png, id=2443, 698.61pt x 400.49625pt>
 File: figures/rs-fig-36.png Graphic file (type png)
 
 <use figures/rs-fig-36.png>
-Package pdftex.def Info: figures/rs-fig-36.png used on input line 17980.
+Package pdftex.def Info: figures/rs-fig-36.png used on input line 17968.
 (pdftex.def)             Requested size: 289.07999pt x 165.72006pt.
 
 <figures/rs-fig-37.png, id=2444, 411.5375pt x 271.0125pt>
 File: figures/rs-fig-37.png Graphic file (type png)
 
 <use figures/rs-fig-37.png>
-Package pdftex.def Info: figures/rs-fig-37.png used on input line 17992.
+Package pdftex.def Info: figures/rs-fig-37.png used on input line 17980.
 (pdftex.def)             Requested size: 180.67499pt x 118.9812pt.
  [637 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-35.png (PNG copy)> </home
 /boyto/Dropbox/Work/Apunte/figures/rs-fig-36.png (PNG copy)>] <figures/rs-fig-3
@@ -5535,7 +5492,7 @@ Package pdftex.def Info: figures/rs-fig-37.png used on input line 17992.
 File: figures/rs-fig-38.png Graphic file (type png)
 
 <use figures/rs-fig-38.png>
-Package pdftex.def Info: figures/rs-fig-38.png used on input line 18003.
+Package pdftex.def Info: figures/rs-fig-38.png used on input line 17991.
 (pdftex.def)             Requested size: 289.07999pt x 179.71378pt.
  [638 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-37.png (PNG copy)> </home
 /boyto/Dropbox/Work/Apunte/figures/rs-fig-38.png (PNG copy)>]
@@ -5546,14 +5503,14 @@ Underfull \vbox (badness 1147) has occurred while \output is active []
 File: figures/rs-fig-39.png Graphic file (type png)
 
 <use figures/rs-fig-39.png>
-Package pdftex.def Info: figures/rs-fig-39.png used on input line 18042.
+Package pdftex.def Info: figures/rs-fig-39.png used on input line 18030.
 (pdftex.def)             Requested size: 252.94499pt x 130.00778pt.
 
 <figures/rs-fig-40.png, id=2457, 546.04pt x 262.9825pt>
 File: figures/rs-fig-40.png Graphic file (type png)
 
 <use figures/rs-fig-40.png>
-Package pdftex.def Info: figures/rs-fig-40.png used on input line 18056.
+Package pdftex.def Info: figures/rs-fig-40.png used on input line 18044.
 (pdftex.def)             Requested size: 252.94499pt x 121.82411pt.
  [640 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-39.png (PNG copy)> </home
 /boyto/Dropbox/Work/Apunte/figures/rs-fig-40.png (PNG copy)>] <figures/rs-fig-4
@@ -5561,21 +5518,21 @@ Package pdftex.def Info: figures/rs-fig-40.png used on input line 18056.
 File: figures/rs-fig-41.png Graphic file (type png)
 
 <use figures/rs-fig-41.png>
-Package pdftex.def Info: figures/rs-fig-41.png used on input line 18081.
+Package pdftex.def Info: figures/rs-fig-41.png used on input line 18069.
 (pdftex.def)             Requested size: 180.67499pt x 155.62582pt.
 
 <figures/rs-fig-42.png, id=2462, 433.62pt x 430.60875pt>
 File: figures/rs-fig-42.png Graphic file (type png)
 
 <use figures/rs-fig-42.png>
-Package pdftex.def Info: figures/rs-fig-42.png used on input line 18090.
+Package pdftex.def Info: figures/rs-fig-42.png used on input line 18078.
 (pdftex.def)             Requested size: 325.215pt x 322.96889pt.
 
 <figures/rs-fig-43.png, id=2463, 321.2pt x 248.93pt>
 File: figures/rs-fig-43.png Graphic file (type png)
 
 <use figures/rs-fig-43.png>
-Package pdftex.def Info: figures/rs-fig-43.png used on input line 18099.
+Package pdftex.def Info: figures/rs-fig-43.png used on input line 18087.
 (pdftex.def)             Requested size: 216.81pt x 168.03189pt.
  [641 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-41.png (PNG copy)>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -5585,21 +5542,21 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: figures/rs-fig-44.png Graphic file (type png)
 
 <use figures/rs-fig-44.png>
-Package pdftex.def Info: figures/rs-fig-44.png used on input line 18116.
+Package pdftex.def Info: figures/rs-fig-44.png used on input line 18104.
 (pdftex.def)             Requested size: 325.215pt x 259.9486pt.
 
 <figures/rs-fig-45.png, id=2471, 955.57pt x 572.1375pt>
 File: figures/rs-fig-45.png Graphic file (type png)
 
 <use figures/rs-fig-45.png>
-Package pdftex.def Info: figures/rs-fig-45.png used on input line 18127.
+Package pdftex.def Info: figures/rs-fig-45.png used on input line 18115.
 (pdftex.def)             Requested size: 325.215pt x 194.71623pt.
 
 <figures/rs-fig-46.png, id=2472, 467.7475pt x 339.2675pt>
 File: figures/rs-fig-46.png Graphic file (type png)
 
 <use figures/rs-fig-46.png>
-Package pdftex.def Info: figures/rs-fig-46.png used on input line 18140.
+Package pdftex.def Info: figures/rs-fig-46.png used on input line 18128.
 (pdftex.def)             Requested size: 252.94499pt x 183.4709pt.
 
 Underfull \vbox (badness 5607) has occurred while \output is active []
@@ -5614,7 +5571,7 @@ boyto/Dropbox/Work/Apunte/figures/rs-fig-45.png (PNG copy)>]
 File: figures/rs-fig-47.png Graphic file (type png)
 
 <use figures/rs-fig-47.png>
-Package pdftex.def Info: figures/rs-fig-47.png used on input line 18149.
+Package pdftex.def Info: figures/rs-fig-47.png used on input line 18137.
 (pdftex.def)             Requested size: 252.94499pt x 209.3551pt.
  [645 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-46.png (PNG copy)>] [646 
 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-47.png (PNG copy)>] <figures/rs
@@ -5622,14 +5579,14 @@ Package pdftex.def Info: figures/rs-fig-47.png used on input line 18149.
 File: figures/rs-fig-48.png Graphic file (type png)
 
 <use figures/rs-fig-48.png>
-Package pdftex.def Info: figures/rs-fig-48.png used on input line 18174.
+Package pdftex.def Info: figures/rs-fig-48.png used on input line 18162.
 (pdftex.def)             Requested size: 252.94499pt x 360.37305pt.
  [647 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-48.png (PNG copy)>] <figu
 res/rs-fig-49.png, id=2491, 457.71pt x 359.3425pt>
 File: figures/rs-fig-49.png Graphic file (type png)
 
 <use figures/rs-fig-49.png>
-Package pdftex.def Info: figures/rs-fig-49.png used on input line 18202.
+Package pdftex.def Info: figures/rs-fig-49.png used on input line 18190.
 (pdftex.def)             Requested size: 252.94499pt x 198.58208pt.
  [648 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-49.png (PNG copy)>] [649]
 
@@ -5637,11 +5594,11 @@ Package pdftex.def Info: figures/rs-fig-49.png used on input line 18202.
 File: figures/rs-fig-50.png Graphic file (type png)
 
 <use figures/rs-fig-50.png>
-Package pdftex.def Info: figures/rs-fig-50.png used on input line 18270.
+Package pdftex.def Info: figures/rs-fig-50.png used on input line 18258.
 (pdftex.def)             Requested size: 325.215pt x 100.29694pt.
  [650 </home/boyto/Dropbox/Work/Apunte/figures/rs-fig-50.png (PNG copy)>] [651]
 
-Overfull \hbox (6.73195pt too wide) in paragraph at lines 18356--18356
+Overfull \hbox (6.73195pt too wide) in paragraph at lines 18344--18344
 []\OT1/cmr/bx/n/12 Generando Re-des So-ciales con Grafos de Kro-necker 
  []
 
@@ -5649,10 +5606,10 @@ Overfull \hbox (6.73195pt too wide) in paragraph at lines 18356--18356
 File: figures/rs-fig-51.png Graphic file (type png)
 
 <use figures/rs-fig-51.png>
-Package pdftex.def Info: figures/rs-fig-51.png used on input line 18362.
+Package pdftex.def Info: figures/rs-fig-51.png used on input line 18350.
 (pdftex.def)             Requested size: 397.48499pt x 251.44737pt.
 
-Overfull \hbox (52.48499pt too wide) in paragraph at lines 18362--18363
+Overfull \hbox (52.48499pt too wide) in paragraph at lines 18350--18351
  [][] 
  []
 
@@ -5660,10 +5617,10 @@ Overfull \hbox (52.48499pt too wide) in paragraph at lines 18362--18363
 File: figures/rs-fig-52.png Graphic file (type png)
 
 <use figures/rs-fig-52.png>
-Package pdftex.def Info: figures/rs-fig-52.png used on input line 18378.
+Package pdftex.def Info: figures/rs-fig-52.png used on input line 18366.
 (pdftex.def)             Requested size: 397.48499pt x 242.88618pt.
 
-Overfull \hbox (52.48499pt too wide) in paragraph at lines 18378--18379
+Overfull \hbox (52.48499pt too wide) in paragraph at lines 18366--18367
  [][] 
  []
 
@@ -5674,12 +5631,12 @@ Chapter 18.
 File: figures/topo-fig-1.png Graphic file (type png)
 
 <use figures/topo-fig-1.png>
-Package pdftex.def Info: figures/topo-fig-1.png used on input line 18395.
+Package pdftex.def Info: figures/topo-fig-1.png used on input line 18383.
 (pdftex.def)             Requested size: 325.215pt x 57.55046pt.
  [655
 
  </home/boyto/Dropbox/Work/Apunte/figures/topo-fig-1.png (PNG copy)>] [656]
-Overfull \hbox (5.3895pt too wide) in paragraph at lines 18441--18442
+Overfull \hbox (5.3895pt too wide) in paragraph at lines 18429--18430
 \OT1/cmr/m/n/10 por-tantes, los com-po-nentes no son pun-tos y aris-tas sino s^
 ^S^^Pmplices n-dimensionales. 
  []
@@ -5688,35 +5645,35 @@ Overfull \hbox (5.3895pt too wide) in paragraph at lines 18441--18442
 File: figures/topo-fig-16.png Graphic file (type png)
 
 <use figures/topo-fig-16.png>
-Package pdftex.def Info: figures/topo-fig-16.png used on input line 18446.
+Package pdftex.def Info: figures/topo-fig-16.png used on input line 18434.
 (pdftex.def)             Requested size: 325.215pt x 52.7403pt.
 
 <figures/topo-fig-17.png, id=2526, 153.6942pt x 288.5982pt>
 File: figures/topo-fig-17.png Graphic file (type png)
 
 <use figures/topo-fig-17.png>
-Package pdftex.def Info: figures/topo-fig-17.png used on input line 18464.
+Package pdftex.def Info: figures/topo-fig-17.png used on input line 18452.
 (pdftex.def)             Requested size: 216.81pt x 407.12607pt.
  [657 </home/boyto/Dropbox/Work/Apunte/figures/topo-fig-16.png (PNG copy)>]
 <figures/topo-fig-5.png, id=2530, 435.6275pt x 391.4625pt>
 File: figures/topo-fig-5.png Graphic file (type png)
 
 <use figures/topo-fig-5.png>
-Package pdftex.def Info: figures/topo-fig-5.png used on input line 18476.
+Package pdftex.def Info: figures/topo-fig-5.png used on input line 18464.
 (pdftex.def)             Requested size: 216.81pt x 194.8288pt.
 
 <figures/topo-fig-6.png, id=2531, 394.47375pt x 446.66875pt>
 File: figures/topo-fig-6.png Graphic file (type png)
 
 <use figures/topo-fig-6.png>
-Package pdftex.def Info: figures/topo-fig-6.png used on input line 18484.
+Package pdftex.def Info: figures/topo-fig-6.png used on input line 18472.
 (pdftex.def)             Requested size: 216.81pt x 245.49817pt.
 
 <figures/cech-fig-1.png, id=2532, 712.6625pt x 529.98pt>
 File: figures/cech-fig-1.png Graphic file (type png)
 
 <use figures/cech-fig-1.png>
-Package pdftex.def Info: figures/cech-fig-1.png used on input line 18498.
+Package pdftex.def Info: figures/cech-fig-1.png used on input line 18486.
 (pdftex.def)             Requested size: 216.81pt x 161.22719pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -5727,7 +5684,7 @@ Overfull \vbox (4.67416pt too high) has occurred while \output is active []
 
 [659 </home/boyto/Dropbox/Work/Apunte/figures/topo-fig-5.png (PNG copy)> </home
 /boyto/Dropbox/Work/Apunte/figures/topo-fig-6.png (PNG copy)>]
-Overfull \hbox (1.47284pt too wide) in paragraph at lines 18510--18511
+Overfull \hbox (1.47284pt too wide) in paragraph at lines 18498--18499
 \OT1/cmr/m/n/10 Como hemos visto el com-plejo sim-pli-cial que pode-mos con-str
 uir de-pende enorme-
  []
@@ -5736,14 +5693,14 @@ uir de-pende enorme-
 File: figures/topo-fig-18.png Graphic file (type png)
 
 <use figures/topo-fig-18.png>
-Package pdftex.def Info: figures/topo-fig-18.png used on input line 18514.
+Package pdftex.def Info: figures/topo-fig-18.png used on input line 18502.
 (pdftex.def)             Requested size: 245.71754pt x 168.34555pt.
  [660 </home/boyto/Dropbox/Work/Apunte/figures/cech-fig-1.png (PNG copy)>]
 <figures/topo-fig-20.png, id=2544, 573.14125pt x 138.5175pt>
 File: figures/topo-fig-20.png Graphic file (type png)
 
 <use figures/topo-fig-20.png>
-Package pdftex.def Info: figures/topo-fig-20.png used on input line 18533.
+Package pdftex.def Info: figures/topo-fig-20.png used on input line 18521.
 (pdftex.def)             Requested size: 325.215pt x 78.59859pt.
  [661 </home/boyto/Dropbox/Work/Apunte/figures/topo-fig-18.png (PNG copy)> </ho
 me/boyto/Dropbox/Work/Apunte/figures/topo-fig-20.png (PNG copy)>] <figures/topo
@@ -5751,24 +5708,24 @@ me/boyto/Dropbox/Work/Apunte/figures/topo-fig-20.png (PNG copy)>] <figures/topo
 File: figures/topo-fig-21.png Graphic file (type png)
 
 <use figures/topo-fig-21.png>
-Package pdftex.def Info: figures/topo-fig-21.png used on input line 18547.
+Package pdftex.def Info: figures/topo-fig-21.png used on input line 18535.
 (pdftex.def)             Requested size: 252.94499pt x 143.49353pt.
 
 <figures/topo-fig-23.png, id=2550, 513.92pt x 358.33875pt>
 File: figures/topo-fig-23.png Graphic file (type png)
 
 <use figures/topo-fig-23.png>
-Package pdftex.def Info: figures/topo-fig-23.png used on input line 18559.
+Package pdftex.def Info: figures/topo-fig-23.png used on input line 18547.
 (pdftex.def)             Requested size: 325.215pt x 226.76614pt.
  [662 </home/boyto/Dropbox/Work/Apunte/figures/topo-fig-21.png (PNG copy)>]
 <figures/topo-fig-8.png, id=2554, 669.50125pt x 518.93875pt>
 File: figures/topo-fig-8.png Graphic file (type png)
 
 <use figures/topo-fig-8.png>
-Package pdftex.def Info: figures/topo-fig-8.png used on input line 18575.
+Package pdftex.def Info: figures/topo-fig-8.png used on input line 18563.
 (pdftex.def)             Requested size: 361.34999pt x 280.09605pt.
 
-Overfull \hbox (16.34999pt too wide) in paragraph at lines 18575--18576
+Overfull \hbox (16.34999pt too wide) in paragraph at lines 18563--18564
  [][] 
  []
 
@@ -5778,10 +5735,10 @@ Overfull \hbox (16.34999pt too wide) in paragraph at lines 18575--18576
 File: figures/topo-fig-9.png Graphic file (type png)
 
 <use figures/topo-fig-9.png>
-Package pdftex.def Info: figures/topo-fig-9.png used on input line 18607.
+Package pdftex.def Info: figures/topo-fig-9.png used on input line 18595.
 (pdftex.def)             Requested size: 361.34999pt x 460.46495pt.
 
-Overfull \hbox (16.34999pt too wide) in paragraph at lines 18607--18608
+Overfull \hbox (16.34999pt too wide) in paragraph at lines 18595--18596
  [][] 
  []
 
@@ -5790,14 +5747,14 @@ Overfull \hbox (16.34999pt too wide) in paragraph at lines 18607--18608
 File: figures/topo-fig-10.png Graphic file (type png)
 
 <use figures/topo-fig-10.png>
-Package pdftex.def Info: figures/topo-fig-10.png used on input line 18691.
+Package pdftex.def Info: figures/topo-fig-10.png used on input line 18679.
 (pdftex.def)             Requested size: 289.07999pt x 118.74901pt.
 
 <figures/topo-fig-11.png, id=2573, 465.74pt x 385.44pt>
 File: figures/topo-fig-11.png Graphic file (type png)
 
 <use figures/topo-fig-11.png>
-Package pdftex.def Info: figures/topo-fig-11.png used on input line 18701.
+Package pdftex.def Info: figures/topo-fig-11.png used on input line 18689.
 (pdftex.def)             Requested size: 252.94499pt x 209.33429pt.
  [668 </home/boyto/Dropbox/Work/Apunte/figures/topo-fig-10.png (PNG copy)> </ho
 me/boyto/Dropbox/Work/Apunte/figures/topo-fig-11.png (PNG copy)>] <figures/topo
@@ -5805,35 +5762,35 @@ me/boyto/Dropbox/Work/Apunte/figures/topo-fig-11.png (PNG copy)>] <figures/topo
 File: figures/topo-fig-12.png Graphic file (type png)
 
 <use figures/topo-fig-12.png>
-Package pdftex.def Info: figures/topo-fig-12.png used on input line 18714.
+Package pdftex.def Info: figures/topo-fig-12.png used on input line 18702.
 (pdftex.def)             Requested size: 216.81pt x 181.97629pt.
 
 <figures/topo-fig-13.png, id=2578, 343.2825pt x 385.44pt>
 File: figures/topo-fig-13.png Graphic file (type png)
 
 <use figures/topo-fig-13.png>
-Package pdftex.def Info: figures/topo-fig-13.png used on input line 18722.
+Package pdftex.def Info: figures/topo-fig-13.png used on input line 18710.
 (pdftex.def)             Requested size: 216.81pt x 243.43425pt.
 
 <figures/topo-fig-22.png, id=2579, 780.9175pt x 330.23375pt>
 File: figures/topo-fig-22.png Graphic file (type png)
 
 <use figures/topo-fig-22.png>
-Package pdftex.def Info: figures/topo-fig-22.png used on input line 18734.
+Package pdftex.def Info: figures/topo-fig-22.png used on input line 18722.
 (pdftex.def)             Requested size: 289.07999pt x 122.24503pt.
 
 <figures/topo-fig-14.png, id=2580, 256.96pt x 277.035pt>
 File: figures/topo-fig-14.png Graphic file (type png)
 
 <use figures/topo-fig-14.png>
-Package pdftex.def Info: figures/topo-fig-14.png used on input line 18748.
+Package pdftex.def Info: figures/topo-fig-14.png used on input line 18736.
 (pdftex.def)             Requested size: 180.67499pt x 194.79398pt.
 
 <figures/topo-fig-15.png, id=2581, 425.59pt x 421.575pt>
 File: figures/topo-fig-15.png Graphic file (type png)
 
 <use figures/topo-fig-15.png>
-Package pdftex.def Info: figures/topo-fig-15.png used on input line 18758.
+Package pdftex.def Info: figures/topo-fig-15.png used on input line 18746.
 (pdftex.def)             Requested size: 252.94499pt x 250.56041pt.
  [669 </home/boyto/Dropbox/Work/Apunte/figures/topo-fig-12.png (PNG copy)>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -5849,34 +5806,34 @@ e/boyto/Dropbox/Work/Apunte/figures/topo-fig-15.png (PNG copy)>]
 File: figures/topoe1.png Graphic file (type png)
 
 <use figures/topoe1.png>
-Package pdftex.def Info: figures/topoe1.png used on input line 18794.
+Package pdftex.def Info: figures/topoe1.png used on input line 18782.
 (pdftex.def)             Requested size: 180.67499pt x 152.49239pt.
 
 <figures/topoe2.png, id=2592, 411.5375pt x 320.19624pt>
 File: figures/topoe2.png Graphic file (type png)
 
 <use figures/topoe2.png>
-Package pdftex.def Info: figures/topoe2.png used on input line 18804.
+Package pdftex.def Info: figures/topoe2.png used on input line 18792.
 (pdftex.def)             Requested size: 180.67499pt x 140.57408pt.
  <figures/topoe3.png, id=2593, 562.1pt x 526.96875pt>
 File: figures/topoe3.png Graphic file (type png)
 
 <use figures/topoe3.png>
-Package pdftex.def Info: figures/topoe3.png used on input line 18814.
+Package pdftex.def Info: figures/topoe3.png used on input line 18802.
 (pdftex.def)             Requested size: 180.67499pt x 169.38124pt.
  [672]
 <figures/topoe4.png, id=2597, 338.26375pt x 252.945pt>
 File: figures/topoe4.png Graphic file (type png)
 
 <use figures/topoe4.png>
-Package pdftex.def Info: figures/topoe4.png used on input line 18834.
+Package pdftex.def Info: figures/topoe4.png used on input line 18822.
 (pdftex.def)             Requested size: 180.67499pt x 135.10617pt.
 
 Underfull \vbox (badness 3557) has occurred while \output is active []
 
  [673 </home/boyto/Dropbox/Work/Apunte/figures/topoe1.png (PNG copy)> </home/bo
 yto/Dropbox/Work/Apunte/figures/topoe2.png (PNG copy)>]
-Overfull \hbox (5.47281pt too wide) in paragraph at lines 18848--18849
+Overfull \hbox (5.47281pt too wide) in paragraph at lines 18836--18837
 []\OT1/cmr/m/n/10 Mediante el uso de difer-entes fil-tros topol^^Sogicos y par^
 ^Sametros pode-mos obtener
  []
@@ -5888,7 +5845,7 @@ to/Dropbox/Work/Apunte/figures/topoe4.png (PNG copy)>] [675] [676
 [678]
 Chapter 19.
 
-Overfull \hbox (6.55612pt too wide) in paragraph at lines 18858--18859
+Overfull \hbox (6.55612pt too wide) in paragraph at lines 18846--18847
 []\OT1/cmr/m/n/10 Encontrar con-jun-tos de ^^S^^Ptems que fre-cuente-mente est^
 ^San jun-tos im-plica tambi^^Sen
  []
@@ -5904,38 +5861,38 @@ Chapter 20.
 File: figures/meta-fig-1.png Graphic file (type png)
 
 <use figures/meta-fig-1.png>
-Package pdftex.def Info: figures/meta-fig-1.png used on input line 19336.
+Package pdftex.def Info: figures/meta-fig-1.png used on input line 19324.
 (pdftex.def)             Requested size: 289.07999pt x 78.77953pt.
 
 <figures/meta-fig-2.png, id=2673, 988.69376pt x 276.03125pt>
 File: figures/meta-fig-2.png Graphic file (type png)
 
 <use figures/meta-fig-2.png>
-Package pdftex.def Info: figures/meta-fig-2.png used on input line 19352.
+Package pdftex.def Info: figures/meta-fig-2.png used on input line 19340.
 (pdftex.def)             Requested size: 289.07999pt x 80.70406pt.
 
 <figures/meta-fig-3.png, id=2674, 712.6625pt x 229.85875pt>
 File: figures/meta-fig-3.png Graphic file (type png)
 
 <use figures/meta-fig-3.png>
-Package pdftex.def Info: figures/meta-fig-3.png used on input line 19366.
+Package pdftex.def Info: figures/meta-fig-3.png used on input line 19354.
 (pdftex.def)             Requested size: 289.07999pt x 93.23607pt.
  [696 </home/boyto/Dropbox/Work/Apunte/figures/meta-fig-1.png (PNG copy)>] [697
  </home/boyto/Dropbox/Work/Apunte/figures/meta-fig-2.png (PNG copy)> </home/boy
 to/Dropbox/Work/Apunte/figures/meta-fig-3.png (PNG copy)>] [698]
-Overfull \hbox (2.97282pt too wide) in paragraph at lines 19435--19436
+Overfull \hbox (2.97282pt too wide) in paragraph at lines 19423--19424
 []\OT1/cmr/m/n/10 Podemos crear una jer-arqu^^S^^Pa de clases us-ando la propie
 dad "rdfs:subClassOf",
  []
 
 
-Overfull \hbox (12.5562pt too wide) in paragraph at lines 19452--19453
+Overfull \hbox (12.5562pt too wide) in paragraph at lines 19440--19441
 []\OT1/cmr/m/n/10 La propiedad "rdfs:range" de-fine cu^^Sales son los val-ores 
 v^^Salidos de una propiedad.
  []
 
 [699]
-Overfull \hbox (102.58426pt too wide) in paragraph at lines 19501--19503
+Overfull \hbox (102.58426pt too wide) in paragraph at lines 19489--19491
 \OT1/cmr/m/n/10 los con-tac-tos de Tim Berners-Lee al-ma-ce-na-dos en: http://d
 ig.csail.mit.edu/2008/webdav/timbl/foaf.rdf 
  []
@@ -5943,20 +5900,20 @@ ig.csail.mit.edu/2008/webdav/timbl/foaf.rdf
 [700] [701] [702
 
 ]
-Overfull \hbox (5.70213pt too wide) in paragraph at lines 19548--19551
+Overfull \hbox (5.70213pt too wide) in paragraph at lines 19536--19539
 \OT1/cmr/m/n/10 Dimitris Achliop-tas. \OT1/cmr/bx/n/10 Database friendly ran-do
 m pro-jec-tions Johnson-
  []
 
 [703]
-Overfull \hbox (0.23225pt too wide) in paragraph at lines 19577--19580
+Overfull \hbox (0.23225pt too wide) in paragraph at lines 19565--19568
 \OT1/cmr/m/n/10 Bahman Bah-mani; Ben-jamin Mosley; An-drea Vat-tani; Ravi Ku-ma
 r; Sergei
  []
 
 [704]
 ! Misplaced alignment tab character &.
-l.19639 ...erview?id=0B8rBD4QSqWnSRml5R3dsNEdGTHM&
+l.19627 ...erview?id=0B8rBD4QSqWnSRml5R3dsNEdGTHM&
                                                   usp=sharin+\item \[Clauset...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -5966,61 +5923,61 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 
-Overfull \hbox (136.7707pt too wide) in paragraph at lines 19636--19639
+Overfull \hbox (136.7707pt too wide) in paragraph at lines 19624--19627
 \OT1/cmr/bx/n/10 Sys-tem. \OT1/cmr/m/n/10 https://drive.google.com/folderview?i
 d=0B8rBD4QSqWnSRml5R3dsNEdGTHMusp=sharin+ 
  []
 
 [705]
-Overfull \hbox (10.1166pt too wide) in paragraph at lines 19651--19654
+Overfull \hbox (10.1166pt too wide) in paragraph at lines 19639--19642
 \OT1/cmr/m/n/10 Sanjoy Das-gupta;Anupam Gupta. \OT1/cmr/bx/n/10 An el-e-men-tar
 y proof of the Johnson-
  []
 
 
-Overfull \hbox (3.69661pt too wide) in paragraph at lines 19681--19684
+Overfull \hbox (3.69661pt too wide) in paragraph at lines 19669--19672
 \OT1/cmr/m/n/10 Justin El-dridge; Mikhail Belkin. \OT1/cmr/bx/n/10 Be-yond Har-
 ti-gan Con-sis-tency Merge
  []
 
 [706]
-Overfull \hbox (1.42317pt too wide) in paragraph at lines 19713--19716
+Overfull \hbox (1.42317pt too wide) in paragraph at lines 19701--19704
 \OT1/cmr/m/n/10 Kiana Ha-jebi, Yasin Abbasi-Yadkori, Hos-sein Shah-bazi, Hong Z
 hang. \OT1/cmr/bx/n/10 Fast
  []
 
 [707]
-Overfull \hbox (15.08403pt too wide) in paragraph at lines 19738--19741
+Overfull \hbox (15.08403pt too wide) in paragraph at lines 19726--19729
 \OT1/cmr/m/n/10 David Karger;Eric Lehman;Tom Leighton;Matthew Levine;Daniel Lew
 in;Rina
  []
 
 
-Overfull \hbox (22.33177pt too wide) in paragraph at lines 19738--19741
+Overfull \hbox (22.33177pt too wide) in paragraph at lines 19726--19729
 \OT1/cmr/m/n/10 Pan-i-grahy \OT1/cmr/bx/n/10 Con-sis-tent Hash-ing and Ran-dom 
 Trees:Distributed Caching
  []
 
 [708]
-Overfull \hbox (4.90477pt too wide) in paragraph at lines 19783--19786
+Overfull \hbox (4.90477pt too wide) in paragraph at lines 19771--19774
 \OT1/cmr/m/n/10 Laurence A F Park; Christo-pher A Leckie; Ko-ta-giri Ra-mamo-ha
 -narao;James
  []
 
 
-Overfull \hbox (0.6674pt too wide) in paragraph at lines 19783--19786
+Overfull \hbox (0.6674pt too wide) in paragraph at lines 19771--19774
 \OT1/cmr/m/n/10 C Bezdek. \OT1/cmr/bx/n/10 Adapt-ing spec-tral co-clus-ter-ing 
 to doc-u-ments and terms
  []
 
 [709]
-Overfull \hbox (11.28316pt too wide) in paragraph at lines 19815--19818
+Overfull \hbox (11.28316pt too wide) in paragraph at lines 19803--19806
 \OT1/cmr/m/n/10 Qinfeng Shi; James Pet-ter-son; John Lang-ford;Alex Smola;Alex 
 Strehl;Gideon
  []
 
 
-Overfull \hbox (11.28316pt too wide) in paragraph at lines 19819--19822
+Overfull \hbox (11.28316pt too wide) in paragraph at lines 19807--19810
 \OT1/cmr/m/n/10 Qinfeng Shi; James Pet-ter-son; John Lang-ford;Alex Smola;Alex 
 Strehl;Gideon
  []
@@ -6030,20 +5987,20 @@ Runaway argument?
 ! Paragraph ended before \end was complete.
 <to be read again> 
                    \par 
-l.19889 
+l.19877 
         
 I suspect you've forgotten a `}', causing me to apply this
 control sequence to too much text. How can we recover?
 My plan is to forget the whole thing and hope for the best.
 
 
-! LaTeX Error: \begin{enumerate} on input line 19535 ended by \end{document}.
+! LaTeX Error: \begin{enumerate} on input line 19523 ended by \end{document}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.19891 \end{document}
+l.19879 \end{document}
                       
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -6052,7 +6009,7 @@ or  <return>  to continue without it.
 [712] (/home/boyto/Dropbox/Work/Apunte/apunte.aux) )
 (\end occurred inside a group at level 2)
 
-### semi simple group (level 2) entered at line 19535 (\begingroup)
+### semi simple group (level 2) entered at line 19523 (\begingroup)
 ### simple group (level 1) entered at line 3443 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
@@ -6090,8 +6047,8 @@ i7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/s
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /home/boyto/Dropbox/Work/Apunte/apunte.pdf (730 pages, 282711
-58 bytes).
+Output written on /home/boyto/Dropbox/Work/Apunte/apunte.pdf (730 pages, 282659
+77 bytes).
 PDF statistics:
  2846 PDF objects out of 2984 (max. 8388607)
  1697 compressed objects within 17 object streams

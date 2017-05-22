@@ -257,34 +257,34 @@
 \contentsline {subsection}{\numberline {6.7.1}Clonaci\IeC {\'o}n}{223}
 \contentsline {section}{\numberline {6.8}La Familia LZ de Compresores}{224}
 \contentsline {subsection}{\numberline {6.8.1}RLE}{225}
-\contentsline {subsection}{\numberline {6.8.2}LZSS}{226}
+\contentsline {subsection}{\numberline {6.8.2}LZSS}{225}
 \contentsline {subsubsection}{Parsing en LZSS}{227}
 \contentsline {subsection}{\numberline {6.8.3}DEFLATE (LzHuf)}{228}
-\contentsline {subsection}{\numberline {6.8.4}LZW}{229}
+\contentsline {subsection}{\numberline {6.8.4}LZW}{228}
 \contentsline {subsubsection}{El Descompresor LZW}{232}
 \contentsline {subsubsection}{Los Dragones de LZW}{233}
-\contentsline {subsubsection}{Mecanismo de Clearing}{234}
+\contentsline {subsubsection}{Mecanismo de Clearing}{233}
 \contentsline {subsubsection}{Suboptimalidad de la codificaci\IeC {\'o}n en LZW}{234}
-\contentsline {subsubsection}{Complejidad LZ}{235}
+\contentsline {subsubsection}{Complejidad LZ}{234}
 \contentsline {subsection}{\numberline {6.8.5}Snappy}{235}
 \contentsline {subsubsection}{Literales}{235}
 \contentsline {subsubsection}{Matches}{236}
-\contentsline {subsection}{\numberline {6.8.6}LZMA}{237}
+\contentsline {subsection}{\numberline {6.8.6}LZMA}{236}
 \contentsline {subsubsection}{Tipos de C\IeC {\'o}digos}{237}
 \contentsline {subsubsection}{Codificaci\IeC {\'o}n Aritm\IeC {\'e}tica}{238}
 \contentsline {subsubsection}{Tama\IeC {\~n}o de la Ventana y Optimal Parsing}{239}
 \contentsline {subsubsection}{Uso de Exclusi\IeC {\'o}n}{239}
 \contentsline {section}{\numberline {6.9}Block Sorting}{239}
-\contentsline {subsection}{\numberline {6.9.1}Archivos localizados y MTF}{240}
+\contentsline {subsection}{\numberline {6.9.1}Archivos localizados y MTF}{239}
 \contentsline {subsection}{\numberline {6.9.2}La Transformaci\IeC {\'o}n de Burrows y Wheeler}{241}
-\contentsline {section}{\numberline {6.10}\IeC {\'I}ndices FM}{243}
+\contentsline {section}{\numberline {6.10}\IeC {\'I}ndices FM}{242}
 \contentsline {subsection}{\numberline {6.10.1}\IeC {\'I}ndices de Sufijos}{243}
-\contentsline {subsection}{\numberline {6.10.2}Mapeo LF}{244}
+\contentsline {subsection}{\numberline {6.10.2}Mapeo LF}{243}
 \contentsline {section}{\numberline {6.11}Comprimiendo el \IeC {\'I}ndice FM}{245}
-\contentsline {section}{\numberline {6.12}Estructura Final del \IeC {\'I}ndice FM}{247}
+\contentsline {section}{\numberline {6.12}Estructura Final del \IeC {\'I}ndice FM}{246}
 \contentsline {section}{\numberline {6.13}PAQ}{247}
 \contentsline {subsection}{\numberline {6.13.1}Modelos de PAQ}{248}
-\contentsline {subsection}{\numberline {6.13.2}SSE}{249}
+\contentsline {subsection}{\numberline {6.13.2}SSE}{248}
 \contentsline {chapter}{\numberline {7}Hashing}{251}
 \contentsline {section}{\numberline {7.1}Introducci\IeC {\'o}n}{251}
 \contentsline {subsection}{\numberline {7.1.1}Funciones de Hashing Elementales}{251}
