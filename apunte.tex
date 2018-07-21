@@ -4019,15 +4019,15 @@ Entre otras cosas, la complejidad de Kolmogorov puede ser utilizada para estimar
 $$KD(x,y) = K(xy)-\min\{K(x),K(y)\}$$
 \end{defn}
 
-Notemos que la distancia de Kolmogorov nos da un número que va desde 0 cuando $K(xy) = \min\{K(x),K(y)\}$ hasta $\max\{K(x),K(y)\}$ por lo tanto si queremos un número entre 0 y 1 podemos dividir por el máximo entre $K(x)$ y $K(y)$ para obtener un valor entre 0 y 1. Esta es la distancia normalizada de Kolmogorov.
+Notar que la distancia de Kolmogorov nos da un número que va desde 0 cuando $K(xy) = \min\{K(x),K(y)\}$ hasta $\max\{K(x),K(y)\}$ por lo tanto si se quiere un número entre 0 y 1 es necesario dividir por el máximo entre $K(x)$ y $K(y)$ para obtener un valor entre 0 y 1. Esta es la distancia normalizada de Kolmogorov.
 
 \begin{defn}[Distancia Normalizada de Kolmogorov]
 $$NKD(x,y) = \frac{K(xy)-\min\{K(x),K(y)\}}{\max\{K(x),K(y)\}}$$
 \end{defn}
 
 
-Definimos la distancia entre dos strings como la complejidad de los strings concatenados menos la complejidad del string de menor complejidad entre x e y. Esto es equivalente a decir que si tenemos un programa que genera x o y cuantos bits tenemos que agregarle para generar la concatenación de x e y.
-Veamos si esta distancia sirve como métrica validando que cumpla las tres propiedades que sabemos debe cumplir una distancia:
+Esta última definición es equivalente a entender, dado un programa que genera $x$ o $y$, cuántos bits hay que agregarle para generar la concatenación de x e y.
+Para que esta distancia sirve como métrica tiene que cumplir las tres propiedades que cumplen las distancias:
 
 \begin{enumerate}
 \item $KD(x,y) \geq 0 $
@@ -4035,32 +4035,32 @@ Veamos si esta distancia sirve como métrica validando que cumpla las tres propi
 \item $KD(x,y) \leq KD(x,z)+KD(z,y)$
 \end{enumerate}
 
-La primera propiedad es fácil de demostrar ya que K(xy)  es mayor a K(x) y K(y) por lo tanto es mayor al mínimo entre ambos y por lo tanto la distancia de Kolmogorov siempre es positiva.
+La primera propiedad es fácil de demostrar ya que $K(xy)$  es mayor a $K(x)$ y $K(y)$ por lo tanto es mayor al mínimo entre ambos y por lo tanto la distancia de Kolmogorov siempre es positiva.
 
-Para la segunda propiedad sabemos que $K(x+y) =K(y+x)$ por lo tanto :
+Para la segunda propiedad se sabe que $K(xy) =K(yx)$ por lo tanto :
 $$KD(x,y) = K(yx) - \min\{K(x),K(y)\} = KD(y,x)$$
 
 La tercer propiedad es la desigualdad triangular 
 
 $$KD(x,y) \leq KD(x,z) + KD(z,y)$$
-$$K(xy) - \min\{K(x),K(y)\} \leq K(x+z) - \min\{K(x),K(z)\} + K(z+y) - \min\{K(z),K(y)\}$$
-Supongamos $ K(x) \leq K(y) \leq K(z)$ sin perder generalidad.
+$$K(xy) - \min\{K(x),K(y)\} \leq K(xz) - \min\{K(x),K(z)\} + K(zy) - \min\{K(z),K(y)\}$$
+Suponiendo $ K(x) \leq K(y) \leq K(z)$, sin perder generalidad, se obtiene lo siguiente:
 $$K(xy) - K(x) \leq K(xz) - K(x) + K(zy) - K(y)$$
 Sumando K(z) a ambos lados
 $$K(xy) + K(z) \leq K(xz) + K(zy) - K(y) + K(z)$$
-Por la propiedad distributiva sabemos que $K(xy)+K(z) \leq K(xz) + K(zy)$ y como $ K(z)>K(y)$ a la parte derecha le estamos agregando una constante positiva y vale la desigualdad
+Por la propiedad distributiva se obtiene que $K(xy)+K(z) \leq K(xz) + K(zy)$ y como $ K(z)>K(y)$ a la parte derecha se esta agregando una constante positiva y vale la desigualdad
 $$K(xy) \leq K(xz) + K(zy) + \lambda^+ $$
-Con lo cual demostramos la desigualdad triangular.
+Con esta última desigualdad queda demostrada la desigualdad triangular
 
 \subsection{Intractabilidad de K(x)}
 
-Hemos visto la utilidad de la complejidad de Kolmogorov para calcular la complejidad de un string y las propiedades de la misma. Sin embargo vamos a demostrar que $K(x)$ es intractable o incomputable, es decir no existe forma de calcular $K(x)$
+Se ha visto la utilidad de la complejidad de Kolmogorov no solo para calcular la complejidad de un string sino para obtener la distancia entre dos strings. Sin embargo vamos a demostrar que $K(x)$ es intractable o incomputable, es decir, no existe forma de calcular $K(x)$
 
 \begin{theorem}[Kolmogorov]
 K(x) es intractable.
 \end{theorem}
 
-Vamos a escribir un programa que vaya generando todos los strings posibles en binario (0,1,10,11,100,101,...) hasta encontrar el primero cuya complejidad es de 200Mb. Cuando lo encontremos simplemente lo imprimimos y salimos del programa.
+El teorema se puede demostrar fácilmente por el método del absurdo. Suponiendo que $K(x)$ es computable, se quiere un programa que genere todos los strings posibles en binario (0,1,10,11,100,101,...) hasta encontrar el primero cuya complejidad es de 200Mb para poder imprimirlo y luego finalizar el programa. El pseudocódigo se vería como el siguiente:
 
 \begin{verbatim}
 for i=1 to Inf (cantidad de bits)
@@ -4070,10 +4070,10 @@ for i=1 to Inf (cantidad de bits)
 end
 \end{verbatim}
 
-Notemos ahora que el programa que hemos escrito ocupa, evidentemente, menos de 200Mb por lo tanto hemos escrito un programa de menos de 200Mb que genera un string cuya complejidad es mayor a 200Mb y esto genera un absurdo. Es decir que hemos demostrado que $K(x)$ no puede existir ya que si existiera entonces nuestro programa invalidar\'i{a} su definición.
-Esta demostración necesita un cierto tiempo de maduración así que invitamos al lector a realizar una pausa y, contemplativamente, pensar en lo que acabamos de demostrar.
+Se nota claramente que el programa ocupa menos de 200Mb y es capaz de generar un string $x$ cuya complejidad es mayor o igual a 200Mb y esto es un absurdo porque tendríamos dos complejidades para el mismo string $x$ (una que es menor a 200Mb, y otra que es mayor o igual a 200Mb). En consecuencia, queda demostrado que $K(x)$ no puede existir ya que si existiera entonces nuestro este programa invalida su definición.
+Esta demostración necesita un cierto tiempo de maduración así que se recomienda al lector realizar una pausa y, contemplativamente, pensar en lo que se acaba de demostrar.
 
-Es desafortunado demostrar que $K(x)$ no existe pero es posible estimar $K(x)$ mediante un compresor de datos. Como $K(x)$ es la longitud en bits del programa mas chico que genera $x$ podemos aproximar $K(x)$ por el mejor resultado posible de aplicar un compresor de datos a $x$ es decir $C(x)$. De esta forma el mejor compresor posible existente hasta la fecha nos determina la complejidad del string. Todas las propiedades de $K(x)$ se mantienen con algunos cuidados especiales para $C(x)$ y podemos entonces definir la distancia normalizada de compresión.
+Es desafortunado demostrar que $K(x)$ no existe, puesto que entonces no podríamos entender la complejidad de los datos o bien no podríamos utilizar $NKD(x,y)$ como distancia. Sin embargo, es posible estimar $K(x)$ mediante un compresor de datos. Como $K(x)$ es la longitud en bits del programa mas chico que genera $x$ podemos aproximar $K(x)$ por el mejor resultado posible de aplicar un compresor de datos a $x$, es decir, $C(x)$. De esta forma, el mejor compresor posible existente hasta la fecha, permite determinar la complejidad de un string. Todas las propiedades de $K(x)$ se mantienen con algunos cuidados especiales para $C(x)$. En consecuencia, se puede definir la Distancia Normalizada de Compresión
 
 \subsection{Distancia Normalizada de Compresión (NCD)}
 
