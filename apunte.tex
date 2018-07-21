@@ -3937,16 +3937,16 @@ OUTPUT:
 
 \epigraph{Information is the resolution of uncertainty.}{\textit{Claude Shannon}}
 
-
-En este capítulo vamos a intentar entender los datos mediante la complejidad de los mismos, la complejidad está directamente relacionada con la cantidad de bits necesarios para almacenar los datos y por lo tanto es un tema íntimamente ligado a la compresión de datos. Para poder comprimir bien es necesario poder modelar los datos de la mejor forma posible y para poder modelar los datos de la mejor forma posible es necesario entender los datos. Por lo tanto podemos decir que comprimir y entender son sinónimos. Aprender técnicas de compresión de datos nos permitirá entonces poder entender a los datos de la mejor forma posible lo cual es algo sumamente importante. Veremos en este capítulo como la compresión de datos puede usarse no solo para que los datos ocupen menos espacio sino también como una forma de representar el conocimiento que tenemos sobre los mismos.
+Una forma de entender los datos es mediante la complejidad de los mismos. La complejidad se encuentra directamente relacionada con la cantidad de bits necesarios para almacenar los datos y por lo tanto es un tema íntimamente ligado a la compresión de datos.
+El hecho de comprimir bien no es una tarea trivial. Para poder lograr esto, es necesario modelar los datos de la mejor forma posible y para poder modelar los datos de la mejor forma posible es necesario entenderlos. Por lo tanto podemos decir que comprimir y entender son sinónimos. Aprender técnicas de compresión de datos permitirá entonces poder entender a los datos de la mejor forma posible lo cual es algo sumamente importante. En este capítulo se verá cómo la compresión de datos puede usarse no solo para que los datos ocupen menos espacio sino también como una forma de representar el conocimiento que se tiene sobre los mismos.
 
 \section{Complejidad}
 
-Hay varias formas de definir complejidad. En este capítulo vamos a usar la complejidad de Kolmogorov que define la complejidad de un cierto string/archivo o dato como la cantidad de bits que ocupa el programa mínimo que puede generar dicho string.
+Si bien hay varias formas de definir complejidad, en esta unidad se desarrollará particularmente la complejidad de Kolmogorov que denominaremos $K(x)$.
 
 \subsection{Complejidad de Kolmogorov}
 
-\begin{defn}[Complejidad de Kolmogorov]
+\begin{defn}
 Sea $x$ un string, $K(x)$ es igual a la cantidad de bits mínimos que debe tener un programa que genera $x$
 \end{defn}
 
@@ -3958,19 +3958,30 @@ x2 = 87490423166544426710
 x3 = 94482553797747268471
 \end{verbatim}
 
-El primer string es una serie de veinte ceros, por lo tanto podríamos escribir un programa muy cortito de la forma \textit{for i=1 to 20\;print "0"}, si el string tuviera miles de millones de ceros el programa crecer\'i{a} muy poco en tamaño, apenas lo necesario para guardar la cantidad de ceros a emitir. Por lo tanto podemos razonar que este string tiene complejidad cero. El segundo string es aleatorio, por lo tanto para que un programa lo genere debería simplemente hacer \textit{print "87490423166544426710"} la longitud del programa es entonces, en el límite igual a la cantidad de bits necesarios para representar el string y la complejidad del string es la máxima posible. El tercer string es mas interesante, a primera vista podría parecer random pero sin embargo no lo es, son dígitos de $\pi$ a partir de un  offset pequeño. El programa necesario para generar este string es entonces muy pequeño ya que existe código extremadamente mínimo para generar dígitos de $\pi$ y solo nos haría falta codificar el offset que es pequeño. Por lo tanto la complejidad de este string es muy baja. 
+Es interesante analizar qué ocurre en los tres ejemplos anteriores.
 
-Nuestro ejemplo sirve para presentar varios conceptos muy importantes: en primer lugar que puede ser muy difícil darnos cuenta de la complejidad de un cierto conjunto de datos, un programa debería darse cuenta que nuestro archivo "x2" contiene dígitos de $\pi$ para encontrar la forma mínima de representarlo. El lenguaje de programación a usar, compilador y demás influyen en la longitud del programa mínimo que estamos buscando pero en general es algo que podemos ignorar ya que a medida que los strings son lo suficientemente grandes el overhead introducido por el programa tiende a cero.
+El primer string es una serie de veinte ceros, por lo tanto se podría escribir un programa muy corto como \textit{for i=1 to 20\;print "0"}. Si el string tuviera miles de millones de ceros el programa crecería muy poco en tamaño, apenas lo necesario para guardar la cantidad de ceros a emitir (habría que cambiar únicamente el número 20 de la condición). Por lo tanto podemos razonar que este string tiene complejidad cero. 
 
-La complejidad de Kolmogorov nos sirve para poder definir de forma precisa un concepto bastante complejo: el azar.
+El segundo string parece ser aleatorio, por lo tanto para que un programa lo genere debería simplemente hacer \textit{print "87490423166544426710"}. En consecuencia, la longitud del programa se aproxima entonces a la cantidad de bits necesarios para representar el string y la complejidad del string es la máxima posible. 
+
+El tercer string es mas interesante, a primera vista podría parecer random pero sin embargo no lo es, son dígitos de $\pi$ a partir de un offset pequeño. El programa necesario para generar este string es entonces muy pequeño ya que existe código extremadamente mínimo para generar dígitos de $\pi$ y solo nos haría falta codificar el offset que es pequeño. Por lo tanto la complejidad de este string es muy baja. 
+
+De los ejemplos anteriores, se deduce lo siguiente:
+
+\begin{itemize}
+	\item Puede ser muy difícil darse cuenta de la complejidad que posee cierto conjunto de datos. Por ejemplo, un programa tendría que darse cuenta que "x2" contiene ciertos dígitos de $\pi$ para luego encontrar la forma mínima de representarlo
+	\item El lenguaje de programación a usar, el compilador y demás influyen en la longitud del programa mínimo que estamos buscando pero en general es algo que podemos ignorar ya que a medida que los strings son lo suficientemente grandes el overhead introducido por el programa tiende a cero (el ejemplo "x1" ejemplifica muy bien este escenario)
+\end{itemize}
+
+Entre otras cosas, la complejidad de Kolmogorov permite definir de una forma más precisa un concepto bastante complejo: el azar.
 
 \begin{defn}[Datos Aleatorios]
-Sea $x$ un string, decimos que $x$ es random/aleatorio si y sólo si $ K(x) =|x|$. Es decir que la complejidad del string es igual a la longitud del mismo.
+Sea $x$ un string, se dice que $x$ es random/aleatorio si y sólo si $ K(x) =|x|$. Es decir que la complejidad del string es igual a la longitud del mismo.
 \end{defn}
 
 \subsection{Propiedades de K(x)}
 
-Vamos a ver ahora algunas propiedades de la complejidad de Kolmogorov y a explicar sus fundamentos. xy denota la concatenación de los strings x e y.
+En esta sección se verán algunas propiedades de la complejidad de Kolmogorov y luego se explicarán algunos de sus fundamentos. Denotando a $xy$ como la concatenación de los strings $x$ e $y$, las propiedades son:
 
 \begin{enumerate}
 \item $K(x) \geq 0$
@@ -3982,26 +3993,27 @@ Vamos a ver ahora algunas propiedades de la complejidad de Kolmogorov y a explic
 \item $K(xy)+K(z) \leq K(xz)+K(yz)$
 \end{enumerate}
 
-Las dos primeras propiedades son simples: la complejidad no puede ser negativa (es el tamaño en bits de un programa) y no puede ser mayor a la longitud del dato ya que de lo contrario podríamos simplemente hacer \textit{print x} para generarlo.Recordemos que el overhead del lenguaje de programación es despreciable.
+Las dos primeras propiedades son simples: la complejidad no puede ser negativa (es el tamaño en bits de un programa) y no puede ser mayor a la longitud del dato ya que de lo contrario podríamos simplemente hacer \textit{print x} para generarlo. Recordar que el overhead del lenguaje de programación es despreciable.
 
-La propiedad 3 dice que la complejidad de la concatenación de dos strings nunca puede ser mayor a la suma de la complejidad de los mismos. Esto se demuestra de la misma forma que la propiedad 2. 
+La propiedad 3 se demuestra de la misma forma que la propiedad 2. En el peor de los casos, nuestro programa podría hacer un print tanto de $x$ e $y$ entonces la complejidad del mismo es la suma de las complejidades de $x$ e $y$
 
-La cuarta propiedad dice que la complejidad de concatenar dos strings es mayor a la complejidad de cada uno de ellos. Esto se puede demostrar por el absurdo. Si $K(x+y)<K(x)$ entonces podríamos representar a "x" con el programa que genera x+y y simplemente descartar "y".
+La cuarta propiedad dice que la complejidad de concatenar dos strings es mayor a la complejidad de cada uno de ellos. Esto se puede demostrar por el absurdo. Si $K(x+y)<K(x)$ entonces se podría representar a $x$ con el programa que genera $x+y$ y simplemente descartar $y$.
 
 La quinta propiedad es la simétrica y establece que la complejidad de dos strings concatenados no se ve afectada por el orden en el cual concatenamos los mismos. 
 
-La sexta propiedad es muy importante y establece que la complejidad de un string concatenado consigo mismo es igual a la complejidad del string. Esto es muy fácil de demostrar ya que si tenemos un programa que genera x entonces simplemente haciendo un ciclo for obtenemos "n" veces x sin agregar longitud al programa.
+La sexta propiedad es muy importante y establece que la complejidad de un string concatenado consigo mismo es igual a la complejidad del string. Esto es muy fácil de demostrar ya que si se tiene un programa que genera $x$ entonces simplemente haciendo un ciclo for se obtiene $n$ veces $x$ sin agregar longitud al programa.
 
-Finalmente la propiedad número siete es la ley distributiva. Y es fundamental para explicar algunas otras propiedades por lo que vamos a demostrarla.
+Finalmente la propiedad número siete es la ley distributiva y es fundamental para explicar algunas otras propiedades por lo que se presenta a continuación la demostración.
 
 $$K(xy)+K(z) \leq K(xz)+K(yz)$$
-Como sabemos que $K(xy)\leq K(x)+K(y)$ podemos descomponer la parte derecha de la desigualdad sin afectar la misma.
+Como se sabe que $K(xy)\leq K(x)+K(y)$ podemos descomponer la parte derecha de la desigualdad sin afectar la misma.
 $$K(xy) + K(z) \leq  K(x) + K(z) + K(y) + K(z)$$ 
 $$K(xy) \leq K(x)+K(y)+K(z)$$
 
-Y esto es válido ya que sabemos que $K(xy) \leq K(x) + K(y)$ por lo tanto también será menor si agregamos $K(z)$ o cualquier otra constante.
+Dado que sabemos que $K(xy) \leq K(x) + K(y)$ entonces la última desigualdad se seguirá cumpliendo si agregamos $K(z)$ a la izquierda.
 
-Mediante la complejidad de Kolmogorov es posible estimar la distancia entre un string y otro que llamaremos distancia de Kolmogorov.
+
+Entre otras cosas, la complejidad de Kolmogorov puede ser utilizada para estimar la distancia entre dos strings $x$ e $y$.
 
 \begin{defn}[Distancia de Kolmogorov]
 $$KD(x,y) = K(xy)-\min\{K(x),K(y)\}$$
