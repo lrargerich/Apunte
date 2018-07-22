@@ -4081,9 +4081,12 @@ Es desafortunado demostrar que $K(x)$ no existe, puesto que entonces no podríam
 $$NCD(x,y) = \frac{C(xy)-\min\{C(x),C(y)\}}{\max\{C(x),C(y)\}}$$
 \end{defn}
 
-Esta distancia es muy interesante ya que nos permite calcular la distancia entre dos archivos o dos strings sin absolutamente ningún tipo de parámetro, por eso decimos que es una distancia no-paramétrica. Podemos usar esta distancia para KNN o cualquier otro algoritmo que necesite de una distancia. Para que la NCD sea efectiva $C(x)$ debe cumplir las propiedades de $K(x)$ y para eso necesitamos establecer algunos requisitos sobre el compresor de datos a utilizar: principalmente el compresor no debe trabajar por bloques, sino procesando el archivo como una totalidad, si el compresor trabajara por bloques entonces el resultado de comprimir la concatenación de un archivo con otro no tendría el mismo efecto ya que dependiendo del tamaño del bloque lo aprendido sobre el primer archivo podría no usarse para comprimir el segundo y es clave que esto ocurra para que la NCD funcione correctamente como distancia. 
 
-Notemos que valen las siguientes propiedades para $C(x)$ si usamos un compresor adecuado:
+Es curioso de esta distancia que no es necesario parametrizarla, por eso se dice que es una distancia no paramétrica y fácilmente se puede aplicar para calcular la distancia entre dos archivos (por ejemplo: uno sobre política y otro sobre ciencia) utilizando un compresor de datos. Hay muchos algoritmos que internamente requieren computar la distancia entre dos datos, uno de ellos es el algoritmo KNN que se desarrollará en las próximas secciones
+
+Se mencionó anteriormente que es necesario tener ciertos cuidados cuando se utiliza $C(x)$ en reemplazo de $K(x)$ para el cálculo de $NCD$. En las próximas secciones se desarrollarán distintos algoritmos de compresión y podremos entender mejor el siguiente aspecto: cuando se comprimen dos archivos concatenados $x$ e $y$, los compresores aprenden del archivo $x$ y en base a lo aprendido podrán comprimir bien o mal al archivo $y$. El problema que se presenta es que esto no siempre es cierto. Por ejemplo, cuando se usan compresores que trabajan por bloques, el compresor puede no aprender lo suficiente del archivo $x$ antes de comprimir $y$ entonces el cálculo de NCD podría verse afectado. En principio se exigirá que para calcular NCD el compresor no trabaje de a bloques sino que trabaje procesando a los archivos en su totalidad.
+
+Dicho esto, si utilizamos un compresor adecuado, valen las siguientes propiedades: 
 
 \begin{enumerate}
 \item $C(xy)>=C(x)$
@@ -4093,46 +4096,98 @@ Notemos que valen las siguientes propiedades para $C(x)$ si usamos un compresor 
 
 \section{Teoría de la Información}
 
-La teoría de la información  es una rama de la computación creada por Claude Shannon en su tratado "A Mathematical Theory of Communication" [Shannon]. En este trabajo Shannon estudió las propiedades de la información almacenada en forma digital en formato binario y estableció toda la teoría necesaria para poder comprimir dicha información y transmitirla a través de un canal ruidoso con la posibilidad de recuperar la información al otro lado. Este trabajo es la piedra fundamental de la teoría de compresión y comunicación de datos. En nuestro curso vamos a usar el concepto de entropía definido por Shannon como una forma basada en probabilidades de medir la complejidad de un string o archivo es decir otra forma de aproximarnos a $K(x)$. 
+La teoría de la información  es una rama de la computación creada por Claude Shannon en su tratado "A Mathematical Theory of Communication" [Shannon]. En este trabajo Shannon estudió las propiedades de la información almacenada en forma digital en formato binario y estableció toda la teoría necesaria para poder comprimir dicha información y transmitirla a través de un canal ruidoso con la posibilidad de recuperar la información al otro lado. Este trabajo es la piedra fundamental de la teoría de compresión y comunicación de datos. En esta sección se utilizará el concepto de entropía definido por Shannon como una forma basada en probabilidades de medir la complejidad de un string o archivo, es decir, otra forma de aproximar a $K(x)$. 
 
 Veamos algunas definiciones necesarias para llegar al concepto de entropía.
 
 \subsection{Mensajes y Alfabetos}
 Un alfabeto es un conjunto de símbolos distintos. Por ejemplo \{0,1\} es el alfabeto binario que será el que vamos a usar universalmente en este apunte.
 
-Un mensaje es un conjunto de símbolos de un determinado alfabeto. Por ejemplo "A" es un mensaje de 8 bits, usando 8 símbolos del alfabeto binario. En este apunte usaremos mensajes de 8 bits, aunque podrían ser 16 si usamos Unicode.
+Un mensaje es un conjunto de símbolos de un determinado alfabeto. Por ejemplo "A" es un mensaje de 8 bits, usando 8 símbolos del alfabeto binario. Por simplificación, de aquí en adelante se utilizarán mensajes de 8 bits aunque también se podrían utilizar mensajes de 16 bits (Unicode).
 
-\subsection{Fuente}
-Una fuente es un conjunto de mensajes. En nuestro caso las fuentes serán archivos o strings, es decir un conjunto de caracteres de 8 bits cada uno. Es de destacar que esto abarca cualquier archivo posible independientemente de su significado o contenido.
+\subsection{Fuentes y códigos}
 
-\subsection{Códigos}
-Un código es un conjunto de símbolos de un determinado alfabeto usado para representar un mensaje. En general los mensajes tienen longitud fija pero los códigos pueden tener longitud fija o variable. Existe una función de codificación que transforma un mensaje en su correspondiente código.
+Una \textbf{fuente} es un conjunto de mensajes. Por ejemplo, una fuente puede ser un archivo o  un string, es decir, un conjunto de caracteres de 8 bits cada uno. Es de destacar que esto abarca cualquier archivo posible independientemente de su significado o contenido.
+
+Un \textbf{código} es un conjunto de símbolos de un determinado alfabeto usado para representar un mensaje. En general los mensajes tienen longitud fija pero los códigos pueden tener longitud fija o variable. Existe una función de codificación que transforma un mensaje en su correspondiente código.
 
 $$f(m_i)=c_i$$
 
-Vamos a definir que un código es decodificable si y sólo si para cualquier conjunto de códigos solo existe un único conjunto de mensajes capaz de generar dichos códigos. 
+Es de particular interés que los códigos obtenidos anteriormente se puedan decodificar para poder reconstruir la información.
+
+\subsection{Extensiones y decodificación}
+
+A fines de simplificar, se definen los siguientes dos conjuntos:
+
+\begin{itemize}
+\item $S=\{s_1, s_2, ..., s_n\}$: conjunto de símbolos de un alfabeto.
+\item $C=\{c_1, c_2, ..., c_n\}$: conjunto de códigos tales que $c_i$ es una codificación de $s_i$.
+\end{itemize}
+
+Al momento de utilizar códigos de \textit{longitud fija}, la decodificación se vuelve una tarea más sencilla. Basta con tener una relación 1 a 1 entre $s_i$ y $c_i$. Por ejemplo:
 
 \begin{table}[!hbt]
-\center{
-\begin{tabular}{|c|c|c|c|}\hline
-char & Cod1 & Cod2 & Cod3\\ \hline\hline
-A & 0 & 10 & 0 \\
-B  & 010 & 00 & 10 \\
-C & 01 & 11 & 110 \\
-D & 10 & 110 & 111 \\ \hline
-\end{tabular}
-}
-\vskip 0.25cm
-\caption{Ejemplo códigos.}
+	\center{
+		\begin{tabular}{|c|c|}\hline
+			Símbolo & Código\\ \hline\hline
+			A & 00\\
+			B & 01 \\
+			C & 10 \\
+			D & 11 \\ \hline
+		\end{tabular}
+	}
+	\vskip 0.25cm
+	\caption{Ejemplo de códigos de longitud fija}
+	\label{table:cod_long_fija}
 \end{table}
 
-En la tabla tenemos tres códigos diferentes para representar los caracteres "A","B","C","D". Tenemos que analizar si dichos códigos son decodificables.Para demostrar que un código no es decodificable tenemos que encontrar una secuencia de códigos ambigua, es decir que pueda corresponder a mas de un conjunto de mensajes. Podemos ver que el primer código es ambiguo ya que el código "010" puede corresponder a "B" o a "AD" por lo tanto no es un código decodificable. Los otros dos códigos son decodificables y es difícil demostrar que lo sean, por el momento digamos que no es posible encontrar una combinación de códigos que resulten ambiguos. El test de Sardinas y Patterson puede usarse para comprobar si un código es decodificable pero no es tema de nuestro apunte. 
+Si tuviera el código 00101100, utilizando la tabla anterior se puede obtener el mensaje original que es ACDA.
+
+Por el contrario, cuando un código tiene longitud variable, garantizar que un código se pueda decodificar no es una tarea trivial. Para analizar este escenario, se realizan las siguientes dos definiciones:
+
+\begin{defn}[Singularidad de un código]
+Sea $f(s_i)=c_i$ la función que codifica un símbolo $s_i$, se dice que un código es no singular si la función $f$ es inyectiva, es decir, que si $f(s_i)=f(s_j)$ entonces $s_i=s_j$
+\end{defn}
+
+\begin{defn}[Extensión de código]
+Se define a la extensión de código $C^*$ a la función que mapea a un conjunto de símbolos utilizando la concatenación, es decir, $C(s_1, s_2,...s_n)=C(s_1)C(s_2)..C(s_n)$
+\end{defn}
+
+Tomando como ejemplo la tabla \ref{table:cod_long_fija}, si $C(A)=00$ y $C(B)=01$ entonces resultará que $C(AB)=C(A)C(B)=0001$ (Tener especial cuidado pues la tabla muestra ejemplos de códigos de longitud fija)
+
+La definición de extensión y singularidad de código permitirá anunciar la siguiente propiedad.
+
+\begin{defn}[Código unívocamente decodificable]
+	Se dice que un código es unívocamente decodificable cuando su extensión $C^*$ es no singular
+\end{defn}
+
+Se muestran a continuación ejemplos de códigos unívocamente decodificables y no decodificables.
+
+\begin{table}[!hbt]
+	\center{
+		\begin{tabular}{|c|c|c|c|}\hline
+			Símbolo & Cod 1 & Cod 2 & Cod 3\\ \hline\hline
+			A & 0 & 10 & 0 \\
+			B  & 010 & 00 & 10 \\
+			C & 01 & 11 & 110 \\
+			D & 10 & 110 & 111 \\ \hline
+		\end{tabular}
+	}
+	\vskip 0.25cm
+	\caption{Ejemplo de códigos de longitud variable}
+	\label{table:cod_long_variable}
+\end{table}
+
+Se puede notar que el primer código no es unívocamente decodificable puesto que si tomamos $C(ad)$ obtenemos el código $010$ que es el mismo código que obtenemos con $C(b)$ y esto no cumple con la propiedad de no singularidad.
+
+Por otro lado, se puede demostrar que los códigos 2 y 3 son unívocamente decodificables. Para poder comprobar esto, se puede utilizar el test de Sardinas y Patterson (Este test excede el contenido de esta sección).
+
 
 \subsubsection{Códigos prefijos}
 Existe un conjunto de códigos que siempre son decodificables llamados códigos prefijos. La definición de código prefijo es la siguiente:
 
 \begin{defn}[Código Prefijo]
-Decimos que un código es prefijo si no existe ningún código que tenga un prefijo igual a otro código completo.
+Se dice que un código es prefijo si no existe ningún código que tenga un prefijo igual a otro código completo.
 \end{defn}
 
 Es decir que si tenemos por ejemplo el código "010" entonces ningún otro código puede comenzar con "010". En nuestro ejemplo anterior el código 3 es prefijo, el código 2 no lo es ya que el código de "D" comienza con 11 que es el código de "C". 
@@ -4141,14 +4196,16 @@ Es decir que si tenemos por ejemplo el código "010" entonces ningún otro códi
 Si un código es prefijo entonces es decodificable.
 \end{theorem}
 
-Observemos que la implicación no vale en la otra dirección. Un código puede ser decodificable y no ser prefijo. Los códigos prefijos se llaman también instantáneos ya que pueden decodificarse univocamente recorriéndolos de izquierda a derecha. 
+El hecho que un código no sea prefijo no implica que no sea decodificable.
+
+Los códigos prefijos se llaman también instantáneos ya que pueden decodificarse univocamente recorriéndolos de izquierda a derecha. 
 
 Los códigos decodificables cumplen con la llamada "desigualdad de Kraft"
 
-\subsubsection{Desigualdad de Kraft}
+\subsubsection{Desigualdad de Kraft y McMillan}
 
 \begin{defn}[Desigualdad de Kraft]
-Sea $l_i$ la longitud de cada código
+Sea $l_i$ la longitud de cada código, se conoce a la desigualdad de Kraft como:
 $$\sum_i 2^{-l_i} \leq 1$$
 \end{defn}
 
@@ -4156,7 +4213,11 @@ $$\sum_i 2^{-l_i} \leq 1$$
 Para cualquier conjunto de longitudes que cumplan la desigualdad de Kraft existe un código prefijo con códigos de dicha longitud.
 \end{theorem}
 
-Veamos que ocurre para los códigos que vimos en nuestro ejemplo. El código 1 tiene longitudes (1,3,2,2) y $\sum_i 2^{-l_i} = 1.125$ el código no cumple la desigualdad de Kraft y por lo tanto no es decodificable. Para el código 2 las longitudes son (2,2,2,3) y la sumatoria nos da 0.825 si bien el código que mostramos no era prefijo sabemos que existe un código prefijo con longitudes (2,2,2,3). Finalmente el tercer código tiene sumatoria = 1 y es prefijo.
+\begin{theorem}[McMillan]
+Si se tiene un código unívocamente decodificable con longitud $l_1, l_2,...,l_n$ entonces se tiene que cumplir la desigualdad de Kraft. 
+\end{theorem}
+
+En el ejemplo de la tabla \ref{table:cod_long_variable}, el código 1 tiene longitudes (1,3,2,2) y se puede verificar que $\sum_i 2^{-l_i} = 1.125$ el código no cumple la desigualdad de Kraft y por lo tanto no es decodificable. Para el código 2 las longitudes son (2,2,2,3) y la sumatoria nos da 0.825 si bien el código que mostramos no es prefijo se sabe que existe un código prefijo con longitudes (2,2,2,3). Finalmente el tercer código tiene sumatoria = 1 y es prefijo.
 
 \subsection{Entrop\'i{a}}
 La entropía de una fuente se define como la esperanza (valor esperado) de la longitud de sus códigos. Cada mensaje diferente $m_i$ tiene una probabilidad de ocurrir $P_i$ y  un código asignado $c_i$ de longitud $l_i$ la entropía se calcula entonces como:
