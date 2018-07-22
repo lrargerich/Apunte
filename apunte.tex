@@ -4190,7 +4190,7 @@ Existe un conjunto de códigos que siempre son decodificables llamados códigos 
 Se dice que un código es prefijo si no existe ningún código que tenga un prefijo igual a otro código completo.
 \end{defn}
 
-Es decir que si tenemos por ejemplo el código "010" entonces ningún otro código puede comenzar con "010". En nuestro ejemplo anterior el código 3 es prefijo, el código 2 no lo es ya que el código de "D" comienza con 11 que es el código de "C". 
+Es decir que si se tiene por ejemplo el código "010" entonces ningún otro código puede comenzar con "010". En el ejemplo anterior el código 3 es prefijo, el código 2 no lo es ya que el código de "D" comienza con 11 que es el código de "C". 
 
 \begin{theorem}[Códigos Prefijos]
 Si un código es prefijo entonces es decodificable.
@@ -4220,17 +4220,17 @@ Si se tiene un código unívocamente decodificable con longitud $l_1, l_2,...,l_
 En el ejemplo de la tabla \ref{table:cod_long_variable}, el código 1 tiene longitudes (1,3,2,2) y se puede verificar que $\sum_i 2^{-l_i} = 1.125$ el código no cumple la desigualdad de Kraft y por lo tanto no es decodificable. Para el código 2 las longitudes son (2,2,2,3) y la sumatoria nos da 0.825 si bien el código que mostramos no es prefijo se sabe que existe un código prefijo con longitudes (2,2,2,3). Finalmente el tercer código tiene sumatoria = 1 y es prefijo.
 
 \subsection{Entrop\'i{a}}
-La entropía de una fuente se define como la esperanza (valor esperado) de la longitud de sus códigos. Cada mensaje diferente $m_i$ tiene una probabilidad de ocurrir $P_i$ y  un código asignado $c_i$ de longitud $l_i$ la entropía se calcula entonces como:
+La entropía de una fuente se define como la esperanza (valor esperado) de la longitud de sus códigos. Cada mensaje diferente $m_i$ tiene una probabilidad de ocurrir $P_i$ y  un código asignado $c_i$ de longitud $l_i$. Dicho esto, la entropía se calcula como:
 
 $$H(X) = \sum_{i=1}^n P_i l_i$$
 
-La entropía puede entenderse de diferentes formas. Por un lado es una longitud promedio, es decir la longitud promedio en bits de los códigos usados para representar un mensaje. Es también una medida de la cantidad de información representada en la fuente. Si queremos representar a una fuente en la menor longitud posible tenemos que minimizar su entropía.
+La entropía puede entenderse de diferentes formas. Por un lado es una longitud promedio, es decir la longitud promedio en bits de los códigos usados para representar un mensaje. Por otro lado, es una medida de la cantidad de información representada en la fuente. Si queremos representar a una fuente en la menor longitud posible tenemos que minimizar su entropía.
 
 Planteamos entonces:
 
 $$(MIN) \sum_i P_i l_i$$
 
-Y sabemos además que el código tiene que cumplir con la desigualdad de Kraft:
+Para poder encontrar cuáles son los $l_i$ óptimos, se puede partir de la desigualdad de Kraft:
 
 $$\sum_i 2^{-li} \leq 1$$
 
@@ -4238,7 +4238,7 @@ Aplicando multiplicadores de Lagrange podemos escribir el siguiente Lagrangiano:
 
 $$\mathcal{L} = \sum P_i l_i + \lambda (\sum 2^{-l_i})$$
 
-Diferenciando respecto de $l_i$ obtenemos:
+Diferenciando respecto de $l_i$ se obtiene que:
 
 $$\frac{\partial \mathcal{L}}{\partial l_i} = P_i -\lambda  2^{-li} \log_e 2$$
 
@@ -4258,17 +4258,18 @@ Entonces:
 
 $$l_i = -log_2 P_i$$
 
-De esta forma demostramos que para un mensaje con probabilidad $P_i$ el código de menor longitud (óptimo) tiene longitud igual a $-\log_2 P_i$.
+De esta forma se demuestra que para un mensaje con probabilidad $P_i$ el código de menor longitud (óptimo) tiene longitud igual a $-\log_2 P_i$.
 
-Podemos ahora reemplazar la fórmula del $l_i$ óptimo en la fórmula de la entropía para obtener:
+De esta forma, se puede reemplazar la fórmula del $l_i$ óptimo en la fórmula de la entropía para obtener y dependerá únicamente de las probabilidades de cada mensaje $m_i$.
 
 \begin{defn}[Entropía]
 $$H(X) = - \sum_{i=1}^n P_i \log_2 P_i$$
+\label{defn: entropia}
 \end{defn}
 
-Es decir que hacemos un promedio ponderado por las probabilidades de las longitudes óptimas de los códigos $\log_2(P(x_i))$ .
+Resumidamente, se hace un promedio ponderado por las probabilidades de las longitudes óptimas de los códigos $\log_2(P(x_i))$.
 
-El concepto de entropía es fundamental en este curso y vamos a desarrollarlo bastante por lo que es conveniente ver algunos ejemplos y notación para poder tener el concepto afianzado.
+Se muestran a continuación algunos ejemplos.
 
 Calcular la entropía del siguiente string.
 
@@ -4276,7 +4277,7 @@ Calcular la entropía del siguiente string.
 ABAABC
 \end{verbatim}
 
-Notemos que para calcular la entropía solo necesitamos la probabilidad de cada uno de los caracteres diferentes (mensajes) del archivo/string.
+Notar que para calcular la entropía solo se necesita la probabilidad de cada uno de los caracteres diferentes (mensajes) del archivo/string.
 
 \begin{verbatim}
 A = 3/6
@@ -4284,12 +4285,11 @@ B = 2/6
 C = 1/6
 \end{verbatim}
 
-Como para el cálculo de la entropía solo interesan las probabilidades de cada mensaje vamos a usar la siguiente notación: $H[3/6;2/6;1/6]$
-Calculando:
+De acuerdo a la definición \ref{defn: entropia}, la entropía se podrá calcular como:
 
 $$ H = - [ \frac{3}{6} \log_2\frac{3}{6} + \frac{2}{6} \log_2 \frac{2}{6} + \frac{1}{6} \log_2 {1}{6}] = 1.4591$$
 
-Ahora que sabemos calcular la entropía tenemos que analizar su significado. Hay dos conceptos fundamentales: la entropía se mide en \textbf{bits} y es un \textbf{promedio}. Es decir que nos da la longitud promedio en bits de cada mensaje de la fuente. En nuestro caso como el archivo tiene 6 caracteres y el promedio es 1.4591 la longitud total del archivo de acuerdo a la entropía es $6*1.4591 = 8.7549 bits$ es decir que la \textbf{cantidad de información} de nuestro archivo es de casi 9 bits. Esto es muy importante ya que es una forma de aproximar la complejidad del mismo de acuerdo a un cierto modelo probabilístico. 
+Cabe destacar lo siguiente: la entropía se mide en \textbf{bits} y es un \textbf{promedio}, es decir, que nos da la longitud promedio en bits de cada mensaje de la fuente. En este caso como el archivo tiene 6 caracteres y el promedio es 1.4591 la longitud total del archivo de acuerdo a la entropía es $6*1.4591 = 8.7549 bits$ entonces la \textbf{cantidad de información} del archivo es de casi 9 bits. Esto es muy importante ya que es una forma de aproximar la complejidad del mismo de acuerdo a un cierto modelo probabilístico. 
 
 \begin{figure}[!htb]
 \centering
@@ -4299,9 +4299,9 @@ Ahora que sabemos calcular la entropía tenemos que analizar su significado. Hay
 \label{fig:tresentropias}
 \end{figure}
 
-La entropía se maximiza cuando todos los mensajes son equiprobables y se minimiza cuando un mensaje tiene probabilidad 1 es decir que se trata de una fuente determinística. Esto nos lleva a varias conclusiones importantes. En primer lugar un archivo aleatorio es aquel que maximiza la entropía, si los mensajes tienen 8 bits en un archivo aleatorio la probabilidad de todos sus mensajes es $1/256$ y la entropía es 8 es decir que en promedio necesitamos 8 bits por cada 8 bits del archivo. Esto implica que los archivos aleatorios no se pueden comprimir, contienen información pura. Puede parecer contradictorio decir que algo completamente aleatorio es información pero para nuestro tema la información es desorden y el orden implica redundancia.
+La entropía se maximiza cuando todos los mensajes son equiprobables y se minimiza cuando un mensaje tiene probabilidad 1 es decir que se trata de una fuente determinística. De esto se puede deducir que un archivo aleatorio es aquel que maximiza la entropía puesto que si los mensajes tienen 8 bits en un archivo aleatorio la probabilidad de todos sus mensajes es $1/256$ y la entropía será 8 por lo tanto en promedio se necesitarán 8 bits por cada 8 bits del archivo. Esto implica que los archivos aleatorios no se pueden comprimir, contienen información pura. Puede parecer contradictorio decir que algo completamente aleatorio es información pero para este tema la información es desorden y el orden implica redundancia.
 
-En la figura ~\ref{fig:tresentropias} vemos tres diferentes distribuciones de probabilidades. La entropía es máxima para la distribución de la izquierda que es la que tiene probabilidades mas parejas. La entropía  mas chica corresponde a la distribución de la derecha en donde hay dos mensajes con muy alta probabilidad y finalmente la distribución en el medio esta en el medio de las otras dos. 
+En la figura ~\ref{fig:tresentropias} se muestran tres diferentes distribuciones de probabilidades. La entropía es máxima para la distribución de la izquierda que es la que tiene probabilidades mas parejas. La entropía  mas chica corresponde a la distribución de la derecha en donde hay dos mensajes con muy alta probabilidad y finalmente la distribución en el medio esta en el medio de las otras dos. 
 
 \begin{figure}[!htb]
 \centering
@@ -4315,7 +4315,7 @@ La figura ~\ref{fig:otrastresentropias} nos muestra la entropía para dos mensaj
 
 \subsection{Entropía Conjunta}
 
-Vamos a suponer ahora que tenemos un set de datos con dos atributos "X"  que puede tomar valores "R","G" o "B"  e "Y" que puede tomar valores "Y" o "N". La tabla 3.2 nos muestra nuestro set de datos:
+Suponer ahora que se tiene un set de datos con dos atributos: por un lado, el atributo $X$  que puede tomar valores "R","G" o "B", y por otro lado el atributo $Y$ que puede tomar valores "Y" o "N". La tabla \ref{table:entropia_conjunta_ej} muestra el set de datos:
 
 \begin{table}[!hbt]
 \center{
@@ -4331,22 +4331,21 @@ B & Y\\ \hline
 }
 \vskip 0.25cm
 \caption{Set de datos para entropía conjunta}
+\label{table:entropia_conjunta_ej}
 \end{table}
 
-A modo de repaso vamos a calcular primero la entropía de cada columna es decir de los atributos "X" e "Y" de forma independiente:
+A modo de repaso vamos se calculará la entropía de cada columna, es decir, la de los atributos $X$ e $Y$ de forma independiente. Para ello, es necesario utilizar las probabilidades de cada valor posible. Por un lado, para $X$ serán R=3/6 G=2/6 y B=1/6 y para $Y$ serán Y=4/6 y N=2/6
 
 $$H(X) = H[3/6; 2/6 ; 1/6] = 1.4591$$
 $$H(Y)= H[4/6; 2/6] = 0.9182$$
 
-Para calcular la entropía de X simplemente tomamos las probabilidades de los tres valores posibles para X: R=3/6 G=2/6 y B=1/6. Para Y hay dos valores posibles con probabilidad Y=Y 4/6 e Y=N 2/6.
-
-Vamos a definir la entropía conjunta como la entropía de todos los pares (X,Y) que ocurren en nuestro set de datos:
+Para cada par $(X,Y)$ que ocurra en el set de datos, se define lo siguiente:
 
 \begin{defn}[Entropía Conjunta]
 $$H(X,Y) = -\sum_{x \in X} \sum_{y \in Y} P(x,y) \log_2 P(x,y)$$
 \end{defn}
 
-En nuestro ejemplo tenemos los siguientes pares (x,y) y sus probabilidades:
+En el ejemplo de la tabla \ref{table:entropia_conjunta_ej} se tienen los siguientes pares $(X,Y)$ y sus probabilidades son:
 
 \begin{verbatim}
 RY = 2/6
@@ -4357,23 +4356,24 @@ BY = 1/6
 \end{verbatim}
 
 Entonces $H(X,Y) = H[2/6;1/6;1/6;1/6;1/6] = 2.251629$  
-La entropía conjunta mide la cantidad de información contenida por ambas variables al mismo tiempo. Es decir la entropía del set de datos completo. 
+
+La entropía conjunta mide la cantidad de información contenida por ambas variables al mismo tiempo, es decir, la entropía del set de datos completo. 
 
 \subsection{Entropía Condicional}
 
-La entropía condicional mide la entropía de una variable aleatoria sujeta a que conocemos el valor de otra. En nuestro caso sería equivalente a medir la entropía de "X" sabiendo el valor de "Y" o la entropía de "Y" conociendo el valor de "X". 
+La entropía condicional mide la entropía de una variable aleatoria sujeta a que conocemos el valor de otra. Esto sería equivalente a medir la entropía de $X$ sabiendo el valor de $Y$ o la entropía de $Y$ conociendo el valor de $X$. 
 
-Una forma intuitiva de entender la entropía condicional es pensar que tenemos dos variables sobre personas: edad y peso. Necesitamos una cierta cantidad de bits para transmitir la edad y otra cantidad para el peso. Pero si conocemos la edad entonces necesitamos menos información para el peso porque una persona de 5 años de edad no puede pesar 90 kilos mientras que una persona de 40 si. Entonces conocer la edad nos restringe la variabilidad de la variable peso y necesitamos menos bits para transmitirla. 
+Una forma intuitiva de entender la entropía condicional es pensar que se tienen dos variables sobre personas: edad y peso. Necesitamos una cierta cantidad de bits para transmitir la edad y otra cantidad para el peso. Pero si conocemos la edad entonces se necesita menos información para el peso porque una persona de 5 años de edad no puede pesar 90 kilos mientras que una persona de 40 sí. Entonces conocer la edad restringe la variabilidad de la variable peso y necesitamos menos bits para transmitirla. 
 
 \begin{defn}[Entropía Condicional]
 $$H(Y|X) =  \sum_{x \in X} P(x) H(Y|X=x)$$
 \end{defn}
 
-Veamos como calcular $H(Y|X)$ y $H(X|Y)$ para nuestro ejemplo. Para calcular $H(Y|X)$ tenemos que calcular la entropía de Y fijando el valor de X y luego multiplicar dicha entropía por la probabilidad de X, X puede tomar 3 valores posibles R,G, B con probabilidad 3/6,2/6 y 1/6 respectivamente. Entonces:
+Para calcular $H(Y|X)$ hay que calcular la entropía de $Y$ fijando el valor de$X$ y luego multiplicar dicha entropía por la probabilidad de $X$, siendo que $X$ puede tomar 3 valores posibles: R,G y B con probabilidad 3/6,2/6 y 1/6 respectivamente. Entonces:
 
 $$H(Y|X) = \frac{3}{6} H(Y|X=R) + \frac{2}{6} H(Y|X=G) + \frac{1}{6} H(Y|X=B)$$
 
-Para X=R Y toma 2 veces valor "Y" y una vez valor "N" por lo tanto H(Y|X=R) = H[2/3;1/3]
+Para $X=R$, la variable $Y$ toma 2 veces el valor Y y una vez valor N. Por lo tanto $H(Y|X=R) = H[2/3;1/3]$
 
 $$H(Y|X) = \frac{3}{6} H[2/3;1/3] + \frac{2}{6} H[1/2;1/2] + \frac{1}{6} H[1]$$
 
