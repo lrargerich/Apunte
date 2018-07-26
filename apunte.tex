@@ -4379,19 +4379,19 @@ $$H(Y|X) = \frac{3}{6} H[2/3;1/3] + \frac{2}{6} H[1/2;1/2] + \frac{1}{6} H[1]$$
 
 $$H(Y|X) = 0.7929$$
 
-Recordemos que H[1] = 0 por ser determinístico es decir que cuando X=B la variable Y siempre toma el mismo valor.
+Recordar que $H[1] = 0$ por ser determinístico es decir que cuando $X=B$ la variable $Y$ siempre toma el mismo valor.
 
-De la misma forma podemos calcular $H(X|Y)$
+De la misma forma se puede calcular $H(X|Y)$:
 
 $$H(X|Y) = \frac{4}{6} H[2/4;1/4;1/4] + \frac{2}{6} H[1/2;0;1/2] = 1.333$$
 
-Ahora que hemos calculado $H(X)$, $H(Y)$, $H(X,Y)$, $H(X|Y)$ y $H(Y|X)$ tenemos que analizar la relación que existe entre estas entropías.
+Se ha calculado en esta sección $H(X)$, $H(Y)$, $H(X,Y)$, $H(X|Y)$ y $H(Y|X)$. En base a esto, se puede definir la existencia de la siguiente relación:
 
 \begin{theorem}[Regla de la Cadena]
 $$H(X,Y) = H(X) + H(Y|X)$$
 \end{theorem}
 
-Antes de realizar una demostración formal es conveniente analizar lo que el teorema nos dice. La entropía conjunta de dos variables es igual a la entropía de una de esas variables mas la entropía condicional de la otra variable sujeta a la primera. Esto tiene mucho sentido ya que si conocemos la entropía de X entonces para calcular la entropía de Y podemos considerar fijo el valor de X y eso nos deja en la entropía condicional.
+Antes de realizar una demostración formal es conveniente analizar lo que el teorema dice. La entropía conjunta de dos variables es igual a la entropía de una de esas variables mas la entropía condicional de la otra variable sujeta a la primera. Esto tiene mucho sentido ya que si al conocer la entropía de $X$ entonces para calcular la entropía de $Y$ podemos considerar fijo el valor de$X$ y eso nos deja en la entropía condicional.
 
 Demostración:
 
@@ -4408,7 +4408,7 @@ $$H(X,Y) = H(X) + H(Y|X) = H(Y) + H(X|Y)$$
 
 \subsection{Información Mutua}
 
-Cuando las variables X e Y son independientes es válido decir que $H(X,Y) = H(X) + H(Y)$ ya que $H(X|Y) = H(X)$ y $H(Y|X)=H(Y)$ cuando las variables no son independientes entonces comparten cierta cantidad de información que definimos como información mutua.
+Cuando las variables X e Y son independientes es válido decir que $H(X,Y) = H(X) + H(Y)$ ya que $H(X|Y) = H(X)$ y $H(Y|X)=H(Y)$. Sin embargo, cuando las variables no son independientes entonces comparten cierta cantidad de información que se define como información mutua.
 
 \begin{defn}[Información Mutua]
 $$I(X,Y) = H(Y) - H(Y|X)$$
@@ -4416,7 +4416,7 @@ $$I(X,Y) = H(X) - H(X|Y)$$
 $$I(X,Y) = I(Y,X)$$
 \end{defn}
 
-Para calcular la información mutua entre dos variables podemos simplemente calcular la entropía de una variable, por ejemplo $H(X)$ y luego restarle la entropía de la otra variable fijando la primera. Lo que queda tiene que ser la información compartida por ambas variables.
+Para calcular la información mutua entre dos variables se puede simplemente calcular la entropía de una variable, por ejemplo $H(X)$, y luego restarle la entropía de la otra variable fijando la primera. Lo que queda tiene que ser la información compartida por ambas variables.
 
 \begin{figure}[!htb]
 \centering
@@ -4426,9 +4426,9 @@ Para calcular la información mutua entre dos variables podemos simplemente calc
 \label{fig:entropiasrel}
 \end{figure}
 
-La figura ~\ref{fig:entropiasrel} ilustra la relación que existe entre la entropía, entropía conjunta, entropía condicional e información mutua. Tener presente este diagrama nos ayudará a verificar los cálculos que hacemos.
+La figura ~\ref{fig:entropiasrel} ilustra la relación que existe entre la entropía, entropía conjunta, entropía condicional e información mutua. Tener presente este diagrama ayudará a verificar los cálculos que hacemos.
 
-Para nuestro problema por ejemplo tenemos los siguientes valores:
+Siguiendo con el mismo ejemplo, se tienen los siguientes valores:
 
 $$H(X,Y) = H(Y,X) = 2.2516$$
 $$H(X) = 0.918295$$
@@ -4437,18 +4437,15 @@ $$H(X|Y) = 0.7929$$
 $$H(Y|X) = 1.3333$$
 $$I(X,Y) = I(Y,X) = 0.12567$$
 
-Podemos verificar que se cumplen todas las condiciones del diagrama:
+Se puede verificar que se cumplen todas las condiciones del diagrama:
 
 $$H(X,Y) = H(X) + H(Y|X)$$
 $$I(X,Y) = H(Y) - H(Y|X)$$
 $$ H(X) + H(Y) - I(X,Y) = H(X,Y)$$
 etc..
 
-\subsection{Ejemplo}
 
-Veamos un ejemplo del cálculo de las diferentes entropías sobre un archivo de texto. 
-
-Sea el siguiente archivo:
+Sea el siguiente archivo de ejemplo:
 
 \begin{verbatim}
 ARCHIVO:
@@ -4467,7 +4464,7 @@ bb
 bb
 \end{verbatim}
 
-Podemos tomar como "X" al primer caracter de cada bigrama siendo "Y" el segundo caracter de cada bigrama.
+Se puede tomar como $X$ al primer caracter de cada bigrama y a $Y$ como el segundo caracter de cada bigrama.
 
 \begin{table}[!hbt]
 \center{
@@ -4483,9 +4480,9 @@ c & 0 & 1/10 & 0 & 1/10\\ \hline \hline
 \caption{Probabilidades de los bigramas}
 \end{table}
 
-Es bueno comprobar que todas las probabilidades sumen 1. El acumulado por filas son las probabilidades para la variable "X" y el acumulado por columnas son las probabilidades para la variable "Y". En la lista de bigramas podemos comprobar que hay 10 bigramas en total y 4 de ellos comienzan con "a" por eso la probabilidad de "a" para la variable X es 4/10, la probabilidad de "b" 5/10 y la probabilidad de "c" 1/10. De la misma forma analizando la segunda columna de los bigramas que es la variable "Y" tenemos tres "a" (3/10) seis "b" (6/10) y una "c" (1/10).
+Es bueno comprobar que todas las probabilidades sumen 1. El acumulado por filas son las probabilidades para la variable $X$ y el acumulado por columnas son las probabilidades para la variable $Y$. En la lista de bigramas se puede comprobar que hay 10 bigramas en total y 4 de ellos comienzan con "a" por eso la probabilidad de "a" para la variable $X$ es 4/10, la probabilidad de "b" 5/10 y la probabilidad de "c" 1/10. De la misma forma, analizando la segunda columna de los bigramas que es la variable $Y$, se tienen tres "a" (3/10) seis "b" (6/10) y una "c" (1/10).
 
-Con esta tabla estamos en condiciones de calcular todas las entropías que hemos aprendido.
+Con esta tabla se pueden calcular todas las entropías anteriormente mencionadas.
 
 $$H(X)= H[4/10;5/10;1/10] = 1.3610$$
 $$H(Y)= H[3/10;6/10;1/10] = 1.2955$$
@@ -4506,9 +4503,9 @@ Como la divergencia de Kullback Leibler es la distancia entre una distribución 
 
 $$H(X) = H(Y) + D(Y||X)$$
 
-Es decir que si queremos codificar una cierta variable aleatoria "X" pero usando la distribución de otra la divergencia de KL nos da el precio en bits que tenemos que pagar.
+Es decir que si se quiere codificar una cierta variable aleatoria "X" pero usando la distribución de otra la divergencia de KL da el precio en bits que tenemos que pagar.
 
-Veamos un ejemplo, las tres variables tienen que tener los mismos "x" es decir iguales valores posibles, sino no tiene sentido calcular la divergencia. 
+Como ejemplo, las tres variables tienen que tener los mismos "x", es decir, iguales valores posibles sino no tiene sentido calcular la divergencia. 
 Sean X,Y,Z variables aleatorias con tres valores posibles: A,B,C con la siguiente distribución.
 
 \begin{verbatim}
@@ -4526,23 +4523,24 @@ $$D(Z||X) = 6/8  \log_2 \frac{6/8}{1/5} + 1/8 \log_2 \frac{1/8}{2/5} + 1/8 \log_
 $$D(Y||Z) = 3/5  \log_2 \frac{3/5}{6/8} + 1/5 \log_2 \frac{1/5}{1/8} + 1/5 \log_2 \frac{1/5}{1/8} = 0.0781$$
 $$D(Z||Y) = 6/8  \log_2 \frac{6/8}{3/5} + 1/8 \log_2 \frac{1/8}{1/5} + 1/8 \log_2 \frac{1/8}{1/5} = 0.0718$$
 
-Como puede verse la divergencia de KL no es simétrica sin embargo $D(X||Y)$ es parecido a $D(Y||X)$ por lo que puede aceptarse como una métrica válida. En nuestro ejemplo las distribuciones mas similares son "Y" y "Z" y puede verse que esto tiene sentido ya que ambas asignan mayor peso al primer elemento "A" y menor peso a los demás elementos. 
+Como puede verse la divergencia de KL no es simétrica. Sin embargo $D(X||Y)$ es parecido a $D(Y||X)$ por lo que puede aceptarse como una métrica válida. En nuestro ejemplo las distribuciones mas similares son "Y" y "Z" y puede verse que esto tiene sentido ya que ambas asignan mayor peso al primer elemento "A" y menor peso a los demás elementos. 
 
 Esta divergencia es una medida interesante sobre la diferencia que existe en dos distribuciones de probabilidades diferentes para los mismos datos. 
 
 \subsection{Entropía Cruzada}
 
-Al cálculo de la entropía de una variable usando la distribución de otra se lo suele llamar \textit{"entropía cruzada"} (cross entropy), se deriva de la siguiente forma:
+Al cálculo de la entropía de una variable usando la distribución de otra se lo suele llamar \textit{"entropía cruzada"} (cross entropy), y se deriva de la siguiente forma:
 
 \begin{myequation}
 H_x(P,Q) = -\sum P(x_i) \log_2(Q(x_i))
 \end{myequation}
 
-$H_x(P,Q)$ siempre es mayor o igual a $H(P)$ ya que estamos usando una distribución que sabemos no es la óptima. Esta medida puede usarse como métrica de error en varios algoritmos en donde el objetivo es acercarnos lo mas posible a la distribución óptima ($P$)
+$H_x(P,Q)$ siempre es mayor o igual a $H(P)$ ya que estamos usando una distribución que sabemos no es la óptima. Esta medida puede usarse como métrica de error en varios algoritmos en donde el objetivo es acercarse lo mas posible a la distribución óptima ($P$)
 
 \section{Teoría de la Compresión de Datos}
 
-Vamos a empezar ahora a analizar la teoría detrás de la compresión de datos. Lo que queremos es dado un archivo o string encontrar la forma de representarlo usando la menor cantidad de bits posibles. Para hacer esto en general podemos dividir el problema de comprimir datos en dos etapas:
+En general, cuando se habla de compresión de datos, lo que se busca es representar un archivo utilizando la menos cantidad de bits posibles. En esta sección se desarrollarán distintos algoritmos de compresión de datos pero también se verá un uso particular de su uso en tareas de Procesamiento Natural del Lenguaje.
+Un problema de compresión de datos se suele dividir en dos etapas:
 
 \begin{enumerate}
 \item Modelar los datos
@@ -4551,29 +4549,33 @@ Vamos a empezar ahora a analizar la teoría detrás de la compresión de datos. 
 
 \subsection{Modelar los Datos}
 
-Modelar es la parte mas interesante y también la mas difícil de la compresión de datos, el objetivo es encontrar un modelo que describa al archivo o string que queremos representar de la forma mas compacta posible. Por ejemplo un modelo puede ser repetir n veces "AB" si el archivo es "ABABABAB...", otro modelo puede ser emitir los dígitos de $\pi$ a partir del dígito 1711. Está claro que darse cuenta cuál es el mejor modelo para un archivo es un problema de inteligencia artificial y de hecho es un problema intractable, es decir que no tiene solución, esto puede demostrarse simplemente por reducción a la complejidad de Kolmogorov. Por lo tanto la tarea de un compresor es encontrar el mejor modelo posible. Diferentes algoritmos de compresión de datos modelan al archivo en base a diferentes técnicas, algunos se basan en modelos probabilísticos que modelan la  probabilidad de ocurrencia de cada caracter o incluso cada bit del archivo. Otros se basan en encontrar secuencias repetidas y reemplazarlas por un puntero a la ocurrencia anterior, otros algoritmos usan técnicas bastante insólitas pero que funcionan muy efectivamente y finalmente algunos algoritmos se basan en combinar muchos modelos. Como hemos comentado en el capítulo uno estos algoritmos que son ensambles de varios modelos son los que hoy en día logran los mejores niveles de compresión. En este capítulo veremos los principales algoritmos de compresión pero antes vamos a hablar de la codificación.
+Modelar es la parte mas interesante y también la mas difícil de la compresión de datos. El objetivo es encontrar un modelo que describa al archivo o string que queremos representar de la forma mas compacta posible. Por ejemplo, un modelo puede ser repetir n veces "AB" si el archivo es "ABABABAB...". Otro modelo puede ser emitir los dígitos de $\pi$ a partir del dígito 1711. Está claro que darse cuenta cuál es el mejor modelo para un archivo es un problema de inteligencia artificial y de hecho es un problema intractable, es decir, que no tiene solución y esto puede demostrarse simplemente por reducción a la complejidad de Kolmogorov. Por lo tanto la tarea de un compresor es encontrar el mejor modelo posible. Diferentes algoritmos de compresión de datos modelan al archivo en base a diferentes técnicas, algunos se basan en modelos probabilísticos que modelan la  probabilidad de ocurrencia de cada caracter o incluso cada bit del archivo. Otros se basan en encontrar secuencias repetidas y reemplazarlas por un puntero a la ocurrencia anterior, y otros algoritmos usan técnicas bastante insólitas pero que funcionan muy efectivamente y finalmente algunos algoritmos se basan en combinar muchos modelos. 
 
 \subsection{Codificar los Datos}
 
-Codificar implica llevar un modelo a una secuencia de bits, para generalizar podemos decir que un modelo convierte un archivo en una secuencia de símbolos y que la codificación de los símbolos implica encontrar un código binario para cada uno de ellos. Como sabemos la codificación óptima para un símbolo de probabilidad $P_i$ es $- \log_2 P_i$, lo que no sabemos, hasta ahora es como generar los códigos. Vamos a ver dos formas de codificar: en primer lugar códigos de Huffman y finalmente compresión aritmética.
+Codificar implica llevar un modelo a una secuencia de bits. Dicho de otra forma, la idea es que un modelo convierte un archivo en una secuencia de símbolos y la codificación se encarga de convertir dichos símbolos en un código binario para cada uno de ellos. Se ha visto que la codificación óptima para un símbolo de probabilidad $P_i$ es $- \log_2 P_i$. Sin embargo, no se ha visto cómo generar los códigos. Vamos a ver dos formas de codificar: 
+\begin{enumerate}
+	\item Códigos de Huffman
+	\item Compresión aritmética
+\end{enumerate}
 
 \subsection{No Existe un Compresor que Pueda Comprimir Cualquier Archivo}
 
-Es sencillo demostrar que no existe un compresor que pueda comprimir cualquier tipo de datos, esto se logra mediante el llamado "counting argument" o "pigeonhole principle". Sin perder generalidad pensemos en archivos de 3 bits, existen en total 8 de estos archivos: 000,001,010,011,100,101,110 y 111. Si un compresor comprime cualquier archivo entonces debería comprimir cada uno de estos archivos en 1 bit, pero solo existen 4 archivos de 2 bits 00,01,10 y 11. Por lo tanto dos o mas de los archivos de 3 bits se comprimen en el mismo archivo de 2 bits lo cual implica que será imposible descomprimirlos. Este argumento se extiende fácilmente a "n" bits es decir a cualquier archivo. Existen menos archivos comprimidos que archivos posibles por lo tanto no puede haber una relación 1 a 1 entre ambos lo cual demuestra que tal algoritmo no podría descomprimirse.
+Es sencillo demostrar que no existe un compresor que pueda comprimir cualquier tipo de datos y esto se logra mediante el llamado "counting argument" o "pigeonhole principle". Sin perder generalidad, si existieran solo archivos de 3 bits entonces solo habría 8 archivos posibles: 000,001,010,011,100,101,110 y 111. Si un compresor comprime cualquier archivo entonces podría comprimir cada uno de estos archivos en 2 bits, pero solo existen 4 archivos de 2 bits: 00,01,10 y 11. Por lo tanto, dos o mas de los archivos de 3 bits se comprimen en el mismo archivo de 2 bits lo cual implica que será imposible descomprimirlos. Este argumento se extiende fácilmente a "n" bits que es lo mismo que pensar en cualquier archivo. Existen menos archivos comprimidos que archivos posibles por lo tanto no puede haber una relación 1 a 1 entre ambos lo cual demuestra que ciertos archivos no podrían descomprimirse.
 
-Otra forma simple de entender el counting argument es pensar que un algoritmo capaz de comprimir cualquier archivo, aunque sea 1 bit puede aplicarse recursivamente a la salida del compresor de forma tal que cualquier archivo podrá quedar comprimido finalmente en un bit lo cual es totalmente absurdo.
+Otra forma simple de entender el counting argument es pensar que un algoritmo capaz de comprimir cualquier archivo puede aplicarse recursivamente a la salida del compresor de forma tal que cualquier archivo podrá quedar comprimido finalmente en un bit lo cual es totalmente absurdo.
 
 \section{Códigos de Huffman}
 
-Los códigos de Huffman se usan para representar un set de caracteres en base a sus probabilidades usando códigos de una cierta longitud entera de bits. Se puede demostrar que para códigos de longitudes enteras los códigos de Huffman son óptimos, es decir que aproximan de la mejor forma posible a  la longitud ideal de cada código que como sabemos es $-\log_2 P_i$.
+Los códigos de Huffman se usan para representar un set de caracteres en base a sus probabilidades usando códigos de una cierta longitud entera de bits. Se puede demostrar que para códigos de longitudes enteras los códigos de Huffman son óptimos, es decir, que aproximan de la mejor forma posible a la longitud ideal de cada código que como sabemos es $-\log_2 P_i$.
 
 \subsection{Huffman Estático}
 
-En el método estático vamos a hacer dos pasadas a los datos para generar los códigos, una primer pasada para contar la cantidad de veces que aparece cada caracter y una segunda pasada para generar los códigos.
+En este método de compresión, se realizan dos pasadas a los datos para poder generar los códigos. La primer pasada cuenta la cantidad de veces que aparece cada caracter y la segunda genera los códigos a partir de la frecuencia de cada uno de ellos.
 
-La construcción de los códigos de Huffman puede hacerse tanto a partir de la probabilidad de cada mensaje como también a partir de sus frecuencias ya que en definitiva $P_i = f_i/\sum_i f_i$. Vamos a mostrar el algoritmo a partir de un ejemplo:
+La construcción de los códigos de Huffman puede hacerse tanto a partir de la probabilidad de cada mensaje como también a partir de sus frecuencias ya que en definitiva $P_i = f_i/\sum_i f_i$. 
 
-Sea el siguiente archivo:
+Sea el siguiente archivo de ejemplo:
 \begin{verbatim}
 baceabbacd
 
@@ -4592,38 +4594,31 @@ e = 1
 
 \end{figure}
 
-En primer lugar convertimos cada mensaje y su frecuencia en un nodo, tenemos tantos nodos como mensajes distintos, en este caso cinco mensajes y cinco nodos.En cada paso vamos a unir los dos códigos de menor frecuencia formando un nuevo nodo cuya frecuencia será igual a la suma de los nodos que unimos.
+En primer lugar se convierte cada mensaje y su frecuencia en un nodo, siendo que habrá tantos nodos como mensajes distintos. En cada paso se unen los dos códigos de menor frecuencia formando un nuevo nodo cuya frecuencia será igual a la suma de los nodos que unimos.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3in]{figures/huffman-fig-2.png}
 \caption{Huffman estático.}
-
+\label{fig: huffman_estatico_1}
 \end{figure}
 
-Notemos que luego del primer paso (fig 3.5) nos quedan cuatro nodos con frecuencias 3,3,2 y 2 respectivamente. El algoritmo continua hasta que queda formado un solo nodo.
+Notar que luego del primer paso (Imagen \ref{fig: huffman_estatico_1}) quedan cuatro nodos con frecuencias 3,3,2 y 2 respectivamente. El algoritmo continua hasta que queda formado un solo nodo.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3in]{figures/huffman-fig-3.png}
 \caption{Huffman estático.}
-
+\label{fig: huffman_estatico_2}
 \end{figure}
 
-El resultado final es un árbol binario. Rotulando la  rama izquierda como "0" y la rama derecha como "1" por convención el camino desde la raiz hasta cada hoja nos genera el código binario de cada mensaje.
 
-\begin{verbatim}
-a = 00
-b = 01
-c = 10
-d = 110
-e = 111
-\end{verbatim}
+El resultado final es un árbol binario. Rotulando la  rama izquierda como "0" y la rama derecha como "1" por convención el camino desde la raiz hasta cada hoja nos genera el código binario de cada mensaje. En nuestro ejemplo, los códigos serán a=00, b=01, c=10, d=110, e=111.
 
 Los códigos de Huffman son siempre prefijos y por lo tanto decodificables e instantáneos. 
-El algoritmo es muy simple, el único detalle es que ocurre en caso de empates, es decir si los nodos con menor frecuencia son tres o mas. La respuesta es que podemos tomar cualquier criterio para elegir dos de estos tres nodos siempre y cuando no sea un criterio al azar o dependiente del entorno del programa. La clave es que el descompresor tiene que ser capaz de generar el mismo árbol a partir de la misma lista de frecuencias.
+El algoritmo es muy simple, el único detalle es que ocurre en caso de empates, es decir si los nodos con menor frecuencia son tres o mas. La respuesta es que se puede tomar cualquier criterio para elegir dos de estos tres nodos siempre y cuando no sea un criterio al azar o dependiente del entorno del programa. La clave es que el descompresor tiene que ser capaz de generar el mismo árbol a partir de la misma lista de frecuencias.
 
-Si quisiéramos usar Huffman estático como un algoritmo de compresión deberíamos emitir en el archivo comprimido la tabla de frecuencias y a continuación el resultado de reemplazar cada caracter del archivo por su código correspondiente.
+Si se quisiera usar Huffman estático como un algoritmo de compresión es necesario emitir en el archivo comprimido la tabla de frecuencias y a continuación el resultado de reemplazar cada caracter del archivo por su código correspondiente.
 
 \begin{verbatim}
 ARCHIVO:
@@ -4633,9 +4628,15 @@ COMPRIMIDO:
 FREQS + 0100101110001010010110
 \end{verbatim}
 
-Si el archivo no tuviera una cantidad de bits múltiplo de 8 entonces habría que completar (padding) con los bits que hagan falta, en este caso podemos hacer el padding con cualquier cosa ya que no hay posibilidad de que el descompresor se confunda e intente descomprimir el padding. Esto es porque la tabla de frecuencias le da al descompresor la cantidad total de bytes en el archivo original, entonces una vez que ha descomprimido esa cantidad de caracteres simplemente se detiene y descarta los bits que sobran. 
+Si el archivo no tuviera una cantidad de bits múltiplo de 8 entonces hay que completar con los bits que hagan falta. A esto se lo conoce como \textit{padding}, y no siempre es trivial completar con los bits que hagan falta puesto que pueden prestar a confusión a la hora de descomprimir. En el caso de este algoritmo de compresión, se puede agregar cualquier bit como padding ya que no hay posibilidad de que el descompresor se confunda e intente descomprimir el padding porque la tabla de frecuencias le da al descompresor la cantidad total de bytes en el archivo original, entonces una vez que ha descomprimido esa cantidad de caracteres simplemente se detiene y descarta los bits que sobran. 
 
-Para descomprimir el proceso es muy simple. El descompresor lee primero la tabla de frecuencias. Genera el mismo árbol que el compresor y luego va procesando bit a bit el archivo comprimido. Comenzando por la raíz por cada bit que lee se mueve a derecha o izquierda en el árbol según el bit leído. Cuando llega a una hoja emite ese caracter al archivo de salida y vuelve a la raíz.
+Para descomprimir el proceso es muy simple, y se lista a continuación:
+
+\begin{enumerate}
+\item El descompresor lee la tabla de frecuencias.
+\item Se arma el árbol de Huffman utilizando las frecuencias. Este árbol será idéntico al utilizado cuando se comprimió el archivo.
+\item Se lee cada bit del archivo y se va recorriendo el árbol hasta llegar a una hoja. Al llegar a la hoja, se emite el caracter correspondiente y se siguen leyendo los próximos bits comenzando desde la raíz del árbol. 
+\end{enumerate} 
 
 En general Huffman estático no tiene muy buen nivel de compresión por lo que no se lo usa como algoritmo de compresión stand-alone. Esto no quiere decir que los códigos de Huffman no sean importantes ya que se los usa en muchísimos algoritmos de compresión como un método eficiente para generar códigos a partir de las probabilidades de un conjunto de símbolos.
 
