@@ -4638,27 +4638,27 @@ Para descomprimir el proceso es muy simple, y se lista a continuación:
 \item Se lee cada bit del archivo y se va recorriendo el árbol hasta llegar a una hoja. Al llegar a la hoja, se emite el caracter correspondiente y se siguen leyendo los próximos bits comenzando desde la raíz del árbol. 
 \end{enumerate} 
 
-En general Huffman estático no tiene muy buen nivel de compresión por lo que no se lo usa como algoritmo de compresión stand-alone. Esto no quiere decir que los códigos de Huffman no sean importantes ya que se los usa en muchísimos algoritmos de compresión como un método eficiente para generar códigos a partir de las probabilidades de un conjunto de símbolos.
+En general, Huffman estático no tiene muy buen nivel de compresión por lo que no se lo usa como algoritmo de compresión stand-alone. Esto no quiere decir que los códigos de Huffman no sean importantes ya que se los usa en muchos algoritmos de compresión como un método eficiente para generar códigos a partir de las probabilidades de un conjunto de símbolos.
 
 \subsection{Huffman Dinámico}
 
-La versión dinámica del algoritmo de Huffman tiene como objetivo realizar una única pasada al archivo o string a comprimir. Todos los métodos que llamamos dinámicos comparten esta característica. La necesidad de un algoritmo dinámico puede darse por diversos factores. En telecomunicaciones, por ejemplo, no es posible realizar una pasada a los datos para luego comprimirlos y transmitirlos sino que es necesario ir comprimiendo a medida que los datos lleguen. Mas adelante veremos otros motivos que desencadenan la necesidad de un algoritmo dinámico.
+La versión dinámica del algoritmo de Huffman tiene como objetivo realizar una única pasada al archivo o string a comprimir. Todos los métodos que se dicen dinámicos comparten esta característica. La necesidad de un algoritmo dinámico puede darse por diversos factores. En telecomunicaciones, por ejemplo, no es posible realizar una pasada a los datos para luego comprimirlos y transmitirlos sino que es necesario ir comprimiendo a medida que los datos lleguen. Mas adelante se verán otros motivos que desencadenan la necesidad de un algoritmo dinámico.
 
-Comprimir en forma dinámica usando Huffman es sencillo. En principio debemos comenzar suponiendo que todos los mensajes \textbf{posibles } de la fuente son equiprobables y en base a ello construir un árbol. Para un archivo esto implica un árbol de 256 elementos ya que cualquier combinación de 8 bits es probable. Para suponer todos los mensajes equiprobables simplemente le asignamos a todos los mensajes frecuencia igual a 1, notemos que no sería lo mismo usar frecuencia igual a 0 porque entonces el árbol de Huffman podría quedar desbalanceado ya que 0+0=0 en todos los pasos y un árbol desbalanceado contradice la hipótesis que todos los mensajes son equiprobables. 
+Comprimir en forma dinámica usando Huffman es sencillo. En principio se debe comenzar suponiendo que todos los mensajes \textbf{posibles} de la fuente son equiprobables y en base a ello construir un árbol. Para un archivo esto implica un árbol de 256 elementos ya que cualquier combinación de 8 bits es probable. Para suponer todos los mensajes equiprobables simplemente le asignamos a todos los mensajes frecuencia igual a 1. (Notar que no sería lo mismo usar frecuencia igual a 0 porque entonces el árbol de Huffman podría quedar desbalanceado ya que 0+0=0 en todos los pasos y un árbol desbalanceado contradice la hipótesis que todos los mensajes son equiprobables).
 
-Una vez construido el árbol inicial procedemos a comprimir el primer caracter del archivo. Luego se incrementa la frecuencia de dicho caracter en el árbol y con la nueva lista de frecuencias se construye un árbol nuevo. Este proceso se repite hasta que no quedan caracteres por comprimir en el archivo original. 
+Una vez construido el árbol inicial se procede a comprimir el primer caracter del archivo y se incrementa en uno la frecuencia de dicho caracter en el árbol y con la nueva lista de frecuencias se construye un árbol nuevo. Este proceso se repite hasta que no quedan caracteres por comprimir en el archivo original. 
 
 El árbol final del método de Huffman dinámico es igual al árbol inicial del método estático, es decir que en el método dinámico empezamos con un árbol balanceado y vamos modificándolo hasta llegar al óptimo. La conclusión es que el método dinámico nunca puede comprimir mejor que el método estático, en el mejor de los casos y en forma excepcional es igual, por ejemplo si el archivo es completamente aleatorio entonces el árbol inicial, balanceado, ya es el óptimo. En todos los demás casos el método dinámico comprime un poco menos que el método estático pero hace una sola pasada al archivo a comprimir y no necesita transmitir la tabla de frecuencias.
 
-El descompresor funciona exactamente igual que el compresor. Comienza suponiendo todos los caracteres equiprobables y construyendo un árbol para ellos, luego descomprime bit a bit hasta llegar a una hoja del árbol. Emite el caracter encontrado en dicha hoja, aumenta la frecuencia de ese caracter y reconstruye el árbol en base a las nuevas frecuencias. 
+El descompresor funciona exactamente igual que el compresor. Comienza suponiendo todos los caracteres equiprobables y construye un árbol para ellos, luego descomprime bit a bit hasta llegar a una hoja del árbol emitiendo el caracter encontrado en dicha hoja y luego aumenta la frecuencia de ese caracter para reconstruir nuevamente el árbol. 
 
-Es de destacar que el descompresor desconoce la longitud original del archivo por lo que si el compresor tuvo que usar padding para completar una longitud entera de bits el descompresor podría intentar descomprimir el padding generando caracteres en el archivo descomprimido que no existen en el archivo original. Una buena forma de evitar esto es haciendo que el compresor use un símbolo especial "EOF" que emite solo cuando el archivo se ha terminado, este símbolo es simplemente un mensaje mas es decir que los árboles tendrán 257 nodos en lugar de 256. Cuando el descompresor "descomprime" el "EOF" sabe que el archivo se ha terminado y descarta los bits restantes si existieran. 
+Es de destacar que el descompresor desconoce la longitud original del archivo por lo que si el compresor tuviera que usar padding para completar una longitud entera de bits entonces el descompresor podría intentar descomprimir el padding generando caracteres en el archivo descomprimido que no existen en el archivo original. Una buena forma de evitar esto es hacer que el compresor use un símbolo especial "EOF" que emite solo cuando el archivo se ha terminado, este símbolo es simplemente un mensaje mas (es decir que los árboles tendrán 257 nodos en lugar de 256). Cuando el descompresor "descomprime" el "EOF" sabe que el archivo se ha terminado y descarta los bits restantes si existieran. 
 
 \subsection{Modelos de Orden Superior}
 
-Hasta el momento hemos calculado la probabilidad de ocurrencia de cada caracter en base a su frecuencia, así si el caracter "A" aparece 4 veces en un archivo de 20 caracteres su probabilidad será 4/20. Este es un modelo basado en la suposición de que la ocurrencia de un determinado caracter en un archivo es independiente de los caracteres anteriores. Como podemos suponer esta suposición no es válida. Si el caracter anterior es una "q" la probabilidad de una "u" será muy alta, mucho mas alta que la probabilidad de la misma "u" si el caracter anterior es por ejemplo una "o". En un modelo de orden "n" la frecuencia de cada caracter se calcula en base a los "n" caracteres anteriores.  Cada combinación de "n" caracteres del archivo nos proporciona un \textbf{contexto} y en base a dicho contexto calculamos la probabilidad del caracter siguiente. 
+Hasta el momento se ha calculado la probabilidad de ocurrencia de cada caracter en base a su frecuencia. Por ejemplo, si el caracter "A" aparece 4 veces en un archivo de 20 caracteres su probabilidad será 4/20. Este es un modelo basado en la suposición de que la ocurrencia de un determinado caracter en un archivo es independiente de los caracteres anteriores. Como es de suponer esto no está del todo bien. Si el caracter anterior es una "q" la probabilidad de una "u" será muy alta, mucho mas alta que la probabilidad de la misma "u" si el caracter anterior es por ejemplo una "o". En un modelo de orden "n" la frecuencia de cada caracter se calcula en base a los "n" caracteres anteriores.  Cada combinación de "n" caracteres del archivo nos proporciona un \textbf{contexto} y en base a dicho contexto calculamos la probabilidad del caracter siguiente. 
 
-Veamos un caso en el cual usamos Huffman estático de orden 1 es decir que calculamos la frecuencia de cada caracter tomando como contexto el caracter anterior.
+Un caso sencillo para analizar es el de Huffman estático de orden 1. Este caso es análogo al visto anteriormente pero utilizando el caracter anterior como contexto.
 
 \begin{verbatim}
 ABCABCDABC
@@ -4670,58 +4670,57 @@ Contexto C: A=1 D=1
 Contexto D: A=1
 \end{verbatim}
 
-Veamos ahora como comprimiríamos el archivo usando Huffman estático. En primer lugar hay que transmitir la tabla de frecuencias.  Luego como estamos usando orden 1 el primer caracter en general se copia sin comprimir porque no tiene contexto. En un modelo de orden 2 se copian los dos primeros caracteres y así sucesivamente. Es decir que nuestro archivo comprimido comienza con la tabla de frecuencias y una "A"
+Para poder comprimir el archivo utilizando este algoritmo, en primer lugar, es necesario crear la tabla de frecuencias. Siendo un modelo de orden 1, el primer caracter se copia sin comprimir puesto que no tiene contexto. Si fuera un modelo de orden 2, se copiarían los dos primeros caracteres (esto también aplica para un modelo de orden n).
+Dicho esto, el archivo comprimido comienza con la tabla de frecuencias y el caracter A.
 
 \begin{verbatim}
 TABLA FREQS + A
 \end{verbatim}
 
-Ahora tenemos que comprimir a cada caracter en base a su contexto, es decir que vamos a tener un árbol de Huffman para cada contexto posible. Pero en varios contextos tenemos un único caracter  es decir que el contexto es determinístico. En estos casos no hace falta generar bit alguno para representar al caracter porque la tabla de frecuencias ya contiene la información necesaria. Conociendo la tabla de frecuencias y conociendo el caracter "A" sabemos que el siguiente tiene que ser una "B", como el anterior es ahora "B" el siguiente tiene que ser "C", como el anterior es "C" el siguiente puede ser "A" o "D", aquí si necesitamos un árbol de Huffman en este caso un árbol de solo dos nodos por lo que el código de "A" es decir que para comprimir la "A" que viene luego de la "C" emitimos un bit por ejemplo 0. Un detalle muy curioso es que cuando llegamos nuevamente a tener la "C" como contexto y en el archivo viene "D" no hace falta generar nada porque el descompresor sabe que solo son posibles A y D con frecuencia 1 cada una y como "A" ya fue emitido necesariamente ahora tiene que venir una "D". Por lo tanto el archivo final comprimido es el siguiente:
+Ahora hay que comprimir a cada caracter en base a su contexto, es decir, que vamos a tener un árbol de Huffman para cada contexto posible. El próximo caracter es B en el contexto A. En este escenario, B es el único caracter posible que puede ocurrir con lo cual no es necesario generar ningún bit para representarlo puesto que la tabla de frecuencias ya tiene la información suficiente para determinar que el caracter es una B. Luego, se comprime la letra C en el contexto B y el escenario es análogo al anterior puesto que la tabla de frecuencias vuelve a tener la información que necesitamos. El próximo caracter es A en el contexto C y por primera vez aparece el escenario de tener un contexto con más de un caracter. En este escenario, se debe armar un árbol de Huffman con todos los caracteres incluidos en ese contexto (que son A y D, es decir, dos nodos) y emitir el código correspondiente. En este ejemplo, se supondrá que A se codifica con 0 y D con 1 entonces se emitirá un 0. Un detalle muy curioso es que si se tiene nuevamente a la C como contexto y en el archivo viene D no hace falta generar nada porque el descompresor sabe que solo son posibles A y D con frecuencia 1 cada una y como A ya fue emitido necesariamente ahora tiene que venir una D. Por lo tanto el archivo final comprimido es el siguiente:
 
 \begin{verbatim}
-TABLA FREQS + A1
+TABLA FREQS + A0
 \end{verbatim}
 
-Donde el 1 es un bit, eventualmente según como se codifique la tabla de frecuencias harán falta algunos bits de padding que pueden ser aleatorios ya que la tabla de frecuencias le informa al descompresor la cantidad de caracteres que tenía el archivo original.
+El 0 que figura en el archivo comprimido corresponde a aquel bit emitido de la letra A en el contexto C.
+En este algoritmo, puede ser necesario realizar padding. Al igual que el método estático de Huffman de orden 0, se puede agregar cualquier bit de padding puesto que la tabla de frecuencia indica la cantidad de caracteres a descomprimir.
 
-Un compresor dinámico de orden 1 no necesitaría la tabla de frecuencias pero deberá empezar suponiendo que todos los caracteres son equiprobables en cada contexto es decir que al principio para el contexto "A" tendremos a los 256 bytes posibles con frecuencia 1. Al leer la primera "B" actualizamos el árbol pero el nuevo árbol solo lo usaremos la próxima vez que el caracter anterior sea "A". Es decir que cada contexto tendrá su propio árbol que representa la ocurrencia de los caracteres en base al caracter anterior.
+Un compresor dinámico de orden 1 no necesitaría la tabla de frecuencias pero deberá empezar suponiendo que todos los caracteres son equiprobables en cada contexto. Es decir que al principio para el contexto "A" se tendrán los 256 bytes posibles con frecuencia 1. Al leer la primera "B" se actualiza el árbol pero el nuevo árbol solo se utilizará la próxima vez que el caracter anterior sea "A". Resumidamente hablando, cada contexto tendrá su propio árbol que representa la ocurrencia de los caracteres en base al caracter anterior.
 
 \subsubsection{El problema de frecuencia cero}
 
-Analizaremos ahora que sucede a medida que usamos modelos de orden cada vez mayor, vamos a ver que tanto los compresores estáticos como los dinámicos tienen un problema con esto.
+Para introducir a este problema se puede analizar el siguiente ejemplo: al utilizar un modelo de orden 1 como el Huffman estático, cada caracter se codifica en función del anterior. Si el caracter anterior fuera una Q entonces es muy probable que el próximo sea una U. La primera vez que se da esta situación la probabilidad de la U será 1/256. Suponiendo que siempre luego de Q viene otra U, la segunda vez que aparezca una U su probabilidad será 2/257, luego 3/258, 4/259, etc. Dicho esto, se quiere remarcar que el compresor puede tardar mucho tiempo en aprender que la U tiene una alta probabilidad de ocurriencia en el contexto de la Q. A este problema se lo conoce como el \textit{problema de frecuencia cero} ya que su origen se debe a que en el contexto Q no se puede tener caracteres con frecuencia 0 ya que si estos ocurrieran no se podrían representar. Al inicializar todo en frecuencia 1, el compresor necesitaría de un archivo muy grande para tener tiempo de aprender y comprimir eficientemente. Es decir que tanto los métodos estáticos como los dinámicos necesitan de archivos cada vez mas grandes para funcionar con un orden cada vez mayor. 
 
-Empecemos por los compresores estáticos. Estos son muy eficientes en cuanto a la cantidad de bits generados por cada caracter pero a medida que aumenta el orden las tablas de frecuencias dejan de ser insignificantes y se vuelven un factor importante. En un modelo de orden 0 hace falta una única tabla de 256 caracteres, esta es despreciable en función del tamaño, un modelo de orden 1 necesita 256 tablas de 256 caracteres cada uno lo cual está en el orden de los 64K, un modelo de orden 2 está en el orden de los 16Mb y para orden 3 ya pasamos a 4Gb (!). Esto quiere decir que para que tenga sentido comprimir un archivo con un compresor estático de orden 3 necesitamos que el archivo sea tan grande que los 4Gb necesarios para almacenar las tablas de frecuencias sean despreciables. La conclusión es que a partir de orden 2 es necesario que nuestro compresor sea dinámico ya que de lo contrario el peso de las tablas de frecuencias domina sobre el nivel de compresión que pueda alcanzar el método.
+El hecho de aumentar el orden que se utiliza a la hora de comprimir puede tener efectovs negativos. Por ejemplo, cuando los compresores estáticos son muy eficientes en cuanto a la cantidad de bits generados por cada caracter pero a medida que aumenta el orden las tablas de frecuencias las mismas dejan de ser insignificantes y se vuelven un factor importante. En un modelo de orden 0 hace falta una única tabla de 256 caracteres que se puede volver despreciable en un archivo grande. En un modelo de orden 1 necesita 256 tablas de 256 caracteres cada uno lo cual está en el orden de los 64K. En un modelo de orden 2 está en el orden de los 16Mb y para orden 3 ya sería necesario almacenar tablas de 4Gb. Esto quiere decir que para que tenga sentido comprimir un archivo con un compresor estático de orden 3 necesitamos que el archivo sea tan grande que los 4Gb necesarios para almacenar las tablas de frecuencias sean despreciables. La conclusión es que a partir de orden 2 es necesario que el compresor sea dinámico ya que de lo contrario el peso de las tablas de frecuencias domina sobre el nivel de compresión que pueda alcanzar el método.
 
-Sin embargo los métodos dinámicos de orden superior también tienen serios problemas. Las tablas de frecuencias no son necesarias, el compresor va a emitir únicamente el resultado de codificar cada caracter en función de su contexto. Supongamos que usamos un modelo muy sencillo de orden 1 es decir que codificamos cada caracter en función del anterior. Imaginemos que el caracter anterior es una "q" y que estamos a punto de comprimir el caracter "u". La primera vez que se da esta situación la probabilidad de la "u" será 1/256, supongamos también que luego de "q" no ocurre otra cosa que no sea "u", la segunda vez que veamos "u" su probabilidad será 2/257 luego 3/258, 4/259, etc. Como podemos ver lentamente la probabilidad de la "U" va aumentando pero el compresor tarda muchísimo en darse cuenta que con contexto "q" la probabilidad de la "u" deberá ser casi 1. Este problema se llama "problema de frecuencia cero" ya que su origen se debe a que no podemos en el contexto "q" tener caracteres con frecuencia 0 ya que si estos ocurrieran no los podríamos representar. Sin embargo a efectos de que el compresor aprenda esto es precisamente lo que necesitamos ya que inicializando todo con frecuencia 1 el compresor necesitaría de un archivo enorme para tener tiempo de aprender y comprimir eficientemente. Es decir que tanto los métodos estáticos como los dinámicos necesitan de archivos cada vez mas grandes para funcionar con orden cada vez mayor.
-
-El problema de frecuencia cero lo vamos a resolver por primera vez en el algoritmo PPMC que veremos luego de introducir la compresión aritmética.
+El problema de frecuencia cero se puede resolver en compresores dinámicos de la forma en que lo hace el algoritmo PPMC que se verá más adelante luego de introducir el concepto de compresión aritmética.
 
 \section{Compresión Aritmética}
 
-Un compresor aritmético es capaz de comprimir los mensajes de una fuente en una cantidad no-entera de bits, gracias a esta capacidad los compresores aritméticos son óptimos dada una cierta distribución de probabilidades, es decir que son los que mejor aproximan a la longitud ideal de los códigos que es $-\log_2 P_i$. 
+Un compresor aritmético es capaz de comprimir los mensajes de una fuente en una cantidad no-entera de bits y gracias a esta capacidad los compresores aritméticos son óptimos dada una cierta distribución de probabilidades siendo los que mejor aproximan a la longitud ideal de los códigos que es $-\log_2 P_i$. 
 
-Un compresor aritmético transforma un archivo en un número en el intervalo $[0,1)$, la precisión del número determina la longitud del archivo comprimido. Al igual que el método de Huffman un compresor aritmético puede ser estático, dinámico y usar modelos de orden superior. 
+Un compresor aritmético transforma un archivo en un número en el intervalo $[0,1)$, la precisión de este número determina la longitud del archivo comprimido. Al igual que el método de Huffman, un compresor aritmético puede ser estático, dinámico y usar modelos de orden superior. 
 
-Vamos a mostrar el funcionamiento de un compresor aritmético mediante un sencillo ejemplo en el cual usamos un compresor aritmético estático de orden cero para el siguiente archivo:
+El funcionamiento de un compresor aritmético es sencillo. Se realizará un ejemplo de un compresor aritmético estático de orden cero con el siguiente archivo:
 
 \begin{verbatim}
 AAABBBAC
 \end{verbatim}
 
-Al ser estático nuestro compresor calcula la probabilidad de cada caracter haciendo una pasada al archivo: $P(A)=1/2$; $P(B)=3/8$ ;$P(C)=1/8$ con estas probabilidades vamos a dividir el intervalo cero uno en tres segmentos de longitud proporcional a la probabilidad de cada caracter. Es decir que "A" va ir desde 0 (inclusivo)  hasta 0.5 (exclusivo), luego tendremos "B" desde 0.5 hasta 0.875 y finalmente "C" desde 0.875 hasta 1. Una vez dividido el intervalo el compresor puede comprimir el primer caracter "A" para ello lo que hace es quedarse con el intervalo que corresponde a la "A" es decir que nuestro nuevo intervalo será $[0,0.5)$. 
+Al ser estático el compresor calcula la probabilidad de cada caracter haciendo una pasada al archivo: $P(A)=1/2$; $P(B)=3/8$ ;$P(C)=1/8$ y con estas probabilidades se debe dividir el intervalo $[0,1)$ en tres segmentos (uno por cada caracter) de longitud proporcional a la probabilidad de cada caracter. En la imagen \ref{fig:compresion_aritmetica_ej}, se puede notar que A va ir desde 0 (inclusivo) hasta 0.5 (exclusivo), luego B desde 0.5 hasta 0.875 y finalmente C desde 0.875 hasta 1. Una vez dividido el intervalo el compresor puede comprimir el primer caracter A y para ello lo que hace es quedarse con el intervalo que corresponde a la A. En este caso, dicho intervalo será $[0,0.5)$. 
 
-En el siguiente paso el compresor tiene que subdividir el intervalo $[0,0.5)$ con las mismas probabilidades que antes ahora "A" va ir desde 0 a 0.25, "B" va ir desde 0.25 hasta 0.4375 y "C" va ir desde 0.4325 hasta 0.5. No creemos que haga falta explicar los cálculos ya que son muy sencillos, simplemente particionamos el intervalo en tres segmentos de longitud proporcional a la probabilidad de cada caracter. Este proceso se repite hasta que no queden mas caracteres en el archivo de entrada.
+El siguiente paso es realizar lo mismo que antes pero utilizando el nuevo intervalo, y también se utilizan las mismas probabilidades que antes puesto que es un compresor estático. De esta forma, el intervalo quedará de la siguiente forma: A va ir desde 0 a 0.25, B irá desde 0.25 hasta 0.4375 y C va a ir desde 0.4325 hasta 0.5. 
+
+El proceso se repetirá tantas veces como caracteres haya en el archivo.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=5in]{figures/compresion-aritmetica-fig-1.png}
 \caption{Ejemplo de compresión aritmética}
+\label{fig:compresion_aritmetica_ej}
 
 \end{figure}
-
-Una vez que hemos procesado todo el archivo el resultado será cualquier número perteneciente al intervalo final. Antes de explicar algunos detalles técnicos de la compresión veamos el funcionamiento del descompresor.
-
-El descompresor recibe la tabla de frecuencias (por ser estático) y un número, luego puede simplemente revertir el funcionamiento del compresor. Empezando por el intervalo $[0,1)$ puede subdividirlo de acuerdo a las probablidades (que sabe por tener la tabla de frecuencias), llegando al mismo estado inicial que el compresor. Luego se fija a que caracter pertenece el número y emite ese caracter. Por ejemplo si el número fuera 0.0956878662109375 sabemos que el primer caracter tiene que ser "A" ya que el número está dentro del intervalo $[0,0.5)$ que pertenece a la "A" , los demás caracteres no son posibles. El descompresor puede entonces generar una "A" en el archivo de salida. Una vez que ha hecho esto puede quedarse con el intervalo $[0,0.5)$ y nuevamente particionarlo de acuerdo a las probabilidades de cada caracter. Este proceso se repite hasta que se hayan descomprimido el total de bytes del archivo original, observando que dicha longitud se conoce a partir de la tabla de frecuencias.
 
 La lista de intervalos que el compresor produce es la siguiente:
 
@@ -4737,41 +4736,23 @@ Luego de "A" : [0.0947265625, 0.0958251953125)
 Luego de "C" : [0.0956878662109375,0.0958251953125)
 \end{verbatim}
 
-El resultado final es cualquier número dentro del intervalo final por ejemplo 0.0957. Es importante realizar las cuentas y verificar los resultados con la tabla anterior para validar el correcto entendimiento de un compresor aritmético, muchos de los algoritmos de compresión que veremos a continuación están basados en codificar símbolos con compresión aritmética.
+Una vez que hemos procesado todo el archivo, el resultado será cualquier número perteneciente al intervalo final cuando se comprime el último caracter. A modo ejemplo, se asume que el número final puede ser el 0.0956878662109375.
 
-\subsection{Implementación y Renormalización}
+Algo importante de notar es que a medida que se subdividen los intervalos se necesitan más dígitos para representar los números que componen dichos intervalos. Como se mencionó anteriormente, la longitud de este número es finalmente la que determina el tamaño del archivo (y recordar, en el caso de los compresores estáticos, que también se suma el peso de las tablas de frecuencias).
 
-La implementación de un compresor aritmético implica solamente llevar dos variables, una para el intervalo superior y otra para el intervalo inferior en binario. Inicialmente el intervalo inferior es 00000000 y el intervalo superior es 11111111 en la cantidad de bits que se decida usar. Notar que 1111111 representa 0.11111111...  que es 1 en binario.
-
-A medida que el compresor avanza va recalculando los intervalos y para no tener problemas de precisión es posible ir emitiendo el número final a medida que se genera, cuando los primeros "n" bits de los dos intervalos son iguales entonces es posible emitir esos bits al archivo de salida y correrlos a izquierda. Por ejemplo si piso=0.101001 y techo=0.101100 entonces es posible emitir los primeros 3 bits 101 al archivo de salida ya que no van a cambiar nunca y quedarnos con los intervalos  001000 y 100111 notar que cuando corremos el intervalo superior completamos con 1s. 
-
-Este sencillo procedimiento permite realizar el proceso de compresión aritmética pero hay que tener cuidado con situaciones de underflow. El Underflow puede producirse cuando el piso es de la forma 01... y el techo es de la forma 10... en ese caso puede que la precisión de los números deje de ser la suficiente sin que el primer dígito sea igual para piso y techo. Para evitar esto puede usarse el procedimiento conocido como \textbf{renormalización} que consiste en llevar un contador de los dígitos problemáticos y correrlos a izquierda.
-
-Por ejemplo:
-
-\begin{verbatim}
-SUP:100110
-INF:011001
-
-(Renormalizar)
-
-SUP: 110111
-INF:  001000   (Contador = 3)
-\end{verbatim}
-
-Eventualmente el primer dígito de los intervalos va a coincidir, si el primer dígito converge a 1 entonces además del 1 emitimos tantos 1s como indique el contador y si el primer dígito converge a 0 entonces además del 0 emitimos tantos 0s como indique el contador y lo reseteamos a cero.
+El proceso de descompresión es muy sencillo. Teniendo en cuenta la tabla de frecuencias y el número final que se almacenó en el archivo comprimido, se arma como primer paso el intervalo $[0,1)$ subdividiéndolo de la misma forma que antes. Usando el número 0.0956878662109375, se puede notar que pertenece al intervalo $[0,0.5)$ entonces se emite la letra A y se vuelve a generar el nuevo intervalo de la misma forma que a la hora de comprimir. Recordando lo calculado anteriormente, A quedará determinada por $[0,0.25)$, B por $[0.25,0.4375)$ y C por $[0.4325,0.5)$. En el segundo paso, vemos que el número 0.0956878662109375 vuelve a caer en el intervalo de A y en consecuencia se emite A. El paso se repite hasta descomprimir la totalidad del archivo.
 
 \section{PPMC}
 
-PPMC (prediction by partial matching) en un algoritmo que alcanza un excelente nivel de compresión, está basado en modelos de compresión aritmética pero resolviendo el problema de frecuencia cero. La forma en la cual PPMC resuelve el problema de frecuencia cero es muy ingeniosa, en lugar de usar un solo modelo de compresión de orden "n" usa varios modelos desde orden "n" hasta orden -1. Cuando un caracter no aparece en el modelo en el cual lo buscamos el algoritmo emite un símbolo especial (escape) y pasa al modelo de orden inmediato inferior. En cada modelo se inicializa únicamente el escape y se van agregando símbolos a medida que estos son observados en el archivo a comprimir. El modelo de orden -1 es un modelo especial en el cuál se inicializan todos los caracteres mas el símbolo de EOF con frecuencia 1 es decir probabilidad 1/257, de esta forma se garantiza que cualquier símbolo del archivo original puede ser encontrado en alguno de los modelos. 
+PPMC (prediction by partial matching) en un algoritmo que alcanza un excelente nivel de compresión y está basado en modelos de compresión aritmética pero resolviendo el problema de frecuencia cero. La forma en la cual PPMC resuelve el problema de frecuencia cero es muy ingeniosa: en lugar de usar un solo modelo de compresión de orden $n$ usa varios modelos desde orden $n$ hasta el orden -1. Cuando un caracter no aparece en el modelo en el cual se lo busca entonces el algoritmo emite un símbolo especial (escape) y pasa al modelo de orden inmediato inferior. En cada modelo se inicializa únicamente el escape y se van agregando símbolos a medida que estos son observados en el archivo a comprimir. El modelo de orden -1 es un modelo especial en el cuál se inicializan todos los caracteres mas el símbolo de EOF con frecuencia 1, es decirm con probabilidad 1/257 y de esta forma se garantiza que cualquier símbolo del archivo original puede ser encontrado en alguno de los modelos. 
 
-PPMC es en esencia un compresor aritmético, en cada paso subdivide el intervalo actual de acuerdo al modelo que toque usar y se queda el sub-intervalo que corresponde al símbolo emitido, el ESC tiene su intervalo como cualquier otro símbolo. Luego de emitir se actualiza el modelo por el cual pasamos como en cualquier algoritmo de compresión dinámico. 
+PPMC es en esencia un compresor aritmético puesto que en cada paso subdivide el intervalo actual de acuerdo al modelo que toque usar y se queda el sub-intervalo que corresponde al símbolo emitido. Luego de emitir se actualiza el modelo por el cual pasamos como en cualquier algoritmo de compresión dinámico. 
 
 \subsection{Ejemplo PPMC}
 
-Veamos un ejemplo de PPMC de orden máximo 2. Para el ejemplo vamos a suponer que solo son posibles los caracteres A,B,C esto lo hacemos simplemente por razones de espacio para no tener que incluir 256 elementos en el modelo de orden -1 que es el único que inicialmente contiene todos los caracteres posibles. Los demás modelos están vacíos lo cual equivale a decir que en cada uno de ellos solo existe el escape (ESC) con probabilidad igual a 1. 
+Se muestra un ejemplo de PPMC de orden 2 suponiendo que solo son posibles los caracteres A,B y C. Los demás modelos están vacíos lo cual equivale a decir que en cada uno de ellos solo existe el escape (ESC) con probabilidad igual a 1. 
 
-La tabla 3.4 muestra el estado inicial de PPMC en base a lo planteado.
+La tabla \ref{table: ppmc_example} muestra el estado inicial de PPMC en base a lo planteado.
 
 \begin{table}[!hbt]
 \center{
@@ -4785,9 +4766,10 @@ M-1 & M0 & M1 & M2 \\ \hline
 }
 \vskip 0.25cm
 \caption{PPMC estado inicial}
+\label{table: ppmc_example}
 \end{table}
 
-Vamos a comprimir usando PPMC el siguiente archivo:
+Sea el siguiente archivo:
 
 \begin{verbatim}
 ARCHIVO: ABCCCC
@@ -4795,9 +4777,10 @@ ARCHIVO: ABCCCC
 
 \subsubsection{Comprimir A}
 
-El primer caracter a comprimir es "A", como no tenemos contexto alguno comenzamos en el modelo de orden 0. Nuestro intervalo inicial es el [0,1). En el modelo de orden 0 lo único que existe es un escape por lo tanto el intervalo [0,1) queda ocupado totalmente por el escape, al emitir el escape entonces nuestro intervalo no se modifica. Esto es intuitivo ya que al ser el único símbolo existente en el modelo la probabilidad del escape es 1 y un símbolo de probabilidad 1 tiene longitud ideal $-log_2(1)=0$ bits por lo tanto es lógico que no modifique nuestro intervalo, no necesitamos bits para representar que hemos visto un escape.
+El primer caracter a comprimir es A. Como no se tiene contexto alguno se procede a utilizar el modelo de orden 0. Dado que en este modelo solo existe el caracter ESC, el intervalo inicial  $[0,1)$ queda ocupado íntegramente por este caracter. Al emitir el escape el intervalo no se modifica puesto que al ser el único símbolo existente en el modelo la probabilidad del escape es 1 y un símbolo de probabilidad 1 tiene longitud ideal $-log_2(1)=0$ bits
 
-Pasamos al modelo de orden -1 y en este modelo encontramos A,B,C y EOF con probabilidades 1/4 cada uno, nuestro intervalo queda dividido de la siguiente forma:
+El caracter de escape emitido indica que se debe utilizar el modelo de orden -1 donde sí se podrá comprimir el caracter A con probabilidad 1/4. En este modelo, el intervalo esta dividido como se muestra en la tabla \ref{table:ppmc_example_-1} 
+
 
 \begin{table}[!hbt]
 \center{
@@ -4809,11 +4792,13 @@ EOF & [0.75-1)\\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
+\caption{Estado inicial del modelo -1}
+\label{table:ppmc_example_-1}
 \end{table}
 
-Notemos que es arbitrario el orden en el cual aparecen los caracteres. El caracter a emitir es "A" por lo tanto nuestro nuevo intervalo es [0,0.25). Es fundamental notar que cada vez que PPMC "emite" un símbolo lo que realmente está haciendo es seleccionando un nuevo intervalo en base a la distribución de probabilidades del modelo en el cual se encuentra y el símbolo a emitir.
+Notar que es arbitrario el orden en el cual aparecen los caracteres. El caracter a emitir es A por lo tanto el nuevo intervalo es [0,0.25). Es fundamental notar que cada vez que PPMC "emite" un símbolo lo que realmente está haciendo es seleccionando un nuevo intervalo en base a la distribución de probabilidades del modelo en el cual se encuentra y el símbolo a emitir.
 
-Ahora estamos en condiciones de actualizar los modelos por los cuáles hemos pasado es decir el modelo 0, el modelo -1 nunca se actualiza.
+Una vez comprimido el primer caracter es necesario actualizar todos los modelos utilizados. Particularmente, el modelo de orden -1 no se actualiza nunca. En consecuencia, será necesario actualizar el modelo de orden 0 donde se agregará el caracter A y se actualizan las probabilidades como se muestra en la tabla \ref{table:ppmc_example_m0}
 
 \begin{table}[!hbt]
 \center{
@@ -4826,16 +4811,17 @@ M-1 & M0 & M1 & M2 \\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
-\caption{PPMC luego de comprimir "A"}
+\caption{PPMC luego de comprimir A}
+\label{table:ppmc_example_m0}
 \end{table}
 
-Notemos que ahora en el modelo de orden 0 existe la "A" con probabilidad 1/2. En PPMC la frecuencia del escape siempre es igual a la cantidad de caracteres que existen en el modelo, al haber un caracter (A) la frecuencia del escape es 1. Como A tiene frecuencia 1 y ESC tiene frecuencia 1 la probabilidad de ambos es 1/2.
+En PPMC la frecuencia del escape siempre es igual a la cantidad de caracteres que existen en el modelo, al haber un caracter (A) la frecuencia del escape es 1. Como A tiene frecuencia 1 y ESC tiene frecuencia 1 la probabilidad de ambos es 1/2.
 
 \subsubsection{Comprimir (A)B}
 
-Nuestro próximo caracter en el archivo es "B" y nuestro contexto es "A", como tenemos sólo un caracter de contexto usamos el modelo de orden 1. En este modelo no existe el contexto "A" por lo tanto emitimos un escape de probabilidad 1 que no le hace nada a nuestro intervalo y pasamos al modelo de orden 0.
+El próximo caracter en el archivo es B en un contexto de A. Al tener un solo caracter de contexto, se utiliza el modelo de orden 1. En este modelo no existe el contexto A por lo tanto se emite un escape de probabilidad 1 sin afectar el intervalo y se intenta comprimir con el modelo de orden 0.
 
-En el modelo de orden 0 tenemos "A" y ESC por lo tanto tenemos que emitir un ESC. Para hacerlo tomamos nuestro intervalo actual [0,0.25) y lo dividimos de acuerdo a las probabilidades del modelo:
+En el modelo de orden 0 se encuentra A y ESC por lo tanto se emite nuevamente un ESC. Será entonces necesario comprimir a B en el modeo -1, pero antes es necesario actualizar el intervalo teniendo en cuenta que esta vez se emitió un ESC con una probabilidad menor que 1. Para hacerlo, se toma el intervalo actual $[0,0.25)$ y se lo divide de acuerdo a las probabilidades del modelo que son 1/2 tanto para A como para ESC tal como se muestra en la tabla \ref{table:ppmc_example-m0a}:
 
 \begin{table}[!hbt]
 \center{
@@ -4845,11 +4831,13 @@ ESC & [0.125-0.25) \\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
+\caption{Intervalo usando M0}
+\label{table:ppmc_example-m0a}
 \end{table}
 
-Como tenemos que emitir un ESC nos quedamos el intervalo [0.125-0.25) que es nuestro intervalo actual.
-Pasamos ahora al modelo de orden -1. Aquí tenemos A,B,C y EOF con probabilidades 1/4 cada uno. Pero cuidado! Al haber pasado por el modelo de orden 0 sabemos que nuestro caracter a comprimir nunca puede ser "A" ya que de haber sido "A" lo hubiésemos emitido en el modelo anterior en lugar de un escape. Por lo tanto podemos simplemente eliminar la "A" del modelo de orden -1. Esto se llama \textbf{mecanismo de exclusión}. 
-Al eliminar "A" el modelo nos queda B=1/3, C=1/3, EOF=1/3. Procedemos entonces a subdividir nuestro intervalo de acuerdo a estas probabilidades.
+Al tener que emitir un ESC se actualizará el intervalo a $[0.125-0.25)$.
+En el modelo -1 se podrá entonces comprimir la B. Para recordar, en dicho modelo se tiene A,B,C y EOF con probabilidades 1/4 cada uno. Al haber pasado por el modelo de orden 0 se sabe que el caracter a comprimir nunca puede ser A ya que sino se lo hubiera emitido en el modelo anterior en vez de un escape. Por lo tanto, se puede simplemente eliminar la A del modelo de orden -1. A esto se lo conoce como \textbf{mecanismo de exclusión}. 
+Al eliminar A, el modelo quedará con probabilidades $P(B)=1/3$, $P(C)=1/3$ y $P(EOF)=1/3$. De acuerdo a estas nuevas probabilidades, el intervalo quedará como se muestra en la tabla \ref{table:ppmc_mecanismo_exclusion}
 
 \begin{table}[!hbt]
 \center{
@@ -4860,10 +4848,14 @@ ESC & [0.208333-0.25) \\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
+\caption{Intervalo de M-1 usando mecanismo de exclusión}
+\label{table:ppmc_mecanismo_exclusion}
+
 \end{table}
 
-De este intervalo tomamos "B" es decir que nuestro nuevo intervalo es [0.125-0.1666).
-Ahora podemos actualizar los modelos por los que hemos pasado es decir el modelo de orden 1 con contexto "A" y el modelo de orden 0.
+Con este nuevo intervalo se emite B y en consecuencia el intervalo será [0.125-0.1666).
+
+Recordar de actualizar los modelos que se utilizaron tal como se muestra en la figura \ref{table:ppmc_update_B}. 
 
 \begin{table}[!hbt]
 \center{
@@ -4876,14 +4868,15 @@ M-1 & M0 & M1 & M2 \\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
-\caption{PPMC luego de comprimir "AB"}
+\caption{PPMC luego de comprimir AB}
+\label{table:ppmc_update_B}
 \end{table}
 
-Notemos que en el modelo de orden 0 la frecuencia del escape es ahora 2 porque tenemos dos caracteres en dicho modelo (A y B). Siempre que se agrega un nuevo caracter al modelo hay que incrementar la probabilidad del ESC.
+Notar que en el modelo de orden 0 la frecuencia del escape es ahora 2 porque hay dos caracteres en dicho modelo (A y B). Siempre que se agrega un nuevo caracter al modelo hay que incrementar la probabilidad del ESC.
 
 \subsubsection{Comprimir (AB)C}
 
-Ahora tenemos que comprimir la "C" y nuestro contexto es "AB" empezamos por lo tanto en el modelo de orden 2 en donde el contexto "AB" está vacío, por lo tanto emitimos un ESC de probabilidad 1 que no cambia nuestro intervalo [0.125-0.1666). Pasamos al modelo de orden 1 en donde el contexto "B" tampoco existe por lo que emitimos otro escape de probabilidad 1 y pasamos al modelo de orden 0. En el modelo de orden 0 tenemos A,B y ESC por lo que tenemos que subdividir nuestro intervalo.
+Ahora hay que comprimir la C en un contexto AB. Como hay dos caracteres de contexto, se comienza con M2 donde solo existe ESC con probabilidad igual a 1 entonces se procede a intentar con M1 sin actualizar nuestro intervalo. En M1 tampoco existe ningún contexto con letra B con lo cual se emite un escape con probabilidad 1. En el modelo M0, el caracter C tampoco existe con lo cual se emite un escape con probabilidad 2/4 y se actualiza nuestro intervalo. En este modelo, el intervalo queda subdividido como se muestra en la tabla \ref{table:ppmc_example_m0c}. Al tener que emitir aquí un escape, el nuevo intervalo quedará $[0.1458333-0.1666)$.
 
 \begin{table}[!hbt]
 \center{
@@ -4894,9 +4887,11 @@ ESC & [0.1458333-0.1666) \\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
+\caption{Intervalo en M0 al comprimir C luego de AB}
+\label{table:ppmc_example_m0c}
 \end{table}
 
-Nuestro nuevo intervalo es entonces [0.1458333-0.1666). Estamos ahora en el modelo de orden -1 en donde tenemos que excluir la "A" y la "B" ya que las hemos observado en modelos anteriores en los que emitimos un ESC, por lo tanto ninguno de estos caracteres es posible. Nos quedan solo C y EOF con probabilidad 1/2 cada uno. Aplicando el modelo de orden -1 a nuestro intervalo tenemos:
+Ahora C deberá comprimirse en el modelo de orden -1. En este modelo, se sabe que ni A ni B pueden ocurrir. En consecuencia, por el mecanismo de exclusión, solo quedarán los caracteres C y EOF con probabilidad 1/2 cada uno. De esta forma, el intervalo quedará dividido como se muestra en la tabla \ref{table:ppmc_example_m0c1}
 
 \begin{table}[!hbt]
 \center{
@@ -4906,11 +4901,13 @@ EOF& [0.15625-0.1666) \\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
+\caption{Intervalo de M-1 al comprimir C luego de AB}
+\label{table:ppmc_example_m0c1}
 \end{table}
 
-De aqui emitimos "C" por lo que nuestro intervalo nuevo es [0.1458333-0.15625). 
+Ahora al emitir C el intervalo quedará $[0.1458333-0.15625)$.
 
-Tenemos que actualizar todos los modelos por los que pasamos es decir el modelo de orden 2 con contexto "AB", el modelo de orden 1 con contexto "B" y el modelo de orden 0. La tabla de modelos queda de la siguiente forma:
+Luego de actualizar el intervalo, se actualizan todos los modelos como se muestra en la tabla \ref{table:ppmc_update_C}.
 
 \begin{table}[!hbt]
 \center{
@@ -4924,13 +4921,12 @@ M-1 & M0 & M1 & M2 \\ \hline
 }
 \vskip 0.25cm
 \caption{PPMC luego de comprimir "ABC"}
+\label{table:ppmc_update_C}
 \end{table}
-
-Notemos como PPMC va consumiendo memoria únicamente a medida que lo necesita los modelos solo ocupan el espacio necesario de acuerdo a los caracteres observados, en otras palabras si nunca ocurre "x" luego de "q" entonces nunca tendremos una "x" en el contexto "q" para el modelo de orden 1. Esto es importante ya que de lo contrario los modelos ocuparían una cantidad de memoria inmanejable. De todas formas un PPMC de orden 5 o 6 puede ocupar algunos Gb de RAM lo cual hoy en día afortunadamente es algo manejable. 
 
 \subsubsection{Comprimir A(BC)C}
 
-Hemos comprimido "ABC" y el caracter próximo es otra "C". Nuestro intervalo actual es [0.1458333-0.15625). Como hemos fijado el orden máximo en 2 nuestro contexto es "BC". Por lo tanto comenzamos en el modelo de orden 2 en donde buscamos el contexto BC, el cual no existe por lo que emitimos un ESC de P=1 que no modifica nuestro intervalo y pasamos al modelo de orden 1. Aqui el contexto "C" tampoco existe por lo que emitimos otro escape de P=1 y pasamos al modelo de orden 0 en donde "C" existe por lo que tenemos que subdividir nuestro intervalo de acuerdo a las probabilidades de dicho modelo que son (A=1/6, B=1/6, C=1/6, ESC=3/6).
+Para comprimir C en un contexto de BC, notar que al comenzar por M2 no existe el contexto BC con lo cual se emite escape con probabilidad igual a 1. En el modelo M1 no existe el contexto C con lo cual se emite nuevamente escape con probabilidad igual a 1. En el modelo de orden cero sí existe la C con lo cual se subdivide el intervalo $ [0.1458333-0.15625)$ usando $P(A)=1/6$, $P(B)=1/6$, $P(C)=1/6$ y $P(ESC)=3/6$ como se muestra en la tabla \ref{table:ppmc_example_m0abcc}.
 
 \begin{table}[!hbt]
 \center{
@@ -4942,9 +4938,11 @@ ESC & [0.151041666,0.15625) \\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
+\caption{Intervalo en M0 al comprimir A(BC)C}
+\label{table:ppmc_example_m0abcc}
 \end{table}
 
-Como emitimos una "C" nuestro nuevo intervalo es [0.14930555-0.151041666). Actualizamos ahora los modelos por los que pasamos, es decir el contexto "BC" en el modelo de orden 2, el contexto "C" en el modelo de orden 1 y el modelo de orden 0.
+Al emitir una C el nuevo intervalo es [$0.14930555-0.151041666)$ y se actualizan los modelos utilizados como en la tabla \ref{table:ppmc_update_abcc}
 
 \begin{table}[!hbt]
 \center{
@@ -4957,12 +4955,13 @@ M-1 & M0 & M1 & M2 \\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
-\caption{PPMC luego de comprimir "ABCC"}
+\caption{PPMC luego de comprimir ABCC}
+\label{table:ppmc_update_abcc}
 \end{table}
 
 \subsubsection{Comprimir AB(CC)C}
 
-Ahora tenemos que comprimir "C" con contexto "CC" este contexto no existe en el modelo de orden 2 por lo que se emite un ESC de probabilidad igual a 1, pasamos al modelo de orden 1 y con contexto "C" encontramos la "C". Nuestro intervalo [0.14930555-0.151041666) queda entonces dividido de la forma.
+Ahora se comprime C en un contexto CC. En el modelo de orden 2 no existe el contexto CC por lo que se emite un ESC de probabilidad igual a 1. En el modelo de orden 1 existe la C en el contexto C  con lo cual el intervalo $[0.14930555-0.151041666)$ queda dividido como se muestra en la tabla \ref{table:ppmc_example_m1abccc} 
 
 \begin{table}[!hbt]
 \center{
@@ -4972,10 +4971,11 @@ ESC & [0.1501736111,0.151041666) \\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
+\caption{Intervalo en M1 al comprimir AB(CC)C}
+\label{table:ppmc_example_m1abccc}
 \end{table}
 
-Y como estamos comprimiendo "C" elegimos el intervalo que corresponde a la misma que se convierte en nuestro intervalo actual: [0.14930555,0.1501736111).
-Actualizamos el contexto "CC" en el modelo de orden 2 y el contexto "C" en el modelo de orden 1. El modelo de orden 0 no se actualiza pues no lo hemos usado.
+Al emitir C, el nuevo intervalo será $[0.14930555,0.1501736111)$ y se actualizan los modelos quedando como se muestra en la figura \ref{table:ppmc_update_abccc}.
 
 \begin{table}[!hbt]
 \center{
@@ -4988,25 +4988,27 @@ M-1 & M0 & M1 & M2 \\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
-\caption{PPMC luego de comprimir "ABCCC"}
+\caption{PPMC luego de comprimir ABCCC}
+\label{table:ppmc_update_abccc}
 \end{table}
 
 \subsubsection{Comprimir ABC(CC)C}
 
-Una vez mas el contexto es "CC" y tenemos que comprimir "C" esta vez encontramos "C" en el modelo de orden 2 con contexto "CC" por lo que subdividimos nuestro intervalo de acuerdo a las probabilidades en dicho modelo:
+Ahora se comprime nuevamente C en un contexto CC. En M2 ya existe este escenario con lo cual directamente se comprime el caracter en este modelo subdividiendo el intervalo tal como se muestra en la figura \ref{table:ppmc_example_m2abcccc}.
 
 \begin{table}[!hbt]
 \center{
 \begin{tabular}{|c|c|}\hline
 C & [0.14930555-0.14973958333) \\
-ESC & [0.14973958333,0.151041666) \\ \hline
+ESC & [0.14973958333,0.1501736111) \\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
+\caption{Intervalo en M2 al comprimir ABCCCC}
+\label{table:ppmc_example_m2abcccc}
 \end{table}
 
-Nuestro nuevo intervalo es [0.14930555-0.14973958333). Y el único modelo a actualizar es el contexto "CC" en el modelo de orden 2.
-
+El nuevo intervalo será $[0.14930555-0.14973958333)$ y se actualiza el único modelo utilizado que es el M2 (ver Tabla \ref{table:ppmc_update_abcccc})
 \begin{table}[!hbt]
 \center{
 \begin{tabular}{|l|l|l|l|l|}\hline
@@ -5018,12 +5020,13 @@ M-1 & M0 & M1 & M2 \\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
-\caption{PPMC luego de comprimir "ABCCCC"}
+\caption{PPMC luego de comprimir ABCCCC}
+\label{table:ppmc_update_abcccc}
 \end{table}
 
 \subsubsection{Comprimir ABCC(CC)}
 
-Finalmente llegamos al fin del archivo, es decir que tenemos que comprimir el símbolo EOF, esto es fundamental para decirle al descompresor que ya no tiene que seguir procesando el archivo comprimido. Empezamos por el contexto "CC" en el modelo de orden 2 en donde tenemos que emitir un ESC que tiene probabilidad 1/3.
+Dado que se ha llegado al final del archivo, hay que comprimir el símbolo EOF. Esto es fundamental para que el descompresor entienda que ya no debe seguir descomprimiendo el archivo. Empezando por el contexto CC en M2 el caracter EOF no existe y en consecuencia se emite un ESC con probabilidad 1/3 (ver Tabla \ref{table:ppmc_example_m2abcccceof}).
 
 \begin{table}[!hbt]
 \center{
@@ -5033,10 +5036,11 @@ ESC & [0.1495949074,0.14973958333) \\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
+\caption{Intervalo en M2 al comprimir EOF}
+\label{table:ppmc_example_m2abcccceof}
 \end{table}
 
-Nuestro nuevo intervalo es el correspondiente al ESC en dicho modelo es decir:  [0.0.1495949074,0.14973958333). Pasamos el modelo de orden 1 en donde tenemos que excluir la "C", al excluir "C" lo único que queda en este modelo es el ESC y por lo tanto su probabilidad es 1 es decir que el intervalo no se modifica. 
-Pasamos entonces al modelo de orden 0 en donde tenemos que excluir la "C" y nos queda entonces A=1,B=1,ESC=3. Notar que la frecuencia del ESC no se modifica por aplicar exclusión. Dividimos nuestro intervalo  [0.1495949074,0.14973958333) de acuerdo a este modelo. 
+Bajo este escenario, al emitir escape, el nuevo intervalo es $[0.1495949074,0.14973958333)$. En M1, en el contexto de C, es necesario excluir la C por el mecanismo de exclusión y entonces emitir un escape con probabilidad 1. En M0, se vuelve a excluir nuevamente la letra C y se emite entonces un escape con probabilidad $P(A)=1/5$, $P(B)=1/5$ y $P(ESC)=3/5$. Notar que la frecuencia del ESC no se modifica por aplicar exclusión. Se divide el intervalo  [0.1495949074,0.14973958333) como se muestra en la Tabla \ref{table:ppmc_example_m0abcccceof}. 
 
 \begin{table}[!hbt]
 \center{
@@ -5047,15 +5051,15 @@ ESC & [0.149652777,0.14973958333) \\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
+\caption{Intervalo en M0 al comprimir EOF}
+\label{table:ppmc_example_m0abcccceof}
 \end{table}
 
-Seleccionamos el sub-intervalo correspondiente al escape y nuestro nuevo intervalo es: [0.149652777,0.14973958333).
+El nuevo intervalo ahora es el $[0.149652777,0.14973958333)$ dado que se emitió un escape.
 
-Ahora pasamos al modelo de orden -1 excluyendo "A","B" y "C" que ya fueron observados en modelos anteriores. Como lo único que queda es un EOF su probabilidad es 1 y no hace falta subdividir el intervalo. El EOF siempre va a comprimirse con P=1 en el modelo de orden -1 ya que el modelo de orden 0 va a tener todos los caracteres observados en el archivo hasta su fin.
+En el modelo M-1, sabiendo que hay que excluir A, B y C, se comprime el EOF con probabilidad igual a 1 con lo cual no se actualiza el intervalo con lo cual alcanza con elegir algún número del intervalo y almacenarlo en el archivo.
 
-En definitiva nuestro archivo comprimido va a ser algún número en el intervalo [0.149652777,0.14973958333). Si trabajamos en binario cualquier número dentro de este intervalo sirve, pero como hemos hecho las cuentas en decimal vamos a pasar a binario para mostrar el archivo final comprimido.
-
-Para hacer esto solo necesitamos la tabla de potencias de 2 a partir de -1.
+Para poder codificar el número a binario, se puede armar una tabla de potencias de 2 a partir de -1. Ver Tabla \ref{table:codificacion_binaria}. 
 
 \begin{table}[!hbt]
 \center{
@@ -5077,16 +5081,17 @@ $2^-12$ & 0.00024414062& 1& 0.14965820312 \\ \hline
 }
 \vskip 0.25cm
 \caption{Codificación en binario del archivo comprimido}
+\label{table:codificacion_binaria}
 \end{table}
 
-Nuestro primer bit es 0 porque nuestro intervalo es menor a 0.5, ídem para el segundo bit. El tercer bit en cambio tiene que ser 1, el cuarto bit un cero porque sino nos pasamos, etc...
-Por lo tanto el archivo en binario completo es:
+Lo que se quiere lograr es un acumulado que se encuentre dentro del último intervalo. Para lograr esto, es necesario marcar con 1 todos los números que sumados me dan el número acumulado que estamos buscando. Por lo tanto el archivo en binario completo será:
 
 \begin{verbatim}
 001001100101
 \end{verbatim}
 
-Analicemos ahora si este archivo de 12 bits corresponde con lo que esperaríamos de acuerdo a la entropía, esto lo podemos hacer simplemente considerando las probabilidades de cada símbolo que hemos emitido y usando $-log_2(P_i)$ para estimar su longitud ideal.
+
+Se analiza ahora si este archivo de 12 bits corresponde con lo que se espera de acuerdo a la entropía. Esto se puede hacer simplemente considerando las probabilidades de cada símbolo emitido y usarlas para estimar su longitud ideal. Ver Tabla \ref{table:simbolos_emitidos_ppmc}
 
 \begin{table}[!hbt]
 \center{
@@ -5116,9 +5121,10 @@ ABCCCCEOF & M-1 & 1 &0&[0.149652777,0.14973958333)\\ \hline
 }
 \vskip 0.25cm
 \caption{Probabilidades emitidas y sus longitudes}
+\label{table:simbolos_emitidos_ppmc}
 \end{table}
 
-Notemos que el total de bits que hemos emitido (12) es cercano pero inferior a los 13.49 bits que pronosticamos de acuerdo a la entropía, esto se debe a que el 13.49 es el \textbf{promedio} en bits para cualquier archivo que tenga la misma distribución de probabilidades que el nuestro, algunos ocuparán 12 , 13 y otros 14 bits. Para archivos de suficiente longitud en general la estimación es muy precisa.
+Notar que el total de bits que hemos emitido (12) es cercano pero inferior a los 13.49 bits que se pronostican de acuerdo a la entropía. Esto se debe a que el 13.49 es el \textbf{promedio} en bits para cualquier archivo que tenga la misma distribución de probabilidades que el archivo de ejemplo al cual le aplicamos PPMC. Algunos ocuparán 12 o 13 y otros 14 bits. Para archivos de suficiente longitud en general la estimación es muy precisa.
 
 \subsection{PPMC Aspectos claves}
 
@@ -5128,7 +5134,8 @@ Repasemos algunos aspectos claves de PPMC.
 \item Es necesario fijar un orden máximo
 \item El modelo de orden -1 tiene todos los caracteres posibles mas el EOF y nunca se actualiza
 \item La frecuencia del ESC es igual a la cantidad de caracteres en el modelo
-\item Solo se actualizan los modelos por los cuales pasamos y esto se hace DESPUES de haber comprimido cada caracter 
+\item Solo se actualizan los modelos que se utilizan y esto se hace luego de haber comprimido cada caracter
+\item PPMC solo utiliza memoria a medida que los modelos lo requieran. Tener especial cuidado con el consumo de RAM en ordenes superiores como 5 o 6
 \end{enumerate}
 
 \subsection{Descompresión}
@@ -5137,27 +5144,26 @@ El proceso de descompresión en PPMC es sencillo ya que el descompresor sigue lo
 
 \subsection{Orden Máximo para PPMC}
 
-Es interesante analizar cuál es el orden óptimo para PPMC. Podemos pensar que a mayor orden mayor nivel de compresión ya que usamos contextos cada vez mas largos lo cual nos da mayor precisión al predecir las probabilidades de los caracteres. Sin embargo usar un orden máximo muy alto también implica generar cada vez mayor cantidad de escapes cuando no encontramos el caracter a comprimir en el modelo actual. Eventualmente el peso de los escapes supera a lo que se gana en nivel de compresión y el algoritmo empieza a comprimir peor.
+Es interesante analizar cuál es el orden óptimo para PPMC. Se puede pensar que a mayor orden mayor nivel de compresión ya que usamos contextos cada vez mas largos lo cual brinda da mayor precisión al predecir las probabilidades de los caracteres. Sin embargo, usar un orden máximo muy alto también implica generar cada vez mayor cantidad de escapes cuando no se encuentra el caracter a comprimir en el modelo actual. Eventualmente el peso de los escapes supera a lo que se gana en nivel de compresión y el algoritmo empieza a comprimir peor.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4in]{figures/ppmc-orden.png}
 \caption{Nivel de compresión de PPMC según el orden máximo}
-
+\label{fig:ppmc_compresion_vs_orden}
 \end{figure}
 
-El gráfico muestra el nivel de compresión de PPMC para diferentes valores de orden máximo. Como podemos ver el óptimo se encuentra alrededor de 5 o 6 caracteres de contexto. Esto nos da contextos lo suficientemente largos como para predecir muy bien sin que el peso de los escapes sea significativo. Es por esto que en general suelen usarse contextos de orden 5 o 6 al comprimir con PPMC. Para archivos especiales puede tener sentido usar contextos mas largos o mas chicos según el caso.
+El gráfico \ref{fig:ppmc_compresion_vs_orden} muestra el nivel de compresión de PPMC para diferentes valores de orden máximo. Se puede ver que el óptimo se encuentra alrededor de 5 o 6 caracteres de contexto. Esto da contextos lo suficientemente largos como para predecir muy bien sin que el peso de los escapes sea significativo. Es por esto que en general suelen usarse contextos de orden 5 o 6 al comprimir con PPMC. Para archivos especiales puede tener sentido usar contextos mas largos o mas chicos según el caso.
 
 \subsection{Variantes de PPMC}
 
-PPMC es la variante "C" de PPM. Casi todas las variantes de PPM giran alrededor de un mismo tema: la frecuencia del escape en cada modelo. Como hemos mencionado el escape debería estar relacionado con la probabilidad de encontrar un símbolo nuevo en el modelo, es decir que ocurra un caracter que aun no hemos visto para un cierto contexto. No hay una forma "exacta" de modelar esta probabilidad por lo que es necesario recurrir a alguna heurística. La heurística conocida como "método C" que es la que usamos en el apunte es una de las que mejor funciona y además es muy simple, ya que solamente consiste en aumentar la frecuencia del escape cada vez que se agrega un nuevo caracter al modelo. Otros variantes de PPM como PPMA, PPMB, PPMD, PPMQ, PPMXC y PPMZ usan diferentes heurísticas para las frecuencias de los escapes [Witten-Bell]. De todos estos métodos el mas interesante es PPMQ porque introduce un concepto muy importante e interesante en compresión de datos conocido como "secondary symbol estimation" (SSE).
+PPMC es la variante C de PPM. Casi todas las variantes de PPM giran alrededor de un mismo tema: la frecuencia del escape en cada modelo. Como se mencionó anteriormente, el escape debería estar relacionado con la probabilidad de encontrar un símbolo nuevo en el modelo, es decir que ocurra un caracter que aun no se ha visto para un cierto contexto. No hay una forma "exacta" de modelar esta probabilidad por lo que es necesario recurrir a alguna heurística. La heurística que se ha utilizado en el ejemplo, conocida como "método C", es una de las que mejor funciona y además es muy simple ya que solamente consiste en aumentar la frecuencia del escape cada vez que se agrega un nuevo caracter al modelo. Otros variantes de PPM como PPMA, PPMB, PPMD, PPMQ, PPMXC y PPMZ usan diferentes heurísticas para las frecuencias de los escapes. De todos estos métodos el mas interesante es PPMQ porque introduce un concepto muy importante e interesante en compresión de datos conocido como "secondary symbol estimation" (SSE).
 
 \subsection{PPMQ y SSE}
 
-En PPMC la probabilidad del escape es igual a su frecuencia dividida sobre el total de frecuencias. Sin embargo podemos pensar que 1/2 podría no ser lo mismo que 3/6 o 10/20. Cuando la frecuencia del escape es 1 solo existe en el modelo un caracter además del escape, es decir que el modelo es, en cierta forma, determinístico, en este tipo de modelos la probabilidad real del escape debería ser algo menor a 1/2 mientras que en un modelo en el cual hemos visto 8 caracteres diferentes si la suma total es 16 la probabilidad del escape podría ser algo mayor a 8/16. En PPMQ se plantea una forma de ajustar la probabilidad del escape de forma tal de reflejar esta intuición. 
+En PPMC la probabilidad del escape es igual a su frecuencia dividida sobre el total de frecuencias. Sin embargo, se puede pensar que 1/2 podría no ser lo mismo que 3/6 o 10/20. Cuando la frecuencia del escape es 1 solo existe en el modelo un caracter además del escape, es decir que el modelo es, en cierta forma, determinístico. En este tipo de modelos la probabilidad real del escape debería ser algo menor a 1/2 mientras que en un modelo en el cual hemos visto 8 caracteres diferentes si la suma total es 16 la probabilidad del escape podría ser algo mayor a 8/16. En PPMQ se plantea una forma de ajustar la probabilidad del escape de forma tal de reflejar esta intuición. 
 
-Para hacer esto introducimos el concepto de "secondary symbol estimation" que como su nombre lo indica consiste en pedir una "segunda opinión" sobre la probabilidad de un cierto símbolo, en este caso de los escapes. La forma en la que PPMQ hace esto es muy simple y elegante. Cada vez que se va a emitir un escape contamos con dos datos sobre el mismo: su frecuencia y la suma total de frecuencias en el modelo. Estos dos datos se indexan mediante una tabla de hash. En esta tabla vamos a contabilizar la cantidad de veces que para esa frecuencia y total se emitió realmente un escape y la cantidad de veces que se emitió otro caracter. 
-
+Para hacer esto se introduce el concepto de "secondary symbol estimation" que como su nombre lo indica consiste en pedir una "segunda opinión" sobre la probabilidad de un cierto símbolo, en este caso de los escapes. La forma en la que PPMQ hace esto es muy simple y elegante: cada vez que se va a emitir un escape contamos con dos datos sobre el mismo: su frecuencia y la suma total de frecuencias en el modelo. Estos dos datos se indexan mediante una tabla de hash. En esta tabla vamos a contabilizar la cantidad de veces que para esa frecuencia y total se emitió realmente un escape y la cantidad de veces que se emitió otro caracter. 
 \begin{table}[!hbt]
 \center{
 \begin{tabular}{|l|l|l|l|}\hline
@@ -5169,142 +5175,102 @@ ESC freq & Freq Total & ESC & Other \\ \hline
 }
 \vskip 0.25cm
 \caption{PPMQ}
+\label{table:ppmc_sse}
 \end{table}
 
-La tabla 3.13 muestra un ejemplo de la estructura que necesita PPMQ, las dos primeras columnas serían la clave de la tabla de hash. Supongamos ahora que estamos en un cierto modelo y tenemos que emitir un escape que tiene frecuencia 2 y el total de frecuencias del modelo es 4. Accedemos a la tabla y vemos que en estas condiciones se ha emitido 2 veces un escape y 3 veces otra cosa. Por lo tanto la probabilidad del Escape es 2/5 y esta será la probabilidad que usaremos para comprimir. Notemos que en esta tabla la entrada que corresponde a frecuencia= 2 y total =4 reúne estadísticas de TODOS los modelos en los cuales se haya observado esta combinación. Notemos también que cada vez que emitimos un caracter en un modelo (diferente de ESC) tenemos que actualizar la cantidad de "other" en la tabla correspondiente, de esta forma aprendemos que para la frecuencia y total que tenía el escape no hemos emitido un escape sino otro símbolo.
-
-\subsection{Modelos Generativos Basados en PPMC}
-
-Introducimos aquí el fascinante mundo de los modelos generativos. La idea es "aprender" un modelo para un determinado archivo o conjunto de archivos y luego a partir de dicho modelo generar contenido al azar. Por ejemplo podemos comprimir todas las obras de Shakespeare usando PPMC de orden 6. Una vez que hicimos esto tenemos un modelo que representa las obras de Shakespeare y podemos usarlo para generar contenido de forma aleatoria. La forma de hacer esto es muy simple: comenzamos con el modelo de orden 0 y en base a las probabilidades del mismo generamos un caracter al azar. Luego con dicho caracter como contexto vamos al modelo de orden 1 y generamos otro caracter al azar en base a las probabilidades de dicho modelo. Así seguimos generando carateres de forma aleatoria y el resultado es el siguiente:\\
-\\
-
-\fbox{\begin{minipage}{35em}
-  Empress' sons\\
-    Hath slain to-day!\\
-  PROSPERO. How? turn the business for that I love thee now we hold thy time,\\
-    Which would it pleas'd;\\
-   And take against your writing.\\
-  PRINCE JOHN. If th' event o' th' moon,\\
-    Whom the King's will fly, like a Northern blasts from this enforce these quondam Quickly to Sir Nicholas be thy\\
-    tongue divine, are gone about me;\\
-    her'; and whisp'ring, rounding, though much, is not burden two fair son!\\
-    Dogs howl,\\
-    Form'd by the hand; les doigts? Ma foi, j'oublie les doigts?\\
-  ALICE. Oui, vraiment.\\
-  SIR TOBY. Fie that you miss. She'll gallop withal?\\
-  HORTENSIO. From th' head.\\
-  WARWICK. And so repose myself confounds himself, with another name.\\
-  ROMAN. Well, whiles you carry you.\\
-  KING EDWARD. And the pard,\\
-    Nor build there she remain within\\
-  WOODVILLE, Lieutenant's scarf? You\\
-    calumny will she lives.\\
-     Infirmity,\\
-    When English-woman. For what of his legs again?\\
-  SECOND WITCH. Fillet of my children;\\
-    Than as you\\
-\end{minipage}}\\ \\
-
-Como podemos ver el algoritmo ha aprendido a escribir algo muy parecido a una obra de Shakespeare pero completamente al azar, notar que incluso aprende a introducir los personajes. El algoritmo tiene algunas limitaciones, por ejemplo no cambia las probabilidades según la cantidad de caracteres que tiene una línea de texto, cuanto mas larga la línea mas probable debería ser que aparezca un punto y un salto de línea. Tampoco sabe que si está en una aposición la coma tiene mayor probabilidad hasta ser generada para cerrar la misma. En definitiva las limitaciones del algoritmo están dadas por su corta memoria, no recuerda lo que ha hecho anteriormente sino que tiene en cuenta únicamente los 6 caracteres anteriores y ese es todo su mundo. Con estas limitaciones el algoritmo es capaz de generar un texto bastante legible lo cual habla muy bien la capacidad de PPMC para modelar archivos. Es lógico suponer que cuanto mejor entiende el algoritmo el archivo que está procesando mejor va a poder generar contenido similar al mismo, esto confirma nuestra idea de que comprimir es en definitiva "entender".
-
-\subsection{PPMC conclusiones}
-
-PPMC es un compresor aritmético dinámico de orden superior que maneja varios ordenes diferentes al mismo tiempo para resolver el problema de frecuencia cero.
-PPMC es uno de los algoritmos de compresión mas importantes, alcanza un nivel de compresión muy competitivo. Algoritmos basados en PPMC son los que mejor nivel de compresión alcanzan para algunos tipos de archivos, por ejemplo textos de gran longitud. 
+La tabla \ref{table:ppmc_sse} muestra un ejemplo de la estructura que necesita PPMQ. Las dos primeras columnas conforman la clave de la tabla de hash. Suponiendo ahora que se quiere emitir un escape en cierto modelo con frecuencia 2 y el total de frecuencias del modelo  igual a 4, se accede a la tabla y se visualiza que se ha emitido 2 veces un escape y 3 veces otra cosa. Por lo tanto la probabilidad del Escape es 2/5 y esta será la probabilidad que se usará para comprimir. Notar que en esta tabla la entrada que corresponde a frecuencia=2 y total =4 reúne estadísticas de todos los modelos en los cuales se haya observado esta combinación. Notar también que cada vez que se emite un caracter en un modelo (diferente de ESC) hay que actualizar la cantidad de "other" en la tabla correspondiente, de esta forma se podrá aprender que para la frecuencia y total que tenía el escape no hemos emitido un escape sino otro símbolo.
 
 \section{DMC: Dynamic Markov Compression}
 
-DMC [Cormarck-Horspool] es un algoritmo basado en comprimir los datos bit por bit, a diferencia de PPMC que procesaba byte a byte. DMC usa un único contexto por cada bit a comprimir a diferencia de PAQ que usa una mezcla de contextos.
+DMC [Cormarck-Horspool] es un algoritmo basado en comprimir los datos bit por bit, a diferencia de PPMC que procesaba byte a byte. DMC usa un único contexto por cada bit a comprimir a diferencia de otros algoritmos usan una mezcla de contextos (como por ejemplo el algoritmo PAQ).
 
 Por cada bit a comprimir DMC intenta predecir la probabilidad de que el bit sea 1 o 0 comprimiendo el mismo con compresión aritmética. 
 
-Inicialmente DMC comienza con una tabla con todos los posibles contextos de 8 a 15 bits en donde considera al 0 y al 1 equiprobables. A efectos de simplificar vamos a hacer el ejemplo usando 2 bits como contexto.
+Inicialmente DMC comienza con una tabla con todos los posibles contextos de 8 a 15 bits en donde considera al 0 y al 1 equiprobables. A efectos de simplificar se realizará un ejemplo usando 2 bits como contexto.
 
+Observar que, por ejemplo, el contexto 10 implica que el algoritmo esta posicionado en el estado 2. Si el próximo bit es un 0 entonces el compresor esta situado en el estado 0 puesto que el contexto va a ser 00 mientras que si el próximo bit es un 1 entonces es el estado 1 porque el contexto es 01. 
 
-Observemos que, por ejemplo, cuando el estado es "10" que es el estado 2, si el próximo bit es un 0 pasamos al estado 0 ya que nuestro contexto va a ser 00 mientras que si el próximo bit es un 1 pasamos al estado 1 porque el contexto es 01. 
-
-Esta tabla nos define un modelo de Markov en donde cada estado representa un contexto y las transiciones están dadas por la probabilidad del bit 0 o 1. Los pasos para comprimir son entonces los siguientes:
+Esta tabla define un modelo de Markov en donde cada estado representa un contexto y las transiciones están dadas por la probabilidad del bit 0 o 1. Los pasos para comprimir son entonces los siguientes:
 
 Partiendo de algún estado inicial:
 
 \begin{enumerate}
-\item Calcular la probabilidad de que el próximo bit sea 1 o 0
-\item Leer el próximo bit del archivo
-\item Dividir el intervalo de acuerdo a la probabilidad calculada y el bit leído (compresión aritmética)
-\item Incrementar la probabilidad del bit leído en el contexto actual (es fundamental hacerlo \textbf{después} de dividir el intervalo)
-\item En base al bit leído determinar el próximo estado
-\item volver a 1
+	\item Calcular la probabilidad de que el próximo bit sea 1 o 0
+	\item Leer el próximo bit del archivo
+	\item Dividir el intervalo de acuerdo a la probabilidad calculada y el bit leído (compresión aritmética)
+	\item Incrementar la probabilidad del bit leído en el contexto actual (es fundamental hacerlo \textbf{después} de dividir el intervalo)
+	\item En base al bit leído determinar el próximo estado
+	\item Volver a 1
 \end{enumerate}
-
-Notemos que al ser éste un modelo de Markov en ningún momento hace falta buscar el estado en la tabla, las transiciones nos dicen siempre a que estado movernos en función del bit leído. 
 
 \subsection{Clonación}
 
-Así como lo hemos descripto DMC es un compresor aritmético dinámico de orden 2 bits. Lo que nos falta es permitir que el algoritmo aprenda nuevos contextos. Si estamos en el estado "A" y el estado próximo pierde algunos bits entonces si la probabilidad del 1 o el 0 en "A" es superior a la del otro bit de acuerdo a un cierto umbral DMC puede decidir crear un nuevo contexto. 
+Se ha visto en el ejmplo anterior que DMC es un compresor aritmético dinámico de orden 2 bits. Lo que nos falta es permitir que el algoritmo aprenda nuevos contextos. Si estamos en el estado A y el estado próximo pierde algunos bits entonces si la probabilidad del 1 o el 0 en A es superior a la del otro bit de acuerdo a un cierto umbral DMC puede decidir crear un nuevo contexto. 
 
-Supongamos el siguiente ejemplo: el estado "A" representa el contexto 11111 cuando vemos un 0 nos movemos a B que representa 110. En el contexto "A" hemos observado 4 ceros y un solo 1. En el contexto B hemos observado 3 ceros y 7 unos. La situación actual es entonces: (solo mostramos los estados A y B)
-
-\begin{table}[!hbt]
-\center{
-\begin{tabular}{|l|l|l|l|l|l|}\hline
-\textbf{state} & \textbf{contexto} &\textbf{bit 0 count}&next state&\textbf{bit 1 count}&next state\\ \hline
-A&11111&4&B&1&J\\ 
-B&110&3&E&7&F\\ \hline
-\end{tabular}	
-}
-\caption{}
-\end{table}
-
-Clonamos al estado "C" a partir de B representado el contexto 111110. Las transiciones del estado B serán las mismas que las del estado clonado "C" ya que ese era el estado al cuál íbamos antes desde "A" cuando observábamos un cero.
+Suponer que el estado A representa el contexto 11111. Cuando vemos un 0 nos movemos a B que representa 110 (ver Tabla \ref{table:dmc_example}). En el contexto A se han observado 4 ceros y un solo 1. En el contexto B se han observado 3 ceros y 7 unos. 
 
 \begin{table}[!hbt]
-\center{
-\begin{tabular}{|l|l|l|l|l|l|}\hline
-\textbf{state}&\textbf{contexto}&\textbf{bit 0 count}&next state&\textbf{bit 1 count}&next state\\ \hline
-A&11111&4&\textbf{C}&1&J\\ 
-B&110&3&E&7&F\\ 
-C&111110&4&E&9.33&F\\\hline
-\end{tabular}	
-}
-\caption{}
+	\center{
+		\begin{tabular}{|l|l|l|l|l|l|}\hline
+			\textbf{state} & \textbf{contexto} &\textbf{bit 0 count}&next state&\textbf{bit 1 count}&next state\\ \hline
+			A&11111&4&B&1&J\\ 
+			B&110&3&E&7&F\\ \hline
+		\end{tabular}	
+	}
+	\caption{Estado antes de la clonación}
+	\label{table:dmc_example}
 \end{table}
 
-La cantidad de ceros de "C" tiene que ser igual a la cantidad de ceros de "A" ya que estamos clonando "A" cuando vemos un cero. Y la probabilidad del 0 en "C" tiene que ser igual a la probabilidad del cero en "B" que era el estado al cuál íbamos antes. Por lo tanto la cantidad de ceros en "C" es 4 y la cantidad de 1s es 9.33. De esta forma "B" y "C" realizan la misma predicción que es P(0)=0.3
+Se clona el estado C a partir de B representando el contexto 111110. Las transiciones del estado B serán las mismas que las del estado clonado C ya que ese era el estado al cuál se dirigía el algoritmo desde A cuando se observaba un cero.
 
-Notemos que la condición de que el estado al cuál vamos tenga menos bits evita que volvamos a clonar a "A", porque ahora cuando en "A" vemos un cero vamos al estado "C" que \textit{agrega} un bit al contexto en lugar de quitarlo, por lo tanto no hay que clonar.
+\begin{table}[!hbt]
+	\center{
+		\begin{tabular}{|l|l|l|l|l|l|}\hline
+			\textbf{state}&\textbf{contexto}&\textbf{bit 0 count}&next state&\textbf{bit 1 count}&next state\\ \hline
+			A&11111&4&\textbf{C}&1&J\\ 
+			B&110&3&E&7&F\\ 
+			C&111110&4&E&9.33&F\\\hline
+		\end{tabular}	
+	}
+	\caption{Estado luego de la clonación}
+\end{table}
 
-En el algoritmo original el criterio para clonar es cuando la transición de A a B es al menos U1 y la cantidad de veces que observamos ese bit en B a partir de cualquier otro estado es al menos U2.
+La cantidad de ceros de C tiene que ser igual a la cantidad de ceros de A ya que se esta clonando A cuando se ve un cero. La probabilidad del 0 en C tiene que ser igual a la probabilidad del cero en B que era el estado al cuál se iba. Por lo tanto, la cantidad de ceros en C es 4 y la cantidad de 1 es 9.33. De esta forma, B y C realizan la misma predicción que es P(0)=0.3
+
+Notar que la condición de que el estado al cuál vamos tenga menos bits evita que volvamos a clonar a AA porque ahora cuando en A se visualiza un cero entonces hay que ir al estado C que \textit{agrega} un bit al contexto en lugar de quitarlo, por lo tanto no hay que clonar.
+
+En el algoritmo original el criterio para clonar es cuando la transición de A a B es al menos U1 y la cantidad de veces que se observa ese bit en B a partir de cualquier otro estado es al menos U2.
 
 Estos umbrales se puede ir variando a medida que comprimimos para evitar que el algoritmo consuma toda la memoria. Cuando el algoritmo consume toda la memoria el modelo entero se descarta y el algoritmo se re-inicializa a su estado inicial.
 
 DMC es un algoritmo muy interesante ya que con memoria infinita es capaz de generar el modelo completo bit a bit del archivo. Un punto a tener en cuenta es que para que el algoritmo aprenda el modelo es necesario procesar el archivo por lo que el tiempo de entrenamiento puede ser alto. 
 
-La construcción de un modelo de Markov byte a byte (PPMC) o bit a bit (DMC) a partir del cuál calcular la probabilidad del próximo caracter o bit suele dar buenos resultados en cuanto al nivel de compresión. Esto quiere decir que esta es una buena forma de modelar el contenido de un archivo. El modelo generado luego de comprimir puede ser usado como modelo generativo para crear datos similares al que acabamos de comprimir. Simplemente tenemos que empezar en algún estado al azar y luego realizar un random-walk por el grafo de Markov que hemos aprendido. El resultado es que tanto PPMC como DMC pueden, luego de ser entrenados, usarse para generar textos, música u otros tipos de archivo de forma aleatoria. Cuánto mas parecidos sean estos archivos generados por el modelo a los archivos reales que podría generar una persona mas cerca está el algoritmo de "entender" de que se trata ese tipo de archivos. Estamos cerca.
+La construcción de un modelo de Markov byte a byte (PPMC) o bit a bit (DMC) a partir del cuál calcular la probabilidad del próximo caracter o bit suele dar buenos resultados en cuanto al nivel de compresión. Esto quiere decir que esta es una buena forma de modelar el contenido de un archivo. El modelo generado luego de comprimir puede ser usado como modelo generativo para crear datos similares al que acabamos de comprimir. Simplemente hay que empezar en algún estado al azar y luego realizar un random-walk por el grafo de Markov que se ha aprendido. El resultado es que tanto PPMC como DMC pueden, luego de ser entrenados, usarse para generar textos, música u otros tipos de archivo de forma aleatoria. Cuánto mas parecidos sean estos archivos generados por el modelo a los archivos reales que podría generar una persona mas cerca está el algoritmo de "entender" de que se trata ese tipo de archivos. 
 
 \section{La Familia LZ de Compresores}
 
-Los algoritmos de la familia LZ de compresores se basan en el principio de reemplazar secuencias repetidas en el archivo por punteros a la posición en la cual dichas secuencias fueron observadas previamente. El principio es muy simple y se basa en la suposición de que secuencias de caracteres previamente observadas pueden volver a ocurrir en el archivo; cuando esto ocurre podemos reemplazar una cantidad enorme de caracteres por un simple puntero a la posición previa de la secuencia y su longitud. Esta técnica, a veces llamada compresión por run-length fue popularizada a partir de 1977 por Lempel y Ziv con los algoritmos LZ77 y LZ78. Estos algoritmos dieron origen a lo que conocemos como la familia de compresores LZ que incluye una gran cantidad de algoritmos de compresión entre ellos LZ77,LZ78,LZW,LZSS, LZRW,LZFG,LZP, LZMA, Snappy y varios mas. 
+Los algoritmos de la familia LZ de compresores se basan en el principio de reemplazar secuencias repetidas en el archivo por punteros a la posición en la cual dichas secuencias fueron observadas previamente. El principio es muy simple y se basa en la suposición de que secuencias de caracteres previamente observadas pueden volver a ocurrir en el archivo. Cuando esto ocurre podemos reemplazar una cantidad enorme de caracteres por un simple puntero a la posición previa de la secuencia y su longitud. Esta técnica, a veces llamada compresión por run-length fue popularizada a partir de 1977 por Lempel y Ziv con los algoritmos LZ77 y LZ78. Estos algoritmos dieron origen a lo que se conoce como la familia de compresores LZ que incluye una gran cantidad de algoritmos de compresión entre ellos LZ77,LZ78,LZW,LZSS, LZRW,LZFG,LZP, LZMA, Snappy y varios mas. 
 
 \begin{figure}[!htb]
-\centering
-\includegraphics[width=3in]{figures/lz77-fig-1.png}
-\caption{La familia LZ de compresores}
-
+	\centering
+	\includegraphics[width=3in]{figures/lz77-fig-1.png}
+	\caption{La familia LZ de compresores}
+	
 \end{figure}
 
-Antes de analizar el funcionamiento específico de cada uno de los algoritmos podemos generalizar el comportamiento de un compresor de la familia LZ de la siguiente forma:
+Antes de analizar el funcionamiento específico de cada uno de los algoritmos, se puede generalizar el comportamiento de un compresor de la familia LZ de la siguiente forma:
 
 \begin{enumerate}
-\item Es necesario definir la longitud de un buffer o ventana que será en donde busquemos las repeticiones. Cuando mas grande el buffer mayor cantidad de repeticiones podemos encontrar pero al mismo tiempo mas tiempo podemos tardar en procesar cada caracter.
-\item De acuerdo a lo anterior suele ser necesario limitar el tamaño del buffer o usar indices para poder buscar rápidamente un string dentro del mismo.
-\item La velocidad de la compresión en un LZ depende de la técnica usada para buscar las repeticiones en el buffer y la longitud del mismo.
-\item El descompresor en todos los LZ es extremadamente rápido ya que solo necesita reemplazar las repeticiones por lo que haya en la posición del buffer indicado. En general en velocidad de descompresión los algoritmos LZ son imposibles de derrotar.
-\item Cada repetición se reemplaza por símbolos que permiten al descompresor determinar la posición en el buffer y la longitud de la repetición
+	\item Es necesario definir la longitud de un buffer o ventana que será en donde busquemos las repeticiones. Cuando mas grande el buffer mayor cantidad de repeticiones podemos encontrar pero al mismo tiempo mas tiempo podemos tardar en procesar cada caracter.
+	\item De acuerdo a lo anterior suele ser necesario limitar el tamaño del buffer o usar indices para poder buscar rápidamente un string dentro del mismo.
+	\item La velocidad de la compresión en un LZ depende de la técnica usada para buscar las repeticiones en el buffer y la longitud del mismo.
+	\item El descompresor en todos los LZ es extremadamente rápido ya que solo necesita reemplazar las repeticiones por lo que haya en la posición del buffer indicado. En general en velocidad de descompresión los algoritmos LZ son imposibles de derrotar.
+	\item Cada repetición se reemplaza por símbolos que permiten al descompresor determinar la posición en el buffer y la longitud de la repetición
 \end{enumerate}
 
 \subsection{RLE}
 
-Nuestro primer algoritmo es extremadamente simple y sirve solo como una rápida introducción, el método llamado RLE (Run Length Encoding), tiene como único objetivo reemplazar secuencias de caracteres iguales repetidos en el archivo por una codificación mas compacta.
+El primer algoritmo es extremadamente simple y sirve solo como una rápida introducción. El método llamado RLE (Run Length Encoding), tiene como único objetivo reemplazar secuencias de caracteres iguales repetidos en el archivo por una codificación mas compacta.
 Cada vez que un caracter aparezca cuatro o mas veces en el archivo lo vamos a reemplazar por los cuatro caracteres y un número en 8 bits indicando cuantas repeticiones mas agregar.  De esta forma AAAAAAAA se transforma en AAAA4, AAAA se transforma en AAAA0 y cualquier otra cosa queda sin transformarse. Este método expande un byte por cada repetición de longitud 4, no gana ni pierde con repeticiones de longitud 5 y ahorra n-5 bytes por cada repetición de longitud "n". 
 
 \begin{verbatim}
@@ -5312,17 +5278,17 @@ ARCHIVO: ABCCCCCCCDDDFFFFAAAAAAAACD
 COMPRIMIDO: ABCCCCC2DDDFFFF0AAAA4CD
 \end{verbatim}
 
-Descomprimir es muy simple solo tenemos que ir copiando los caracteres al archivo de salida pero si observamos cuatro caracteres iguales seguidos entonces el byte que leemos a continuación lo tomamos como un número indicando cuantas veces mas repetir el caracter anterior. 
+Descomprimir es muy simple solo hay que ir copiando los caracteres al archivo de salida pero si se observan cuatro caracteres iguales seguidos entonces el byte que se lee a continuación se lo considera como un número que indica cuántas veces mas repetir el caracter anterior. 
 
 \subsection{LZSS}
 
-LZSS es una versión mejorada de LZ77 el algoritmo que dio inicio a la familia de compresores LZ, al ser una versión mejorada de LZ77 en muchos casos se llama LZ77 a LZSS ya que la versión original no tiene un uso práctico. En este apunte lo vamos a llamar LZSS pero debemos mencionar que en otros lados el mismo algoritmo aparece bajo el nombre LZ77.
+LZSS es una versión mejorada de LZ77 el algoritmo que dio inicio a la familia de compresores LZ. Al ser una versión mejorada de LZ77 en muchos casos se llama LZ77 a LZSS ya que la versión original no tiene un uso práctico. 
 
-En LZSS vamos a usar un bit para distinguir repeticiones de no-repeticiones. Cada vez que estemos por comprimir un caracter del archivo vamos a buscar hacia atrás hasta una cierta cantidad máxima de caracteres llamada "ventana" en busca de repeticiones. Si encontramos una repetición entonces emitiremos un bit en 1 seguido de la posición de la repetición en la ventana y la longitud de la misma. Cuando no encontramos repeticiones vamos a emitir un bit en 0 y luego el caracter en cuestión en 8 bits es decir sin comprimir. 
+En LZSS se usa un bit para distinguir repeticiones de no-repeticiones. Cada vez que se comprime un caracter del archivo se busca hacia atrás hasta una cierta cantidad máxima de caracteres llamada \textit{ventana} en busca de repeticiones. Si se encuentra una repetición entonces se emite un bit en 1 seguido de la posición de la repetición en la ventana y la longitud de la misma. Cuando no se encuentran repeticiones se emite un bit en 0 y luego el caracter en cuestión en 8 bits (es decir, sin comprimir).
 
-En principio entonces hay que fijar dos parámetros: la longitud de la ventana/buffer en la que buscaremos las repeticiones y la longitud mínima de un match, ya que puede ser que no tenga sentido representar un match de longitud 1 si ocupara mas que el caracter sin comprimir. 
+En principio entonces hay que fijar dos parámetros: la longitud de la ventana en la que se buscan las repeticiones y la longitud mínima de un match (podría no tener sentido buscar matches de longitud 1).
 
-Veamos un ejemplo usando longitud mínima de match = 2 y ventanas de 4 bytes.
+Por ejemplo, se comprime LZSS con una longitud mínima de match = 2 y ventanas de 4 bytes.
 
 \begin{verbatim}
 ARCHIVO: ABCDADADAABDAA
@@ -5330,15 +5296,28 @@ ARCHIVO: ABCDADADAABDAA
 MODELO: 0A 0B 0C 0D 0A 1(1,4) 0A 0B 1(3,3)
 \end{verbatim}
 
-Observemos algunas particularidades. "0A" implica un bit en 0 y luego un caracter "A" es decir que en total usamos 9 bits. De la misma forma codificamos B,C,D y A. Luego de comprimir ABCDA tenemos en la ventana "BCDA" y el archivo "DADAABCAA" encontramos una repetición en la posicion 1 del buffer, contamos a partir de 0 de derecha a izquierda. Y la longitud del match es 4 ya que "DADA" en el archivo matchea con "DADA" a partir de la posicion 1 del buffer. Notemos que el buffer está limitado hacia atrás pero no hacia adelante, podríamos emitir un match de longitud 1Gb siempre y cuando esta longitud sea representable. Luego de este match emitimos una A, B,C y finalmente encontramos un match de longitud 2 en la posición 3 del buffer para los últimos tres caracteres del archivo. 
+Para comprimir con LZSS, se siguen los siguientes pasos:
 
-Usando LZSS un archivo que solo tiene un caracter repetido $n$ veces como por ejemplo AAAAAAAAAAAAAAAAAAAAA se comprime en un literal y luego una cierta cantidad de matches de longitud máxima (excepto el último). Si la longitud máxima representable es mayor o igual a la longitud del archivo menos uno el archivo entero queda comprimido a un literal y un match. Notemos que las limitaciones en el tamaño de la máxima longitud representable y el tamaño de la ventana hacen que LZSS no sea un compresor adecuado para aproximarnos a la complejidad de un string y por lo tanto no es usable en el cálculo de la distancia normalizada de compresión\footnote{LZMA sí lo es y pertenece a la misma familia que LZSS}
+\begin{enumerate}
+\item 	Letra A. Ventana = []. Se emite 0A (el cero indicando que no hay repetición)
+\item 	Letra B. Ventana = [A]. Se emite 0B
+\item 	Letra C. Ventana = [AB]. Se emite 0C
+\item 	Letra D. Ventana = [ABC]. Se emite 0D
+\item 	Letra A. Ventana = [ABCD]. A se encuentra en la ventana y sigue D, pero no hay un match del estilo AD. Se emite 0A
+\item 	Letra D. Ventana = [BCDA]. D se encuentra en la ventana y sigue A que también se encuentra en la ventana. En el algoritmo LZSS, cuando se encuentran matches, se pueden utilizar los caracteres de la ventana y también los caracteres que estan matcheando. En este punto, notar que la ventana es [BCDA] y ya hemos leído DA (se podría pensar que la ventana se "extiende" a [BCDA]DA). En el archivo sigue la letra D y sigue habiendo match. Luego, sigue A habiendo match. Luego sigue A nuevamente pero no hay match. Se emite 1(1,4).
+\item	Letra A. Ventana = [DADA]. A se encuentra en la ventana, pero AB no. Se emite 0A.
+\item 	Letra B. Ventana = [ADAA]. B no se encuentra en la ventana. Se emite 0B.
+\item 	Letra D. Ventana = [DAAB]. D se encuentra en la ventana. DA y DAA también se encuentran en la ventana. Se emite 1(3,3).
+\end{enumerate}
 
-Es conveniente tomarse unos minutos para entender la forma en que hemos convertido el archivo original en su representación.
+Notar que las posiciones en la ventana se numeran de derecha a izquierda, es decir, el último elemento de la ventana está en la posición 0.
+También se puede notar que la ventana está limitada hacia atrás pero no hacia adelante, con lo cual se podrían emitir matches de longitud 1Gb siempre y cuando esta longitud sea representable. 
 
-Para comprimir lo único que nos resta definir es como representar los pares de tipo (posición, longitud). En LZSS esto se hace simplemente mediante códigos binarios de longitud fija.Como nuestra ventana tiene 4 bytes las posiciones posibles son 0,1,2 y 3 por lo que necesitamos 2 bits para representarlas, por lo tanto cada longitud será un binario de 2 bits. Las longitudes deben comenzar desde 2 y tenemos que fijar una longitud máxima, si por ejemplo decidimos usar 2 bits para las longitudes entonces podemos representar 4 longitudes y como el mínimo es 2 esto quiere decir que nuestras longitudes representables serán 2,3,4 y 5. Esto quiere decir que la cantidad de bits que usamos para la posición define la longitud de la ventana de búsqueda (o viceversa) y la longitud en bits que usemos para la longitud del match define el match máximo posible. 
+Usando LZSS un archivo que solo tiene un caracter repetido $n$ veces como por ejemplo AAAAAAAAAAAAAAAAAAAAA se comprime en un literal y luego una cierta cantidad de matches de longitud máxima (excepto el último). Si la longitud máxima representable es mayor o igual a la longitud del archivo menos uno el archivo entero queda comprimido a un literal y un match. Notar que las limitaciones en el tamaño de la máxima longitud representable y el tamaño de la ventana hacen que LZSS no sea un compresor adecuado para aproximarnos a la complejidad de un string y por lo tanto no es usable en el cálculo de la distancia normalizada de compresión\footnote{LZMA sí lo es y pertenece a la misma familia que LZSS}
 
-En nuestro caso el archivo quedaría representado de la siguiente forma:
+Para comprimir lo único que resta definir es como representar los pares de tipo (posición, longitud). En LZSS esto se hace simplemente mediante códigos binarios de longitud fija.Como nuestra ventana tiene 4 bytes las posiciones posibles son 0,1,2 y 3 por lo que se necesitan 2 bits para representarlas y por lo tanto cada longitud será un binario de 2 bits. Las longitudes deben comenzar desde 2 y tenemos que fijar una longitud máxima, si por ejemplo se decide usar 2 bits para las longitudes entonces podemos representar 4 longitudes y como el mínimo es 2 esto quiere decir que las longitudes representables serán 2,3,4 y 5. Esto quiere decir que la cantidad de bits que usamos para la posición define la longitud de la ventana de búsqueda (o viceversa) y la longitud en bits que usemos para la longitud del match define el match máximo posible. 
+
+Si quisiéramos representar en forma binaria el archivo de ejemplo, quedaría algo del siguiente estilo:
 
 \begin{verbatim}
 MODELO: 0A 0B 0C 0D 0A 1(1,4) 0A 0B 1(3,3)
@@ -5346,7 +5325,7 @@ MODELO: 0A 0B 0C 0D 0A 1(1,4) 0A 0B 1(3,3)
 ARCHIVO COMPRIMIDO: 0A 0B 0C 0D 0A 10110 0A 0B 0C 11101  (73 bits)
 \end{verbatim}
 
-Notar que "00" representa un match de longitud 2 porque es el mínimo fijado.
+Notar que 00 representa un match de longitud 2 porque es el mínimo fijado.
 
 LZSS ilustra muy bien la diferencia entre modelar y codificar. El modelo se basa en aprovechar secuencias de caracteres previamente observadas y la codificación en este caso es un simple modelo binario. 
 
@@ -5354,17 +5333,15 @@ La descompresión en LZSS es extremadamente rápida, cuando el descompresor encu
 
 \subsubsection{Parsing en LZSS}
 
-El mecanismo de parsing de LZSS es de tipo "lazy" es decir que siempre que encontramos un match lo reemplazamos por un offset y una longitud, curiosamente esto no siempre es óptimo ya que podría ser mejor ignorar un match para luego poder encontrar un match mas largo. Consideremos el siguiente string:
+El mecanismo de parsing de LZSS es de tipo "lazy" es decir que siempre que se encuentra un match lo reemplazamos por un offset y una longitud. Curiosamente esto no siempre es óptimo ya que podría ser mejor ignorar un match para luego poder encontrar un match mas largo. Considerar el siguiente string:
 
 \begin{verbatim}
 curry urrent current
 \end{verbatim}
 
-Cuando estemos por comprimir "current" vamos a buscar en el buffer y vamos a encontrar que matcheamos con "curr" por lo que vamos a emitir un match de longitud 4 y luego un match de longitud 3 para "ent". Si en cambio simplemente salteamos la "c" emitimos un literal "c" y luego tenemos un match de longitud 6 (urrent). Dependiendo de la forma de codificar un literal y un match de 6 pueden ocupar menos espacio que un match de 4 y uno de 3.
+Cuando se está por comprimir "current" vamos a buscar en el buffer y vamos a encontrar que hay un match con "curr" por lo que vamos a emitir un match de longitud 4 y luego un match de longitud 3 para "ent". Si en cambio simplemente se saltea la "c" entonces se emite un literal "c" y luego hay un match de longitud 6 (urrent). Dependiendo de la forma de codificar un literal y un match de 6 pueden ocupar menos espacio que un match de 4 y uno de 3.
 
-La solución a este problema es, precisamente, analizar en cada paso la codificación de la posición actual y la siguiente y compararla con la codificación de un literal y lo que sigue eligiendo en cada caso la opción que menos espacio nos ocupe. A esto se lo llama \textbf{flexible parsing} y es una optimización posible en muchos de los algoritmos de la familia LZ. Notemos que para el descompresor no hace falta ningún cambio ya que simplemente va a descomprimir lo que el compresor haya decidido comprimir de la forma en que el mismo lo haya elegido.
-
-
+La solución a este problema es, precisamente, analizar en cada paso la codificación de la posición actual y la siguiente y compararla con la codificación de un literal y lo que sigue eligiendo en cada caso la opción que menos espacio nos ocupe. A esto se lo llama \textbf{flexible parsing} y es una optimización posible en muchos de los algoritmos de la familia LZ. Notar que para el descompresor no hace falta ningún cambio ya que simplemente va a descomprimir lo que el compresor haya decidido comprimir de la forma en que el mismo lo haya elegido.
 
 \subsection{DEFLATE (LzHuf)}
 
@@ -5390,20 +5367,20 @@ La idea principal de LZW es la misma que la de todos los algoritmos de la famili
 Inicialmente LZW comienza con una tabla de 512 posiciones en donde las primeras 256 entradas ya están llenas con las 256 combinaciones posibles de 8 bits, las restantes 256 posiciones están vacías. Cada posición de la tabla se representa mediante 9 bits. El algoritmo funciona entonces de la siguiente forma:
 
 \begin{algorithm}
-SYMBOL = readchar(FILE)\\
-\While{not EOF} {
-  $NEXT \gets readchar(file)$\\
-  \eIf{$SYMBOL + NEXT$ in TABLE} {
-   $SYMBOL \gets SYMBOL + NEXT$
-  }  {
-    output code for SYMBOL\\
-    \If{TABLE is not full} {add SYMBOL+NEXT to table\\
-      $SYMBOL\gets NEXT$
-     }
-  }
-}
-output code for SYMBOL
- \caption{LZW}
+	SYMBOL = readchar(FILE)\\
+	\While{not EOF} {
+		$NEXT \gets readchar(file)$\\
+		\eIf{$SYMBOL + NEXT$ in TABLE} {
+			$SYMBOL \gets SYMBOL + NEXT$
+		}  {
+			output code for SYMBOL\\
+			\If{TABLE is not full} {add SYMBOL+NEXT to table\\
+				$SYMBOL\gets NEXT$
+			}
+		}
+	}
+	output code for SYMBOL
+	\caption{LZW}
 \end{algorithm}
 
 Veamos un ejemplo de LZW en funcionamiento para el siguiente archivo:
@@ -5415,71 +5392,71 @@ ABCABCA
 Vamos a hacer primero una narrativa del funcionamiento: empezamos leyendo "A" del archivo, como "A" ya está en la tabla en alguna de las primeras 256 posiciones entonces simplemente leemos otro byte: "AB", buscamos "AB" y no está en la tabla por lo tanto emitimos el código de "A", es decir su índice en la tabla que ocupa 9 bits y agregamos "AB" en la posición 256 de la tabla (numerando desde 0).
 
 \begin{table}[!hbt]
-\center{
-\begin{tabular}{|l|l|}\hline
-pos & chars \\ \hline
-0 & ... \\
-1 & ... \\
-... & ... \\
-256 & AB \\ \hline
-\end{tabular}
-}
-\vskip 0.25cm
-\caption{LZW luego de comprimir "A"}
+	\center{
+		\begin{tabular}{|l|l|}\hline
+			pos & chars \\ \hline
+			0 & ... \\
+			1 & ... \\
+			... & ... \\
+			256 & AB \\ \hline
+		\end{tabular}
+	}
+	\vskip 0.25cm
+	\caption{LZW luego de comprimir "A"}
 \end{table}
 
 Nuestro símbolo actual es "B" lo buscamos en la tabla y existe, buscamos "BC" y no existe por lo tanto emitimos el código de "B" y agregamos "BC" en la tabla. 
 
 \begin{table}[!hbt]
-\center{
-\begin{tabular}{|l|l|}\hline
-pos & chars \\ \hline
-0 & ... \\
-1 & ... \\
-... & ... \\
-256 & AB \\ 
-257 & BC  \\ \hline
-\end{tabular}
-}
-\vskip 0.25cm
-\caption{LZW luego de comprimir "AB"}
+	\center{
+		\begin{tabular}{|l|l|}\hline
+			pos & chars \\ \hline
+			0 & ... \\
+			1 & ... \\
+			... & ... \\
+			256 & AB \\ 
+			257 & BC  \\ \hline
+		\end{tabular}
+	}
+	\vskip 0.25cm
+	\caption{LZW luego de comprimir "AB"}
 \end{table}
 
 Nuestro símbolo actual es "C", está en la tabla, buscamos "CA" que no lo encontramos. Emitimos el código de "C" y agregamos "CA"
 
 \begin{table}[!hbt]
-\center{
-\begin{tabular}{|l|l|}\hline
-pos & chars \\ \hline
-0 & ... \\
-1 & ... \\
-... & ... \\
-256 & AB \\ 
-257 & BC  \\ 
-258 & CA \\ \hline
-\end{tabular}
-}
-\vskip 0.25cm
-\caption{LZW luego de comprimir "ABC"}
+	\center{
+		\begin{tabular}{|l|l|}\hline
+			pos & chars \\ \hline
+			0 & ... \\
+			1 & ... \\
+			... & ... \\
+			256 & AB \\ 
+			257 & BC  \\ 
+			258 & CA \\ \hline
+		\end{tabular}
+	}
+	\vskip 0.25cm
+	\caption{LZW luego de comprimir "ABC"}
 \end{table}
 
 Tenemos ahora "A" que está en la tabla, leemos el próximo caracter del archivo y buscamos "AB" que también está en la tabla, leemos "C" y buscamos "ABC" que no está en la tabla. Por lo tanto emitimos el código de "AB" es decir 256 en 9 bits y agregamos ABC en la tabla.
 
 \begin{table}[!hbt]
-\center{
-\begin{tabular}{|l|l|}\hline
-pos & chars \\ \hline
-0 & ... \\
-1 & ... \\
-... & ... \\
-256 & AB \\ 
-257 & BC  \\ 
-258 & CA \\ 
-259 & ABC \\ \hline
-\end{tabular}
-}
-\vskip 0.25cm
-\caption{LZW luego de comprimir "ABCABC"}
+	\center{
+		\begin{tabular}{|l|l|}\hline
+			pos & chars \\ \hline
+			0 & ... \\
+			1 & ... \\
+			... & ... \\
+			256 & AB \\ 
+			257 & BC  \\ 
+			258 & CA \\ 
+			259 & ABC \\ \hline
+		\end{tabular}
+	}
+	\vskip 0.25cm
+	\caption{LZW luego de comprimir "ABCABC"}
 \end{table}
 
 Nuestro código actual es "C" que está en la tabla "CA" también y luego termina el archivo por lo que emitimos el código de CA  (258) como nuestro último código. No hace falta agregar nada a la tabla ya que hemos terminado de comprimir el archivo, al igual que en cualquier compresor no tiene sentido actualizar el modelo si no vamos a tener que usarlo. 
@@ -5499,51 +5476,51 @@ Tenemos que analizar que sucede si la tabla de LZW se llena lo cual va a ocurrir
 Hay algunos detalles a tener en cuenta aquí ya que no está del todo claro en la especificación si el compresor tiene que emitir 10 bits cuando se llena la tabla o un símbolo mas adelante. Consideremos la siguiente situación para entender el problema:
 
 \begin{table}[!hbt]
-\center{
-\begin{tabular}{|l|l|}\hline
-pos & chars \\ \hline
-0 & ... \\
-1 & ... \\
-... & ... \\
-256 & AB \\ 
-257 & BC  \\ 
-258 & CA \\ 
-259 & ABC \\ 
-... & ... \\
-510 & ... \\ \hline
-\end{tabular}
-}
-\vskip 0.25cm
-\caption{LZW a punto de llenar la tabla}
+	\center{
+		\begin{tabular}{|l|l|}\hline
+			pos & chars \\ \hline
+			0 & ... \\
+			1 & ... \\
+			... & ... \\
+			256 & AB \\ 
+			257 & BC  \\ 
+			258 & CA \\ 
+			259 & ABC \\ 
+			... & ... \\
+			510 & ... \\ \hline
+		\end{tabular}
+	}
+	\vskip 0.25cm
+	\caption{LZW a punto de llenar la tabla}
 \end{table}
 
 Leemos caracteres del archivo hasta encontrar un string que no está en la tabla. Por ejemplo "ABCAB" (podría ser cualquier otra cosa). Tenemos entonces que emitir el código de ABCA que sabemos que está en la tabla y luego agregar ABCAB a la tabla:
 
 \begin{table}[!hbt]
-\center{
-\begin{tabular}{|l|l|}\hline
-pos & chars \\ \hline
-0 & ... \\
-1 & ... \\
-... & ... \\
-256 & AB \\ 
-257 & BC  \\ 
-258 & CA \\ 
-259 & ABC \\ 
-... & ... \\
-510 & ... \\ 
-511 & ABCAB \\ \hline
-\end{tabular}
-}
-\vskip 0.25cm
-\caption{LZW con la tabla de 9 bits llena}
+	\center{
+		\begin{tabular}{|l|l|}\hline
+			pos & chars \\ \hline
+			0 & ... \\
+			1 & ... \\
+			... & ... \\
+			256 & AB \\ 
+			257 & BC  \\ 
+			258 & CA \\ 
+			259 & ABC \\ 
+			... & ... \\
+			510 & ... \\ 
+			511 & ABCAB \\ \hline
+		\end{tabular}
+	}
+	\vskip 0.25cm
+	\caption{LZW con la tabla de 9 bits llena}
 \end{table}
 
 Al haberse llenado la tabla sabemos que el próximo string a guardar no va a entrar en la misma pero al mismo tiempo sabemos que el próximo código a emitir será de 9 bits ya que tiene que ser si o si algo que exista en la tabla actual... Tenemos entonces dos opciones:
 
 \begin{enumerate}
-\item Duplicar la tabla y emitir el próximo código en 10 bits
-\item Emitir el próximo código en 9 bits y luego duplicar la tabla para agregar el símbolo nuevo
+	\item Duplicar la tabla y emitir el próximo código en 10 bits
+	\item Emitir el próximo código en 9 bits y luego duplicar la tabla para agregar el símbolo nuevo
 \end{enumerate}
 
 No hay un standard por lo que lamentablemente muchos compresores y descompresores LZW necesitan algún tipo de flag para indicar cuál de estas dos políticas han usado. El formato PDF usa LZW y admite ambas políticas de actualización del diccionario mediante un flag.
@@ -5612,9 +5589,9 @@ De esta forma podemos descomprimir todo el archivo.
 Hemos visto que en LZW a medida que agregamos strings en el diccionario emitimos cada vez mas bits, llega un punto en el cual el nivel del compresor puede ser malo, esto se debe a que tiene en la tabla muchos strings que ya no vuelven a ocurrir en el archivo y por lo tanto está generando códigos mucho mas grandes de lo necesario. Cuando el compresor detecta que el nivel de compresión (bits x byte) no es bueno puede usar un símbolo especial para avisarle al descompresor que tiene que hacer una purga de la tabla. Para esto podemos, por ejemplo, dedicar los símbolos 256,257,etc empezando a guardar los strings a partir del 258 o mas adelante, todo depende de cuantos "comandos" querramos tener a nuestra disposición en el compresor. Algunos de estos comandos pueden ser por ejemplo:
 
 \begin{enumerate}
-\item Eliminar todas las tablas, volver a 9 bits
-\item Eliminar de las tablas los símbolos menos usados para pasar a 1 bit menos
-\item Eliminar de las tablas todos los símbolos que se emitieron menos de x veces (x sigue a continuación en "m" bits)
+	\item Eliminar todas las tablas, volver a 9 bits
+	\item Eliminar de las tablas los símbolos menos usados para pasar a 1 bit menos
+	\item Eliminar de las tablas todos los símbolos que se emitieron menos de x veces (x sigue a continuación en "m" bits)
 \end{enumerate}
 
 El compresor solo necesita llevar las estadísticas necesarias y cuando cree conveniente puede emitir alguno de estos códigos especiales. El descompresor al leer alguno de estos códigos especiales replica la acción tomada por el compresor.
@@ -5673,11 +5650,11 @@ Ejemplo:
 \begin{verbatim}
 ARCHIVO: abababa
 
-  000001 00  (literal of length 2)
-  01100001   (literal 'a')
-  01100010   (literal 'b')
-  000 001 01 (high bits of offset, match of length 5)
-  00000010   (low 8 bits of offset)
+000001 00  (literal of length 2)
+01100001   (literal 'a')
+01100010   (literal 'b')
+000 001 01 (high bits of offset, match of length 5)
+00000010   (low 8 bits of offset)
 \end{verbatim}
 
 Los matches de longitud 1 a 64 con offsets 1 a 65535 se almacenan usando 2 bytes extras. La longitud menos 1 se almacena en los 6 bits del byte de control. El offset se almacena en los siguientes 2 bytes. Los matches de mas de 64 bytes de longitud se almacenan como varios matches de 64 bytes.
@@ -5697,37 +5674,37 @@ LZMA es un formato complejo por lo que vamos a describir cuáles son sus princip
 En cada paso LZMA puede generar 7 códigos diferentes, esto es mas que lo normal en LZSS en donde solo hay dos códigos posibles (literal o match), la siguiente tabla muestra cuáles son los códigos que puede emitir un compresor LZMA pero hay que tener en cuenta que los 1s y 0s en la tabla no son bits sino símbolos que luego hay que codificar y que pueden ocupar mas o menos de un bit cada uno. A efectos prácticos podríamos llamarlos "A" y "B" pero entre dos opciones confusas es confuso elegir cual es menos confusa. 
 
 \begin{table}[!hbt]
-\center{
-\begin{tabular}{|l|l|}\hline
-code & name  \\ \hline
-0 + char & LITERAL \\
-1 + 0 + len + dist & MATCH \\
-1 + 1 + 0 + 0 & SHORTREP \\
-1 + 1 + 0 + 1 + len & LONGREP[0] \\
-1 + 1 + 1 +  0 + len & LONGREP[1] \\
-1 + 1 + 1 + 1 + 0 + len & LONGREP[2] \\
-1 + 1 + 1 + 1 + 1 + len & LONGREP[3] \\ \hline
-\end{tabular}
-}
-\vskip 0.25cm
-\caption{Códigos de LZMA}
+	\center{
+		\begin{tabular}{|l|l|}\hline
+			code & name  \\ \hline
+			0 + char & LITERAL \\
+			1 + 0 + len + dist & MATCH \\
+			1 + 1 + 0 + 0 & SHORTREP \\
+			1 + 1 + 0 + 1 + len & LONGREP[0] \\
+			1 + 1 + 1 +  0 + len & LONGREP[1] \\
+			1 + 1 + 1 + 1 + 0 + len & LONGREP[2] \\
+			1 + 1 + 1 + 1 + 1 + len & LONGREP[3] \\ \hline
+		\end{tabular}
+	}
+	\vskip 0.25cm
+	\caption{Códigos de LZMA}
 \end{table}
 
 \begin{itemize}
-\item Un LITERAL representa simplemente un byte literal al igual que en LZSS.
-\item MATCH es un match en el estilo de LZSS indicando longitud (len) y distancia en el buffer al mismo.
-\item SHORTREP es un match de longitud 1 cuya distancia es igual a la distancia anterior emitida
-\item LONGREP[i] es un match cuya longitud se indica y cuya distancia es igual a la i-ésima distancia anteriormente emitida, es decir la última para LONGREP[0], la ante-última para LONGREP1 y así sucesivamente.
+	\item Un LITERAL representa simplemente un byte literal al igual que en LZSS.
+	\item MATCH es un match en el estilo de LZSS indicando longitud (len) y distancia en el buffer al mismo.
+	\item SHORTREP es un match de longitud 1 cuya distancia es igual a la distancia anterior emitida
+	\item LONGREP[i] es un match cuya longitud se indica y cuya distancia es igual a la i-ésima distancia anteriormente emitida, es decir la última para LONGREP[0], la ante-última para LONGREP1 y así sucesivamente.
 \end{itemize}
 
 De esta forma sabemos como modela LZMA a cualquier archivo. La figura ~\ref{fig:lzma} muestra el modelo de LZMA para el archivo book1, los literales aparecen en gris, los matches comunes estilo LZSS en verde. Las SHORTREP aparecen en azul. LONGREP0 en blanco y LONGREP1-3 en rojo.
 
 \begin{figure}[!htb]
-\centering
-\includegraphics[width=5in]{figures/lzma-fig-1.png}
-
-\caption{Modelo LZMA para el archivo book1}
-\label{fig:lzma}
+	\centering
+	\includegraphics[width=5in]{figures/lzma-fig-1.png}
+	
+	\caption{Modelo LZMA para el archivo book1}
+	\label{fig:lzma}
 \end{figure}
 
 \subsubsection{Codificación Aritmética}
@@ -5735,16 +5712,16 @@ De esta forma sabemos como modela LZMA a cualquier archivo. La figura ~\ref{fig:
 Conociendo el modelo solo queda codificarlo y LZMA usa compresión aritmética para codificar todos sus símbolos. Es decir que comenzamos con un modelo en el cual solo hay dos opciones: LITERAL u OTRACOSA, según lo que vayamos a codificar entonces elegimos el intervalo correspondiente. Por ejemplo si elegimos "OTRACOSA" entonces en el siguiente paso el próximo modelo distingue un MATCH de OTRACOSA. Y así sucesivamente de acuerdo a la tabla de códigos posibles que podemos emitir. Los literales se comprimen usando compresión aritmética adaptativa. Las longitudes se codifican de la siguiente forma (una vez mas 1 y 0 no son bits)
 
 \begin{table}[!hbt]
-\center{
-\begin{tabular}{|l|l|}\hline
-Len & Desc \\ \hline
-0 + 3 bits & Longitudes 2 a 9 \\
-1+0+3 bits & Longitudes 10 a 17 \\
-1+1+8 bits & Longitudes 18 a 273 \\ \hline
-\end{tabular}
-}
-\vskip 0.25cm
-\caption{Longitudes de LZMA}
+	\center{
+		\begin{tabular}{|l|l|}\hline
+			Len & Desc \\ \hline
+			0 + 3 bits & Longitudes 2 a 9 \\
+			1+0+3 bits & Longitudes 10 a 17 \\
+			1+1+8 bits & Longitudes 18 a 273 \\ \hline
+		\end{tabular}
+	}
+	\vskip 0.25cm
+	\caption{Longitudes de LZMA}
 \end{table}
 
 La codificación de las distancias (offsets) se codifican con un esquema bastante particular que preferimos no describir en este apunte para no confundir.
@@ -5784,28 +5761,28 @@ ARCHIVO: ABBAAABACDDCCDC
 \end{verbatim}
 
 \begin{table}[!hbt]
-\center{
-\begin{tabular}{|l|l|l|}\hline
-Leemos & Vector & Emitimos \\ \hline
-A & ABCD & 0 \\
-B & ABCD & 1 \\
-B &  BACD & 0 \\
-A & BACD & 1 \\
-A & ABCD & 0 \\
-A & ABCD & 0 \\
-B & ABCD & 1 \\
-A & BACD & 1 \\
-C & ABCD & 2 \\
-D & CABD & 3 \\
-D & DCAB & 0 \\
-C & DCAB & 1 \\
-C & CDAB & 0 \\
-D & CDAB & 1 \\
-C & DCAB & 1 \\ \hline
-\end{tabular}
-}
-\vskip 0.25cm
-\caption{Ejemplo MTF}
+	\center{
+		\begin{tabular}{|l|l|l|}\hline
+			Leemos & Vector & Emitimos \\ \hline
+			A & ABCD & 0 \\
+			B & ABCD & 1 \\
+			B &  BACD & 0 \\
+			A & BACD & 1 \\
+			A & ABCD & 0 \\
+			A & ABCD & 0 \\
+			B & ABCD & 1 \\
+			A & BACD & 1 \\
+			C & ABCD & 2 \\
+			D & CABD & 3 \\
+			D & DCAB & 0 \\
+			C & DCAB & 1 \\
+			C & CDAB & 0 \\
+			D & CDAB & 1 \\
+			C & DCAB & 1 \\ \hline
+		\end{tabular}
+	}
+	\vskip 0.25cm
+	\caption{Ejemplo MTF}
 \end{table}
 
 Observemos que MTF cambia  la entropía del archivo, pasamos de H[5/15;3/15;4/15;3/15]=1.9656  a H[6/15;7/15;1/15;1/15]=1.5628 Siempre que el archivo esté localizado MTF va a disminuir su entropía. En el resultado de MTF predominan los caracteres bajos (0,1,etc) sobre los demás caracteres esto lo podemos aprovechar comprimiendo la salida de MTF usando Huffman o compresión aritmética. Como la entropía es menor sabemos que el nivel de compresión va a ser mejor.
@@ -5900,20 +5877,20 @@ a\$
 Ordenando:
 
 \begin{table}[!hbt]
-\center{
-\begin{tabular}{|l|l|}\hline
-\textbf{sufijo} & \textbf{offset} \\ \hline
-\$ & 6 \\
-a\$ & 5 \\
-ana\$ & 3\\
-anana\$ & 1\\
-banana\$ & 0\\
-na\$ & 4\\
-nana\$ & 2\\ \hline
-\end{tabular}
-}
-\vskip 0.25cm
-\caption{Sufijos de "banana\$"}
+	\center{
+		\begin{tabular}{|l|l|}\hline
+			\textbf{sufijo} & \textbf{offset} \\ \hline
+			\$ & 6 \\
+			a\$ & 5 \\
+			ana\$ & 3\\
+			anana\$ & 1\\
+			banana\$ & 0\\
+			na\$ & 4\\
+			nana\$ & 2\\ \hline
+		\end{tabular}
+	}
+	\vskip 0.25cm
+	\caption{Sufijos de "banana\$"}
 \end{table}
 
 Podemos observar que la búsqueda de cualquier string en el texto puede resolverse realizando una búsqueda binaria sobre la tabla de sufijos. El problema es que la estructura necesaria para mantener esta tabla es extremadamente costosa, en el orden de $O(n^2)$ siendo n la longitud del texto que puede ser muy grande, por ejemplo Wikipedia.
@@ -5925,20 +5902,20 @@ Los índices FM son una forma de representar todos los sufijos de un string de f
 El Mapeo LF es simplemente el mapeo que existe entre el resultado de la transformación de Burrows y Wheeler y la primer columna, que no es ni mas ni menos que el texto ordenado alfabeticamente.
 
 \begin{table}[!hbt]
-\center{
-\begin{tabular}{|l|l|}\hline
-\textbf{F} & \textbf{L} \\ \hline
-\$ & $a_0$ \\
-$a_0$ & $n_0$ \\
-$a_1$ & $n_1$ \\
-$a_2$ & $b_0$ \\
-$b_0$ & \$ \\
-$n_0$ & $a_1$ \\
-$n_1$ & $a_2$ \\ \hline
-\end{tabular}
-}
-\vskip 0.25cm
-\caption{LF Mapping para "banana\$"}
+	\center{
+		\begin{tabular}{|l|l|}\hline
+			\textbf{F} & \textbf{L} \\ \hline
+			\$ & $a_0$ \\
+			$a_0$ & $n_0$ \\
+			$a_1$ & $n_1$ \\
+			$a_2$ & $b_0$ \\
+			$b_0$ & \$ \\
+			$n_0$ & $a_1$ \\
+			$n_1$ & $a_2$ \\ \hline
+		\end{tabular}
+	}
+	\vskip 0.25cm
+	\caption{LF Mapping para "banana\$"}
 \end{table}
 
 Los subíndices indican el número de ocurrencia de cada caracter en el texto de atrás hacia adelante, $a_0$ es la última "a" en el texto. La transformación de Block Sorting mantiene el orden de los caracteres, es sencillo demostrar esto analizando la forma en la cual se construye el string "L" a partir de las rotaciones del texto original. 
@@ -5952,20 +5929,20 @@ El Mapeo LF sirve también para buscar cualquier substring en el texto. Por ejem
 Lo único que nos restaría es agregar al índice LF una columna que indique la posición del caracter en el string original. 
 
 \begin{table}[!hbt]
-\center{
-\begin{tabular}{|l|l|l|}\hline
-\textbf{F} & \textbf{L} & \textbf{Pos} \\ \hline
-\$ & $a_0$ & 6\\
-$a_0$ & $n_0$ & 5\\
-$a_1$ & $n_1$ & 3\\
-$a_2$ & $b_0$ & 1\\
-$b_0$ & \$ & 0\\
-$n_0$ & $a_1$ & 4\\
-$n_1$ & $a_2$ & 2\\ \hline
-\end{tabular}
-}
-\vskip 0.25cm
-\caption{LF Mapping para "banana\$"}
+	\center{
+		\begin{tabular}{|l|l|l|}\hline
+			\textbf{F} & \textbf{L} & \textbf{Pos} \\ \hline
+			\$ & $a_0$ & 6\\
+			$a_0$ & $n_0$ & 5\\
+			$a_1$ & $n_1$ & 3\\
+			$a_2$ & $b_0$ & 1\\
+			$b_0$ & \$ & 0\\
+			$n_0$ & $a_1$ & 4\\
+			$n_1$ & $a_2$ & 2\\ \hline
+		\end{tabular}
+	}
+	\vskip 0.25cm
+	\caption{LF Mapping para "banana\$"}
 \end{table}
 
 Notar que la posición coincide con el número de posición de lo que era el índice de sufijos. \textit{Es decir que luego de aplicar Block Sorting las columnas F y L son una representación compacta del árbol de sufijos del texto (!!)}
@@ -5977,29 +5954,29 @@ Cuando resolvemos "ban" observamos que ocurre en la posición 0 del texto origin
 Hasta el momento el índice FM tiene los siguientes problemas:
 
 \begin{enumerate}
-\item Buscar en la columna L es costoso porque no está ordenada.
-\item Hay que almacenar los offsets
-\item Almacenar el rango de cada caracter es costoso
+	\item Buscar en la columna L es costoso porque no está ordenada.
+	\item Hay que almacenar los offsets
+	\item Almacenar el rango de cada caracter es costoso
 \end{enumerate}
 
 Estos problemas se pueden solucionar de varias formas. Para el rango de cada caracter podemos pensar en una matriz que tenga tantas filas como longitud tiene el string y tantas columnas como caracteres diferentes tiene el texto. Esto nos permite eliminar el subíndice (rango) de la columna L, el subíndice de la columna F tampoco es necesario ya que los caracteres están ordenados, por lo tanto su posición indica el rango mismo.
 
 
 \begin{table}[!hbt]
-\center{
-\begin{tabular}{|l|l|l||l|l|l|}\hline
-\textbf{F} & \textbf{L} & \textbf{Pos} & \textbf{a} & \textbf{b} & \textbf{n}\\ \hline
-\$ & $a$ & 6 & 1& 0 & 0\\ 
-$a$ & $n$ & 5 & 1 & 0 & 1\\
-$a$ & $n$ & 3& 1 & 0 & 2\\
-$a$ & $b$ & 1 & 1 & 1 & 2\\
-$b$ & \$ & 0& 1 & 1 & 2\\
-$n$ & $a$ & 4& 2 & 1 & 2\\
-$n$ & $a$ & 2& 3 & 1 & 2\\ \hline
-\end{tabular}
-}
-\vskip 0.25cm
-\caption{Rangos acumulados}
+	\center{
+		\begin{tabular}{|l|l|l||l|l|l|}\hline
+			\textbf{F} & \textbf{L} & \textbf{Pos} & \textbf{a} & \textbf{b} & \textbf{n}\\ \hline
+			\$ & $a$ & 6 & 1& 0 & 0\\ 
+			$a$ & $n$ & 5 & 1 & 0 & 1\\
+			$a$ & $n$ & 3& 1 & 0 & 2\\
+			$a$ & $b$ & 1 & 1 & 1 & 2\\
+			$b$ & \$ & 0& 1 & 1 & 2\\
+			$n$ & $a$ & 4& 2 & 1 & 2\\
+			$n$ & $a$ & 2& 3 & 1 & 2\\ \hline
+		\end{tabular}
+	}
+	\vskip 0.25cm
+	\caption{Rangos acumulados}
 \end{table}
 
 En cada columna almacenamos el número de caracteres que ocurrieron hasta la posición en la que estamos. Observemos ahora que el 'indice' del caracter en la columna L puede obtenerse en $O(1)$ simplemente restando 1 al número que aparece en la columna correspondiente. Volvamos al ejemplo en el cual buscamos "ban", empezamos haciendo una búsqueda binaria de "n" en la columna F, y vemos que en L hay dos "a", en la columna que corresponde a la "a" vemos que se trata de la segunda y tercera ocurrencia de "a", por lo tanto tenemos que ir luego a F y buscar la segunda y tercera "a" es decir $a_1$ y $a_2$.
@@ -6007,20 +5984,20 @@ En cada columna almacenamos el número de caracteres que ocurrieron hasta la pos
 La matriz de rangos acumulados es costosa, la solución pasa por no almacenarla de forma completa sino cada "n" filas.
 
 \begin{table}[!hbt]
-\center{
-\begin{tabular}{|l|l|l||l|l|l|}\hline
-\textbf{F} & \textbf{L} & \textbf{Pos} & \textbf{a} & \textbf{b} & \textbf{n}\\ \hline
-\$ & $a$ & 6 & 1& 0 & 0\\ 
-$a$ & $n$ & 5 &  &  & \\
-$a$ & $n$ & 3& 1 & 0 & 2\\
-$a$ & $b$ & 1 &  &  & \\
-$b$ & \$ & 0& 1 & 1 & 2\\
-$n$ & $a$ & 4&  &  & \\
-$n$ & $a$ & 2& 3 & 1 & 2\\ \hline
-\end{tabular}
-}
-\vskip 0.25cm
-\caption{Rangos acumulados}
+	\center{
+		\begin{tabular}{|l|l|l||l|l|l|}\hline
+			\textbf{F} & \textbf{L} & \textbf{Pos} & \textbf{a} & \textbf{b} & \textbf{n}\\ \hline
+			\$ & $a$ & 6 & 1& 0 & 0\\ 
+			$a$ & $n$ & 5 &  &  & \\
+			$a$ & $n$ & 3& 1 & 0 & 2\\
+			$a$ & $b$ & 1 &  &  & \\
+			$b$ & \$ & 0& 1 & 1 & 2\\
+			$n$ & $a$ & 4&  &  & \\
+			$n$ & $a$ & 2& 3 & 1 & 2\\ \hline
+		\end{tabular}
+	}
+	\vskip 0.25cm
+	\caption{Rangos acumulados}
 \end{table}
 
 Si caemos en una fila para la cual no tenemos rangos acumulados tenemos que ir a la fila que tiene los rangos mas cercana (hacia arriba o abajo), observar el rango del caracter y simplemente contar cuántas veces aparece dicho caracter en L en el camino hacia la fila actual. Por ejemplo en la fila de $n_0$ observamos una "a" en la columna L, no sabemos el rango de esta "a", pero en la fila siguiente "a""tiene rango 3 y en L hay una "a" por lo tanto el rango debe ser 2. Es decir que se trata de $a_1$.
@@ -6028,20 +6005,20 @@ Si caemos en una fila para la cual no tenemos rangos acumulados tenemos que ir a
 Finalmente podemos reducir también la cantidad de posiciones a almacenar guardando solamente algunas de estas posiciones:
 
 \begin{table}[!hbt]
-\center{
-\begin{tabular}{|l|l|l||l|l|l|}\hline
-\textbf{F} & \textbf{L} & \textbf{Pos} & \textbf{a} & \textbf{b} & \textbf{n}\\ \hline
-\$ & $a$ & 6 & 1& 0 & 0\\ 
-$a$ & $n$ &  &  &  & \\
-$a$ & $n$ & 3& 1 & 0 & 2\\
-$a$ & $b$ &  &  &  & \\
-$b$ & \$ & 0& 1 & 1 & 2\\
-$n$ & $a$ & &  &  & \\
-$n$ & $a$ & 2& 3 & 1 & 2\\ \hline
-\end{tabular}
-}
-\vskip 0.25cm
-\caption{Rangos acumulados}
+	\center{
+		\begin{tabular}{|l|l|l||l|l|l|}\hline
+			\textbf{F} & \textbf{L} & \textbf{Pos} & \textbf{a} & \textbf{b} & \textbf{n}\\ \hline
+			\$ & $a$ & 6 & 1& 0 & 0\\ 
+			$a$ & $n$ &  &  &  & \\
+			$a$ & $n$ & 3& 1 & 0 & 2\\
+			$a$ & $b$ &  &  &  & \\
+			$b$ & \$ & 0& 1 & 1 & 2\\
+			$n$ & $a$ & &  &  & \\
+			$n$ & $a$ & 2& 3 & 1 & 2\\ \hline
+		\end{tabular}
+	}
+	\vskip 0.25cm
+	\caption{Rangos acumulados}
 \end{table}
 
 Si caemos, por ejemplo en la fila 1 (la primer "a") observamos que no tenemos posición. Sin embargo vemos que el caracter anterior a dicha "a" que es el que aparece en la columna "L" es $n_0$ para $n_0$ tampoco tenemos posición pero el anterior es $a_1$ para el cual la posición es 3 por lo tanto la posición de nuestra "a" es 3+2=5. 
@@ -6051,10 +6028,10 @@ Si caemos, por ejemplo en la fila 1 (la primer "a") observamos que no tenemos po
 Nuestro índice tiene finalmente los siguientes componentes:
 
 \begin{enumerate}
-\item El vector F, que contiene los caracteres del texto ordenados, por lo tanto solo hace falta un número por cada caracter indicando la cantidad de veces que aparece, en nuestro caso \$=1, a=3, b=1, n=2. Es sencillo ver que con dicha información se tiene el vector F en su totalidad. F se puede almacenar de forma muy compacta.
-\item El vector L, que tiene igual longitud al texto original.
-\item El vector POS que tiene posiciones almacenadas cada $\alpha$ caracteres del texto original.
-\item La matriz de rangos que tiene tantas columnas como caracteres diferentes el texto y 1 fila cada $\beta$ caracteres en el texto original.
+	\item El vector F, que contiene los caracteres del texto ordenados, por lo tanto solo hace falta un número por cada caracter indicando la cantidad de veces que aparece, en nuestro caso \$=1, a=3, b=1, n=2. Es sencillo ver que con dicha información se tiene el vector F en su totalidad. F se puede almacenar de forma muy compacta.
+	\item El vector L, que tiene igual longitud al texto original.
+	\item El vector POS que tiene posiciones almacenadas cada $\alpha$ caracteres del texto original.
+	\item La matriz de rangos que tiene tantas columnas como caracteres diferentes el texto y 1 fila cada $\beta$ caracteres en el texto original.
 \end{enumerate}
 
 Estas estructuras permiten resolver una búsqueda de cualquier substring en el texto original de forma eficiente por lo que son ideales para almacenar grandes volumenes de información en memoria soportanto la búsqueda de cualquier substring. En aplicaciones genéticas estas estructuras son cruciales ya que la búsqueda de substrings arbitrarios es una tarea sumamente frecuente.
@@ -6068,17 +6045,17 @@ PAQ es un compresor aritmético que funciona bit a bit, es decir que por cada bi
 Para llegar a la probabilidad del 1 y el 0 PAQ va a combinar la predicción de varios modelos. Mas adelante veremos cuáles son estos modelos supongamos ahora que tenemos "n" modelos y que cada uno de ellos calcula la probabilidad de que el próximo bit sea un 1. Lo que PAQ necesita es encontrar pesos de forma tal que la probabilidad final de que el bit sea 1 surja del promedio ponderado de las probabilidades de todos los modelos utilizados. Estos pesos en PAQ surgen de una red neuronal. El funcionamiento es en realidad muy simple, todos los bits anteriores y las predicciones de los modelos sirven como set de entrenamiento.
 
 \begin{table}[!hbt]
-\center{
-\begin{tabular}{|l|l|l|l|l|l|}\hline
-M0 & M1 & M2 & M3 & M4 & OBS \\ \hline
-0.3 & 0.2 & 0.8 & 0.4 & 0.05 & 0 \\
-0.7 & 0.3 & 0.9 & 0.75 & 0.76 & 1 \\
-0.65 & 0.2 & 0.83 & 0.69 & 0.77 & 1 \\
-0.03 & 0.1 & 0.3 & 0.65 & 0.22 & 0\\ \hline
-\end{tabular}
-}
-\vskip 0.25cm
-\caption{Ejemplo PAQ}
+	\center{
+		\begin{tabular}{|l|l|l|l|l|l|}\hline
+			M0 & M1 & M2 & M3 & M4 & OBS \\ \hline
+			0.3 & 0.2 & 0.8 & 0.4 & 0.05 & 0 \\
+			0.7 & 0.3 & 0.9 & 0.75 & 0.76 & 1 \\
+			0.65 & 0.2 & 0.83 & 0.69 & 0.77 & 1 \\
+			0.03 & 0.1 & 0.3 & 0.65 & 0.22 & 0\\ \hline
+		\end{tabular}
+	}
+	\vskip 0.25cm
+	\caption{Ejemplo PAQ}
 \end{table}
 
 La figura 3.23 nos muestra un ejemplo del set de entrenamiento que PAQ se auto-construye al ir comprimiendo el archivo. En base a las predicciones realizadas por los modelos y el bit observado realmente en el archivo (OBS) PAQ puede entrenar una red neuronal de forma tal que dadas las probabilidades de los modelos calcule la probabilidad de que el bit sea 1 de forma tal de ajustar de la mejor forma posible al set de entrenamiento es decir a lo que observamos realmente en el archivo. Esta forma de mezclar modelos se llama "context mixing" y es la clave de un algoritmo de compresión exitoso ya que en diferentes circunstancias uno u otro modelo puede funcionar mejor, a medida que PAQ va comprimiendo puede aprender cuáles son los modelos que mejor ajustan al archivo y darles el peso que corresponde para predecir mejor. Estos pesos van cambiando dinamicamente es decir que a medida que avanzamos en el archivo podemos ir descubriendo que un modelo empieza a ser mejor que otro, esto se logra automáticamente al ir ajustando la red neuronal con nuevas observaciones. 
@@ -6088,10 +6065,10 @@ La figura 3.23 nos muestra un ejemplo del set de entrenamiento que PAQ se auto-c
 PAQ utiliza una combinación de modelos, no queremos entrar en grandes detalles sobre el funcionamiento de cada uno de estos modelos pero a grandes rasgos los modelos mas usados son los siguientes:
 
 \begin{enumerate}
-\item Un modelo basado en los "n" (hasta 8) caracteres anteriores y los "m" bits (hasta 7) anteriores al bit actual. Este es un modelo idéntico al que usaría PPMC, en base al contexto calculamos la probabilidad de un bit 0 o 1, no hace falta usar escapes porque solo puede haber dos símbolos en cada contexto (0 o 1) lo cual hace que podamos tener todo en memoria y que no sea tan lento aprender ya que empezamos de 1/2 1/2 para cada bit. Notemos que procesar bit a bit soluciona el problema de frecuencia cero automáticamente!. 
-\item Un modelo basado en repeticiones de strings. PAQ busca en un buffer de 4Mb contextos mayores a 8 bytes que matcheen el contexto actual, cuando estos contextos existen PAQ toma nota de cuál es el bit siguiente en cada caso y en base a eso calcula la probabilidad de que el próximo bit sea 1 o 0.
-\item Un modelo basado en palabras completas. Aquí PAQ toma como contexto una o dos palabras y "m" bits para predecir la probabilidad de que el próximo bit sea un 1 o 0, usando puntuación y/o espacios en blanco para separar palabras.
-\item Un modelo que predice estructuras repetitivas como por ejemplo tablas.
+	\item Un modelo basado en los "n" (hasta 8) caracteres anteriores y los "m" bits (hasta 7) anteriores al bit actual. Este es un modelo idéntico al que usaría PPMC, en base al contexto calculamos la probabilidad de un bit 0 o 1, no hace falta usar escapes porque solo puede haber dos símbolos en cada contexto (0 o 1) lo cual hace que podamos tener todo en memoria y que no sea tan lento aprender ya que empezamos de 1/2 1/2 para cada bit. Notemos que procesar bit a bit soluciona el problema de frecuencia cero automáticamente!. 
+	\item Un modelo basado en repeticiones de strings. PAQ busca en un buffer de 4Mb contextos mayores a 8 bytes que matcheen el contexto actual, cuando estos contextos existen PAQ toma nota de cuál es el bit siguiente en cada caso y en base a eso calcula la probabilidad de que el próximo bit sea 1 o 0.
+	\item Un modelo basado en palabras completas. Aquí PAQ toma como contexto una o dos palabras y "m" bits para predecir la probabilidad de que el próximo bit sea un 1 o 0, usando puntuación y/o espacios en blanco para separar palabras.
+	\item Un modelo que predice estructuras repetitivas como por ejemplo tablas.
 \end{enumerate}
 
 \subsection{SSE}
@@ -6099,6 +6076,45 @@ PAQ utiliza una combinación de modelos, no queremos entrar en grandes detalles 
 Una vez que ha calculado la probabilidad de que el próximo bit sea 1 o 0 PAQ usa SSE (secondary symbol estimation) para refinar su predicción, lo que hacemos aquí es tomar "n" bits y la probabilidad discretizada en 64 intervalos como contexto y en base a eso verificar la probabilidad del 1 y el 0 ajustando mediante una fórmula variable la probabilidad conjunta de los modelos y esta estimación. Es decir que por un lado PAQ tiene una estimación por cada modelo, todas esas estimaciones y los bits realmente observados se usan para entrenar una red neuronal que calcula la probabilidad de que el próximo bit sea un 1. Con esta probabilidad y el contexto PAQ se fija cuantas veces ha aparecido realmente un 0 y cuantas veces un 1. Por ejemplo sea P=0.33 si los bits anteriores son 01000 y la probabilidad está entre 0.2 y 0.4 el bit próximo fue un 0 9 de 10 veces entonces en lugar de predecir P=0.33 podemos ajustar P a un número mas bajo ya que estamos mas seguros de que el próximo bit va a ser un cero. 
 
 Mediante la combinación de varios modelos usando una red neuronal y SSE PAQ es capaz de construir un modelo que se adapta muy elásticamente al contenido del archivo, dándole peso a un modelo u otro según el contenido del mismo de forma dinámica lo cual le permite comprimir realmente muy bien. Hasta el próximo avance en compresión de datos PAQ representa la forma mas avanzada que tenemos de estimar la complejidad de Kolmogorov de un archivo y es el compresor a ideal a usar para calcular la distancia normalizada de compresión cuando querramos estimar la distancia existente entre dos archivos. Esto tiene muchas aplicaciones.
+
+\subsection{Modelos Generativos Basados en PPMC}
+
+Introducimos aquí el fascinante mundo de los modelos generativos. La idea es "aprender" un modelo para un determinado archivo o conjunto de archivos y luego a partir de dicho modelo generar contenido al azar. Por ejemplo podemos comprimir todas las obras de Shakespeare usando PPMC de orden 6. Una vez que hicimos esto tenemos un modelo que representa las obras de Shakespeare y podemos usarlo para generar contenido de forma aleatoria. La forma de hacer esto es muy simple: comenzamos con el modelo de orden 0 y en base a las probabilidades del mismo generamos un caracter al azar. Luego con dicho caracter como contexto vamos al modelo de orden 1 y generamos otro caracter al azar en base a las probabilidades de dicho modelo. Así seguimos generando carateres de forma aleatoria y el resultado es el siguiente:\\
+\\
+
+\fbox{\begin{minipage}{35em}
+  Empress' sons\\
+    Hath slain to-day!\\
+  PROSPERO. How? turn the business for that I love thee now we hold thy time,\\
+    Which would it pleas'd;\\
+   And take against your writing.\\
+  PRINCE JOHN. If th' event o' th' moon,\\
+    Whom the King's will fly, like a Northern blasts from this enforce these quondam Quickly to Sir Nicholas be thy\\
+    tongue divine, are gone about me;\\
+    her'; and whisp'ring, rounding, though much, is not burden two fair son!\\
+    Dogs howl,\\
+    Form'd by the hand; les doigts? Ma foi, j'oublie les doigts?\\
+  ALICE. Oui, vraiment.\\
+  SIR TOBY. Fie that you miss. She'll gallop withal?\\
+  HORTENSIO. From th' head.\\
+  WARWICK. And so repose myself confounds himself, with another name.\\
+  ROMAN. Well, whiles you carry you.\\
+  KING EDWARD. And the pard,\\
+    Nor build there she remain within\\
+  WOODVILLE, Lieutenant's scarf? You\\
+    calumny will she lives.\\
+     Infirmity,\\
+    When English-woman. For what of his legs again?\\
+  SECOND WITCH. Fillet of my children;\\
+    Than as you\\
+\end{minipage}}\\ \\
+
+Como podemos ver el algoritmo ha aprendido a escribir algo muy parecido a una obra de Shakespeare pero completamente al azar, notar que incluso aprende a introducir los personajes. El algoritmo tiene algunas limitaciones, por ejemplo no cambia las probabilidades según la cantidad de caracteres que tiene una línea de texto, cuanto mas larga la línea mas probable debería ser que aparezca un punto y un salto de línea. Tampoco sabe que si está en una aposición la coma tiene mayor probabilidad hasta ser generada para cerrar la misma. En definitiva las limitaciones del algoritmo están dadas por su corta memoria, no recuerda lo que ha hecho anteriormente sino que tiene en cuenta únicamente los 6 caracteres anteriores y ese es todo su mundo. Con estas limitaciones el algoritmo es capaz de generar un texto bastante legible lo cual habla muy bien la capacidad de PPMC para modelar archivos. Es lógico suponer que cuanto mejor entiende el algoritmo el archivo que está procesando mejor va a poder generar contenido similar al mismo, esto confirma nuestra idea de que comprimir es en definitiva "entender".
+
+\subsection{PPMC conclusiones}
+
+PPMC es un compresor aritmético dinámico de orden superior que maneja varios ordenes diferentes al mismo tiempo para resolver el problema de frecuencia cero.
+PPMC es uno de los algoritmos de compresión mas importantes, alcanza un nivel de compresión muy competitivo. Algoritmos basados en PPMC son los que mejor nivel de compresión alcanzan para algunos tipos de archivos, por ejemplo textos de gran longitud. 
 
 \chapter{Hashing}
 
