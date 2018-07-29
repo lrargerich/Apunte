@@ -5345,8 +5345,8 @@ La solución a este problema es, precisamente, analizar en cada paso la codifica
 
 \subsection{DEFLATE (LzHuf)}
 
-DEFLATE es una evolución lógica de LZSS en donde mejoramos la forma de codificar. Es el algoritmo standard de PKZIP, WinZIP y similares tiene un nivel de compresión bastante aceptable y es muy rápido. 
-Para empezar la modelización del archivo es idéntica a la de LZSS es decir que tenemos una ventana de una cierta longitud en donde buscamos matches.
+DEFLATE es una evolución lógica de LZSS en donde se mejora la forma de codificar. Es el algoritmo standard de PKZIP, WinZIP y similares que puede obtener un nivel de compresión bastante aceptable y es muy rápido. 
+Para empezar la modelización del archivo es idéntica a la de LZSS es decir que hay una ventana de una cierta longitud en donde se buscan matches.
 
 \begin{verbatim}
 ARCHIVO: ABCDADADAABCAA
@@ -5354,17 +5354,17 @@ ARCHIVO: ABCDADADAABCAA
 MODELO: 0A 0B 0C 0D 0A 1(1,4) 0A 0B 0C 1(3,2)
 \end{verbatim}
 
-La codificación del modelo es lo que cambia en DEFLATE. Para empezar vamos a tener un árbol de Huffman dinámico en donde conviven los 256 caracteres posibles y además todas las longitudes posibles desde LMIN hasta LMAX. Este árbol lo vamos a usar para codificar los caracteres literales cuando no encontramos un match y para las longitudes cuando encontramos un match. Cada vez que emitimos un caracter literal actualizamos el árbol incrementando su frecuencia y volvemos a usar el árbol para comprimir el caracter próximo. Cuando encontramos un match emitimos su longitud en base al código de la misma en el árbol y a continuación su posición en la ventana en una cierta cantidad de bits que se puede fijar mediante otro árbol de Huffman o de forma fija. Una vez que hicimos esto actualizamos la frecuencia de la longitud en el árbol y seguimos comprimiendo.
+La codificación del modelo es lo que cambia en DEFLATE. Para empezar se utiliza un árbol de Huffman dinámico en donde conviven los 256 caracteres posibles y además todas las longitudes posibles desde LMIN hasta LMAX. Este árbol se utilizará para codificar los caracteres literales cuando no hay un match y para las longitudes cuando hay un match. Cada vez que se emite un caracter literal hay que actualizar el árbol incrementando su frecuencia. Cuando hay un match se emite su longitud en base al código de la misma en el árbol y a continuación su posición en la ventana en una cierta cantidad de bits que se puede fijar mediante otro árbol de Huffman o bien de forma fija. Luego, se actualiza la frecuencia de la longitud en el árbol y se sigue comprimiendo el resto de los caracteres.
 
-Notemos cuáles son las mejoras respecto de LZSS. En primer lugar ya no hace falta distinguir con un bit en 0 o 1 si se trata de un match o no. Cuando emitimos un caracter no hay match y cuando emitimos una longitud hay match. El descompresor sabe que si descomprime una longitud lo siguiente será una posición mientras que si descomprime un literal lo siguiente es o bien un literal o bien una longitud (mismo árbol). Una segunda ventaja es que podemos aprender cuáles son los caracteres literales mas frecuentes en el archivo y usar menos bits para los mismos. Podemos también aprender cuáles son las longitudes mas frecuentes en los matches y usar menos bits para estas longitudes que para las que son no tan comunes. Esto implica un importante ahorro de bits que termina generando un mejor nivel de compresión que LZSS.
+Esto introduce mejoras respecto al LZSS: en primer lugar ya no hace falta distinguir con un bit en 0 o 1 si se trata de un match o no. Cuando se emite un caracter no hay match y cuando se emite una longitud hay match. El descompresor sabe que si descomprime una longitud lo siguiente será una posición mientras que si descomprime un literal lo siguiente es o bien un literal o bien una longitud (mismo árbol). Una segunda ventaja es que se puede aprender cuáles son los caracteres literales mas frecuentes en el archivo y usar menos bits para los mismos. También se puede aprender cuáles son las longitudes mas frecuentes en los matches y usar menos bits para estas longitudes que para las que son no tan comunes. Esto implica un importante ahorro de bits que termina generando un mejor nivel de compresión que LZSS.
 
 \subsection{LZW}
 
-LZW es una versión mejorada del algoritmo  LZ78 publicado en 1978 por Lempel y Ziv, al igual que con LZ77 en muchos lados se llama LZ78 a LZW aunque sean algoritmos diferentes, la "W" en LZW es por Welch quien fue el que trabajó en las mejoras al algoritmo junto con Lempel y Ziv.
+LZW es una versión mejorada del algoritmo  LZ78 publicado en 1978 por Lempel y Ziv y, al igual que con LZ77, en muchos lados se llama LZ78 a LZW aunque sean algoritmos diferentes. La "W" en LZW es por Welch quien fue el que trabajó en las mejoras al algoritmo junto con Lempel y Ziv.
 
-La idea principal de LZW es la misma que la de todos los algoritmos de la familia LZ: reemplazar secuencias previamente observadas por un código que las represente. LZW logra esto mediante la utilización de una tabla o diccionario en donde va almacenando las secuencias previamente observadas en el archivo, de esta forma cuando encuentra alguna secuencia que ya vio simplemente la reemplaza por el índice de la misma en el diccionario o tabla. 
+La idea principal de LZW es la misma que la de todos los algoritmos de la familia LZ: reemplazar secuencias previamente observadas por un código que las represente. LZW logra esto mediante la utilización de una tabla o diccionario en donde va almacenando las secuencias previamente observadas en el archivo. De esta forma cuando encuentra alguna secuencia que ya vio simplemente la reemplaza por el índice de la misma en el diccionario o tabla. 
 
-Inicialmente LZW comienza con una tabla de 512 posiciones en donde las primeras 256 entradas ya están llenas con las 256 combinaciones posibles de 8 bits, las restantes 256 posiciones están vacías. Cada posición de la tabla se representa mediante 9 bits. El algoritmo funciona entonces de la siguiente forma:
+Inicialmente LZW comienza con una tabla de 512 posiciones en donde las primeras 256 entradas ya están llenas con las 256 combinaciones posibles de 8 bits y las restantes 256 posiciones están vacías. Cada posición de la tabla se representa lógicamente mediante 9 bits. El algoritmo funciona entonces de la siguiente forma:
 
 \begin{algorithm}
 	SYMBOL = readchar(FILE)\\
@@ -5383,13 +5383,13 @@ Inicialmente LZW comienza con una tabla de 512 posiciones en donde las primeras 
 	\caption{LZW}
 \end{algorithm}
 
-Veamos un ejemplo de LZW en funcionamiento para el siguiente archivo:
+Por ejemplo, sea el siguiente archivo:
 
 \begin{verbatim}
 ABCABCA
 \end{verbatim}
 
-Vamos a hacer primero una narrativa del funcionamiento: empezamos leyendo "A" del archivo, como "A" ya está en la tabla en alguna de las primeras 256 posiciones entonces simplemente leemos otro byte: "AB", buscamos "AB" y no está en la tabla por lo tanto emitimos el código de "A", es decir su índice en la tabla que ocupa 9 bits y agregamos "AB" en la posición 256 de la tabla (numerando desde 0).
+Se lee la A del archivo, que ya se encuentra cargada en la tabla entre alguna de las primeras 256 posiciones. En consecuencia, se lee B. El símbolo AB no está en la tabla por lo tanto se emite el código de A, es decir, su índice en la tabla que ocupa 9 bits y agregamos AB en la posición 256 de la tabla (numerando desde 0).
 
 \begin{table}[!hbt]
 	\center{
@@ -5402,10 +5402,10 @@ Vamos a hacer primero una narrativa del funcionamiento: empezamos leyendo "A" de
 		\end{tabular}
 	}
 	\vskip 0.25cm
-	\caption{LZW luego de comprimir "A"}
+	\caption{LZW luego de comprimir A}
 \end{table}
 
-Nuestro símbolo actual es "B" lo buscamos en la tabla y existe, buscamos "BC" y no existe por lo tanto emitimos el código de "B" y agregamos "BC" en la tabla. 
+El próximo caracter es B, que ya existe en la tabla. Se busca BC en la tabla y como no existe se lo agrega en la posición 257.
 
 \begin{table}[!hbt]
 	\center{
@@ -5419,10 +5419,10 @@ Nuestro símbolo actual es "B" lo buscamos en la tabla y existe, buscamos "BC" y
 		\end{tabular}
 	}
 	\vskip 0.25cm
-	\caption{LZW luego de comprimir "AB"}
+	\caption{LZW luego de comprimir AB}
 \end{table}
 
-Nuestro símbolo actual es "C", está en la tabla, buscamos "CA" que no lo encontramos. Emitimos el código de "C" y agregamos "CA"
+El próximo caracter es C, que ya se encuentra en la tabla. Se lee la A, y como CA no existe en la tabla se lo agrega en la posición 258.
 
 \begin{table}[!hbt]
 	\center{
@@ -5440,7 +5440,8 @@ Nuestro símbolo actual es "C", está en la tabla, buscamos "CA" que no lo encon
 	\caption{LZW luego de comprimir "ABC"}
 \end{table}
 
-Tenemos ahora "A" que está en la tabla, leemos el próximo caracter del archivo y buscamos "AB" que también está en la tabla, leemos "C" y buscamos "ABC" que no está en la tabla. Por lo tanto emitimos el código de "AB" es decir 256 en 9 bits y agregamos ABC en la tabla.
+
+El próximo a leer es A, que existe en la tabla. Como sigue B, se puede ver que AB también existe en la tabla con lo cual se intenta con ABC que no existe en la tabla. Entonces, se emite el código de AB que es 256 y se da de alta ABC en la tabla con el código 259.
 
 \begin{table}[!hbt]
 	\center{
@@ -5459,7 +5460,7 @@ Tenemos ahora "A" que está en la tabla, leemos el próximo caracter del archivo
 	\caption{LZW luego de comprimir "ABCABC"}
 \end{table}
 
-Nuestro código actual es "C" que está en la tabla "CA" también y luego termina el archivo por lo que emitimos el código de CA  (258) como nuestro último código. No hace falta agregar nada a la tabla ya que hemos terminado de comprimir el archivo, al igual que en cualquier compresor no tiene sentido actualizar el modelo si no vamos a tener que usarlo. 
+Ahora sigue C que se encuentra en la tabla y CA también se encuentra en la tabla. Emitimos el código 258 y ya hemos finalizado de comprimir todos los caracteres del archivo.
 
 El archivo comprimido entonces queda:
 
@@ -5469,54 +5470,11 @@ ABCABCA
 (A)(B)(C)(256)(258)
 \end{verbatim}
 
-En total usamos 5 códigos de 9 bits cada uno es decir 45 bits para el archivo. Para completar a un múltiplo de 8 podemos agregar bits al azar ya que nunca serán suficientes para que el descompresor genere símbolos equivocados ya que los códigos son de 9 bits (o mas) y el padding es a lo sumo 7 bits.
+En total se usan 5 códigos de 9 bits cada uno, es decir, 45 bits para el archivo. Para completar a un múltiplo de 8 se pueden agregar bits al azar ya que nunca serán suficientes para que el descompresor genere símbolos equivocados ya que los códigos son de 9 bits (o mas) y el padding es a lo sumo 7 bits.
 
-Tenemos que analizar que sucede si la tabla de LZW se llena lo cual va a ocurrir relativamente rápido ya que solo tenemos lugar para 256 strings, una vez que la tabla de 9 bits se llena el compresor simplemente duplica la tabla y luego procede a emitir códigos de 10 bits en lugar de 9, este proceso se repite tantas veces como sea necesario. 
+Cuando la tabla se completa, el compresor duplica la tabla y comienza a emitir códigos de 10 bits en lugar de 9. Este proceso se repite tantas veces como sea necesario. 
 
-Hay algunos detalles a tener en cuenta aquí ya que no está del todo claro en la especificación si el compresor tiene que emitir 10 bits cuando se llena la tabla o un símbolo mas adelante. Consideremos la siguiente situación para entender el problema:
-
-\begin{table}[!hbt]
-	\center{
-		\begin{tabular}{|l|l|}\hline
-			pos & chars \\ \hline
-			0 & ... \\
-			1 & ... \\
-			... & ... \\
-			256 & AB \\ 
-			257 & BC  \\ 
-			258 & CA \\ 
-			259 & ABC \\ 
-			... & ... \\
-			510 & ... \\ \hline
-		\end{tabular}
-	}
-	\vskip 0.25cm
-	\caption{LZW a punto de llenar la tabla}
-\end{table}
-
-Leemos caracteres del archivo hasta encontrar un string que no está en la tabla. Por ejemplo "ABCAB" (podría ser cualquier otra cosa). Tenemos entonces que emitir el código de ABCA que sabemos que está en la tabla y luego agregar ABCAB a la tabla:
-
-\begin{table}[!hbt]
-	\center{
-		\begin{tabular}{|l|l|}\hline
-			pos & chars \\ \hline
-			0 & ... \\
-			1 & ... \\
-			... & ... \\
-			256 & AB \\ 
-			257 & BC  \\ 
-			258 & CA \\ 
-			259 & ABC \\ 
-			... & ... \\
-			510 & ... \\ 
-			511 & ABCAB \\ \hline
-		\end{tabular}
-	}
-	\vskip 0.25cm
-	\caption{LZW con la tabla de 9 bits llena}
-\end{table}
-
-Al haberse llenado la tabla sabemos que el próximo string a guardar no va a entrar en la misma pero al mismo tiempo sabemos que el próximo código a emitir será de 9 bits ya que tiene que ser si o si algo que exista en la tabla actual... Tenemos entonces dos opciones:
+Puede prestar a confusión en qué momento el compresor comienza a emitir símbolos de 10 bits. Esto puede ocurrir o bien cuando se llena la tabla o bien un símbolo más adelante. Se pueden adoptar las siguientes dos políticas:
 
 \begin{enumerate}
 	\item Duplicar la tabla y emitir el próximo código en 10 bits
@@ -5525,9 +5483,11 @@ Al haberse llenado la tabla sabemos que el próximo string a guardar no va a ent
 
 No hay un standard por lo que lamentablemente muchos compresores y descompresores LZW necesitan algún tipo de flag para indicar cuál de estas dos políticas han usado. El formato PDF usa LZW y admite ambas políticas de actualización del diccionario mediante un flag.
 
+
+
 \subsubsection{El Descompresor LZW}
 
-La descompresión en LZW es muy similar y sigue el camino inverso al compresor, sin embargo es un tema que no resulta sencillo ya que LZW es el único de todos los algoritmos de compresión en el cual el compresor y el descompresor no van sincronizados perfectamente, esta característica es especialmente molesta para programar compresores y descompresores LZW y también para entender su funcionamiento. 
+La descompresión en LZW es muy similar y sigue el camino inverso al compresor. Sin embargo es un tema que no resulta sencillo ya que LZW es el único de todos los algoritmos de compresión en el cual el compresor y el descompresor no van sincronizados perfectamente. Esta característica es especialmente molesta para programar compresores y descompresores LZW y también para entender su funcionamiento. 
 
 \begin{verbatim}
 LEEMOS (A) TABLA: 256=A?  OUT:A
@@ -5537,15 +5497,13 @@ LEEMOS (256) TABLA: 256=AB,257=BC,258=CA, 259=AB? OUT: AB
 LEEMOS (258) TABLA: 256=AB,257=BC,258=CA, 259=ABC, 260=CA? OUT:CA
 \end{verbatim}
 
-Veamos el comportamiento del descompresor paso a paso: leemos inicialmente un código de 9 bits que corresponde a "A" por lo tanto podemos emitir "A" al archivo de salida y además sabemos que la entrada 256 de la tabla es "A" seguido de algo mas es decir "A?".
-Luego leemos el código de 9 bits que corresponde a la "B" podemos emitir "B" y completar ahora 256=AB y agregar 257=B? en la tabla.
-Luego leemos "C" asi que completamos 257=BC y agregamos 258=C? además de emitir C.
-Luego leemos el código 256 que es "AB" así que completamos 258=CA, notemos que solo nos interesa el primer caracter, y agregamos 259=AB? además de emitir AB.
-Finalmente leemos 258 y emitimos "CA", podemos si queremos completar 259=ABC y agregar 260=CA? pero esto ya no lo vamos a usar.
+Para descomprimir, se lee inicialmente un código de 9 bits que corresponde a A por lo tanto se emite A al archivo de salida y además se sabe que la entrada 256 de la tabla es A seguido de algo mas es decir A?.
+Luego se lee el código que corresponde a la B y se emite B. El código 256 será AB y el 257 tendrá la forma B?.
+Luego se lee C así que se completa 257=BC y se agrega 258=C? además de emitir C.
+Luego se lee el código 256 que es A así que se completa 258=CA. Notar que solo nos interesa el primer caracter, y se agrega 259=AB? además de emitir AB.
+Finalmente se lee 258 emtiendo CA. Se podría también completar 259=ABC y agregar 260=CA? pero esto ya no es necesario.
 
 Debería ser evidente ahora la diferencia en sincronización entre el compresor y el descompresor. El compresor agrega a la tabla un nuevo símbolo luego de comprimir un caracter, el descompresor sin embargo solo sabe cual es el símbolo agregado por el compresor al leer el siguiente. Esto es particularmente perturbador pero no impide que se pueda comprimir y descomprimir pero nos lleva a un caso muy curioso con el cual hay que tener un terrible cuidado.
-
-\subsubsection{Los Dragones de LZW}
 
 Sea el siguiente string:
 
@@ -5553,9 +5511,7 @@ Sea el siguiente string:
 ABABABAA
 \end{verbatim}
 
-Vamos a comprimirlo usando LZW tal y como ya sabemos.
-
-Empezamos leyendo "A" que está en la tabla, agregamos "AB" que no está por lo tanto emitimos el código de 9 bits de "A" y agregamos 256=AB, ahora tenemos "B" que está en la tabla, agregamos "BA" que no está, por lo que emitimos "B" en 9 bits y 257=BA, tenemos ahora "A" que está en la tabla y AB también está en la tabla por lo que leemos otro caracter y tenemos "ABA" que no está en la tabla. Emitimos el código de AB (256) y agregamos 258=ABA. Tenemos ahora "A", leemos "AB", leemos "ABA", "ABAA" que no está en la tabla por lo que emitimos el código de ABA (258) y agregamos 259=ABAA.Finalmente emitimos el código de la última A.
+Se lo comprime utilizando el algoritmo LZW y se obtiene lo siguiente:
 
 \begin{verbatim}
 ABABABAA
@@ -5563,8 +5519,7 @@ ABABABAA
 (A)(B)(256)(258)(A)
 \end{verbatim}
 
-Veamos el funcionamiento del descompresor
-
+Para poder descomprimir, se siguen los siguientes pasos:
 \begin{verbatim}
 LEEMOS (A) TABLA: 256=A? OUT:A
 LEEMOS (B) TABLA: 256=AB, 257=B? OUT: B
@@ -5572,21 +5527,19 @@ LEEMOS (256) TABLA: 256=AB, 257=BA, 258=AB? OUT: AB
 LEEMOS (258) ???
 \end{verbatim}
 
-Se da el terrible caso en el cual el descompresor lee un código que no está en la tabla. Sin embargo a no desesperar porque el descompresor puede deducir lo que ha sucedido en el compresor y gracias a esto reconstruir el código faltante. El descompresor sabe que el código 258 empieza con "AB" y sabe que el próximo caracter que completa el código es el primero del que sigue, que es también el 258 por lo tanto el último caracter de 258 es el primer caracter de 258 y 258 es "ABA". 
+Se da el terrible caso en el cual el descompresor lee un código que no está en la tabla. Sin embargo, el descompresor puede deducir lo que ha sucedido en el compresor y gracias a esto reconstruir el código faltante. El descompresor sabe que el código 258 empieza con AB y sabe que el próximo caracter que completa el código es el primero del que sigue a la hora de comprimir, que en este caso casualmente es también el 258 que comienza con A entonces el código queda reconstruido como 258=ABA.
 
 \begin{verbatim}
 LEEMOS (A) TABLA: 256=A? OUT:A
 LEEMOS (B) TABLA: 256=AB, 257=B? OUT: B
 LEEMOS (256) TABLA: 256=AB, 257=BA, 258=AB? OUT: AB
 LEEMOS (258) TABLA: 256=AB, 257=BA, 258=ABA, 259=ABA? OUT:ABA
-LEEMPS (A) TABLA: 256=AB, 257=BA, 258=ABA, 259=ABAA OUT:A
+LEEMOS (A) TABLA: 256=AB, 257=BA, 258=ABA, 259=ABAA OUT:A
 \end{verbatim}
-
-De esta forma podemos descomprimir todo el archivo.
 
 \subsubsection{Mecanismo de Clearing}
 
-Hemos visto que en LZW a medida que agregamos strings en el diccionario emitimos cada vez mas bits, llega un punto en el cual el nivel del compresor puede ser malo, esto se debe a que tiene en la tabla muchos strings que ya no vuelven a ocurrir en el archivo y por lo tanto está generando códigos mucho mas grandes de lo necesario. Cuando el compresor detecta que el nivel de compresión (bits x byte) no es bueno puede usar un símbolo especial para avisarle al descompresor que tiene que hacer una purga de la tabla. Para esto podemos, por ejemplo, dedicar los símbolos 256,257,etc empezando a guardar los strings a partir del 258 o mas adelante, todo depende de cuantos "comandos" querramos tener a nuestra disposición en el compresor. Algunos de estos comandos pueden ser por ejemplo:
+Se ha visto que en LZW a medida que se agregan strings en el diccionario se emiten cada vez mas bits. Llega un punto en el cual el nivel del compresor puede ser malo, esto se debe a que tiene en la tabla muchos strings que ya no vuelven a ocurrir en el archivo y por lo tanto está generando códigos mucho mas grandes de lo necesario. Cuando el compresor detecta que el nivel de compresión (bits x byte) no es bueno puede usar un símbolo especial para avisarle al descompresor que tiene que hacer una purga de la tabla. Para esto se puede, por ejemplo, dedicar los símbolos 256,257,etc empezando a guardar los strings a partir del 258 o mas adelante, todo depende de cuantos "comandos" querramos tener a nuestra disposición en el compresor. Algunos de estos comandos pueden ser por ejemplo:
 
 \begin{enumerate}
 	\item Eliminar todas las tablas, volver a 9 bits
@@ -5598,23 +5551,23 @@ El compresor solo necesita llevar las estadísticas necesarias y cuando cree con
 
 \subsubsection{Suboptimalidad de la codificación en LZW}
 
-Como hemos mencionado que comprimir es modelar y codificar debemos notar que en LZW la codificación no es óptima, esto es muy fácil de demostrar, al empezar con códigos de 9 bits podemos emitir 512 símbolos diferentes, de los cuales solo 256 son posibles, luego solo 257 son posibles y así sucesivamente, es decir que existen códigos que el compresor nunca puede emitir. Por ejemplo el segundo código emitido puede ser a lo sumo 256 pero nunca 257 o superior. El descompresor también sabe esto pero sin embargo no hay forma de solucionarlo, estos códigos imposibles hacen a la ineficiencia de LZW ya que no cualquier archivo es algo que se pueda descomprimir con LZW. 
+Como hemos mencionado que comprimir es modelar y codificar debemos notar que en LZW la codificación no es óptima, esto es muy fácil de demostrar puesto que al empezar con códigos de 9 bits podemos emitir 512 símbolos diferentes, de los cuales solo 256 son posibles, luego solo 257 son posibles y así sucesivamente, es decir que existen códigos que el compresor nunca puede emitir. Por ejemplo, el segundo código emitido puede ser a lo sumo 256 pero nunca 257 o superior. El descompresor también sabe esto pero sin embargo no hay forma de solucionarlo. Estos códigos imposibles hacen a la ineficiencia de LZW ya que no cualquier archivo es algo que se pueda descomprimir con LZW. 
 
-Una forma de solucionar esto es usando compresión aritmética, en donde al principio tenemos 256 elementos en la tabla, todos equiprobables y luego al agregar el primer string al diccionario pasamos a tener 257 símbolos y así sucesivamente,  la codificación aritmética como sabemos solo necesita $-log_2(1/257)=8.00562454$ bits que es mucho menos que los 9 bits que emitiríamos en la versión tradicional de LZW. 
+Una forma de solucionar esto es usando compresión aritmética, en donde al principio tenemos 256 elementos en la tabla, todos equiprobables y luego al agregar el primer string al diccionario pasamos a tener 257 símbolos y así sucesivamente. La codificación aritmética como sabemos solo necesita $-log_2(1/257)=8.00562454$ bits que es mucho menos que los 9 bits que emitiríamos en la versión tradicional de LZW. 
 
 \subsubsection{Complejidad LZ}
 
-Es posible usar LZ78 para estimar la complejidad de un string [Lempel-Ziv-C] desde el punto de vista de este compresor. La complejidad se define simplemente como la cantidad de patrones diferentes que ocurren en el string. Por ejemplo si tenemos el string $010101011$ empezamos con el primer bit $0$ y lo agregamos a la tabla. El segundo bit $1$ no está en la tabla por lo que lo agregamos. Luego leemos $0$ que ya fue visto así que leemos otro bit: $01$ no está en la tabla y lo agregamos. De esta forma continuamos y nos queda algo de tipo: $0|1|01|010|11|$ con lo cual estimaríamos que la complejidad LZ de este string es 5.
+Es posible usar LZ78 para estimar la complejidad de un string [Lempel-Ziv-C] desde el punto de vista de este compresor. La complejidad se define simplemente como la cantidad de patrones diferentes que ocurren en el string. Por ejemplo con el string $010101011$ se empieza con el primer bit $0$ y lo agregamos a la tabla. El segundo bit $1$ no está en la tabla por lo que se lo agrega. Luego se lee $0$ que ya fue visto así que se lee otro bit: $01$ no está en la tabla y lo se lo agrega. De esta forma nos quedaría algo del tipo: $0|1|01|010|11|$ con lo cual se estimaría que la complejidad LZ de este string es 5.
 
-Es evidente que en un string o archivo en donde hay muchos patrones repetidos vamos a tener una complejidad baja mientras que en un string o archivo completamente aleatorio eventualmente tendríamos una gran cantidad de patrones diferentes. 
+Es evidente que en un string o archivo en donde hay muchos patrones repetidos conllevará a tener una complejidad baja mientras que en un string o archivo completamente aleatorio eventualmente se tendría una gran cantidad de patrones diferentes. 
 
-Es posible usar esto para calcular la entropía de acuerdo a un compresor LZ simplemente calculando la probabilidad de cada patrón que es la cantidad de veces que el mismo ocurre en el archivo dividido la cantidad total de patrones encontrados. Veamos qué pasa con un archivo aleatorio:
+Es posible usar esto para calcular la entropía de acuerdo a un compresor LZ simplemente calculando la probabilidad de cada patrón que es la cantidad de veces que el mismo ocurre en el archivo dividido la cantidad total de patrones encontrados. 
 
-$0|1|01|10|11|00|001|100|010|011|101$ Como podemos ver la frecuencia de todos los patrones es 1 y la cantidad total de patrones depende de la longitud del archivo. Vamos a tener siempre 2 patrones de longitud 1, 4 patrones de longitud 2, 8 patrones de longitud 3 etc. Eventualmente podemos probar que para un archivo random la entropía de acuerdo a la complejidad LZ es igual a la entropía simplemente calculando la probabilidad de cada bit es decir igual a la longitud del archivo mismo. Dejamos esto como un sencillo ejercicio. 
+En un archivo aleatorio, se obtendría algo del estilo $0|1|01|10|11|00|001|100|010|011|101$. En este caso, la frecuencia de todos los patrones es 1 y la cantidad total de patrones depende de la longitud del archivo. Se tendrán siempre 2 patrones de longitud 1, 4 patrones de longitud 2, 8 patrones de longitud 3, etc. Eventualmente se puede probar que para un archivo random la entropía de acuerdo a la complejidad LZ es igual a la entropía simplemente calculando la probabilidad de cada bit es decir igual a la longitud del archivo mismo. 
 
 \subsection{Snappy}
 
-Snappy es una variante de LZ optimizada para comprimir y descomprimir con gran velocidad, esto se logra en sacrificio de la compresión. El algoritmo fue creado por Google para su producto BigTable y sigue siendo usado en muchos productos de la empresa para almacenar información comprimida sin perder la capacidad de recuperarla velozmente.
+Snappy es una variante de LZ optimizada para comprimir y descomprimir con gran velocidad y esto se logra en sacrificio de la compresión. El algoritmo fue creado por Google para su producto BigTable y sigue siendo usado en muchos productos de la empresa para almacenar información comprimida sin perder la capacidad de recuperarla velozmente.
 
 En Snappy el primer byte de cada bloque indica en sus primeros 2 bits el tipo de dato que sigue a continuación
 
@@ -5626,7 +5579,7 @@ En Snappy el primer byte de cada bloque indica en sus primeros 2 bits el tipo de
 
 \subsubsection{Literales}
 
-Cuando se indican literales (primeros dos bits =00) los siguientes 6 bits se usan para la longitud de los mismos. De la siguiente forma:
+Cuando se indican literales (primeros dos bits =00) los siguientes 6 bits se usan para la longitud de los mismos de la siguiente forma:
 
 \begin{verbatim}
 0 a 59 : Cantidad de literales  1 a 60
@@ -5665,13 +5618,13 @@ Para buscar matches Snappy usa una tabla de hash hasheando los 4 bytes que sigue
 
 \subsection{LZMA}
 
-LZMA es el algoritmo de la familia LZ que mejor nivel de compresión logra. Es el algoritmo usado por 7-zip y está a la altura de los mejores compresores del mercado lo cual nos lleva a pensar que el modelo de la familia LZ puede ser igual de óptimo que el modelo probabilístico de la familia PPM aunque sean cosas completamente diferentes. En definitiva es posible pensar que varios modelos diferentes nos lleven a tender a la complejidad de Kolmogorov del string.
+LZMA es el algoritmo de la familia LZ que mejor nivel de compresión logra. Es el algoritmo usado por 7-zip y está a la altura de los mejores compresores del mercado lo cual lleva a pensar que el modelo de la familia LZ puede ser igual de óptimo que el modelo probabilístico de la familia PPM aunque sean cosas completamente diferentes. En definitiva es posible pensar que varios modelos diferentes nos lleven a tender a la complejidad de Kolmogorov del string.
 
-LZMA es un formato complejo por lo que vamos a describir cuáles son sus principales características y "trucos" con respecto a otros LZs sin entrar en detalles sobre como se implementan.
+LZMA es un formato complejo por lo que se describirán cuáles son sus principales características y "trucos" con respecto a otros LZs sin entrar en detalles sobre como se implementan.
 
 \subsubsection{Tipos de Códigos}
 
-En cada paso LZMA puede generar 7 códigos diferentes, esto es mas que lo normal en LZSS en donde solo hay dos códigos posibles (literal o match), la siguiente tabla muestra cuáles son los códigos que puede emitir un compresor LZMA pero hay que tener en cuenta que los 1s y 0s en la tabla no son bits sino símbolos que luego hay que codificar y que pueden ocupar mas o menos de un bit cada uno. A efectos prácticos podríamos llamarlos "A" y "B" pero entre dos opciones confusas es confuso elegir cual es menos confusa. 
+En cada paso LZMA puede generar 7 códigos diferentes. Esto es mas que lo normal en LZSS en donde solo hay dos códigos posibles (literal o match). La tabla \ref{table:lzma_codes} muestra cuáles son los códigos que puede emitir un compresor LZMA pero hay que tener en cuenta que los 1s y 0s en la tabla no son bits sino símbolos que luego hay que codificar y que pueden ocupar mas o menos de un bit cada uno. 
 
 \begin{table}[!hbt]
 	\center{
@@ -5688,6 +5641,7 @@ En cada paso LZMA puede generar 7 códigos diferentes, esto es mas que lo normal
 	}
 	\vskip 0.25cm
 	\caption{Códigos de LZMA}
+	\label{table:lzma_codes}
 \end{table}
 
 \begin{itemize}
@@ -5697,7 +5651,7 @@ En cada paso LZMA puede generar 7 códigos diferentes, esto es mas que lo normal
 	\item LONGREP[i] es un match cuya longitud se indica y cuya distancia es igual a la i-ésima distancia anteriormente emitida, es decir la última para LONGREP[0], la ante-última para LONGREP1 y así sucesivamente.
 \end{itemize}
 
-De esta forma sabemos como modela LZMA a cualquier archivo. La figura ~\ref{fig:lzma} muestra el modelo de LZMA para el archivo book1, los literales aparecen en gris, los matches comunes estilo LZSS en verde. Las SHORTREP aparecen en azul. LONGREP0 en blanco y LONGREP1-3 en rojo.
+De esta forma se entiende como modela LZMA a cualquier archivo. La figura ~\ref{fig:lzma} muestra el modelo de LZMA para el archivo book1 donde los literales aparecen en gris, los matches comunes estilo LZSS en verde, las SHORTREP aparecen en azul, las LONGREP0 en blanco y LONGREP1-3 en rojo.
 
 \begin{figure}[!htb]
 	\centering
@@ -5709,7 +5663,7 @@ De esta forma sabemos como modela LZMA a cualquier archivo. La figura ~\ref{fig:
 
 \subsubsection{Codificación Aritmética}
 
-Conociendo el modelo solo queda codificarlo y LZMA usa compresión aritmética para codificar todos sus símbolos. Es decir que comenzamos con un modelo en el cual solo hay dos opciones: LITERAL u OTRACOSA, según lo que vayamos a codificar entonces elegimos el intervalo correspondiente. Por ejemplo si elegimos "OTRACOSA" entonces en el siguiente paso el próximo modelo distingue un MATCH de OTRACOSA. Y así sucesivamente de acuerdo a la tabla de códigos posibles que podemos emitir. Los literales se comprimen usando compresión aritmética adaptativa. Las longitudes se codifican de la siguiente forma (una vez mas 1 y 0 no son bits)
+Conociendo el modelo solo queda codificarlo y LZMA usa compresión aritmética para codificar todos sus símbolos. Es decir que comenzamos con un modelo en el cual solo hay dos opciones: LITERAL u OTRACOSA, según lo que vayamos a codificar entonces elegimos el intervalo correspondiente. Por ejemplo si se elige "OTRACOSA" entonces en el siguiente paso el próximo modelo distingue un MATCH de OTRACOSA y así sucesivamente de acuerdo a la tabla de códigos posibles que se pueden emitir. Los literales se comprimen usando compresión aritmética adaptativa. Las longitudes se codifican como se muestra en la tabla \ref{table:lzma_code_lengths}.
 
 \begin{table}[!hbt]
 	\center{
@@ -5722,17 +5676,16 @@ Conociendo el modelo solo queda codificarlo y LZMA usa compresión aritmética p
 	}
 	\vskip 0.25cm
 	\caption{Longitudes de LZMA}
+	\label{table:lzma_code_lengths}
 \end{table}
-
-La codificación de las distancias (offsets) se codifican con un esquema bastante particular que preferimos no describir en este apunte para no confundir.
 
 \subsubsection{Tamaño de la Ventana y Optimal Parsing}
 
-LZMA usa un buffer de 4Gb (!) y hashing para encontrar los matches, además usa optimal parsing analizando las diferentes opciones que tiene el compresor en cada paso y luego de "ver" algunos pasos hacia adelante selecciona la estrategia de compresión mas conveniente.
+LZMA usa un buffer de 4Gb y hashing para encontrar los matches, además usa optimal parsing analizando las diferentes opciones que tiene el compresor en cada paso y luego de "ver" algunos pasos hacia adelante selecciona la estrategia de compresión mas conveniente.
 
 \subsubsection{Uso de Exclusión}
 
-LZMA usa una forma de exclusión para los literales. Ya que sabe que el caracter que seguía a un match previamente emitido no puede ser el literal que viene a continuación pues hubiese formado parte del match. Por lo tanto puede eliminarlo de la tabla de literales posibles mejorando un poco el nivel de compresión.
+LZMA usa una forma de exclusión para los literales ya que sabe que el caracter que seguía a un match previamente emitido no puede ser el literal que viene a continuación pues hubiese formado parte del match. Por lo tanto puede eliminarlo de la tabla de literales posibles mejorando un poco el nivel de compresión.
 
 LZMA es el mas avanzado de los algoritmos de la familia LZ y logra niveles de compresión que están a la altura de los mejores compresores actuales y todo esto simplemente en base a un modelo de aprovechar secuencias repetidas del archivo para reemplazarlas por códigos. 
 
@@ -5740,21 +5693,26 @@ LZMA es el mas avanzado de los algoritmos de la familia LZ y logra niveles de co
 
 El algoritmo de Block Sorting es una de las historias mas sorprendentes del mundo de la compresión de datos, el modelo que usa Block Sorting para comprimir es extremadamente original y en cierta forma solo puede justificarse a partir de su éxito. 
 
-La compresión por Block Sorting comprende 3 etapas: En primer lugar se aplica la transformación de Burrows y Wheeler al archivo original, luego se aplica MTF y finalmente algún compresor estadístico.
-
-Para entender el funcionamiento de Block Sorting vamos a empezar primero con otro algoritmo relacionado llamado MTF.
+La compresión por Block Sorting comprende 3 etapas: 
+\begin{enumerate}
+\item Aplicar transformación de Burrows y Wheeler 
+\item Aplicar MTF
+\item Aplicar algún compresor estadístico
+\end{enumerate}
 
 \subsection{Archivos localizados y MTF}
 
-Vamos a decir que un archivo está \textbf{localizado} cuando en determinadas zonas del mismo hay preponderancia de un cierto conjunto de caracteres, por ejemplo algo de la forma:
+Un archivo está \textbf{localizado} cuando en determinadas zonas del mismo hay preponderancia de un cierto conjunto de caracteres, por ejemplo algo de la forma:
 
 \begin{verbatim}
 ADCBABDCCAFGFHJHGHHFJF
 \end{verbatim}
 
-Es un archivo fuertemente localizado ya que en la primera parte solo hay A,B,C y D y en la segunda parte F,G,H y J. Sin embargo veamos que esto no implica que haya secuencias repetidas, un archivo localizado es una generalización de las secuencias repetidas, en cierta forma cualquier archivo con secuencias repetidas está localizado pero no cualquier archivo localizado tiene secuencias repetidas.
+Es un archivo fuertemente localizado ya que en la primera parte solo hay A,B,C y D y en la segunda parte F,G,H y J. Sin embargo se nota que esto no implica que haya secuencias repetidas. Un archivo localizado es una generalización de las secuencias repetidas, en cierta forma cualquier archivo con secuencias repetidas está localizado pero no cualquier archivo localizado tiene secuencias repetidas.
 
-Cuando un archivo está localizado el algoritmo MTF (Move to Front) nos permite representarlo mediante un modelo que luego podemos codificar muy eficientemente. El algoritmo es muy simple: cuenta con un vector de 256 posiciones que comienza con los 256 caracteres posibles, por cada byte a procesar emitimos el índice del mismo en el vector y luego lo movemos al principio del mismo. Veamos un ejemplo en donde usamos el set de caracteres ABCD para no tener que usar los 256 bytes posibles:
+Cuando un archivo está localizado el algoritmo MTF (Move to Front) nos permite representarlo mediante un modelo que luego podemos codificar muy eficientemente. El algoritmo es muy simple: cuenta con un vector de 256 posiciones que comienza con los 256 caracteres posibles, por cada byte a procesar se emite el índice del mismo en el vector y luego se lo mueve al principio del mismo.
+
+Por ejemplo, suponiendo solo posible los caracteres ABCD:
 
 \begin{verbatim}
 ARCHIVO: ABBAAABACDDCCDC
@@ -5783,15 +5741,18 @@ ARCHIVO: ABBAAABACDDCCDC
 	}
 	\vskip 0.25cm
 	\caption{Ejemplo MTF}
+	\label{table:mtf_example}
 \end{table}
 
-Observemos que MTF cambia  la entropía del archivo, pasamos de H[5/15;3/15;4/15;3/15]=1.9656  a H[6/15;7/15;1/15;1/15]=1.5628 Siempre que el archivo esté localizado MTF va a disminuir su entropía. En el resultado de MTF predominan los caracteres bajos (0,1,etc) sobre los demás caracteres esto lo podemos aprovechar comprimiendo la salida de MTF usando Huffman o compresión aritmética. Como la entropía es menor sabemos que el nivel de compresión va a ser mejor.
+En la tabla \ref{table:mtf_example}, se observa que MTF cambia  la entropía del archivo puesto que se pasa de H[5/15;3/15;4/15;3/15]=1.9656  a H[6/15;7/15;1/15;1/15]=1.5628. Siempre que el archivo esté localizado MTF va a disminuir su entropía. En el resultado de MTF predominan los caracteres bajos (0,1,etc) sobre los demás caracteres y esto se lo puede aprovechar comprimiendo la salida de MTF usando Huffman o compresión aritmética. Como la entropía es menor sabemos que el nivel de compresión va a ser mejor.
 
-La descompresión de MTF es trivial ya que simplemente leemos números de 8 bits que tomamos como índices en el vector emitiendo lo que encontramos en el mismo y moviendo dicho caracter al principio del vector.
+La descompresión de MTF es trivial ya que simplemente se leen números de 8 bits que tomamos como índices en el vector emitiendo lo que se encuentra en el mismo y moviendo dicho caracter al principio del vector.
 
 \subsection{La Transformación de Burrows y Wheeler}
 
-La transformación de Burrows y Wheeler [Burrows-Wheeler] permite tomar un archivo común (no random) y convertirlo en un archivo localizado. Esta transformación funciona de la siguiente forma: En primer lugar dividimos el archivo en bloques de un cierto tamaño, por ejemplo 900Kb y construimos todas las rotaciones del bloque. Esto lo vamos a ilustrar con un ejemplo pero en la práctica no implica hacer nada salvo guardar un puntero a cada byte del bloque, si pensamos en el bloque como si fuera una cola circular entonces cada puntero representa una rotación del mismo.
+La transformación de Burrows y Wheeler [Burrows-Wheeler] permite tomar un archivo común (no random) y convertirlo en un archivo localizado. Esta transformación funciona de la siguiente forma: En primer lugar se divide el archivo en bloques de un cierto tamaño (por ejemplode  900Kb) y se construyen todas las rotaciones del bloque. 
+
+Esto se ilustra en el siguiente ejemplo pero en la práctica no implica hacer nada salvo guardar un puntero a cada byte del bloque. Si se piensa en el bloque como si fuera una cola circular entonces cada puntero representa una rotación del mismo.
 
 \begin{verbatim}
 0 PANQUEQUE
@@ -5805,7 +5766,7 @@ La transformación de Burrows y Wheeler [Burrows-Wheeler] permite tomar un archi
 8 EPANQUEQU
 \end{verbatim}
 
-A continuación hacemos un sort de los punteros, lo cual equivale a ordenar todas las rotaciones del bloque.
+Luego se ordenan las rotaciones del bloque de la siguiente forma:
 
 \begin{verbatim}
 0 ANQUEQUEP
@@ -5825,9 +5786,9 @@ El resultado de la transformación es la última columna de la matriz ordenada j
 PANQUEQUE => PUUAEENQQ + 4 
 \end{verbatim}
 
-Notemos como el archivo, aun en un caso tan pequeño ha quedado localizado. Todas las U juntas, las E, las Q. Esto se puede explicar si pensamos que la última columna representa el caracter anterior al que está en la primer columna. Cuando ordenamos las rotaciones al quedar todas las "U" juntas en la primer columna nos quedan todas las "Q" juntas en la última columna. Eventualmente mezcladas con otros caracteres que suelen encontrarse antes de "U" pero eso no quita a la definición de archivo localizado. En cierta forma la transformación de BW se basa en la intuición de que no todos los caracteres pueden aparecer antes que otro para construir un archivo en donde dichos caracteres quedan localizados dentro de una misma zona del archivo.
+Notar como el archivo, aun en un caso tan pequeño, ha quedado localizado. Todas las U juntas tanto así como las E y las Q. Esto se puede explicar si se interpreta que la última columna representa el caracter anterior al que está en la primer columna. Cuando se ordenan las rotaciones al quedar todas las U juntas en la primer columna entonces quedan todas las Q juntas en la última columna. En cierta forma la transformación de BW se basa en la intuición de que no todos los caracteres pueden aparecer antes que otro para construir un archivo en donde dichos caracteres quedan localizados dentro de una misma zona del archivo.
 
-Para revertir la transformación de Burrows y Wheeler lo que haremos es en primer lugar ordenar los caracteres:
+Para revertir la transformación de Burrows y Wheeler lo que se hace en primer lugar es ordenar los caracteres:
 
 \begin{verbatim}
 0 P                         
@@ -5841,7 +5802,7 @@ Para revertir la transformación de Burrows y Wheeler lo que haremos es en prime
 8 Q
 
 (sort)
-0A 3
+0 A 3
 1 E 4
 2 E 5
 3 N 6
@@ -5852,17 +5813,18 @@ Para revertir la transformación de Burrows y Wheeler lo que haremos es en prime
 8 U 2
 \end{verbatim}
 
-Una vez que llegamos a esto empezamos por el índice que es "4" y vemos una P que está asociada con un 0 que es "A" que está asociada con un 3 que es "N" y así sucesivamente hasta descomprimir "PANQUEQUE".
+Una vez que llegamos a esto se empieza por el índice que es 4 donde hay una P que está asociada con un 0 que es A que está asociada con un 3 que es N y así sucesivamente hasta descomprimir "PANQUEQUE".
 
-Una vez realizada la transformación de BW tenemos un archivo localizado por lo que podemos aplicarle MTF y finalmente codificar con Huffman o compresión aritmética. Este "stack" es capaz de comprimir con un excelente nivel de compresión y se basa en principios completamente diferentes a los que vimos en PPMC o LZMA. El compresor BZIP2 es una implementación directa del algoritmo de Block Sorting, MTF y Huffman para codificar. 
+Una vez realizada la transformación de BW notar que como el archivo está localizado entonces es posible aplicarle MTF y finalmente codificar con Huffman o compresión aritmética. Este "stack" es capaz de comprimir con un excelente nivel de compresión y se basa en principios completamente diferentes a los que vimos en PPMC o LZMA. El compresor BZIP2 es una implementación directa del algoritmo de Block Sorting, MTF y Huffman para codificar. 
 
 \section{Índices FM}
 
-En esta sección planteamos el problema de buscar strings dentro de un texto, esta tarea es diferente a la tarea de buscar palabras en textos ya que se plantea la posibilidad de buscar cualquier string, por ejemplo "zo en la" que podría matchear un texto que contiene "Marzo en la costa" o "Gatuzzo en la mira del Inter". En principio para resolver este tipo de consultas se necesita una estructura tipo "índice de sufijos", que explicamos a continuación:
+En esta sección se plantea el problema de buscar strings dentro de un texto, esta tarea es diferente a la tarea de buscar palabras en textos ya que se plantea la posibilidad de buscar cualquier string, por ejemplo "zo en la" que podría matchear un texto que contiene "Marzo en la costa".
+Para ello, se pueden utilizar estructuras como "índice de sufijos".
 
 \subsection{Índices de Sufijos}
 
-Un índice de sufijos es simplemente una estructura en donde todos los sufijos de un texto se han ordenado alfabeticamente. Por ejemplo para el string "banana\$" en donde usamos el símbolo \$ para indicar el fin del string los sufijos son:
+Un índice de sufijos es simplemente una estructura en donde todos los sufijos de un texto se han ordenado alfabeticamente. Por ejemplo, para el string "banana\$" en donde se usa el símbolo \$ para indicar el fin del string los sufijos son:
 
 \begin{verbatim}
 banana\$
@@ -5874,7 +5836,7 @@ a\$
 \$
 \end{verbatim}
 
-Ordenando:
+En la tabla \ref{table:indices_ordenados} se muestra como quedan los sufijos ordenados. 
 
 \begin{table}[!hbt]
 	\center{
@@ -5891,9 +5853,10 @@ Ordenando:
 	}
 	\vskip 0.25cm
 	\caption{Sufijos de "banana\$"}
+	\label{table:indices_ordenados}
 \end{table}
 
-Podemos observar que la búsqueda de cualquier string en el texto puede resolverse realizando una búsqueda binaria sobre la tabla de sufijos. El problema es que la estructura necesaria para mantener esta tabla es extremadamente costosa, en el orden de $O(n^2)$ siendo n la longitud del texto que puede ser muy grande, por ejemplo Wikipedia.
+Se puede observar que la búsqueda de cualquier string en el texto puede resolverse realizando una búsqueda binaria sobre la tabla de sufijos. El problema es que la estructura necesaria para mantener esta tabla es extremadamente costosa, en el orden de $O(n^2)$ siendo n la longitud del texto que puede ser muy grande, por ejemplo con Wikipedia.
 
 Los índices FM son una forma de representar todos los sufijos de un string de forma compacta de forma tal de soportar consultas \textit{"full-text"}.
 
@@ -5922,11 +5885,11 @@ Los subíndices indican el número de ocurrencia de cada caracter en el texto de
 
 \textit{La columna "L" indica el caracter anterior al de la columna "F" en el texto original.}
 
-Observemos que el texto original puede deducirse a partir de las columnas "F" y "L" partiendo de la posición del símbolo \$ en la columna "F", sabemos que el caracter anterior es $a_0$ y el anterior a $a_0$ es $n_0$ y el anterior a $n_0$ es $a_1$ y el anterior a $a_1$ es $n_1$ y el anterior a $n_1$ es $a_2$ y el anterior a $a_2$ es $b_0$ y el anterior a $b_0$ es \$ por lo que de atrás hacia adelante reconstruimos "banana\$"
+Observar que el texto original puede deducirse a partir de las columnas "F" y "L" partiendo de la posición del símbolo \$ en la columna "F", sabemos que el caracter anterior es $a_0$ y el anterior a $a_0$ es $n_0$ y el anterior a $n_0$ es $a_1$ y el anterior a $a_1$ es $n_1$ y el anterior a $n_1$ es $a_2$ y el anterior a $a_2$ es $b_0$ y el anterior a $b_0$ es \$ por lo que de atrás hacia adelante se puede reconstruir "banana\$"
 
-El Mapeo LF sirve también para buscar cualquier substring en el texto. Por ejemplo consideremos que buscamos "ban", podemos buscar "ban" realizando una búsqueda binaria de atrás hacia adelante sobre F que está ordenado. Es decir que comenzamos buscando "n" en F, el caracter anterior a n lo encontramos en L, observamos que para $n_0$ y $n_1$ tenemos $a_1$ y $a_2$ por lo que hay 2 substrings que terminan en "an", ahora tenemos que ir a F y buscar $a_1$ y $a_2$ y observar la columna L, vemos que para $a_2$ tenemos $b_0$ en L por lo que hemos encontrado "ban", para $a_1$ encontramos "n" pero "nan" no nos interesa.
+El Mapeo LF sirve también para buscar cualquier substring en el texto. Por ejemplo, si se busca "ban", se puede realizar una búsqueda binaria de atrás hacia adelante sobre F que está ordenado. Es decir que se comienza buscando "n" en F, el caracter anterior a n se encuentra en L. Observar que para $n_0$ y $n_1$ tenemos $a_1$ y $a_2$ por lo que hay 2 substrings que terminan en "an", ahora hay que ir a F y buscar $a_1$ y $a_2$ y observar la columna L. Vemos que para $a_2$ tenemos $b_0$ en L por lo que se ha encontrado "ban". Para $a_1$ encontramos "n" pero "nan" no nos interesa.
 
-Lo único que nos restaría es agregar al índice LF una columna que indique la posición del caracter en el string original. 
+Lo único que restaría es agregar al índice LF una columna que indique la posición del caracter en el string original tal como se muestra en la tabla \ref{table:cod_prefijo_posicion}
 
 \begin{table}[!hbt]
 	\center{
@@ -5943,11 +5906,12 @@ Lo único que nos restaría es agregar al índice LF una columna que indique la 
 	}
 	\vskip 0.25cm
 	\caption{LF Mapping para "banana\$"}
+	\label{table:cod_prefijo_posicion}
 \end{table}
 
-Notar que la posición coincide con el número de posición de lo que era el índice de sufijos. \textit{Es decir que luego de aplicar Block Sorting las columnas F y L son una representación compacta del árbol de sufijos del texto (!!)}
+Notar que la posición coincide con el número de posición de lo que era el índice de sufijos. \textit{Es decir que luego de aplicar Block Sorting las columnas F y L son una representación compacta del árbol de sufijos del texto}
 
-Cuando resolvemos "ban" observamos que ocurre en la posición 0 del texto original. La columna POS se obtiene automaticamente ya que surge del proceso de ordenar los offsets de $0$ a $n-1$ de acuerdo al orden de las rotaciones. 
+Cuando se resuelve "ban" se observa que ocurre en la posición 0 del texto original. La columna POS se obtiene automaticamente ya que surge del proceso de ordenar los offsets de $0$ a $n-1$ de acuerdo al orden de las rotaciones. 
 
 \section{Comprimiendo el Índice FM}
 
@@ -5959,7 +5923,7 @@ Hasta el momento el índice FM tiene los siguientes problemas:
 	\item Almacenar el rango de cada caracter es costoso
 \end{enumerate}
 
-Estos problemas se pueden solucionar de varias formas. Para el rango de cada caracter podemos pensar en una matriz que tenga tantas filas como longitud tiene el string y tantas columnas como caracteres diferentes tiene el texto. Esto nos permite eliminar el subíndice (rango) de la columna L, el subíndice de la columna F tampoco es necesario ya que los caracteres están ordenados, por lo tanto su posición indica el rango mismo.
+Estos problemas se pueden solucionar de varias formas. Para el rango de cada caracter podemos pensar en una matriz que tenga tantas filas como longitud tiene el string y tantas columnas como caracteres diferentes tiene el texto. Esto permite eliminar el subíndice (rango) de la columna L y el subíndice de la columna F tampoco es necesario ya que los caracteres están ordenados por lo tanto su posición indica el rango mismo.
 
 
 \begin{table}[!hbt]
@@ -5979,7 +5943,7 @@ Estos problemas se pueden solucionar de varias formas. Para el rango de cada car
 	\caption{Rangos acumulados}
 \end{table}
 
-En cada columna almacenamos el número de caracteres que ocurrieron hasta la posición en la que estamos. Observemos ahora que el 'indice' del caracter en la columna L puede obtenerse en $O(1)$ simplemente restando 1 al número que aparece en la columna correspondiente. Volvamos al ejemplo en el cual buscamos "ban", empezamos haciendo una búsqueda binaria de "n" en la columna F, y vemos que en L hay dos "a", en la columna que corresponde a la "a" vemos que se trata de la segunda y tercera ocurrencia de "a", por lo tanto tenemos que ir luego a F y buscar la segunda y tercera "a" es decir $a_1$ y $a_2$.
+En cada columna se almacena el número de caracteres que ocurrieron hasta la posición en la que estamos. Observar ahora que el 'índice' del caracter en la columna L puede obtenerse en $O(1)$ simplemente restando 1 al número que aparece en la columna correspondiente. Volviendo al ejemplo en el cual buscamos "ban", se empieza haciendo una búsqueda binaria de "n" en la columna F, y se puede ver que en L hay dos "a", en la columna que corresponde a la "a" se puede notar que se trata de la segunda y tercera ocurrencia de "a" por lo tanto hay que ir luego a F y buscar la segunda y tercera "a" es decir $a_1$ y $a_2$.
 
 La matriz de rangos acumulados es costosa, la solución pasa por no almacenarla de forma completa sino cada "n" filas.
 
@@ -6000,9 +5964,9 @@ La matriz de rangos acumulados es costosa, la solución pasa por no almacenarla 
 	\caption{Rangos acumulados}
 \end{table}
 
-Si caemos en una fila para la cual no tenemos rangos acumulados tenemos que ir a la fila que tiene los rangos mas cercana (hacia arriba o abajo), observar el rango del caracter y simplemente contar cuántas veces aparece dicho caracter en L en el camino hacia la fila actual. Por ejemplo en la fila de $n_0$ observamos una "a" en la columna L, no sabemos el rango de esta "a", pero en la fila siguiente "a""tiene rango 3 y en L hay una "a" por lo tanto el rango debe ser 2. Es decir que se trata de $a_1$.
+Si se cae en una fila para la cual no hay rangos acumulados entonces es necesario ir a la fila que tiene los rangos mas cercana (hacia arriba o abajo), observar el rango del caracter y simplemente contar cuántas veces aparece dicho caracter en L en el camino hacia la fila actual. Por ejemplo, en la fila de $n_0$ hay una "a" en la columna L, no se sabe el rango de esta "a", pero en la fila siguiente "a" tiene rango 3 y en L hay una "a" por lo tanto el rango debe ser 2. Es decir que se trata de $a_1$.
 
-Finalmente podemos reducir también la cantidad de posiciones a almacenar guardando solamente algunas de estas posiciones:
+Finalmente se puede reducir también la cantidad de posiciones a almacenar guardando solamente algunas de estas posiciones:
 
 \begin{table}[!hbt]
 	\center{
@@ -6021,11 +5985,11 @@ Finalmente podemos reducir también la cantidad de posiciones a almacenar guarda
 	\caption{Rangos acumulados}
 \end{table}
 
-Si caemos, por ejemplo en la fila 1 (la primer "a") observamos que no tenemos posición. Sin embargo vemos que el caracter anterior a dicha "a" que es el que aparece en la columna "L" es $n_0$ para $n_0$ tampoco tenemos posición pero el anterior es $a_1$ para el cual la posición es 3 por lo tanto la posición de nuestra "a" es 3+2=5. 
+Si se cae por ejemplo en la fila 1 (la primer "a") se observa que no tenemos posición. Sin embargo, se puede notar que el caracter anterior a dicha "a" que es el que aparece en la columna "L" es $n_0$ y para $n_0$ tampoco hay posición pero el anterior es $a_1$ para el cual la posición es 3 por lo tanto la posición de nuestra "a" es 3+2=5. 
 
 \section{Estructura Final del Índice FM}
 
-Nuestro índice tiene finalmente los siguientes componentes:
+El índice tiene finalmente los siguientes componentes:
 
 \begin{enumerate}
 	\item El vector F, que contiene los caracteres del texto ordenados, por lo tanto solo hace falta un número por cada caracter indicando la cantidad de veces que aparece, en nuestro caso \$=1, a=3, b=1, n=2. Es sencillo ver que con dicha información se tiene el vector F en su totalidad. F se puede almacenar de forma muy compacta.
@@ -6034,15 +5998,15 @@ Nuestro índice tiene finalmente los siguientes componentes:
 	\item La matriz de rangos que tiene tantas columnas como caracteres diferentes el texto y 1 fila cada $\beta$ caracteres en el texto original.
 \end{enumerate}
 
-Estas estructuras permiten resolver una búsqueda de cualquier substring en el texto original de forma eficiente por lo que son ideales para almacenar grandes volumenes de información en memoria soportanto la búsqueda de cualquier substring. En aplicaciones genéticas estas estructuras son cruciales ya que la búsqueda de substrings arbitrarios es una tarea sumamente frecuente.
+Estas estructuras permiten resolver una búsqueda de cualquier substring en el texto original de forma eficiente por lo que son ideales para almacenar grandes volúmenes de información en memoria soportando la búsqueda de cualquier substring. En aplicaciones genéticas estas estructuras son cruciales ya que la búsqueda de substrings arbitrarios es una tarea sumamente frecuente.
 
 \section{PAQ}
 
-PAQ es el algoritmo de compresión que mejor nivel de compresión alcanza para archivos en general, es decir en promedio para cualquier archivo (no random). Podemos pensar que PAQ es entonces el algoritmo cuyo modelo mejor logra "entender" a un archivo y queremos saber cuál es dicho modelo. La respuesta la pueden imaginar: el modelo de PAQ es el ensamble de varios modelos diferentes.
+PAQ es el algoritmo de compresión que mejor nivel de compresión alcanza para archivos en general, es decir en promedio para cualquier archivo (no random). Se puede pensar que PAQ es entonces el algoritmo cuyo modelo mejor logra "entender" a un archivo y se quiere saber cuál es dicho modelo. La respuesta la pueden imaginar: el modelo de PAQ es el ensamble de varios modelos diferentes.
 
 PAQ es un compresor aritmético que funciona bit a bit, es decir que por cada bit a comprimir del archivo PAQ estima la probabilidad de que dicho bit sea 1 o 0 y subdivide el intervalo actual de acuerdo a dichas probabilidades quedándose con el intervalo que le corresponde al bit leído del archivo. Cuanto mejor sea capaz PAQ de estimar las probabilidades menos bits va a necesitar para representar la precisión necesaria para el siguiente intervalo y por lo tanto el archivo comprimido va a ser mas pequeño.
 
-Para llegar a la probabilidad del 1 y el 0 PAQ va a combinar la predicción de varios modelos. Mas adelante veremos cuáles son estos modelos supongamos ahora que tenemos "n" modelos y que cada uno de ellos calcula la probabilidad de que el próximo bit sea un 1. Lo que PAQ necesita es encontrar pesos de forma tal que la probabilidad final de que el bit sea 1 surja del promedio ponderado de las probabilidades de todos los modelos utilizados. Estos pesos en PAQ surgen de una red neuronal. El funcionamiento es en realidad muy simple, todos los bits anteriores y las predicciones de los modelos sirven como set de entrenamiento.
+Para llegar a la probabilidad del 1 y el 0 PAQ va a combinar la predicción de varios modelos que se detallarán luego. Suponiendo que tenemos "n" modelos y que cada uno de ellos calcula la probabilidad de que el próximo bit sea un 1, lo que PAQ necesita es encontrar pesos de forma tal que la probabilidad final de que el bit sea 1 surja del promedio ponderado de las probabilidades de todos los modelos utilizados. Estos pesos en PAQ surgen de una red neuronal. El funcionamiento es en realidad muy simple, todos los bits anteriores y las predicciones de los modelos sirven como set de entrenamiento.
 
 \begin{table}[!hbt]
 	\center{
@@ -6058,28 +6022,37 @@ Para llegar a la probabilidad del 1 y el 0 PAQ va a combinar la predicción de v
 	\caption{Ejemplo PAQ}
 \end{table}
 
-La figura 3.23 nos muestra un ejemplo del set de entrenamiento que PAQ se auto-construye al ir comprimiendo el archivo. En base a las predicciones realizadas por los modelos y el bit observado realmente en el archivo (OBS) PAQ puede entrenar una red neuronal de forma tal que dadas las probabilidades de los modelos calcule la probabilidad de que el bit sea 1 de forma tal de ajustar de la mejor forma posible al set de entrenamiento es decir a lo que observamos realmente en el archivo. Esta forma de mezclar modelos se llama "context mixing" y es la clave de un algoritmo de compresión exitoso ya que en diferentes circunstancias uno u otro modelo puede funcionar mejor, a medida que PAQ va comprimiendo puede aprender cuáles son los modelos que mejor ajustan al archivo y darles el peso que corresponde para predecir mejor. Estos pesos van cambiando dinamicamente es decir que a medida que avanzamos en el archivo podemos ir descubriendo que un modelo empieza a ser mejor que otro, esto se logra automáticamente al ir ajustando la red neuronal con nuevas observaciones. 
+La figura 3.23 muestra un ejemplo del set de entrenamiento que PAQ se auto-construye al ir comprimiendo el archivo. En base a las predicciones realizadas por los modelos y el bit observado realmente en el archivo (OBS) PAQ puede entrenar una red neuronal de forma tal que dadas las probabilidades de los modelos calcule la probabilidad de que el bit sea 1 de forma tal de ajustar de la mejor forma posible al set de entrenamiento es decir a lo que se observa realmente en el archivo. Esta forma de mezclar modelos se llama "context mixing" y es la clave de un algoritmo de compresión exitoso ya que en diferentes circunstancias uno u otro modelo puede funcionar mejor y a medida que PAQ va comprimiendo puede aprender cuáles son los modelos que mejor ajustan al archivo y darles el peso que corresponde para predecir mejor. Estos pesos van cambiando dinámicamente con lo cual al avanzar sobre el archivo se puede notar que un modelo empieza a ser mejor que otro. Esto se logra automáticamente al ir ajustando la red neuronal con nuevas observaciones. 
 
 \subsection{Modelos de PAQ}
 
-PAQ utiliza una combinación de modelos, no queremos entrar en grandes detalles sobre el funcionamiento de cada uno de estos modelos pero a grandes rasgos los modelos mas usados son los siguientes:
+PAQ utiliza una combinación de modelos que van variando en las distintas versiones de este algoritmo. Los modelos más utilizados son los siguientes:
 
 \begin{enumerate}
-	\item Un modelo basado en los "n" (hasta 8) caracteres anteriores y los "m" bits (hasta 7) anteriores al bit actual. Este es un modelo idéntico al que usaría PPMC, en base al contexto calculamos la probabilidad de un bit 0 o 1, no hace falta usar escapes porque solo puede haber dos símbolos en cada contexto (0 o 1) lo cual hace que podamos tener todo en memoria y que no sea tan lento aprender ya que empezamos de 1/2 1/2 para cada bit. Notemos que procesar bit a bit soluciona el problema de frecuencia cero automáticamente!. 
-	\item Un modelo basado en repeticiones de strings. PAQ busca en un buffer de 4Mb contextos mayores a 8 bytes que matcheen el contexto actual, cuando estos contextos existen PAQ toma nota de cuál es el bit siguiente en cada caso y en base a eso calcula la probabilidad de que el próximo bit sea 1 o 0.
+	\item Un modelo basado en los "n" (hasta 8) caracteres anteriores y los "m" bits (hasta 7) anteriores al bit actual. Este es un modelo idéntico al que usaría PPMC, en base al contexto calculamos la probabilidad de un bit 0 o 1, no hace falta usar escapes porque solo puede haber dos símbolos en cada contexto (0 o 1) lo cual hace que se pueda tener todo en memoria y que no sea tan lento aprender ya que se empieza con probabilidad 1/2 para cada bit (notar que procesar bit a bit soluciona el problema de frecuencia cero automáticamente). 
+	\item Un modelo basado en repeticiones de strings. PAQ busca en un buffer de 4Mb contextos mayores a 8 bytes que matcheen el contexto actual y, cuando estos contextos existen, PAQ toma nota de cuál es el bit siguiente en cada caso y en base a eso calcula la probabilidad de que el próximo bit sea 1 o 0.
 	\item Un modelo basado en palabras completas. Aquí PAQ toma como contexto una o dos palabras y "m" bits para predecir la probabilidad de que el próximo bit sea un 1 o 0, usando puntuación y/o espacios en blanco para separar palabras.
 	\item Un modelo que predice estructuras repetitivas como por ejemplo tablas.
 \end{enumerate}
 
 \subsection{SSE}
 
-Una vez que ha calculado la probabilidad de que el próximo bit sea 1 o 0 PAQ usa SSE (secondary symbol estimation) para refinar su predicción, lo que hacemos aquí es tomar "n" bits y la probabilidad discretizada en 64 intervalos como contexto y en base a eso verificar la probabilidad del 1 y el 0 ajustando mediante una fórmula variable la probabilidad conjunta de los modelos y esta estimación. Es decir que por un lado PAQ tiene una estimación por cada modelo, todas esas estimaciones y los bits realmente observados se usan para entrenar una red neuronal que calcula la probabilidad de que el próximo bit sea un 1. Con esta probabilidad y el contexto PAQ se fija cuantas veces ha aparecido realmente un 0 y cuantas veces un 1. Por ejemplo sea P=0.33 si los bits anteriores son 01000 y la probabilidad está entre 0.2 y 0.4 el bit próximo fue un 0 9 de 10 veces entonces en lugar de predecir P=0.33 podemos ajustar P a un número mas bajo ya que estamos mas seguros de que el próximo bit va a ser un cero. 
+Una vez que ha calculado la probabilidad de que el próximo bit sea 1 o 0 PAQ usa SSE (secondary symbol estimation) para refinar su predicción. Lo que se hace aquí es tomar "n" bits y la probabilidad discretizada en 64 intervalos como contexto y en base a eso verificar la probabilidad del 1 y el 0 ajustando mediante una fórmula variable la probabilidad conjunta de los modelos y esta estimación. Es decir que por un lado PAQ tiene una estimación por cada modelo, todas esas estimaciones y los bits realmente observados se usan para entrenar una red neuronal que calcula la probabilidad de que el próximo bit sea un 1. Con esta probabilidad y el contexto PAQ se fija cuantas veces ha aparecido realmente un 0 y cuantas veces un 1. Por ejemplo sea P=0.33, si los bits anteriores son 01000 y la probabilidad está entre 0.2 y 0.4 el bit próximo fue un cero 9 de 10 veces entonces en lugar de predecir P=0.33 podemos ajustar P a un número mas bajo ya que estamos mas seguros de que el próximo bit va a ser un cero. 
 
-Mediante la combinación de varios modelos usando una red neuronal y SSE PAQ es capaz de construir un modelo que se adapta muy elásticamente al contenido del archivo, dándole peso a un modelo u otro según el contenido del mismo de forma dinámica lo cual le permite comprimir realmente muy bien. Hasta el próximo avance en compresión de datos PAQ representa la forma mas avanzada que tenemos de estimar la complejidad de Kolmogorov de un archivo y es el compresor a ideal a usar para calcular la distancia normalizada de compresión cuando querramos estimar la distancia existente entre dos archivos. Esto tiene muchas aplicaciones.
+Mediante la combinación de varios modelos usando una red neuronal y SSE PAQ es capaz de construir un modelo que se adapta muy fácilmente al contenido del archivo, dándole peso a un modelo u otro según el contenido del mismo de forma dinámica lo cual le permite comprimir realmente muy bien. Hasta el próximo avance en compresión de datos PAQ representa la forma mas avanzada que tenemos de estimar la complejidad de Kolmogorov de un archivo y es el compresor a ideal a usar para calcular la distancia normalizada de compresión cuando querramos estimar la distancia existente entre dos archivos. 
+
+\subsection{Compresión de datos en modelos generativos}
+Uno de los problemas más interesantes de la inteligencia artificial es lograr que un algoritmo genere resultados similares a diferentes procesos creativos del ser humano como la escritura de textos, música o la creación de imágenes.
+Para lograr esto, un programa debe ser capaz de sintetizar el modelo mediante el cual los seres humanos desarrollan estas actividades. En otras palabras es necesario para el programa “entender” de qué forma se escribe un texto, de qué forma se compone música. Hoy en día los algoritmos que mejor se aproximan a este tipo de tareas están basados en Redes Neuronales Recurrentes.
+Por otro lado, los compresores de datos son programas capaces de representar una secuencia con distintos fines. El fin más conocido de un compresor de datos, como se ha visto anteriormente, es el de reducir el tamaño de la secuencia. Para poder comprimir bien un compresor de datos debe ser capaz de entender el conjunto de datos a comprimir de forma de poder encontrar la representación mínima posible. De esta forma es posible interpretar que un compresor de datos debería ser capaz de generar muy bien los datos que ha aprendido a comprimir.
+Si comprimir es entender entonces el mejor compresor para un cierto conjunto de datos debería ser capaz de construir el mejor modelo generativo para los mismos. Se desarrollarán en las siguientes secciones algunos ejemplos de modelos generativos mediante el uso de algoritmos como PPMC o PAQ en la 
+
 
 \subsection{Modelos Generativos Basados en PPMC}
 
-Introducimos aquí el fascinante mundo de los modelos generativos. La idea es "aprender" un modelo para un determinado archivo o conjunto de archivos y luego a partir de dicho modelo generar contenido al azar. Por ejemplo podemos comprimir todas las obras de Shakespeare usando PPMC de orden 6. Una vez que hicimos esto tenemos un modelo que representa las obras de Shakespeare y podemos usarlo para generar contenido de forma aleatoria. La forma de hacer esto es muy simple: comenzamos con el modelo de orden 0 y en base a las probabilidades del mismo generamos un caracter al azar. Luego con dicho caracter como contexto vamos al modelo de orden 1 y generamos otro caracter al azar en base a las probabilidades de dicho modelo. Así seguimos generando carateres de forma aleatoria y el resultado es el siguiente:\\
+PPMC es uno de los algoritmos de compresión que se puede utilizar para generar texto en base a lo que puede aprender a la hora de comprimir. Por ejemplo, se pueden comprimir todas las obras de Shakespeare usando PPMC de orden 6. Una vez que se realiza esto se obtiene un modelo que representa las obras de Shakespeare y puede ser utilizado para generar contenido de forma aleatoria. 
+
+La forma de hacer esto es muy simple: comenzando con el modelo de orden 0 y en base a las probabilidades del mismo se genera un caracter al azar. Luego, con dicho caracter como contexto, se ingresa al modelo de orden 1 y se genera otro caracter al azar en base a las probabilidades de dicho modelo. Así se siguen generando carateres de forma aleatoria y un resultado a modo ejemplo es el siguiente:\\
 \\
 
 \fbox{\begin{minipage}{35em}
@@ -6109,12 +6082,84 @@ Introducimos aquí el fascinante mundo de los modelos generativos. La idea es "a
     Than as you\\
 \end{minipage}}\\ \\
 
-Como podemos ver el algoritmo ha aprendido a escribir algo muy parecido a una obra de Shakespeare pero completamente al azar, notar que incluso aprende a introducir los personajes. El algoritmo tiene algunas limitaciones, por ejemplo no cambia las probabilidades según la cantidad de caracteres que tiene una línea de texto, cuanto mas larga la línea mas probable debería ser que aparezca un punto y un salto de línea. Tampoco sabe que si está en una aposición la coma tiene mayor probabilidad hasta ser generada para cerrar la misma. En definitiva las limitaciones del algoritmo están dadas por su corta memoria, no recuerda lo que ha hecho anteriormente sino que tiene en cuenta únicamente los 6 caracteres anteriores y ese es todo su mundo. Con estas limitaciones el algoritmo es capaz de generar un texto bastante legible lo cual habla muy bien la capacidad de PPMC para modelar archivos. Es lógico suponer que cuanto mejor entiende el algoritmo el archivo que está procesando mejor va a poder generar contenido similar al mismo, esto confirma nuestra idea de que comprimir es en definitiva "entender".
+Como se puede ver el algoritmo ha aprendido a escribir algo muy parecido a una obra de Shakespeare pero completamente al azar, notar que incluso aprende a introducir los personajes. El algoritmo tiene algunas limitaciones, por ejemplo no cambia las probabilidades según la cantidad de caracteres que tiene una línea de texto, cuanto mas larga la línea mas probable debería ser que aparezca un punto y un salto de línea. Tampoco sabe que si está en una posición la coma tiene mayor probabilidad hasta ser generada para cerrar la misma. En definitiva las limitaciones del algoritmo están dadas por su corta memoria, no recuerda lo que ha hecho anteriormente sino que tiene en cuenta únicamente los 6 caracteres anteriores y ese es todo su mundo. Con estas limitaciones el algoritmo es capaz de generar un texto bastante legible lo cual habla muy bien la capacidad de PPMC para modelar archivos. Es lógico suponer que cuanto mejor entiende el algoritmo el archivo que está procesando mejor va a poder generar contenido similar al mismo, esto confirma nuestra idea de que comprimir es en definitiva "entender".
 
-\subsection{PPMC conclusiones}
+\subsection{Modelos Generativos Basados en PAQ}
+La forma en que se puede generar texto utilizando un compresor de la serie PAQ es aún más sencilla que utilizando un PPMC.
+En la codificación aritmética hay un conjunto de símbolos que tienen asignadas una probabilidad de ocurrencia. Dicha probabilidad se encuentra en el intervalo [0,1) y cuando se trata de codificación binaria sólo hay dos símbolos posibles: 0 y 1, motivo por el cual la probabilidad se distribuye entre ambos símbolos.
 
-PPMC es un compresor aritmético dinámico de orden superior que maneja varios ordenes diferentes al mismo tiempo para resolver el problema de frecuencia cero.
-PPMC es uno de los algoritmos de compresión mas importantes, alcanza un nivel de compresión muy competitivo. Algoritmos basados en PPMC son los que mejor nivel de compresión alcanzan para algunos tipos de archivos, por ejemplo textos de gran longitud. 
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=3in]{figures/paq_coding.png}
+	\caption{Ejemplo de intervalo}
+	\label{fig:paq_coding}
+\end{figure}
+
+En algun momento $t$, PAQ puede asignar probabilidades al 0 y 1 como se muestra en la figura \ref{fig:paq_coding}. Para poder generar contenido al azar, alcanza con generar un número random en dicho intervalo y emitir el símbolo en cuestión. Según el ejemplo de la imagen, se emite el símbolo 1. Dicho símbolo luego se debe comprimir para obtener las nuevas probabilidades. Es importante mencionar aquí que, cuando se genera texto, los bits que se van emitiendo se van comprimiendo pero bajo ninguna circunstancia el compresor PAQ debe aprender de estos nuevos símbolos. Simplemente debe comprimirlos para actualizar sus modelos y hacer las predicciones con esos modelos que ya estaban entrenados anteriormente.
+
+Se muestran a continuación algunos ejemplos de texto generado al azar usando el Kernel de Linux y un libro de Harry Potter.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=5in]{figures/paq_kernel.png}
+	\caption{Ejemplo de Kernel de Linux}
+\end{figure}
+
+\fbox{\begin{minipage}{35em}
+CHAPTER THIRTY-SEVEN - THE GOBLET OF LORD VOLDEMORT OF THE FIREBOLT MARE!"
+
+Harry looked around.  Harry knew exactly who lopsided, looking out parents. They had happened on satin' keep his tables."
+
+Dumbledore stopped their way down in days and after her winged around him.
+
+He was like working, his eyes.  He doing you were draped in fear of them to study of your families to kill, that the beetle, he time.  Karkaroff looked like this.  It was less frightening you.
+
+"Sight what's Fred cauldron bottle to wish you reckon?  Binding him to with his head was handle."
+
+Once and ask Harry where commands and this thought you were rolling one stationed to do.  The stone.  Harry said, battered.
+\end{minipage}}\\ \\
+
+\subsection{Análisis de sentimientos basados en algoritmos de compresión}
+El análisis de sentimientos es el proceso mediante el cual determinamos el tono emocional o los sentimientos de una persona a través de textos escritos por las mismas. La particularidad de analizar textos es que se pierde demasiada información acerca del estado de ánimo de la persona que lo escribió puesto que sería más fácil determinarlo a través de observar sus gestos y sus palabras habladas. Sin embargo, esto no es un impedimento para poder llevar a cabo un análisis efectivo. 
+
+Particularmente, el análisis de sentimientos puede ser llevado a cabo para analizar reviews de películas y automáticamente determinar si son reviews positivos o negativos.
+
+Se había mencionado anteriormente que la complejidad de Kolmogorov $K(X)$ permitía definir una distancia entre archivos que desafortunadamente es incomputable. También se mencionó que entonces dicha distancia podría ser estimada utilizando $NCD$ (Normalized Compression Distance) bajo ciertos requisitos.
+PAQ es uno de los algoritmos que puede ser utilizado para calcular dicha distancia. Particularmente, esta distancia puede ser utilizada para el análisis de sentimientos.
+Utilizando estos conceptos, resulta que realizar análisis de sentimientos sobre reviews se vuelve una tarea muy sencilla siendo que un review $R$ se predice positivo si cumple que:
+
+\begin{equation}
+C(P_1, P_2...P_n,R)-C(P_1,P_2...P_n) < C(N_1,N_2...N_m,R)-C(N_1,N_2...N_m)
+\end{equation}
+
+Siendo que:
+\begin{itemize}
+\item $C(X)$ el algoritmo de compresión utilizado que comprime X generando un archivo de tamaño $y=C(X)$ bytes.
+\item $N_i$, i=0..m: Review u opinión negativa i
+\item $P_i$,i=0..n: Review u opinión positiva i
+\end{itemize}
+
+
+Los resultados que pueden lograrse mediante el uso de PAQ en un set de datos pueden alcanzar valores cercanos al 80\% y son valores bastante aceptables teniendo en cuenta la simplicidad del método.
+
+Se muestra a continuación un ejemplo de cómo funciona.
+
+Sea el siguiente review:
+
+\begin{displayquote}
+	\textit{My favorite movie. What a great story this really was. I'd just like to be able to buy a copy of it but this does not seem possible.}
+\end{displayquote}
+
+Dicho review tiene un tamaño de 132 bytes. Luego de aplicar un algoritmo de compresión como PAQ utilizando un set de reviews dado, se obtienen los siguientes resultados
+
+\begin{displayquote}
+	$C(P_1,...,P_n,R)-C(P_1,...,P_n)$: 42 bytes\\
+	$C(N_1,...,N_m,R)-C(N_1,...,N_m)$: 43 bytes
+\end{displayquote}
+
+Dado que $C(P_1,...,P_n,R)-C(P_1,...,P_n)$ es menor que $C(N_1,...,N_m,R)-C(N_1,...,N_m)$, el review se predice positivo.
+
+
 
 \chapter{Hashing}
 
@@ -6125,6 +6170,7 @@ PPMC es uno de los algoritmos de compresión mas importantes, alcanza un nivel d
 El estudio de este tema debe plantearse desde varios puntos de vista distintos. Por un lado estudiaremos funciones de hashing, funciones que nos permiten convertir un dato de cualquier tipo en un número lo cual puede eventualmente resultar de gran utilidad. Por otro lado estudiaremos que usando funciones de hashing podemos acceder de forma muy rápida a una tabla o vector en memoria, de esta forma una función de hashing sirve para generar una estructura de datos que denominamos "tabla de hash" y que es una de las estructuras de datos mas usadas debido a su eficiencia. Finalmente veremos que las funciones de hashing están relacionadas también con la posibilidad de representar datos de forma compacta.
 
 A modo de empezar vamos a ver algunas funciones de hashing muy básicas que no se usan en la práctica y algunas formas rudimentarias de implementar una tabla de hash usando estas funciones. 
+
 
 \subsection{Funciones de Hashing Elementales}
 
