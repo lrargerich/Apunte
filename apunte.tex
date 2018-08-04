@@ -7995,25 +7995,36 @@ Esta es una estructura bastante eficiente en el cual organizamos cada tabla de h
 
 \section{Introducción}
 
-En este capítulo desarrollaremos en mas detalle los algoritmos necesarios para manipular la dimensionalidad de los datos que habíamos introducido en el capítulo 1.  Los algoritmos para cambiar la dimensionalidad de los datos son fundamentales en Data Science, antes de ver cada uno de ellos repasemos cuáles son los motivos por los cuales puede ser necesario manipular la dimensionalidad de los datos.
+La reducción de dimensiones es una herramienta muy utilizada a la hora de utilizar algoritmos inteligentes para procesar datos de $n$ dimensiones. En general, a medida que se aumenta el tamaño del set de datos (ya sea porque se agregan features o porque se tienen más muestras) utilizado para entrenar un algoritmo, se requieren más recursos para poder procesarlos incluyendo memoria RAM, CPU y espacio en disco para almacenar el set.
+En determinadas ocasiones también puede ocurrir que se agregan más features a un set de datos que no aportan información y en consecuencia no tiene sentido utilizar dichos features para entrenar un algoritmo. Dicho esto, la reducción de dimensiones se encarga de buscar una representación más compacta de un set de datos no solo para optimizar el uso de recursos sino también para otros usos: visualización de datos, compresión de imágenes, feature engineering, etc. 
+La imagen \ref{fig:dim_example} muestra una sencilla forma de reducir dimensiones de puntos en el plano $(X,Y)$ a una sola dimensión $X$.
 
-\subsection{Para Combatir la Maldición de la Dimensionalidad}
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=2in]{figures/dim_example.jpg}
+	
+	\caption{Ejemplo de reducción de dimensiones}
+	\label{fig:dim_example}
+\end{figure}
 
-Este puede ser el motivo principal por el cual cambiar la dimensionalidad de los datos, algunos algoritmos funcionan mejor en pocas dimensiones y otros funcionan mejor en muchas dimensiones. Pero para todos los algoritmos si cambiamos levemente la dimensionalidad de los datos ya sea quitando o agregando dimensiones el rendimiento va a cambiar, estudiar si el rendimiento de un algoritmo mejora o empeora al agregar o quitar dimensiones es una tarea muy importante en todo proceso de Data Science. 
+\subsection*{Maldición de la dimensión}
 
-\subsection{Por motivos de performance}
+La dimensión de los datos (es decir, la cantidad de features que tiene un set) tiene un papel muy importante en el rendimiento de un algoritmo. En un caso sencillo, un algoritmo podría aprender sobre datos relacionados al clima teniendo en cuenta distintos factores: humedad, temperatura, velocidad del viento, etc. 
+En un caso simple, se podría utilizar un set de datos de una sola dimensión que sea la temperatura. Suponiendo que la temperatura fuera un número entero, se podría pensar que no existen muchos valores posibles para la temperatura. En consecuencia, el algoritmo solo debería aprender los posibles $n$ valores posibles para la temperatura. Si ahora se agregara una dimensión más (por ejemplo, la humedad) ahora el algoritmo tendría que aprender la información en un espacio definido por la humedad y temperatura que se vuelve mucho mayor. Suponiendo $m$ valores posibles de humedad, el algoritmo tendría que aprender sobre $n*m$ valores posibles. A medida que se aumentan los features, la dimensión va creciendo y se requiere un mayor muestreo para poder entrenar un algoritmo. Algo a destacar es que quitar o agregar features conlleva a que un algoritmo funcione mejor o peor y eso dependerá de qué algoritmo se utiliza y de los datos en sí.
 
-En muchos casos el algoritmo que queremos usar es inviable para nuestro set de datos por motivos de performance, cuando el factor crítico es la cantidad de dimensiones en las que se presentan los datos es conveniente reducir las dimensiones de los mismos para poder aplicar nuestro algoritmo. 
+\subsection*{Performance de un algoritmo}
 
-\subsection{Como un mecanismo de Feature Engineering}
+El hecho de tener cada vez mas features en un set de datos puede empeorar la performance de un algoritmo. El motivo es trivial. Por ejemplo, si se tiene un set de datos de 1000 puntos en una dimensión y se agrega un feature más entonces el tamaño del set se duplica y en consecuencia se requerirá más RAM y mas CPU para procesar dicha información.
+
+\subsection*{Feature engineering}
 
 Los algoritmos de reducción de dimensiones sirven muchas veces para reducir el ruido de un set de datos filtrando los features ruidosos y devolviendo un nuevo set de features con menor cantidad de ruido. En otros casos es posible reducir las dimensiones de nuestro set de datos a unas pocas columnas y luego agregar estas columnas al set de datos original, este aumento de dimensiones muchas veces agrega features en donde la señal es muy fuerte en relación al ruido y es frecuente que un algoritmo funcione mejor al agregar estos features con respecto a su funcionamiento con el set de datos original.
 
-\subsection{Para visualizar los datos}
+\subsection*{Visualización de datos}
 
-La visualización es uno de los aspectos mas importantes para poder entender un set de datos, el cerebro humano está especialmente preparado para entender datos en dos dimensiones y en menor medida en tres dimensiones. Visualizar datos en mas de tres dimensiones es difícil pero existen algunas técnicas de visualización que lo permiten. Por ejemplo en un plot de puntos que originalmente tiene dos dimensiones podemos usar el color de los puntos o el tamaño de los mismos para agregar dos dimensiones mas, esto es especialmente útil cuando las dimensiones tienen todas significados diferentes.
+La visualización es uno de los aspectos mas importantes para poder entender un set de datos. El cerebro humano está especialmente preparado para entender datos en dos dimensiones y en menor medida en tres dimensiones. Visualizar datos en mas de tres dimensiones es difícil pero existen algunas técnicas de visualización que lo permiten. Por ejemplo en un plot de puntos que originalmente tiene dos dimensiones podemos usar el color de los puntos o el tamaño de los mismos para agregar dos dimensiones mas, esto es especialmente útil cuando las dimensiones tienen todas significados diferentes.
 
-En general para poder visualizar los datos vamos a usar algoritmos de Manifold Learning que nos permitan representar los datos en dos dimensiones. 
+Los algoritmos para manipular la dimensionalidad de los datos pueden dividirse en dos grandes grupos: métodos lineales y métodos no-lineales. Los métodos lineales por excelencia son la SVD y PCA que en realidad son un mismo algoritmo. Los métodos no-lineales son mas variados y se denominan también algoritmos para \textit{Manifold Learning}. El Manifold Learning comprende distintos algoritmos que permiten visualizar datos. Algo interesante de estos algoritmos es que en determinadas ocasiones pueden representar muy bien datos no lineales en dos dimensiones.
 
 \begin{figure}[!htb]
 \centering
@@ -8023,106 +8034,125 @@ En general para poder visualizar los datos vamos a usar algoritmos de Manifold L
 \label{fig:mflearning}
 \end{figure}
 
-La figura ~\ref{fig:mflearning} nos muestra el resultado de aplicar 8 algoritmos de Manifold Learning diferentes a un mismo set de datos. El set de datos es una superficie con forma de "S" en un espacio tridimensional, podemos observar que se trata de un manifold de 2 dimensiones embebido en un espacio de tres dimensiones. Los puntos fueron coloreados de acuerdo a la zona de la "S" en la que están, un buen algoritmo de Manifold Learning debería mantener a los punto que están cerca en los datos originales como vecinos en su representación bidimensional. Como puede verse diferentes algoritmos logran esto con diferentes representaciones.
+La figura ~\ref{fig:mflearning} muestra el resultado de aplicar 8 algoritmos de Manifold Learning diferentes a un mismo set de datos. El set de datos es una superficie con forma de "S" en un espacio tridimensional y se puede observar que se trata de un manifold de 2 dimensiones embebido en un espacio de tres dimensiones. Los puntos fueron coloreados de acuerdo a la zona de la "S" en la que están. Un buen algoritmo de Manifold Learning debería mantener a los punto que están cerca en los datos originales como vecinos en su representación bidimensional. Como puede verse diferentes algoritmos logran esto con diferentes representaciones, como por ejemplo LTSA o Hessian LLE.
 
-Los algoritmos para manipular la dimensionalidad de los datos pueden dividirse en dos grandes grupos: Métodos lineales y métodos no-lineales. Los métodos lineales por excelencia son la SVD y PCA que en realidad son un mismo algoritmo. Los métodos no-lineales son mas variados y se denominan también algoritmos para "Manifold Learning".
+\subsection*{Compresión de imágenes}
+
+Las imágenes se pueden pensar como datos en un espacio de muchas dimensiones. En consecuencia, la dimensión de dicho espacio se puede reducir utilizando algún algoritmo tal como SVD o PCA. De esta forma, se pueden ahorrar los bytes ocupados por una imagen a costas de reducir su calidad dado que en cierta forma reducir dimensiones implica perder cierta información.
 
 \section{SVD}
 
-La SVD (Singular Value Decomposition) es la herramienta mas importante para la reducción de dimensiones de un set de datos. Vamos a suponer que nuestro set de datos es una matriz de $m$ filas y $n$ columnas o dimensiones. 
+La SVD (Singular Value Decomposition) es una de las herramientas mas importante para la reducción de dimensiones de un set de datos y surge de realizar una descomposición de una matriz. La SVD esta íntimamente relacionada con el hecho de diagonalizar una matriz simétrica.
 
-Cualquier dato en $n$ dimensiones es una hiper-elipse con $n$ ejes, si a este dato le aplicamos una transformación lineal lo que obtenemos es otra hiper-elipse.
+Sea $A$ una matriz de $nxm$, se puede demostrar que existen tres matrics $U$, $V$ y $\Sigma$ tales que:
 
-\begin{figure}[!htb]
-\centering
-\includegraphics[width=3in]{figures/svd-fig-2.png}
-\caption{SVD}
-\end{figure}
+\begin{equation}
+A=U*\Sigma*V^T
+\end{equation}
 
-Cualquier dato en dos dimensiones puede expresarse como una transformación lineal aplicada a un círculo de radio 1. Los ejes de la elipse surgen de multiplicar a los ejes del círculo por un par de constantes y luego eventualmente podemos rotar la elipse para obtener cualquiera de todas las elipses posibles en dos dimensiones. 
+Donde $U$ es una matriz unitaria en $nxn$, $V$ es otra matriz unitaria en $mxm$ y $\Sigma$ es una matriz diagonal en $nxm$.
 
-Un círculo está definido por una base de vectores unitarios $v_1..v_n$ por lo tanto podemos escribir la siguiente ecuación:
+A continuación, se muestra un método para obtener dichas matrices:
+\begin{enumerate}
+\item Calcular los autovalores y autovectores de $A^tA$.
+\item La matriz $\Sigma$ se compone de la raiz cuadrada de los autovalores de $A^tA$ de forma diagonal y ordenados de forma descendiente.
+\item La matriz $U$ se compone con los autovectores normalizados como columnas.
+\item La matriz $V$ se puede obtener resolviendo el sistema $AV=U\Sigma$ sabiendo que $V^TV$ es la matriz identidad.
+ \end{enumerate}
 
-$$AV = U\Sigma$$
-
-Lo que esta ecuación nos dice es que si aplicamos una matriz cualquiera $A$ a una base unitaria $V$ lo que obtenemos es una hiper-elipse que podemos expresar como el producto de una base $U$ por una matriz diagonal $\Sigma$ que nos indica la forma de estirar o contraer los ejes del círculo para obtener los ejes de la elipse.
-
-Multiplicando a ambos lados por $V^-1$
-
-$$AVV^-1 = U \Sigma V^-1$$
-
-$VV^-1=I$ y además como $V$ es una matriz unitaria su inversa es igual a su transpuesta.
-
-$$A = U \Sigma V^t$$
-
-Esta es la definición de la SVD, toda matriz se puede descomponer entonces en el producto de tres matrices: $U$, $\Sigma$ y $V$. 
-El cálculo de la SVD de una matriz es una tarea relativamente sencilla que se limita al cálculo de autovectores y autovalores.
-
-Sea $A$ una matriz cualquiera:
-
-$$A^tA = (U \Sigma V^t)^t(U \Sigma V^t)$$
-$$A^tA = (V \Sigma U^t U \Sigma V^t)$$
-$$A^tA = V \Sigma^2 V^t$$
-$$A^tAV = V \Sigma^2 V^t V$$
-$$A^t A V = V \Sigma^2$$
-
-Donde $V$ son los autovectores y $\Sigma^2$ son autovalores de $A^tAV$
-Y de la misma forma:
-
-$$AA^t = (U \Sigma V^t)(U \Sigma V^t)^t$$
-$$AA^t = (U \Sigma V^t V \Sigma U^t)$$
-$$AA^t = U \Sigma^2 U^t$$
-$$AA^tU = U \Sigma^2 U^t U$$
-$$AA^t = U \Sigma^2$$
-
-Donde $U$ son los autovectores y $\Sigma^2$ son autovalores de $AA^t$
-
-Por ejemplo sea la siguiente matriz:
+Por ejemplo, sea la siguiente matriz $A$:
 
 $$
-\begin{pmatrix} 
+A = \begin{pmatrix} 
 3 &0 \\
 0 & -2\\
 \end{pmatrix}
 $$
 
-Calculamos $A^tA$
+Al calcular $A^tA$ se obtiene la siguiente matriz:
 
 $$A^TA = \begin{pmatrix}
 9 &0 \\
 0 & 4\\
-\end{pmatrix}, \lambda_1=9, \lambda_2=4 \Rightarrow \sigma_1=3,\sigma_2=2
+\end{pmatrix}
 $$
 
-$$A^A = \begin{pmatrix}
-9 &0 \\
-0 & 4\\
-\end{pmatrix}, A^tAU = U \begin{pmatrix} 9 & 0 \\0 & 4\\ \end{pmatrix} \Rightarrow U = \begin{pmatrix}1 & 0 \\ 0 & 1 \\ \end{pmatrix}
+Los autovalores de $A^tA$ son $\lambda_1=9$ y $\lambda_2=4$ entonces la matriz sigma estará compuesta por $\sigma_1=3$ y $\sigma_2=2$ de la siguiente forma:
+
+$$\Sigma = \begin{pmatrix}
+3 &0 \\
+0 & 2\\
+\end{pmatrix}
 $$
+
+Por otro lado, los autovectores normalizados de $A^tA$ asociados a $\lambda_1=9$ y $\lambda_2=4$ son $v_1=[1,0]$ y $v_2=[0,1]$, entonces:
+
+$$U = \begin{pmatrix}
+1 &0 \\
+0 & 1\\
+\end{pmatrix}
+$$
+
+Para encontrar la matriz $V$ basta con resolver el sistema de ecuaciones dado por $AV=U\Sigma$. Realizando cuentas, se obtiene que la matriz $V$ es:
+
+$$V = \begin{pmatrix}
+1 &0 \\
+0 & -1\\
+\end{pmatrix}
+$$
+ 
+En consecuencia, se puede expresar la matriz $A$ de la siguiente forma:
 
 $$ A = U \Sigma V^t = \begin{pmatrix} 1 & 0 \\ 0 & 1\\ \end{pmatrix} \begin{pmatrix} 3& 0 \\ 0 & 2\\ \end{pmatrix} \begin{pmatrix} 1 & 0 \\ 0 & -1\\ \end{pmatrix}$$
 
-\subsection{Interpretación algebraica de la SVD (muy importante!)}
 
-Veamos una interpretación algebraica de la SVD que es fundamental para entender varios conceptos importantes en el mundo de Data Science. $A_{mxn}$ es nuestra matriz de datos. $U_{mxr}$ es una base ortogonal en donde $r$ es el rango de la matriz $A$. $\Sigma_{rxr}$ es una matriz diagonal con los valores singulares ordenados de mayor a menor: $\sigma_1,\sigma_2...\sigma_n$ y finalmente $V_{nxr}$ es otra matriz ortogonal.
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=3in]{figures/svd-fig-2.png}
+\caption{SVD}
+\label{fig:svd_example}
+\end{figure}
 
-Observemos que $V^t$ al ser una matriz de $rxn$ tiene la misma dimensionalidad que nuestra matriz original, por lo tanto $V$ es una \textbf{base} de $r$ vectores en $n$ dimensiones cada uno. $\Sigma_{rxr}$ nos da un escalar por el cual multiplicar cada uno de los vectores de la base, como $\Sigma$ tiene los valores singulares ordenados de mayor nos determina la importancia de los vectores de la base $V$, el primer vector de $V$ (la primer columna) es el mas importante de la base, el segundo es el segundo mas importante y así sucesivamente. Finalmente la matriz $U_{mxr}$ tiene tantos vectores como datos tenemos y cada vector tiene dimensionalidad igual a la cantidad de vectores en la base $V$ por lo tanto $U$ indica los coeficientes por los cuales tenemos que multiplicar a cada vector de la base $V$ para  reconstruir cada uno de los puntos de nuestro set de datos. 
+Se ha mencionado anteriormente que $U$ y $V$ son matrices unitarias. Esto quiere decir que $U^tU=I$ y que las columnas de $U$ forman una base ortonormal. Esto mismo también vale para $V$. En definitiva, si a una descomposición en valores singulares la multiplicamos a ambos lados por $V$ se obtiene lo siguiente:
 
-Dado un punto cualquiera de nuestro set de datos por ejemplo $A_i$ lo podemos expresar como una combinación lineal de vectores de la base $V$ de la forma: 
+$$AV = U\Sigma$$
 
-$$A_i = U_i * \Sigma * V$$
+Esto quiere decir que si a una base ortogonal le aplico una transformación $A$ entonces el resultado será una segunda base ortogonal donde los vectores que componen dicha base son multiplicados por un escalar. La imagen \ref{fig:svd_example} representa perfectamente este escenario.
 
-Mas adelante vamos a ver muchos métodos mas por los cuales podemos descomponer una matriz de datos en el producto de dos matrices, en todos los casos la primera matriz será una matriz de coeficientes y la segunda será una base, diferentes bases nos darán diferentes formas de aproximar la reconstrucción de nuestros datos.
+\subsection{SVD reducida}
+
+
+Se ha visto que $\Sigma$ se obtiene a partir de la raíz cuadrada de la matriz $A^tA$ y también se mencionó que estos valores son los que "estiran" a la base ortogonal compuesta por los vectores $U$. En determinadas ocasiones, estos valores pueden ser cero y la consecuencia que traen es que anulan ciertas componentes a la hora de realizar el producto matricial y de ahí surge el concepto de descomposición en valores singulares reducida. Resumidamente, de los elementos $\sigma_1,\sigma_2...\sigma_n$ de la matriz $\Sigma$ se pueden tomar solo aquellos $r$ valores que son positivos de forma tal que $\sigma_1,\sigma_2...\sigma_r$ son positivos. Teniendo esto en cuenta, sería necesario solamente utilizar las primeras $r$ columnas de $U$ y las primeras $r$ columnas de $V^t$. Se puede demostrar que este valor $r$ coincide con el rango de la matriz $A$.
+Por ejemplo, sea $A$ la siguiente matriz:
+
+$$
+A = \begin{pmatrix} 
+1 & 1  \\
+2 & 2\\
+\end{pmatrix}
+$$
+
+Su descomposición en valores singulares es la siguiente:
+
+$$ A = U \Sigma V^t = \begin{pmatrix} -0.4472136 & -0.89442719 \\ -0.89442719 & 0.4472136\\ \end{pmatrix} \begin{pmatrix} 3.16227766& 0 \\ 0 & 0\\ \end{pmatrix} \begin{pmatrix} -0.70710678 & -0.70710678 \\ -0.70710678 & 0.70710678\\ \end{pmatrix}$$
+
+
+Dicho lo anterior, nos quedamos con los $r$ valores no nulos y la matriz $A$ se puede expresar de la siguiente forma:
+
+$$ A  = \begin{pmatrix} -0.4472136  \\ -0.89442719 \\ \end{pmatrix} \begin{pmatrix} 3.16227766 \\ \end{pmatrix} \begin{pmatrix} -0.70710678 & -0.70710678 \\  \end{pmatrix}$$
+
+
+En resumen, la SVD da a entender que bajo determinados escenarios se podría encontrar una forma más compacta de representar la matriz $A$ y esto da origen a la SVD para el uso de \textit{compresión de imágenes}
 
 \subsection{Aproximación de Rango $k$}
 
-Hemos visto que la matriz $V$ es una base en donde los vectores de la base están ordenados por su grado de importancia, la primer columna de $V$ es el vector mas importante de la base, etc. Podemos pensar entonces en aproximar a nuestra matriz $A$ usando solamente los primeros $k$ vectores de la base $V$, a esto lo llamamos una aproximación de rango $k$ a nuestra matriz original.
+Se ha visto con la SVD reducida que una matriz $A$ se puede representar de una forma compacta donde utilizábamos aquellos $r$ valores singulares no nulos puesto que eran los únicos que aportaban información y entonces permitía también descartar ciertos vectores de $U$ y $V$.
 
-Para aproximar la matriz original con rango $k$ lo que hacemos es tomar las primeras $k$ columnas de $U$, las primeras $k$ filas y columnas de $\Sigma$ y las primeras $k$ columnas de $V$ (las primeras $k$ filas de $V^t$).
+Dicho de otra forma, se puede pensar que como los valores de la matriz $\Sigma$ se encuentran ordenados de mayor a menor entonces estos valores representan un grado de importancia de los datos. Esto podría dar a entender que la matriz $V$ es una base en donde los vectores de la base están ordenados por su grado de importancia. En consecuencia, se podría ir más allá de quedarse con los $r$ valores no nulos, es decir, podría ser posible quedarse con los $k$ valores no nulos de $\Sigma$ ($k<r$) y aproximar bastante bien a la matriz A. Esto también es conocido como aproximación de rango $k$.
 
-Veamos un ejemplo de esto:
+De la misma forma que se hacía con $r$, en este escenario hay que quedarse con las primeras $k$ columnas de $U$, las primeras $k$ filas y columnas de $\Sigma$ y las primeras $k$ columnas de $V$.
 
-Sea:
+Por ejemplo, sea $A$ la siguiente matriz:
 
 $$A=\begin{pmatrix}
 3 & 2 & 4 & 4\\
@@ -8155,7 +8185,7 @@ $$V=\begin{pmatrix}
 \end{pmatrix}
 $$
 
-Podemos aproximar nuestra matriz original usando 1,2 o 3 vectores de $V$
+Se puede aproximar la matriz original usando 1,2 o 3 vectores de $V$
 
 $$A_3 =
 \begin{pmatrix}
@@ -8229,18 +8259,18 @@ $$A_3=
 \end{pmatrix}
 $$
 
-La aproximación de rango 3 en realidad es igual a nuestra matriz original, esto es lógico ya que nuestra matriz es de rango 2. La aproximación de rango 2, usando solo dos vectores de la base $V$ es muy parecida a la matriz original, la aproximación de rango 1 no es tan exacta pero tenemos que tener en cuenta que estamos escribiendo los 4 vectores de nuestra matriz original como una combinación lineal de un único vector: $v=[0.5178, 0.2601, 0.5201, 0.6275]$
+La aproximación de rango 3 es igual a la matriz original puesto que la matriz es de rango 3 y entonces es el escenario análogo a aplicar una SVD reducida. La aproximación de rango 2, usando solo dos vectores de la base $V$ es muy parecida a la matriz original. La aproximación de rango 1 no es tan buena pero hay que tener en cuenta que los 4 vectores de la matriz original están siendo escritos como una combinación lineal de un único vector que es $v=[0.5178, 0.2601, 0.5201, 0.6275]$
 
-Se puede demostrar que la SVD nos da la \textbf{mejor} aproximación de rango $k$ posible a la matriz original. En donde "mejor" significa que tiene la menor diferencia con la matriz original de acuerdo a la \textit{norma de Frobenius} que es simplemente la sumatoria de cada elemento de la matriz al cuadrado. Es decir que la SVD minimiza la suma de cuadrados de la diferencia entre la matriz original y su aproximación. Esto se demuestra en el siguiente teorema:
+Se puede demostrar que la SVD da la \textbf{mejor} aproximación de rango $k$ posible a la matriz original. En donde "mejor" significa que tiene la menor diferencia con la matriz original de acuerdo a la \textit{norma de Frobenius} que es simplemente la sumatoria de cada elemento de la matriz al cuadrado. Es decir que la SVD minimiza la suma de cuadrados de la diferencia entre la matriz original y su aproximación. Esto se demuestra en el siguiente teorema:
 
 \begin{theorem}[Eckert-Young]
 Sea $A=U\Sigma V^t$ donde $U$ y $V$ son matrices unitarias y $\Sigma$ es una matriz diagonal con valores $(\sigma_n \leq \sigma_{n-1} \leq ... \leq \sigma_1)$. La i-ésima columna de U es $u_i$ y la i-ésima fila de $V^t$ es $v_i^t$
 
-Queremos demostrar que la aproximación de rango $k$ que minimiza $||A-A^k||_F$ es:
+Se quiere demostrar que la aproximación de rango $k$ que minimiza $||A-A^k||_F$ es:
 
 $$A^k = \sum_{i=1}^{k} u_i \sigma_i v_i^t$$
 
-Para cualquier matriz $B$ de igual tamaño que A definimos la matriz $D$ de la forma:
+Para cualquier matriz $B$ de igual tamaño que A, se define la matriz $D$ de la forma:
 
 $$D=U^tBV \Rightarrow B=UDV^t$$
 
@@ -8254,11 +8284,22 @@ $$\geq \sum_{i} |\sigma_i - D_{ii}|^2 \geq \sum_{i>k}|\sigma_i-D_{ii}|^2$$
 Por lo tanto la matriz $D$ de rango $k$ que minimiza $||A-B||_{F}^2$ es la matriz diagonal con elementos $(\sigma_1,\sigma_2,...,\sigma_n)$. Y entonces B es igual a $A^k$
 \end{theorem}
 
-\subsection{Usando la SVD para aproximar la dimensionalidad intrínseca de los datos}
+Si bien se ha visto que para distintos valores de $k$ podemos aproximar en peor o mejor medida la matriz $A$, es necesario entender en la práctica que valor de $k$ se debe utilizar. Para ello, se define el concepto de \textit{energía} de una matriz de la siguiente forma:
 
-La matriz $\Sigma$ que contiene los valores singulares ordenados de mayor a menor nos da varias pistas sobre la dimensionalidad intrínseca de nuestros datos, si definimos la \textit{energía} de la matriz como la sumatoria de los valores singulares al cuadrado entonces podemos calcular que porcentaje de energía mantenemos usando los $k$ valores singulares mas significativos que equivalen a los primeros $k$ vectores de la base $V$.
+\begin{equation}
+\sum_{i=1}^{n} \sigma_i^2
+\end{equation}
 
-Consideremos la siguiente matriz de 7x7:
+Como se ha mencionado anteriormente, $\sigma_i^2$ correspone al autovalor $\lambda_i$ de la matriz $A^tA$ y el valor $n$ corresponde al número de autovalores en cuestión.
+
+Al realizar una matriz de aproximación $k$, donde $k$ es menor que $n$, se captura un cierto porcentaje de la energía que se calcula como:
+
+\begin{equation}
+\alpha = \frac{\sum_{i=1}^{k} \sigma_i^2}{\sum_{i=1}^{n} \sigma_i^2} 
+\end{equation}
+
+
+Por ejemplo, sea $A$ la siguiente matriz:
 
 $$A=
 \begin{pmatrix}
@@ -8272,16 +8313,15 @@ $$A=
 \end{pmatrix}
 $$
 
-Si hacemos un plot de los valores singulares de la SVD de la matriz podemos en general tener una buena idea sobre la dimensionalidad intrínseca de nuestros datos.
+La tabla \ref{table:matrix_power} muestra cómo varía la energía a medida que se aumenta el valor de $k$. Claro está que si se utilizan todos los valores singulares posibles entonces la energía será 100.
+Es interesante graficar los autovalores en un gráfico de línea. Esta técnica es de utilidad para detectar en qué puntos se producen "codos" en el gráfico y de esta forma buscar números particulares donde se pueden producir grandes saltos en el valor de la energía. Esto se muestra en el gráfico \ref{fig:eigenvalues_k} donde se puede notar que hay un gran salto de energía en el segundo autovalor.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3in]{figures/sigma-fig-1.png}
 \caption{Valores Singulares de A}
-
+\label{fig:eigenvalues_k}
 \end{figure}
-
- En nuestro ejemplo podemos ver que hay dos "codos" en el plot de los valores singulares, uno en 3 y otro en 5, por lo tanto podemos decir que la dimensionalidad intrínseca de nuestros datos puede ser 3,4 o 5. De lo que podemos estar prácticamente seguros es que descartando los dos últimos valores singulares perdemos muy poco, haciendo las cuentas vemos que con 5 dimensiones conservamos un 99.79\% de la energía en la matriz original!
 
 \begin{table}[!hbt]
 \center{
@@ -8296,18 +8336,16 @@ Cantidad de Valores Singulares & Energía \\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
-\caption{Eligiendo $k$}
+\caption{Energía en función de $k$}
+\label{table:matrix_power}
 \end{table}
 
-Sorprendentemente con solo 2 vectores en la base $V$ podemos capturar un 91\% de la energía de la matriz y con 4 o mas vectores prácticamente capturamos la totalidad. Podemos afirmar entonces que tiene sentido representar a este set de datos en particular en 4 dimensiones y que una representación en dos dimensiones, es decir en el plano es aceptable.
-
-\subsection{Reducción de dimensiones usando la SVD}
-
-Una vez que hemos determinado a que dimensionalidad queremos reducir nuestro set de datos el proceso usando la SVD es muy simple: solo tenemos que quedarnos con las primeras $k$ columnas de la matriz $U$, esta matriz tiene tantas filas como datos tenemos y tantas columnas como vectores hay en la base, por lo tanto si queremos representar a nuestros datos en una base reducida a $k$ vectores las primeras $k$ columnas de $U$ tienen los coeficientes que necesitamos y sirven como representación de los datos en nuestro nuevo espacio.
+Sorprendentemente con solo 2 vectores en la base $V$ se puede capturar un 91\% de la energía de la matriz y con 4 o mas vectores prácticamente se captura la totalidad. Se podría afirmar entonces que tiene sentido representar a este set de datos en particular en 4 dimensiones y que una representación en dos dimensiones es aceptable.
 
 \subsection{Compresión de Imágenes usando la SVD}
 
-A modo de ejemplo del poder representativo de la SVD vamos a mostrar como podríamos usar la SVD para comprimir una imagen. Tenemos una imagen de la galaxia de Andrómeda de 127x350 píxeles es decir un total de 44450 píxeles. Podemos tratar ahora de obtener la aproximación de rango $k$ de la matriz y luego simplemente recalcular la imagen como el producto de $U*\Sigma*V$. Los resultados son los siguientes:
+Anteriormente se mencionó cómo la SVD reducida se puede utilizar para comprimir imágenes y también se mencionó que se puede ir mas allá de la SVD reducida y utilizar aproximaciones de rango $k$. 
+Para ver qué efecto tiene una aproximación de rango $k$ a la hora de comprimir imágenes, considerar el siguiente ejemplo de una imagen de la galaxia de Andrómeda de 127x350 (44450 píxeles) donde se realizan aproximaciones de rango $k=2$, $k=5$, $k=10$, $k=20$ y $k=50$.
 
 \begin{figure}[!htb]
 \centering
@@ -8323,23 +8361,10 @@ A modo de ejemplo del poder representativo de la SVD vamos a mostrar como podrí
 \caption{Andrómeda via SVD}
 \end{figure}
 
-En el caso en el cuál usamos, por ejemplo $k=50$ tenemos que nuestras matrices son de $127x50$ y $50x350$ esto nos da un total de 23850 píxeles es decir un53\% de la imagen original, y podemos ver que con este nivel de compresión tan extremo la galaxia puede distinguirse bien. 
-
-En el caso extremo podemos llegar hasta $k=2$ en el cual representamos a la imagen en un base de solamente dos dimensiones lo cual nos da una versión muy distorsionada de la galaxia en donde solo  retenemos su forma ovalada y el núcleo brillante de la misma.Pero cuando $k=2$ estamos reteniendo solo un 2\% de los píxeles de la imagen original.
-
-Podríamos pensar también en aplicar la SVD para retener la resolución de una imagen pero comprimir sus colores. En una imagen color cada píxel está representado por tres canales: R,G,B lo cual nos da una profundidad de color total de 24 bits. Para esto podemos tomar a nuestro set de datos como una matriz de $3xp$ en donde $p$ es la cantidad de pixeles de la imagen. 
-
-Aplicamos la SVD y nos quedamos con una representación de rango $k$ de la imagen ahora cada punto de nuestra imagen se ve reducido a alguno de $k$ puntos, es decir las $k$ combinaciones de colores mas representativas de la imagen. 
-
-Podemos entonces representar a la imagen en una gama de colores menores ya que en lugar de una cantidad de $p$ colores potencialmente diferentes ahora solo tenemos $k$ entonces podemos almacenar una tabla con los valores $RGB$ de estos colores y asignarle a cada pixel un número de entrada en esta tabla, esto es similar a lo que hace el algoritmo JPG y está basado en el hecho de que un ser humano no suele distinguir toda la gama de colores de 24 bits. 
-
-Si reducimos los colores a, por ejemplo 1024 colores representativos entonces cada pixel necesita $\log_2 1024=10$ bits lo cual implica una compresión de mas del 50\% con respecto a los 24 bits originales. 
-
-La SVD no es un mecanismo adecuado para comprimir imágenes ya que existen algoritmos específicos para imágenes mucho mejores como JPG.  Sin embargo aplicar SVD a imágenes nos permite una descomposición muy interesante de las mismas e ilustra el funcionamiento del algoritmo para aproximar datos en dimensiones reducidas.
+Cuando se utiliza $k=50$, los cálculos indican que es necesario almacenar 23850 píxeles, es decir un53\% de la imagen original. Se puede notar que con este valor de $k$ se obtiene una muy buena representación de la imagen original. En cambio, cuando $k=2$ se obtiene una imagen muy distorsionada.
+La SVD no es un mecanismo adecuado para comprimir imágenes ya que existen algoritmos específicos para imágenes mucho mejores como JPG. Sin embargo, aplicar SVD a imágenes permite llegar a una descomposición muy interesante de las mismas e ilustra el funcionamiento del algoritmo para aproximar datos en dimensiones reducidas.
 
 \subsection{Eigenfaces}
-
-Vamos a aplicar la SVD a un set de datos que tiene 400 imágenes de 64x64 píxeles cada una, es decir que tenemos una matriz de 400x4096 en donde cada fila es una imagen y cada columna (dimensión) es un píxel.
 
 \begin{figure}[!htb]
 \centering
@@ -8348,20 +8373,18 @@ Vamos a aplicar la SVD a un set de datos que tiene 400 imágenes de 64x64 píxel
 \caption{Set de Datos de Rostros aparentemente humanos}
 \end{figure}
 
-Aprovechando que tenemos las imágenes como columnas vamos a calcular la SVD y quedarnos con 16 columnas como las 16 imágenes más representativas. Hay que tener en cuenta que estas 16 imágenes que surgen de la reducción de imágenes vía SVD no son 16 imágenes seleccionadas entre las originales sino que son 16 combinaciones lineales de todas las imágenes, las 16 combinaciones lineales más representativas. 
+Siguiendo la línea de la SVD aplicada a imágenes, si se representara un set de datos de imágenes donde cada imagen representa cada columna de la matriz, se puede utilizar la SVD para quedarse con las $k$ columnas/imágenes más representativas. Hay que tener en cuenta que estas $k$ imágenes que surgen de la reducción de imágenes vía SVD no son $k$ imágenes seleccionadas entre las originales sino que son $k$ combinaciones lineales de todas las imágenes, es decir, las $k$ imágenes más representativas.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/ef-fig-2.png}
 
-\caption{Las 16 EigenFaces mas representativas}
+\caption{Las $k$ EigenFaces mas representativas}
 \end{figure}
 
-Podemos ver que algunos rostros están en negativo, esto es admisible porque en la SVD podemos usar coordenadas negativas para alguno de los vectores.Como el primer rostro está en negativo esperamos que la primer coordenada de la matriz "U" esté dominada por valores negativos.  
 
-Este algoritmo que hemos usado para comprimir la cantidad de imágenes en un set basado en la SVD se denomina “Eigenpictures” y cuando se aplica a rostros se denomina “Eigenfaces” el algoritmo puede usarse para reconocimiento rápido de rostros de la siguiente manera: Primero calculamos los “k” eigenfaces por el método que presentamos recién. Luego  por cada rostro a almacenar y que queremos reconocer almacenamos la distancia euclidiana del mismo a cada uno de los “eigenfaces” en nuestro caso serían en total 16 distancias. 
-
-De esta forma cada rostro queda almacenado en una base de datos como un simple vector de 16 componentes. Cuando queremos reconocer un rostro nuevo calculamos sus 16 componentes y buscamos en nuestra base de datos a ver si existe un rostro cuya semejanza en los 16 factores sea muy similar al que queremos reconocer, en base a esto decidimos si tenemos un rostro que ya hemos capturado, un rostro nuevo o una imagen que no es un rostro. Esto último lo podemos calcular mediante la diferencia entre los “k” valores de la nueva imagen y un promedio de los eigenfaces.
+Esta técnica que se ha utilizado para comprimir la cantidad de imágenes en un set basado en la SVD se denomina “Eigenpictures” y cuando se aplica a rostros se denomina \textit{Eigenfaces}.
+Este algoritmo puede usarse para reconocimiento rápido de rostros de la siguiente manera: Primero se calculan las “k” eigenfaces por el método que se aplicó recién. Luego, por cada rostro a almacenar y que se quiere reconocer se almacena la distancia euclidiana del mismo a cada uno de los “eigenfaces”, es decir, se obtendrán $k$ distancias. De esta forma cada rostro queda almacenado en una base de datos como un simple vector de $k$ componentes. Cuando se quiere reconocer un rostro nuevo se calculan sus $k$ componentes y se busca en la base de datos a ver si existe un rostro cuya semejanza en los $k$ factores sea muy similar al que se quiere reconocer y en base a esto se decide si tenemos un rostro que ya se ha capturado, un rostro nuevo o una imagen que no es un rostro. Esto último se puede calcular mediante la diferencia entre los $k$ valores de la nueva imagen y un promedio de los eigenfaces.
 
 \subsection{SVD en la práctica}
 
