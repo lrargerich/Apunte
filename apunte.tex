@@ -8383,78 +8383,72 @@ Siguiendo la línea de la SVD aplicada a imágenes, si se representara un set de
 \end{figure}
 
 
-Esta técnica que se ha utilizado para comprimir la cantidad de imágenes en un set basado en la SVD se denomina “Eigenpictures” y cuando se aplica a rostros se denomina \textit{Eigenfaces}.
-Este algoritmo puede usarse para reconocimiento rápido de rostros de la siguiente manera: Primero se calculan las “k” eigenfaces por el método que se aplicó recién. Luego, por cada rostro a almacenar y que se quiere reconocer se almacena la distancia euclidiana del mismo a cada uno de los “eigenfaces”, es decir, se obtendrán $k$ distancias. De esta forma cada rostro queda almacenado en una base de datos como un simple vector de $k$ componentes. Cuando se quiere reconocer un rostro nuevo se calculan sus $k$ componentes y se busca en la base de datos a ver si existe un rostro cuya semejanza en los $k$ factores sea muy similar al que se quiere reconocer y en base a esto se decide si tenemos un rostro que ya se ha capturado, un rostro nuevo o una imagen que no es un rostro. Esto último se puede calcular mediante la diferencia entre los $k$ valores de la nueva imagen y un promedio de los eigenfaces.
+Esta técnica que se ha utilizado para comprimir la cantidad de imágenes en un set basado en la SVD se denomina \textit{Eigenpictures} y cuando se aplica a rostros se denomina \textit{Eigenfaces}.
+Este algoritmo puede usarse para reconocimiento rápido de rostros de la siguiente manera: Primero se calculan las $k$ eigenfaces por el método que se aplicó recién. Luego, por cada rostro a almacenar y que se quiere reconocer se almacena la distancia euclidiana del mismo a cada uno de los “eigenfaces”, es decir, se obtendrán $k$ distancias. De esta forma cada rostro queda almacenado en una base de datos como un simple vector de $k$ componentes. Cuando se quiere reconocer un rostro nuevo se calculan sus $k$ componentes y se busca en la base de datos a ver si existe un rostro cuya semejanza en los $k$ factores sea muy similar al que se quiere reconocer y en base a esto se decide si tenemos un rostro que ya se ha capturado, un rostro nuevo o una imagen que no es un rostro. Esto último se puede calcular mediante la diferencia entre los $k$ valores de la nueva imagen y un promedio de los eigenfaces.
 
-\subsection{SVD en la práctica}
+\subsection{Agregar nuevos datos}
 
-En muchos lenguajes y bibliotecas existen rutinas numéricas muy eficientes para calcular la SVD de una matriz para un cierto rango $k$. Estos procedimientos se basan en el algoritmo de Lanczos que permite de forma iterativa ir obteniendo los autovalores mas significativos de una matriz, como solo queremos $k$ el procedimiento puede ser muy eficiente incluso para matrices muy grandes. Esto es bueno ya que permite aplicar la SVD a datos masivos lo cual es muy importante ya que la SVD es el principal algoritmo para reducir las dimensiones de un conjunto de datos. 
-
-\subsection{Agregando nuevos datos en el nuevo espacio}
-
-Una vez que hemos calculado la SVD y reducido nuestro set de datos, tenemos el potencial problema de necesitar agregar nuevos datos, estos nuevos datos van a venir en la dimensionalidad original de los datos. Agregar los datos nuevos a los originales y re-calcular la SVD funciona pero es un proceso potencialmente costoso. Para evitarlo podemos simplemente "plegar" los datos nuevos a nuestro nuevo espacio de dimensiones.
-
-Partimos de:
+Una vez calculada la SVD puede surgir la necesidad de agregar nuevas filas a la matriz $A$, es decir, agregar nuevos datos en las mismas dimensiones. En consecuencia, es necesario obtener la nueva SVD. La forma trivial de obtenerla es simplemente recalcular la SVD, pero esto puede llegar a ser una tarea muy costosa. La forma no trivial es intentar reutilizar la descomposición que tenemos y realizar ciertos cálculos.
+Si bien no hay una única forma de recalcular una SVD cuando se agregan datos, la forma más sencilla es pensar cómo se relaciona la matriz $U$ con las demás matrices:
 
 $$A = U \Sigma V^t$$
 
-Y queremos despejar $U$ que es la matriz reducida en dimensiones, en el caso de un solo dato será de 1xn pero podríamos plegar tantos datos como quisiéramos.
+De esta ecuación, se puede despejar $U$ de la siguiente forma:
 
 $$AV = U \Sigma V^TV = U \Sigma $$
 $$AV\Sigma^-1 = U \Sigma \Sigma^-1 = U$$
 
-Entonces una vez que tenemos nuevos datos ($A$) para plegarlos al nuevo espacio de dimensiones tenemos que multiplicarlos por $V$ y luego por $\Sigma^-1$. De esta forma obtenemos su representación dentro de nuestro nuevo espacio. 
-
-Debemos notar que al plegar nuevos vectores al espacio reducido en dimensiones estamos agregando datos que no fueron usados para el cálculo de la SVD, por lo tanto cuando la cantidad de datos agregados supere un cierto umbral la SVD que calculamos originalmente pierde precisión con respecto a su capacidad de aproximar los datos originales en dimensiones reducidas. Por lo tanto si se necesita agregar muchos datos puede ser conveniente cada cierto tiempo reconstruir la SVD por completo.
+Se podría pensar de este despeje que si se agregara una nueva fila a la matriz $A$ entonces se la podría multiplicar por la matriz $V$ y luego por $\Sigma^-1$. De esta forma obtenemos su representación dentro de nuestro nuevo espacio, es decir, un nuevo vector que se agregará en la última fila de la matriz $U$.
+Si bien este método es sencillo, a medida que se van agregando datos se irá perdiendo la precisión de la SVD calculada originalmente y será necesario recalcular por completo la SVD para recuperar la precisión.
 
 \section{PCA: Principal Component Analysis}
 
-PCA es uno de los algoritmos mas usados en el mundo de Data Science y vamos a demostrar que es idéntico a la SVD por lo que, irónicamente, nadie debería usarlo, pero dejemos esto para mas adelante y expliquemos la idea y el funcionamiento de PCA.
+PCA es uno de los algoritmos mas usados en el mundo de Data Science y se puede demostrar que es idéntico a la SVD.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3in]{figures/pca-fig-1.png}
-
 \caption{PCA}
 \label{fig:pca}
 \end{figure}
 
-EL gráfico nos muestra una nube de puntos en dos dimensiones, la idea de PCA es encontrar las "direcciones" principales de los datos es decir aquellas direcciones sobre las cuales podemos proyectar los datos reteniendo su variabilidad. En la figura ~\ref{fig:pca} hay dos direcciones principales y el eje mas largo es aquel que nos daría la mayor variabilidad si proyectáramos los datos sobre el mismo. 
+La imagen \ref{fig:pca} muestra una nube de puntos en dos dimensiones y la idea de PCA es encontrar las "direcciones" principales de los datos, es decir, aquellas direcciones sobre las cuales podemos proyectar los datos reteniendo su variabilidad. En la figura ~\ref{fig:pca} hay dos direcciones principales y el eje mas largo es aquel que podría dar la mayor variabilidad si proyectáramos los datos sobre el mismo. 
 
-En concreto PCA ajusta una hiper-elipse a los datos y nos devuelve los ejes de la misma. Estos son los que llamamos \textit{componentes principales}, luego podemos usar estos componentes para proyectar nuestros datos y reducir la dimensionalidad de los mismos. 
+En concreto, PCA ajusta una hiper-elipse a los datos y  devuelve los ejes que la componen también conocidos como \textit{componentes principales}. Luego, los datos se podrán proyectar sobre estas componentes logrando así una reducción de dimensiones.
 
-Una primera observación es que los datos deben estar centrados en el origen para que los componentes principales tengan sentido, este es el primer paso al aplicar PCA, centrar todos los datos de forma tal que el promedio de cada columna sea cero. Esto se logra normalizando los datos restando el promedio de cada columna. Opcionalmente podemos dividir los datos por la desviación standard de cada columna para que todas las columnas tengan promedio cero y desviación standard igual a 1.
-Luego de centrar los datos es necesario calcular la matriz de covarianza de los mismos que se calcula de la forma:
+Una forma sencilla de utilizar este método sobre una matriz $A$ es la siguiente:
 
-$$ cov(X) = \frac{1}{n-1} X^tX$$
+\begin{enumerate}
+\item Para cada elemento de la columna de $A_i$, restarle el promedio de dicha columna. Esto permite centrar los datos en el origen.
+\item Para cada elemento de la columna $A_i$, dividirlo por la desviación estándar de dicha columna. Esto permite escalar los datos.
+\item Calcular la matriz de covarianza $$ cov(A) = \frac{1}{n-1} A^tA$$
+\item Calcular los autovalores y autovectores de la matriz de covarianza. Los autovectores conformarán las componentes principales y los autovalores indicarán la importancia de cada componente.
+\end{enumerate}
 
-Notar que si los datos no están normalizados la definición de matriz de covarianza es diferente.
 
-La matriz de covarianza es simétrica y en cada celda nos indica la covarianza entre las columnas $i$ y $j$ de nuestra matriz original. Cuando la covarianza es cercana a 0 las columnas son independientes y cuando la covarianza es cercana a 1 o -1 las columnas son dependientes. En el caso concreto de covarianza igual a 1 o -1 una columna es una combinación lineal de la otra y esto quiere decir que una de ellas es redundante. 
+La matriz de covarianza es simétrica y en cada celda indica la covarianza entre las columnas $i$ y $j$ de nuestra matriz original. Cuando la covarianza es cercana a 0 las columnas son independientes y cuando la covarianza es cercana a 1 o -1 las columnas son dependientes. En el caso concreto de covarianza igual a 1 o -1 una columna es una combinación lineal de la otra y esto quiere decir que una de ellas es redundante. 
 
-En el set de datos Iris que tiene 4 dimensiones la matriz de covarianza es la siguiente:
+Por ejemplo, del famoso set de datos Iris (en 4 dimensiones) la matriz de covarianza es la siguiente:
 
-$$coviris = \begin{pmatrix}
+$$Cov(Iris) = \begin{pmatrix}
 1 & 0.9559 & -0.3670 & 0.8136 \\
 0.9559 & 1  & -0.4354 & 0.8709 \\
 -0.3670 & -0.4354 & 1 & -0.1153\\
 0.8136 & 0.8709 & -0.1153 & 1\\
 \end{pmatrix}$$
 
-En la matriz de covarianza podemos aprender que hay una relación muy fuerte entre las columnas 1 y 2 de nuestros datos es decir el largo y alto de los pétalos de las flores. Esto tiene sentido ya que en una flor es lógico que si los pétalos son grandes entonces el largo del mismo sea proporcional a su altura. 
+Se puede notar que hay una relación muy fuerte entre las columnas 1 y 2 de y esto tiene sentido puesto que representan el largo y el alto de los pétalos de las flores y se entiende que en una flor si los pétalos son grandes entonces el largo del mismo debería ser proporcional a su altura. 
 
-Podemos hacer una matriz de plots de cada columna de nuestro set de datos contra cada otra:
+En el gráfico \ref{fig:pca_iris} se muestra la relación que hay entre cada par de columnas del set de datos de Iris. Se puede notar, por ejemplo, la relación casi lineal que hay entre la columna 1 y 2 y esto se pone evidente en la matriz de covarianza donde tienen una relación del 0.9559. Ocurre algo análogo entre las columnas 1 y 4 tanto así como la 2 y 4.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3in]{figures/pca-fig-2.png}
 \caption{PCA para Iris}
-
+\label{fig:pca_iris}
 \end{figure}
 
-En el plot vemos la relación prácticamente lineal que existe entre las columnas 1 y 2. También hay una relación fuerte entre las columnas 1 y 4 y entre las columnas 2 y 4. Esto concuerda con los valores que vimos en la matriz de covarianza (0.81 y 0.87 respectivamente).
-
-Para obtener los componentes principales simplemente calculamos los autovalores y autovectores de la matriz de covarianza.En el caso de Iris tenemos:
+Para obtener los componentes principales simplemente se calculan los autovalores y autovectores de la matriz de covarianza.En el caso de Iris, sus matrices de autovectores y autovalores serán:
 
 $$V=\begin{pmatrix}
 0.4965 & -0.6565 & 0.0680 & 0.5638 \\
@@ -8470,196 +8464,130 @@ S=\begin{pmatrix}
 \end{pmatrix}
 $$
 
-La matriz $V$ tiene los componentes principales y el grado de importancia de los mismos está dado por los elementos de los autovalores ($S$) aunque en este caso no están ordenados de mayor a menor como en la SVD.
+Es interesante remarcar que para reducir dimensiones se pueden tomar las $k$ componentes principales más importantes y proyectas los puntos de la matriz (previamente normalizada) sobre estas $k$ componentes principales reduciendo así las dimensiones.
 
-Para finalizar esta sección vamos a demostrar que la base encontrada por PCA es en realidad la misma base que la de la SVD de la matriz asumiendo que la misma ha sido normalizada. 
 
-\subsection{PCA=SVD}
+\subsection{Equivalencia entre PCA y SVD}
 
-\begin{theorem}[PCA=SVD]
-La matriz de covarianza es $X^tX$, como esta matriz es simétrica es diagonalizable y los autovectores pueden normalizarse de forma tal que sean ortonormales:
+\begin{theorem}[PCA es equivalente a SVD]
+Sea la matriz de covarianza $X^tX$. Dado que esta matriz es simétrica entonces es diagonalizable y los autovectores pueden normalizarse de forma tal que sean ortonormales:
 
 $$X^tX = WDW^t$$
 
 Donde $W$ tiene los autovectores y $D$ los autovalores de la matriz de covarianza.
 
-Por otro lado aplicando la SVD a la matriz $X$ tenemos:
+Por otro lado aplicando la SVD a la matriz $X$ se obtiene que:
 
 $$X=U\Sigma V^t$$
 
-Si construimos la matriz de covarianza para la descomposición de la SVD tenemos:
+Si se construye la matriz de covarianza para la descomposición de la SVD tenemos:
 
 $$X^tX = (U \Sigma V^t)^t(U \Sigma V^t)$$
 $$X^tX = (V \Sigma U^t U \Sigma V^t)$$
 $$X^tX = V \Sigma^2 V^t$$
 
 
-Aquí podemos ver que hay una equivalencia directa por lo tanto $V$=$W$ y $D$ = $\Sigma^2$. Por lo tanto los autovectores de la matriz de covarianza son iguales a la base de la SVD de la matriz normalizada.
+Aquí se puede ver que hay una equivalencia directa por lo tanto $V$=$W$ y $D$ = $\Sigma^2$. Por lo tanto los autovectores de la matriz de covarianza son iguales a la base de la SVD de la matriz normalizada.
 \end{theorem}
 
 \subsection{Conclusión}
 
-Para concluir debemos señalar que calcular la SVD es en general mas eficiente y numéricamente mas estable que PCA dado que no hace falta construir la matriz de covarianza, es por este motivo que como método genérico lineal para reducción de dimensiones preferimos siempre usar la SVD de la matriz de datos.
+La SVD es en general mas eficiente y numéricamente mas estable que PCA dado que no hace falta construir la matriz de covarianza y es por este motivo que como método genérico lineal para reducción de dimensiones se prefiere siempre usar la SVD.
 
 \section{MDS: Multidimensional Scaling}
 
-Vamos a explicar el algoritmo llamado \textit{multidimensional scaling} (MDS) a partir de un problema muy simple: Tenemos una matriz con las distancias entre diez ciudades que desconocemos, el objetivo del algoritmo es encontrar coordenadas en el plano para estas diez ciudades de forma tal que las distancias entre las mismas se aproximen lo mas posible a las distancias de nuestra matriz.
+El algoritmo \textit{multidimensional scaling} (MDS) busca resolver el siguiente problema: Dada una matriz con las distancias entre ciudades que se desconocen, se quieren encontrar coordenadas en el plano para estas ciudades de forma tal que las distancias entre las mismas se aproximen lo mas posible a las distancias de nuestra matriz.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=5in]{figures/mds-fig-1.png}
 \caption{Tabla de Distancias Entre Ciudades Desconocidas}
-
+\label{fig:distance_matrix}
 \end{figure}
 
-Es decir que dada una matriz de distancias entre puntos queremos hallar los puntos. La dimensionalidad de los puntos en nuestro problema la hemos fijado en 2, mas adelante veremos como resolver también la dimensionalidad.
+Es decir que dada una matriz de distancias entre puntos queremos hallar los puntos en sí. 
 
-Llamemos $D$ a nuestra a matriz de distancias entre $n$ puntos, $D$ es de $nxn$. Llamemos $X$ de $nxq$ la matriz con los puntos que desconocemos (en nuestro problema $q=2$)
-
-Definimos una matriz $B$:
-
-$$B=XX^t$$
-
-Y sea $M$ una matriz ortogonal ($MM^t=I$) entonces:
-
-$$B=(XM)(XM)^t$$
-
-Los elementos de $B$ están dados por:
-
-$$b_{ij} = \sum_{k=1}^{q} X_{ik} X_{jk}$$
-
-Entonces el cuadrado de las distancias entre las filas de $X$ puede escribirse como:
-
-$$D_{ij}^2 = b_{ii} + b_{jj} - 2b_{ij}$$
-
-Si podemos obtener los $b_{ij}$ a partir de los $D_{ij}$ entonces podemos encontrar a $X$ a partir de $B$. 
-
-Vamos a introducir como restricción que las filas y  columnas de $X$ estén centradas es decir que tengan promedio cero.
-
-$$\sum_{i=1}^{n} X_{ik} = 0$$
-
-Esto implica que la suma de términos en cualquier fila de $B$ debe ser cero:
-
-$$\sum_{j=1}^{n} b_{ij} = \sum_{j=1}^{n} \sum_{k=1}^{q} X_{ik} X_{jk} = \sum_{k=1}^{q} X_{ik} (\sum_{j=1}^{n} X_{jk})$$
-
-Sea $T$ la traza de $B$. Para obtener $B$ a partir de $D$ notemos que:
-
-$$\sum_{i=1}^{n} d_{ij}^2 = T+nb_{jj}$$
-$$\sum_{j=1}^{n} d_{ij}^2 = T+nb_{ii}$$
-$$\sum_{i=1}^{n} \sum_{j=1}^{n} d_{ij}^2 = 2nT$$
-
-Podemos ahora calcular los elementos de $B$ en función de $D$:
-
-$$b_{ij} = -\frac{1}{2} (d_{ij}^2 - d_i^2 -d_j^2 +d^2)$$
-
-donde:
-
-$$d_i^2 = \frac{\sum_{j=1}^{n} d_{ij}^2}{n}$$
-$$d_j^2 = \frac{\sum_{i=1}^{n} d_{ij}^2}{n}$$
-$$d^2 = \frac{\sum_{i=1}^{n} \sum_{j=1}^{n} d_{ij}^2}{n}$$
-
-Podemos entonces escribir a $B$ de la forma:
-
-$$B = V \Lambda V^t$$
-
-Donde $\Lambda$ es la matriz diagonal con los autovalores de $B$ y $V$ es la matriz con los autovectores de $B$ como columnas.
-
-Ahora como $D$ surge de una matriz de $nxq$ entonces el rango de $D$ es $q$ (suponiendo $q<n$). Es decir que los últimos n-q autovalores deberían ser cero.
-Entonces escribimos a $B$ como:
-
-$$B=V^* \Lambda^* V^{*t}$$
-
-Donde $V^*$ es la matriz con los primeros $q$ autovectores de  y $\Lambda^*$ es la matriz con los primeros $q$ autovalores.
-
-Y tenemos entonces una solución para $X$:
-
-$$X = V^* \Lambda^{1/2}$$
-
-Y esto nos da un algoritmo para calcular MDS:
-
+Para poder aplicar el algoritmo, se debe realizar lo siguiente:
 \begin{enumerate}
-\item Elevar la matriz de distancias al cuadrado
-\item Centrar la matriz para que las filas y columnas tengan promedio cero
-\item Calcular la SVD de la matriz
-\item Las primeras $q$ columnas de $U$ nos da las coordenadas para nuestros puntos.
+	\item Elevar la matriz de distancias al cuadrado
+	\item Centrar la matriz para que las filas y columnas tengan promedio cero
+	\item Calcular la SVD de la matriz
+	\item Las primeras $q$ columnas de $U$ da las coordenadas para los puntos que se quieren buscar.
 \end{enumerate}
 
-Aplicando nuestro algoritmo a nuestra matriz de distancias obtenemos la siguiente representación en el plano:
 
+Por ejemplo, considerando la matriz de distancias en la imagen \ref{fig:distance_matrix}, se aplica el algoritmo y el resultado es el que se muestra en la imagen \ref{fig:mds_points}. De hecho, esos puntos corresponden a las coordenadas de las ciudades que se muestran en la imagen \ref{fig:mds_cities}.
+ 
 \begin{figure}[!htb]
-\centering
-\includegraphics[width=4in]{figures/mds-fig-2.png}
-\caption{Las Ciudades en el plano}
-
+	\centering
+	\includegraphics[width=4in]{figures/mds-fig-2.png}
+	\caption{Las Ciudades en el plano}
+	\label{fig:mds_points}
 \end{figure}
 
-Y con un poco de trabajo podemos llegar a resolver de que ciudades se trata:
-
 \begin{figure}[!htb]
-\centering
-\includegraphics[width=4in]{figures/mds-fig-3.png}
-\caption{Las Ciudades Misteriosas}
-
+	\centering
+	\includegraphics[width=4in]{figures/mds-fig-3.png}
+	\caption{Las Ciudades Misteriosas}
+	\label{fig:mds_cities}
 \end{figure}
 
-Notemos que las coordenadas que nos devuelve MDS pueden estar espejadas y rotadas con respecto a la realidad ya que las distancias en todos los casos son las mismas.
+Notar que las coordenadas que devuelve MDS pueden estar espejadas y rotadas con respecto a la realidad ya que las distancias en todos los casos son las mismas.
 
-Al utilizar la SVD resolvemos también el problema de la dimensionalidad si es que no conocemos el mismo. Simplemente tenemos que observar la matriz $\Sigma$ con los valores singulares y ver cuantos valores singulares tiene sentido mantener para conservar la mayor cantidad de energía de la matriz. 
+Al utilizar la SVD resolvemos también el problema de la dimensionalidad si es que no se conoce el mismo. Simplemente se debe observar la matriz $\Sigma$ con los valores singulares y ver cuántos valores singulares tiene sentido mantener para conservar la mayor cantidad de energía de la matriz. 
 
 \subsection{Perceptual Mapping}
 
-Perceptal Mapping es una aplicación interesante de MDS para aprender los datos a partir de evaluaciones subjetivas u objetivas de los mismos. Supongamos que tenemos un conjunto de autos de diferentes marcas y modelos. Podemos pedirles a los usuarios que nos indiquen que tan parecidos o diferentes son dos autos en un cuestionario o encuesta, con la opinión de muchos usuarios sobre todos los pares posibles podemos construir una matriz de distancias. Luego usando MDS podemos a partir de las distancias construir una representación vectorial para cada modelo de auto en una cierta cantidad de dimensiones que también obtendremos de MDS. Lo interesante es que cada una de estas dimensiones nos va a aportar algún tipo de información sobre los autos, por ejemplo su consumo, seguridad, etc. Podemos ver para cada "feature" cual es el valor que toma cada modelo de auto y deducir cual es el "feature". Lo que estamos haciendo es construyendo los datos mismos a partir de las comparaciones entre pares de datos. Este tema tiene muchas aplicaciones en marketing y estudio de mercado.
+Perceptal Mapping es una aplicación interesante de MDS para aprender los datos a partir de evaluaciones subjetivas u objetivas de los mismos. Suponer que se tiene un conjunto de autos de diferentes marcas y modelos. Podemos pedirles a los usuarios que indiquen que tan parecidos o diferentes son dos autos en un cuestionario o encuesta. Con la opinión de muchos usuarios sobre todos los pares posibles se puede construir una matriz de distancias. Luego, usando MDS, a partir de las distancias se puede construir una representación vectorial para cada modelo de auto en una cierta cantidad de dimensiones. Lo interesante es que cada una de estas dimensiones va a aportar algún tipo de información sobre los autos, por ejemplo su consumo, seguridad, etc. Se puede ver para cada "feature" cuál es el valor que toma cada modelo de auto y deducir cual es el "feature". Lo que se esta haciendo es una construcción de los datos mismos a partir de las comparaciones entre pares de datos. 
 
 \section{ISOMAP}
 
-ISOMAP es nuestro primer algoritmo de Manifold Learning no-lineal, esta basado en principios muy simples y tiene fama de producir resultados por lo menos aceptables en muchos casos. Puede usarse para visualización de datos, como pre-procesamiento o como features a agregar a los datos mismos. 
+ISOMAP es un algoritmo de Manifold Learning no-lineal basado en principios muy simples y tiene fama de producir resultados por lo menos aceptables en muchos casos. Puede usarse para visualización de datos, como pre-procesamiento o como features a agregar a los datos mismos. 
 El algoritmo consiste en construir un grafo a partir de los datos, calcular las distancias en dicho grafo y luego aplicar MDS para obtener una representación de los datos en pocas dimensiones.
 
 \subsection{Construcción del Grafo}
 
-El primer paso de ISOMAP es muy simple: creamos un grafo no-dirigido en donde cada punto de nuestro set de datos va a estar conectado a sus $k$ vecinos mas cercanos.Para determinar las distancias podemos usar una métrica a elección. En el grafo dos puntos $i$ y $j$ estarán conectados si $j$ está entre los $k$ vecinos mas cercanos de $i$ o si $i$ está entre los $k$ vecinos mas cercanos de $j$. Este paso es muy sencillo de completar usando KNN. La matriz del grafo va a tener en cada posición $M_{ij}$ la distancia entre los puntos. El grafo va a ser muy disperso ya que cada punto solo va a tener $k$ vecinos.
+El primer paso es crear un grafo no-dirigido en donde cada punto del set de datos va a estar conectado a sus $k$ vecinos mas cercanos.Para determinar las distancias se puede usar una métrica a elección. En el grafo dos puntos $i$ y $j$ estarán conectados si $j$ está entre los $k$ vecinos mas cercanos de $i$ o si $i$ está entre los $k$ vecinos mas cercanos de $j$. Este paso es muy sencillo de completar usando por ejemplo KNN. La matriz del grafo va a tener en cada posición $M_{ij}$ la distancia entre los puntos. El grafo va a ser muy disperso ya que cada punto solo va a tener $k$ vecinos.
 
 \subsection{Cálculo de Distancias}
 
-Una vez que tenemos la matriz de distancias armada vamos a construir una matriz de distancias de todos los puntos contra todos. Para hacer esto hay que aplicar el algoritmo de Floyd-Warshall que dada una matriz de distancias entre pares de puntos nos devuelve la matriz de distancias mínimas de todos contra todos. Floyd-Warshall es $O(n^3)$ por lo que hay que tener un poco de cuidado al aplicar ISOMAP a sets de datos masivos. 
+Una vez obtenida la matriz de distancias, se construye una nueva matriz de distancias de todos los puntos contra todos. Para hacer esto hay que aplicar el algoritmo de Floyd-Warshall que dada una matriz de distancias entre pares de puntos nos devuelve la matriz de distancias mínimas de todos contra todos. Floyd-Warshall es $O(n^3)$ por lo que hay que tener un poco de cuidado al aplicar ISOMAP a sets de datos masivos. 
 
-\subsection{MDS}
+\subsection{Aplicación de MDS}
 
-Una vez que tenemos la matriz de distancias de todos los puntos contra todos simplemente aplicamos MDS con $k=2$ o $k=3$ para obtener la representación de nuestros puntos en dos o tres dimensiones.
+Una vez obtenida esta nueva matriz de distancias de todos los puntos contra todos, simplemente se aplica MDS con $k=2$ o $k=3$ para obtener la representación de nuestros puntos en dos o tres dimensiones respectivamente.
 
-A modo de ejemplo podemos aplicar ISOMAP al set de datos "Swiss Roll" que es un manifold de dos dimensiones dentro de un espacio de tres dimensiones:
+A modo de ejemplo, se puede aplicar ISOMAP al set de datos "Swiss Roll" (ver imagen \ref{fig:swiss_roll}) que es un manifold de dos dimensiones dentro de un espacio de tres dimensiones. El resultado se muestra en la imagen \ref{fig:swiss_roll_isomap}, donde se puede ver que ISOMAP hace un buen trabajo en este set de datos distribuyendo los puntos en franjas casi verticales en el plano de acuerdo a su posición en manifold original.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3in]{figures/swiss-fig-1.png}
 \caption{Swiss Roll}
-
+\label{fig:swiss_roll}
 \end{figure}
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3in]{figures/isomap-fig-1.png}
 \caption{Swiss Roll luego de ISOMAP}
-
+\label{fig:swiss_roll_isomap}
 \end{figure}
-
-Como podemos ver ISOMAP hace un buen trabajo en este set de datos distribuyendo los puntos en franjas casi verticales en el plano de acuerdo a su posición en la cinta/rollito/cosito original.
 
 \section{Laplacian Eigenmaps}
 
-En este algoritmo presentado en [Belkin] vamos a crear un grafo a partir de los datos pero de una forma diferente a la que usamos en ISOMAP, la forma en la cual creamos el grafo aquí es compartida por muchos algoritmos por lo que es muy importante entenderla tanto desde el punto de vista práctico como teórico. La descomposición espectral que vamos a hacer de los datos sirve no solo para este algoritmo sino también para Clustering Espectral, Spectral Hashing y muchos otros algoritmos importantes.
+En este algoritmo también se crea un grafo a partir de los datos pero de una forma diferente a la que se utilizó en ISOMAP. En este algoritmo, la forma en la cual se crea el grafo es compartida por muchos otros como Clustering Espectral y Spectral Hashing.
 
-\subsection{Creación del Grafo}
+\subsection{Construcción del Grafo}
 
-Para la creación del grafo vamos a construir una matriz de adyacencias en donde cada nodo va a estar conectado con sus $k$ vecinos mas cercanos, el peso de las aristas entre nodos vecinos, es decir los valores en la matriz de adyacencias, van a estar dados por la siguiente fórmula:
+Para la construcción del grafo es necesario construir una matriz de adyacencias en donde cada nodo va a estar conectado con sus $k$ vecinos mas cercanos y el peso de las aristas entre nodos vecinos estará dado por la siguiente fórmula:
 
 \begin{myequation}
 W_{ij} = e^{-\frac{||x_i - x_j||^2}{\sigma}}
 \end{myequation}
 
-El parámetro $\sigma$ regula el radio alrededor del cual dos puntos se consideran vecinos. Cuando el exponente $||x_i-x_j||^2 / \sigma$ es muy cercano a cero el valor de $W_ij$ es muy cercano a 1 mientras que si el exponente se hace mayor a 4 (aprox) $W_{ij}$ se vuelve 0. Esto nos permite regular cuando consideramos que dos puntos son vecinos y cuando no. Observemos que el tomar los $k$ vecinos mas cercanos es en cierta forma equivalente a establecer una condición de corte para la cual consideramos que $W_{ij}$ es nulo. 
+El parámetro $\sigma$ regula el radio alrededor del cual dos puntos se consideran vecinos. Cuando el exponente $||x_i-x_j||^2 / \sigma$ es muy cercano a cero el valor de $W_{ij}$ es muy cercano a 1 mientras que si el exponente se hace mayor a 4 aproximadamente $W_{ij}$ es prácticamente 0. Esto permite regular cuándo se considera que dos puntos son vecinos. Observar que el tomar los $k$ vecinos mas cercanos es en cierta forma equivalente a establecer una condición de corte para la cual se considera que $W_{ij}$ es nulo. 
 
-La matriz $W$ es una matriz de adyacencias pero no de distancias, cuanto mas grande el valor de $W_{ij}$ mas cercanos son los puntos. En una matriz de adyacencias binaria usamos $1$ si los puntos son vecinos y $0$ sino, esto es exactamente lo mismo solo que con valores entre 0 y 1 para determinar el grado de vecindad entre dos puntos.
+La matriz $W$ es una matriz de adyacencias pero no de distancias. Cuanto mas grande es el valor de $W_{ij}$ mas cercanos son los puntos. En una matriz de adyacencias binaria usamos $1$ si los puntos son vecinos y $0$ si no. Esto es exactamente lo mismo solo que con valores entre 0 y 1 para determinar el grado de vecindad entre dos puntos.
 
 \subsection{Construcción del Laplaciano}
 
@@ -8669,75 +8597,77 @@ A partir de un grafo y su matriz de adyacencias se puede calcular la matriz Lapl
 L = D - W
 \end{myequation}
 
-En donde $D$ es una matriz diagonal con el grado de cada vértice del grafo siendo el grado la sumatoria de todas las aristas que inciden sobre el mismo es decir que $D_{ii} = \sum_{j=1}^{n} W_{ij}$.
+En donde $D$ es una matriz diagonal con el grado de cada vértice del grafo siendo el grado la sumatoria de todas las aristas que inciden sobre el mismo, osea $D_{ii} = \sum_{j=1}^{n} W_{ij}$.
 
-La matriz resultante $L$ tendrá en su diagonal el valor del grado ya que la diagonal de $W$ es cero, el resto de los elementos de $L$ es igual a la matriz W cambiada de signo ya que todos los elementos de D que no están en la diagonal son cero. Como consecuencia de esto la suma de cualquier fila y columna de $L$ es cero.
-Siendo $L$ una matriz simétrica sabemos que todos sus autovalores son reales. El tercer y último paso del algoritmo es descomponer la matriz $L$ en sus autovalores y autovectores.
+La matriz resultante $L$ tendrá en su diagonal el valor del grado ya que la diagonal de $W$ es cero. El resto de los elementos de $L$ es igual a la matriz W cambiada de signo ya que todos los elementos de D que no están en la diagonal son cero. Como consecuencia de esto la suma de cualquier fila y columna de $L$ es cero.
+Siendo $L$ una matriz simétrica sabemos que todos sus autovalores son reales. El último paso del algoritmo es descomponer la matriz $L$ en sus autovalores y autovectores.
 
 \subsection{Descomposición Espectral del Laplaciano}
 
-En una matriz Laplaciana el autovalor mas pequeño en valor absoluto siempre va a ser cero, y su multiplicidad va a ser igual a la cantidad de componentes conexos del grafo. Es decir que en un grafo conexo $L$ va a tener exactamente un autovalor igual a 0. Si queremos representar a nuestros datos en $k$ dimensiones debemos tomar entonces los $k$ autovalores mas chicos en valor absoluto ignorando el 0. Los autovectores correspondientes a dichos autovalores son la representación de los datos en $k$ dimensiones.
+En una matriz Laplaciana el autovalor mas pequeño en valor absoluto siempre va a ser cero, y su multiplicidad va a ser igual a la cantidad de componentes conexos del grafo. Es decir que en un grafo conexo $L$ va a tener exactamente un autovalor igual a 0. Si se quisiera representar a los datos en $k$ dimensiones entonces hay que tomar los $k$ autovalores mas chicos en valor absoluto ignorando el 0. Los autovectores correspondientes a dichos autovalores son la representación de los datos en $k$ dimensiones.
 
 \subsection{Teoría de la descomposición espectral}
 
-Vamos a intentar demostrar ahora que si los puntos están cercanos en el espacio original entonces la descomposición espectral los mantiene cercanos en el nuevo espacio de dimensiones reducidas.
+Se puede probar que si los puntos están cercanos en el espacio original entonces la descomposición espectral los mantiene cercanos en el nuevo espacio de dimensiones reducidas.
 
-Vamos a llamar $Y_i$ a los puntos en el nuevo espacio de dimensiones reducidas. Podemos definir entonces la siguiente función costo:
+Sean $Y_i$ los puntos en el nuevo espacio de dimensiones reducidas, podemos definir entonces la siguiente función costo:
 
 \begin{myequation}
 J = \sum_{ij}(y_i - y_j)^2 W_{ij}
 \end{myequation}
 
-Analicemos la validez de esta función. W vale 0 cuando los puntos no son lo suficientemente cercanos en el espacio original, cuando esto pasa permitimos que los puntos estén a cualquier distancia en nuestro nuevo espacio sin costo. Cuando $W_{ij}$ tiende a 1 queremos que los puntos estén cercanos en el nuevo espacio para minimizar el costo. En resumen queremos minimizar las distancia entre los puntos en en nuevo espacio ponderando por el valor de $W_{ij}$ en el espacio original. Esto tiene mucho sentido.
+W vale 0 cuando los puntos no son lo suficientemente cercanos en el espacio original, y cuando esto pasa se permite que los puntos estén a cualquier distancia en nuestro nuevo espacio sin costo. Cuando $W_{ij}$ tiende a 1 se quiere que los puntos estén cercanos en el nuevo espacio para minimizar el costo. En resumen, se quiere minimizar las distancia entre los puntos en el nuevo espacio ponderando por el valor de $W_{ij}$ en el espacio original.
 
 \begin{theorem}[Belkin]
 
 Si los puntos $y_i$ tienen $k$ dimensiones entonces los valores que minimizan $J$ para dichos puntos están dados por la fila $i$ de los $k$ autovectores mas chicos de la matriz Laplaciana.
 
-Escribimos entonces:
+Entonces:
 
 $$\sum_{ij}(y_i - y_j)^2 W_{ij} = \sum_{ij}(y_i^2 + y_j^2 -2y_i y_j) W_{ij}$$
 
-Sabemos que $D_{ii} = \sum_j W_{ij}$ por lo tanto:
+Dado que $D_{ii} = \sum_j W_{ij}$, entonces:
 
 $$=\sum_i y_i^2 D_{ii} + \sum_j y_j^2 D_{jj} - 2 \sum_{ij} y_i y_j W_ij $$
 
 Aplicando que $L=D-W$:
 
-$$= 2yLy^t$$
+$$\sum_{ij}(y_i - y_j)^2 W_{ij} = 2yLy^t$$
 
 Reemplazando en J:
 
 $$\frac{1}{2}J = \frac{1}{2} \sum_{ij} (y_i - y_j)^2 W_{ij} = yLy^t$$
 
-Por lo tanto podemos escribir:
+Por lo tanto se puede escribir:
 
 $$J=\sum_i y_iLy_i^t$$
 
-Agreguemos la siguiente restricción simplemente para evitar que escalando una solución válida tengamos otra solución válida:
+Se agrega la siguiente restricción simplemente para evitar que escalando una solución válida tengamos otra solución válida:
 
 $$y_i D y_i^t = 1 $$
 
-Llamemos $\lambda$ al valor mínimo de nuestra función costo:
+Se llama $\lambda$ al valor mínimo de nuestra función costo:
 
 $$\lambda_i = y_i L y_i^t$$
 
-Como $y_i D y_i^t =1 $ podemos escribir:
+Como $y_i D y_i^t =1 $ se puede escribir:
 
 $$y_i L y_i^t = \lambda y_i D y_i^t$$
 
 Generalizando:
 
-\begin{myequation}
+\begin{equation}
 Ly = \lambda D y
-\end{myequation}
+\label{eq:laplacian_equation}
+\end{equation}
 
-Resulta ser ahora que la ecuación 6.4 define que $y$ es un autovector de $L$ y $\lambda D$ es un autovalor. Si $y$ es un vector unitario entonces $\lambda$ es igual a cero ya que la matriz es Laplaciana y la suma de todas sus filas y columnas es cero.
-
-Para evitar que la solución a cualquier problema sea la misma tomamos entonces el segundo autovalor mas chico y su correspondiente autovector y estos serán los que minimicen nuestra función costo.  Es decir que si queremos representar los datos en $k$ dimensiones tenemos que tomar los $k$ autovalores mas chicos que sean distintos de cero y sus correspondientes autovectores. Que es lo que queríamos demostrar.
 \end{theorem}
 
-Este teorema justifica desde el punto de vista teórico que la descomposición espectral del Laplaciano que surge del grafo que representa nuestros datos en el espacio original preserva a los puntos que eran cercanos como cercanos en el nuevo espacio sin imponer restricciones sobre los puntos que no eran vecinos. Esta es la base de cualquier algoritmo de Manifold Learning!
+La ecuación \ref{eq:laplacian_equation} define que $y$ es un autovector de $L$ y $\lambda D$ es un autovalor. Si $y$ es un vector unitario entonces $\lambda$ es igual a cero ya que la matriz es Laplaciana y la suma de todas sus filas y columnas es cero.
+
+Para evitar que la solución a cualquier problema sea la misma se toma entonces el segundo autovalor mas chico y su correspondiente autovector y estos serán los que minimicen la función costo. Es decir que si se quiere representar los datos en $k$ dimensiones entonces hay que tomar los $k$ autovalores mas chicos que sean distintos de cero y sus correspondientes autovectores y esto es lo que se quiso demostrar.
+
+Este teorema justifica desde el punto de vista teórico que la descomposición espectral del Laplaciano que surge del grafo que representa los datos en el espacio original preserva a los puntos que eran cercanos como cercanos en el nuevo espacio sin imponer restricciones sobre los puntos que no eran vecinos.
 
 \subsection{Ejemplos}
 
