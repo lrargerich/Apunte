@@ -8342,7 +8342,7 @@ Cantidad de Valores Singulares & Energía \\ \hline
 
 Sorprendentemente con solo 2 vectores en la base $V$ se puede capturar un 91\% de la energía de la matriz y con 4 o mas vectores prácticamente se captura la totalidad. Se podría afirmar entonces que tiene sentido representar a este set de datos en particular en 4 dimensiones y que una representación en dos dimensiones es aceptable.
 
-\subsection{Compresión de Imágenes usando la SVD}
+\subsection{Compresión de Imágenes}
 
 Anteriormente se mencionó cómo la SVD reducida se puede utilizar para comprimir imágenes y también se mencionó que se puede ir mas allá de la SVD reducida y utilizar aproximaciones de rango $k$. 
 Para ver qué efecto tiene una aproximación de rango $k$ a la hora de comprimir imágenes, considerar el siguiente ejemplo de una imagen de la galaxia de Andrómeda de 127x350 (44450 píxeles) donde se realizan aproximaciones de rango $k=2$, $k=5$, $k=10$, $k=20$ y $k=50$.
@@ -8363,6 +8363,16 @@ Para ver qué efecto tiene una aproximación de rango $k$ a la hora de comprimir
 
 Cuando se utiliza $k=50$, los cálculos indican que es necesario almacenar 23850 píxeles, es decir un53\% de la imagen original. Se puede notar que con este valor de $k$ se obtiene una muy buena representación de la imagen original. En cambio, cuando $k=2$ se obtiene una imagen muy distorsionada.
 La SVD no es un mecanismo adecuado para comprimir imágenes ya que existen algoritmos específicos para imágenes mucho mejores como JPG. Sin embargo, aplicar SVD a imágenes permite llegar a una descomposición muy interesante de las mismas e ilustra el funcionamiento del algoritmo para aproximar datos en dimensiones reducidas.
+
+\subsection{Reducción de ruido}
+Considerando el principio de funcionamiento de la SVD reducida y energía de una matriz, se remarcó que los autovalores más grandes en cierta forma son los que colaboran a la conservación de la energía e indican cuál es la información "más importante" de los datos. Al utilizar una aproximación de rango $k$ se busca obtener solo aquellos autovalores más importantes a costas de perder cierta información. Sin embargo, en determinadas ocasiones, este hecho de perder información a veces tiene la fortuna de ser una forma de reducir el ruido del set de datos. La figura \ref{fig:svd_noise_1} muestra (a la derecha) el efecto de aplicar una SVD sobre una imagen de un cero que contiene ciertos pixels ruidosos que no son de interés. Se puede pensar que a la hora de aplicar una SVD a esta imagen, los autovalores más chicos son los que estan asociados al ruido entonces simplemente son eliminados y de esa forma se "elimina" el ruido.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=3in]{figures/svd_noise_1.png}	
+	\caption{Reducción del ruido. Del lado izquierdo, la imagen ruidosa. Del lado derecho, la imagen reducida}
+	\label{fig:svd_noise_1}
+\end{figure}
 
 \subsection{Eigenfaces}
 
@@ -8538,7 +8548,7 @@ Al utilizar la SVD resolvemos también el problema de la dimensionalidad si es q
 
 \subsection{Perceptual Mapping}
 
-Perceptal Mapping es una aplicación interesante de MDS para aprender los datos a partir de evaluaciones subjetivas u objetivas de los mismos. Suponer que se tiene un conjunto de autos de diferentes marcas y modelos. Podemos pedirles a los usuarios que indiquen que tan parecidos o diferentes son dos autos en un cuestionario o encuesta. Con la opinión de muchos usuarios sobre todos los pares posibles se puede construir una matriz de distancias. Luego, usando MDS, a partir de las distancias se puede construir una representación vectorial para cada modelo de auto en una cierta cantidad de dimensiones. Lo interesante es que cada una de estas dimensiones va a aportar algún tipo de información sobre los autos, por ejemplo su consumo, seguridad, etc. Se puede ver para cada "feature" cuál es el valor que toma cada modelo de auto y deducir cual es el "feature". Lo que se esta haciendo es una construcción de los datos mismos a partir de las comparaciones entre pares de datos. 
+Perceptual Mapping es una aplicación interesante de MDS para aprender los datos a partir de evaluaciones subjetivas u objetivas de los mismos. Suponer que se tiene un conjunto de autos de diferentes marcas y modelos. Podemos pedirles a los usuarios que indiquen que tan parecidos o diferentes son dos autos en un cuestionario o encuesta. Con la opinión de muchos usuarios sobre todos los pares posibles se puede construir una matriz de distancias. Luego, usando MDS, a partir de las distancias se puede construir una representación vectorial para cada modelo de auto en una cierta cantidad de dimensiones. Lo interesante es que cada una de estas dimensiones va a aportar algún tipo de información sobre los autos, por ejemplo su consumo, seguridad, etc. Se puede ver para cada "feature" cuál es el valor que toma cada modelo de auto y deducir cual es el "feature". Lo que se esta haciendo es una construcción de los datos mismos a partir de las comparaciones entre pares de datos. 
 
 \section{ISOMAP}
 
@@ -8669,11 +8679,9 @@ Para evitar que la solución a cualquier problema sea la misma se toma entonces 
 
 Este teorema justifica desde el punto de vista teórico que la descomposición espectral del Laplaciano que surge del grafo que representa los datos en el espacio original preserva a los puntos que eran cercanos como cercanos en el nuevo espacio sin imponer restricciones sobre los puntos que no eran vecinos.
 
-\subsection{Ejemplos}
+\subsection{Ejemplo del algoritmo}
 
-Vamos a ver en primer lugar un ejemplo numérico y teórico para entender el funcionamiento del algoritmo y luego un ejemplo gráfico para ver que resultados genera.
-
-Consideremos los siguientes puntos en dos dimensiones:
+Considerar los siguientes puntos en dos dimensiones:
 
 \begin{figure}[!htb]
 \centering
@@ -8683,42 +8691,41 @@ Consideremos los siguientes puntos en dos dimensiones:
 \label{fig:undmanifold}
 \end{figure}
 
-Esta figura (~\ref{fig:undmanifold}) es un manifold unidimensional embebido en un espacio de dos dimensiones. Queremos ver si Laplacian Eigenmaps puede descubrir el manifold.
-Construimos la matriz $W$ usando $\sigma=2$ y $k=2$ es decir los dos vecinos mas cercanos. El resultado es la siguiente matriz de adyacencias:
+La figura \ref{fig:undmanifold} es un manifold unidimensional embebido en un espacio de dos dimensiones. Se quiere ver si Laplacian Eigenmaps puede descubrir el manifold.
+Se construye la matriz $W$ usando $\sigma=2$ y $k=2$ (para obtener los dos vecinos más cercanos). El resultado es la matriz que se visualiza en \ref{fig:eigen_fig_2}. En las figura \ref{fig:eigen_fig_3} se muestra la matriz $L$. Las figuras \ref{fig:eigen_fig_4} y \ref{fig:eigen_fig_5} muestran los autovalores y autovectores de $L$ respectivamente. 
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=5in]{figures/eigen-fig-2.png}
 \caption{W}
-
+\label{fig:eigen_fig_2}
 \end{figure}
 
-Calculando la matriz $D$ y $L=D-W$ tenemos que L es:
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=5in]{figures/eigen-fig-3.png}
 \caption{L}
-
+\label{fig:eigen_fig_3}
 \end{figure}
 
-Calculando los autovaloes y autovectores de L:
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=5in]{figures/eigen-fig-4.png}
 \caption{Autovalores de L}
-
+\label{fig:eigen_fig_4}
 \end{figure}
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=5in]{figures/eigen-fig-5.png}
 \caption{Autovectores de L}
-
+\label{fig:eigen_fig_5}
 \end{figure}
 
-Como era de esperarse el grafo es conexo y por lo tanto $L$ tiene un único autovalor cero. Si queremos representar los datos en una sola dimensión estamos interesados entonces en el segundo autovector que es:
+Como era de esperarse el grafo es conexo y por lo tanto $L$ tiene un único autovalor cero. Si se quiere representar los datos en una sola dimensión entonces se usa el primer autovector asociado al primer autovalor no nulo, que en este caso es el segundo autovector:
+
 $$
 V=\left ( 
 \begin{matrix} 
@@ -8737,82 +8744,81 @@ V=\left (
  \right )
 $$
 
-En este autovector los puntos quedan ordenados! Es decir que si los dibujamos sobre una línea nos quedaría P1,P2,P3,P4,P5,P6...P11 que es lo que queríamos pues mantiene el orden de los puntos en nuestro manifold. En una sola dimensión P1 es cercano a P2, P2 es cercano a P1 y P3 etc...
+La figura \ref{fig:eigen_fig_7} muestra qué ocurre al graficar el primer autovector que se seleccionó. Como se puede ver, los puntos $P_0, P_1...P_{10}$ mantienen el mismo orden que tenían su representación original. Aún más, aquellos puntos que eran cercanos en el espacio original también siguen siendo cercanos en este nuevo espacio. Ejemplos claros de esto son $P_0$ con $P_1$, o bien $P_5$ con $P_6$, etcétera.
 
-Veamos ahora el resultado de Laplacian Eigenmaps para el Swiss Roll:
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=5in]{figures/eigen-fig-7.png}
+	\caption{Puntos del primer autovector}
+	\label{fig:eigen_fig_7}
+\end{figure}
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{cc}
 \includegraphics[width=2in]{figures/swiss-fig-1.png} &\includegraphics[width=2in]{figures/eigen-fig-6.png}\\
 \end{tabular}
-
+\caption{Laplacian Eigenmaps aplicado a Swiss Roll}
+\label{table:swiss_roll_laplacian}
 \end{table}
 
-Podemos ver un buen resultado, curiosamente podríamos volver a aplicar LE al resultado para obtener una representación en una única dimensión. 
+Este algoritmo puede aplicarse también a Swiss Roll y se obtienen los resultados que se muestran en \ref{table:swiss_roll_laplacian}. Curiosamente se podría volver a aplicar el algoritmo a este resultado para obtener una representación en una única dimensión. 
 
 \section{TSNE}
 
-T-SNE [van de Maarten] es, al momento de escribir este capítulo, el mejor algoritmo para la representación de datos en dos y tres dimensiones. Es, por lo tanto, el algoritmo más usado y el más importante para visualizar datos multidimensionales en el plano o en 3D. 
+T-SNE [van de Maarten] es uno de los mejores algoritmos para la representación de datos en dos y tres dimensiones. 
+La idea básica de T-SNE es poder representar datos que originalmente están en muchas dimensiones en solo dos o tres dimensiones de la mejor forma posible. Se vio anteriormente que PCA/SVD lograba esto mismo intentando preservar la varianza de los datos. Esto es equivalente a que los puntos que están alejados en $n$ dimensiones se mantengan alejados cuando los proyectamos en $k$ dimensiones. 
 
-La idea básica detrás de T-SNE es poder representar datos que originalmente están en muchas dimensiones en solo dos o tres dimensiones de la mejor forma posible. Vimos anteriormente que PCA/SVD lograba esto mismo intentando preservar la varianza de los datos. Esto es equivalente a que los puntos que están alejados en “n” dimensiones se mantengan alejados cuando los proyectamos en “k” dimensiones. 
+T-SNE, a diferencia de PCA y al igual que en Laplacian Eigenmaps, va a intentar que los puntos que estaban cerca en $n$ dimensiones se mantengan cercanos en $k$ dimensiones. Estas son dos formas radicalmente opuestas de encarar el mismo problema.
 
-T-SNE a diferencia de PCA y al igual que en Laplacian Eigenmaps va a intentar que los puntos que estaban cerca en “n” dimensiones se mantengan cercanos en “k” dimensiones. Estas son dos formas radicalmente opuestas de encarar el mismo problema.
-
-Para la formulación de T-SNE vamos a comenzar con una forma de calcular $p_{i|j}$ que es la probabilidad de que $j$ sea vecino dado un punto $i$.
+Este algoritmo comienza calculando una probabilidad de que $j$ sea vecino de $i$. Entonces, define a $p_{i|j}$ como:
 
 \begin{myequation}
 p_{i|j} = \frac{\exp(-||x_i - x_j||^2 / 2\sigma_i^2)}{\sum_{k \neq i} \exp(-||x_i - x_k||/2 \sigma_i^2)}
 \end{myequation}
 
-El numerador es simplemente un gaussiano alrededor del punto $x_i$, notemos que cada punto tiene asociado un parámetro $\sigma_i$ que indica la densidad alrededor del punto para considerar a otro punto como cercano, esta es la diferencia fundamental con otros métodos como Laplacian Eigenmaps en donde el parámetro $\sigma$ es global, el mismo para todos los puntos. El denominador es la sumatoria de todos los gaussianos para normalizar la probabilidad. Podemos calcular entonces la probabilidad de que dos puntos sean vecinos que es igual a la probabilidad de que $i$ sea vecino de $j$ y $j$ sea vecino de $i$
+El numerador es simplemente un gaussiano alrededor del punto $x_i$. Notar que cada punto tiene asociado un parámetro $\sigma_i$ que indica la densidad alrededor del punto para considerar a otro punto como cercano, y esta es la diferencia fundamental con otros métodos como Laplacian Eigenmaps en donde el parámetro $\sigma$ es global () )el mismo para todos los puntos). El denominador es la sumatoria de todos los gaussianos para normalizar la probabilidad. Se puede calcular entonces la probabilidad de que dos puntos sean vecinos que es igual a la probabilidad de que $i$ sea vecino de $j$ y $j$ sea vecino de $i$
 
 \begin{myequation}
 p_{ij} = \frac{p_{i|j}+p_{j|i}}{2N}
 \end{myequation}
 
-Llamemos $Y$ a los puntos mapeados a 2 o 3 dimensiones. Calculemos la probabilidad de que dos puntos $Y_i$ y $Y_j$ sean cercanos:
+Si llamamos $Y$ a los puntos mapeados a 2 o 3 dimensiones, se puede calcular la probabilidad de que dos puntos $Y_i$ y $Y_j$ sean cercanos utilizando una distribución T de Student de la siguiente forma:
 
 \begin{myequation}
 q_{ij} = \frac{(1+||y_i - y_j||^2)-1}{\sum_{k \neq i}(1+||y_k - y_i||^2)-1}
 \end{myequation}
 
-Esto no es un gaussiano sino una distribución T (Student) simplemente porque funciona mejor lo cual se prueba empíricamente.
-
-El objetivo de T-SNE es lograr que si $p_{ij}$ es un valor cercano a 1 entonces $q_{ij}$ sea un valor cercano a 1 y si $p_{ij}$ es un valor cercano a cero entonces $q_{ij}$ puede quedar libre. Esto se logra mediante la divergencia de Kullback-Leibler que estudiamos en el capítulo de teoría de la información y que permite comparar dos distribuciones de probabilidades.
+El objetivo de T-SNE es lograr que si $p_{ij}$ es un valor cercano a 1 entonces $q_{ij}$ sea un valor cercano a 1 y si $p_{ij}$ es un valor cercano a cero entonces $q_{ij}$ puede quedar libre. Esto se logra mediante la divergencia de Kullback-Leibler mencionada en el capítulo de Teoría de la Información y que permite comparar dos distribuciones de probabilidades:
 
 \begin{myequation}
 KL(P||Q) = \sum_{i \neq j} p_{ij} \log{\frac{p_{ij}}{q_{ij}}}
 \end{myequation}
 
-Y nuestro objetivo es minimizar esta divergencia. Observemos que cuando $p_{ij}$ es muy grande y $q_{ij}$ es chico la divergencia nos da un número muy grande. En cambio cuando $p_{ij}$ es grande y $q_{ij}$ también es grande nos da un número pequeño. Notemos que si $p_{ij}$ es pequeño no importa si $q_{ij}$ es grande o pequeño. Es decir que lo que nos importa es que si los puntos eran cercanos en el espacio original ($p_{ij}$ grande) también sean cercanos en dos o tres dimensiones. Si los puntos estaban alejados en el espacio original no tenemos preferencias en el espacio reducido.
+El objetivo será minimizar esta divergencia, observando que cuando $p_{ij}$ es muy grande y $q_{ij}$ es chico la divergencia da un número muy grande. En cambio cuando $p_{ij}$ es grande y $q_{ij}$ también es grande nos da un número pequeño. Notar que si $p_{ij}$ es pequeño no importa si $q_{ij}$ es grande o pequeño. En consecuencia, lo que importa es que si los puntos eran cercanos en el espacio original ($p_{ij}$ grande) también sean cercanos en dos o tres dimensiones. Si los puntos estaban alejados en el espacio original no se tienen preferencias en el espacio reducido.
 
-A modo de ejemplo veamos el resultado de T-SNE para MNIST en donde tenemos datos en 764 dimensiones representando dígitos manuscritos, cada dato es una imagen de 28x28.
+A modo de ejemplo, la figura \ref{tsne_mnist} muestra el resultado de aplicar T-SNE al set de datos MNIST que contiene datos en 764 dimensiones representando dígitos manuscritos (cada dato es una imagen de 28x28). Se puede notar que el algoritmo separa los dígitos en zonas bien diferenciadas (marcadas en colores) en el plano 2D.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3in]{figures/tsne-fig-1.png}
 \caption{T-SNE para MNIST}
-
+\label{fig:tsne_mnist}
 \end{figure}
-
-Como puede verse T-SNE hace un excelente trabajo separando los dígitos en zonas bien diferenciadas en el plano en 2D. T-SNE es una herramienta fundamental en la visualización de datos multidimensionales por lo que siempre resulta conveniente tener una implementación de este algoritmo eficiente disponible en el lenguaje en el que trabajemos.
 
 \section{Teorema Fundamental de la Dimensionalidad}
 
-Uno de los puntos fundamentales cuando usamos algoritmos para reducir la dimensionalidad de un set de datos es saber si es conveniente o no reducir las dimensiones de nuestro set de datos.
+Uno de los puntos fundamentales cuando se usan algoritmos para reducir la dimensionalidad de un set de datos es saber si es conveniente o no reducir las dimensiones de nuestro set de datos.
 
 \begin{theorem}[Teorema Fundamental de la Dimensionalidad]
 No siempre es conveniente reducir la dimensionalidad de un set de datos.
 \end{theorem}
 
-Este teorema se demuestra fácilmente por el \textbf{"pigeonhole principle"}. Si siempre fuera conveniente aplicar reducción de dimensiones entonces recursivamente podríamos llevar a cualquier set de datos a una única dimensión. Si aceptamos que esto no tiene sentido entonces el teorema queda demostrado.
+Este teorema se demuestra fácilmente por el \textbf{"pigeonhole principle"}. Si siempre fuera conveniente aplicar reducción de dimensiones entonces recursivamente se podría llevar a cualquier set de datos a una única dimensión. Si se acepta que esto no tiene sentido entonces el teorema queda demostrado.
+La consecuencia directa de este teorema es que será necesario analizar en qué casos es conveniente aplicar reducción de dimensiones y en qué casos no. Teniendo en cuenta los algoritmos vistos anteriormente, cuando se trata de visualización T-SNE suele ser un buen algoritmo para empezar. Cuando los resultados de T-SNE no son buenos se pueden utilizar otros algoritmos como ISOMAP, Laplacian Eigenmaps, LLE, Hessian, MDS, Kernel PCA etc. 
 
-La consecuencia directa de este teorema es que debemos analizar en que casos es conveniente aplicar reducción de dimensiones y en que casos no y tenemos también que decidir de que forma hacerlo.
-
-Cuando se trata de visualización T-SNE suele ser un buen algoritmo para empezar, cuando los resultados de T-SNE no son buenos podemos probar con otros algoritmos como ISOMAP, Laplacian Eigenmaps, LLE, Hessian, MDS, Kernel PCA etc. Hay realmente muchísimas opciones.
-
-Si se trata de reducir las dimensiones por cuestiones de performance o para mejorar el rendimiento de un algoritmo la SVD debería ser siempre nuestra primera opción, teniendo en cuenta la posibilidad de usar algoritmos mas avanzados como Autoencoders en caso de ser necesario.
+Si se trata de reducir las dimensiones por cuestiones de performance o para mejorar el rendimiento de un algoritmo la SVD debería ser la primera opción, teniendo en cuenta la posibilidad de usar algoritmos mas avanzados como Autoencoders.
 
 \chapter{Information Retrieval}
 
