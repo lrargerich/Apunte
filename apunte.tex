@@ -331,7 +331,7 @@ Materia & Nota & Frecuencia \\ \hline\hline
 
 La versión corregida cumple el principio de que cada observación sea una fila y cada atributo sea una columna.
 
-Existen muchos ejemplos mas de datos mal formados el paper [Wickham] es de lectura recomendable para observar otros ejemplos y la forma de corregirlos.
+Existen muchos ejemplos mas de datos mal formados el paper \cite{Wickham} es de lectura recomendable para observar otros ejemplos y la forma de corregirlos.
 
 \subsubsection{Detectar y eliminar Anomalías}
 
@@ -4096,7 +4096,7 @@ Dicho esto, si utilizamos un compresor adecuado, valen las siguientes propiedade
 
 \section{Teoría de la Información}
 
-La teoría de la información  es una rama de la computación creada por Claude Shannon en su tratado "A Mathematical Theory of Communication" [Shannon]. En este trabajo Shannon estudió las propiedades de la información almacenada en forma digital en formato binario y estableció toda la teoría necesaria para poder comprimir dicha información y transmitirla a través de un canal ruidoso con la posibilidad de recuperar la información al otro lado. Este trabajo es la piedra fundamental de la teoría de compresión y comunicación de datos. En esta sección se utilizará el concepto de entropía definido por Shannon como una forma basada en probabilidades de medir la complejidad de un string o archivo, es decir, otra forma de aproximar a $K(x)$. 
+La teoría de la información  es una rama de la computación creada por Claude Shannon en su tratado "A Mathematical Theory of Communication" \cite{Shannon}. En este trabajo Shannon estudió las propiedades de la información almacenada en forma digital en formato binario y estableció toda la teoría necesaria para poder comprimir dicha información y transmitirla a través de un canal ruidoso con la posibilidad de recuperar la información al otro lado. Este trabajo es la piedra fundamental de la teoría de compresión y comunicación de datos. En esta sección se utilizará el concepto de entropía definido por Shannon como una forma basada en probabilidades de medir la complejidad de un string o archivo, es decir, otra forma de aproximar a $K(x)$. 
 
 Veamos algunas definiciones necesarias para llegar al concepto de entropía.
 
@@ -5182,7 +5182,7 @@ La tabla \ref{table:ppmc_sse} muestra un ejemplo de la estructura que necesita P
 
 \section{DMC: Dynamic Markov Compression}
 
-DMC [Cormarck-Horspool] es un algoritmo basado en comprimir los datos bit por bit, a diferencia de PPMC que procesaba byte a byte. DMC usa un único contexto por cada bit a comprimir a diferencia de otros algoritmos usan una mezcla de contextos (como por ejemplo el algoritmo PAQ).
+DMC \cite{CormackHorspool} es un algoritmo basado en comprimir los datos bit por bit, a diferencia de PPMC que procesaba byte a byte. DMC usa un único contexto por cada bit a comprimir a diferencia de otros algoritmos usan una mezcla de contextos (como por ejemplo el algoritmo PAQ).
 
 Por cada bit a comprimir DMC intenta predecir la probabilidad de que el bit sea 1 o 0 comprimiendo el mismo con compresión aritmética. 
 
@@ -5557,7 +5557,7 @@ Una forma de solucionar esto es usando compresión aritmética, en donde al prin
 
 \subsubsection{Complejidad LZ}
 
-Es posible usar LZ78 para estimar la complejidad de un string [Lempel-Ziv-C] desde el punto de vista de este compresor. La complejidad se define simplemente como la cantidad de patrones diferentes que ocurren en el string. Por ejemplo con el string $010101011$ se empieza con el primer bit $0$ y lo agregamos a la tabla. El segundo bit $1$ no está en la tabla por lo que se lo agrega. Luego se lee $0$ que ya fue visto así que se lee otro bit: $01$ no está en la tabla y lo se lo agrega. De esta forma nos quedaría algo del tipo: $0|1|01|010|11|$ con lo cual se estimaría que la complejidad LZ de este string es 5.
+Es posible usar LZ78 para estimar la complejidad de un string \cite{LempelZivC} desde el punto de vista de este compresor. La complejidad se define simplemente como la cantidad de patrones diferentes que ocurren en el string. Por ejemplo con el string $010101011$ se empieza con el primer bit $0$ y lo agregamos a la tabla. El segundo bit $1$ no está en la tabla por lo que se lo agrega. Luego se lee $0$ que ya fue visto así que se lee otro bit: $01$ no está en la tabla y lo se lo agrega. De esta forma nos quedaría algo del tipo: $0|1|01|010|11|$ con lo cual se estimaría que la complejidad LZ de este string es 5.
 
 Es evidente que en un string o archivo en donde hay muchos patrones repetidos conllevará a tener una complejidad baja mientras que en un string o archivo completamente aleatorio eventualmente se tendría una gran cantidad de patrones diferentes. 
 
@@ -5750,7 +5750,7 @@ La descompresión de MTF es trivial ya que simplemente se leen números de 8 bit
 
 \subsection{La Transformación de Burrows y Wheeler}
 
-La transformación de Burrows y Wheeler [Burrows-Wheeler] permite tomar un archivo común (no random) y convertirlo en un archivo localizado. Esta transformación funciona de la siguiente forma: En primer lugar se divide el archivo en bloques de un cierto tamaño (por ejemplode  900Kb) y se construyen todas las rotaciones del bloque. 
+La transformación de Burrows y Wheeler \cite{BurrowsWheeler} permite tomar un archivo común (no random) y convertirlo en un archivo localizado. Esta transformación funciona de la siguiente forma: En primer lugar se divide el archivo en bloques de un cierto tamaño (por ejemplode  900Kb) y se construyen todas las rotaciones del bloque. 
 
 Esto se ilustra en el siguiente ejemplo pero en la práctica no implica hacer nada salvo guardar un puntero a cada byte del bloque. Si se piensa en el bloque como si fuera una cola circular entonces cada puntero representa una rotación del mismo.
 
@@ -6541,7 +6541,7 @@ Y cuando p es un número lo suficientemente grande esto es igual a $1/m$ por lo 
 
 \section{Cuckoo Hashing}
 
-Vamos a explicar nuestro primer algoritmo basado en múltiples funciones de hashing. El algoritmo llamado "Cuckoo Hashing" fue creado por Pagh y Rodler en el a\~no 2001 [Pagh-Rodler]. Se basa en el uso de mas de una función de hashing, para empezar vamos a usar dos.
+Vamos a explicar nuestro primer algoritmo basado en múltiples funciones de hashing. El algoritmo llamado "Cuckoo Hashing" fue creado por Pagh y Rodler en el a\~no 2001 \cite{PaghRodler}. Se basa en el uso de mas de una función de hashing, para empezar vamos a usar dos.
 
 Cada función de hashing va a definir una posición alternativa para nuestro dato en una tabla de hash. El algoritmo de búsqueda es muy simple, el dato tiene que estar en alguna de las dos posiciones alternativas o no está en la tabla es decir que es O(1). La inserción funciona de forma muy sencilla: almacenamos el dato en la posición indicada por la primer función de hashing, si ese lugar estaba ocupado entonces reubicamos ese dato en su posición alternativa y así sucesivamente hasta que no hay mas datos a reubicar o bien entramos en un loop.
 
@@ -6626,7 +6626,7 @@ El método del Cuckoo puede hacerse mas eficiente admitiendo mas de un registro 
 \textbf{2 hash}&49\%&86\%&93\%&96\%\\ \hline
 \end{tabular}	
 }
-\caption{Capacidad de carga de una tabla de Cuckoo hashing según la cantidad de funciones de hashing a usar y el tamaño de los buckets.[Pagh-Rodler]}
+\caption{Capacidad de carga de una tabla de Cuckoo hashing según la cantidad de funciones de hashing a usar y el tamaño de los buckets\cite{PaghRodler}.}
 \end{table}
 
 La nomenclatura a usar es $C_{n,m}$ en donde $n$ es la cantidad de funciones de hashing a usar y $m$ es la cantidad de registros por bucket. Por ejemplo en $C_{2,8}$ usamos dos funciones de hashing con buckets que soportan 8 claves cada uno. Varios esquemas de Cuckoo Hashing logran eficiencia cercana al 95\% del espacio por lo que podemos generar tablas de hash bastante compactas.
@@ -6670,7 +6670,7 @@ Luego de realizar las inserciones usando Cuckoo la tabla nos quedaría:
 \caption{Vector disperso como Cuckoo table}
 \end{table}
 
-Supongamos ahora que tenemos otro vector almacenado en una tabla similar. Es posible realizar ciertas operaciones algebraicas entre los vectores de forma eficiente gracias a las propiedades del Cuckoo [Zhou-Li-Andersen-Smola]. Por ejemplo consideremos el producto interno entre dos vectores representados mediante el Cuckoo. 
+Supongamos ahora que tenemos otro vector almacenado en una tabla similar. Es posible realizar ciertas operaciones algebraicas entre los vectores de forma eficiente gracias a las propiedades del Cuckoo\cite{ZhouLiAndersenSmola}. Por ejemplo consideremos el producto interno entre dos vectores representados mediante el Cuckoo. 
 
 Podemos recorrer la primera tabla de forma secuencial, tomamos el primer bucket y encontramos (14,-2) ahora si el segundo vector tiene la clave 14 entonces estará en el primer bucket o bien en su posición alternativa; buscamos y si encontramos 14 en el segundo vector entonces multiplicamos los valores y vamos acumulando. Este proceso lo repetimos, en total la operacion es O(n) ya que por cada bucket de la tabla solo usamos una función de hashing para verificar su posición alternativa en la segunda tabla. El producto interno es la operación mas usada por ejemplo en Kernels por lo que para vectores dispersos de grandes dimensiones este método es muy interesante ya que como hemos visto la representación del Cuckoo es muy eficiente.
 
@@ -6714,7 +6714,7 @@ Empecemos pensando una forma muy ineficiente de realizar hashing perfecto: usand
 
 El problema es que si tenemos 1 millón de claves no podemos tener una tabla de hash con capacidad  para 1 billón de datos porque es un desperdicio muy grande de espacio y probablemente no tengamos lugar suficiente. 
 
-La solución a este problema es usar dos funciones de hashing en lo que conocemos como esquema FKS [Fredman-Komlos-Szemeredi], nuestra primera función de hashing va a tener un espacio de direcciones que podemos fijar como parámetro, llamémoslo $k$ siendo $k$ un número primo cercano a $m$ a efectos de simplificar suponemos $k=m$.
+La solución a este problema es usar dos funciones de hashing en lo que conocemos como esquema FKS \cite{FredmanKomlosSzemeredi}, nuestra primera función de hashing va a tener un espacio de direcciones que podemos fijar como parámetro, llamémoslo $k$ siendo $k$ un número primo cercano a $m$ a efectos de simplificar suponemos $k=m$.
 
 \begin{figure}[!htb]
 \centering
@@ -6759,7 +6759,7 @@ m + 2 \sum_{i=0}^{m-1} {m_i \choose 2} = n+\frac{2 {m \choose 2}}{m} < 2m
 
 \subsection{Hashing Perfecto Dinámico}
 
-Si podemos dar altas y bajas de claves entonces el esquema anterior falla. Podemos usar un mecanismo muy simple basado en agrandar y achicar el tamaño de una función perfecta.[Dietzfelbinger]
+Si podemos dar altas y bajas de claves entonces el esquema anterior falla. Podemos usar un mecanismo muy simple basado en agrandar y achicar el tamaño de una función perfecta \cite{Dietzfelbinger}.
 
 Si tenemos $m$ claves construimos una función perfecta para $2m$ claves usando el esquema FKS, esta sirve hasta que tengamos $2m$ claves en cuyo caso reconstruimos la función de hashing para $4m$ elementos. 
 
@@ -6773,7 +6773,7 @@ La posibilidad de mantener una función de hashing perfecta con bajo costo para 
 
 En estas secciones vamos a desarrollar la construcción de una función de hashing perfecta y mínima es decir que tengamos $O(1)$ para las consultas y $O(m)$ espacio. Esto sólo es posible cuando conocemos cuáles son todas las claves que queremos almacenar en la tabla y los datos son estáticos. Cuando eso pasa es posible desarrollar una función que mapee cada clave a una única posición de forma tal de no tener colisiones. 
 
-Vamos a ver en primer lugar un algoritmo conocido como HDC (Hash Displace \& Compress) cuyo origen podemos rastrear a [Pagh], [Botelho-Pagh-Ziviani] y [Bellazzougui-Botelho-Dietzfelbinger]. Este algoritmo está fuertemente inspirado en el esquema FKS y es altamente eficiente para generar funciones de hashing perfectas y mínimas.
+Vamos a ver en primer lugar un algoritmo conocido como HDC (Hash Displace \& Compress) cuyo origen podemos rastrear a \cite{Pagh}, \cite{BotelhoPaghZiviani} y \cite{Belazzougui}. Este algoritmo está fuertemente inspirado en el esquema FKS y es altamente eficiente para generar funciones de hashing perfectas y mínimas.
 
 El funcionamiento del algoritmo es muy sencillo, necesitamos una familia de funciones de hashing universales que podamos parametrizar con un número entero $h(i,x)$, las funciones de esta familia nos generan un número entre 0 y $n-1$ que es la cantidad de claves que tenemos.
 
@@ -6998,7 +6998,7 @@ Consideramos ahora el caso en el cual tenemos que almacenar datos de tipo (clave
 
 El objetivo es poder determinar dado un dato (clave,valor) en que equipo debemos almacenar el dato. Una primera aproximación podría ser simplemente hashear la clave y hacer mod "m", siendo "m" la cantidad de equipos para determinar en donde almacenar la misma. El problema de esta solución es que si se agrega un nuevo equipo al cluster entonces nuestra función de hashing cambia de $x \mod m$ a $x \mod m+1$ y esto implica que \textbf{todas} las claves deben re-ubicarse ya que potencialmente cualquiera puede cambiar de equipo, esto claramente no es bueno. Necesitamos entonces un método que reduzca la cantidad de claves a reubicar en caso de agregarse o quitarse nuevos equipos al cluster y esa solución se llama "Hashing Consistente"
 
-El principio es muy simple, mapeamos cada máquina de nuestro cluster a un número en el intervalo $[0,1)$, esto se puede hacer simplemente hasheando el nombre del equipo y normalizando al intervalo $[0,1)$. Lo mismo hacemos con nuestras claves, hasheamos cada clave y normalizamos el resultado a un número en el intervalo $[0,1)$, el esquema que llamamos "Hashing Consistente" propuesto en [Karger] es muy simple: A cada clave se le asigna el número de máquina o servidor que se encuentre inmediatamente a su derecha en el intervalo $[0,1)$ tomando el intervalo de forma circular.
+El principio es muy simple, mapeamos cada máquina de nuestro cluster a un número en el intervalo $[0,1)$, esto se puede hacer simplemente hasheando el nombre del equipo y normalizando al intervalo $[0,1)$. Lo mismo hacemos con nuestras claves, hasheamos cada clave y normalizamos el resultado a un número en el intervalo $[0,1)$, el esquema que llamamos "Hashing Consistente" propuesto en \cite{Karger} es muy simple: A cada clave se le asigna el número de máquina o servidor que se encuentre inmediatamente a su derecha en el intervalo $[0,1)$ tomando el intervalo de forma circular.
 
 \begin{figure}[!htb]
 \centering
@@ -7033,7 +7033,7 @@ Usando THT podemos decidir el tamaño de los vectores con los cuales queremos re
 
 THT tiene varias propiedades muy importantes e interesantes, en primer lugar es un método que preserva la naturaleza dispersa de los datos, esto es fácil de entender ya que solo encendemos las posiciones indicadas por la función de hashing para las palabras que encontramos en los textos, aun en pocas dimensiones esto genera vectores dispersos con los cuales es mas sencillo trabajar. Esto es mejor que una proyección aleatoria en donde el resultado serían siempre vectores densos.
 
-THT no solo puede usarse para textos sino que con alguna variante u otra puede usarse como método genérico para representar cualquier tipo de dato, simplemente hay que decidir de que forma aplicar la función de hashing a cada columna de los datos. [Shi][Shi2]
+THT no solo puede usarse para textos sino que con alguna variante u otra puede usarse como método genérico para representar cualquier tipo de dato, simplemente hay que decidir de que forma aplicar la función de hashing a cada columna de los datos\cite{Shi}\cite{Shi2}.
 
 Un tema a analizar es el efecto de las colisiones ya que puede ocurrir que dos "features" diferentes de nuestros datos originales colisionen en un mismo feature al representarlos mediante THT. Empíricamente se ha mostrado que el efecto de las colisiones es mínimo y en muchos casos es incluso favorable reduciendo el ruido del set de datos. Cuando el efecto de las colisiones no es bueno podemos usar el método de Weinberger para mitigarlas.
 
@@ -7041,11 +7041,11 @@ Un tema a analizar es el efecto de las colisiones ya que puede ocurrir que dos "
 
 En esta variante usaremos una segunda función de hashing que devuelve solamente dos valores posibles: -1 o +1 y usaremos este resultado para decidir si incrementamos o decrementamos la dimensión indicada por la primer función de hashing. Con este método el promedio de cada columna en nuestros vectores va a tender a cero, además se minimiza el efecto de las colisiones ya que no siempre incrementamos cuando dos features diferentes colisionan. El efecto mas interesante de este método es que el producto interno entre los vectores en nuestra nueva representación es equivalente al producto interno entre los vectores en el espacio original lo cual admite el uso de THT para crear Hash Kernels en donde usamos el producto interno entre los nuevos vectores para estimar la semejanza entre dos vectores (a mayor producto interno mas semejantes son los vectores).
 
-Hay que destacar que en una gran cantidad de casos THT funciona muy bien sin necesidad de usar el método de Weinberger pero el mismo es necesario cuando queremos usar THT como un kernel. [Weinberger]
+Hay que destacar que en una gran cantidad de casos THT funciona muy bien sin necesidad de usar el método de Weinberger pero el mismo es necesario cuando queremos usar THT como un kernel\cite{Weinberger}.
 
 \subsection{Filtros de Spam Personalizados}
 
-A modo de ejemplo comentaremos una aplicación directa de THT para la construcción de un filtro de Spam [Attenberg] que los usuarios pueden personalizar. El set de datos va a ser una colección de emails en donde marcaremos los que son Spam, el funcionamiento básico de nuestro filtro consiste en representar cada email con un vector y luego entrenar un clasificador lineal binario en base a los labels que tenemos de Spam o No-Spam, el clasificador aprende entonces a detectar si un mail es spam o no y podemos aplicarlo a los nuevos emails para predecir si son Spam.
+A modo de ejemplo comentaremos una aplicación directa de THT para la construcción de un filtro de Spam \cite{Attenberg} que los usuarios pueden personalizar. El set de datos va a ser una colección de emails en donde marcaremos los que son Spam, el funcionamiento básico de nuestro filtro consiste en representar cada email con un vector y luego entrenar un clasificador lineal binario en base a los labels que tenemos de Spam o No-Spam, el clasificador aprende entonces a detectar si un mail es spam o no y podemos aplicarlo a los nuevos emails para predecir si son Spam.
 
 Por supuesto la idea es usar THT para representar los textos en los emails por lo que podemos fijar el tamaño de nuestros vectores.
 El problema es como lograr que cada usuario pueda personalizar el algoritmo en base a lo que cada usuario considera Spam o no y al mismo tiempo mantener un cierto filtro global en el cual podamos aprovechar el feedback de todos los usuarios al mismo tiempo.
@@ -7145,7 +7145,7 @@ La tercera proyección define una matriz dispersa en donde $2/3$ de sus elemento
   \end{cases}
 \end{equation}
 
-Ambas proyecciones se describen en mayor detalle en [Achlioptas]. La ventaja de la tercera proyección con respecto a la segunda o la primera es que es computacionalmente mas eficiente para efectuar los cálculos. 
+Ambas proyecciones se describen en mayor detalle en \cite{Achlioptas}. La ventaja de la tercera proyección con respecto a la segunda o la primera es que es computacionalmente mas eficiente para efectuar los cálculos. 
 
 \subsection{Por qué funciona el Teorema de JL}
 
@@ -7695,9 +7695,9 @@ Calculamos $R_1 * x = (-0.0612,-4.2223) $
 
 Si los vértices son: \{0:(0,1); 1:(0,-1); 2:(1,0); 3:(-1,0)\} entonces el mas cercano es (0,-1) y el valor del minhash es 1. Podemos generar tantos minhashes como necesitemos generando mas rotaciones al azar. Luego podemos amplificar con los métodos que ya hemos visto agrupando minhashes.
 
-Para hacer mas eficiente este método en lugar de generar una matriz aleatoria de $kxk$ para realizar la rotación los autores[Andoni] proponen usar la matriz: $H*D1*H*D2*H*D3$ en donde $H$ es la transformación de Hadamard y $Di$ es una matriz diagonal con +/-1 al azar. La transformación de Hadamard se puede calcular en $O(k \log k)$ y esto es mas rápido que el producto por una matriz aleatoria de $kxk$ que es $O(k^2)$. Empíricamente se observa que el resultado de aplicar $H*D1*H*D2*H*D3$ a un punto es equivalente a realizar una rotación aleatoria aunque nadie ha podido demostrar esto en la práctica.
+Para hacer mas eficiente este método en lugar de generar una matriz aleatoria de $kxk$ para realizar la rotación los autores \cite{Andoni} proponen usar la matriz: $H*D1*H*D2*H*D3$ en donde $H$ es la transformación de Hadamard y $Di$ es una matriz diagonal con +/-1 al azar. La transformación de Hadamard se puede calcular en $O(k \log k)$ y esto es mas rápido que el producto por una matriz aleatoria de $kxk$ que es $O(k^2)$. Empíricamente se observa que el resultado de aplicar $H*D1*H*D2*H*D3$ a un punto es equivalente a realizar una rotación aleatoria aunque nadie ha podido demostrar esto en la práctica.
 
-Otra variante sugerida en [Kennedy] es aplicar en primer lugar una reducción de dimensiones usando Johnson-Lindenstrauss para llevar los datos de $d$ a $m$ dimensiones ($m<<d$). Y luego aplicar una rotación que al mismo tiempo aumente la dimensionalidad de los datos mediante una matriz aleatoria de $mxd'$. Siendo $d'$ la dimensionalidad sobre la cual comparamos contra el polítopo mas cercano.
+Otra variante sugerida en \cite{Kennedy} es aplicar en primer lugar una reducción de dimensiones usando Johnson-Lindenstrauss para llevar los datos de $d$ a $m$ dimensiones ($m<<d$). Y luego aplicar una rotación que al mismo tiempo aumente la dimensionalidad de los datos mediante una matriz aleatoria de $mxd'$. Siendo $d'$ la dimensionalidad sobre la cual comparamos contra el polítopo mas cercano.
 
 El método del polítopo es equivalente al método de Voronoi si en lugar de tomar el producto interno máximo tomamos el máximo valor absoluto y el signo como minhash. Es decir que con $T$ gaussianos en el método de Voronoi generamos un número entre $0$ y $2T$ ya que ahora además del índice del gaussiano el signo es parte del minhash. En general el método de los polítopos en $d'$ dimensiones es igual al método de Voronoi con $2d'$ gaussianos \footnote{El único detalle es aceptar un gaussiano como una pseudo-rotación lo cual en la práctica es exactamente equivalente}.
 
@@ -7974,7 +7974,7 @@ Notemos que el método descripto en todas sus variantes puede tener falsos posit
 
 \section{LSH forests}
 
-Presentamos ahora una idea reciente  [Bawa] en la cual usamos LSH para construir un árbol binario de búsqueda. La idea consiste en convertir cada minhash en un 0 o 1, por ejemplo según sea par o impar e ir insertando los datos en un árbol binario de búsqueda, para cada dato generamos tantos minhashes como sean necesarios para que la concatenación de todos sus minhashes sea una cadena única es decir que le corresponda una hoja del árbol. Eventualmente puede ser necesario generar muchísimos minhashes por lo que es conveniente fijar una longitud máxima para la cantidad de minhashes que puede tener un dato, en este caso puede ocurrir que una hoja del árbol tenga mas de un dato pero en general serán muy pocos.
+Presentamos ahora una idea reciente \cite{Bawa} en la cual usamos LSH para construir un árbol binario de búsqueda. La idea consiste en convertir cada minhash en un 0 o 1, por ejemplo según sea par o impar e ir insertando los datos en un árbol binario de búsqueda, para cada dato generamos tantos minhashes como sean necesarios para que la concatenación de todos sus minhashes sea una cadena única es decir que le corresponda una hoja del árbol. Eventualmente puede ser necesario generar muchísimos minhashes por lo que es conveniente fijar una longitud máxima para la cantidad de minhashes que puede tener un dato, en este caso puede ocurrir que una hoja del árbol tenga mas de un dato pero en general serán muy pocos.
 
 \begin{figure}[!htb]
 \centering
@@ -8667,7 +8667,7 @@ J = \sum_{ij}(y_i - y_j)^2 W_{ij}
 
 Analicemos la validez de esta función. W vale 0 cuando los puntos no son lo suficientemente cercanos en el espacio original, cuando esto pasa permitimos que los puntos estén a cualquier distancia en nuestro nuevo espacio sin costo. Cuando $W_{ij}$ tiende a 1 queremos que los puntos estén cercanos en el nuevo espacio para minimizar el costo. En resumen queremos minimizar las distancia entre los puntos en en nuevo espacio ponderando por el valor de $W_{ij}$ en el espacio original. Esto tiene mucho sentido.
 
-\begin{theorem}[Belkin]
+\begin{theorem}\cite{Belkin}
 
 Si los puntos $y_i$ tienen $k$ dimensiones entonces los valores que minimizan $J$ para dichos puntos están dados por la fila $i$ de los $k$ autovectores mas chicos de la matriz Laplaciana.
 
@@ -8800,7 +8800,7 @@ Podemos ver un buen resultado, curiosamente podríamos volver a aplicar LE al re
 
 \section{TSNE}
 
-T-SNE [van de Maarten] es, al momento de escribir este capítulo, el mejor algoritmo para la representación de datos en dos y tres dimensiones. Es, por lo tanto, el algoritmo más usado y el más importante para visualizar datos multidimensionales en el plano o en 3D. 
+T-SNE\cite{vanDerMaatenHinton} es, al momento de escribir este capítulo, el mejor algoritmo para la representación de datos en dos y tres dimensiones. Es, por lo tanto, el algoritmo más usado y el más 
 
 La idea básica detrás de T-SNE es poder representar datos que originalmente están en muchas dimensiones en solo dos o tres dimensiones de la mejor forma posible. Vimos anteriormente que PCA/SVD lograba esto mismo intentando preservar la varianza de los datos. Esto es equivalente a que los puntos que están alejados en “n” dimensiones se mantengan alejados cuando los proyectamos en “k” dimensiones. 
 
@@ -9446,7 +9446,7 @@ En muchas aplicaciones un bitmap es una de las estructuras de datos mas adecuada
 
 El uso de bitmaps para almacenar conjuntos trae aparejado un problema fundamental. Cuando el conjunto tiene pocos elementos una simple lista de enteros es una estructura eficiente, por ejemplo el conjunto {1,5} ocuparía 8 bytes si cada elemento ocupa 4 bytes. Si la cantidad de elementos del conjunto es muy grande $n$ llega un momento en el cual $n*4$ es un número muy grande y es mucho mejor almacenar un bitmap de $m$ bits. Por ejemplo para {1,5} un bitmap de tipo {010001} ocuparía solo 6 bits en lugar de 16. Pero si el conjunto es {1,5,20000000} el bitmap ocuparía muchísimo espacio ya que hacen falta millones de ceros para llegar al tercer elemento del conjunto. Es decir que, para almacenar un conjunto, a veces es bueno un bitmap y a veces es mejor una simple lista de enteros.
 
-El método de Roaring Bitmaps[Lemire] soluciona esto permitiendo combinar ambos métodos. El funcionamiento de la estructura es muy simple, el conjunto se divide en bloques de $2^k$ enteros, en general $k=16$. Por cada bloque se decide usar o bien un bitmap o bien una lista de enteros o incluso otro método. Este formato permite revisar la existencia de un elemento rapidamente usando una búsqueda binaria y también calcular unión, intersección y negaciones de conjuntos de forma eficiente.
+El método de Roaring Bitmaps\cite{Lemire} soluciona esto permitiendo combinar ambos métodos. El funcionamiento de la estructura es muy simple, el conjunto se divide en bloques de $2^k$ enteros, en general $k=16$. Por cada bloque se decide usar o bien un bitmap o bien una lista de enteros o incluso otro método. Este formato permite revisar la existencia de un elemento rapidamente usando una búsqueda binaria y también calcular unión, intersección y negaciones de conjuntos de forma eficiente.
 
 La estructura de Roaring Bitmaps en general ofrece un muy buen compromiso entre el nivel de compresión logrado para almacenar los conjuntos y la performance al procesar los mismos. Es por esto que es una estructura que cada vez se usa mas en el mundo de information retrieval.
 
@@ -10180,7 +10180,7 @@ En el caso de KNN el único hiper-parámetro que manejamos (además de la métri
 
 \section{El Teorema de No Free Lunch}
 
-Este teorema publicado por [Wolpert] en el año 1997 es fuente de todo tipo de controversias y es posiblemente uno de los teoremas peor interpretados en el mundo de Machine Learning. En esta sección vamos a intentar explicar el significado del teorema y aclarar algunas interpretaciones erróneas que se hacen a partir del mismo. 
+Este teorema publicado por Wolpert\cite{Wolpert} en el año 1997 es fuente de todo tipo de controversias y es posiblemente uno de los teoremas peor interpretados en el mundo de Machine Learning. En esta sección vamos a intentar explicar el significado del teorema y aclarar algunas interpretaciones erróneas que se hacen a partir del mismo. 
 
 \begin{theorem}[No Free Lunch]
 Dos algoritmos de optimización cualesquiera son equivalentes si los promediamos sobre el set de todos los problemas posibles.
@@ -10392,7 +10392,7 @@ Algo que puede hacerse y que suele traer buenos resultados es una vez que tenemo
 
 \section{Teoría de Machine Learning}
 
-En esta sección vamos a formalizar un poco la teoría de Machine Learning. Los conceptos que veremos fueron enunciados por primera vez en 1984 por Leslie Valiant [Valiant].
+En esta sección vamos a formalizar un poco la teoría de Machine Learning. Los conceptos que veremos fueron enunciados por primera vez en 1984 por Leslie Valiant \cite{Valiant}.
 
 El objetivo es presentar algunas definiciones y teoremas que son útiles para comprender conceptos que luego son fundamentales en la práctica como \textit{bias} y \textit{variance}. Curiosamente esta sección podría estudiarse antes o después del resto de los temas del capítulo. Aquellos que lean esta sección primero tendrán una base teórica que les va a permitir entender los conceptos que explicaremos mas adelante sin necesidad de "creer" en ellos. Los que lean la sección al final tendrán una explicación de cosas que fueron aprendiendo, es decir una forma de develar varios misterios. Dejamos la decisión a consideración de cada lector. Por si están pensando en decidir en base al lanzamiento de una moneda vamos a empezar con un concepto de probabilidades que vamos a necesitar luego. 
 
@@ -10684,7 +10684,7 @@ Beautiful.
 
 \subsection{El Principio de la Mínima Descripción}
 
-El principio de la mínima descripción (MDL) por sus siglas en inglés [Rissanen] [Grumwald] es una forma de interpretar los algoritmos de Machine Learning desde el punto de vista de la compresión de datos. La idea es muy simple: cuanto mas se puede comprimir un set de datos mas se puede aprender del mismo.
+El principio de la mínima descripción (MDL) por sus siglas en inglés \cite{Rissanen}\cite{Grumwald} es una forma de interpretar los algoritmos de Machine Learning desde el punto de vista de la compresión de datos. La idea es muy simple: cuanto mas se puede comprimir un set de datos mas se puede aprender del mismo.
 
 De acuerdo a MDL hay dos cosas para representar: los datos y el modelo. El modelo ideal, es decir el mejor algoritmo, es aquel que minimiza la sumatoria de la longitud necesaria en bits para representar los datos y la longitud para representar el modelo.
 
@@ -10738,7 +10738,7 @@ Observemos que cuantos mas puntos tenemos mas atractivo resulta un modelo mas co
 
 \subsection{Clasificación con Algoritmos de Compresión}
 
-Es posible usar algoritmos de compresión en problemas de ML [Knoll-de Freitas], la distancia normalizada de compresión puede usarse como distancia para un algoritmo de clustering como K-Means. Y podemos también aplicarla a problemas de clasificación. Consideremos por ejemplo que queremos clasificar textos en 2 clases (clasificación binaria). Podemos entonces concatenar todos los textos con label "1" del set de entrenamiento y comprimirlos. Luego concatenar todos los textos con label "0" y comprimirlos. Para clasificar podemos usar el modelo de compresión construido en cada caso y probar comprimir el nuevo texto con uno u otro modelo, el modelo que mejor comprima al texto es entonces el que usamos para predecir el label. Algo interesante es que la diferencia de compresión nos da una idea de la certeza que tenemos y podemos calcular la probabilidad de cada clase simplemente normalizando.
+Es posible usar algoritmos de compresión en problemas de ML \cite{KnolldeFreitas}, la distancia normalizada de compresión puede usarse como distancia para un algoritmo de clustering como K-Means. Y podemos también aplicarla a problemas de clasificación. Consideremos por ejemplo que queremos clasificar textos en 2 clases (clasificación binaria). Podemos entonces concatenar todos los textos con label "1" del set de entrenamiento y comprimirlos. Luego concatenar todos los textos con label "0" y comprimirlos. Para clasificar podemos usar el modelo de compresión construido en cada caso y probar comprimir el nuevo texto con uno u otro modelo, el modelo que mejor comprima al texto es entonces el que usamos para predecir el label. Algo interesante es que la diferencia de compresión nos da una idea de la certeza que tenemos y podemos calcular la probabilidad de cada clase simplemente normalizando.
 
 Existen diferentes modelos que podemos usar al aplicar un algoritmo de compresión a un problema de clasificación:
 
@@ -11346,7 +11346,7 @@ Es posible usar grafos para construir una estructura de datos que nos permita ap
 
 Para buscar los $k$ puntos mas cercanos a un cierto query lo que hacemos es comenzar desde un punto al azar del grafo y calcular la distancia entre el query y los vecinos de dicho punto. Una vez que hicimos esto nos movemos al nodo que mas nos acerca al query. Este proceso lo repetimos hasta que no hay posibilidad de acercarnos mas al query. En el camino nos quedamos con los $k$ puntos que hayan estado mas cerca del query que estamos procesando. 
 En la figura ~\ref{fig:knngrafos} si empezamos en Y0 y nuestro Query es Q nos movemos primero a Y1 y luego a Y2 guardando siempre en el camino cuáles son los $k$ puntos mas cercanos a Q de los que hemos analizado. Por cada nodo visitado siempre analizamos sus $k$ vecinos.
-Este algoritmo es bastante rápido y eficiente siempre y cuando sea factible realizar el pre-procesamiento necesario.[Dong][Hajebi]
+Este algoritmo es bastante rápido y eficiente siempre y cuando sea factible realizar el pre-procesamiento necesario\cite{Dong}\cite{Hajebi}.
 
 \subsection{LSH}
 
@@ -11458,7 +11458,7 @@ $\sigma$ es el radio alrededor de cada punto para considerar que los puntos dent
 
 Un detalle muy interesante es que al usar pesos podemos usar un valor de $k$ tan grande como deseemos, los puntos mas lejanos simplemente van a tener un peso cada vez menor y en concreto podríamos usar $k=n$ en cuyo caso para clasificar un punto tenemos en cuenta todos los puntos del set de datos como vecinos. Cuando esto pasa lo que tenemos es efectivamente un \textit{kernel} de distancias entre puntos. Mas adelante al ver otros algoritmos de clasificación dedicaremos un buen tiempo al estudio de métodos basados en kernels.
 
-Existen otros esquemas interesantes para usar pesos en KKN descriptos en [Gou]
+Existen otros esquemas interesantes para usar pesos en KKN descriptos en \cite{Gou}
 
 \section{Evitando Overfitting en KNN}
 
@@ -11561,7 +11561,7 @@ Habiendo hecho esta definición tan genérica y mostrado un ejemplo conocido que
 
 \subsubsection{El problema del muestreo}
 
-En todo problema de Data Science es correcto decir que cuantos mas datos podamos recolectar mejor serán nuestros resultados. Esto es algo lógico ya que los datos ayudan a que nuestros algoritmos puedan entenderlos y generar mejores resultados. En 2001 Banko y Brill [Banko,Brill] publicaron un trabajo que se hizo muy famoso en el cual sostenían que en la mayoría de los casos recolectar mas datos era mas importante que usar un algoritmo mejor. Dicho de otra forma con cantidad de datos suficientes incluso algoritmos muy simples convergen al mismo resultado que los algoritmos mas avanzados.
+En todo problema de Data Science es correcto decir que cuantos mas datos podamos recolectar mejor serán nuestros resultados. Esto es algo lógico ya que los datos ayudan a que nuestros algoritmos puedan entenderlos y generar mejores resultados. En 2001 Banko y Brill \cite{Banko} publicaron un trabajo que se hizo muy famoso en el cual sostenían que en la mayoría de los casos recolectar mas datos era mas importante que usar un algoritmo mejor. Dicho de otra forma con cantidad de datos suficientes incluso algoritmos muy simples convergen al mismo resultado que los algoritmos mas avanzados.
 
 \begin{figure}[!htb]
 \centering
@@ -11592,13 +11592,13 @@ Estos curiosos efectos nos llevan a la conclusión de que debemos tener mucho cu
 
 El efecto de la dimensionalidad en las distancias queda evidenciado por el siguiente teorema:
 
-\begin{theorem}[Beyer]
+\begin{theorem}\cite{Beyer}
 $$if \lim_{d  \to \infty} var(\frac{||x||_d}{E[||x||_d]}) = 0, then \frac{Dmax-Dmin}{Dmin} \to 0$$
 \end{theorem}
 
-La demostración de este teorema puede encontrarse en [Beyer] y lo que nos dice es que a medida que la cantidad de dimensiones tiende a infinito la diferencia entre la distancia máxima entre dos puntos del espacio y la distancia mínima converge es decir que todas las distancias son aproximadamente iguales. Este es un resultado muy perturbador. Afortunadamente, como hemos visto, los datos reales no suelen ocupar completamente el espacio en el cual se presentan pero de todas formas es importante considerar que en muchas dimensiones el concepto de distancia entre puntos empieza a peligrar.
+La demostración de este teorema puede encontrarse en \cite{Beyer} y lo que nos dice es que a medida que la cantidad de dimensiones tiende a infinito la diferencia entre la distancia máxima entre dos puntos del espacio y la distancia mínima converge es decir que todas las distancias son aproximadamente iguales. Este es un resultado muy perturbador. Afortunadamente, como hemos visto, los datos reales no suelen ocupar completamente el espacio en el cual se presentan pero de todas formas es importante considerar que en muchas dimensiones el concepto de distancia entre puntos empieza a peligrar.
 
-Consideremos el caso de la norma $l_{\infty}$ es decir la diferencia máxima que existe entre x e y en alguna dimensión. Esta norma es útil en dos o tres dimensiones pero es claro que a medida que aumentamos la cantidad de dimensiones su utilidad va decreciendo, en un espacio de 100 dimensiones por ejemplo la diferencia máxima en solo una de estas dimensiones ciertamente no debe ser la mejor forma de medir la distancia entre dos puntos. La intuición es que a medida que aumentamos la cantidad de dimensiones exponentes cada vez mas bajos nos dan una mejor medida de distancia entre los puntos, este razonamiento es cierto y fue demostrado tanto en forma teórica como empírica en [Aggarwal,Hinnenburg,Keim]. Se demuestra que para espacios de muchas dimensiones la distancia Manhattan ($p=1$) funciona mejor que la distancia euclideana e incluso distancias con $p<1$ funcionan aun mejor. 
+Consideremos el caso de la norma $l_{\infty}$ es decir la diferencia máxima que existe entre x e y en alguna dimensión. Esta norma es útil en dos o tres dimensiones pero es claro que a medida que aumentamos la cantidad de dimensiones su utilidad va decreciendo, en un espacio de 100 dimensiones por ejemplo la diferencia máxima en solo una de estas dimensiones ciertamente no debe ser la mejor forma de medir la distancia entre dos puntos. La intuición es que a medida que aumentamos la cantidad de dimensiones exponentes cada vez mas bajos nos dan una mejor medida de distancia entre los puntos, este razonamiento es cierto y fue demostrado tanto en forma teórica como empírica en \cite{Aggarwal}. Se demuestra que para espacios de muchas dimensiones la distancia Manhattan ($p=1$) funciona mejor que la distancia euclideana e incluso distancias con $p<1$ funcionan aun mejor. 
 
 \begin{figure}[!htb]
 \centering
@@ -11630,7 +11630,7 @@ Además del uso de exponentes fraccionarios hay otros trucos que podemos probar 
 
 $$SNN(x,y) = |KNN(x,k) \cap KNN(y,k)|$$
 
-Esta métrica ha demostrado funcionar mejor que otras en espacios de muchas dimensiones. [Houle]
+Esta métrica ha demostrado funcionar mejor que otras en espacios de muchas dimensiones\cite{Houle}.
 
 
 
@@ -13167,7 +13167,7 @@ Las opciones son:
 \item La distancia máxima entre dos puntos en cada cluster
 \item El promedio de las distancias de todos los puntos de un cluster contra todos los puntos del otro cluster
 \item La distancia entre los promedios de los puntos de cada cluster (centroides)
-\item El método de Ward [Ward]
+\item El método de Ward \cite{Ward}
 \end{itemize}
 
 \subsection{Encontrando la Cantidad de Clusters}
@@ -13395,7 +13395,7 @@ Supongamos que el primer centroide elegido al azar es k1. El objetivo ahora es e
 
 \end{figure}
 
-Como podemos ver K-means++ genera una inicialización más dispersa de los centroides iniciales. El problema de K-Means++ es que para datos realmente masivos necesita hacer "k" iteraciones sobre los datos para elegir los centroides, tarea que es todavía mas ineficiente cuando "k" es un número largo. Existe una variante a K-Means++ [Bahmani] llamada K-Means paralell. La idea es hacer solo $log(k)$ pasadas sobre los datos, en cada iteración se agregan $l$ centroides en lugar de 1, el resultado es que tendremos una cantidad de centroides mayor a $k$ que son los centroides que necesitamos, los centroides finales se obtienen clusterizando los candidatos a centroides ponderados por la probabilidad con la cual fueron seleccionados, este paso se puede hacer, por ejemplo, usando clustering jerárquico.
+Como podemos ver K-means++ genera una inicialización más dispersa de los centroides iniciales. El problema de K-Means++ es que para datos realmente masivos necesita hacer "k" iteraciones sobre los datos para elegir los centroides, tarea que es todavía mas ineficiente cuando "k" es un número largo. Existe una variante a K-Means++ \cite{Bahmani} llamada K-Means paralell. La idea es hacer solo $log(k)$ pasadas sobre los datos, en cada iteración se agregan $l$ centroides en lugar de 1, el resultado es que tendremos una cantidad de centroides mayor a $k$ que son los centroides que necesitamos, los centroides finales se obtienen clusterizando los candidatos a centroides ponderados por la probabilidad con la cual fueron seleccionados, este paso se puede hacer, por ejemplo, usando clustering jerárquico.
 
 \begin{figure}[!htb]
 \centering
@@ -13508,7 +13508,7 @@ La versión Kmeans++ es mejor que las dos anteriores aunque muy similar a la ver
 
 \subsubsection{Teoría de K-Means Online}
 
-Vamos a probar ahora que K-Means online también optimiza la función costo de K-Means [Bottou-Bengio].
+Vamos a probar ahora que K-Means online también optimiza la función costo de K-Means \cite{BottouBengio}.
 
 Podemos considerar la función costo de K-Means como la sumatoria del costo de cada punto.
 
@@ -13921,7 +13921,7 @@ Vamos a ver dos soluciones para este problema: una basada en una estructura llam
 
 \subsection{The Inverted Multi-Index}
 
-En este algoritmo [Babenko-Lempitsky] vamos a empezar dividiendo las columnas $d$ del set de datos en dos bloques de $d/2$ columnas cada uno. Luego vamos a usar K-Means sobre cada uno de estos bloques como si fuera un set de datos independiente, es decir primero corremos K-Means con las primeras $d/2$ columnas de los datos y luego con las últimas $d/2$ columnas. Esto nos da dos juegos de centroides independientes $U$ y $V$ y dos centroides asignados a cada punto. Ahora en lugar de tener un índice invertido por cada centroide tendremos un índice por cada \textit{par} de centroides. 
+En este algoritmo \cite{Babenko} vamos a empezar dividiendo las columnas $d$ del set de datos en dos bloques de $d/2$ columnas cada uno. Luego vamos a usar K-Means sobre cada uno de estos bloques como si fuera un set de datos independiente, es decir primero corremos K-Means con las primeras $d/2$ columnas de los datos y luego con las últimas $d/2$ columnas. Esto nos da dos juegos de centroides independientes $U$ y $V$ y dos centroides asignados a cada punto. Ahora en lugar de tener un índice invertido por cada centroide tendremos un índice por cada \textit{par} de centroides. 
 
 Al usar dos valores la cantidad de puntos en cada \textit{celda} del índice se reduce notablemente, es posible incluso que en una celda no tengamos la cantidad de puntos necesarios para encontrar los $k$ vecinos mas cercanos a un cierto query.
 
@@ -13935,7 +13935,7 @@ Para el query, simplemente buscaremos los dos centroides mas cercanos al mismo y
 \label{fig:invertedmulti}
 \end{figure}
 
-Hay múltiples variantes de esta estructura, por ejemplo se puede aplicar primero la SVD al set de datos sin reducir la cantidad de dimensiones, luego correr los 2 K-Means como hemos descripto y luego dentro de cada celda podemos volver a aplicar el algoritmo como si cada celda fuera un set de datos independiente. Esta estructura recursiva da lugar a varios algoritmos que son extremadamente eficientes como por ejemplo LOPQ [Kalantidis]. 
+Hay múltiples variantes de esta estructura, por ejemplo se puede aplicar primero la SVD al set de datos sin reducir la cantidad de dimensiones, luego correr los 2 K-Means como hemos descripto y luego dentro de cada celda podemos volver a aplicar el algoritmo como si cada celda fuera un set de datos independiente. Esta estructura recursiva da lugar a varios algoritmos que son extremadamente eficientes como por ejemplo LOPQ \cite{KalantidisAvrithis}. 
 
 Estos métodos son muy necesarios, por ejemplo para búsqueda de imágenes similares a otras en donde podemos tener billones de puntos (imágenes) en millones de dimensiones. Para estos sets de datos KNN suele ser el mejor algoritmo para encontrar semejanzas, en algunos casos extrayendo features de las imágenes usando algoritmos como por ejemplo SIFT. Incluso reduciendo la cantidad de dimensioenes a cientos o miles KNN es completamente inviable y son necesarias aproximaciones. Los Multi-Inverted indexes,LOPQ o K-Means Trees son una solución a este problema y por eso su importancia.
 
@@ -13959,7 +13959,7 @@ El éxito de este algoritmo comparado contra LOPQ o los inverted multi indexes d
 
 \section{Clustering Espectral}
 
-El algoritmo de Clustering Espectral [Weiss-Ng-Jordan] surge originalmente como una forma de realizar cortes entre componentes de un grafo, siendo un algoritmo originalmente pensado para grafos pasó un cierto tiempo hasta que se comenzó a usar para cualquier tipo de datos. Este algoritmo, al igual que Kernel K-Means, tiene la capacidad de detectar formas de clusters arbitrarias, no-lineales.
+El algoritmo de Clustering Espectral \cite{WeissNgJordan} surge originalmente como una forma de realizar cortes entre componentes de un grafo, siendo un algoritmo originalmente pensado para grafos pasó un cierto tiempo hasta que se comenzó a usar para cualquier tipo de datos. Este algoritmo, al igual que Kernel K-Means, tiene la capacidad de detectar formas de clusters arbitrarias, no-lineales.
 
 Sea $X_{mxn}$ nuestra matriz de $m$ datos en $n$ dimensiones. Para transformarla en un grafo vamos a usar el mismo proceso que hemos usado en Laplacian Eigenmaps por lo que solamente lo repasaremos muy rápidamente.
 
@@ -14078,7 +14078,7 @@ El algoritmo de clustering espectral es una herramienta muy poderosa ya que pued
 
 \subsection{Aproximaciones: KASP}
 
-El algoritmo de Clustering Espectral tiene como problema la necesidad de contar con la matriz de afinidad “W” que es una matriz de mxm siendo “m” la cantidad de datos. Esto puede llegar a ser un número imposible de manejar. Es necesario entonces realizar una aproximación que nos permita usar clustering espectral sin la necesidad de calcular W de forma completa. La aproximación que veremos se llama “Kasp” [Yan-Huan-Jordan] y está basada en K-Means.
+El algoritmo de Clustering Espectral tiene como problema la necesidad de contar con la matriz de afinidad “W” que es una matriz de mxm siendo “m” la cantidad de datos. Esto puede llegar a ser un número imposible de manejar. Es necesario entonces realizar una aproximación que nos permita usar clustering espectral sin la necesidad de calcular W de forma completa. La aproximación que veremos se llama “Kasp” \cite{YanHuangJordan} y está basada en K-Means.
 
 El procedimiento es muy simple:
 
@@ -14094,7 +14094,7 @@ Clustering Espectral puede aplicarse de forma directa a la detección de comunid
 
 \section{CURE}
 
-CURE [Guha-Rastogi-Shim] (Cluserint Using Representatives) es un algoritmo de clustering para grandes cantidades de datos, que es robusto a datos anómalos y permite clusters de forma arbitraria. CURE combina clustering jerárquico y K-Means de forma eficiente.
+CURE \cite{GuhaRastogiShim} (Cluserint Using Representatives) es un algoritmo de clustering para grandes cantidades de datos, que es robusto a datos anómalos y permite clusters de forma arbitraria. CURE combina clustering jerárquico y K-Means de forma eficiente.
 
 El primer paso es elegir un subconjunto de puntos al azar y agruparlos en $k$ clusters usando clustering jerárquico. Es necesario conocer la cantidad de clusters que queremos $k$ igual que en K-Means. Estos puntos no pueden ser muchos ya que, como sabemos, sería ineficiente realizar el proceso de clustering jerárquico. 
 
@@ -14165,7 +14165,7 @@ En cuanto a performance tenemos el problema de po cada punto encontrar los punto
 
 \section{HDBScan}
 
-HDBScan [Campello-Moulavi-Sander] es un algoritmo de clustering basado en DBScan que soluciona el problema de las densidades diferentes en los clusters. El problema es que si se usa una distancia muy pequeña $e$ los clusters con densidades de puntos bajas quedan sin identificar es decir como un enorme conjunto de outliers mientras que si usamos una densidad grande suficiente para encontrar los clusters menos densos empiezan a mergearse entre sí. 
+HDBScan \cite{CampelloMoulaviSander} es un algoritmo de clustering basado en DBScan que soluciona el problema de las densidades diferentes en los clusters. El problema es que si se usa una distancia muy pequeña $e$ los clusters con densidades de puntos bajas quedan sin identificar es decir como un enorme conjunto de outliers mientras que si usamos una densidad grande suficiente para encontrar los clusters menos densos empiezan a mergearse entre sí. 
 
 Vamos a usar a lo largo de esta sección el siguiente conjunto de puntos:
 
@@ -14191,7 +14191,7 @@ Vamos a asociar a cada punto con la distancia de su vecindario que es la distanc
 
 A esta distancia la vamos a llamar el $\textit{core}_k$ del punto. Cada punto tiene asociada una cierta distancia correspondiente a $\text{core}_k(x_i)$ que, recordemos, es la distancia máxima entre el punto y sus $k$ vecinos mas cercanos. 
 
-La distancia MRD [Eldridge-Belkin] se define de la siguiente forma:
+La distancia MRD \cite{Eldridge} se define de la siguiente forma:
 
 \begin{myequation}
 \text{MRD}(a,b) = \max\{\text{core}_k(a),\text{core}_k(b),d(a,b)\}
@@ -14295,7 +14295,7 @@ Vamos a ver dos algoritmos para bi-clustering, uno basado en clustering espectra
 
 \subsection{Co-clustering Espectral}
 
-El algoritmo de co-clustering espectral [Dhillon] se basa en el principio de aplicar clustering espectral al Laplaciano del grafo bipartito entre las filas y las columnas de una matriz. Afortunadamente el grafo que sería de $(m+n)x(m+n)$ no es necesario ya que puede derivarse de la matriz de datos que llamaremos $A$, en nuestro ejemplo esta es simplemente la matriz de términos x documentos. Por ejemplo:
+El algoritmo de co-clustering espectral \cite{Dhillon} se basa en el principio de aplicar clustering espectral al Laplaciano del grafo bipartito entre las filas y las columnas de una matriz. Afortunadamente el grafo que sería de $(m+n)x(m+n)$ no es necesario ya que puede derivarse de la matriz de datos que llamaremos $A$, en nuestro ejemplo esta es simplemente la matriz de términos x documentos. Por ejemplo:
 
 $$A=\begin{pmatrix}
 5&1&4&0\\
@@ -14453,7 +14453,7 @@ $C = SphericalKmeans(Z)$
 \caption{LSI Co-Clustering}
 \end{algorithm}
 
-Ambos algoritmos dan resultados similares [Park-Leckie] y son los algoritmos mas usados para aplicar bi-clustering a una matriz de términos por documentos. Los resultados obtenidos son muy interesantes ya que permiten analizar los clusters en base a los términos que fueron clusterizados junto con los documentos. Por ejemplo luego de aplicar Spectral Co-Clustering a una serie de textos de newsgroups los resultados fueron los siguientes:
+Ambos algoritmos dan resultados similares \cite{ParkLeckie} y son los algoritmos mas usados para aplicar bi-clustering a una matriz de términos por documentos. Los resultados obtenidos son muy interesantes ya que permiten analizar los clusters en base a los términos que fueron clusterizados junto con los documentos. Por ejemplo luego de aplicar Spectral Co-Clustering a una serie de textos de newsgroups los resultados fueron los siguientes:
 
 \begin{verbatim}
 Best biclusters:
@@ -15328,7 +15328,7 @@ utilidad: RBMs o SVD++
 
 \subsection{SVD++}
 
-El algoritmo SVD++ [Koren] fue presentado informalmente durante la competencia del premio Netflix por un millón de dólares. Este algoritmo representó un importante salto en la mejora de los sistemas de recomendaciones, hoy en día se usa extensamente. Está basado en el simple concepto de factorizar la matriz de utilidad para descubrir los modelos latentes. 
+El algoritmo SVD++ \cite{Koren} fue presentado informalmente durante la competencia del premio Netflix por un millón de dólares. Este algoritmo representó un importante salto en la mejora de los sistemas de recomendaciones, hoy en día se usa extensamente. Está basado en el simple concepto de factorizar la matriz de utilidad para descubrir los modelos latentes. 
 
 El principio aquí es muy simple: descomponer la matriz de utilidad en el producto de dos
 matrices: Q y P. En donde Q tendrá tantas filas como ítems y tantas columnas como factores
@@ -15491,7 +15491,7 @@ r_{xi} = \mu + b_x(t) + b_i(t) + q_i +p_x
 
 \section{Factorization Machines}
 
-El algoritmo FM [Rendle] es uno de los que mejores resultados suele dar en competencias en las cuales hay que construir un sistema de recomendaciones, este algoritmo puede usarse tanto para recomendaciones como para clasificación o regresión y se basa en encontrar los factores latentes asociados a cada variable del sistema. 
+El algoritmo FM \cite{Rendle} es uno de los que mejores resultados suele dar en competencias en las cuales hay que construir un sistema de recomendaciones, este algoritmo puede usarse tanto para recomendaciones como para clasificación o regresión y se basa en encontrar los factores latentes asociados a cada variable del sistema. 
 
 Para empezar la presentación del algoritmo supongamos que tenemos calificaciones de usuarios en triplas del estilo \{userid,movieid,rating\}. Podríamos pensar en usar una simple regresión lineal para estimar la calificación de un usuario a una película de la forma:
 
@@ -15891,7 +15891,7 @@ Para calcular el momento de orden 0 de un stream veremos el algoritmo de Flajole
 
 \subsection{Flajolet-Martin}
 
-El algoritmo de [Flajolet-Martin] es sumamente simple y sorprendente, implica solamente el uso de una función de hashing y un contador en memoria. 
+El algoritmo de Flajolet-Martin\cite{FlajoletMartin} es sumamente simple y sorprendente, implica solamente el uso de una función de hashing y un contador en memoria. 
 Por cada dato que observamos en nuestro stream aplicamos la función de hashing y contamos la cantidad de 0s consecutivos en la misma a partir del bit 0. En memoria llevaremos un contador $r$ con la cantidad máxima de ceros que hemos observado al comienzo de cualquier resultado de la función de hashing.
 
 El momento de orden 0 del stream se estima como:
@@ -15937,7 +15937,7 @@ Si usamos 2 grupos de 3 estimadores cada uno entonces en el primer grupo tenemos
 
 \subsection{HyperLogLog}
 
-HyperLogLog (HLL) [Flajolet]  es una versión mejorada de los mismos autores y que es la que hoy en día mas se usa para estimar la cantidad de elementos distintos en un stream. HLL usa una única función de hashing, por ejemplo Jenkins y sobre la misma construye varios estimadores, calculando el resultado final como el promedio armónico de los estimadores. Eso es todo!
+HyperLogLog (HLL) \cite{Flajolet} es una versión mejorada de los mismos autores y que es la que hoy en día mas se usa para estimar la cantidad de elementos distintos en un stream. HLL usa una única función de hashing, por ejemplo Jenkins y sobre la misma construye varios estimadores, calculando el resultado final como el promedio armónico de los estimadores. Eso es todo!
 
 La función de hashing nos genera un número de 64 bits, los primeros $k$ bits los vamos a usar para el número de estimador. Por ejemplo si queremos 32 estimadores usamos los primeros 5 bits para calcular el número de estimador. De los restantes bits contamos como siempre la cantidad de ceros al comienzo de los mismos y actualizamos el estimador si esta cantidad es mayor a la anterior.
 
@@ -15949,7 +15949,7 @@ Por ejemplo si tenemos los siguientes estimadores: 3,5,2,2,3 el promedio es $(8+
 
 \section{AMS}
 
-El algoritmo AMS[Alon-Matias-Szegedy] sirve para estimar el momento de orden 2 de un stream, es decir su número sorpresa. Este algoritmo mantiene en memoria $k$ estimadores, cada estimador registra un elemento del stream y la cantidad de veces que apareció el mismo. Por cada elemento del stream si el mismo está entre los estimadores simplemente aumentamos el contador en 1, si el elemento no está entre los estimadores entonces ingresa a memoria con probabilidad $k/n$ igual que en reservoir sampling si el estimador ingresa a la memoria reemplaza a otro estimador elegido al azar. 
+El algoritmo AMS\cite{Alon} sirve para estimar el momento de orden 2 de un stream, es decir su número sorpresa. Este algoritmo mantiene en memoria $k$ estimadores, cada estimador registra un elemento del stream y la cantidad de veces que apareció el mismo. Por cada elemento del stream si el mismo está entre los estimadores simplemente aumentamos el contador en 1, si el elemento no está entre los estimadores entonces ingresa a memoria con probabilidad $k/n$ igual que en reservoir sampling si el estimador ingresa a la memoria reemplaza a otro estimador elegido al azar. 
 
 Cada estimador estima el modelo de orden 2 del stream mediante:
 
@@ -15999,7 +15999,7 @@ producto en las últimas 100.000 ventas o cuántas veces se usó un cierto térm
 
 Para comprender que el algoritmo no es trivial debemos entender que $m$ puede ser un número muy grande y necesitamos poder calcular la cantidad de unos en cualquier ventana de tamaño $k$ con $k \leq m$. Contar cuantos unos tenemos por cada consulta no es entonces una opción viable. 
 
-El algoritmo que usaremos fue desarrollado por Datar, Gionis, Indyk y Motwani [Datar-Gionis-Indyk-Motwani]. A partir de ahora
+El algoritmo que usaremos fue desarrollado por Datar, Gionis, Indyk y Motwani \cite{DatarGionisIndykMotwani}. A partir de ahora
 lo llamaremos DGIM. Es un algoritmo cuyo funcionamiento es realmente muy extraño y de todos
 los que presentaremos en el capítulo es el mas complejo de entender sin embargo una vez entendido
 es un algoritmo bastante simple. Podríamos decir que es algo así como andar en bicicleta, aprender
@@ -16265,7 +16265,7 @@ m = 9585 millones de bits
 y k = 2.88 es decir 3 funciones de hashing
 
 Algo interesante sobre los filtros de Bloom es que puede usarse el filtro para estimar la cantidad de
-elementos que han sido insertados en el mismo [Swamidass-Baldi]
+elementos que han sido insertados en el mismo\cite{SwamidassBaldi}. 
 
 \begin{myequation}
 n \approx - \frac{m \ln(1-x/m)}{k}
@@ -16294,7 +16294,7 @@ La desventaja, evidente, es la mayor cantidad de espacio necesaria.
 
 \section{Cuckoo Filters}
 
-Una variante muy interesante a los filtros de Bloom son los \textit{Cuckoo Filters} [Andersen] que implementan una estrcutura del estilo de los filtros de Bloom, para responder si un objeto es miembro de un conjunto, usando Cuckoo hashing como estructura principal.
+Una variante muy interesante a los filtros de Bloom son los \textit{Cuckoo Filters} \cite{Andersen} que implementan una estrcutura del estilo de los filtros de Bloom, para responder si un objeto es miembro de un conjunto, usando Cuckoo hashing como estructura principal.
 
 Las diferencias entre los filtros Cuckoo y los filtros de Bloom son las siguientes:
 
@@ -16359,7 +16359,7 @@ En general $b=4$ y $f=6$ y $m$ depende de la cantidad de claves que se quieran i
 
 \section{Count-Min}
 
-El algortimo \textit{Count-Min Sketch} [Muthukrishnan-Cormode] es uno de los algoritmos de streaming mas importantes porque permite para cualquier dato de un stream estimar cuántas veces ocurrió el mismo hasta el momento. Esto permite responder todo tipo de problemas siendo uno de los mas frecuentes el denominado \textit{Heavy Hitters Problem} por lo que empezamos esta sección con un análisis teórico de este problema.
+El algortimo \textit{Count-Min Sketch} \cite{Muthukrishnan-Cormode} es uno de los algoritmos de streaming mas importantes porque permite para cualquier dato de un stream estimar cuántas veces ocurrió el mismo hasta el momento. Esto permite responder todo tipo de problemas siendo uno de los mas frecuentes el denominado \textit{Heavy Hitters Problem} por lo que empezamos esta sección con un análisis teórico de este problema.
 
 \subsection{The Heavy Hitters Problem}
 
@@ -16436,7 +16436,7 @@ Intuitivamente podemos darnos cuenta que Count-Min nunca va a estimar un número
 
 Una característica común en muchos streams es que contienen claves \textit{transistorias}, éstas son claves que están activas durante un período de tiempo corto del stream. Por ejemplo en un stream de ventas de productos un producto que se vende durante sólo unos días es una clave transistoria. Un buen ejemplo de esto son los productos navideños. 
 
-El problema es que las claves transistorias al colisionar con las claves que podríamos llamar \textit{permanentes} contribuyen a la saturación de Count-Min es decir a que la estimación tenga mayor probabilidad de ser una sobre-estimación de la frecuencia real de algunos ítems. El algoritmo de Bit-Marking [Dimitropoulos] nos puede ayudar a mitigar el problema.
+El problema es que las claves transistorias al colisionar con las claves que podríamos llamar \textit{permanentes} contribuyen a la saturación de Count-Min es decir a que la estimación tenga mayor probabilidad de ser una sobre-estimación de la frecuencia real de algunos ítems. El algoritmo de Bit-Marking \cite{Dimitropoulos} nos puede ayudar a mitigar el problema.
 
 Procesamos el stream en ventanas de tamaño $w$. Y vamos a usar como estructura adicional de igual dimensión que la estructura de count-min pero con un bit en lugar de un número por cada celda.
 
@@ -16586,7 +16586,7 @@ Desde su publicación en 2004 este algoritmo se ha usado en una gran cantidad de
 
 \epigraph{It's quite complicated and sounds circular, but we've worked out a way of calculate a Web site's importance}{- Larry Page}
 
-PageRank [Page-Brin] es uno de los algoritmos mas importantes en la historia de la computación, es el algoritmo que dio origen a Google y permitió que los Search Engines le ganen la pulseada a los spammers en una batalla que continua hasta el día de hoy. PageRank está basado en principios matemáticos muy simples y elegantes. Es un algoritmo que tiene muchísimas variantes y algoritmos derivados, en este capítulo vamos a estudiar el fascinante mundo de PageRank y muchos de sus derivados .
+PageRank \cite{PageBrin} es uno de los algoritmos mas importantes en la historia de la computación, es el algoritmo que dio origen a Google y permitió que los Search Engines le ganen la pulseada a los spammers en una batalla que continua hasta el día de hoy. PageRank está basado en principios matemáticos muy simples y elegantes. Es un algoritmo que tiene muchísimas variantes y algoritmos derivados, en este capítulo vamos a estudiar el fascinante mundo de PageRank y muchos de sus derivados .
 
 En un principio los motores dedicados a buscar páginas web trabajaban analizando pura y
 exclusivamente el contenido de estas páginas. De acuerdo a la consulta del usuario se asignaba un
@@ -17053,7 +17053,7 @@ Este método se puede usar en Redes Sociales para recomendar amigos o usuarios a
 
 \subsection{Panther}
 
-Existe un algoritmo muy similar a la versión MonteCarlo de SimRank que tiene propiedades muy diferentes denominado Panther [Zhang]. En este algoritmo creamos Random Walks al azar pero a partir de cualquier nodo, no solo a partir del nodo que nos interesa. La semejanza entre dos nodos se define luego simplemente como el porcentaje de caminos en los cuáles los nodos aparecen juntos.
+Existe un algoritmo muy similar a la versión MonteCarlo de SimRank que tiene propiedades muy diferentes denominado Panther \cite{Zhang}. En este algoritmo creamos Random Walks al azar pero a partir de cualquier nodo, no solo a partir del nodo que nos interesa. La semejanza entre dos nodos se define luego simplemente como el porcentaje de caminos en los cuáles los nodos aparecen juntos.
 
 Por ejemplo si tenemos los siguientes caminos:
 
@@ -17125,7 +17125,7 @@ Si en lugar de frases extraemos palabras de un texto, tenemos un algoritmo para 
 
 \section{HITS}
 
-HITS [Kleinberg] es un algoritmo para calcular la importancia de los nodos de un grafo, fue publicado casi al mismo tiempo que PageRank y tiene resultados muy similares sin embargo, como es evidente, tuvo un destino muy diferente al de PageRank.
+HITS \cite{Kleinberg} es un algoritmo para calcular la importancia de los nodos de un grafo, fue publicado casi al mismo tiempo que PageRank y tiene resultados muy similares sin embargo, como es evidente, tuvo un destino muy diferente al de PageRank.
 
 La idea de HITS es calcular dos puntajes para cada página. Un puntaje como "Hub" y un puntaje como "Authority". Un Hub es una página que linkea a buenas páginas, por ejemplo un índice de Wikipedia. Una "Autoridad" es una página que es linkeada por buenos Hubs, en este sentido el puntaje de "Authority" es similar al PageRank.
 
@@ -17160,7 +17160,7 @@ En el paso dos procedemos en sentido inverso, ahora vamos a calcular el valor co
 
 Luego repetimos el proceso, calculamos el nuevo puntaje como "Authority" de cada página sumando los puntajes como Hubs de los links (entrantes). Vemos como ahora el New York Times tiene score 31 que surge de los puntajes como Hub de las 4  páginas que lo apuntanL 8,11, 7 y 5. 
 
-\begin{theorem}[Kleinberg]
+\begin{theorem}\cite{Kleinberg}
 HITS normalizando en cada paso converge a un único valor tanto de Hub como de Authority.
 \end{theorem}
 
@@ -17286,7 +17286,7 @@ La distribución del grado estudia de que forma se distribuye el grado de los no
 
 \section{Propiedades del Grafo de una Red Social}
 
-Hemos visto varias propiedades de una grafo y hemos comentado que tipo de valores podemos esperar en una Red Social. En este capítulo vamos a analizar el valor de estas propiedades para Facebook en base al trabajo de [Ugander]. El objetivo de esta sección es tomar idea de que tipo de valores toman las diferentes propiedades que hemos visto en una Red Social, mas adelante vamos a ver de que forma podemos interpretar estos valores mediante el uso de modelos de grafos.
+Hemos visto varias propiedades de una grafo y hemos comentado que tipo de valores podemos esperar en una Red Social. En este capítulo vamos a analizar el valor de estas propiedades para Facebook en base al trabajo de \cite{Ugander}. El objetivo de esta sección es tomar idea de que tipo de valores toman las diferentes propiedades que hemos visto en una Red Social, mas adelante vamos a ver de que forma podemos interpretar estos valores mediante el uso de modelos de grafos.
 
 \subsection{Componente Conexo}
 
@@ -17463,7 +17463,7 @@ La existencia de una cantidad inusualmente alta de triángulos automáticamente 
 
 \end{figure}
 
-El método trivial consiste en tomar cada nodo y por cada nodo tomar su vecinos y verificar si para cada par de vecinos existe un link entre ellos. Este método nos daría en nuestro ejemplo el total de 7 triángulos: 1-6-7,1-7-9,2-3-5,2-3-4,2-4-5,3-4-5,6-7-8. El problema del método es que es ineficiente y es inviable en grafos grandes. Por eso vamos a intentar un método aproximado que es mucho mas eficiente [Charalampos].
+El método trivial consiste en tomar cada nodo y por cada nodo tomar su vecinos y verificar si para cada par de vecinos existe un link entre ellos. Este método nos daría en nuestro ejemplo el total de 7 triángulos: 1-6-7,1-7-9,2-3-5,2-3-4,2-4-5,3-4-5,6-7-8. El problema del método es que es ineficiente y es inviable en grafos grandes. Por eso vamos a intentar un método aproximado que es mucho mas eficiente \cite{Charalampos}.
 
 Observemos la matriz de adyacencias de nuestro grafo:
 
@@ -17580,7 +17580,7 @@ Es interesante analizar la relación entre el grado de un nodo y la cantidad de 
 
 \subsection{EE Eigenplots}
 
-Se puede realizar un análisis del espectro de la matriz de adyacencias de una Red Social ploteando los autovectores de la matriz de adyacencias entre sí. [Kang-Meeder-Faloutsos]. Esto permite encontrar todo tipo de estructuras como flares, cliques y otras.
+Se puede realizar un análisis del espectro de la matriz de adyacencias de una Red Social ploteando los autovectores de la matriz de adyacencias entre sí\cite{KangMeederFaloutsos}. Esto permite encontrar todo tipo de estructuras como flares, cliques y otras.
 
 \begin{figure}[!htb]
 \centering
@@ -17775,7 +17775,7 @@ La conclusión es que una Red Social es un conjunto de comunidades unidas entre 
 
 \subsection{Modularidad}
 
-La función de modularidad [Clauset-Newman-Moore] permite evaluar que tan modular es una red separada en un cierto conjunto de comunidades. La función supone la existencia de una función $\delta(v_1,v_2)$ que vale 1 si los vértices $v_1$ y $v_2$ están en la misma comunidad y cero en caso contrario. La definición de modularidad es la siguiente:
+La función de modularidad \cite{ClausetNewmanMoore} permite evaluar que tan modular es una red separada en un cierto conjunto de comunidades. La función supone la existencia de una función $\delta(v_1,v_2)$ que vale 1 si los vértices $v_1$ y $v_2$ están en la misma comunidad y cero en caso contrario. La definición de modularidad es la siguiente:
 
 \begin{myequation}
 Q = \frac{1}{2m} \sum_{vw} [A_{vw} - \frac{K_v K_w}{wm}] \delta(c_v,c_w)
@@ -17791,11 +17791,11 @@ Donde $A_{vw}$ es la matriz de adyacencias. $K_v$ y $K_w$ son el grado de los v�
 \end{figure}
 
 
-La función de modularidad tiene una forma bastante particular [Good-Montjoye-Clauset] que es propicia a ser optimizada por un algoritmo del estilo Hill-Climbing, sin embargo las variantes por Hill Climbing pueden ser ineficientes, existe una variante greedy para optimizar la modularidad que es la que actualmente se usa.
+La función de modularidad tiene una forma bastante particular \cite{GoodMontjoyeClauset} que es propicia a ser optimizada por un algoritmo del estilo Hill-Climbing, sin embargo las variantes por Hill Climbing pueden ser ineficientes, existe una variante greedy para optimizar la modularidad que es la que actualmente se usa.
 
 \subsubsection{Algoritmo de Louvain}
 
-El algoritmo de Louvain [Louvain] es muy simple: inicialmente cada nodo pertenece a su propia comunidad, es decir que hay tantas comunidades como nodos y la función $delta(x,y)$ vale 0 para todos los pares de nodos. La modularidad inicial es entonces $1/2m$. Luego por cada nodo de la red buscamos asignarlo a la comunidad vecina que maximice la modularidad. Una vez que hemos recorrido todos los nodos asignando a cada uno a la comunidad que corresponde vamos a considerar a cada comunidad como si fuera un nodo y repetimos el proceso. Cuando consideramos a cada comunidad un nuevo nodo los links entre nodos dentro de esta comunidad se consideran links del nodo a si mismo.
+El algoritmo de Louvain \cite{Louvain} es muy simple: inicialmente cada nodo pertenece a su propia comunidad, es decir que hay tantas comunidades como nodos y la función $delta(x,y)$ vale 0 para todos los pares de nodos. La modularidad inicial es entonces $1/2m$. Luego por cada nodo de la red buscamos asignarlo a la comunidad vecina que maximice la modularidad. Una vez que hemos recorrido todos los nodos asignando a cada uno a la comunidad que corresponde vamos a considerar a cada comunidad como si fuera un nodo y repetimos el proceso. Cuando consideramos a cada comunidad un nuevo nodo los links entre nodos dentro de esta comunidad se consideran links del nodo a si mismo.
 
 \begin{figure}[!htb]
 \centering
@@ -17827,7 +17827,7 @@ El algoritmo de Clustering Espectral puede aplicarse directamente sobre la matri
 
 \subsection{Infomap}
 
-Infomap [Rosvall-Bergstrom] es un algoritmo para detectar comunidades en redes sociales basado en los principios de la compresión de datos y la teoría de la información.
+Infomap \cite{RosvallBergstrom} es un algoritmo para detectar comunidades en redes sociales basado en los principios de la compresión de datos y la teoría de la información.
 
 Dada una red dirigida o no dirigida podemos generar un random-walk de longitud arbitraria, que suponemos es infinito, si la red es dirigida agregamos teletransportación con $\beta=0.85$ para evitar quedar atrapados sin salida en algún ciclo de la red. En este random walk podemos contar la frecuencia con la que visitamos cada nodo y por lo tanto la probabilidad de visitar el mismo, con esta probabilidad podríamos calcular la longitud en bits de cada nodo en base a la fórmula que conocemos basada en la entropía: $L_i=-log_2(P_i)$. Esto nos daría una forma de comprimir un random-walk en una red en donde no hay clusters. 
 
@@ -17951,7 +17951,7 @@ La diferencia fundamental entre el algoritmo de Louvain (modularidad) e Infomap 
 
 Estudiaremos el caso en el cual un nodo puede pertenecer a mas de una comunidad, es decir que existe solapamiento entre las comunidades de la Red. Este caso es el mas realista en Redes Sociales ya que es frecuente que un usuario pertenezca, al mismo tiempo, a varias comunidades. Por ejemplo a sus familiares, amigos, compañeros de trabajo, compañeros de hobby, etc.
 
-El algoritmo que estudiaremos llamado BigClam [Leskovec] es eficiente para encontrar comunidades con solapamiento en Redes grandes. 
+El algoritmo que estudiaremos llamado BigClam \cite{Leskovec} es eficiente para encontrar comunidades con solapamiento en Redes grandes. 
 
 Vamos a necesitar el número de comunidades que queremos encontrar $k$ como parámetro. Cadad comunidad tendráa asociada una probabilidad $P_k$ de que un nodo pertenezca a ella. La probabilidad de que dos nodos estén unidos está dada entonces por la probabilidad de que exista un link en alguna de las comunidades que ambos integran. 
 
@@ -18512,7 +18512,7 @@ Podemos ver que diferentes redes nos van a dar diferentes matrices generadoras. 
 
 \chapter{Análisis Topológico de Datos}
 
-\epigraph{Data has shape and shape has meaning}{- Gunnar Carlson}
+\epigraph{Data has shape and shape has meaning}{- Gunnar }
 
 El análisis topológico de datos es una ciencia nueva que aplica los conceptos de topología algebraica al análisis de datos. La topología es una rama del Álgebra que se dedica a estudiar la forma de los objetos de forma independiente de sus características geométricas, como por ejemplo sus coordenadas. Un ejemplo muy usado es el que compara una taza de café con una dona o rosquilla:
 
@@ -18692,7 +18692,7 @@ La figura ~\ref{fig:barcodescom} nos muestra un set de datos complejo y los barc
 
 \subsection{Otros puntos de Análisis}
 
-El estudio de los barcodes de diferentes sets de datos nos da una idea de la topología del set de datos y nos permite comparar sets de datos entre sí, sabemos que sets de datos que tienen igual topología desde el punto de vista topológico en realidad son la misma cosa (!) [Carlson].
+El estudio de los barcodes de diferentes sets de datos nos da una idea de la topología del set de datos y nos permite comparar sets de datos entre sí, sabemos que sets de datos que tienen igual topología desde el punto de vista topológico en realidad son la misma cosa (!)\cite{Carlson}.
 
 Veamos por ejemplo la cantidad de componentes conexos ($\beta_0$) para MNIST en contraste con un set de datos al azar. Notar que ploteamos el valor de $\beta_0$ y esto no no es un barcode.
 
@@ -18708,7 +18708,7 @@ El plot nos muestra que MNIST no se comporta como un set de datos aleatorio, es 
 
 \section{Algoritmo Mapper}
 
-Mapper [Singh-Memoli-Carlson] es un algoritmo para el análisis topológico de los datos, se basa en la creación de un grafo, similar a los que hemos visto pero con características diferentes. El algoritmo cuenta con varios pasos el primer paso es aplicar un filtro a los datos de forma tal que cada dato quede representado por un número real. Se puede usar cualquier tipo de filtro siempre y cuando cada dato quede representado por un número. A estos filtros se los llama “lentes” ya que, haciendo una analogía, equivalen a cambiar de lente en una cámara para ver las cosas de formas diferentes.
+Mapper \cite{SinghMemoliCarlson} es un algoritmo para el análisis topológico de los datos, se basa en la creación de un grafo, similar a los que hemos visto pero con características diferentes. El algoritmo cuenta con varios pasos el primer paso es aplicar un filtro a los datos de forma tal que cada dato quede representado por un número real. Se puede usar cualquier tipo de filtro siempre y cuando cada dato quede representado por un número. A estos filtros se los llama “lentes” ya que, haciendo una analogía, equivalen a cambiar de lente en una cámara para ver las cosas de formas diferentes.
 
 \subsection{Lentes Topológicos Comunes}
 
@@ -19656,363 +19656,8 @@ En el WHERE escribimos entonces cuales son las condiciones que tienen que cumpli
 
 O al menos esa es la teoría....
 
-\chapter*{Bibliography}
-
-\begin{enumerate}
-
-\item
-\[Andersen\]
-Bin Fan, David Andersen, Michael Kamisnku, Michael Mitzenmacher
-\textbf{Cuckoo Filter: Practically Better Than Bloom}
-
-
-\[Aggarwal,Hinneburg,Keim\]
-Charu Aggarwal, Alexander Hinneburg, Daniel KEim.
-\textbf{On the Surprising Behavior of Distance Metrics in High Dimensional Space}
-
-\item
-\[Achlioptas\]
-Dimitris Achlioptas.
-\textbf{Database friendly random projections Johnson-Lindestrauss with Binary Coins.}
-
-\item
-\[Alon-Matias-Szegedy\]
-Noga Alon;Yossi Matias;Mario Szegedy.
-\textbf{The space complexity of approximating the frequency moments.}
-
-\item
-\[Andoni\]
-Alexandr Andoni; Piotr Indyk; Thijs Laarhoven; Ilya Razenshteyn.
-\textbf{Beyond Locality Sensitive Hashing.}
-
-\item
-\[Andoni2\]
-Alexandr Andoni; Piotr Indyk; Thijs Laarhoven; Ilya Razenshteyn.
-\textbf{Practical and Optimal LSH for Angular Distance.}
-
-\item
-\[Attenberg\]
-Joshua Attenberg;Killian Weinberger.
-Collaborative Email Spam Filtering with the Hashing Trick.
-\textbf{}
-
-\item
-\[Babenko-Lempitsky\]
-Artem Babenko; Victor Lempitsky.
-\textbf{The Inverted Multi Index.}
-\item \item \[Bahmani\]
-Bahman Bahmani; Benjamin Mosley; Andrea Vattani; Ravi Kumar; Sergei Vassilvistkii
-\textbf{Scalable Kmeans plus plus.}
-
-
-\item \[Banko-Brill\] 
-Michele Banko, Eric Brill. (2001).
-\textbf{Scaling to Very Very Large Corpora forNatural Language Disambiguation}
-
-\item \[Bawa\]
-Mayank Bawa; Tyson Condie; Prasanna Ganesan.
-\textbf{LSH Forest Self Tuning Indexes for Similarity Search.}
-
-
-\item \[Belazzougui-Botelho-Dietzfelbinger\] 
-Djamal Belazzougui, Fabiano Botelho, Martin Dietzfelbinger.
-\textbf{Hash Displace and Compress}
-
-\item \[Belkin\]
-Mikhail Belkin;Partha Niyogi.
-\textbf{Laplacian Eigenmaps for Dimensionality Reduction and Data Representation.}
-
-\item \[Beyer\]
-Beyer K., Goldstein J., Ramakrishnan R., Shaft U.
-\textbf{When is Nearest Neighbors Meaningful?}
-
-\item \[Botelho-Pagh-Ziviani\]
-Fabiano Botelho, Rasmus Pagh, Nivio Ziviani.
-\textbf{Simple and Space Efficient Minimal Perfect Hash Functions.}
-
-\item \[Bottou-Bengio\]
-Leon Bottoul;; Yoshua Bengio.
-\textbf{Convergence Properties of the K-Means Algorithms}
-
-\item \[Burrows-Wheeler\]
-M. Burrows; David J Wheeler.
-\textbf{A block-sorting lossless data compression algorithm.}
-
-\item \[Campello-Moulavi-Sander\]
-Ricardo J. G. B. Campello; Davoud Moulavi; Joerg Sander
-\textbf{Density Based Clustering Based on Hierarchical Density Estimates.}
-
-\item \[Carlson\]
-Gunnar Carlson.
-\textbf{Topology and Data.}
-
-\item \[Charalampos\]
-Charalampos;Tsourakakis.
-\textbf{Fast Counting of Triangles in Large Real Networks.}
-
-
-\item \[Charikar\]
-M Charikar.
-\textbf{Similarity Estimation Techniques from Rounding Algorithms.}
-
-\item \[Chazelle\]
-Bernard Chazelle;Nor Ailon.
-\textbf{Approximate Nearest Neighbors and the Fast Johnson-Lindenstrauss Transform.}
-
-\item \[Chen-Guestrin\]
-Tianqi Chen;Carlos Guestin.
-\textbf{XGBoost: A Scalable Tree Boosting System.}
-
-\item \[Clauset-Newman-Moore\]
-Aaron Clauset; M. E. J. Newman; Cristopher Moore.
-\textbf{Finding community structure in very large networks.}
-
-\item \[Clearly-Witten\]
-Cleary, J.; Witten, I. 
-\textbf{Data Compression Using Adaptive Coding and Partial String Matching}
-
-\item \[Cormack-Horspool\]
-Gordon Cormack;Nigel Horspool.
-\textbf{Data Compression using Dynamic Markov Modelling.}
-
-\item \[Dasgupta\]
-Sanjoy Dasgupta;Anupam Gupta.
-\textbf{An elementary proof of the Johnson-Lindenstrauss Lemma.}
-
-\item \[Datar-Gionis-Indyk-Motwani\]
-M. Datar; A Gionis; P Indyk; R. Motwani.
-\textbf{Maintaining stream statistics over sliding windows.}
-
-\item \[Dean\]
-Jeffrey Dean, Sanjay Ghemawat.
-\textbf{MapReduce: Simplified Data Processing on Large Clusters}
-
-\item \[Dhillon\]
-Inderjit S Dhillon.
-\textbf{Co-clustering documents and words using bipartite spectral graph partitioning}
-
-
-\item \[Dietzfelbinger\]
-M. Dietzfelbinger; A. Karlin; K. Mehlhorn; F. Meyer auf der Heide; H. Rohnert; R. E. Tarjan.
-\textbf{Dynamic perfect hashing upper and lower bounds.}
-
-\item \[Dimitropoulos\]
-Xenofontas Dimitropoulos; Marc Stoecklin; Paul Hurley; Andreas Kind.
-\textbf{The Eternal Sunshine of the Sketch Data Structure.}
-
-
-\item \[Dong\]
-Wei Dong, Moses Charikar,Kai Li. (2011).
-\textbf{Efficient K-Nearest Neighbor Graph Construction for Generic Similarity Measures}.
-
-\item \[Eldridge-Belkin\]
-Justin Eldridge; Mikhail Belkin.
-\textbf{Beyond Hartigan Consistency Merge Distortion Metric for Hierarchical Clustering.}
-
-\item \[Flajolet-Martin\]
-Philippe Flajolet; Nigel Martin.
-\textbf{Probabilistic Counting Algorithms for Data Base Applications.}
-
-\item \[Flajolet\]
-Philippe Flajolet;Eric Fusy; Olivier Gandouet; Frederic Meunier.
-\textbf{The analysis of a near-optimal cardinality estimation algorithm.}
-
-\item \[Fredman-Komlos-Szemeredi\]
-Michael Fredman; Janos Komlos; Endre Szemeredi.
-\textbf{Storing a Sparse Table with O(1) Worst Case Access Time.}
-
-\item \[Good-Montjoye-Clauset\]
-Good; Montjoye; Aaron Clauset.
-\textbf{The performance of modularity maximization in practical contexts.}
-
-\item \[Gou\]
-Janping Gou, Lan Du,Yuhong Zhang,Taisong Xiong. (2012).
-\textbf{A New Distance-weighted k-nearest Neighbor Classifier}
-
-\item \[Grumwald\]
-Peter Grumwald.
-\textbf{A Tutorial Introduction to the Minimum Description Length Principle.}
-
-\item \[Guha-Rastogi-Shim\]{Guha-Rastogi=Shim}
-Guha, Sudipto; Rastogi, Rajeev; Shim, Kyuseok.
-\textbf{CURE An Efficient Clustering Algorithm for Large Databases.}
-
-\item \[Hajebi\]
-Kiana Hajebi, Yasin Abbasi-Yadkori, Hossein Shahbazi, Hong Zhang.
-\textbf{Fast Approximate Nearest-Neighbor Search with k-Nearest Neighbor Graph}
-
-\item \[Houle\]
-Michael E. Houle,Hans-Peter Kriegel,Peer Kroger,Erich Schubert,Arthur Zimek.
-\textbf{Can Shared-Neighbor Distances Defeat the Curse of Dimensionality?}
-
-\item \[Indyk-Motwani\]
-Piotr Indyk; Rajeev Motwani; Aristides Gionis.
-\textbf{Similarity Search in High Dimensions vis Hashing.}
-
-\item \[Indyk-Andoni\]
-Piotr Indyk; Alexandr Andoni.
-\textbf{Near Optimal Hashing Algorithms for Approximate Nearest Neigbor in High Dimensions.}
-
-\item \[Kalantidis-Avrithis\]
-Yannis Kalantidis;Yannis Avrithis
-\textbf{Locally Optimized Product Quantization for Approximate Nearest Neighbor Search.}
-
-
-\item \[Kang-Meeder-Faloutsos\]
-U Kang;Brendan Meeder;Christos Faloutsos.
-\textbf{Spectral Analysis for Billion Scale Graphs Discoveries and Implementation.}
-
-\item \[Karger\]
-David Karger;Eric Lehman;Tom Leighton;Matthew Levine;Daniel Lewin;Rina Panigrahy
-\textbf{Consistent Hashing and Random Trees:Distributed Caching Protocols for Relieving Hot Spots on the World Wide Web.}
-
-\item \[Kennedy\]
-Cristopher Kennedy; Rachel Ward.
-\textbf{Fast Cross Polytope LSH.}
-
-
-\item \[Kleinberg\]
-Jon Kleinberg.
-\textbf{Authoritative sources in a hyperlinked environment.}
-
-\item \[Knoll-de Freitas\]{Knoll-de Freitas}
-Byron Knoll;Nando de Freitas.
-\textbf{A Machine Learning Perspective on Predictive Coding with PAQ.}
-
-\item \[Koren\]
-Yehuda Koren.
-\textbf{Factorization Meets the Neighborhood.}
-
-\item \[Lemire\]
-D. Lemire;G. Ssi-Yan-Kai;O. Kaser
-\textbf{Consistently faster and smaller compressed bitmaps with Roaring}
-
-\item \[Lempel-Ziv-C\]
-Lempel, A.; Ziv, J.
-\textbf{On the complexity of finite sequences.}
-
-\item \[Leskovec\]
-J Yang; Jure Leskovec.
-\textbf{Overlapping Community Detection at Scale A Nonnegative Matrix Factorization Approach.}
-
-\item \[Louvain\]
-Vincent D Blondel; Jean-Loup Guillaume; Renaud Lambiotte; Etienne Lefebvre.
-\textbf{Fast unfolding of communities in large networks.}
-
-\item \[Muthukrishnan-Cormode\]
-S. Muthukrishnan; Graham Cormode.
-\textbf{The Count-Min Sketch and its Applications.}
-
-\item \[Page-Brin\]
-Larry Page; Sergey Brin.
-\textbf{The PageRank Citation Ranking  Bringing Order to the Web.}
-
-\item \[Park-Leckie\]
-Laurence A F  Park; Christopher A Leckie; Kotagiri Ramamohanarao;James C Bezdek.
-\textbf{Adapting spectral coclustering to documents and terms using latent semantic analysis.}
-
-\item \[Rendle\]
-Steffen Rendle.
-\textbf{Factorization Machines.}
-
-\item \[Rendle2\]{Rendle2}
-Steffen Rendle.
-\textbf{Factorization Machines with LibFM.}
-
-\item \[Rissanen\]
-Rissanen, J.
-\textbf{Modeling by the shortest data description.}
-
-\item \[Rosvall-Bergstrom\]
-Martin Rosvall; Carl T Bergstrom.
-\textbf{Maps of random walks on complex networks reveal community structure.}
-
-\item \[Pagh\]
-Rasmus Pagh
-\textbf{Hash and Displace Efficient Evaluation of Minimal Perfect Hash Functions.}
-
-\item \[Pagh-Rodler\]
-Rasmus Pagh; Flemming Rodler.
-\textbf{Cuckoo Hashing.}
-
-\item \[Shannon\]
-Shannon Claude.
-\textbf{A Mathematical Theory of Communication}
-
-\item \[Shi\]
-Qinfeng Shi; James Petterson; John Langford;Alex Smola;Alex Strehl;Gideon Dror;Vishy Vishwanathan.
-\textbf{Hash Kernels.}
-
-\item \[Shi2\]
-Qinfeng Shi; James Petterson; John Langford;Alex Smola;Alex Strehl;Gideon Dror;Vishy Vishwanathan.
-\textbf{Hash Kernels for Structured Data.}
-
-\item \[Singh-Memoli-Carlson\]
-Gruheet Singh; Facundo Memoli; Gunnar Carlson.
-\textbf{Topological Methods for the Analysis of High Dimensional Data Sets and 3D Object Recognition.}
-
-\item \[Swamidass-Baldi\]
-S Joshua Swamidass; Pierre Baldi.
-\textbf{Bounds and algorithms for fast exact searches of chemical fingerprints in linear and sublinear time.}
-
-\item \[Ugander\]
-Johan Ugander; Brian Karrer; Lars Backstrom; Cameron Marlow.
-\textbf{The Anatomy of the Facebook Social Graph.}
-
-\item \[Valiant\]
-Leslie Valiant.
-\textbf{A Theory of the Learnable.}
-
-\item \[van der Maaten-Hinton\]{van der Maaten-Hinton}
-Laurens van der Maaten;Geoffrey Hinton.
-\textbf{Visualizing Data using t-SNE.}
-
-\item \[van de Maaten\]{van der Maaten}
-Laurens van der Maaten.
-\textbf{Learning a Parametric Embedding by Preserving Local Structure.}
-
-\item \[Vitanyi\]
-Rudi Cilibrasi and Paul M.B. Vitanyi.
-\textbf{Clustering by Compression}
-
-\item \[Ward\]
-J.H Ward Jr.
-\textbf{Hierarchical Grouping to Optimize an Objective Function.}
-
-\item \[Weinberger\]
-Killian Weinberger; Anirban Dasgupta; John Langford; Alex Smola; Josh Attenberg.
-\textbf{Feature Hashing for Large Scale Multitask Learning.}
-
-\item \[Weiss-Ng-Jordan\]
-Yair Weiss; Andrew Ng; Michael Jordan.
-\textbf{On Spectral Clustering Analysis and Algorithm.}
-
-\item \[Wickham\]
-Hadley Wickham. (2004).
-\textbf{Tidy Data}. 
-
-\item \[Witten-Bell\]
-I.H. Witten and T.C. Bell. 
-\textbf{The zero-frequency problem: estimating the probabilities of novel events in adaptive text compression.}
-
-\item \[Wolpert\]
-D.H. Wolpert; W.G. Macready.
-\textbf{No Free Lunch Theorems for Optimization.}
-
-\item \[Yan-Huang-Jordan\]
-Donghui Yan; Lin Huang; Michael Jordan.
-\textbf{Fast Approximate Spectral Clustering.}
-
-\item \[Zhang\]
-Jing Zhang; Jie Tang; Cong Ma; Hanghang Tong; Yu Jing; Juanzi Li.
-\textbf{Panther Fast Top K Similarity Search in Large Networks}
-
-
-\item \[Zhou-Li-Andersen-Smola\]
-Li Zhou; Mu Li; David Andersen; Alexander Smola.
-\textbf{Cuckoo Linear Algebra.}
-
-\end{enumerate}
-
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{References}
 
 \end{document}
