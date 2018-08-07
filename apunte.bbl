@@ -1,3 +1,367 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{10}
+
+\bibitem{Wickham}
+Hadley~Wickham. (2004).
+\newblock Tidy data.
+
+\bibitem{Achlioptas}
+Dimitris Achlioptas.
+\newblock Database friendly random projections johnson-lindestrauss with binary
+  coins.
+
+\bibitem{Aggarwal}
+Charu Aggarwal, Alexander Hinneburg, and Daniel Keim.
+\newblock On the surprising behavior of distance metrics in high dimensional
+  space.
+
+\bibitem{Alon}
+Noga Alon, Yossi Matias, and Mario Szegedy.
+\newblock The space complexity of approximating the frequency moments.
+
+\bibitem{Andoni}
+Alexandr Andoni, Piotr Indyk, Thijs Laarhoven, and Ilya Razenshteyn.
+\newblock Beyond locality sensitive hashing.
+
+\bibitem{Andoni2}
+Alexandr Andoni, Piotr Indyk, Thijs Laarhoven, and Ilya Razenshteyn.
+\newblock Practical and optimal lsh for angular distance.
+
+\bibitem{Attenberg}
+Joshua Attenberg and Killian Weinberger.
+\newblock Collaborative email spam filtering with the hashing trick.
+
+\bibitem{Babenko}
+Artem Babenko and Victor Lempitsky.
+\newblock The inverted multi index.
+
+\bibitem{Bahmani}
+Bahman Bahmani, Benjamin Mosley, Andrea Vattani, Ravi Kumar, and Sergei
+  Vassilvistkii.
+\newblock Scalable kmeans plus plus.
+
+\bibitem{Banko}
+Michele Banko and Eric Brill.
+\newblock Scaling to very very large corpora fornatural language
+  disambiguation.
+\newblock 2001.
+
+\bibitem{Bawa}
+Mayank Bawa, Tyson Condie, and Prasanna Ganesan.
+\newblock Lsh forest self tuning indexes for similarity search.
+
+\bibitem{Belazzougui}
+Djamal Belazzougui, Fabiano Botelho, and Martin Dietzfelbinger.
+\newblock Hash displace and compress.
+
+\bibitem{Belkin}
+Mikhail Belkin and Partha Niyogi.
+\newblock Laplacian eigenmaps for dimensionality reduction and data
+  representation.
+
+\bibitem{Louvain}
+Vincent~D Blondel, Jean-Loup Guillaume, Renaud Lambiotte, and Etienne Lefebvre.
+\newblock Fast unfolding of communities in large networks.
+
+\bibitem{BotelhoPaghZiviani}
+Fabiano Botelho, Rasmus Pagh, and Nivio Ziviani.
+\newblock Simple and space efficient minimal perfect hash functions.
+
+\bibitem{BottouBengio}
+Leon Bottoul, , and Yoshua Bengio.
+\newblock Convergence properties of the k-means algorithms.
+
+\bibitem{BurrowsWheeler}
+M.~Burrows and David~J Wheeler.
+\newblock A block-sorting lossless data compression algorithm.
+
+\bibitem{CampelloMoulaviSander}
+Ricardo J. G.~B. Campello, Davoud Moulavi, and Joerg Sander.
+\newblock Density based clustering based on hierarchical density estimates.
+
+\bibitem{Carlson}
+Gunnar Carlson.
+\newblock Topology and data.
+
+\bibitem{Charalampos}
+Charalampos and Tsourakakis.
+\newblock Fast counting of triangles in large real networks.
+
+\bibitem{Charikar}
+M~Charikar.
+\newblock Similarity estimation techniques from rounding algorithms.
+
+\bibitem{Chazelle}
+Bernard Chazelle and Nor Ailon.
+\newblock Approximate nearest neighbors and the fast johnson-lindenstrauss
+  transform.
+
+\bibitem{ChenGuestrin}
+Tianqi Chen and Carlos Guestin.
+\newblock Xgboost: A scalable tree boosting system.
+
+\bibitem{Vitanyi}
+Rudi Cilibrasi and Paul~M.B. Vitanyi.
+\newblock Clustering by compression.
+
+\bibitem{Shannon}
+Shannon Claude.
+\newblock A mathematical theory of communication.
+
+\bibitem{ClausetNewmanMoore}
+Aaron Clauset, M.~E.~J. Newman, and Cristopher Moore.
+\newblock Finding community structure in very large networks.
+
+\bibitem{ClearlyWitten}
+Cleary, J., and Witten I.
+\newblock Data compression using adaptive coding and partial string matching.
+
+\bibitem{CormackHorspool}
+Gordon Cormack and Nigel Horspool.
+\newblock Data compression using dynamic markov modelling.
+
+\bibitem{Dasgupta}
+Sanjoy Dasgupta and Anupam Gupta.
+\newblock An elementary proof of the johnson-lindenstrauss lemma.
+
+\bibitem{DatarGionisIndykMotwani}
+M.~Datar, A~Gionis, P~Indyk, and R.~Motwani.
+\newblock Maintaining stream statistics over sliding windows.
+
+\bibitem{Dean}
+Jeffrey Dean and Sanjay Ghemawat.
+\newblock Mapreduce: Simplified data processing on large clusters.
+
+\bibitem{Dhillon}
+Inderjit~S Dhillon.
+\newblock Co-clustering documents and words using bipartite spectral graph
+  partitioning.
+
+\bibitem{Dietzfelbinger}
+M.~Dietzfelbinger, A.~Karlin, K.~Mehlhorn, F.~Meyer auf~der Heide, H.~Rohnert,
+  and R.~E. Tarjan.
+\newblock Dynamic perfect hashing upper and lower bounds.
+
+\bibitem{Dimitropoulos}
+Xenofontas Dimitropoulos, Marc Stoecklin, Paul Hurley, and Andreas Kind.
+\newblock The eternal sunshine of the sketch data structure.
+
+\bibitem{Dong}
+Wei Dong, Moses Charikar, and Kai~Li. (2011).
+\newblock Efficient k-nearest neighbor graph construction for generic
+  similarity measures.
+
+\bibitem{Eldridge}
+Justin Eldridge and Mikhail Belkin.
+\newblock Beyond hartigan consistency merge distortion metric for hierarchical
+  clustering.
+
+\bibitem{Andersen}
+Bin Fan, David Andersen, Michael Kamisnku, and Michael Mitzenmacher.
+\newblock Cuckoo filter: Practically better than bloom.
+
+\bibitem{Flajolet}
+Philippe Flajolet, Eric Fusy, Olivier Gandouet, and Frederic Meunier.
+\newblock The analysis of a near-optimal cardinality estimation algorithm.
+
+\bibitem{FlajoletMartin}
+Philippe Flajolet and Nigel Martin.
+\newblock Probabilistic counting algorithms for data base applications.
+
+\bibitem{FredmanKomlosSzemeredi}
+Michael Fredman, Janos Komlos, and Endre Szemeredi.
+\newblock Storing a sparse table with o(1) worst case access time.
+
+\bibitem{GoodMontjoyeClauset}
+Good, Montjoye, and Aaron Clauset.
+\newblock The performance of modularity maximization in practical contexts.
+
+\bibitem{Gou}
+Janping Gou, Lan Du, Yuhong Zhang, and Taisong~Xiong. (2012).
+\newblock A new distance-weighted k-nearest neighbor classifier.
+
+\bibitem{Grumwald}
+Peter Grumwald.
+\newblock A tutorial introduction to the minimum description length principle.
+
+\bibitem{GuhaRastogiShim}
+Guha, Sudipto, Rastogi, Rajeev, Shim, and Kyuseok.
+\newblock Cure an efficient clustering algorithm for large databases.
+
+\bibitem{Hajebi}
+Kiana Hajebi, Yasin Abbasi-Yadkori, Hossein Shahbazi, and Hong Zhang.
+\newblock Fast approximate nearest-neighbor search with k-nearest neighbor
+  graph.
+
+\bibitem{Houle}
+Michael~E. Houle, Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur
+  Zimek.
+\newblock Can shared-neighbor distances defeat the curse of dimensionality?
+
+\bibitem{IndykAndoni}
+Piotr Indyk and Alexandr Andoni.
+\newblock Near optimal hashing algorithms for approximate nearest neigbor in
+  high dimensions.
+
+\bibitem{IndykMotwani}
+Piotr Indyk, Rajeev Motwani, and Aristides Gionis.
+\newblock Similarity search in high dimensions vis hashing.
+
+\bibitem{Ward}
+J.H~Ward Jr.
+\newblock Hierarchical grouping to optimize an objective function.
+
+\bibitem{Beyer}
+Beyer K., Goldstein J., Ramakrishnan R., and Shaft U.
+\newblock When is nearest neighbors meaningful?
+
+\bibitem{KalantidisAvrithis}
+Yannis Kalantidis and Yannis Avrithis.
+\newblock Locally optimized product quantization for approximate nearest
+  neighbor search.
+
+\bibitem{KangMeederFaloutsos}
+U~Kang, Brendan Meeder, and Christos Faloutsos.
+\newblock Spectral analysis for billion scale graphs discoveries and
+  implementation.
+
+\bibitem{Karger}
+David Karger, Eric Lehman, Tom Leighton, Matthew Levine, Daniel Lewin, and Rina
+  Panigrahy.
+\newblock Consistent hashing and random trees:distributed caching protocols for
+  relieving hot spots on the world wide web.
+
+\bibitem{Kennedy}
+Cristopher Kennedy and Rachel Ward.
+\newblock Fast cross polytope lsh.
+
+\bibitem{Kleinberg}
+Jon Kleinberg.
+\newblock Authoritative sources in a hyperlinked environment.
+
+\bibitem{KnolldeFreitas}
+Byron Knoll and Nando de~Freitas.
+\newblock A machine learning perspective on predictive coding with paq.
+
+\bibitem{Koren}
+Yehuda Koren.
+\newblock Factorization meets the neighborhood.
+
+\bibitem{Lemire}
+D.~Lemire, G.~Ssi-Yan-Kai, and O.~Kaser.
+\newblock Consistently faster and smaller compressed bitmaps with roaring.
+
+\bibitem{LempelZivC}
+Lempel, A., Ziv, and J.
+\newblock On the complexity of finite sequences.
+
+\bibitem{MuthukrishnanCormode}
+S.~Muthukrishnan and Graham Cormode.
+\newblock The count-min sketch and its applications.
+
+\bibitem{PageBrin}
+Larry Page and Sergey Brin.
+\newblock The pagerank citation ranking bringing order to the web.
+
+\bibitem{Pagh}
+Rasmus Pagh.
+\newblock Hash and displace efficient evaluation of minimal perfect hash
+  functions.
+
+\bibitem{PaghRodler}
+Rasmus Pagh and Flemming Rodler.
+\newblock Cuckoo hashing.
+
+\bibitem{ParkLeckie}
+Laurence A~F Park, Christopher~A Leckie, Kotagiri Ramamohanarao, and James~C
+  Bezdek.
+\newblock Adapting spectral coclustering to documents and terms using latent
+  semantic analysis.
+
+\bibitem{Rendle}
+Steffen Rendle.
+\newblock Factorization machines.
+
+\bibitem{Rendle2}
+Steffen Rendle.
+\newblock Factorization machines with libfm.
+
+\bibitem{Rissanen}
+Rissanen and J.
+\newblock Modeling by the shortest data description.
+
+\bibitem{RosvallBergstrom}
+Martin Rosvall and Carl~T Bergstrom.
+\newblock Maps of random walks on complex networks reveal community structure.
+
+\bibitem{Shi}
+Qinfeng Shi, James Petterson, John Langford, Alex Smola, Alex Strehl, Gideon
+  Dror, and Vishy Vishwanathan.
+\newblock Hash kernels.
+
+\bibitem{Shi2}
+Qinfeng Shi, James Petterson, John Langford, Alex Smola, Alex Strehl, Gideon
+  Dror, and Vishy Vishwanathan.
+\newblock Hash kernels for structured data.
+
+\bibitem{SinghMemoliCarlson}
+Gruheet Singh, Facundo Memoli, and Gunnar Carlson.
+\newblock Topological methods for the analysis of high dimensional data sets
+  and 3d object recognition.
+
+\bibitem{SwamidassBaldi}
+S~Joshua Swamidass and Pierre Baldi.
+\newblock Bounds and algorithms for fast exact searches of chemical
+  fingerprints in linear and sublinear time.
+
+\bibitem{Ugander}
+Johan Ugander, Brian Karrer, Lars Backstrom, and Cameron Marlow.
+\newblock The anatomy of the facebook social graph.
+
+\bibitem{Valiant}
+Leslie Valiant.
+\newblock A theory of the learnable.
+
+\bibitem{vanDerMaaten}
+Laurens van~der Maaten.
+\newblock Learning a parametric embedding by preserving local structure.
+
+\bibitem{vanDerMaatenHinton}
+Laurens van~der Maaten and Geoffrey Hinton.
+\newblock Visualizing data using t-sne.
+
+\bibitem{Weinberger}
+Killian Weinberger, Anirban Dasgupta, John Langford, Alex Smola, and Josh
+  Attenberg.
+\newblock Feature hashing for large scale multitask learning.
+
+\bibitem{WeissNgJordan}
+Yair Weiss, Andrew Ng, and Michael Jordan.
+\newblock On spectral clustering analysis and algorithm.
+
+\bibitem{WittenBell}
+I.H. Witten and T.C. Bell.
+\newblock The zero-frequency problem: estimating the probabilities of novel
+  events in adaptive text compression.
+
+\bibitem{Wolpert}
+D.H. Wolpert and W.G. Macready.
+\newblock No free lunch theorems for optimization.
+
+\bibitem{YanHuangJordan}
+Donghui Yan, Lin Huang, and Michael Jordan.
+\newblock Fast approximate spectral clustering.
+
+\bibitem{Leskovec}
+J~Yang and Jure Leskovec.
+\newblock Overlapping community detection at scale a nonnegative matrix
+  factorization approach.
+
+\bibitem{Zhang}
+Jing Zhang, Jie Tang, Cong Ma, Hanghang Tong, Yu~Jing, and Juanzi Li.
+\newblock Panther fast top k similarity search in large networks.
+
+\bibitem{ZhouLiAndersenSmola}
+Li~Zhou, Mu~Li, David Andersen, and Alexander Smola.
+\newblock Cuckoo linear algebra.
 
 \end{thebibliography}
