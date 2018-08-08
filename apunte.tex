@@ -102,12 +102,13 @@ Cada uno de estos puntos implica una importante cantidad de trabajo, a continuac
 
 \subsection{Hacer una pregunta interesante}
 
-La pregunta que queremos responder es el inicio de todo proceso de análisis de datos, es lisa y llanamente la información que queremos obtener a partir de los datos. Por ejemplo podemos tener un conjunto de datos sobre propiedades incluyendo sus características y precios y construir un modelo que nos permita tasar automáticamente una propiedad a partir de sus características.
-Así como este podríamos listar una enorme cantidad de problemas que podemos resolver usando Data Science. Como no hay espacio para listar todos los problemas posibles vamos a agruparlos en categorías intentando que cada una de estas categorías sea representativa de una buena cantidad de problemas. Es además una buena forma de presentar terminología que usaremos constantemente a lo largo del curso. Por favor notemos que vamos a presentar estas categorías simplemente desde el punto de vista de qué pregunta podemos hacernos en base a nuestros datos, no vamos a entrar aún en detalles ni terminología propios de cada tipo de problema, los lectores que ya tienen alguna experiencia en estos temas tendrán que esperar a que cada uno de estos temas sea desarrollado en mayor detalle.
+La pregunta que queremos responder es el inicio de todo proceso de análisis de datos, es lisa y llanamente la información que queremos obtener a partir de los datos. Por ejemplo, podemos tener un conjunto de datos sobre propiedades inmuebles, incluyendo sus características y precios a partir del construiremos un modelo que nos permita tasar automáticamente una propiedad a partir de sus características.
+
+Así como éste podríamos listar una enorme cantidad de problemas que podemos resolver usando Data Science. Como no hay espacio para listar todos los problemas posibles vamos a agruparlos en categorías intentando que cada una de estas categorías sea representativa de una buena cantidad de problemas. Es además una buena forma de presentar terminología que usaremos constantemente a lo largo del curso. Por favor notemos que vamos a presentar estas categorías simplemente desde el punto de vista de qué pregunta podemos hacernos en base a nuestros datos, no vamos a entrar aún en detalles ni terminología propios de cada tipo de problema, los lectores que ya tienen alguna experiencia en estos temas tendrán que esperar a que cada uno de estos temas sea desarrollado en mayor detalle.
 
 \subsubsection{Regresión}
 
-En un problema de regresión queremos predecir el valor de una variable numérica  y continua  a partir de un cierto conjunto de datos. En general contamos con un cierto set de entrenamiento en el cual conocemos el valor de la variable que queremos predecir. El objetivo es entonces construir un modelo predictor que nos permita predecir el valor de nuestra variable de decisión  a partir de datos nuevos. 
+En un problema de regresión queremos predecir el valor de una variable \textit{numérica  y continua}  a partir de un cierto conjunto de datos. En general contamos con un cierto set de entrenamiento en el cual conocemos el valor de la variable que queremos predecir. El objetivo es entonces construir un modelo que nos permita predecir el valor de nuestra variable de decisión a partir de datos nuevos. 
 
 \begin{figure}[!htb]
 \centering
@@ -118,6 +119,7 @@ En un problema de regresión queremos predecir el valor de una variable numéric
 \end{figure}
 
 El caso mas simple es la regresión lineal en el cual nuestro modelo es una recta, la recta que mejor ajusta a los puntos de nuestro set de entrenamiento. Los problemas de regresión pueden usarse para predecir el valor de las acciones en el mercado de valores, para estimar el costo de una propiedad, para calcular la cantidad de personas en un casino, para estimar las ganancias de un negocio que queremos abrir, etc. Las claves para identificar un problema de regresión son las siguientes:
+
 \begin{itemize}
 \item Queremos predecir una variable que es numérica y en general continua
 \item Contamos con un set de entrenamiento para el cual conocemos el valor de dicha variable
@@ -141,9 +143,15 @@ Para reconocer un problema de clasificación en general hay que estar atentos a 
 
 En algunos casos existe una zona gris entre problemas de clasificación y de regresión, como ejemplo planteemos el siguiente problema: Contamos con reviews para un determinado producto, por ejemplo autos y para cada review hay un número de 1 a 5 que indica que tan positivo es el mismo, por ejemplo las típicas estrellitas con las que podemos calificar cosas en varios sitios. Este problema lo podríamos plantear como un problema de clasificación con cinco clases o bien como un problema de regresión con valores posibles del 1 al 5. La diferencia es que en un problema de regresión nuestro modelo podría predecir 3.45 para un cierto review mientras que en un problema de clasificación los valores posibles son solo 1,2,3,4 y 5. No existe una receta para resolver este tipo de situaciones; en algunos casos obtendremos mejores resultados planteando el problema como una regresión y en otros como una clasificación.
 
+Es frecuente plantear un problema de clasificación binaria como un problema de regresión en donde los valores posibles están en el intervalo [0,1]. Esto trae aparejada la ventaja de que los valores que el regresor genera pueden, bajo ciertas circunstancias, interpretarse como la probabilidad de que la observación sea un 1.
+
 \subsubsection{Clustering}
 
-En un problema de clustering contamos con datos que queremos dividir en grupos de forma automática, por ejemplo podemos tener artículos de noticias y querer agruparlos en categorías de forma tal que queden juntos todos los de deportes, economía, política, etc. En algunos casos la cantidad de "clusters" la debemos indicar previamente y en otros el algoritmo es capaz de determinarla por si mismo. Otro ejemplo podría ser agrupar películas automáticamente, de forma que queden juntas las que son de un mismo género. La detección de comunidades en una red social es un típico problema de clustering en donde los puntos son los usuarios y queremos agruparlos automáticamente en comunidades, de esta forma podemos descubrir grupos de usuarios que tienen un cierto interés en común aun sin saber exactamente cuál es dicho interés.
+En un problema de clustering contamos con datos que queremos dividir en grupos de forma automática, por ejemplo podemos tener artículos de noticias y querer agruparlos en categorías de forma tal que queden juntos todos los de deportes, economía, política, etc. 
+
+En algunos casos la cantidad de "clusters" la debemos indicar previamente y en otros el algoritmo es capaz de determinarla por si mismo. Otro ejemplo podría ser agrupar películas automáticamente, de forma que queden juntas las que son de un mismo género. 
+
+La detección de comunidades en una red social es un típico problema de clustering en donde los puntos son los usuarios y queremos agruparlos automáticamente en comunidades, de esta forma podemos descubrir grupos de usuarios que tienen un cierto interés en común aun sin saber exactamente cuál es dicho interés.
 
 \begin{figure}[!htb]
 \centering
@@ -161,6 +169,7 @@ Un problema de clustering se caracteriza, entonces, de la siguiente forma:
 \begin{itemize}
 \item Contamos con un set de datos
 \item Queremos agrupar este set de datos en clusters/grupos/comunidades
+\item No son necesarios labels
 \end{itemize}
 
 Existe una cierta relación entre los problemas de clustering y de clasificación, por ejemplo dado un problema de clasificación podríamos aplicar clustering primero y luego clasificar a cada punto de acuerdo al cluster al cual pertenece en base a la clase mayoritaria de dicho cluster. Este procedimiento no es muy frecuente pero es conveniente tenerlo en cuenta porque permite entender el funcionamiento de ciertos algoritmos que combinan las propiedades de un problema de clustering y uno de clasificación.
@@ -185,7 +194,7 @@ Veamos ahora que ocurre si agregamos los puntos cuya clase desconocemos:
 
 \end{figure}
 
-Agregando los puntos sin clase vemos que en nuestros datos existen dos clusters y si tenemos que asociar cada cluster con un color entonces el de "arriba" es negro y el de abajo "blanco" ya que el punto negro pertenece al cluster de arriba y el blanco al de abajo. En este caso nuestro punto marcado como "?" debería clasificarse como negro ya que está mas cerca del cluster superior que del inferior. 
+Agregando los puntos sin clase vemos que en nuestros datos existen dos clusters y si tenemos que asociar cada cluster con un color entonces el de "arriba" es negro y el de abajo "blanco" ya que el punto negro pertenece al cluster de arriba y el blanco al de abajo. 
 
 El aprendizaje no-supervisado es una rama muy importante en Data Science ya que solo trabaja con datos sin necesidad de tener un "label" para los mismos, es decir que solo necesitamos los datos en crudo y estos en general son mucho mas fáciles de conseguir que datos ya previamente clasificados.  El aprendizaje transductivo es un área muy nueva dentro de Data Science y que sin dudas merece ser explorada.
 
@@ -196,6 +205,7 @@ El objetivo de un sistema de recomendaciones es muy simple: recomendarle al usua
 Los sistemas de recomendación son en general particularmente complejos e involucran el esfuerzo conjunto de varios algoritmos y herramientas, tienen realmente muchos detalles a considerar y por eso vamos a dedicarles un extenso tratamiento mas adelante.
 
 Las características de un Sistema de Recomendaciones son:
+
 \begin{itemize}
 \item Tenemos un conjunto de ítems y un conjunto de usuarios
 \item Queremos recomendarles a los usuarios ítems que puedan interesarles
@@ -204,6 +214,7 @@ Las características de un Sistema de Recomendaciones son:
 \subsubsection{Sistemas de Consulta}
 
 Un sistema de consulta es simplemente un buscador, un search engine, el contenido que se almacena puede ser de cualquier formato aunque en general se almacenan páginas HTML o texto plano. El objetivo del sistema de consulta es recuperar los textos o páginas o ítems de información mas relevantes para la consulta planteada por el usuario. Todos estamos familizarizados con este tipo de sistemas ya que son los que definen a los buscadores en la web como Google y otros. 
+
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=2in]{figures/google-fig.png}
@@ -19519,6 +19530,186 @@ Es decir person1 tiene que tener nombre, person2 tiene que tener nombre y person
 En el WHERE escribimos entonces cuales son las condiciones que tienen que cumplirse en nuestro modelo RDF es decir que triplas tienen que existir para que un resultado sea válido, con este sencillo modelo y esta sintáxis simple podemos consultar cualquier modelo RDF y como hemos planteado que con RDF podemos almacenar cualquier conocimiento resulta ser que con SPARQL podemos averiguar cualquier cosa.
 
 O al menos esa es la teoría....
+
+\chapter{Apéndice A: Un caso de estudio de Machine Learning}
+
+En este apéndice describimos un caso de estudio que puede servir como modelo para entender los pasos a seguir al llevar a cabo un proyecto de Machine Learning. 
+
+Es necesario aclarar que cada problema de Machine Learning es único y que si bien hay ciertos pasos o etapas que pueden ser comunes a distintos proyectos el nivel de customización es, en general, muy alto por lo que no existen recetas mágicas que puedan aplicarse a cualquier problema.
+
+\section{The Shoppers Problem}
+
+El enunciado del problema que queremos resolver es el siguiente:
+
+\textit{Una cadena de supermercados nos ha contratado con el ambicioso objetivo de predecir la cantidad de unidades a vender para el próximo mes para diferentes productos seleccionados en cada una de sus sucursales. Esto permitirá a la empresa organizar mejor su stock así como también la pauta publicitaria a realilzar y planificar posibles ofertas o promociones. La empresa nos brinda información sobre las ventas realizadas en meses pasados y nos plantea el desafío de lograr un modelo predictivo.}
+
+\section{Los Datos}
+
+En primer lugar analizamos los dato scon los cuales contamos, tenemos 5 archivos en total: items, item\_categories, shops, sales, test. Cada uno de estos archivos se distribuye como un .csv. 
+
+\subsection{items}
+
+El archivo de items tiene tres columnas: item\_name, item\_id e item\_category\_id. Identificando respectivamente el nombre del producto, el código del mismo y el código de categoría al cual pertenece el producto. Cada producto puede pertenecer unicamente a una categoría.
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|r|r|} \hline
+item\_name&item\_id&item\_category\_id\\ \hline 
+TV LED Samsung 44&9087&75\\ 
+...&...&...\\ \hline
+\end{tabular} 
+}
+\caption{items.csv}
+\end{table}
+
+\subsection{item\_categories}
+
+El archivo item\_categories.csv contiene información sobre las categorías de productos. Este archivo tiene solo dos columnas: item\_category\_name e item\_category\_id, indicando el nombre y el id de la categoría.
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|r|} \hline
+item\_category\_name&item\_category\_id \\ \hline
+Televisores LED&75\\
+...&...\\ \hline
+\end{tabular} 
+}
+\caption{item\_categories.csv}
+\end{table}
+
+\subsection{shops}
+
+El archivo shops.csv contiene información sobre las sucursales, indicando el nombre de la sucursal (shop\_name) y el id de la misma (shop\_id).
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|r|} \hline
+shop\_name&shop\_id \\ \hline
+Sucursal Barracas&17\\
+...&...\\ \hline
+\end{tabular} 
+}
+\caption{shops.csv}
+\end{table}
+
+\subsection{sales}
+
+El archivo sales.csv contiene la información histórica de ventas, este archivo tiene 5 columnas: date, shop\_id, item\_id, item\_price, item\_cnt\_day indicando respectivamente la fecha, el id de la sucursal, el id del item, el precio del item para ese día en esa sucursal y la cantidad vendida en el día. Podemos observar que el archivo contiene totales por día por cada sucursal e item.
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|r|r|r|r|} \hline
+date&shop\_id&item\_id&item\_price&item\_cnt\_day \\ \hline
+2017-02-01&21&17&1280.0&2 \\
+...&...&...&...&...\\ \hline
+\end{tabular} 
+}
+\caption{sales.csv}
+\end{table}
+
+\subsection{test}
+
+Finalmente el archivo test es el que nos indica el objetivo del problema, es decir aquello que queremos predecir y contiene tres columnas: id, shop\_id e item\_id. El primer id es un identificador correlativo, luego tenemos el id de la sucursa y el id del producto. El objetivo es predecir cuántas unidades van a venderse el próximo mes para los productos y sucursales listados en este archivo.
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|r|r|r|} \hline
+id&shop\_id&item\_id \\ \hline
+1&12&23 \\ 
+...&...&...\\ \hline
+\end{tabular} 
+}
+\caption{test.csv}
+\end{table}
+
+\section{Análisis Exploratorio}
+
+La fase de exploración es fundamental para comprender el problema que estamos enfrentando y entender la información con la que contamos para resolver el problema. Como en todos los casos podemos ir explorando a medida que nos hacemos preguntas sobre los datos. A continuación listamos algunas de las preguntas que podemos hacernos y que nos ayudarán a entender el problema, las dimensiones del mismo y la calidad de los datos.
+
+\begin{enumerate}
+\item{Cuántas sucursales tenemos en total}
+\item{Cuántos productos (items) tenemos en total}
+\item{Cuántos items en promedio vende cada sucursal}
+\item{Se venden todos los items cada mes o se evidencia que hay items nuevos y otros que se dejan de vender}
+\item{Como varían los precios de los items}
+\item{Hay sucursales que venden mucho mas que otras}
+\item{Hay items que se venden mas que otros}
+\item{Cómo varía la cantidad de ventas a lo largo del tiempo, existe estacionalidad}
+\item{Hay precios o cantidades anomalas que debamos eliminar}
+\item{Cuántos meses tenemos como datos históricos}
+\item{Qué tan completa es la información que nos dieron}
+\end{enumerate}
+
+\section{Preparación del Dataset}
+
+Este paso es clave para que el proyecto sea exitoso, tenemos que pasar de los datos reales que nos han suministrado a datos que tengan un formato que nos sirva para desarrollar nuestro modelo de Machine Learning. En este problema este paso es particularmente importante porque nos encontramos con la dificultad de predecir una serie temporal.
+
+Como la información es una serie temporal y queremos predecir la cantidad vendida para una granularidad mensual es conveniente agregar una columna que nos indique con un número consecutivo en que bloque de fechas estamos siendo el bloque 1 el primer mes de nuestros datos históricos. Por ejemplo si nuestro dataset arranca en Noviembre de 2015 entonces 2015-11 es el bloque 01, diciembre es el 02, Enero de 2016 el el bloque 03, etc. Podemos ver cuántos bloques tenemos en total, siendo el objetivo predecir para el bloque n+1 que es el mes próximo. 
+
+Si tuviéramos mucha información es conveniente aquí podar el dataset, por ejemplo podemos decidir que no nos interesan datos históricos mas allá de dos años hacia atrás o incluso un año. La forma de decidir esto es construyendo un modelo que tenga en cuenta dos años de datos históricos y otro que tenga en cuenta solo un año y comparar la performance de ambos. 
+
+Agregar el bloque al archivo sales nos deja algo del estilo:
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|r|r|r|r|r|} \hline
+date&date\_block\_num&shop\_id&item\_id&item\_price&item\_cnt\_day \\ \hline
+2017-02-01&1&21&17&1280.0&2 \\
+...&...&...&...&...\\ \hline
+\end{tabular} 
+}
+\caption{sales.csv}
+\end{table}
+
+\subsection{La Matriz de Datos Históricos}
+
+El objetivo del problema es para un par shop\_id, item\_id predecir la cantidad de unidades que se venderán el mes próximo. Es decir que tenemos implícita en nuestro archivo de test una columna date\_block\_num que es igual al valor mayor de date\_block\_num + 1 de nuestros datos históricos. Para realizar la predicción vamos a construir un modelo de Machine Learning que tenga en cuenta los datos históricos y en base a ellos realice la predicción. 
+
+Un detalle sumamente importante es que nuestros datos históricos registran las ventas pero no registran las unidades que NO se vendieron. Es decir si un cierto producto no se ha vendido un cierto mes en una sucursal no tenemos un registro con item\_cnt\_day = 0, un paso importantísimo en este problema es entonces completar la matriz histórica de forma tal que tengamos todas las combinaciones de shop\_id, item\_id y date\_block\_num.
+
+Antes de hacer esto analizamos la viabilidad, tenemos 21807 items diferentes, 60 sucursales y 34 meses de datos por lo que tendremos en total $21807*60*34 = 44.486.280$ registros en nuestra matriz de datos históricos. 44 millones de registros es algo manejable aunque dado el volumen debemos manejar con cuidado la forma en que procesaremos los datos, algunas operaciones que son sencillas con miles de registros se vuelven problemáticas cuando el volumen es de decenas de millones.
+
+El resultado es un nuevo archivo "sales.csv" que tiene ahora todos los datos históricos completos incluyendo los ceros.
+
+\section{Feature Engineering}
+
+La etapa mas importante en todo proceso de machine learning es la creación de features que nos permitan desarrollar un modelo predictivo. En la gran mayoría de los problemas de machine learning la cantidad de features con la que contamos es simplemente mínima en comparación con los features que podemos crear a partir de los datos.
+
+Para este problema en particular antes de pensar en la creación de features tenemos que planificar cuál será nuestra estrategia para poder realizar las predicciones que se nos piden y de qué forma vamos a entrenar nuestro modelo.
+
+\subsection{Pensando en el modelo}
+
+Para pensar en nuestro modelo debemos recordar que el objetivo es dado un par shop\_id, item\_id poder predecir la cantidad de unidades a vender el mes próximo. Es decir que nuestro modelo va a tener que procesar una serie de features que dependen de la sucursal y el item y predecir la cantidad de unidades a vender el próximo mes. Para validar el modelo podemos usar los datos históricos. Recordando que tenemos 34 meses de datos históricos podemos usar 33 meses para armar features y el mes 34 para construir "labels" que nos permitan validar el modelo. Luego para el test construiremos los features con los 34 meses y en base a estos realizaremos la predicción.
+
+La construcción de features es un proceso creativo y la forma de validar si un feature sirve o no es probando el modelo con nuestro set de validación, algunos features pueden ser muy útiles, otros no tanto. A continuación listamos algunos features que podrían ser útiles para este problema en particular:
+
+\begin{enumerate}
+\item{precio promedio del item}
+\item{cantidad de unidades vendidas por mes promedio del item}
+\item{cantidad de unidades vendidas por mes para el item y la sucursal}
+\item{ranking de la sucursal en cuanto a cantidad de ventas mensuales}
+\item{ranking del item en cuanto a cantidad de ventas mensuales}
+\item{cantidad de unidades del item que vendió la sucursal el mes anterior, 2 meses atrás, 3 meses atrás, etc}
+\item{cantidad promedio de ventas del item para el mes a predecir en base a datos históricos}
+\item{cantidad promedio de ventas de la sucursal para el mes a predecir en base a datos históricos}
+\item{cantidad promedio de ventas de la sucursal para el item para el mes a predecir en base a datos históricos}
+\end{enumerate}
+
+Podemos crear cientos de features. 
+
+\subsection{Baselines}
+
+Un \textit{baseline} es una predicción básica contra la cual comparar un algoritmo predictivo. En nuestro problema podemos pensar en varios baselines, por ejemplo que la sucursal va a vender la misma cantidad de cada item que vendió el mes anterior. O que la sucursal va a vender de cada item la cantidad promedio que se vende de dicho item por mes históricamente. En general todos los modelos deben superar a estos baselines.
+
+\section{Construcción de un Modelo de Machine Learning}
+
+En primer lugar vamos a comentar la parte de validación y feature engineering. Para esta parte vamos a construir un set de entrenamiento en el cual construiremos features con los meses 1 a 33 y los labels serán la cantidad de unidades vendidas para la sucursal y el item en el mes 34. La métrica que usaremos para medir la performance de nuestro modelo sera RMSE (root-mean-squared-error). El valor de la métrica no es en sí importante pero si lo es para comparar dos modelos y saber cuál es mejor. 
+
+Por ejemplo podemos usar XGBoost como algoritmo, entrenaremos a XGboost con nuestro set de entrenamiento en base a los meses 1 a 33, podemos usarlo para tunear los diferentes parámetros de XGboost y también para probar features. Cuando llegamos al mejor modelo posible para los meses 1 a 33, entonces simplemente construimos los features para los meses 1 a 34, aplicamos el algoritmo y las predicciones serán las que realizaremos para el mes 35 que es el próximo y para el cual desconocemos los valores reales. De esta forma nuestro modelo de ML será útil para nuestro cliente.
+
+
+
+
 
 \chapter*{Bibliography}
 
