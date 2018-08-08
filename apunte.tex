@@ -102,12 +102,13 @@ Cada uno de estos puntos implica una importante cantidad de trabajo, a continuac
 
 \subsection{Hacer una pregunta interesante}
 
-La pregunta que queremos responder es el inicio de todo proceso de análisis de datos, es lisa y llanamente la información que queremos obtener a partir de los datos. Por ejemplo podemos tener un conjunto de datos sobre propiedades incluyendo sus características y precios y construir un modelo que nos permita tasar automáticamente una propiedad a partir de sus características.
-Así como este podríamos listar una enorme cantidad de problemas que podemos resolver usando Data Science. Como no hay espacio para listar todos los problemas posibles vamos a agruparlos en categorías intentando que cada una de estas categorías sea representativa de una buena cantidad de problemas. Es además una buena forma de presentar terminología que usaremos constantemente a lo largo del curso. Por favor notemos que vamos a presentar estas categorías simplemente desde el punto de vista de qué pregunta podemos hacernos en base a nuestros datos, no vamos a entrar aún en detalles ni terminología propios de cada tipo de problema, los lectores que ya tienen alguna experiencia en estos temas tendrán que esperar a que cada uno de estos temas sea desarrollado en mayor detalle.
+La pregunta que queremos responder es el inicio de todo proceso de análisis de datos, es lisa y llanamente la información que queremos obtener a partir de los datos. Por ejemplo, podemos tener un conjunto de datos sobre propiedades inmuebles, incluyendo sus características y precios a partir del construiremos un modelo que nos permita tasar automáticamente una propiedad a partir de sus características.
+
+Así como éste podríamos listar una enorme cantidad de problemas que podemos resolver usando Data Science. Como no hay espacio para listar todos los problemas posibles vamos a agruparlos en categorías intentando que cada una de estas categorías sea representativa de una buena cantidad de problemas. Es además una buena forma de presentar terminología que usaremos constantemente a lo largo del curso. Por favor notemos que vamos a presentar estas categorías simplemente desde el punto de vista de qué pregunta podemos hacernos en base a nuestros datos, no vamos a entrar aún en detalles ni terminología propios de cada tipo de problema, los lectores que ya tienen alguna experiencia en estos temas tendrán que esperar a que cada uno de estos temas sea desarrollado en mayor detalle.
 
 \subsubsection{Regresión}
 
-En un problema de regresión queremos predecir el valor de una variable numérica  y continua  a partir de un cierto conjunto de datos. En general contamos con un cierto set de entrenamiento en el cual conocemos el valor de la variable que queremos predecir. El objetivo es entonces construir un modelo predictor que nos permita predecir el valor de nuestra variable de decisión  a partir de datos nuevos. 
+En un problema de regresión queremos predecir el valor de una variable \textit{numérica  y continua}  a partir de un cierto conjunto de datos. En general contamos con un cierto set de entrenamiento en el cual conocemos el valor de la variable que queremos predecir. El objetivo es entonces construir un modelo que nos permita predecir el valor de nuestra variable de decisión a partir de datos nuevos. 
 
 \begin{figure}[!htb]
 \centering
@@ -118,6 +119,7 @@ En un problema de regresión queremos predecir el valor de una variable numéric
 \end{figure}
 
 El caso mas simple es la regresión lineal en el cual nuestro modelo es una recta, la recta que mejor ajusta a los puntos de nuestro set de entrenamiento. Los problemas de regresión pueden usarse para predecir el valor de las acciones en el mercado de valores, para estimar el costo de una propiedad, para calcular la cantidad de personas en un casino, para estimar las ganancias de un negocio que queremos abrir, etc. Las claves para identificar un problema de regresión son las siguientes:
+
 \begin{itemize}
 \item Queremos predecir una variable que es numérica y en general continua
 \item Contamos con un set de entrenamiento para el cual conocemos el valor de dicha variable
@@ -141,9 +143,15 @@ Para reconocer un problema de clasificación en general hay que estar atentos a 
 
 En algunos casos existe una zona gris entre problemas de clasificación y de regresión, como ejemplo planteemos el siguiente problema: Contamos con reviews para un determinado producto, por ejemplo autos y para cada review hay un número de 1 a 5 que indica que tan positivo es el mismo, por ejemplo las típicas estrellitas con las que podemos calificar cosas en varios sitios. Este problema lo podríamos plantear como un problema de clasificación con cinco clases o bien como un problema de regresión con valores posibles del 1 al 5. La diferencia es que en un problema de regresión nuestro modelo podría predecir 3.45 para un cierto review mientras que en un problema de clasificación los valores posibles son solo 1,2,3,4 y 5. No existe una receta para resolver este tipo de situaciones; en algunos casos obtendremos mejores resultados planteando el problema como una regresión y en otros como una clasificación.
 
+Es frecuente plantear un problema de clasificación binaria como un problema de regresión en donde los valores posibles están en el intervalo [0,1]. Esto trae aparejada la ventaja de que los valores que el regresor genera pueden, bajo ciertas circunstancias, interpretarse como la probabilidad de que la observación sea un 1.
+
 \subsubsection{Clustering}
 
-En un problema de clustering contamos con datos que queremos dividir en grupos de forma automática, por ejemplo podemos tener artículos de noticias y querer agruparlos en categorías de forma tal que queden juntos todos los de deportes, economía, política, etc. En algunos casos la cantidad de "clusters" la debemos indicar previamente y en otros el algoritmo es capaz de determinarla por si mismo. Otro ejemplo podría ser agrupar películas automáticamente, de forma que queden juntas las que son de un mismo género. La detección de comunidades en una red social es un típico problema de clustering en donde los puntos son los usuarios y queremos agruparlos automáticamente en comunidades, de esta forma podemos descubrir grupos de usuarios que tienen un cierto interés en común aun sin saber exactamente cuál es dicho interés.
+En un problema de clustering contamos con datos que queremos dividir en grupos de forma automática, por ejemplo podemos tener artículos de noticias y querer agruparlos en categorías de forma tal que queden juntos todos los de deportes, economía, política, etc. 
+
+En algunos casos la cantidad de "clusters" la debemos indicar previamente y en otros el algoritmo es capaz de determinarla por si mismo. Otro ejemplo podría ser agrupar películas automáticamente, de forma que queden juntas las que son de un mismo género. 
+
+La detección de comunidades en una red social es un típico problema de clustering en donde los puntos son los usuarios y queremos agruparlos automáticamente en comunidades, de esta forma podemos descubrir grupos de usuarios que tienen un cierto interés en común aun sin saber exactamente cuál es dicho interés.
 
 \begin{figure}[!htb]
 \centering
@@ -161,6 +169,7 @@ Un problema de clustering se caracteriza, entonces, de la siguiente forma:
 \begin{itemize}
 \item Contamos con un set de datos
 \item Queremos agrupar este set de datos en clusters/grupos/comunidades
+\item No son necesarios labels
 \end{itemize}
 
 Existe una cierta relación entre los problemas de clustering y de clasificación, por ejemplo dado un problema de clasificación podríamos aplicar clustering primero y luego clasificar a cada punto de acuerdo al cluster al cual pertenece en base a la clase mayoritaria de dicho cluster. Este procedimiento no es muy frecuente pero es conveniente tenerlo en cuenta porque permite entender el funcionamiento de ciertos algoritmos que combinan las propiedades de un problema de clustering y uno de clasificación.
@@ -185,7 +194,7 @@ Veamos ahora que ocurre si agregamos los puntos cuya clase desconocemos:
 
 \end{figure}
 
-Agregando los puntos sin clase vemos que en nuestros datos existen dos clusters y si tenemos que asociar cada cluster con un color entonces el de "arriba" es negro y el de abajo "blanco" ya que el punto negro pertenece al cluster de arriba y el blanco al de abajo. En este caso nuestro punto marcado como "?" debería clasificarse como negro ya que está mas cerca del cluster superior que del inferior. 
+Agregando los puntos sin clase vemos que en nuestros datos existen dos clusters y si tenemos que asociar cada cluster con un color entonces el de "arriba" es negro y el de abajo "blanco" ya que el punto negro pertenece al cluster de arriba y el blanco al de abajo. 
 
 El aprendizaje no-supervisado es una rama muy importante en Data Science ya que solo trabaja con datos sin necesidad de tener un "label" para los mismos, es decir que solo necesitamos los datos en crudo y estos en general son mucho mas fáciles de conseguir que datos ya previamente clasificados.  El aprendizaje transductivo es un área muy nueva dentro de Data Science y que sin dudas merece ser explorada.
 
@@ -196,6 +205,7 @@ El objetivo de un sistema de recomendaciones es muy simple: recomendarle al usua
 Los sistemas de recomendación son en general particularmente complejos e involucran el esfuerzo conjunto de varios algoritmos y herramientas, tienen realmente muchos detalles a considerar y por eso vamos a dedicarles un extenso tratamiento mas adelante.
 
 Las características de un Sistema de Recomendaciones son:
+
 \begin{itemize}
 \item Tenemos un conjunto de ítems y un conjunto de usuarios
 \item Queremos recomendarles a los usuarios ítems que puedan interesarles
@@ -204,6 +214,7 @@ Las características de un Sistema de Recomendaciones son:
 \subsubsection{Sistemas de Consulta}
 
 Un sistema de consulta es simplemente un buscador, un search engine, el contenido que se almacena puede ser de cualquier formato aunque en general se almacenan páginas HTML o texto plano. El objetivo del sistema de consulta es recuperar los textos o páginas o ítems de información mas relevantes para la consulta planteada por el usuario. Todos estamos familizarizados con este tipo de sistemas ya que son los que definen a los buscadores en la web como Google y otros. 
+
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=2in]{figures/google-fig.png}
@@ -331,7 +342,7 @@ Materia & Nota & Frecuencia \\ \hline\hline
 
 La versión corregida cumple el principio de que cada observación sea una fila y cada atributo sea una columna.
 
-Existen muchos ejemplos mas de datos mal formados el paper [Wickham] es de lectura recomendable para observar otros ejemplos y la forma de corregirlos.
+Existen muchos ejemplos mas de datos mal formados el paper \cite{Wickham} es de lectura recomendable para observar otros ejemplos y la forma de corregirlos.
 
 \subsubsection{Detectar y eliminar Anomalías}
 
@@ -4096,7 +4107,7 @@ Dicho esto, si utilizamos un compresor adecuado, valen las siguientes propiedade
 
 \section{Teoría de la Información}
 
-La teoría de la información  es una rama de la computación creada por Claude Shannon en su tratado "A Mathematical Theory of Communication" [Shannon]. En este trabajo Shannon estudió las propiedades de la información almacenada en forma digital en formato binario y estableció toda la teoría necesaria para poder comprimir dicha información y transmitirla a través de un canal ruidoso con la posibilidad de recuperar la información al otro lado. Este trabajo es la piedra fundamental de la teoría de compresión y comunicación de datos. En esta sección se utilizará el concepto de entropía definido por Shannon como una forma basada en probabilidades de medir la complejidad de un string o archivo, es decir, otra forma de aproximar a $K(x)$. 
+La teoría de la información  es una rama de la computación creada por Claude Shannon en su tratado "A Mathematical Theory of Communication" \cite{Shannon}. En este trabajo Shannon estudió las propiedades de la información almacenada en forma digital en formato binario y estableció toda la teoría necesaria para poder comprimir dicha información y transmitirla a través de un canal ruidoso con la posibilidad de recuperar la información al otro lado. Este trabajo es la piedra fundamental de la teoría de compresión y comunicación de datos. En esta sección se utilizará el concepto de entropía definido por Shannon como una forma basada en probabilidades de medir la complejidad de un string o archivo, es decir, otra forma de aproximar a $K(x)$. 
 
 Veamos algunas definiciones necesarias para llegar al concepto de entropía.
 
@@ -5182,7 +5193,7 @@ La tabla \ref{table:ppmc_sse} muestra un ejemplo de la estructura que necesita P
 
 \section{DMC: Dynamic Markov Compression}
 
-DMC [Cormarck-Horspool] es un algoritmo basado en comprimir los datos bit por bit, a diferencia de PPMC que procesaba byte a byte. DMC usa un único contexto por cada bit a comprimir a diferencia de otros algoritmos usan una mezcla de contextos (como por ejemplo el algoritmo PAQ).
+DMC \cite{CormackHorspool} es un algoritmo basado en comprimir los datos bit por bit, a diferencia de PPMC que procesaba byte a byte. DMC usa un único contexto por cada bit a comprimir a diferencia de PAQ que usa una mezcla de contextos.
 
 Por cada bit a comprimir DMC intenta predecir la probabilidad de que el bit sea 1 o 0 comprimiendo el mismo con compresión aritmética. 
 
@@ -5557,7 +5568,7 @@ Una forma de solucionar esto es usando compresión aritmética, en donde al prin
 
 \subsubsection{Complejidad LZ}
 
-Es posible usar LZ78 para estimar la complejidad de un string [Lempel-Ziv-C] desde el punto de vista de este compresor. La complejidad se define simplemente como la cantidad de patrones diferentes que ocurren en el string. Por ejemplo con el string $010101011$ se empieza con el primer bit $0$ y lo agregamos a la tabla. El segundo bit $1$ no está en la tabla por lo que se lo agrega. Luego se lee $0$ que ya fue visto así que se lee otro bit: $01$ no está en la tabla y lo se lo agrega. De esta forma nos quedaría algo del tipo: $0|1|01|010|11|$ con lo cual se estimaría que la complejidad LZ de este string es 5.
+Es posible usar LZ78 para estimar la complejidad de un string\cite{LempelZivC} desde el punto de vista de este compresor. La complejidad se define simplemente como la cantidad de patrones diferentes que ocurren en el string. Por ejemplo si tenemos el string $010101011$ empezamos con el primer bit $0$ y lo agregamos a la tabla. El segundo bit $1$ no está en la tabla por lo que lo agregamos. Luego leemos $0$ que ya fue visto así que leemos otro bit: $01$ no está en la tabla y lo agregamos. De esta forma continuamos y nos queda algo de tipo: $0|1|01|010|11|$ con lo cual estimaríamos que la complejidad LZ de este string es 5.
 
 Es evidente que en un string o archivo en donde hay muchos patrones repetidos conllevará a tener una complejidad baja mientras que en un string o archivo completamente aleatorio eventualmente se tendría una gran cantidad de patrones diferentes. 
 
@@ -5750,9 +5761,7 @@ La descompresión de MTF es trivial ya que simplemente se leen números de 8 bit
 
 \subsection{La Transformación de Burrows y Wheeler}
 
-La transformación de Burrows y Wheeler [Burrows-Wheeler] permite tomar un archivo común (no random) y convertirlo en un archivo localizado. Esta transformación funciona de la siguiente forma: En primer lugar se divide el archivo en bloques de un cierto tamaño (por ejemplode  900Kb) y se construyen todas las rotaciones del bloque. 
-
-Esto se ilustra en el siguiente ejemplo pero en la práctica no implica hacer nada salvo guardar un puntero a cada byte del bloque. Si se piensa en el bloque como si fuera una cola circular entonces cada puntero representa una rotación del mismo.
+La transformación de Burrows y Wheeler\cite{BurrowsWheeler} permite tomar un archivo común (no random) y convertirlo en un archivo localizado. Esta transformación funciona de la siguiente forma: En primer lugar dividimos el archivo en bloques de un cierto tamaño, por ejemplo 900Kb y construimos todas las rotaciones del bloque. Esto lo vamos a ilustrar con un ejemplo pero en la práctica no implica hacer nada salvo guardar un puntero a cada byte del bloque, si pensamos en el bloque como si fuera una cola circular entonces cada puntero representa una rotación del mismo.
 
 \begin{verbatim}
 0 PANQUEQUE
@@ -6174,7 +6183,7 @@ A modo de empezar vamos a ver algunas funciones de hashing muy básicas que no s
 
 \subsection{Funciones de Hashing Elementales}
 
-En su mas básica definición una función de hashing debe ser capaz de recibir como input un cierto dato cualquiera y devolver un número acotado a un cierto intervalo. Al conjunto de claves posibles (input) lo denominaremos "espacio de claves" y al conjunto de números que la función de hashing puede devolver lo llamaremos "espacio de direcciones".
+En su más básica definición una función de hashing debe ser capaz de recibir como input un cierto dato cualquiera y devolver un número acotado a un cierto intervalo. Al conjunto de claves posibles (input) lo denominaremos "espacio de claves" y al conjunto de números que la función de hashing puede devolver lo llamaremos "espacio de direcciones".
 
 Por ejemplo consideremos una función de hashing que transforma un número de patente en formato (AAA999) en un número entre 0 y 50000. Como todas las patentes son posibles el espacio de claves es de $26^3*1000=17576000$ y el espacio de direcciones es evidentemente 50000.
 
@@ -6182,17 +6191,19 @@ Analicemos ahora los dos casos posibles:
 
 \subsubsection{El espacio de claves es mayor al espacio de direcciones}
 
-Este suele ser el caso mas frecuente y es una buen motivo para justificar la necesidad de una función de hashing. Supongamos que queremos almacenar 1 millón de strings de longitud 140 en memoria. En total existen $26^{140}$ o mas strings posibles por lo que de alguna forma tenemos que "comprimirlos" a un número entre 0 y 999999, esto se logra precisamente con una función de hashing.
+Este suele ser el caso más frecuente y es una buen motivo para justificar la necesidad de una función de hashing. Supongamos que queremos almacenar 1 millón de strings de longitud 140 en memoria. En total existen $26^{140}$ o más strings posibles por lo que de alguna forma tenemos que "comprimirlos" a un número entre 0 y 999.999, esto se logra precisamente con una función de hashing.
 
 \subsubsection{El espacio de direcciones es mayor al espacio de claves}
 
-Este caso es menos frecuente pero también podría llegar a darse, por ejemplo por razones de eficiencia podríamos querer almacenar 25000 valores en una tabla con capacidad para 1 millón de datos, está bien pensar que esto, en principio, parece no tener mucho sentido pero ocurre que en ciertos algoritmos es algo deseable por lo que dejaremos planteado que es un escenario plausible.
+Este caso es menos frecuente pero también podría llegar a darse, por ejemplo por razones de eficiencia podríamos querer almacenar 25.000 valores en una tabla con capacidad para 1 millón de datos, está bien pensar que esto, en principio, parece no tener mucho sentido pero ocurre que en ciertos algoritmos es algo deseable por lo que dejaremos planteado que es un escenario plausible.
 
-Para construir una función de hashing necesitamos de alguna forma convertir un dato cualquiera en un número entre 0 y m, una forma de lograr esto es convertir el dato en un número z y luego aplicar la función módulo:  z mod m. Cuando los datos son numéricos esto puede hacerse directamente. Si los datos son, por ejemplo, strings de longitud fija, podemos convertir cada caracter en un código ASCII o tomar el binario que corresponde cada 2 caracteres y sumar para obtener un número. Si los datos fueran de longitud variable podríamos ir tomando de a 2 bytes en binario e ir sumando y calculando el modulo m, esto evita el overflow y permite reducir una tira de bits de cualquier longitud a un número entre 0 y m que es lo que queremos. Este tipo de funciones de hashing se denominan "fold and add", son muy fáciles de entender pero desafortunadamente no son muy eficientes, suelen generar muchas mas colisiones que las deseadas y además no son muy rápidas. Sin embargo son útiles para entender que es lo que una función de hashing debe hacer.
+\subsubsection{Construcción de la función de hashing}
+
+Para construir una función de hashing necesitamos de alguna forma convertir un dato cualquiera en un número entre 0 y m, una forma de lograr esto es convertir el dato en un número z y luego aplicar la función módulo:  z mod m. Cuando los datos son numéricos esto puede hacerse directamente. Si los datos son, por ejemplo, strings de longitud fija, podemos convertir cada caracter en un código ASCII o tomar el binario que corresponde cada 2 caracteres y sumar para obtener un número. Si los datos fueran de longitud variable podríamos ir tomando de a 2 bytes en binario e ir sumando y calculando el modulo m, esto evita el overflow y permite reducir una tira de bits de cualquier longitud a un número entre 0 y m que es lo que queremos. Este tipo de funciones de hashing se denominan "fold and add", son muy fáciles de entender pero desafortunadamente no son muy eficientes, suelen generar muchas más colisiones que las deseadas y además no son muy rápidas. Sin embargo son útiles para entender que es lo que una función de hashing debe hacer.
 
 \subsection{Tablas de Hash Elementales}
 
-Supongamos que contamos con alguna función de hashing para un cierto tipo de datos. Una aplicación directa de esta función es construir una estructura de datos muy simple y eficiente que se denomina "Tabla de hash". Una tabla de hash no es mas que un vector de tamaño $m$ en el cual almacenamos los datos en la posición indicada por aplicarle al dato la función de hashing. De esta forma si queremos almacenar "Roma" en nuestra tabla de hash calculamos h("Roma") y si el resultado nos da por ejemplo 19 almacenamos el string en la posición 19 de la tabla. De la misma forma usaremos la función de hashing para buscar datos en nuestra tabla sin tener que recorrerla ni mantenerla ordenada.
+Supongamos que contamos con alguna función de hashing para un cierto tipo de datos. Una aplicación directa de esta función es construir una estructura de datos muy simple y eficiente que se denomina "Tabla de hash". Una tabla de hash no es más que un vector de tamaño $m$ en el cual almacenamos los datos en la posición indicada por la función de hashing aplicada al dato. De esta forma si queremos almacenar "Roma" en nuestra tabla de hash calculamos h("Roma") y si el resultado nos da por ejemplo 19 almacenamos el string en la posición 19 de la tabla. De la misma forma usaremos la función de hashing para buscar datos en nuestra tabla sin tener que recorrerla ni mantenerla ordenada.
 
 En un caso ideal una tabla de hash permite almacenar y recuperar datos en O(1) lo cual es, evidentemente, muy bueno. Sin embargo esto requiere que la función de hashing sea perfecta, es decir que no produzca colisiones. Una colisión se produce cuando para dos claves (datos) diferentes la función de hashing genera el mismo valor. Como no podemos almacenar dos datos diferentes en una misma posición de nuestro vector necesitamos algún mecanismo para resolver las colisiones.
 
@@ -6254,11 +6265,11 @@ La función devuelve un número de $n$ bits dependiendo de la arquitectura, por 
 
 La función de hashing puede producir colisiones, para resolverlas Python usa un esquema de direccionamiendo abierto (hashing cerrado) en el cual las posiciones alternativas a probar son determinadas por una secuencia aleatoria inicializada en base a los primeros bits de la función de hashing notando que estos bits no son los mismos que usamos para determinar la posición. En base a esta secuencia simplemente se "prueban" posiciones hasta encontrar una libre. Este proceso tiene que repetirse cuando se busca un dato en el diccionario, si el dato no está en la posición indicada por la función de hashing hay que probar posiciones alternativas hasta encontrar una posición libre, el dato o bien volver a la posición en la cual comenzamos.
 
-Cuando se da de baja un registro es necesario marcarlo como dado de baja y estos registros "dummy" se consideran libres para dar de alta un nuevo dato pero se consideran ocupados (con basura) al buscar un registro ya que sino podríamos detener la búsqueda en un registro borrado y el dato podría estar mas adelante.
+Cuando se da de baja un registro es necesario marcarlo como dado de baja y estos registros "dummy" se consideran libres para dar de alta un nuevo dato pero se consideran ocupados (con basura) al buscar un registro ya que sino podríamos detener la búsqueda en un registro borrado y el dato podría estar más adelante.
 
-Para minimizar las colisiones la política de los diccionarios de Python es extender el tamaño de la tabla si al menos 2/3 de sus registros están llenos, cuando la cantidad de registros es inferior a 50000 el tamaño de la tabla de se multiplica por 4 y si la cantidad de registros es mayor a 50000 el tamaño se multiplica por 2. Esto quiere decir que si empezamos con 8 registros cuando demos de alta el sexto dato la tabla va a pasar de 8 a 32 registros, cuando tenemos 22 registros el tamaño pasa a 128, con 86 registros el diccionario pasa a 512 y con 342 registros a 2048. Para hacer esto simplemente se re-ubican las claves en la nueva tabla usando ahora los últimos 5 bits para determinar la posición de los registros. Como la tabla almacena tanto el hash, como la clave y el valor no es necesario volver a hashear cada clave, el valor del hash se encuentra en el diccionario mismo.
+Para minimizar las colisiones la política de los diccionarios de Python es extender el tamaño de la tabla si al menos 2/3 de sus registros están llenos, cuando la cantidad de registros es inferior a 50.000 el tamaño de la tabla se multiplica por 4 y si la cantidad de registros es mayor a 50.000 el tamaño se multiplica por 2. Esto quiere decir que si empezamos con 8 registros cuando demos de alta el sexto dato la tabla va a pasar de 8 a 32 registros, cuando tenemos 22 registros el tamaño pasa a 128, con 86 registros el diccionario pasa a 512 y con 342 registros a 2048. Para hacer esto simplemente se re-ubican las claves en la nueva tabla usando ahora los últimos 5 bits para determinar la posición de los registros. Como la tabla almacena tanto el hash, como la clave y el valor, no es necesario volver a hashear cada clave, el valor del hash se encuentra en el diccionario mismo.
 
-Mantener el diccionario disperso, es decir con muchos registros libres es fundamental para reducir el número de colisiones y hacer que las búsquedas y las inserciones sean muy eficientes, el costo es consumir mas memoria de la necesaria pero este costo se reduce ya que a partir de los 50000 registros la capacidad de la tabla se duplica en lugar de cuadruplicar.
+Mantener el diccionario disperso, es decir con muchos registros libres es fundamental para reducir el número de colisiones y hacer que las búsquedas y las inserciones sean muy eficientes, el costo es consumir más memoria de la necesaria pero este costo se reduce ya que a partir de los 50.000 registros la capacidad de la tabla se duplica en lugar de cuadruplicar.
 
 \begin{figure}[!htb]
 \centering
@@ -6274,7 +6285,7 @@ La forma en que Python maneja sus diccionarios internamente nos permite observar
 
 \section{Hopscotch Hashing}
 
-El método llamado "Hopscotch" tiene como objetivo solucionar algunos de los problemas que observamos en la búsqueda lineal y el encadenamiento de sinónimos, queremos garantizar O(1) para las búsquedas y queremos que la zona en la cual tenemos que buscar el dato sea igual o muy cercana a la indicada por la función de hashing para favorecer el uso de datos en memoria caché.
+El método llamado "Hopscotch" tiene como objetivo solucionar algunos de los problemas que observamos en la búsqueda lineal y el encadenamiento de sinónimos. Queremos garantizar O(1) para las búsquedas y queremos que la zona en la cual tenemos que buscar el dato sea igual o muy cercana a la indicada por la función de hashing para favorecer el uso de datos en memoria caché.
 
 En Hopscotch partimos de un vector de "m" elementos que es nuestra tabla de hash, vamos a usar además un número "k" que indica que tan lejos podemos guardar un dato respecto de la posición indicada por la función de hashing. Si k=3 podemos guardar el dato en h(x), h(x)+1 o h(x)+2. Es decir que cada dato tiene k posiciones en las cuales puede almacenarse. Es importante mencionar que esto no quiere decir que si esas k posiciones están ocupadas el dato no pueda almacenarse.
 
@@ -6291,28 +6302,32 @@ Veamos un ejemplo:
 
 En nuestro ejemplo m=21, k=4 y las posiciones en gris están ocupadas. Analizamos el caso de h(x)=6. Observamos que las posiciones 6,7,8 y 9 están ocupadas por lo que buscamos hacia adelante hasta encontrar la posición libre 13. Buscamos hacia atrás y vemos que h(d)=11 por lo que podemos mover "d" a la posición 13 liberando la posición 11, luego vemos que h(c)=9 por lo que podemos mover "c" a la posición 11 que ahora está libre. Finalmente podemos almacenar a "x" en la posición 9 que hemos liberado. 
 
+En el caso que no se pueda liberar un espacio en las k posiciones donde puede almacenarse el dato, se debe cambiar el tamaño de la tabla y rehubicar a los datos de la misma.
+
 Notemos que usando Hopscotch una búsqueda es siempre de tipo O(k)=O(1) ya que el dato, si existe, solo puede estar almacenado en alguna de las k posiciones alternativas para el mismo. 
 
-Hopscotch es un método sencillo mucho mas eficiente que la búsqueda lineal o el encadenamiento de colisiones para tablas de hash en memoria.
+Hopscotch es un método sencillo mucho más eficiente que la búsqueda lineal o el encadenamiento de colisiones para tablas de hash en memoria.
 
 \section{Funciones de Hashing}
 
-Hemos usado funciones de hashing pero hasta el momento no hemos hablado de como construir una, solo hemos mencionado las funciones de tipo fold and add pero hemos dicho que no son muy eficientes. En esta sección vamos a estudiar algunas funciones de hashing eficientes para strings por lo que empezaremos describiendo cuáles son las propiedades que debe cumplir una función de hashing.
+Hemos usado funciones de hashing pero hasta el momento no hemos hablado de cómo construir una, solo hemos mencionado las funciones de tipo fold and add pero hemos dicho que no son muy eficientes. En esta sección vamos a estudiar algunas funciones de hashing eficientes para strings por lo que empezaremos describiendo cuáles son las propiedades que debe cumplir una función de hashing.
+
+\subsubsection{Propiedades de una función de hashing}
 
 \begin{enumerate}
-  \item La función tiene que ser muy eficiente, es decir generar el resultado en muy poco tiempo
+  \item La función tiene que ser muy eficiente, es decir, generar el resultado en muy poco tiempo
   \item La función tiene que producir la menor cantidad de colisiones posibles
 \end{enumerate}
 
-El primer punto es muy importante y a menudo pasado por alto, el motivo por el cual usamos una función de hashing es para poder recuperar un dato de forma muy eficiente en tiempo similar a O(1). Si la función de hashing fuera muy compleja e ineficiente podría pasar que buscar linealmente en el vector tarde menos tiempo que usar la función de hashing y acceder a la posición indicada lo cual invalidaría el uso de una función de hashing por completo.
+El primer punto es muy importante y a menudo pasado por alto. El motivo por el cual usamos una función de hashing es para poder recuperar un dato de forma muy eficiente en tiempo similar a O(1). Si la función de hashing fuera muy compleja e ineficiente podría pasar que buscar linealmente en el vector tarde menos tiempo que usar la función de hashing y acceder a la posición indicada, lo cual invalidaría el uso de una función de hashing por completo.
 
-El segundo punto pide minimizar las colisiones, lo cual no solo implica evitar, en lo posible, que nuestras claves colisionen sino que debemos intentar que la distribución de las claves en el espacio de direcciones sea lo mas pareja posible. Es decir que si tenemos 20 datos y nuestro espacio de direcciones es 10 lo deseable es tener 10 colisiones. Si todas las claves fueran a parar a la misma posición tendríamos 19 colisiones que sería la peor función de hashing posible. 
+El segundo punto pide minimizar las colisiones, lo cual no solo implica evitar, en lo posible, que nuestras claves colisionen sino que debemos intentar que la distribución de las claves en el espacio de direcciones sea lo más pareja posible. Es decir que si tenemos 20 datos y nuestro espacio de direcciones es 10, lo deseable es tener 10 colisiones. Si todas las claves fueran a parar a la misma posición tendríamos 19 colisiones que sería la peor función de hashing posible. 
 
 En las siguientes secciones explicaremos brevemente algunas funciones de hashing que son muy eficientes y producen pocas colisiones para strings.
 
 \subsection{FNV}
 
-FNV es una función de hashing diseñada por Fowler, Noll y Vo en 1991, se basa en las propiedades de ciertos números primos que denominamos (FNV primes). 
+FNV es una función de hashing diseñada por Fowler, Noll y Vo en 1991. Se basa en las propiedades de ciertos números primos que denominamos "FNV primes". 
 
 \begin{algorithm}[]
  \KwData{s: string}
@@ -6330,7 +6345,7 @@ Todas las variables excepto c que es un byte son enteros de 64 bits. En la multi
 
 \subsection{Jenkins}
 
-La función de Jenkins fue publicada por primera vez en Dr Dobbs en 1997, se basa en realizar operaciones lógicas como XOR y shifts que son muy eficientes en una computadora. 
+La función de Jenkins fue publicada por primera vez por Dr Dobbs en 1997. Se basa en realizar operaciones lógicas como XOR y shifts, los cuales son muy eficientes de calcular en una computadora. 
 
 \begin{algorithm}[]
  \KwData{s: string}
@@ -6347,13 +6362,13 @@ hash += (hash $<<$ 15);\\
 return hash;\\
 \end{algorithm}
 
-Por su eficiencia y poca cantidad de colisiones Jenkins es una función muy usada.
+Jenkins es una función muy usada debido a su eficiencia y poca cantidad de colisiones.
 
 \subsection{Pearson}
 
-La función de Pearson no es tan usada como Jenkins o FNV pero tiene varias propiedades interesantes que hacen que su estudio sea conveniente. En primer lugar vamos a explicar la versión de Pearson para generar un hash de 8 bits, luego veremos como podemos extender esto.
+La función de Pearson no es tan usada como Jenkins o FNV pero tiene varias propiedades interesantes que hacen que su estudio sea conveniente. En primer lugar vamos a explicar la versión de Pearson para generar un hash de 8 bits, luego veremos cómo podemos extender esto.
 
-Para la función vamos a necesitar una tabla que contenga una permutación aleatoria de los números 0 a 255 es decir una tabla de 256 posiciones.
+Para la función vamos a necesitar una tabla que contenga una permutación aleatoria de los números 0 a 255, es decir una tabla de 256 posiciones.
 
 \begin{algorithm}[]
  \KwData{s: string}
@@ -6367,9 +6382,9 @@ h = 0;\\
 return h\\
 \end{algorithm}
 
-Hay que destacar que cualquier cambio en cualquier bit de la clave produce un resultado diferente, por esto es sencillo extender la función si necesitamos un hash de mas de 8 bits, simplemente incrementamos el primer byte del string en 1 y aplicamos nuevamente la función, de esta forma obtenemos dos hashes de 8 bits que podemos concatenar para un único hash de 16 bits. De la misma forma podemos generar hashes de 24,32,64,196 bits,etc.
+Hay que destacar que cualquier cambio en cualquier bit de la clave produce un resultado diferente. Debido a esto, es sencillo extender la función si necesitamos un hash de más de 8 bits, simplemente incrementamos el primer byte del string en 1 y aplicamos nuevamente la función. De esta forma obtenemos dos hashes de 8 bits que podemos concatenar para un único hash de 16 bits. De la misma forma podemos generar hashes de 24, 32, 64, 128 bits, etc.
 
-La función de Pearson nos permite también una primera aproximación rudimentaria a una función de hashing perfecta, si tenemos pocas claves a hashear podemos simplemente probar diferentes tablas al azar hasta que alguna de las tablas nos genere una función de Pearson que sea perfecta. Este es un algoritmo aleatorizado de tipo Las Vegas ya que siempre produce un resultado exacto pero con una cierta probabilidad puede tardar mucho tiempo en generar el resultado.
+La función de Pearson nos permite también una primera aproximación rudimentaria a una función de hashing perfecta. Si tenemos pocas claves a hashear podemos simplemente probar diferentes tablas al azar hasta que alguna de las tablas nos genere una función de Pearson que sea perfecta. Este es un algoritmo aleatorizado de tipo Las Vegas ya que siempre produce un resultado exacto pero con una cierta probabilidad, aunque puede tardar mucho tiempo en generar el resultado.
 
 \subsection{Funciones criptográficas}
 
@@ -6407,9 +6422,9 @@ Mediante la construcción de Merkle-Damgard podemos aplicar una función de comp
 
 \subsubsection{Construcción de Davis-Meyer}
 
-La construcción de Davis-Meyer permite generar una función de compresión segura a partir de un algoritmo de encripción seguro. El procedimiento es muy simple, recibimos dos bloques y usaremos uno como clave para encriptar el otro finalizando con el xor entre el bloque 1 y el resultado de la encripción. 
+La construcción de Davis-Meyer permite generar una función de compresión segura a partir de un algoritmo de encripción seguro. El procedimiento es muy simple, recibimos dos bloques y usaremos uno como clave para encriptar el otro, finalizando con el xor entre el bloque 1 y el resultado de la encripción. 
 
-SHA-256 es entonces una construcción de Merkle-Damgard en donde la función de compresión es una construcción de Davis-Meyer usando SHACAL-2 como algoritmo de encripción.Cada bloque del mensaje tiene 512 bits y la función de compresión devuelve 256 bits. 
+SHA-256 es entonces una construcción de Merkle-Damgard en donde la función de compresión es una construcción de Davis-Meyer usando SHACAL-2 como algoritmo de encripción. Cada bloque del mensaje tiene 512 bits y la función de compresión devuelve 256 bits. 
 
 \begin{figure}[!htb]
 \centering
@@ -6418,11 +6433,11 @@ SHA-256 es entonces una construcción de Merkle-Damgard en donde la función de 
 
 \end{figure}
 
-Es importante destacar que es un error muy grave usar una función de hashing tradicional cuando se necesita una función de hashing criptográfica pero también es un error grave usar una función criptográfica cuando solo necesitamos una función de hashing tradicional, esto es porque las funciones criptográficas son menos eficientes y estaríamos perdiendo velocidad a cambio de propiedades adicionales que no necesitamos!
+Es importante destacar que es un error muy grave usar una función de hashing tradicional cuando se necesita una función de hashing criptográfica pero también es un error grave usar una función criptográfica cuando solo necesitamos una función de hashing tradicional. Esto es porque las funciones criptográficas son menos eficientes y estaríamos perdiendo velocidad a cambio de propiedades adicionales que no necesitamos!
 
 \section{Hashing Universal}
 
-En muchos algoritmos necesitamos no una sino varias funciones de hashing, con lo que hemos visto esto no es una tarea sencilla ya que podríamos usar Jenkins, FNV y alguna otra pero tarde o temprano se nos terminarían las funciones. El concepto de Hashing Universal pasa por construir no una función de hashing sino una familia de funciones de hashing de forma tal que podamos elegir las funciones que necesitemos entre el total de funciones que constituyen dicha familia.
+En muchos algoritmos necesitamos no una sino varias funciones de hashing. Con lo que hemos visto, esto no es una tarea sencilla, ya que podríamos usar Jenkins, FNV y alguna otra pero, tarde o temprano, se nos terminarían las funciones. El concepto de Hashing Universal pasa por construir, no una función de hashing, sino una familia de funciones de hashing, de forma tal que podamos elegir las funciones que necesitemos entre el total de funciones que constituyen dicha familia.
 
 \subsection{Definición de Hashing Universal}
 
@@ -6432,11 +6447,11 @@ Sea $\mathcal{H}$ una familia de funciones de hashing de la forma $h \in \mathca
 $$\forall x,y \in U,h \in \mathcal{H}, x \neq y$$
 $$ P[h(x)=h(y)]\leq \frac{1}{m}$$
 
-Es decir que para cualquier función de hashing de nuestra familia la probabilidad de que dos claves diferentes colisionen debe ser menor o igual a $1/m$ siendo $m$ el espacio de direcciones de cada una de las funciones de hashing de la familia.
+Es decir que para cualquier función de hashing de nuestra familia la probabilidad de que dos claves diferentes colisionen debe ser menor o igual a $1/m$, siendo $m$ el espacio de direcciones de cada una de las funciones de hashing de la familia.
 
 \subsection{Hashing Universal para valores atómicos (numéricos)}
 
-Vamos a ver dos versiones que nos permiten crear una familia de funciones de hashing universal para valores numéricos. La primer versión es la mas clásica y se denomina función de Carter-Wegman:
+Vamos a ver dos versiones que nos permiten crear una familia de funciones de hashing universal para valores numéricos. La primer versión es la más clásica y se denomina función de Carter-Wegman:
 
 $$h \in \mathcal{H} \Rightarrow h(x) = (a * x +b  \pmod p) \pmod m$$
 
@@ -6470,7 +6485,7 @@ $$h \in \mathcal{H} \Rightarrow h(x) = \sum_{i=0}^{r} a_i * x_i \pmod m$$
 Notemos que hemos definido una familia de funciones de hashing ya que por cada selección de los parámetros $a_i$ creamos una función diferente. En concreto como cada $a_i$ puede tomar un valor entre 0 y $m-1$ hay un total de $m^{r+1}$ funciones de hashing en nuestra familia.
 Vamos a intentar demostrar ahora que H es universal.
 
-Para demostrar esto vamos a partir de dos claves diferentes $x$ e $y$ cada clave está formada por $r+1$ elementos, sin perder generalidad podemos pedir que x e y difieran en su primer elemento es decir $x_0 \neq y_0$ y esto es suficiente para garantizar que las claves sean diferentes. Recordemos que $m$ es un número primo y que tenemos que elegir $r+1$ números $a_i$ entre 0 y m-1. Entonces planteamos:
+Para demostrar esto vamos a partir de dos claves diferentes $x$ e $y$, cada clave está formada por $r+1$ elementos. Sin perder generalidad, podemos pedir que x e y difieran en su primer elemento, es decir $x_0 \neq y_0$ y esto es suficiente para garantizar que las claves sean diferentes. Recordemos que $m$ es un número primo y que tenemos que elegir $r+1$ números $a_i$ entre 0 y m-1. Entonces planteamos:
 
 $$h(x) = h(y) \pmod m$$
 $$\sum_{i=0}^{r} a_i * x_i = \sum_{i=0}^{r} a_i * y_i \pmod m$$
@@ -6526,24 +6541,24 @@ $ h = ((h*a) + x_i) \mod p$
 return hint(h)\\
 \end{algorithm}
 
-Tenemos que probar que nuestra familia es universal. Consideremos dos strings diferentes: x e y y paddeamos la longitud del mas corto a la del mas largo: $l$. Para que exista una colisión antes de llamar a $h_{int}$ debería ocurrir que:
+Tenemos que probar que nuestra familia es universal. Consideremos dos strings diferentes: x e y y paddeamos la longitud del más corto a la del más largo: $l$. Para que exista una colisión antes de llamar a $h_{int}$ debería ocurrir que:
 
 $$\sum_{i=1}^{l} x_i * a^i = \sum_{i=1}^{l} y_i * a^i \pmod p $$
 $$ \sum_{i=1}^{l} a^i(x_i-y_i) = 0 \pmod p$$
 
-Es decir que $a$ tiene que ser raiz del polinomio con coeficientes $x_i-y_i$ el polinomio tiene a lo sumo $l$ raices modulo $p$  por lo tanto la probabilidad de colisión es a lo sumo $l/p$.
+Es decir que $a$ tiene que ser raíz del polinomio con coeficientes $x_i-y_i$. El polinomio tiene a lo sumo $l$ raices modulo $p$, por lo tanto la probabilidad de colisión es a lo sumo $l/p$.
 
-Como sabemos que la probabilidad de colisión de $h_{int}$ es $1/m$ la probabilidad total de colisiones en nuestra familia es:
+Como sabemos que la probabilidad de colisión de $h_{int}$ es $1/m$, la probabilidad total de colisiones en nuestra familia es:
 
 $$\frac{1}{m} + \frac{l}{p}$$
 
-Y cuando p es un número lo suficientemente grande esto es igual a $1/m$ por lo tanto la condición para que esta familia de funciones de hashing sea universal es que el número primo p sea significativamente mas grande que la longitud máxima de las claves que vamos a procesar.
+Y cuando p es un número lo suficientemente grande esto es igual a $1/m$. Por lo tanto, la condición para que esta familia de funciones de hashing sea universal es que el número primo p sea significativamente más grande que la longitud máxima de las claves que vamos a procesar.
 
 \section{Cuckoo Hashing}
 
-Vamos a explicar nuestro primer algoritmo basado en múltiples funciones de hashing. El algoritmo llamado "Cuckoo Hashing" fue creado por Pagh y Rodler en el a\~no 2001 [Pagh-Rodler]. Se basa en el uso de mas de una función de hashing, para empezar vamos a usar dos.
+Vamos a explicar nuestro primer algoritmo basado en múltiples funciones de hashing. El algoritmo llamado "Cuckoo Hashing" fue creado por Pagh y Rodler en el a\~no 2001 \cite{PaghRodler}. Se basa en el uso de más de una función de hashing. Para empezar, vamos a usar dos.
 
-Cada función de hashing va a definir una posición alternativa para nuestro dato en una tabla de hash. El algoritmo de búsqueda es muy simple, el dato tiene que estar en alguna de las dos posiciones alternativas o no está en la tabla es decir que es O(1). La inserción funciona de forma muy sencilla: almacenamos el dato en la posición indicada por la primer función de hashing, si ese lugar estaba ocupado entonces reubicamos ese dato en su posición alternativa y así sucesivamente hasta que no hay mas datos a reubicar o bien entramos en un loop.
+Cada función de hashing va a definir una posición alternativa para nuestro dato en una tabla de hash. El algoritmo de búsqueda es muy simple. El dato tiene que estar en alguna de las dos posiciones alternativas o no está en la tabla, es decir, es O(1). La inserción funciona de forma muy sencilla: almacenamos el dato en la posición indicada por la primer función de hashing. Si ese lugar estaba ocupado entonces reubicamos ese dato en su posición alternativa y así sucesivamente, hasta que no hay más datos a reubicar o bien entramos en un loop.
 
 Ejemplo: Definamos una tabla de 6 posiciones (0 a 5) y daremos el valor de dos funciones de hashing h1 y h2 para cada clave a insertar.
 
@@ -6580,9 +6595,9 @@ E,_,A,D,F,C  (B)
 E,B,A,D,F,C  
 \end{verbatim}
 
-Es importante estudiar algún mecanismo para detectar si es posible o no dar de alta un nuevo dato sin necesidad de detectar que nuestro algoritmo ha entrado en loop. Para hacer esto es posible construir un grafo en el cual hay tantos nodos como posiciones en nuestra tabla de hash y por cada dato que insertamos construimos una arista que une las dos posiciones candidatas indicadas por la función de hashing.
+Es importante estudiar algún mecanismo para detectar si es posible o no dar de alta un nuevo dato sin necesidad de detectar que nuestro algoritmo ha entrado en loop. Para hacer esto, es posible construir un grafo en el cual hay tantos nodos como posiciones en nuestra tabla de hash y por cada dato que insertamos construimos una arista que une las dos posiciones candidatas, indicadas por la función de hashing.
 
-Por ejemplo si nuestra tabla de posiciones para nuestros datos fuera la siguiente:
+Por ejemplo, si nuestra tabla de posiciones para nuestros datos fuera la siguiente:
 
 \begin{table}[!hbt]
 \center{
@@ -6612,10 +6627,10 @@ El grafo construido tendr\'i{a} la siguiente forma.
 
 \end{figure}
 
-Para que pueda darse de alta el grafo resultante luego de la operación debe ser un pseudo-bosque. Un pseudo-bosque es un conjunto de pseudo-árboles y un pseudo-árbol es un grafo que puede tener un ciclo pero no dos. En resumen en nuestro grafo cada componente conexo admite un ciclo pero no dos.
+Para que pueda darse de alta, el grafo resultante luego de la operación debe ser un pseudo-bosque. Un pseudo-bosque es un conjunto de pseudo-árboles y un pseudo-árbol es un grafo que puede tener un ciclo pero no dos. En resumen, en nuestro grafo cada componente conexo admite un ciclo pero no dos.
 En el caso de nuestro ejemplo podemos dar de alta datos que tengan claves de tipo (7,8) (7,5) (4,2) etc pero no podríamos dar de alta claves con hashes (0,3) (1,2) (5,6) (4,7) etc porque se formaría un segundo ciclo en alguno de los componentes conexos.
 
-El método del Cuckoo puede hacerse mas eficiente admitiendo mas de un registro por bucket (posición en la tabla de hash) o bien usando 3 funciones de hashing en lugar de 2. Con buckets para 2 registros y 2 funciones de hashing es posible llenar mas de un 90\% de la tabla con muy baja probabilidad de que una inserción falle.
+El método del Cuckoo puede hacerse más eficiente admitiendo más de un registro por bucket (posición en la tabla de hash) o bien usando 3 funciones de hashing en lugar de 2. Con buckets para 2 registros y 2 funciones de hashing es posible llenar mas de un 90\% de la tabla con muy baja probabilidad de que una inserción falle.
 
 \begin{table}[!hbt]
 \center{
@@ -6626,20 +6641,20 @@ El método del Cuckoo puede hacerse mas eficiente admitiendo mas de un registro 
 \textbf{2 hash}&49\%&86\%&93\%&96\%\\ \hline
 \end{tabular}	
 }
-\caption{Capacidad de carga de una tabla de Cuckoo hashing según la cantidad de funciones de hashing a usar y el tamaño de los buckets.[Pagh-Rodler]}
+\caption{Capacidad de carga de una tabla de Cuckoo hashing según la cantidad de funciones de hashing a usar y el tamaño de los buckets\cite{PaghRodler}.}
 \end{table}
 
-La nomenclatura a usar es $C_{n,m}$ en donde $n$ es la cantidad de funciones de hashing a usar y $m$ es la cantidad de registros por bucket. Por ejemplo en $C_{2,8}$ usamos dos funciones de hashing con buckets que soportan 8 claves cada uno. Varios esquemas de Cuckoo Hashing logran eficiencia cercana al 95\% del espacio por lo que podemos generar tablas de hash bastante compactas.
+La nomenclatura a usar es $C_{n,m}$ en donde $n$ es la cantidad de funciones de hashing a usar y $m$ es la cantidad de registros por bucket. Por ejemplo, en $C_{2,8}$ usamos dos funciones de hashing con buckets que soportan 8 claves cada uno. Varios esquemas de Cuckoo Hashing logran eficiencia cercana al 95\% del espacio por lo que podemos generar tablas de hash bastante compactas.
 
 \subsection{Cuckoo Hashing With a Stash}
 
-Cuando una inserción falla una alternativa muy simple es poner el registro en cuestión en un área de overflow o \textit{stash}, esto permite que la clave se almacene y que el método continue siendo eficiente. Con áreas de stash relativamente pequeñas el método del Cuckoo puede lograr una eficiencia muy importante. El costo, obvio, es tener que buscar las claves en el Stash en caso de no encontrarlas en las posiciones que indique la función de hashing, curiosamente si el tamaño del stash es constante esto no afecta el orden del algoritmo ya que $O(2)=O(2+k)$ siendo $k$ el tamaño del stash una constante.
+Cuando una inserción falla una alternativa muy simple es poner el registro en cuestión en un área de overflow o \textit{stash}. Esto permite que la clave se almacene y que el método continue siendo eficiente. Con áreas de stash relativamente pequeñas el método del Cuckoo puede lograr una eficiencia muy importante. El costo, obvio, es tener que buscar las claves en el Stash en caso de no encontrarlas en las posiciones que indique la función de hashing. Curiosamente, si el tamaño del stash es constante, esto no afecta el orden del algoritmo, ya que $O(2)=O(2+k)$ siendo $k$ el tamaño del stash una constante.
 
 \subsection{Estructuras de Datos basadas en Cuckoo Hashing}
 
 Las tablas de hash generadas por el método del Cuckoo tienen una propiedad muy interesante: una misma clave solo pude estar en alguna de sus posiciones alternativas en cualquier tabla de hash generada por el método. Esto sirve cuando tenemos que representar datos en varias tablas de hash y luego queremos hacer alguna operación entre las tablas.
 
-Consideremos el caso de almacenar vectores dispersos en un diccionario, un vector disperso como por ejemplo [0,0,1,0,3,0,0,-1,0,0,0,4,0,-2] puede representarse mediante tuplas de tipo (clave,valor) en donde la clave es la dimensión. El vector de nuestro ejemplo quedaría representado por 5 (cinco) tuplas: (3,1);(5,3);(8,-1);(12,4) y (14,-2) numerando las dimensiones a partir de 1. Podemos almacenar un vector disperso en un diccionario usando Cuckoo hashing, por ejemplo supongamos que usamos tablas para 3 claves con buckets de tamaño 2 y dos funciones de hashing lo cual nos da una capacidad máxima para 6 claves.
+Consideremos el caso de almacenar vectores dispersos en un diccionario. Un vector disperso como por ejemplo [0,0,1,0,3,0,0,-1,0,0,0,4,0,-2] puede representarse mediante tuplas de tipo (clave,valor) en donde la clave es la dimensión. El vector de nuestro ejemplo quedaría representado por 5 (cinco) tuplas: (3,1);(5,3);(8,-1);(12,4) y (14,-2), numerando las dimensiones a partir de 1. Podemos almacenar un vector disperso en un diccionario usando Cuckoo hashing. Por ejemplo, supongamos que usamos tablas para 3 claves con buckets de tamaño 2 y dos funciones de hashing, lo cual nos da una capacidad máxima para 6 claves.
 
 Supongamos los siguientes valores para las dos funciones de hashing:
 
@@ -6650,7 +6665,8 @@ Supongamos los siguientes valores para las dos funciones de hashing:
 3&1&0\\
 5&2&1\\
 8&0&2\\
-12&0&1\\ \hline
+12&0&1\\
+14&0&2\\  \hline
 \end{tabular}	
 }
 \caption{Funciones de hashing para el ejemplo}
@@ -6670,30 +6686,31 @@ Luego de realizar las inserciones usando Cuckoo la tabla nos quedaría:
 \caption{Vector disperso como Cuckoo table}
 \end{table}
 
-Supongamos ahora que tenemos otro vector almacenado en una tabla similar. Es posible realizar ciertas operaciones algebraicas entre los vectores de forma eficiente gracias a las propiedades del Cuckoo [Zhou-Li-Andersen-Smola]. Por ejemplo consideremos el producto interno entre dos vectores representados mediante el Cuckoo. 
+Supongamos ahora que tenemos otro vector almacenado en una tabla similar. Es posible realizar ciertas operaciones algebraicas entre los vectores de forma eficiente gracias a las propiedades del Cuckoo\cite{ZhouLiAndersenSmola}. Por ejemplo, consideremos el producto interno entre dos vectores representados mediante el Cuckoo. 
 
-Podemos recorrer la primera tabla de forma secuencial, tomamos el primer bucket y encontramos (14,-2) ahora si el segundo vector tiene la clave 14 entonces estará en el primer bucket o bien en su posición alternativa; buscamos y si encontramos 14 en el segundo vector entonces multiplicamos los valores y vamos acumulando. Este proceso lo repetimos, en total la operacion es O(n) ya que por cada bucket de la tabla solo usamos una función de hashing para verificar su posición alternativa en la segunda tabla. El producto interno es la operación mas usada por ejemplo en Kernels por lo que para vectores dispersos de grandes dimensiones este método es muy interesante ya que como hemos visto la representación del Cuckoo es muy eficiente.
+Podemos recorrer la primera tabla de forma secuencial, tomamos el primer bucket y encontramos (14,-2). Ahora si el segundo vector tiene la clave 14 entonces estará en el primer bucket o bien en su posición alternativa; buscamos y si encontramos 14 en el segundo vector entonces multiplicamos los valores y vamos acumulando. Este proceso lo repetimos. En total la operacion es O(n), ya que por cada bucket de la tabla solo usamos una función de hashing para verificar su posición alternativa en la segunda tabla. El producto interno es la operación más usada por ejemplo en Kernels, por lo que para vectores dispersos de grandes dimensiones este método es muy interesante, ya que, como hemos visto, la representación del Cuckoo es muy eficiente.
 
-Otras operaciones como por ejemplo la suma son mas complejas ya que la cantidad de claves resultantes puede ser mayor a la cantidad que teníamos en cada tabla y podrían no entrar en una nueva tabla.
+Otras operaciones, como por ejemplo, la suma, son más complejas ya que la cantidad de claves resultantes puede ser mayor a la cantidad que teníamos en cada tabla y podrían no entrar en una nueva tabla.
 
 \section{Balls \& Bins}
 
-Es posible generalizar el método del cuckoo a un esquema genérico en el cual usemos múltiples funciones de hashing. Consideremos primero el caso mas simple en el cual tenemos una tabla de hash en donde cada bucket tiene capacidad para $k$ datos. Usando dos funciones de hashing tenemos dos buckets candidatos para cada clave y podemos tomar como heurística almacenar el dato en el bucket que tenga menor cantidad de datos. Este esquema se denomina Two-Way hashing. Es un esquema bastante eficiente y que requiere muy pocos detalles de programación.
+Es posible generalizar el método del cuckoo a un esquema genérico en el cual usemos múltiples funciones de hashing. Consideremos primero el caso más simple en el cual tenemos una tabla de hash en donde cada bucket tiene capacidad para $k$ datos. Usando dos funciones de hashing tenemos dos buckets candidatos para cada clave y podemos tomar como heurística almacenar el dato en el bucket que tenga menor cantidad de datos. Este esquema se denomina Two-Way hashing. Es un esquema bastante eficiente y que requiere muy pocos detalles de programación.
 
-Si se quisiera buscar aun mas eficiencia se podría desarrollar un grafo similar al del Cuckoo en donde indicamos por cada dato cuáles son sus posiciones alternativas con una arista. Con este grafo es posible realizar un balanceo de los buckets de forma tal que tengan todos una cantidad pareja de datos. Esto se logra simplemente realizando movimientos en el grafo que consisten en invertir la dirección de las aristas. 
+Si se quisiera buscar aun más eficiencia se podría desarrollar un grafo similar al del Cuckoo en donde indicamos por cada dato cuáles son sus posiciones alternativas con una arista. Con este grafo es posible realizar un balanceo de los buckets de forma tal que tengan todos una cantidad pareja de datos. Esto se logra simplemente realizando movimientos en el grafo que consisten en invertir la dirección de las aristas. 
 
-Por ejemplo consideremos el caso en el cual queremos insertar un dato cuyas posiciones alternativas son 3 y 5 y tenemos 2 datos en cada una de estas posiciones, si existe alguna otra posición con 1 solo dato es posible que exista una secuencia de movimientos que permita liberar la posición 3 o 5 de alguno de sus datos, es fácil determinar esta cadena de movimientos observando el grafo formado. 
-
-Por ejemplo supongamos que luego de una inserción obtenemos el siguiente grafo (fig 4.6). Vemos que uno de los buckets tiene 3 registros pero hay otros con solo 1 o ningún registro.
+Por ejemplo, consideremos el caso en el cual queremos insertar un dato cuyas posiciones alternativas son 3 y 5, y tenemos 2 datos en cada una de estas posiciones. Si existe alguna otra posición con 1 solo dato es posible que exista una secuencia de movimientos que permita liberar la posición 3 o 5 de alguno de sus datos. Es fácil determinar esta cadena de movimientos observando el grafo formado. 
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=2in]{figures/ballsbins-fig-2.png}
 \caption{Balls \& Bins Antes}
 
+\label{fig:ballsbins}
 \end{figure}
 
-Invirtiendo la dirección de la arista UV logramos que ninguno de los buckets tenga mas de 2 registros, esta operación consiste simplemente en mover un dato a su posición alternativa. En otros casos hace falta realizar mas de un movimiento para lograr el balanceo.
+Por ejemplo, supongamos que luego de una inserción obtenemos el siguiente grafo (fig~\ref{fig:ballsbins}). Vemos que uno de los buckets tiene 3 registros pero hay otros con solo 1 o ningún registro.
+
+Invirtiendo la dirección de la arista UV logramos que ninguno de los buckets tenga más de 2 registros. Esta operación consiste simplemente en mover un dato a su posición alternativa. En otros casos hace falta realizar más de un movimiento para lograr el balanceo.
 
 \begin{figure}[!htb]
 \centering
@@ -6702,7 +6719,7 @@ Invirtiendo la dirección de la arista UV logramos que ninguno de los buckets te
 
 \end{figure}
 
-El esquema de balls \& bins usando balanceo logra una eficiencia superior al 95\% pero tiene como contra la necesidad de implementar el algoritmo de balanceo. En muchos casos el esquema mas simple de two-way hashing es preferible ya que es mucho mas simple de implementar y logra buenos niveles de eficiencia.
+El esquema de balls \& bins usando balanceo logra una eficiencia superior al 95\% pero tiene como contra la necesidad de implementar el algoritmo de balanceo. En muchos casos el esquema más simple de two-way hashing es preferible, ya que es mucho más simple de implementar y logra buenos niveles de eficiencia.
 
 \section{Hashing Perfecto}
 
@@ -6710,11 +6727,11 @@ Una función de hashing perfecta es aquella que no tiene colisiones, esto garant
 
 \subsection{Esquema FKS}
 
-Empecemos pensando una forma muy ineficiente de realizar hashing perfecto: usando una tabla de hashing muy grande. Por ejemplo si tenemos $m$ claves a insertar queremos saber cuál debería ser el tamaño de una tabla de hash de forma tal que la probabilidad de una colisión sea menor a $1/2$, haciendo algunas cuentas llegamos a que la tabla debe tener un espacio de direcciones de $m^2$. Si llamamos $m$ al espacio de claves y $n$ al espacio de direcciones entonces la probabilidad de una colisión es $m/n$, si $n=m^2$ entonces la probabilidad de una colisión es $1/m$ que es lo que queremos. 
+Empecemos pensando una forma muy ineficiente de realizar hashing perfecto: usando una tabla de hashing muy grande. Por ejemplo si tenemos $m$ claves a insertar queremos saber cuál debería ser el tamaño de una tabla de hash de forma tal que la probabilidad de una colisión sea menor a $1/2$. Haciendo algunas cuentas llegamos a que la tabla debe tener un espacio de direcciones de $m^2$. Si llamamos $m$ al espacio de claves y $n$ al espacio de direcciones entonces la probabilidad de una colisión es $m/n$. Si $n=m^2$ entonces la probabilidad de una colisión es $1/m$, que es lo que queremos. 
 
 El problema es que si tenemos 1 millón de claves no podemos tener una tabla de hash con capacidad  para 1 billón de datos porque es un desperdicio muy grande de espacio y probablemente no tengamos lugar suficiente. 
 
-La solución a este problema es usar dos funciones de hashing en lo que conocemos como esquema FKS [Fredman-Komlos-Szemeredi], nuestra primera función de hashing va a tener un espacio de direcciones que podemos fijar como parámetro, llamémoslo $k$ siendo $k$ un número primo cercano a $m$ a efectos de simplificar suponemos $k=m$.
+La solución a este problema es usar dos funciones de hashing en lo que conocemos como esquema FKS \cite{FredmanKomlosSzemeredi}. Nuestra primera función de hashing va a tener un espacio de direcciones que podemos fijar como parámetro, llamémoslo $k$, siendo $k$ un número primo cercano a $m$. A efectos de simplificar suponemos $k=m$.
 
 \begin{figure}[!htb]
 \centering
@@ -6724,9 +6741,9 @@ La solución a este problema es usar dos funciones de hashing en lo que conocemo
 \label{fig:fks}
 \end{figure}
 
-Cada uno de los $k=m$ buckets apuntados por la primera función de hashing contiene un número que es la cantidad de claves que hashearon a esa posición ($m_i$), y una \textit{segunda} función de hashing cuyo espacio de direcciones es $m_i^2$ (o el número primo mas cercano a $m_i^2$). Esta función de hashing la tomamos de una familia universal hasta estar seguros de que no tenemos colisiones. 
+Cada uno de los $k=m$ buckets apuntados por la primera función de hashing contiene un número que es la cantidad de claves que hashearon a esa posición ($m_i$), y una \textit{segunda} función de hashing cuyo espacio de direcciones es $m_i^2$ (o el número primo más cercano a $m_i^2$). Esta función de hashing la tomamos de una familia universal hasta estar seguros de que no tenemos colisiones. 
 
-Por ejemplo supongamos que tenemos las claves:  1,2,7,8,9,11,12,13,16,17,46 (11 claves) y usamos como función de hashing de primer nivel $2x \mod 11$. La siguiente tabla nos muestra la distribución de las claves, y la segunda función de hashing asociada a cada bucket. 
+Por ejemplo, supongamos que tenemos las claves:  1,2,7,8,9,11,12,13,16,17,46 (11 claves) y usamos como función de hashing de primer nivel $2x \mod 11$. La siguiente tabla nos muestra la distribución de las claves, y la segunda función de hashing asociada a cada bucket. 
 
 \begin{table}[!hbt]
 \center{
@@ -6749,9 +6766,9 @@ Por ejemplo supongamos que tenemos las claves:  1,2,7,8,9,11,12,13,16,17,46 (11 
 \caption{Esquema FKS}
 \end{table}
 
-Supongamos que buscamos la clave "12", aplicamos la primer función de hashing $2x \mod 11$ y nos da $2*12 \mod 5=2$ accedemos al bucket 2 de la tabla de primer nivel y recuperamos la segunda función de hashing: $x mod 13$ junto con un puntero a la tabla de la segunda función, por lo tanto buscamos el 12 en la posición $12 mod 13=12$ de la segunda tabla y lo encontramos en $O(2)=O(1)$. 
+Supongamos que buscamos la clave "12". Aplicamos la primer función de hashing $2x \mod 11$ y nos da $2*12 \mod 11=2$. Accedemos al bucket 2 de la tabla de primer nivel y recuperamos la segunda función de hashing: $x mod 13$ junto con un puntero a la tabla de la segunda función. Ahora buscamos el 12 en la posición $12 mod 13=12$ de la segunda tabla y lo encontramos en $O(2)=O(1)$. 
 
-El esquema FKS garantiza $O(1)$ para la recuperación de claves  y el costo de espacio es $2m$. El costo de la primera tabla es $m$ y el de la segunda tabla es $\sum_{i=0}^{m-1}m_i^2$ el número de colisiones en la primer tabla puede calcularse contando los pares de elementos en la segunda tabla entonces nos queda: 
+El esquema FKS garantiza $O(1)$ para la recuperación de claves y el costo de espacio es $2m$. El costo de la primera tabla es $m$ y el de la segunda tabla es $\sum_{i=0}^{m-1}m_i^2$. El número de colisiones en la primer tabla puede calcularse contando los pares de elementos en la segunda tabla. Entonces nos queda: 
 
 \begin{myequation}
 m + 2 \sum_{i=0}^{m-1} {m_i \choose 2} = n+\frac{2 {m \choose 2}}{m} < 2m
@@ -6759,37 +6776,37 @@ m + 2 \sum_{i=0}^{m-1} {m_i \choose 2} = n+\frac{2 {m \choose 2}}{m} < 2m
 
 \subsection{Hashing Perfecto Dinámico}
 
-Si podemos dar altas y bajas de claves entonces el esquema anterior falla. Podemos usar un mecanismo muy simple basado en agrandar y achicar el tamaño de una función perfecta.[Dietzfelbinger]
+Si podemos dar altas y bajas de claves entonces el esquema anterior falla. Podemos usar un mecanismo muy simple basado en agrandar y achicar el tamaño de una función perfecta \cite{Dietzfelbinger}.
 
-Si tenemos $m$ claves construimos una función perfecta para $2m$ claves usando el esquema FKS, esta sirve hasta que tengamos $2m$ claves en cuyo caso reconstruimos la función de hashing para $4m$ elementos. 
+Si tenemos $m$ claves construimos una función perfecta para $2m$ claves usando el esquema FKS. Esta sirve hasta que tengamos $2m$ claves, en cuyo caso reconstruimos la función de hashing para $4m$ elementos. 
 
-Como antes si tenemos una colisión en la tabla de segundo nivel simplemente reconstruimos la tabla eligiendo otra función de hashing de nuestra familia $\mathcal{H}$, esto no ocurre muy seguido por lo que el costo es bajo.  
+Como antes, si tenemos una colisión en la tabla de segundo nivel, simplemente reconstruimos la tabla eligiendo otra función de hashing de nuestra familia $\mathcal{H}$. Esto no ocurre muy seguido por lo que el costo es bajo.  
 
-Si eliminamos elementos hasta que tenemos $m/4$ claves en total entonces reconstruimos la tabla para $m$ (no para $2m$) ya que si borramos lo suficiente podemos reconstruir a la mitad del tamaño. 
+Si eliminamos elementos hasta que tenemos $m/4$ claves en total, entonces reconstruimos la tabla para $m$ (no para $2m$), ya que si borramos lo suficiente podemos reconstruir a la mitad del tamaño. 
 
-La posibilidad de mantener una función de hashing perfecta con bajo costo para datos dinámicos es una de las características mas importantes del esquema FKS.
+La posibilidad de mantener una función de hashing perfecta con bajo costo para datos dinámicos es una de las características más importantes del esquema FKS.
 
 \subsection{Hashing Perfecto y Mínimo: Hash and Displace}
 
-En estas secciones vamos a desarrollar la construcción de una función de hashing perfecta y mínima es decir que tengamos $O(1)$ para las consultas y $O(m)$ espacio. Esto sólo es posible cuando conocemos cuáles son todas las claves que queremos almacenar en la tabla y los datos son estáticos. Cuando eso pasa es posible desarrollar una función que mapee cada clave a una única posición de forma tal de no tener colisiones. 
+En estas secciones vamos a desarrollar la construcción de una función de hashing perfecta y mínima, es decir que tengamos $O(1)$ para las consultas y $O(m)$ espacio. Esto sólo es posible cuando conocemos cuáles son todas las claves que queremos almacenar en la tabla y los datos son estáticos. Cuando eso pasa es posible desarrollar una función que mapee cada clave a una única posición de forma tal de no tener colisiones. 
 
-Vamos a ver en primer lugar un algoritmo conocido como HDC (Hash Displace \& Compress) cuyo origen podemos rastrear a [Pagh], [Botelho-Pagh-Ziviani] y [Bellazzougui-Botelho-Dietzfelbinger]. Este algoritmo está fuertemente inspirado en el esquema FKS y es altamente eficiente para generar funciones de hashing perfectas y mínimas.
+Vamos a ver en primer lugar un algoritmo conocido como HDC (Hash Displace \& Compress) cuyo origen podemos rastrear a \cite{Pagh}, \cite{BotelhoPaghZiviani} y \cite{Belazzougui}. Este algoritmo está fuertemente inspirado en el esquema FKS y es altamente eficiente para generar funciones de hashing perfectas y mínimas.
 
-El funcionamiento del algoritmo es muy sencillo, necesitamos una familia de funciones de hashing universales que podamos parametrizar con un número entero $h(i,x)$, las funciones de esta familia nos generan un número entre 0 y $n-1$ que es la cantidad de claves que tenemos.
+El funcionamiento del algoritmo es muy sencillo. Necesitamos una familia de funciones de hashing universales que podamos parametrizar con un número entero $h(i,x)$. Las funciones de esta familia nos generan un número entre 0 y $n-1$ que es la cantidad de claves que tenemos.
 
-En un primer paso vamos a hashear todas las claves a una tabla $G$ usando $h(0,x)$ encadenando los sinónimos. El resultado es una simple tabla de hash con encadenamiento de sinónimos. 
+En un primer paso vamos a hashear todas las claves a una tabla $G$ usando $h(0,x)$ y encadenando los sinónimos. El resultado es una simple tabla de hash con encadenamiento de sinónimos. 
 
-Vamos a usar un vector de $n$ bits para marcar qué valores ya hemos usado en la construcción de la función de hashing perfecta, inicialmente este vector está en 0.
+Vamos a usar un vector de $n$ bits para marcar qué valores ya hemos usado en la construcción de la función de hashing perfecta. Inicialmente este vector está en 0.
 
-En un segundo paso vamos a recorrer esta tabla ordenando los buckets que tengan 2 o mas claves de acuerdo a la cantidad de sinónimos en los mismos de mayor a menor, es decir que procesamos primero el bucket (lista) con mayor cantidad de colisiones.
+En un segundo paso vamos a recorrer esta tabla ordenando los buckets que tengan 2 o más claves, de acuerdo a la cantidad de sinónimos en los mismos de mayor a menor. Es decir, procesamos primero el bucket (lista) con mayor cantidad de colisiones.
 
-Por cada bucket probamos funciones de hashing $h(i,x)$ con $i=1,2,...,etc$ hasta encontrar una función que nos distribuya las claves en posiciones que aun no hemos usado para nuestra función de hashing. Notemos que inicialmente no hemos usado ninguna función por lo que es muy probable que encontremos rapidamente una función de hashing que no produzca colisiones para las claves del primer bucket, frecuentemente $h(1,x)$ funciona. Luego seguimos con el resto de los buckets teniendo en cuenta que las posiciones que ya hemos usado anteriormente no podemos volver a usarlas. En cada caso una vez que encontramos la función en la tabla $G$ ponemos el valor de $i$ que corresponde a la misma.
+Por cada bucket probamos funciones de hashing $h(i,x)$ con $i=1,2,...,etc$ hasta encontrar una función que nos distribuya las claves en posiciones que aun no hemos usado para nuestra función de hashing. Notemos que inicialmente no hemos usado ninguna función, por lo que es muy probable que encontremos rapidamente una función de hashing que no produzca colisiones para las claves del primer bucket (frecuentemente $h(1,x)$ funciona). Luego seguimos con el resto de los buckets, teniendo en cuenta que las posiciones que ya hemos usado anteriormente no podemos volver a usarlas. En cada caso, una vez que encontramos la función en la tabla $G$, ponemos el valor de $i$ que corresponde a la misma.
 
-Luego del segundo paso solo nos quedan los buckets que tienen un solo registro, estos los vamos a distribuir en las posiciones que quedaron libres simplemente indicando la posición en la tabla $G$, para distinguir este caso de algún valor de $i$ lo vamos a marcar con un número negativo.
+Luego del segundo paso solo nos quedan los buckets que tienen un solo registro. Estos los vamos a distribuir en las posiciones que quedaron libres simplemente indicando la posición en la tabla $G$. Para distinguir este caso de algún valor de $i$, lo vamos a marcar con un número negativo.
 
 La función $h(0,x)$ y la tabla $G$ nos determinan entonces la función de hashing perfecta y mínima.
 
-Para buscar una clave usando esta función usamos primero $h(0,x)$, esto nos da una posición en la tabla $G$, accediendo a esta tabla observamos si el número allí almacenado es positivo o negativo, si es negativo entonces el valor absoluto del mismo nos da el resultado de la función de hashing. Si el número es en cambio positivo $z$ el valor de la función de hashing es $h(z,x)$. 
+Para buscar una clave usando esta función usamos primero $h(0,x)$. Esto nos da una posición en la tabla $G$. Accediendo a esta tabla, observamos si el número allí almacenado es positivo o negativo. Si es negativo entonces el valor absoluto del mismo nos da el resultado de la función de hashing. Si el número es en cambio positivo, $z$, el valor de la función de hashing es $h(z,x)$. 
 
 Consideremos un ejemplo muy simple para verificar el funcionamiento del algoritmo.
 
@@ -6829,7 +6846,7 @@ h(1,c) = 5
 h(1,g) = 4
 \end{verbatim}
 
-Lamentablemente el valor 4 ya fue usado anteriormente por lo que tenemos que rechazar esta función y probar la siguinte. Estamos buscando 3 valores diferentes entre sí y distintos de 4,7 o 9.
+Lamentablemente el valor 4 ya fue usado anteriormente por lo que tenemos que rechazar esta función y probar la siguinte. Estamos buscando 2 valores diferentes entre sí y distintos de 4,7 o 9.
 
 \begin{verbatim}
 h(2,c) = 0
@@ -6879,13 +6896,13 @@ h(0,j) = 0, G(0)=-8 => 8
 
 Como podemos ver hemos asignado cada clave a una posición única de 0 a 9 por lo que la función resultante es perfecta y mínima. Observemos que la función sigue siendo O(1) ya que solo usamos una o dos funciones de hashing para obtener el dato.
 
-El análisis de este algoritmo nos muestra que el paso crítico es procesar los buckets ordenados de mayor a menor según la cantidad de sinónimos, esto reduce notablemente la cantidad de funciones de hashing a probar hasta encontrar alguna que no produzca colisiones para dicho bucket. Este algoritmo puede complementarse comprimiendo los números en la tabla $G$ para que ocupen aun menos espacio, esto es factible ya que en general se trata de números pequeños en el caso de los positivos y de números cuyo valor absoluto es ascendente para los negativos, aprovechando estas características podemos usar alguna técnica de compresión de datos para que los números ocupen poco lugar minimizando la cantidad de memoria necesaria para la función de hashing.
+El análisis de este algoritmo nos muestra que el paso crítico es procesar los buckets ordenados de mayor a menor según la cantidad de sinónimos, esto reduce notablemente la cantidad de funciones de hashing a probar hasta encontrar alguna que no produzca colisiones para dicho bucket. Este algoritmo puede complementarse comprimiendo los números en la tabla $G$ para que ocupen aun menos espacio, esto es factible ya que en general se trata de números pequeños en el caso de los positivos y de números cuyo valor absoluto es ascendente para los negativos. Aprovechando estas características podemos usar alguna técnica de compresión de datos para que los números ocupen poco lugar minimizando la cantidad de memoria necesaria para la función de hashing.
 
 \subsection{Hashing Perfecto y Mínimo: Algoritmo II}
 
 Si tenemos un total de $n$ claves el primer paso es elegir un número $m$ mayor a $n$ y aplicarle a cada clave dos funciones de hashing que conviertan las claves al espacio de direcciones 0..m-1. Esto lo hacemos, por supuesto, generando dos funciones de hashing de una familia universal.
 
-ejemplo, tenemos 11 claves y elegimos m=16.
+Ejemplo, tenemos 11 claves y elegimos m=16.
 
 \begin{table}[!hbt]
 \center{
@@ -6917,9 +6934,9 @@ El siguiente paso es armar un grafo de $m$ nodos en donde cada clave es una aris
 
 \end{figure}
 
-El próximo paso es verificar que el grafo no tenga ciclos, si existen ciclos hay que probar con otras dos funciones de hashing de nuestra familia universal, para evitar tener que hacer este proceso muchas veces es importante que $m$ sea un número bastante mas grande que $n$ ya que en definitiva $m$ es el número de nodos y $n$ es el número de aristas en nuestro grafo y queremos minimizar la probabilidad de que el grafo tenga un ciclo.
+El próximo paso es verificar que el grafo no tenga ciclos. Si existen ciclos hay que probar con otras dos funciones de hashing de nuestra familia universal. Para evitar tener que hacer este proceso muchas veces es importante que $m$ sea un número bastante más grande que $n$, ya que en definitiva $m$ es el número de nodos y $n$ es el número de aristas en nuestro grafo y queremos minimizar la probabilidad de que el grafo tenga un ciclo.
 
-Si el grafo no tiene ciclos es posible derivar la función de hashing perfecta, para hacerlo hay que rotular los vértices del grafo con un sencillo procedimiento. Comenzando desde un vértice cualquiera que no tenga rótulo lo rotulamos con 0 y luego vamos rotulando todos los vecinos de dicho vértice con la siguiente fórmula:
+Si el grafo no tiene ciclos es posible derivar la función de hashing perfecta. Para hacerlo hay que rotular los vértices del grafo con un sencillo procedimiento. Comenzando desde un vértice cualquiera que no tenga rótulo, lo rotulamos con 0 y luego vamos rotulando todos los vecinos de dicho vértice con la siguiente fórmula:
 
 $$ v = arista - vertice \pmod n$$
 
@@ -6931,7 +6948,7 @@ $$ v = arista - vertice \pmod n$$
 \label{fig:hperf2}
 \end{figure}
 
-Observemos en la figura ~\ref{fig:hperf2} el resultado de rotular los vértices: empezamos con el vértice 0 y lo rotulamos con 0 luego para v11 calculamos 10-0=10 (mod 11). Luego rotulamos a v14 como 3-10 mod 11 = 4 y a v3 como 4-10 mod 11 = 5. Cuando no quedan mas vecinos por rotular si quedan vértices sin rotulo repetimos el proceso, es decir que hacemos este proceso por cada componente conexo del grafo.
+Observemos en la figura ~\ref{fig:hperf2} el resultado de rotular los vértices: empezamos con el vértice 0 y lo rotulamos con 0. Luego para v11 calculamos 10-0=10 (mod 11). Luego rotulamos a v14 como 3-10 mod 11 = 4 y a v3 como 4-10 mod 11 = 5. Cuando no quedan más vecinos por rotular, si quedan vértices sin rotulo, repetimos el proceso, es decir que hacemos este proceso por cada componente conexo del grafo.
 
 Los rótulos de los $m$ vértices del grafo definen una función auxiliar $g$ que debemos almacenar en algún lado ya que formará parte de nuestra función de hashing perfecta.
 
@@ -6988,17 +7005,17 @@ V & 0 & 11 & 0 & 10 & 10\\ \hline
 \caption{Hashing Perfecto función final.}
 \end{table}
 
-Observemos que la función generada es perfecta ya que a cada clave le asigna un único número entre 0 y 10 ($m=11$), es también mínima ya que no hay ninguna posición en nuestra tabla final sin usar y finalmente preserva el orden de las claves originales lo cual a veces es un efecto colateral deseable.
+Observemos que la función generada es perfecta, ya que a cada clave le asigna un único número entre 0 y 10 ($m=11$). Es también mínima, ya que no hay ninguna posición en nuestra tabla final sin usar. Y, finalmente, preserva el orden de las claves originales, lo cual, a veces, es un efecto colateral deseable.
 
-Con este algoritmo es posible entonces construir una función de hashing perfecta, mínima y preservadora del orden. Para poder hacerlo es  necesario conocer de antemano todas las claves que queremos almacenar en la tabla, generar la función y almacenar g. Un detalle sumamente importante es que esta función no admite altas, bajas o modificaciones, es decir que solo tiene sentido cuando los datos son estáticos siendo esta la principal limitación del método.
+Con este algoritmo es posible entonces construir una función de hashing perfecta, mínima y preservadora del orden. Para poder hacerlo es necesario conocer de antemano todas las claves que queremos almacenar en la tabla, generar la función y almacenar g. Un detalle sumamente importante es que esta función no admite altas, bajas o modificaciones. Es decir que solo tiene sentido cuando los datos son estáticos, siendo esta la principal limitación del método.
 
 \section{Hashing Consistente}
 
-Consideramos ahora el caso en el cual tenemos que almacenar datos de tipo (clave,valor) en un entorno distribuido, es decir con múltiples máquinas. Esta es la base para muchos sistemas de Bases de Datos NoSQL como por ejemplo DynamoDB o Cassandra.
+Consideramos ahora el caso en el cual tenemos que almacenar datos de tipo (clave,valor) en un entorno distribuido, es decir con múltiples máquinas. Esta es la base para muchos sistemas de Bases de Datos NoSQL, como por ejemplo, DynamoDB o Cassandra.
 
-El objetivo es poder determinar dado un dato (clave,valor) en que equipo debemos almacenar el dato. Una primera aproximación podría ser simplemente hashear la clave y hacer mod "m", siendo "m" la cantidad de equipos para determinar en donde almacenar la misma. El problema de esta solución es que si se agrega un nuevo equipo al cluster entonces nuestra función de hashing cambia de $x \mod m$ a $x \mod m+1$ y esto implica que \textbf{todas} las claves deben re-ubicarse ya que potencialmente cualquiera puede cambiar de equipo, esto claramente no es bueno. Necesitamos entonces un método que reduzca la cantidad de claves a reubicar en caso de agregarse o quitarse nuevos equipos al cluster y esa solución se llama "Hashing Consistente"
+El objetivo es poder determinar dado un dato (clave,valor), en qué equipo debemos almacenar el dato. Una primera aproximación podría ser simplemente hashear la clave y hacer mod "m", siendo "m" la cantidad de equipos para determinar en donde almacenar la misma. El problema de esta solución es que si se agrega un nuevo equipo al cluster entonces nuestra función de hashing cambia de $x \mod m$ a $x \mod m+1$ y esto implica que \textbf{todas} las claves deben re-ubicarse, ya que potencialmente cualquiera puede cambiar de equipo. Esto claramente no es bueno. Necesitamos entonces un método que reduzca la cantidad de claves a reubicar en caso de agregarse o quitarse nuevos equipos al cluster y esa solución se llama "Hashing Consistente"
 
-El principio es muy simple, mapeamos cada máquina de nuestro cluster a un número en el intervalo $[0,1)$, esto se puede hacer simplemente hasheando el nombre del equipo y normalizando al intervalo $[0,1)$. Lo mismo hacemos con nuestras claves, hasheamos cada clave y normalizamos el resultado a un número en el intervalo $[0,1)$, el esquema que llamamos "Hashing Consistente" propuesto en [Karger] es muy simple: A cada clave se le asigna el número de máquina o servidor que se encuentre inmediatamente a su derecha en el intervalo $[0,1)$ tomando el intervalo de forma circular.
+El principio es muy simple. Mapeamos cada máquina de nuestro cluster a un número en el intervalo $[0,1)$. Esto se puede hacer simplemente hasheando el nombre del equipo y normalizando al intervalo $[0,1)$. Lo mismo hacemos con nuestras claves. Hasheamos cada clave y normalizamos el resultado a un número en el intervalo $[0,1)$. El esquema que llamamos "Hashing Consistente" propuesto en \cite{Karger} es muy simple: a cada clave se le asigna el número de máquina o servidor que se encuentre inmediatamente a su derecha en el intervalo $[0,1)$, tomando el intervalo de forma circular.
 
 \begin{figure}[!htb]
 \centering
@@ -7010,19 +7027,19 @@ El principio es muy simple, mapeamos cada máquina de nuestro cluster a un núme
 
 En el ejemplo de la figura ~\ref{fig:consistente} tenemos 3 equipos: A,B y C y 4 claves: 1,2,3 y 4. Las claves 1 y 4 se almacenan en el equipo A, la clave 2 en B y la clave 3 en C.
 
-Observemos ahora que este esquema permite agregar o quitar equipos en el cluster con un mínimo de movimiento de claves. Por ejemplo si se agrega un nuevo equipo "Z" entre los servidores A y B entonces solamente las claves que están en B pueden necesitar ser reubicadas, simplemente hasheando esas claves sabemos cuales quedan en B y cuales deben pasar a Z. Lo mismo ocurre si se quita un equipo, se re-hashean las claves de dicho equipo sin afectar a las demás.
+Observemos ahora que este esquema permite agregar o quitar equipos en el cluster con un mínimo de movimiento de claves. Por ejemplo, si se agrega un nuevo equipo "Z" entre los servidores A y B entonces solamente las claves que están en B pueden necesitar ser reubicadas. Simplemente hasheando esas claves sabemos cuales quedan en B y cuales deben pasar a Z. Lo mismo ocurre si se quita un equipo, se re-hashean las claves de dicho equipo sin afectar a las demás.
 
-En la mayoría de los sistemas No-SQL clave-valor distribuidos este esquema se complementa con mecanismos de replicación y consistencia en los cuales cada clave no se almacena en un único servidor sino en "N", esto se hace simplemente tomando los "N" equipos hacia la derecha a partir de la posición de la clave en el intervalo $[0,1)$, luego deben agregarse polícitcas de read/write para asegurar la consistencia de los datos, estas políticas escapan al alcance de este apunte.
+En la mayoría de los sistemas No-SQL clave-valor distribuidos este esquema se complementa con mecanismos de replicación y consistencia, en los cuales cada clave no se almacena en un único servidor sino en "N". Esto se hace simplemente tomando los "N" equipos hacia la derecha a partir de la posición de la clave en el intervalo $[0,1)$. Luego deben agregarse políticas de lectura/escritura para asegurar la consistencia de los datos. Estas políticas escapan al alcance de este apunte.
 
 Mediante Hashing Consistente es posible manejar el almacenamiento de datos de tipo (clave,valor) de forma eficiente y descentralizada usando cientos, miles o millones de servidores por lo que practicamente no existe un límite con respecto a la cantidad de datos que podemos almacenar. Es la estructura clave de proyectos de gran importancia como DynamoDB o Cassandra.
 
 \section{The Hashing Trick}
 
-En esta sección vamos a explicar un mecanismo muy ingenioso e importante en Data Science conocido con varios nombres: "The Hashing Trick", "Feature Hashing" o "Hash Kernels". Vamos a explicar en primer lugar su funcionamiento desde el punto de vista práctico y en la siguiente sección desarrollaremos una explicación mas formal y teórica basada en el teorema de Johnson y Lindenstrauss.
+En esta sección vamos a explicar un mecanismo muy ingenioso e importante en Data Science conocido con varios nombres: "The Hashing Trick", "Feature Hashing" o "Hash Kernels". Vamos a explicar en primer lugar su funcionamiento desde el punto de vista práctico y en la siguiente sección desarrollaremos una explicación más formal y teórica basada en el teorema de Johnson y Lindenstrauss.
 
-Para entender el funcionamiento de THT vamos a recordar el modelo "Bag of Words" que habíamos explicado como una forma de representar textos. En BOW cada texto se representa mediante un vector que tiene tantas dimensiones como palabras existen en total en TODOS los documentos de la colección, en cada posición del vector indicamos la cantidad de veces que cada palabra ocurre en el documento. Como cada documento solo usa algunas palabras y no todas las palabras posibles estos vectores son terriblemente dispersos. En colecciones normales de texto estos vectores pueden llegar a tener cientos de miles o incluso millones de dimensiones y en algunos algoritmos esto es algo muy difícil de manejar. Mediante THT podemos reducir el tamaño de los vectores sin perder el poder de representación de los textos de nuestra colección.
+Para entender el funcionamiento de THT vamos a recordar el modelo "Bag of Words" que habíamos explicado como una forma de representar textos. En BOW cada texto se representa mediante un vector que tiene tantas dimensiones como palabras existen en total en TODOS los documentos de la colección. En cada posición del vector indicamos la cantidad de veces que cada palabra ocurre en el documento. Como cada documento solo usa algunas palabras y no todas las palabras posibles estos vectores son terriblemente dispersos. En colecciones normales de texto estos vectores pueden llegar a tener cientos de miles o incluso millones de dimensiones y en algunos algoritmos esto es algo muy difícil de manejar. Mediante THT podemos reducir el tamaño de los vectores sin perder el poder de representación de los textos de nuestra colección.
 
-Usando THT podemos decidir el tamaño de los vectores con los cuales queremos representar los documentos, una vez que hicimos esto por cada palabra del documento aplicamos una función de hashing que tiene como espacio de direcciones el tamaño de los vectores e incrementamos en 1 la posición indicada por la función de hashing. El vector final luego de procesar todas las palabras del texto es su representación.
+Usando THT podemos decidir el tamaño de los vectores con los cuales queremos representar los documentos. Una vez que hicimos esto, por cada palabra del documento aplicamos una función de hashing que tiene como espacio de direcciones el tamaño de los vectores e incrementamos en 1 la posición indicada por la función de hashing. El vector final luego de procesar todas las palabras del texto es su representación.
 
 \begin{figure}[!htb]
 \centering
@@ -7031,30 +7048,30 @@ Usando THT podemos decidir el tamaño de los vectores con los cuales queremos re
 
 \end{figure}
 
-THT tiene varias propiedades muy importantes e interesantes, en primer lugar es un método que preserva la naturaleza dispersa de los datos, esto es fácil de entender ya que solo encendemos las posiciones indicadas por la función de hashing para las palabras que encontramos en los textos, aun en pocas dimensiones esto genera vectores dispersos con los cuales es mas sencillo trabajar. Esto es mejor que una proyección aleatoria en donde el resultado serían siempre vectores densos.
+THT tiene varias propiedades muy importantes e interesantes. En primer lugar, es un método que preserva la naturaleza dispersa de los datos. Esto es fácil de entender ya que solo encendemos las posiciones indicadas por la función de hashing para las palabras que encontramos en los textos. Aun en pocas dimensiones esto genera vectores dispersos con los cuales es más sencillo trabajar. Esto es mejor que una proyección aleatoria en donde el resultado serían siempre vectores densos.
 
-THT no solo puede usarse para textos sino que con alguna variante u otra puede usarse como método genérico para representar cualquier tipo de dato, simplemente hay que decidir de que forma aplicar la función de hashing a cada columna de los datos. [Shi][Shi2]
+THT no solo puede usarse para textos sino que, con alguna variante u otra, puede usarse como método genérico para representar cualquier tipo de dato. Simplemente hay que decidir de que forma aplicar la función de hashing a cada columna de los datos\cite{Shi}\cite{Shi2}.
 
-Un tema a analizar es el efecto de las colisiones ya que puede ocurrir que dos "features" diferentes de nuestros datos originales colisionen en un mismo feature al representarlos mediante THT. Empíricamente se ha mostrado que el efecto de las colisiones es mínimo y en muchos casos es incluso favorable reduciendo el ruido del set de datos. Cuando el efecto de las colisiones no es bueno podemos usar el método de Weinberger para mitigarlas.
+Un tema a analizar es el efecto de las colisiones, ya que puede ocurrir que dos "features" diferentes de nuestros datos originales colisionen en un mismo feature al representarlos mediante THT. Empíricamente se ha mostrado que el efecto de las colisiones es mínimo y en muchos casos es incluso favorable, reduciendo el ruido del set de datos. Cuando el efecto de las colisiones no es bueno podemos usar el método de Weinberger para mitigarlas.
 
 \subsection{Método de Weinberger y Hash Kernels}
 
-En esta variante usaremos una segunda función de hashing que devuelve solamente dos valores posibles: -1 o +1 y usaremos este resultado para decidir si incrementamos o decrementamos la dimensión indicada por la primer función de hashing. Con este método el promedio de cada columna en nuestros vectores va a tender a cero, además se minimiza el efecto de las colisiones ya que no siempre incrementamos cuando dos features diferentes colisionan. El efecto mas interesante de este método es que el producto interno entre los vectores en nuestra nueva representación es equivalente al producto interno entre los vectores en el espacio original lo cual admite el uso de THT para crear Hash Kernels en donde usamos el producto interno entre los nuevos vectores para estimar la semejanza entre dos vectores (a mayor producto interno mas semejantes son los vectores).
+En esta variante usaremos una segunda función de hashing que devuelve solamente dos valores posibles: -1 o +1 y usaremos este resultado para decidir si incrementamos o decrementamos la dimensión indicada por la primer función de hashing. Con este método, el promedio de cada columna en nuestros vectores va a tender a cero. Además, se minimiza el efecto de las colisiones, ya que no siempre incrementamos cuando dos features diferentes colisionan. El efecto más interesante de este método es que el producto interno entre los vectores en nuestra nueva representación es equivalente al producto interno entre los vectores en el espacio original, lo cual admite el uso de THT para crear Hash Kernels en donde usamos el producto interno entre los nuevos vectores para estimar la semejanza entre dos vectores (a mayor producto interno más semejantes son los vectores).
 
-Hay que destacar que en una gran cantidad de casos THT funciona muy bien sin necesidad de usar el método de Weinberger pero el mismo es necesario cuando queremos usar THT como un kernel. [Weinberger]
+Hay que destacar que en una gran cantidad de casos THT funciona muy bien sin necesidad de usar el método de Weinberger pero el mismo es necesario cuando queremos usar THT como un kernel\cite{Weinberger}.
 
 \subsection{Filtros de Spam Personalizados}
 
-A modo de ejemplo comentaremos una aplicación directa de THT para la construcción de un filtro de Spam [Attenberg] que los usuarios pueden personalizar. El set de datos va a ser una colección de emails en donde marcaremos los que son Spam, el funcionamiento básico de nuestro filtro consiste en representar cada email con un vector y luego entrenar un clasificador lineal binario en base a los labels que tenemos de Spam o No-Spam, el clasificador aprende entonces a detectar si un mail es spam o no y podemos aplicarlo a los nuevos emails para predecir si son Spam.
+A modo de ejemplo comentaremos una aplicación directa de THT para la construcción de un filtro de Spam \cite{Attenberg} que los usuarios pueden personalizar. El set de datos va a ser una colección de emails en donde marcaremos los que son spam. El funcionamiento básico de nuestro filtro consiste en representar cada email con un vector y luego entrenar un clasificador lineal binario en base a los labels que tenemos de Spam o No-Spam. El clasificador aprende entonces a detectar si un email es spam o no, y podemos aplicarlo a los nuevos emails para predecir si son spam.
 
-Por supuesto la idea es usar THT para representar los textos en los emails por lo que podemos fijar el tamaño de nuestros vectores.
-El problema es como lograr que cada usuario pueda personalizar el algoritmo en base a lo que cada usuario considera Spam o no y al mismo tiempo mantener un cierto filtro global en el cual podamos aprovechar el feedback de todos los usuarios al mismo tiempo.
+Por supuesto, la idea es usar THT para representar los textos en los emails, por lo que podemos fijar el tamaño de nuestros vectores.
+El problema es cómo lograr que cada usuario pueda personalizar el algoritmo en base a lo que cada usuario considera spam o no y, al mismo tiempo, mantener un cierto filtro global en el cual podamos aprovechar el feedback de todos los usuarios al mismo tiempo.
 
-La solución usando THT es muy sencilla y elegante. Cada vez que un usuario marca un mail como Spam o No procesamos cada palabra y aplicamos una función de hashing a la palabra pero también a la concatenación del usuario y la palabra. Es decir que si la palabra es "perro" y el usuario es 19931 hashearemos h(perro) y h(19931perro). En el vector incrementaremos ambas posiciones por lo que en un mismo vector van a coexistir datos globales y datos personalizados. 
+La solución usando THT es muy sencilla y elegante. Cada vez que un usuario marca un email como spam o no-spam, procesamos cada palabra y aplicamos una función de hashing a la palabra pero, también, a la concatenación del usuario y la palabra. Es decir que si la palabra es "perro" y el usuario es 19931, hashearemos h(perro) y h(19931perro). En el vector incrementaremos ambas posiciones, por lo que en un mismo vector van a coexistir datos globales y datos personalizados. 
 
-De esta forma podemos entrenar un único clasificador para todos los usuarios de forma tal que el feedback de todos los usuarios aporta al clasificador global pero a su vez el feedback de cada usuario aporta también a que su filtro sea personalizado. Lo mas notable de este método es que las colisiones en los vectores no solo no tienen un efecto perjudicial sino que mejoran la performance del clasificador. 
+De esta forma podemos entrenar un único clasificador para todos los usuarios de forma tal que el feedback de todos los usuarios aporta al clasificador global pero a su vez el feedback de cada usuario aporta también a que su filtro sea personalizado. Lo más notable de este método es que las colisiones en los vectores no solo no tienen un efecto perjudicial sino que mejoran la performance del clasificador. 
 
-La clave está en que cuando queremos predecir si un mail es spam o no para un determinado usuario vamos a hashear cada palabra del mail y al mismo tiempo la concatenación del usuario y cada palabra. Luego con el vector obtenido aplicamos el algoritmo de clasificación que hemos entrenado y este nos dirá si es Spam o No. Una característica muy interesante de este sistema es que si algunos usuarios marcan muchos mails como Spam y otros marcan muy pocos el filtro de Spam no tiene un rendimiento diferente para ambos ya que se aprovecha lo marcado por todos los usuarios! En el caso del usuario que marca pocos mails como Spam su filtro estará simplemente menos personalizado.
+La clave está en que cuando queremos predecir si un email es spam o no para un determinado usuario vamos a hashear cada palabra del mail y al mismo tiempo la concatenación del usuario y cada palabra. Luego con el vector obtenido aplicamos el algoritmo de clasificación que hemos entrenado y este nos dirá si es Spam o No. Una característica muy interesante de este sistema es que si algunos usuarios marcan muchos emails como spam y otros marcan muy pocos, el filtro de spam no tiene un rendimiento diferente para ambos ya que se aprovecha lo marcado por todos los usuarios! En el caso del usuario que marca pocos emails como spam su filtro estará simplemente menos personalizado.
 
 \section{El Teorema de Johnson y Lindenstrauss}
 
@@ -7067,7 +7084,7 @@ Y existe una proyección $f: \mathbb{R}^d \rightarrow \mathbb{R}^k$ que cumple:
 $$(1-\epsilon) || u-v|| \leq || f(u) - f(v) ||\leq (1+\epsilon) ||u-v||$$
 \end{theorem}
 
-Lo que el teorema nos dice, en definitiva es que es posible representar a los datos en una cantidad de dimensiones en el orden de $O(log(n))$ siendo n la cantidad de datos de forma tal que las distancias en el nuevo espacio dimensional sean muy similares a las distancias entre los puntos en el espacio original.
+Lo que el teorema nos dice, en definitiva es que es posible representar a los datos en una cantidad de dimensiones en el orden de $O(log(n))$, siendo n la cantidad de datos, de forma tal que las distancias en el nuevo espacio dimensional sean muy similares a las distancias entre los puntos en el espacio original.
 
 A modo de ejemplo veamos según el error $\epsilon$ y la cantidad de puntos cual sería el valor de $k$ según el teorema.
 
@@ -7084,9 +7101,9 @@ n=1000000 & 3189 & 11842 & 1112659\\ \hline
 \caption{Johnson Lindestrauss.}
 \end{table}
 
-Podemos ver, por ejemplo que si tenemos un millón de puntos y queremos una tasa de error del 10\% podemos representar a nuestros datos en 11842 dimensiones. Esto puede parecer mucho pero hay que tener en cuenta que podemos pasar de cualquier cantidad de dimensiones a 11842 con un error mínimo para las distancias entre los puntos, por ejemplo podríamos tener originalmente un millón de dimensiones y el teorema de JL nos indicaría que podemos proyectar ese millón de dimensiones en 11842 manteniendo las distancias entre los puntos a lo sumo a un 10\% de las distancias originales.
+Podemos ver, por ejemplo, que si tenemos un millón de puntos y queremos una tasa de error del 10\%, podemos representar a nuestros datos en 11842 dimensiones. Esto puede parecer mucho pero hay que tener en cuenta que podemos pasar de cualquier cantidad de dimensiones a 11842 con un error mínimo para las distancias entre los puntos. Por ejemplo, podríamos tener originalmente un millón de dimensiones y el teorema de JL nos indicaría que podemos proyectar ese millón de dimensiones en 11842 manteniendo las distancias entre los puntos a lo sumo a un 10\% de las distancias originales.
 
-Hasta el momento el teorema de JL nos informa la existencia de una proyección pero no nos dice como generarla, vamos a ver aquí dos métodos muy simples que permiten generar una matriz de proyección que cumple con el teorema de JL.
+Hasta el momento el teorema de JL nos informa la existencia de una proyección pero no nos dice como generarla. Vamos a ver aquí dos métodos muy simples que permiten generar una matriz de proyección que cumple con el teorema de JL.
 
 \subsection{Primera Proyección}
 
@@ -7145,15 +7162,15 @@ La tercera proyección define una matriz dispersa en donde $2/3$ de sus elemento
   \end{cases}
 \end{equation}
 
-Ambas proyecciones se describen en mayor detalle en [Achlioptas]. La ventaja de la tercera proyección con respecto a la segunda o la primera es que es computacionalmente mas eficiente para efectuar los cálculos. 
+Ambas proyecciones se describen en mayor detalle en \cite{Achlioptas}. La ventaja de la tercera proyección con respecto a la segunda o la primera es que es computacionalmente más eficiente para efectuar los cálculos. 
 
 \subsection{Por qué funciona el Teorema de JL}
 
-Hemos visto el enunciado del teorema y también tres matrices de proyección que sabemos que cumplen con el mismo. Vamos a demostrar aquí que estas matrices de proyección sirven para preservar las normas de los vectores, es decir que las normas de los vectores proyectados se aproximan a las normas de los vectores originales por un cierto factor de escala.
+Hemos visto el enunciado del teorema y también tres matrices de proyección que sabemos cumplen con el mismo. Vamos a demostrar aquí que estas matrices de proyección sirven para preservar las normas de los vectores, es decir que las normas de los vectores proyectados se aproximan a las normas de los vectores originales por un cierto factor de escala.
 
 Demostrar que una matriz de proyección preserva las normas automaticamente implica que la misma preserva las distancias entre los vectores ya que la distancia entre $v_1$ y $v_2$ es la norma de la diferencia $||v_1 - v_2||$. De la misma forma podemos demostrar que preservando las normas se preservan los productos internos entre los vectores. Esto implica que a partir de este punto solo nos interesa demostrar la preservación de las normas y esto automaticamente nos garantiza que también se preserven las distancias y los productos internos.
 
-El motivo por el cual se preservan las normas se debe al fenómeno conocido como \textit{concentration of measures} que nos dice que la norma de un vector está fuertemente concentrada en su promedio, esto implica que si hacemos una proyección aleatoria de un vector y la elevamos al cuadrado el resultado aproxima la norma del vector al cuadrado. Esto es lo que vamos a demostrar a continuación.
+El motivo por el cual se preservan las normas se debe al fenómeno conocido como \textit{concentration of measures} que nos dice que la norma de un vector está fuertemente concentrada en su promedio. Esto implica que si hacemos una proyección aleatoria de un vector y la elevamos al cuadrado, el resultado aproxima la norma del vector al cuadrado. Esto es lo que vamos a demostrar a continuación.
 
 \begin{theorem}[Concentration of Measures]
 Sea $x$ un vector de $dx1$ y sea $A$ una matriz de proyección de $mxd$ con $m<<d$ en donde cada elemento de $A$ $A_{ij}$ surge o bien de una distribución Gaussiana con promedio 0 y desviación standard 1 o bien es +1 o -1 de forma equiprobable. Sea $v_m$ el resultado de $Av_d$.
@@ -7171,7 +7188,7 @@ Y además
 \end{myequation}
 \end{theorem}
 
-Para demostrar la primera parte vamos a considerar el valor de $[Ax]_{j}^2$ es decir una fila de la matriz $A$ de $mxd$ que es un vector de $d$ elementos.
+Para demostrar la primera parte vamos a considerar el valor de $[Ax]_{j}^2$, es decir una fila de la matriz $A$ de $mxd$ que es un vector de $d$ elementos.
 
 \begin{myequation}
 \begin{aligned}
@@ -7191,9 +7208,9 @@ Es decir que cada uno de los $m$ elementos de $Ax$ al cuadrado tiene como valor 
 
 Que es la segunda parte que queríamos demostrar (siempre considerando el valor esperado).
 
-El teorema queda demostrado bajo la única condición de que los elementos de A son independientes y tienen varianza=1. Es decir que esto vale tanto para la primera como la segunda proyección de JL, ya que en ambos casos vale la misma demostración.
+El teorema queda demostrado bajo la única condición de que los elementos de A son independientes y tienen varianza igual a 1. Es decir que esto vale tanto para la primera como la segunda proyección de JL, ya que en ambos casos vale la misma demostración.
 
-Notemos que el teorema de concentration of measures nos dice que el cuadrado de cada proyección tiene como valor esperado el cuadrado de la norma del vector original, esto implica, en principio que cada proyección tiene como valor esperado la norma del vector, sin embargo es importante mantener los cuadrados ya que mas adelante los vamos a necesitar.
+Notemos que el teorema de concentration of measures nos dice que el cuadrado de cada proyección tiene como valor esperado el cuadrado de la norma del vector original. Esto implica, en principio, que cada proyección tiene como valor esperado la norma del vector. Sin embargo, es importante mantener los cuadrados ya que más adelante los vamos a necesitar.
 
 Si tenemos entonces un vector $v_d$ de $d$ dimensiones y usamos una matriz de proyección $A$ como las que describimos de $mxd$ para obtener el vector proyectado $v_m = Av_d$ entonces:
 
@@ -7203,7 +7220,7 @@ Si tenemos entonces un vector $v_d$ de $d$ dimensiones y usamos una matriz de pr
 
 Esto quiere decir que las matrices descriptas anteriormente preservan la norma de los vectores originales con un cierto factor de escala.
 
-Esto aplica tanto para la matriz Gaussiana como para la matriz formada por +1 y -1 de forma equiprobable. Queremos ver que ocurre si reducimos la cantidad de +1 o -1 en la matriz ya que esto nos permitiría usar una matriz de proyección que no es densa y por lo tanto sería computacionalmente mas eficiente.
+Esto aplica tanto para la matriz Gaussiana como para la matriz formada por +1 y -1 de forma equiprobable. Queremos ver qué ocurre si reducimos la cantidad de +1 o -1 en la matriz, ya que esto nos permitiría usar una matriz de proyección que no es densa y, por lo tanto, sería computacionalmente más eficiente.
 
 \begin{theorem}
 Sea $A$ una matriz de $dxm$ en donde cada fila de la matriz tiene $k$ elementos +1 o -1 y el resto son ceros. Queremos demostrar que esta matriz preserva las normas de los vectores de $d$ dimensiones al proyectarlos en $m$ dimensiones con un cierto factor de escala.
@@ -7227,9 +7244,9 @@ $$
 
 Nota importante: Si los vectores son de $1xd$ entonces la matriz de proyección es de $dxm$ y tiene $k$ +1 o -1 por fila. Si los vectores son de $dx1$ entonces la matriz de proyección es de $mxd$ y cada columna de la matriz tiene $k$ +1 o -1. Es decir la matriz transpuesta. A partir de aquí podemos usar indistintamente una u otra notación.
 
-Para demostrar este teorema vamos a partir de que sabemos que si tomamos un vector $v_d$ de $d$ dimensiones y le aplicamos una proyección aleatoria que consiste de $d$ +1 o -1 lo que obtenemos al cuadrado tiene como valor esperado la norma del vector al cuadrado.
+Para demostrar este teorema vamos a partir de que sabemos que si tomamos un vector $v_d$ de $d$ dimensiones y, le aplicamos una proyección aleatoria que consiste de $d$ +1 o -1, lo que obtenemos al cuadrado tiene como valor esperado la norma del vector al cuadrado.
 
-Observemos que cada columna de nuestra matriz de $dxm$ equivale a una proyección aleatoria de $d$ elementos, por lo tanto cuando multiplicamos $v_d * A$ lo que estamos haciendo es obteniendo $m$ proyecciones aleatorias. Pero nuestra matriz no tiene $d$ +1 o -1 en cada columna. La cantidad total de +1 o -1 en nuestra matriz es $d*k$ ya que tenemos $k$ +1 o -1 por fila y un total de $d$ filas. Por lo tanto la cantidad promedio de elementos distintos de cero en cada columna de nuestra matriz es $\frac{dk}{m}$.
+Observemos que cada columna de nuestra matriz de $dxm$ equivale a una proyección aleatoria de $d$ elementos, por lo tanto cuando multiplicamos $v_d * A$ lo que estamos haciendo es obteniendo $m$ proyecciones aleatorias. Pero nuestra matriz no tiene $d$ +1 o -1 en cada columna. La cantidad total de +1 o -1 en nuestra matriz es $d*k$ ya que tenemos $k$ +1 o -1 por fila y un total de $d$ filas. Por lo tanto, la cantidad promedio de elementos distintos de cero en cada columna de nuestra matriz es $\frac{dk}{m}$.
 
 Sabemos que con $d$ +1 o -1 el cuadrado de la proyección tiene como valor esperado el cuadrado de la norma. Por lo tanto si tenemos $\frac{k}{m}$ +1 o -1 el cuadrado de la proyección tiene como valor esperado $\frac{k}{m}||x_d||^2$
 
@@ -7259,9 +7276,9 @@ Lo cual demuestra el teorema.
 
 Cuando todos los elementos de la matriz son +1 o -1, que es la segunda proyección de JL tenemos que $k=m$ por lo tanto $\frac{1}{\sqrt{m}}||x_m|| = ||x_d||$ que es lo que demostramos en el teorema de concentration of measures. Y si $k=1$ tenemos que $||v_m|| =  ||v_d||$ es decir que la proyección aproxima el valor de las normas del espacio original con factor de escala igual a uno (!).
 
-Esto quiere decir que una matriz de $dxm$ en donde cada fila tiene $k$ elementos +1 o -1 sirve para proyectar los vectores de $d$ a $m$ dimensiones preservando las normas entre los mismos con factor $\frac{1}{\sqrt{k}}$, el factor de escala no es lo importante sino que la matriz preserva las normas. Este tipo de matrices van a ser fundamentales para mostrar la relación entre "The Hashing Trick" y el teorema de JL.
+Esto quiere decir que una matriz de $dxm$ en donde cada fila tiene $k$ elementos +1 o -1 sirve para proyectar los vectores de $d$ a $m$ dimensiones preservando las normas entre los mismos con factor $\frac{1}{\sqrt{k}}$. El factor de escala no es lo importante sino que la matriz preserva las normas. Este tipo de matrices van a ser fundamentales para mostrar la relación entre "The Hashing Trick" y el teorema de JL.
 
-Finalmente y como ya hemos mencionado recordemos que preservar las normas implica preservar las distancias y también los productos internos entre los vectores.
+Finalmente y, como ya hemos mencionado, recordemos que preservar las normas implica preservar las distancias y también los productos internos entre los vectores.
 
 \subsection{The Hashing Trick y el Teorema de Johnson Lindenstrauss}
 
@@ -7287,7 +7304,7 @@ Dimension &h1(dim)&h2(dim)\\\hline\hline
 \caption{Johnson Lindestrauss y THT.}
 \end{table}
 
-Por ejemplo si nuestro vector original fuera: $ x = (3,0,0,4,1,2,1,0,1,3)$ aplicando THT quedaría $ x'= (-4,1,-1,7)$
+Por ejemplo si nuestro vector original fuera: $ x = (3,0,0,4,1,2,1,0,1,3)$ aplicando THT quedaría $ x'= (-4,1,2,4)$
 
 Observemos ahora que a partir de las funciones de hashing definidas por THT podemos crear una matriz de proyección. Por ejemplo que para la dimensión 0 la función de hashing 1 nos de 3 y la segunda +1 equivale a poner un +1 en la fila 0 y columna 3 de nuestra matriz de proyección que quedaría de la siguiente forma:
 
@@ -7306,11 +7323,11 @@ $$
 \end{pmatrix}
 $$
 
-Notemos que usar THT es equivalente a multiplicar un vector por esta matriz. La cantidad de funciones de hashing a usar incide en la cantidad de +1 o -1 que tendremos por cada fila. Esta matriz es la matriz que hemos demostrado que preserva las normas y por lo tanto podemos afirmar que The Hashing Trick preserva las normas y por lo tanto las distancias y los productos internos entre los vectores. Esto es revelador y terriblemente importante ya que justifica el uso de hashing para reducir la dimensionalidad de los datos. 
+Notemos que usar THT es equivalente a multiplicar un vector por esta matriz. La cantidad de funciones de hashing a usar incide en la cantidad de +1 o -1 que tendremos por cada fila. Esta matriz es la matriz que hemos demostrado que preserva las normas y por lo tanto podemos afirmar que The Hashing Trick preserva las normas y, por lo tanto, las distancias y los productos internos entre los vectores. Esto es revelador y terriblemente importante ya que justifica el uso de hashing para reducir la dimensionalidad de los datos. 
 
-Observemos que las colisiones pueden causar que la matriz tenga elementos que no son +1 o -1 por ejemplo si colisionan tres +1 tendremos un 3 en la matriz. En general esto no afecta la validez del teorema ya que la suma de elementos de la matriz sigue teniendo como valor esperado promedio 0.
+Observemos que las colisiones pueden causar que la matriz tenga elementos que no son +1 o -1, por ejemplo si colisionan tres +1 tendremos un 3 en la matriz. En general esto no afecta la validez del teorema ya que la suma de elementos de la matriz sigue teniendo como valor esperado promedio 0.
 
-La cantidad de funciones de hashing y la cantidad de datos influyen en la tasa de error que tendremos para las normas, distancias y productos internos. Si lo que queremos es saber cuáles son los vecinos mas cercanos a un cierto punto no nos interesa realmente el valor numérico de la distancia sino simplemente que las relaciones que había en el espacio original se preserven en el nuevo espacio y hemos mostrado que el hashing trick cumple con esta propiedad. 
+La cantidad de funciones de hashing y la cantidad de datos influyen en la tasa de error que tendremos para las normas, distancias y productos internos. Si lo que queremos es saber cuáles son los vecinos más cercanos a un cierto punto no nos interesa realmente el valor numérico de la distancia sino simplemente que las relaciones que había en el espacio original se preserven en el nuevo espacio y hemos mostrado que el hashing trick cumple con esta propiedad. 
 
 \chapter{LSH}
 
@@ -7695,9 +7712,9 @@ Calculamos $R_1 * x = (-0.0612,-4.2223) $
 
 Si los vértices son: \{0:(0,1); 1:(0,-1); 2:(1,0); 3:(-1,0)\} entonces el mas cercano es (0,-1) y el valor del minhash es 1. Podemos generar tantos minhashes como necesitemos generando mas rotaciones al azar. Luego podemos amplificar con los métodos que ya hemos visto agrupando minhashes.
 
-Para hacer mas eficiente este método en lugar de generar una matriz aleatoria de $kxk$ para realizar la rotación los autores[Andoni] proponen usar la matriz: $H*D1*H*D2*H*D3$ en donde $H$ es la transformación de Hadamard y $Di$ es una matriz diagonal con +/-1 al azar. La transformación de Hadamard se puede calcular en $O(k \log k)$ y esto es mas rápido que el producto por una matriz aleatoria de $kxk$ que es $O(k^2)$. Empíricamente se observa que el resultado de aplicar $H*D1*H*D2*H*D3$ a un punto es equivalente a realizar una rotación aleatoria aunque nadie ha podido demostrar esto en la práctica.
+Para hacer mas eficiente este método en lugar de generar una matriz aleatoria de $kxk$ para realizar la rotación los autores \cite{Andoni} proponen usar la matriz: $H*D1*H*D2*H*D3$ en donde $H$ es la transformación de Hadamard y $Di$ es una matriz diagonal con +/-1 al azar. La transformación de Hadamard se puede calcular en $O(k \log k)$ y esto es mas rápido que el producto por una matriz aleatoria de $kxk$ que es $O(k^2)$. Empíricamente se observa que el resultado de aplicar $H*D1*H*D2*H*D3$ a un punto es equivalente a realizar una rotación aleatoria aunque nadie ha podido demostrar esto en la práctica.
 
-Otra variante sugerida en [Kennedy] es aplicar en primer lugar una reducción de dimensiones usando Johnson-Lindenstrauss para llevar los datos de $d$ a $m$ dimensiones ($m<<d$). Y luego aplicar una rotación que al mismo tiempo aumente la dimensionalidad de los datos mediante una matriz aleatoria de $mxd'$. Siendo $d'$ la dimensionalidad sobre la cual comparamos contra el polítopo mas cercano.
+Otra variante sugerida en \cite{Kennedy} es aplicar en primer lugar una reducción de dimensiones usando Johnson-Lindenstrauss para llevar los datos de $d$ a $m$ dimensiones ($m<<d$). Y luego aplicar una rotación que al mismo tiempo aumente la dimensionalidad de los datos mediante una matriz aleatoria de $mxd'$. Siendo $d'$ la dimensionalidad sobre la cual comparamos contra el polítopo mas cercano.
 
 El método del polítopo es equivalente al método de Voronoi si en lugar de tomar el producto interno máximo tomamos el máximo valor absoluto y el signo como minhash. Es decir que con $T$ gaussianos en el método de Voronoi generamos un número entre $0$ y $2T$ ya que ahora además del índice del gaussiano el signo es parte del minhash. En general el método de los polítopos en $d'$ dimensiones es igual al método de Voronoi con $2d'$ gaussianos \footnote{El único detalle es aceptar un gaussiano como una pseudo-rotación lo cual en la práctica es exactamente equivalente}.
 
@@ -7974,7 +7991,7 @@ Notemos que el método descripto en todas sus variantes puede tener falsos posit
 
 \section{LSH forests}
 
-Presentamos ahora una idea reciente  [Bawa] en la cual usamos LSH para construir un árbol binario de búsqueda. La idea consiste en convertir cada minhash en un 0 o 1, por ejemplo según sea par o impar e ir insertando los datos en un árbol binario de búsqueda, para cada dato generamos tantos minhashes como sean necesarios para que la concatenación de todos sus minhashes sea una cadena única es decir que le corresponda una hoja del árbol. Eventualmente puede ser necesario generar muchísimos minhashes por lo que es conveniente fijar una longitud máxima para la cantidad de minhashes que puede tener un dato, en este caso puede ocurrir que una hoja del árbol tenga mas de un dato pero en general serán muy pocos.
+Presentamos ahora una idea reciente \cite{Bawa} en la cual usamos LSH para construir un árbol binario de búsqueda. La idea consiste en convertir cada minhash en un 0 o 1, por ejemplo según sea par o impar e ir insertando los datos en un árbol binario de búsqueda, para cada dato generamos tantos minhashes como sean necesarios para que la concatenación de todos sus minhashes sea una cadena única es decir que le corresponda una hoja del árbol. Eventualmente puede ser necesario generar muchísimos minhashes por lo que es conveniente fijar una longitud máxima para la cantidad de minhashes que puede tener un dato, en este caso puede ocurrir que una hoja del árbol tenga mas de un dato pero en general serán muy pocos.
 
 \begin{figure}[!htb]
 \centering
@@ -8628,7 +8645,7 @@ J = \sum_{ij}(y_i - y_j)^2 W_{ij}
 
 W vale 0 cuando los puntos no son lo suficientemente cercanos en el espacio original, y cuando esto pasa se permite que los puntos estén a cualquier distancia en nuestro nuevo espacio sin costo. Cuando $W_{ij}$ tiende a 1 se quiere que los puntos estén cercanos en el nuevo espacio para minimizar el costo. En resumen, se quiere minimizar las distancia entre los puntos en el nuevo espacio ponderando por el valor de $W_{ij}$ en el espacio original.
 
-\begin{theorem}[Belkin]
+\begin{theorem}\cite{Belkin}
 
 Si los puntos $y_i$ tienen $k$ dimensiones entonces los valores que minimizan $J$ para dichos puntos están dados por la fila $i$ de los $k$ autovectores mas chicos de la matriz Laplaciana.
 
@@ -8767,8 +8784,7 @@ Este algoritmo puede aplicarse también a Swiss Roll y se obtienen los resultado
 
 \section{TSNE}
 
-T-SNE [van de Maarten] es uno de los mejores algoritmos para la representación de datos en dos y tres dimensiones. 
-La idea básica de T-SNE es poder representar datos que originalmente están en muchas dimensiones en solo dos o tres dimensiones de la mejor forma posible. Se vio anteriormente que PCA/SVD lograba esto mismo intentando preservar la varianza de los datos. Esto es equivalente a que los puntos que están alejados en $n$ dimensiones se mantengan alejados cuando los proyectamos en $k$ dimensiones. 
+T-SNE\cite{vanDerMaatenHinton} es, al momento de escribir este capítulo, el mejor algoritmo para la representación de datos en dos y tres dimensiones. Es, por lo tanto, el algoritmo más usado y el más importante para visualizar datos multidimensionales en el plano o en 3D. 
 
 T-SNE, a diferencia de PCA y al igual que en Laplacian Eigenmaps, va a intentar que los puntos que estaban cerca en $n$ dimensiones se mantengan cercanos en $k$ dimensiones. Estas son dos formas radicalmente opuestas de encarar el mismo problema.
 
@@ -9405,7 +9421,7 @@ En muchas aplicaciones un bitmap es una de las estructuras de datos mas adecuada
 
 El uso de bitmaps para almacenar conjuntos trae aparejado un problema fundamental. Cuando el conjunto tiene pocos elementos una simple lista de enteros es una estructura eficiente, por ejemplo el conjunto {1,5} ocuparía 8 bytes si cada elemento ocupa 4 bytes. Si la cantidad de elementos del conjunto es muy grande $n$ llega un momento en el cual $n*4$ es un número muy grande y es mucho mejor almacenar un bitmap de $m$ bits. Por ejemplo para {1,5} un bitmap de tipo {010001} ocuparía solo 6 bits en lugar de 16. Pero si el conjunto es {1,5,20000000} el bitmap ocuparía muchísimo espacio ya que hacen falta millones de ceros para llegar al tercer elemento del conjunto. Es decir que, para almacenar un conjunto, a veces es bueno un bitmap y a veces es mejor una simple lista de enteros.
 
-El método de Roaring Bitmaps[Lemire] soluciona esto permitiendo combinar ambos métodos. El funcionamiento de la estructura es muy simple, el conjunto se divide en bloques de $2^k$ enteros, en general $k=16$. Por cada bloque se decide usar o bien un bitmap o bien una lista de enteros o incluso otro método. Este formato permite revisar la existencia de un elemento rapidamente usando una búsqueda binaria y también calcular unión, intersección y negaciones de conjuntos de forma eficiente.
+El método de Roaring Bitmaps\cite{Lemire} soluciona esto permitiendo combinar ambos métodos. El funcionamiento de la estructura es muy simple, el conjunto se divide en bloques de $2^k$ enteros, en general $k=16$. Por cada bloque se decide usar o bien un bitmap o bien una lista de enteros o incluso otro método. Este formato permite revisar la existencia de un elemento rapidamente usando una búsqueda binaria y también calcular unión, intersección y negaciones de conjuntos de forma eficiente.
 
 La estructura de Roaring Bitmaps en general ofrece un muy buen compromiso entre el nivel de compresión logrado para almacenar los conjuntos y la performance al procesar los mismos. Es por esto que es una estructura que cada vez se usa mas en el mundo de information retrieval.
 
@@ -10139,7 +10155,7 @@ En el caso de KNN el único hiper-parámetro que manejamos (además de la métri
 
 \section{El Teorema de No Free Lunch}
 
-Este teorema publicado por [Wolpert] en el año 1997 es fuente de todo tipo de controversias y es posiblemente uno de los teoremas peor interpretados en el mundo de Machine Learning. En esta sección vamos a intentar explicar el significado del teorema y aclarar algunas interpretaciones erróneas que se hacen a partir del mismo. 
+Este teorema publicado por Wolpert\cite{Wolpert} en el año 1997 es fuente de todo tipo de controversias y es posiblemente uno de los teoremas peor interpretados en el mundo de Machine Learning. En esta sección vamos a intentar explicar el significado del teorema y aclarar algunas interpretaciones erróneas que se hacen a partir del mismo. 
 
 \begin{theorem}[No Free Lunch]
 Dos algoritmos de optimización cualesquiera son equivalentes si los promediamos sobre el set de todos los problemas posibles.
@@ -10351,7 +10367,7 @@ Algo que puede hacerse y que suele traer buenos resultados es una vez que tenemo
 
 \section{Teoría de Machine Learning}
 
-En esta sección vamos a formalizar un poco la teoría de Machine Learning. Los conceptos que veremos fueron enunciados por primera vez en 1984 por Leslie Valiant [Valiant].
+En esta sección vamos a formalizar un poco la teoría de Machine Learning. Los conceptos que veremos fueron enunciados por primera vez en 1984 por Leslie Valiant \cite{Valiant}.
 
 El objetivo es presentar algunas definiciones y teoremas que son útiles para comprender conceptos que luego son fundamentales en la práctica como \textit{bias} y \textit{variance}. Curiosamente esta sección podría estudiarse antes o después del resto de los temas del capítulo. Aquellos que lean esta sección primero tendrán una base teórica que les va a permitir entender los conceptos que explicaremos mas adelante sin necesidad de "creer" en ellos. Los que lean la sección al final tendrán una explicación de cosas que fueron aprendiendo, es decir una forma de develar varios misterios. Dejamos la decisión a consideración de cada lector. Por si están pensando en decidir en base al lanzamiento de una moneda vamos a empezar con un concepto de probabilidades que vamos a necesitar luego. 
 
@@ -10643,7 +10659,7 @@ Beautiful.
 
 \subsection{El Principio de la Mínima Descripción}
 
-El principio de la mínima descripción (MDL) por sus siglas en inglés [Rissanen] [Grumwald] es una forma de interpretar los algoritmos de Machine Learning desde el punto de vista de la compresión de datos. La idea es muy simple: cuanto mas se puede comprimir un set de datos mas se puede aprender del mismo.
+El principio de la mínima descripción (MDL) por sus siglas en inglés \cite{Rissanen}\cite{Grumwald} es una forma de interpretar los algoritmos de Machine Learning desde el punto de vista de la compresión de datos. La idea es muy simple: cuanto mas se puede comprimir un set de datos mas se puede aprender del mismo.
 
 De acuerdo a MDL hay dos cosas para representar: los datos y el modelo. El modelo ideal, es decir el mejor algoritmo, es aquel que minimiza la sumatoria de la longitud necesaria en bits para representar los datos y la longitud para representar el modelo.
 
@@ -10697,7 +10713,7 @@ Observemos que cuantos mas puntos tenemos mas atractivo resulta un modelo mas co
 
 \subsection{Clasificación con Algoritmos de Compresión}
 
-Es posible usar algoritmos de compresión en problemas de ML [Knoll-de Freitas], la distancia normalizada de compresión puede usarse como distancia para un algoritmo de clustering como K-Means. Y podemos también aplicarla a problemas de clasificación. Consideremos por ejemplo que queremos clasificar textos en 2 clases (clasificación binaria). Podemos entonces concatenar todos los textos con label "1" del set de entrenamiento y comprimirlos. Luego concatenar todos los textos con label "0" y comprimirlos. Para clasificar podemos usar el modelo de compresión construido en cada caso y probar comprimir el nuevo texto con uno u otro modelo, el modelo que mejor comprima al texto es entonces el que usamos para predecir el label. Algo interesante es que la diferencia de compresión nos da una idea de la certeza que tenemos y podemos calcular la probabilidad de cada clase simplemente normalizando.
+Es posible usar algoritmos de compresión en problemas de ML \cite{KnolldeFreitas}, la distancia normalizada de compresión puede usarse como distancia para un algoritmo de clustering como K-Means. Y podemos también aplicarla a problemas de clasificación. Consideremos por ejemplo que queremos clasificar textos en 2 clases (clasificación binaria). Podemos entonces concatenar todos los textos con label "1" del set de entrenamiento y comprimirlos. Luego concatenar todos los textos con label "0" y comprimirlos. Para clasificar podemos usar el modelo de compresión construido en cada caso y probar comprimir el nuevo texto con uno u otro modelo, el modelo que mejor comprima al texto es entonces el que usamos para predecir el label. Algo interesante es que la diferencia de compresión nos da una idea de la certeza que tenemos y podemos calcular la probabilidad de cada clase simplemente normalizando.
 
 Existen diferentes modelos que podemos usar al aplicar un algoritmo de compresión a un problema de clasificación:
 
@@ -11305,7 +11321,7 @@ Es posible usar grafos para construir una estructura de datos que nos permita ap
 
 Para buscar los $k$ puntos mas cercanos a un cierto query lo que hacemos es comenzar desde un punto al azar del grafo y calcular la distancia entre el query y los vecinos de dicho punto. Una vez que hicimos esto nos movemos al nodo que mas nos acerca al query. Este proceso lo repetimos hasta que no hay posibilidad de acercarnos mas al query. En el camino nos quedamos con los $k$ puntos que hayan estado mas cerca del query que estamos procesando. 
 En la figura ~\ref{fig:knngrafos} si empezamos en Y0 y nuestro Query es Q nos movemos primero a Y1 y luego a Y2 guardando siempre en el camino cuáles son los $k$ puntos mas cercanos a Q de los que hemos analizado. Por cada nodo visitado siempre analizamos sus $k$ vecinos.
-Este algoritmo es bastante rápido y eficiente siempre y cuando sea factible realizar el pre-procesamiento necesario.[Dong][Hajebi]
+Este algoritmo es bastante rápido y eficiente siempre y cuando sea factible realizar el pre-procesamiento necesario\cite{Dong}\cite{Hajebi}.
 
 \subsection{LSH}
 
@@ -11417,7 +11433,7 @@ $\sigma$ es el radio alrededor de cada punto para considerar que los puntos dent
 
 Un detalle muy interesante es que al usar pesos podemos usar un valor de $k$ tan grande como deseemos, los puntos mas lejanos simplemente van a tener un peso cada vez menor y en concreto podríamos usar $k=n$ en cuyo caso para clasificar un punto tenemos en cuenta todos los puntos del set de datos como vecinos. Cuando esto pasa lo que tenemos es efectivamente un \textit{kernel} de distancias entre puntos. Mas adelante al ver otros algoritmos de clasificación dedicaremos un buen tiempo al estudio de métodos basados en kernels.
 
-Existen otros esquemas interesantes para usar pesos en KKN descriptos en [Gou]
+Existen otros esquemas interesantes para usar pesos en KKN descriptos en \cite{Gou}
 
 \section{Evitando Overfitting en KNN}
 
@@ -11520,7 +11536,7 @@ Habiendo hecho esta definición tan genérica y mostrado un ejemplo conocido que
 
 \subsubsection{El problema del muestreo}
 
-En todo problema de Data Science es correcto decir que cuantos mas datos podamos recolectar mejor serán nuestros resultados. Esto es algo lógico ya que los datos ayudan a que nuestros algoritmos puedan entenderlos y generar mejores resultados. En 2001 Banko y Brill [Banko,Brill] publicaron un trabajo que se hizo muy famoso en el cual sostenían que en la mayoría de los casos recolectar mas datos era mas importante que usar un algoritmo mejor. Dicho de otra forma con cantidad de datos suficientes incluso algoritmos muy simples convergen al mismo resultado que los algoritmos mas avanzados.
+En todo problema de Data Science es correcto decir que cuantos mas datos podamos recolectar mejor serán nuestros resultados. Esto es algo lógico ya que los datos ayudan a que nuestros algoritmos puedan entenderlos y generar mejores resultados. En 2001 Banko y Brill \cite{Banko} publicaron un trabajo que se hizo muy famoso en el cual sostenían que en la mayoría de los casos recolectar mas datos era mas importante que usar un algoritmo mejor. Dicho de otra forma con cantidad de datos suficientes incluso algoritmos muy simples convergen al mismo resultado que los algoritmos mas avanzados.
 
 \begin{figure}[!htb]
 \centering
@@ -11551,13 +11567,13 @@ Estos curiosos efectos nos llevan a la conclusión de que debemos tener mucho cu
 
 El efecto de la dimensionalidad en las distancias queda evidenciado por el siguiente teorema:
 
-\begin{theorem}[Beyer]
+\begin{theorem}\cite{Beyer}
 $$if \lim_{d  \to \infty} var(\frac{||x||_d}{E[||x||_d]}) = 0, then \frac{Dmax-Dmin}{Dmin} \to 0$$
 \end{theorem}
 
-La demostración de este teorema puede encontrarse en [Beyer] y lo que nos dice es que a medida que la cantidad de dimensiones tiende a infinito la diferencia entre la distancia máxima entre dos puntos del espacio y la distancia mínima converge es decir que todas las distancias son aproximadamente iguales. Este es un resultado muy perturbador. Afortunadamente, como hemos visto, los datos reales no suelen ocupar completamente el espacio en el cual se presentan pero de todas formas es importante considerar que en muchas dimensiones el concepto de distancia entre puntos empieza a peligrar.
+La demostración de este teorema puede encontrarse en \cite{Beyer} y lo que nos dice es que a medida que la cantidad de dimensiones tiende a infinito la diferencia entre la distancia máxima entre dos puntos del espacio y la distancia mínima converge es decir que todas las distancias son aproximadamente iguales. Este es un resultado muy perturbador. Afortunadamente, como hemos visto, los datos reales no suelen ocupar completamente el espacio en el cual se presentan pero de todas formas es importante considerar que en muchas dimensiones el concepto de distancia entre puntos empieza a peligrar.
 
-Consideremos el caso de la norma $l_{\infty}$ es decir la diferencia máxima que existe entre x e y en alguna dimensión. Esta norma es útil en dos o tres dimensiones pero es claro que a medida que aumentamos la cantidad de dimensiones su utilidad va decreciendo, en un espacio de 100 dimensiones por ejemplo la diferencia máxima en solo una de estas dimensiones ciertamente no debe ser la mejor forma de medir la distancia entre dos puntos. La intuición es que a medida que aumentamos la cantidad de dimensiones exponentes cada vez mas bajos nos dan una mejor medida de distancia entre los puntos, este razonamiento es cierto y fue demostrado tanto en forma teórica como empírica en [Aggarwal,Hinnenburg,Keim]. Se demuestra que para espacios de muchas dimensiones la distancia Manhattan ($p=1$) funciona mejor que la distancia euclideana e incluso distancias con $p<1$ funcionan aun mejor. 
+Consideremos el caso de la norma $l_{\infty}$ es decir la diferencia máxima que existe entre x e y en alguna dimensión. Esta norma es útil en dos o tres dimensiones pero es claro que a medida que aumentamos la cantidad de dimensiones su utilidad va decreciendo, en un espacio de 100 dimensiones por ejemplo la diferencia máxima en solo una de estas dimensiones ciertamente no debe ser la mejor forma de medir la distancia entre dos puntos. La intuición es que a medida que aumentamos la cantidad de dimensiones exponentes cada vez mas bajos nos dan una mejor medida de distancia entre los puntos, este razonamiento es cierto y fue demostrado tanto en forma teórica como empírica en \cite{Aggarwal}. Se demuestra que para espacios de muchas dimensiones la distancia Manhattan ($p=1$) funciona mejor que la distancia euclideana e incluso distancias con $p<1$ funcionan aun mejor. 
 
 \begin{figure}[!htb]
 \centering
@@ -11589,7 +11605,7 @@ Además del uso de exponentes fraccionarios hay otros trucos que podemos probar 
 
 $$SNN(x,y) = |KNN(x,k) \cap KNN(y,k)|$$
 
-Esta métrica ha demostrado funcionar mejor que otras en espacios de muchas dimensiones. [Houle]
+Esta métrica ha demostrado funcionar mejor que otras en espacios de muchas dimensiones\cite{Houle}.
 
 
 
@@ -13126,7 +13142,7 @@ Las opciones son:
 \item La distancia máxima entre dos puntos en cada cluster
 \item El promedio de las distancias de todos los puntos de un cluster contra todos los puntos del otro cluster
 \item La distancia entre los promedios de los puntos de cada cluster (centroides)
-\item El método de Ward [Ward]
+\item El método de Ward \cite{Ward}
 \end{itemize}
 
 \subsection{Encontrando la Cantidad de Clusters}
@@ -13354,7 +13370,7 @@ Supongamos que el primer centroide elegido al azar es k1. El objetivo ahora es e
 
 \end{figure}
 
-Como podemos ver K-means++ genera una inicialización más dispersa de los centroides iniciales. El problema de K-Means++ es que para datos realmente masivos necesita hacer "k" iteraciones sobre los datos para elegir los centroides, tarea que es todavía mas ineficiente cuando "k" es un número largo. Existe una variante a K-Means++ [Bahmani] llamada K-Means paralell. La idea es hacer solo $log(k)$ pasadas sobre los datos, en cada iteración se agregan $l$ centroides en lugar de 1, el resultado es que tendremos una cantidad de centroides mayor a $k$ que son los centroides que necesitamos, los centroides finales se obtienen clusterizando los candidatos a centroides ponderados por la probabilidad con la cual fueron seleccionados, este paso se puede hacer, por ejemplo, usando clustering jerárquico.
+Como podemos ver K-means++ genera una inicialización más dispersa de los centroides iniciales. El problema de K-Means++ es que para datos realmente masivos necesita hacer "k" iteraciones sobre los datos para elegir los centroides, tarea que es todavía mas ineficiente cuando "k" es un número largo. Existe una variante a K-Means++ \cite{Bahmani} llamada K-Means paralell. La idea es hacer solo $log(k)$ pasadas sobre los datos, en cada iteración se agregan $l$ centroides en lugar de 1, el resultado es que tendremos una cantidad de centroides mayor a $k$ que son los centroides que necesitamos, los centroides finales se obtienen clusterizando los candidatos a centroides ponderados por la probabilidad con la cual fueron seleccionados, este paso se puede hacer, por ejemplo, usando clustering jerárquico.
 
 \begin{figure}[!htb]
 \centering
@@ -13467,7 +13483,7 @@ La versión Kmeans++ es mejor que las dos anteriores aunque muy similar a la ver
 
 \subsubsection{Teoría de K-Means Online}
 
-Vamos a probar ahora que K-Means online también optimiza la función costo de K-Means [Bottou-Bengio].
+Vamos a probar ahora que K-Means online también optimiza la función costo de K-Means \cite{BottouBengio}.
 
 Podemos considerar la función costo de K-Means como la sumatoria del costo de cada punto.
 
@@ -13880,7 +13896,7 @@ Vamos a ver dos soluciones para este problema: una basada en una estructura llam
 
 \subsection{The Inverted Multi-Index}
 
-En este algoritmo [Babenko-Lempitsky] vamos a empezar dividiendo las columnas $d$ del set de datos en dos bloques de $d/2$ columnas cada uno. Luego vamos a usar K-Means sobre cada uno de estos bloques como si fuera un set de datos independiente, es decir primero corremos K-Means con las primeras $d/2$ columnas de los datos y luego con las últimas $d/2$ columnas. Esto nos da dos juegos de centroides independientes $U$ y $V$ y dos centroides asignados a cada punto. Ahora en lugar de tener un índice invertido por cada centroide tendremos un índice por cada \textit{par} de centroides. 
+En este algoritmo \cite{Babenko} vamos a empezar dividiendo las columnas $d$ del set de datos en dos bloques de $d/2$ columnas cada uno. Luego vamos a usar K-Means sobre cada uno de estos bloques como si fuera un set de datos independiente, es decir primero corremos K-Means con las primeras $d/2$ columnas de los datos y luego con las últimas $d/2$ columnas. Esto nos da dos juegos de centroides independientes $U$ y $V$ y dos centroides asignados a cada punto. Ahora en lugar de tener un índice invertido por cada centroide tendremos un índice por cada \textit{par} de centroides. 
 
 Al usar dos valores la cantidad de puntos en cada \textit{celda} del índice se reduce notablemente, es posible incluso que en una celda no tengamos la cantidad de puntos necesarios para encontrar los $k$ vecinos mas cercanos a un cierto query.
 
@@ -13894,7 +13910,7 @@ Para el query, simplemente buscaremos los dos centroides mas cercanos al mismo y
 \label{fig:invertedmulti}
 \end{figure}
 
-Hay múltiples variantes de esta estructura, por ejemplo se puede aplicar primero la SVD al set de datos sin reducir la cantidad de dimensiones, luego correr los 2 K-Means como hemos descripto y luego dentro de cada celda podemos volver a aplicar el algoritmo como si cada celda fuera un set de datos independiente. Esta estructura recursiva da lugar a varios algoritmos que son extremadamente eficientes como por ejemplo LOPQ [Kalantidis]. 
+Hay múltiples variantes de esta estructura, por ejemplo se puede aplicar primero la SVD al set de datos sin reducir la cantidad de dimensiones, luego correr los 2 K-Means como hemos descripto y luego dentro de cada celda podemos volver a aplicar el algoritmo como si cada celda fuera un set de datos independiente. Esta estructura recursiva da lugar a varios algoritmos que son extremadamente eficientes como por ejemplo LOPQ \cite{KalantidisAvrithis}. 
 
 Estos métodos son muy necesarios, por ejemplo para búsqueda de imágenes similares a otras en donde podemos tener billones de puntos (imágenes) en millones de dimensiones. Para estos sets de datos KNN suele ser el mejor algoritmo para encontrar semejanzas, en algunos casos extrayendo features de las imágenes usando algoritmos como por ejemplo SIFT. Incluso reduciendo la cantidad de dimensioenes a cientos o miles KNN es completamente inviable y son necesarias aproximaciones. Los Multi-Inverted indexes,LOPQ o K-Means Trees son una solución a este problema y por eso su importancia.
 
@@ -13918,7 +13934,7 @@ El éxito de este algoritmo comparado contra LOPQ o los inverted multi indexes d
 
 \section{Clustering Espectral}
 
-El algoritmo de Clustering Espectral [Weiss-Ng-Jordan] surge originalmente como una forma de realizar cortes entre componentes de un grafo, siendo un algoritmo originalmente pensado para grafos pasó un cierto tiempo hasta que se comenzó a usar para cualquier tipo de datos. Este algoritmo, al igual que Kernel K-Means, tiene la capacidad de detectar formas de clusters arbitrarias, no-lineales.
+El algoritmo de Clustering Espectral \cite{WeissNgJordan} surge originalmente como una forma de realizar cortes entre componentes de un grafo, siendo un algoritmo originalmente pensado para grafos pasó un cierto tiempo hasta que se comenzó a usar para cualquier tipo de datos. Este algoritmo, al igual que Kernel K-Means, tiene la capacidad de detectar formas de clusters arbitrarias, no-lineales.
 
 Sea $X_{mxn}$ nuestra matriz de $m$ datos en $n$ dimensiones. Para transformarla en un grafo vamos a usar el mismo proceso que hemos usado en Laplacian Eigenmaps por lo que solamente lo repasaremos muy rápidamente.
 
@@ -14037,7 +14053,7 @@ El algoritmo de clustering espectral es una herramienta muy poderosa ya que pued
 
 \subsection{Aproximaciones: KASP}
 
-El algoritmo de Clustering Espectral tiene como problema la necesidad de contar con la matriz de afinidad “W” que es una matriz de mxm siendo “m” la cantidad de datos. Esto puede llegar a ser un número imposible de manejar. Es necesario entonces realizar una aproximación que nos permita usar clustering espectral sin la necesidad de calcular W de forma completa. La aproximación que veremos se llama “Kasp” [Yan-Huan-Jordan] y está basada en K-Means.
+El algoritmo de Clustering Espectral tiene como problema la necesidad de contar con la matriz de afinidad “W” que es una matriz de mxm siendo “m” la cantidad de datos. Esto puede llegar a ser un número imposible de manejar. Es necesario entonces realizar una aproximación que nos permita usar clustering espectral sin la necesidad de calcular W de forma completa. La aproximación que veremos se llama “Kasp” \cite{YanHuangJordan} y está basada en K-Means.
 
 El procedimiento es muy simple:
 
@@ -14053,7 +14069,7 @@ Clustering Espectral puede aplicarse de forma directa a la detección de comunid
 
 \section{CURE}
 
-CURE [Guha-Rastogi-Shim] (Cluserint Using Representatives) es un algoritmo de clustering para grandes cantidades de datos, que es robusto a datos anómalos y permite clusters de forma arbitraria. CURE combina clustering jerárquico y K-Means de forma eficiente.
+CURE \cite{GuhaRastogiShim} (Cluserint Using Representatives) es un algoritmo de clustering para grandes cantidades de datos, que es robusto a datos anómalos y permite clusters de forma arbitraria. CURE combina clustering jerárquico y K-Means de forma eficiente.
 
 El primer paso es elegir un subconjunto de puntos al azar y agruparlos en $k$ clusters usando clustering jerárquico. Es necesario conocer la cantidad de clusters que queremos $k$ igual que en K-Means. Estos puntos no pueden ser muchos ya que, como sabemos, sería ineficiente realizar el proceso de clustering jerárquico. 
 
@@ -14124,7 +14140,7 @@ En cuanto a performance tenemos el problema de po cada punto encontrar los punto
 
 \section{HDBScan}
 
-HDBScan [Campello-Moulavi-Sander] es un algoritmo de clustering basado en DBScan que soluciona el problema de las densidades diferentes en los clusters. El problema es que si se usa una distancia muy pequeña $e$ los clusters con densidades de puntos bajas quedan sin identificar es decir como un enorme conjunto de outliers mientras que si usamos una densidad grande suficiente para encontrar los clusters menos densos empiezan a mergearse entre sí. 
+HDBScan \cite{CampelloMoulaviSander} es un algoritmo de clustering basado en DBScan que soluciona el problema de las densidades diferentes en los clusters. El problema es que si se usa una distancia muy pequeña $e$ los clusters con densidades de puntos bajas quedan sin identificar es decir como un enorme conjunto de outliers mientras que si usamos una densidad grande suficiente para encontrar los clusters menos densos empiezan a mergearse entre sí. 
 
 Vamos a usar a lo largo de esta sección el siguiente conjunto de puntos:
 
@@ -14150,7 +14166,7 @@ Vamos a asociar a cada punto con la distancia de su vecindario que es la distanc
 
 A esta distancia la vamos a llamar el $\textit{core}_k$ del punto. Cada punto tiene asociada una cierta distancia correspondiente a $\text{core}_k(x_i)$ que, recordemos, es la distancia máxima entre el punto y sus $k$ vecinos mas cercanos. 
 
-La distancia MRD [Eldridge-Belkin] se define de la siguiente forma:
+La distancia MRD \cite{Eldridge} se define de la siguiente forma:
 
 \begin{myequation}
 \text{MRD}(a,b) = \max\{\text{core}_k(a),\text{core}_k(b),d(a,b)\}
@@ -14254,7 +14270,7 @@ Vamos a ver dos algoritmos para bi-clustering, uno basado en clustering espectra
 
 \subsection{Co-clustering Espectral}
 
-El algoritmo de co-clustering espectral [Dhillon] se basa en el principio de aplicar clustering espectral al Laplaciano del grafo bipartito entre las filas y las columnas de una matriz. Afortunadamente el grafo que sería de $(m+n)x(m+n)$ no es necesario ya que puede derivarse de la matriz de datos que llamaremos $A$, en nuestro ejemplo esta es simplemente la matriz de términos x documentos. Por ejemplo:
+El algoritmo de co-clustering espectral \cite{Dhillon} se basa en el principio de aplicar clustering espectral al Laplaciano del grafo bipartito entre las filas y las columnas de una matriz. Afortunadamente el grafo que sería de $(m+n)x(m+n)$ no es necesario ya que puede derivarse de la matriz de datos que llamaremos $A$, en nuestro ejemplo esta es simplemente la matriz de términos x documentos. Por ejemplo:
 
 $$A=\begin{pmatrix}
 5&1&4&0\\
@@ -14412,7 +14428,7 @@ $C = SphericalKmeans(Z)$
 \caption{LSI Co-Clustering}
 \end{algorithm}
 
-Ambos algoritmos dan resultados similares [Park-Leckie] y son los algoritmos mas usados para aplicar bi-clustering a una matriz de términos por documentos. Los resultados obtenidos son muy interesantes ya que permiten analizar los clusters en base a los términos que fueron clusterizados junto con los documentos. Por ejemplo luego de aplicar Spectral Co-Clustering a una serie de textos de newsgroups los resultados fueron los siguientes:
+Ambos algoritmos dan resultados similares \cite{ParkLeckie} y son los algoritmos mas usados para aplicar bi-clustering a una matriz de términos por documentos. Los resultados obtenidos son muy interesantes ya que permiten analizar los clusters en base a los términos que fueron clusterizados junto con los documentos. Por ejemplo luego de aplicar Spectral Co-Clustering a una serie de textos de newsgroups los resultados fueron los siguientes:
 
 \begin{verbatim}
 Best biclusters:
@@ -15287,7 +15303,7 @@ utilidad: RBMs o SVD++
 
 \subsection{SVD++}
 
-El algoritmo SVD++ [Koren] fue presentado informalmente durante la competencia del premio Netflix por un millón de dólares. Este algoritmo representó un importante salto en la mejora de los sistemas de recomendaciones, hoy en día se usa extensamente. Está basado en el simple concepto de factorizar la matriz de utilidad para descubrir los modelos latentes. 
+El algoritmo SVD++ \cite{Koren} fue presentado informalmente durante la competencia del premio Netflix por un millón de dólares. Este algoritmo representó un importante salto en la mejora de los sistemas de recomendaciones, hoy en día se usa extensamente. Está basado en el simple concepto de factorizar la matriz de utilidad para descubrir los modelos latentes. 
 
 El principio aquí es muy simple: descomponer la matriz de utilidad en el producto de dos
 matrices: Q y P. En donde Q tendrá tantas filas como ítems y tantas columnas como factores
@@ -15450,7 +15466,7 @@ r_{xi} = \mu + b_x(t) + b_i(t) + q_i +p_x
 
 \section{Factorization Machines}
 
-El algoritmo FM [Rendle] es uno de los que mejores resultados suele dar en competencias en las cuales hay que construir un sistema de recomendaciones, este algoritmo puede usarse tanto para recomendaciones como para clasificación o regresión y se basa en encontrar los factores latentes asociados a cada variable del sistema. 
+El algoritmo FM \cite{Rendle} es uno de los que mejores resultados suele dar en competencias en las cuales hay que construir un sistema de recomendaciones, este algoritmo puede usarse tanto para recomendaciones como para clasificación o regresión y se basa en encontrar los factores latentes asociados a cada variable del sistema. 
 
 Para empezar la presentación del algoritmo supongamos que tenemos calificaciones de usuarios en triplas del estilo \{userid,movieid,rating\}. Podríamos pensar en usar una simple regresión lineal para estimar la calificación de un usuario a una película de la forma:
 
@@ -15850,7 +15866,7 @@ Para calcular el momento de orden 0 de un stream veremos el algoritmo de Flajole
 
 \subsection{Flajolet-Martin}
 
-El algoritmo de [Flajolet-Martin] es sumamente simple y sorprendente, implica solamente el uso de una función de hashing y un contador en memoria. 
+El algoritmo de Flajolet-Martin\cite{FlajoletMartin} es sumamente simple y sorprendente, implica solamente el uso de una función de hashing y un contador en memoria. 
 Por cada dato que observamos en nuestro stream aplicamos la función de hashing y contamos la cantidad de 0s consecutivos en la misma a partir del bit 0. En memoria llevaremos un contador $r$ con la cantidad máxima de ceros que hemos observado al comienzo de cualquier resultado de la función de hashing.
 
 El momento de orden 0 del stream se estima como:
@@ -15896,7 +15912,7 @@ Si usamos 2 grupos de 3 estimadores cada uno entonces en el primer grupo tenemos
 
 \subsection{HyperLogLog}
 
-HyperLogLog (HLL) [Flajolet]  es una versión mejorada de los mismos autores y que es la que hoy en día mas se usa para estimar la cantidad de elementos distintos en un stream. HLL usa una única función de hashing, por ejemplo Jenkins y sobre la misma construye varios estimadores, calculando el resultado final como el promedio armónico de los estimadores. Eso es todo!
+HyperLogLog (HLL) \cite{Flajolet} es una versión mejorada de los mismos autores y que es la que hoy en día mas se usa para estimar la cantidad de elementos distintos en un stream. HLL usa una única función de hashing, por ejemplo Jenkins y sobre la misma construye varios estimadores, calculando el resultado final como el promedio armónico de los estimadores. Eso es todo!
 
 La función de hashing nos genera un número de 64 bits, los primeros $k$ bits los vamos a usar para el número de estimador. Por ejemplo si queremos 32 estimadores usamos los primeros 5 bits para calcular el número de estimador. De los restantes bits contamos como siempre la cantidad de ceros al comienzo de los mismos y actualizamos el estimador si esta cantidad es mayor a la anterior.
 
@@ -15908,7 +15924,7 @@ Por ejemplo si tenemos los siguientes estimadores: 3,5,2,2,3 el promedio es $(8+
 
 \section{AMS}
 
-El algoritmo AMS[Alon-Matias-Szegedy] sirve para estimar el momento de orden 2 de un stream, es decir su número sorpresa. Este algoritmo mantiene en memoria $k$ estimadores, cada estimador registra un elemento del stream y la cantidad de veces que apareció el mismo. Por cada elemento del stream si el mismo está entre los estimadores simplemente aumentamos el contador en 1, si el elemento no está entre los estimadores entonces ingresa a memoria con probabilidad $k/n$ igual que en reservoir sampling si el estimador ingresa a la memoria reemplaza a otro estimador elegido al azar. 
+El algoritmo AMS\cite{Alon} sirve para estimar el momento de orden 2 de un stream, es decir su número sorpresa. Este algoritmo mantiene en memoria $k$ estimadores, cada estimador registra un elemento del stream y la cantidad de veces que apareció el mismo. Por cada elemento del stream si el mismo está entre los estimadores simplemente aumentamos el contador en 1, si el elemento no está entre los estimadores entonces ingresa a memoria con probabilidad $k/n$ igual que en reservoir sampling si el estimador ingresa a la memoria reemplaza a otro estimador elegido al azar. 
 
 Cada estimador estima el modelo de orden 2 del stream mediante:
 
@@ -15958,7 +15974,7 @@ producto en las últimas 100.000 ventas o cuántas veces se usó un cierto térm
 
 Para comprender que el algoritmo no es trivial debemos entender que $m$ puede ser un número muy grande y necesitamos poder calcular la cantidad de unos en cualquier ventana de tamaño $k$ con $k \leq m$. Contar cuantos unos tenemos por cada consulta no es entonces una opción viable. 
 
-El algoritmo que usaremos fue desarrollado por Datar, Gionis, Indyk y Motwani [Datar-Gionis-Indyk-Motwani]. A partir de ahora
+El algoritmo que usaremos fue desarrollado por Datar, Gionis, Indyk y Motwani \cite{DatarGionisIndykMotwani}. A partir de ahora
 lo llamaremos DGIM. Es un algoritmo cuyo funcionamiento es realmente muy extraño y de todos
 los que presentaremos en el capítulo es el mas complejo de entender sin embargo una vez entendido
 es un algoritmo bastante simple. Podríamos decir que es algo así como andar en bicicleta, aprender
@@ -16224,7 +16240,7 @@ m = 9585 millones de bits
 y k = 2.88 es decir 3 funciones de hashing
 
 Algo interesante sobre los filtros de Bloom es que puede usarse el filtro para estimar la cantidad de
-elementos que han sido insertados en el mismo [Swamidass-Baldi]
+elementos que han sido insertados en el mismo\cite{SwamidassBaldi}. 
 
 \begin{myequation}
 n \approx - \frac{m \ln(1-x/m)}{k}
@@ -16253,7 +16269,7 @@ La desventaja, evidente, es la mayor cantidad de espacio necesaria.
 
 \section{Cuckoo Filters}
 
-Una variante muy interesante a los filtros de Bloom son los \textit{Cuckoo Filters} [Andersen] que implementan una estrcutura del estilo de los filtros de Bloom, para responder si un objeto es miembro de un conjunto, usando Cuckoo hashing como estructura principal.
+Una variante muy interesante a los filtros de Bloom son los \textit{Cuckoo Filters} \cite{Andersen} que implementan una estrcutura del estilo de los filtros de Bloom, para responder si un objeto es miembro de un conjunto, usando Cuckoo hashing como estructura principal.
 
 Las diferencias entre los filtros Cuckoo y los filtros de Bloom son las siguientes:
 
@@ -16318,7 +16334,7 @@ En general $b=4$ y $f=6$ y $m$ depende de la cantidad de claves que se quieran i
 
 \section{Count-Min}
 
-El algortimo \textit{Count-Min Sketch} [Muthukrishnan-Cormode] es uno de los algoritmos de streaming mas importantes porque permite para cualquier dato de un stream estimar cuántas veces ocurrió el mismo hasta el momento. Esto permite responder todo tipo de problemas siendo uno de los mas frecuentes el denominado \textit{Heavy Hitters Problem} por lo que empezamos esta sección con un análisis teórico de este problema.
+El algortimo \textit{Count-Min Sketch} \cite{Muthukrishnan-Cormode} es uno de los algoritmos de streaming mas importantes porque permite para cualquier dato de un stream estimar cuántas veces ocurrió el mismo hasta el momento. Esto permite responder todo tipo de problemas siendo uno de los mas frecuentes el denominado \textit{Heavy Hitters Problem} por lo que empezamos esta sección con un análisis teórico de este problema.
 
 \subsection{The Heavy Hitters Problem}
 
@@ -16395,7 +16411,7 @@ Intuitivamente podemos darnos cuenta que Count-Min nunca va a estimar un número
 
 Una característica común en muchos streams es que contienen claves \textit{transistorias}, éstas son claves que están activas durante un período de tiempo corto del stream. Por ejemplo en un stream de ventas de productos un producto que se vende durante sólo unos días es una clave transistoria. Un buen ejemplo de esto son los productos navideños. 
 
-El problema es que las claves transistorias al colisionar con las claves que podríamos llamar \textit{permanentes} contribuyen a la saturación de Count-Min es decir a que la estimación tenga mayor probabilidad de ser una sobre-estimación de la frecuencia real de algunos ítems. El algoritmo de Bit-Marking [Dimitropoulos] nos puede ayudar a mitigar el problema.
+El problema es que las claves transistorias al colisionar con las claves que podríamos llamar \textit{permanentes} contribuyen a la saturación de Count-Min es decir a que la estimación tenga mayor probabilidad de ser una sobre-estimación de la frecuencia real de algunos ítems. El algoritmo de Bit-Marking \cite{Dimitropoulos} nos puede ayudar a mitigar el problema.
 
 Procesamos el stream en ventanas de tamaño $w$. Y vamos a usar como estructura adicional de igual dimensión que la estructura de count-min pero con un bit en lugar de un número por cada celda.
 
@@ -16545,7 +16561,7 @@ Desde su publicación en 2004 este algoritmo se ha usado en una gran cantidad de
 
 \epigraph{It's quite complicated and sounds circular, but we've worked out a way of calculate a Web site's importance}{- Larry Page}
 
-PageRank [Page-Brin] es uno de los algoritmos mas importantes en la historia de la computación, es el algoritmo que dio origen a Google y permitió que los Search Engines le ganen la pulseada a los spammers en una batalla que continua hasta el día de hoy. PageRank está basado en principios matemáticos muy simples y elegantes. Es un algoritmo que tiene muchísimas variantes y algoritmos derivados, en este capítulo vamos a estudiar el fascinante mundo de PageRank y muchos de sus derivados .
+PageRank \cite{PageBrin} es uno de los algoritmos mas importantes en la historia de la computación, es el algoritmo que dio origen a Google y permitió que los Search Engines le ganen la pulseada a los spammers en una batalla que continua hasta el día de hoy. PageRank está basado en principios matemáticos muy simples y elegantes. Es un algoritmo que tiene muchísimas variantes y algoritmos derivados, en este capítulo vamos a estudiar el fascinante mundo de PageRank y muchos de sus derivados .
 
 En un principio los motores dedicados a buscar páginas web trabajaban analizando pura y
 exclusivamente el contenido de estas páginas. De acuerdo a la consulta del usuario se asignaba un
@@ -17012,7 +17028,7 @@ Este método se puede usar en Redes Sociales para recomendar amigos o usuarios a
 
 \subsection{Panther}
 
-Existe un algoritmo muy similar a la versión MonteCarlo de SimRank que tiene propiedades muy diferentes denominado Panther [Zhang]. En este algoritmo creamos Random Walks al azar pero a partir de cualquier nodo, no solo a partir del nodo que nos interesa. La semejanza entre dos nodos se define luego simplemente como el porcentaje de caminos en los cuáles los nodos aparecen juntos.
+Existe un algoritmo muy similar a la versión MonteCarlo de SimRank que tiene propiedades muy diferentes denominado Panther \cite{Zhang}. En este algoritmo creamos Random Walks al azar pero a partir de cualquier nodo, no solo a partir del nodo que nos interesa. La semejanza entre dos nodos se define luego simplemente como el porcentaje de caminos en los cuáles los nodos aparecen juntos.
 
 Por ejemplo si tenemos los siguientes caminos:
 
@@ -17084,7 +17100,7 @@ Si en lugar de frases extraemos palabras de un texto, tenemos un algoritmo para 
 
 \section{HITS}
 
-HITS [Kleinberg] es un algoritmo para calcular la importancia de los nodos de un grafo, fue publicado casi al mismo tiempo que PageRank y tiene resultados muy similares sin embargo, como es evidente, tuvo un destino muy diferente al de PageRank.
+HITS \cite{Kleinberg} es un algoritmo para calcular la importancia de los nodos de un grafo, fue publicado casi al mismo tiempo que PageRank y tiene resultados muy similares sin embargo, como es evidente, tuvo un destino muy diferente al de PageRank.
 
 La idea de HITS es calcular dos puntajes para cada página. Un puntaje como "Hub" y un puntaje como "Authority". Un Hub es una página que linkea a buenas páginas, por ejemplo un índice de Wikipedia. Una "Autoridad" es una página que es linkeada por buenos Hubs, en este sentido el puntaje de "Authority" es similar al PageRank.
 
@@ -17119,7 +17135,7 @@ En el paso dos procedemos en sentido inverso, ahora vamos a calcular el valor co
 
 Luego repetimos el proceso, calculamos el nuevo puntaje como "Authority" de cada página sumando los puntajes como Hubs de los links (entrantes). Vemos como ahora el New York Times tiene score 31 que surge de los puntajes como Hub de las 4  páginas que lo apuntanL 8,11, 7 y 5. 
 
-\begin{theorem}[Kleinberg]
+\begin{theorem}\cite{Kleinberg}
 HITS normalizando en cada paso converge a un único valor tanto de Hub como de Authority.
 \end{theorem}
 
@@ -17245,7 +17261,7 @@ La distribución del grado estudia de que forma se distribuye el grado de los no
 
 \section{Propiedades del Grafo de una Red Social}
 
-Hemos visto varias propiedades de una grafo y hemos comentado que tipo de valores podemos esperar en una Red Social. En este capítulo vamos a analizar el valor de estas propiedades para Facebook en base al trabajo de [Ugander]. El objetivo de esta sección es tomar idea de que tipo de valores toman las diferentes propiedades que hemos visto en una Red Social, mas adelante vamos a ver de que forma podemos interpretar estos valores mediante el uso de modelos de grafos.
+Hemos visto varias propiedades de una grafo y hemos comentado que tipo de valores podemos esperar en una Red Social. En este capítulo vamos a analizar el valor de estas propiedades para Facebook en base al trabajo de \cite{Ugander}. El objetivo de esta sección es tomar idea de que tipo de valores toman las diferentes propiedades que hemos visto en una Red Social, mas adelante vamos a ver de que forma podemos interpretar estos valores mediante el uso de modelos de grafos.
 
 \subsection{Componente Conexo}
 
@@ -17422,7 +17438,7 @@ La existencia de una cantidad inusualmente alta de triángulos automáticamente 
 
 \end{figure}
 
-El método trivial consiste en tomar cada nodo y por cada nodo tomar su vecinos y verificar si para cada par de vecinos existe un link entre ellos. Este método nos daría en nuestro ejemplo el total de 7 triángulos: 1-6-7,1-7-9,2-3-5,2-3-4,2-4-5,3-4-5,6-7-8. El problema del método es que es ineficiente y es inviable en grafos grandes. Por eso vamos a intentar un método aproximado que es mucho mas eficiente [Charalampos].
+El método trivial consiste en tomar cada nodo y por cada nodo tomar su vecinos y verificar si para cada par de vecinos existe un link entre ellos. Este método nos daría en nuestro ejemplo el total de 7 triángulos: 1-6-7,1-7-9,2-3-5,2-3-4,2-4-5,3-4-5,6-7-8. El problema del método es que es ineficiente y es inviable en grafos grandes. Por eso vamos a intentar un método aproximado que es mucho mas eficiente \cite{Charalampos}.
 
 Observemos la matriz de adyacencias de nuestro grafo:
 
@@ -17539,7 +17555,7 @@ Es interesante analizar la relación entre el grado de un nodo y la cantidad de 
 
 \subsection{EE Eigenplots}
 
-Se puede realizar un análisis del espectro de la matriz de adyacencias de una Red Social ploteando los autovectores de la matriz de adyacencias entre sí. [Kang-Meeder-Faloutsos]. Esto permite encontrar todo tipo de estructuras como flares, cliques y otras.
+Se puede realizar un análisis del espectro de la matriz de adyacencias de una Red Social ploteando los autovectores de la matriz de adyacencias entre sí\cite{KangMeederFaloutsos}. Esto permite encontrar todo tipo de estructuras como flares, cliques y otras.
 
 \begin{figure}[!htb]
 \centering
@@ -17734,7 +17750,7 @@ La conclusión es que una Red Social es un conjunto de comunidades unidas entre 
 
 \subsection{Modularidad}
 
-La función de modularidad [Clauset-Newman-Moore] permite evaluar que tan modular es una red separada en un cierto conjunto de comunidades. La función supone la existencia de una función $\delta(v_1,v_2)$ que vale 1 si los vértices $v_1$ y $v_2$ están en la misma comunidad y cero en caso contrario. La definición de modularidad es la siguiente:
+La función de modularidad \cite{ClausetNewmanMoore} permite evaluar que tan modular es una red separada en un cierto conjunto de comunidades. La función supone la existencia de una función $\delta(v_1,v_2)$ que vale 1 si los vértices $v_1$ y $v_2$ están en la misma comunidad y cero en caso contrario. La definición de modularidad es la siguiente:
 
 \begin{myequation}
 Q = \frac{1}{2m} \sum_{vw} [A_{vw} - \frac{K_v K_w}{wm}] \delta(c_v,c_w)
@@ -17750,11 +17766,11 @@ Donde $A_{vw}$ es la matriz de adyacencias. $K_v$ y $K_w$ son el grado de los v�
 \end{figure}
 
 
-La función de modularidad tiene una forma bastante particular [Good-Montjoye-Clauset] que es propicia a ser optimizada por un algoritmo del estilo Hill-Climbing, sin embargo las variantes por Hill Climbing pueden ser ineficientes, existe una variante greedy para optimizar la modularidad que es la que actualmente se usa.
+La función de modularidad tiene una forma bastante particular \cite{GoodMontjoyeClauset} que es propicia a ser optimizada por un algoritmo del estilo Hill-Climbing, sin embargo las variantes por Hill Climbing pueden ser ineficientes, existe una variante greedy para optimizar la modularidad que es la que actualmente se usa.
 
 \subsubsection{Algoritmo de Louvain}
 
-El algoritmo de Louvain [Louvain] es muy simple: inicialmente cada nodo pertenece a su propia comunidad, es decir que hay tantas comunidades como nodos y la función $delta(x,y)$ vale 0 para todos los pares de nodos. La modularidad inicial es entonces $1/2m$. Luego por cada nodo de la red buscamos asignarlo a la comunidad vecina que maximice la modularidad. Una vez que hemos recorrido todos los nodos asignando a cada uno a la comunidad que corresponde vamos a considerar a cada comunidad como si fuera un nodo y repetimos el proceso. Cuando consideramos a cada comunidad un nuevo nodo los links entre nodos dentro de esta comunidad se consideran links del nodo a si mismo.
+El algoritmo de Louvain \cite{Louvain} es muy simple: inicialmente cada nodo pertenece a su propia comunidad, es decir que hay tantas comunidades como nodos y la función $delta(x,y)$ vale 0 para todos los pares de nodos. La modularidad inicial es entonces $1/2m$. Luego por cada nodo de la red buscamos asignarlo a la comunidad vecina que maximice la modularidad. Una vez que hemos recorrido todos los nodos asignando a cada uno a la comunidad que corresponde vamos a considerar a cada comunidad como si fuera un nodo y repetimos el proceso. Cuando consideramos a cada comunidad un nuevo nodo los links entre nodos dentro de esta comunidad se consideran links del nodo a si mismo.
 
 \begin{figure}[!htb]
 \centering
@@ -17786,7 +17802,7 @@ El algoritmo de Clustering Espectral puede aplicarse directamente sobre la matri
 
 \subsection{Infomap}
 
-Infomap [Rosvall-Bergstrom] es un algoritmo para detectar comunidades en redes sociales basado en los principios de la compresión de datos y la teoría de la información.
+Infomap \cite{RosvallBergstrom} es un algoritmo para detectar comunidades en redes sociales basado en los principios de la compresión de datos y la teoría de la información.
 
 Dada una red dirigida o no dirigida podemos generar un random-walk de longitud arbitraria, que suponemos es infinito, si la red es dirigida agregamos teletransportación con $\beta=0.85$ para evitar quedar atrapados sin salida en algún ciclo de la red. En este random walk podemos contar la frecuencia con la que visitamos cada nodo y por lo tanto la probabilidad de visitar el mismo, con esta probabilidad podríamos calcular la longitud en bits de cada nodo en base a la fórmula que conocemos basada en la entropía: $L_i=-log_2(P_i)$. Esto nos daría una forma de comprimir un random-walk en una red en donde no hay clusters. 
 
@@ -17910,7 +17926,7 @@ La diferencia fundamental entre el algoritmo de Louvain (modularidad) e Infomap 
 
 Estudiaremos el caso en el cual un nodo puede pertenecer a mas de una comunidad, es decir que existe solapamiento entre las comunidades de la Red. Este caso es el mas realista en Redes Sociales ya que es frecuente que un usuario pertenezca, al mismo tiempo, a varias comunidades. Por ejemplo a sus familiares, amigos, compañeros de trabajo, compañeros de hobby, etc.
 
-El algoritmo que estudiaremos llamado BigClam [Leskovec] es eficiente para encontrar comunidades con solapamiento en Redes grandes. 
+El algoritmo que estudiaremos llamado BigClam \cite{Leskovec} es eficiente para encontrar comunidades con solapamiento en Redes grandes. 
 
 Vamos a necesitar el número de comunidades que queremos encontrar $k$ como parámetro. Cadad comunidad tendráa asociada una probabilidad $P_k$ de que un nodo pertenezca a ella. La probabilidad de que dos nodos estén unidos está dada entonces por la probabilidad de que exista un link en alguna de las comunidades que ambos integran. 
 
@@ -18471,7 +18487,7 @@ Podemos ver que diferentes redes nos van a dar diferentes matrices generadoras. 
 
 \chapter{Análisis Topológico de Datos}
 
-\epigraph{Data has shape and shape has meaning}{- Gunnar Carlson}
+\epigraph{Data has shape and shape has meaning}{- Gunnar }
 
 El análisis topológico de datos es una ciencia nueva que aplica los conceptos de topología algebraica al análisis de datos. La topología es una rama del Álgebra que se dedica a estudiar la forma de los objetos de forma independiente de sus características geométricas, como por ejemplo sus coordenadas. Un ejemplo muy usado es el que compara una taza de café con una dona o rosquilla:
 
@@ -18651,7 +18667,7 @@ La figura ~\ref{fig:barcodescom} nos muestra un set de datos complejo y los barc
 
 \subsection{Otros puntos de Análisis}
 
-El estudio de los barcodes de diferentes sets de datos nos da una idea de la topología del set de datos y nos permite comparar sets de datos entre sí, sabemos que sets de datos que tienen igual topología desde el punto de vista topológico en realidad son la misma cosa (!) [Carlson].
+El estudio de los barcodes de diferentes sets de datos nos da una idea de la topología del set de datos y nos permite comparar sets de datos entre sí, sabemos que sets de datos que tienen igual topología desde el punto de vista topológico en realidad son la misma cosa (!)\cite{Carlson}.
 
 Veamos por ejemplo la cantidad de componentes conexos ($\beta_0$) para MNIST en contraste con un set de datos al azar. Notar que ploteamos el valor de $\beta_0$ y esto no no es un barcode.
 
@@ -18667,7 +18683,7 @@ El plot nos muestra que MNIST no se comporta como un set de datos aleatorio, es 
 
 \section{Algoritmo Mapper}
 
-Mapper [Singh-Memoli-Carlson] es un algoritmo para el análisis topológico de los datos, se basa en la creación de un grafo, similar a los que hemos visto pero con características diferentes. El algoritmo cuenta con varios pasos el primer paso es aplicar un filtro a los datos de forma tal que cada dato quede representado por un número real. Se puede usar cualquier tipo de filtro siempre y cuando cada dato quede representado por un número. A estos filtros se los llama “lentes” ya que, haciendo una analogía, equivalen a cambiar de lente en una cámara para ver las cosas de formas diferentes.
+Mapper \cite{SinghMemoliCarlson} es un algoritmo para el análisis topológico de los datos, se basa en la creación de un grafo, similar a los que hemos visto pero con características diferentes. El algoritmo cuenta con varios pasos el primer paso es aplicar un filtro a los datos de forma tal que cada dato quede representado por un número real. Se puede usar cualquier tipo de filtro siempre y cuando cada dato quede representado por un número. A estos filtros se los llama “lentes” ya que, haciendo una analogía, equivalen a cambiar de lente en una cámara para ver las cosas de formas diferentes.
 
 \subsection{Lentes Topológicos Comunes}
 
@@ -19615,6 +19631,183 @@ En el WHERE escribimos entonces cuales son las condiciones que tienen que cumpli
 
 O al menos esa es la teoría....
 
+\chapter{Apéndice A: Un caso de estudio de Machine Learning}
+
+En este apéndice describimos un caso de estudio que puede servir como modelo para entender los pasos a seguir al llevar a cabo un proyecto de Machine Learning. 
+
+Es necesario aclarar que cada problema de Machine Learning es único y que si bien hay ciertos pasos o etapas que pueden ser comunes a distintos proyectos el nivel de customización es, en general, muy alto por lo que no existen recetas mágicas que puedan aplicarse a cualquier problema.
+
+\section{The Shoppers Problem}
+
+El enunciado del problema que queremos resolver es el siguiente:
+
+\textit{Una cadena de supermercados nos ha contratado con el ambicioso objetivo de predecir la cantidad de unidades a vender para el próximo mes para diferentes productos seleccionados en cada una de sus sucursales. Esto permitirá a la empresa organizar mejor su stock así como también la pauta publicitaria a realilzar y planificar posibles ofertas o promociones. La empresa nos brinda información sobre las ventas realizadas en meses pasados y nos plantea el desafío de lograr un modelo predictivo.}
+
+\section{Los Datos}
+
+En primer lugar analizamos los dato scon los cuales contamos, tenemos 5 archivos en total: items, item\_categories, shops, sales, test. Cada uno de estos archivos se distribuye como un .csv. 
+
+\subsection{items}
+
+El archivo de items tiene tres columnas: item\_name, item\_id e item\_category\_id. Identificando respectivamente el nombre del producto, el código del mismo y el código de categoría al cual pertenece el producto. Cada producto puede pertenecer unicamente a una categoría.
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|r|r|} \hline
+item\_name&item\_id&item\_category\_id\\ \hline 
+TV LED Samsung 44&9087&75\\ 
+...&...&...\\ \hline
+\end{tabular} 
+}
+\caption{items.csv}
+\end{table}
+
+\subsection{item\_categories}
+
+El archivo item\_categories.csv contiene información sobre las categorías de productos. Este archivo tiene solo dos columnas: item\_category\_name e item\_category\_id, indicando el nombre y el id de la categoría.
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|r|} \hline
+item\_category\_name&item\_category\_id \\ \hline
+Televisores LED&75\\
+...&...\\ \hline
+\end{tabular} 
+}
+\caption{item\_categories.csv}
+\end{table}
+
+\subsection{shops}
+
+El archivo shops.csv contiene información sobre las sucursales, indicando el nombre de la sucursal (shop\_name) y el id de la misma (shop\_id).
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|r|} \hline
+shop\_name&shop\_id \\ \hline
+Sucursal Barracas&17\\
+...&...\\ \hline
+\end{tabular} 
+}
+\caption{shops.csv}
+\end{table}
+
+\subsection{sales}
+
+El archivo sales.csv contiene la información histórica de ventas, este archivo tiene 5 columnas: date, shop\_id, item\_id, item\_price, item\_cnt\_day indicando respectivamente la fecha, el id de la sucursal, el id del item, el precio del item para ese día en esa sucursal y la cantidad vendida en el día. Podemos observar que el archivo contiene totales por día por cada sucursal e item.
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|r|r|r|r|} \hline
+date&shop\_id&item\_id&item\_price&item\_cnt\_day \\ \hline
+2017-02-01&21&17&1280.0&2 \\
+...&...&...&...&...\\ \hline
+\end{tabular} 
+}
+\caption{sales.csv}
+\end{table}
+
+\subsection{test}
+
+Finalmente el archivo test es el que nos indica el objetivo del problema, es decir aquello que queremos predecir y contiene tres columnas: id, shop\_id e item\_id. El primer id es un identificador correlativo, luego tenemos el id de la sucursa y el id del producto. El objetivo es predecir cuántas unidades van a venderse el próximo mes para los productos y sucursales listados en este archivo.
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|r|r|r|} \hline
+id&shop\_id&item\_id \\ \hline
+1&12&23 \\ 
+...&...&...\\ \hline
+\end{tabular} 
+}
+\caption{test.csv}
+\end{table}
+
+\section{Análisis Exploratorio}
+
+La fase de exploración es fundamental para comprender el problema que estamos enfrentando y entender la información con la que contamos para resolver el problema. Como en todos los casos podemos ir explorando a medida que nos hacemos preguntas sobre los datos. A continuación listamos algunas de las preguntas que podemos hacernos y que nos ayudarán a entender el problema, las dimensiones del mismo y la calidad de los datos.
+
+\begin{enumerate}
+\item{Cuántas sucursales tenemos en total}
+\item{Cuántos productos (items) tenemos en total}
+\item{Cuántos items en promedio vende cada sucursal}
+\item{Se venden todos los items cada mes o se evidencia que hay items nuevos y otros que se dejan de vender}
+\item{Como varían los precios de los items}
+\item{Hay sucursales que venden mucho mas que otras}
+\item{Hay items que se venden mas que otros}
+\item{Cómo varía la cantidad de ventas a lo largo del tiempo, existe estacionalidad}
+\item{Hay precios o cantidades anomalas que debamos eliminar}
+\item{Cuántos meses tenemos como datos históricos}
+\item{Qué tan completa es la información que nos dieron}
+\end{enumerate}
+
+\section{Preparación del Dataset}
+
+Este paso es clave para que el proyecto sea exitoso, tenemos que pasar de los datos reales que nos han suministrado a datos que tengan un formato que nos sirva para desarrollar nuestro modelo de Machine Learning. En este problema este paso es particularmente importante porque nos encontramos con la dificultad de predecir una serie temporal.
+
+Como la información es una serie temporal y queremos predecir la cantidad vendida para una granularidad mensual es conveniente agregar una columna que nos indique con un número consecutivo en que bloque de fechas estamos siendo el bloque 1 el primer mes de nuestros datos históricos. Por ejemplo si nuestro dataset arranca en Noviembre de 2015 entonces 2015-11 es el bloque 01, diciembre es el 02, Enero de 2016 el el bloque 03, etc. Podemos ver cuántos bloques tenemos en total, siendo el objetivo predecir para el bloque n+1 que es el mes próximo. 
+
+Si tuviéramos mucha información es conveniente aquí podar el dataset, por ejemplo podemos decidir que no nos interesan datos históricos mas allá de dos años hacia atrás o incluso un año. La forma de decidir esto es construyendo un modelo que tenga en cuenta dos años de datos históricos y otro que tenga en cuenta solo un año y comparar la performance de ambos. 
+
+Agregar el bloque al archivo sales nos deja algo del estilo:
+
+\begin{table}[!hbt]
+\center{
+\begin{tabular}{|l|r|r|r|r|r|} \hline
+date&date\_block\_num&shop\_id&item\_id&item\_price&item\_cnt\_day \\ \hline
+2017-02-01&1&21&17&1280.0&2 \\
+...&...&...&...&...\\ \hline
+\end{tabular} 
+}
+\caption{sales.csv}
+\end{table}
+
+\subsection{La Matriz de Datos Históricos}
+
+El objetivo del problema es para un par shop\_id, item\_id predecir la cantidad de unidades que se venderán el mes próximo. Es decir que tenemos implícita en nuestro archivo de test una columna date\_block\_num que es igual al valor mayor de date\_block\_num + 1 de nuestros datos históricos. Para realizar la predicción vamos a construir un modelo de Machine Learning que tenga en cuenta los datos históricos y en base a ellos realice la predicción. 
+
+Un detalle sumamente importante es que nuestros datos históricos registran las ventas pero no registran las unidades que NO se vendieron. Es decir si un cierto producto no se ha vendido un cierto mes en una sucursal no tenemos un registro con item\_cnt\_day = 0, un paso importantísimo en este problema es entonces completar la matriz histórica de forma tal que tengamos todas las combinaciones de shop\_id, item\_id y date\_block\_num.
+
+Antes de hacer esto analizamos la viabilidad, tenemos 21807 items diferentes, 60 sucursales y 34 meses de datos por lo que tendremos en total $21807*60*34 = 44.486.280$ registros en nuestra matriz de datos históricos. 44 millones de registros es algo manejable aunque dado el volumen debemos manejar con cuidado la forma en que procesaremos los datos, algunas operaciones que son sencillas con miles de registros se vuelven problemáticas cuando el volumen es de decenas de millones.
+
+El resultado es un nuevo archivo "sales.csv" que tiene ahora todos los datos históricos completos incluyendo los ceros.
+
+\section{Feature Engineering}
+
+La etapa mas importante en todo proceso de machine learning es la creación de features que nos permitan desarrollar un modelo predictivo. En la gran mayoría de los problemas de machine learning la cantidad de features con la que contamos es simplemente mínima en comparación con los features que podemos crear a partir de los datos.
+
+Para este problema en particular antes de pensar en la creación de features tenemos que planificar cuál será nuestra estrategia para poder realizar las predicciones que se nos piden y de qué forma vamos a entrenar nuestro modelo.
+
+\subsection{Pensando en el modelo}
+
+Para pensar en nuestro modelo debemos recordar que el objetivo es dado un par shop\_id, item\_id poder predecir la cantidad de unidades a vender el mes próximo. Es decir que nuestro modelo va a tener que procesar una serie de features que dependen de la sucursal y el item y predecir la cantidad de unidades a vender el próximo mes. Para validar el modelo podemos usar los datos históricos. Recordando que tenemos 34 meses de datos históricos podemos usar 33 meses para armar features y el mes 34 para construir "labels" que nos permitan validar el modelo. Luego para el test construiremos los features con los 34 meses y en base a estos realizaremos la predicción.
+
+La construcción de features es un proceso creativo y la forma de validar si un feature sirve o no es probando el modelo con nuestro set de validación, algunos features pueden ser muy útiles, otros no tanto. A continuación listamos algunos features que podrían ser útiles para este problema en particular:
+
+\begin{enumerate}
+\item{precio promedio del item}
+\item{cantidad de unidades vendidas por mes promedio del item}
+\item{cantidad de unidades vendidas por mes para el item y la sucursal}
+\item{ranking de la sucursal en cuanto a cantidad de ventas mensuales}
+\item{ranking del item en cuanto a cantidad de ventas mensuales}
+\item{cantidad de unidades del item que vendió la sucursal el mes anterior, 2 meses atrás, 3 meses atrás, etc}
+\item{cantidad promedio de ventas del item para el mes a predecir en base a datos históricos}
+\item{cantidad promedio de ventas de la sucursal para el mes a predecir en base a datos históricos}
+\item{cantidad promedio de ventas de la sucursal para el item para el mes a predecir en base a datos históricos}
+\end{enumerate}
+
+Podemos crear cientos de features. 
+
+\subsection{Baselines}
+
+Un \textit{baseline} es una predicción básica contra la cual comparar un algoritmo predictivo. En nuestro problema podemos pensar en varios baselines, por ejemplo que la sucursal va a vender la misma cantidad de cada item que vendió el mes anterior. O que la sucursal va a vender de cada item la cantidad promedio que se vende de dicho item por mes históricamente. En general todos los modelos deben superar a estos baselines.
+
+\section{Construcción de un Modelo de Machine Learning}
+
+En primer lugar vamos a comentar la parte de validación y feature engineering. Para esta parte vamos a construir un set de entrenamiento en el cual construiremos features con los meses 1 a 33 y los labels serán la cantidad de unidades vendidas para la sucursal y el item en el mes 34. La métrica que usaremos para medir la performance de nuestro modelo sera RMSE (root-mean-squared-error). El valor de la métrica no es en sí importante pero si lo es para comparar dos modelos y saber cuál es mejor. 
+
+Por ejemplo podemos usar XGBoost como algoritmo, entrenaremos a XGboost con nuestro set de entrenamiento en base a los meses 1 a 33, podemos usarlo para tunear los diferentes parámetros de XGboost y también para probar features. Cuando llegamos al mejor modelo posible para los meses 1 a 33, entonces simplemente construimos los features para los meses 1 a 34, aplicamos el algoritmo y las predicciones serán las que realizaremos para el mes 35 que es el próximo y para el cual desconocemos los valores reales. De esta forma nuestro modelo de ML será útil para nuestro cliente.
+
+
 \chapter*{Bibliography}
 
 \begin{enumerate}
@@ -19972,6 +20165,10 @@ Li Zhou; Mu Li; David Andersen; Alexander Smola.
 \textbf{Cuckoo Linear Algebra.}
 
 \end{enumerate}
+
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{References}
 
 
 \end{document}
