@@ -8012,25 +8012,36 @@ Esta es una estructura bastante eficiente en el cual organizamos cada tabla de h
 
 \section{Introducción}
 
-En este capítulo desarrollaremos en mas detalle los algoritmos necesarios para manipular la dimensionalidad de los datos que habíamos introducido en el capítulo 1.  Los algoritmos para cambiar la dimensionalidad de los datos son fundamentales en Data Science, antes de ver cada uno de ellos repasemos cuáles son los motivos por los cuales puede ser necesario manipular la dimensionalidad de los datos.
+La reducción de dimensiones es una herramienta muy utilizada a la hora de utilizar algoritmos inteligentes para procesar datos de $n$ dimensiones. En general, a medida que se aumenta el tamaño del set de datos (ya sea porque se agregan features o porque se tienen más muestras) utilizado para entrenar un algoritmo, se requieren más recursos para poder procesarlos incluyendo memoria RAM, CPU y espacio en disco para almacenar el set.
+En determinadas ocasiones también puede ocurrir que se agregan más features a un set de datos que no aportan información y en consecuencia no tiene sentido utilizar dichos features para entrenar un algoritmo. Dicho esto, la reducción de dimensiones se encarga de buscar una representación más compacta de un set de datos no solo para optimizar el uso de recursos sino también para otros usos: visualización de datos, compresión de imágenes, feature engineering, etc. 
+La imagen \ref{fig:dim_example} muestra una sencilla forma de reducir dimensiones de puntos en el plano $(X,Y)$ a una sola dimensión $X$.
 
-\subsection{Para Combatir la Maldición de la Dimensionalidad}
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=2in]{figures/dim_example.jpg}
+	
+	\caption{Ejemplo de reducción de dimensiones}
+	\label{fig:dim_example}
+\end{figure}
 
-Este puede ser el motivo principal por el cual cambiar la dimensionalidad de los datos, algunos algoritmos funcionan mejor en pocas dimensiones y otros funcionan mejor en muchas dimensiones. Pero para todos los algoritmos si cambiamos levemente la dimensionalidad de los datos ya sea quitando o agregando dimensiones el rendimiento va a cambiar, estudiar si el rendimiento de un algoritmo mejora o empeora al agregar o quitar dimensiones es una tarea muy importante en todo proceso de Data Science. 
+\subsection*{Maldición de la dimensión}
 
-\subsection{Por motivos de performance}
+La dimensión de los datos (es decir, la cantidad de features que tiene un set) tiene un papel muy importante en el rendimiento de un algoritmo. En un caso sencillo, un algoritmo podría aprender sobre datos relacionados al clima teniendo en cuenta distintos factores: humedad, temperatura, velocidad del viento, etc. 
+En un caso simple, se podría utilizar un set de datos de una sola dimensión que sea la temperatura. Suponiendo que la temperatura fuera un número entero, se podría pensar que no existen muchos valores posibles para la temperatura. En consecuencia, el algoritmo solo debería aprender los posibles $n$ valores posibles para la temperatura. Si ahora se agregara una dimensión más (por ejemplo, la humedad) ahora el algoritmo tendría que aprender la información en un espacio definido por la humedad y temperatura que se vuelve mucho mayor. Suponiendo $m$ valores posibles de humedad, el algoritmo tendría que aprender sobre $n*m$ valores posibles. A medida que se aumentan los features, la dimensión va creciendo y se requiere un mayor muestreo para poder entrenar un algoritmo. Algo a destacar es que quitar o agregar features conlleva a que un algoritmo funcione mejor o peor y eso dependerá de qué algoritmo se utiliza y de los datos en sí.
 
-En muchos casos el algoritmo que queremos usar es inviable para nuestro set de datos por motivos de performance, cuando el factor crítico es la cantidad de dimensiones en las que se presentan los datos es conveniente reducir las dimensiones de los mismos para poder aplicar nuestro algoritmo. 
+\subsection*{Performance de un algoritmo}
 
-\subsection{Como un mecanismo de Feature Engineering}
+El hecho de tener cada vez mas features en un set de datos puede empeorar la performance de un algoritmo. El motivo es trivial. Por ejemplo, si se tiene un set de datos de 1000 puntos en una dimensión y se agrega un feature más entonces el tamaño del set se duplica y en consecuencia se requerirá más RAM y mas CPU para procesar dicha información.
+
+\subsection*{Feature engineering}
 
 Los algoritmos de reducción de dimensiones sirven muchas veces para reducir el ruido de un set de datos filtrando los features ruidosos y devolviendo un nuevo set de features con menor cantidad de ruido. En otros casos es posible reducir las dimensiones de nuestro set de datos a unas pocas columnas y luego agregar estas columnas al set de datos original, este aumento de dimensiones muchas veces agrega features en donde la señal es muy fuerte en relación al ruido y es frecuente que un algoritmo funcione mejor al agregar estos features con respecto a su funcionamiento con el set de datos original.
 
-\subsection{Para visualizar los datos}
+\subsection*{Visualización de datos}
 
-La visualización es uno de los aspectos mas importantes para poder entender un set de datos, el cerebro humano está especialmente preparado para entender datos en dos dimensiones y en menor medida en tres dimensiones. Visualizar datos en mas de tres dimensiones es difícil pero existen algunas técnicas de visualización que lo permiten. Por ejemplo en un plot de puntos que originalmente tiene dos dimensiones podemos usar el color de los puntos o el tamaño de los mismos para agregar dos dimensiones mas, esto es especialmente útil cuando las dimensiones tienen todas significados diferentes.
+La visualización es uno de los aspectos mas importantes para poder entender un set de datos. El cerebro humano está especialmente preparado para entender datos en dos dimensiones y en menor medida en tres dimensiones. Visualizar datos en mas de tres dimensiones es difícil pero existen algunas técnicas de visualización que lo permiten. Por ejemplo en un plot de puntos que originalmente tiene dos dimensiones podemos usar el color de los puntos o el tamaño de los mismos para agregar dos dimensiones mas, esto es especialmente útil cuando las dimensiones tienen todas significados diferentes.
 
-En general para poder visualizar los datos vamos a usar algoritmos de Manifold Learning que nos permitan representar los datos en dos dimensiones. 
+Los algoritmos para manipular la dimensionalidad de los datos pueden dividirse en dos grandes grupos: métodos lineales y métodos no-lineales. Los métodos lineales por excelencia son la SVD y PCA que en realidad son un mismo algoritmo. Los métodos no-lineales son mas variados y se denominan también algoritmos para \textit{Manifold Learning}. El Manifold Learning comprende distintos algoritmos que permiten visualizar datos. Algo interesante de estos algoritmos es que en determinadas ocasiones pueden representar muy bien datos no lineales en dos dimensiones.
 
 \begin{figure}[!htb]
 \centering
@@ -8040,106 +8051,125 @@ En general para poder visualizar los datos vamos a usar algoritmos de Manifold L
 \label{fig:mflearning}
 \end{figure}
 
-La figura ~\ref{fig:mflearning} nos muestra el resultado de aplicar 8 algoritmos de Manifold Learning diferentes a un mismo set de datos. El set de datos es una superficie con forma de "S" en un espacio tridimensional, podemos observar que se trata de un manifold de 2 dimensiones embebido en un espacio de tres dimensiones. Los puntos fueron coloreados de acuerdo a la zona de la "S" en la que están, un buen algoritmo de Manifold Learning debería mantener a los punto que están cerca en los datos originales como vecinos en su representación bidimensional. Como puede verse diferentes algoritmos logran esto con diferentes representaciones.
+La figura ~\ref{fig:mflearning} muestra el resultado de aplicar 8 algoritmos de Manifold Learning diferentes a un mismo set de datos. El set de datos es una superficie con forma de "S" en un espacio tridimensional y se puede observar que se trata de un manifold de 2 dimensiones embebido en un espacio de tres dimensiones. Los puntos fueron coloreados de acuerdo a la zona de la "S" en la que están. Un buen algoritmo de Manifold Learning debería mantener a los punto que están cerca en los datos originales como vecinos en su representación bidimensional. Como puede verse diferentes algoritmos logran esto con diferentes representaciones, como por ejemplo LTSA o Hessian LLE.
 
-Los algoritmos para manipular la dimensionalidad de los datos pueden dividirse en dos grandes grupos: Métodos lineales y métodos no-lineales. Los métodos lineales por excelencia son la SVD y PCA que en realidad son un mismo algoritmo. Los métodos no-lineales son mas variados y se denominan también algoritmos para "Manifold Learning".
+\subsection*{Compresión de imágenes}
+
+Las imágenes se pueden pensar como datos en un espacio de muchas dimensiones. En consecuencia, la dimensión de dicho espacio se puede reducir utilizando algún algoritmo tal como SVD o PCA. De esta forma, se pueden ahorrar los bytes ocupados por una imagen a costas de reducir su calidad dado que en cierta forma reducir dimensiones implica perder cierta información.
 
 \section{SVD}
 
-La SVD (Singular Value Decomposition) es la herramienta mas importante para la reducción de dimensiones de un set de datos. Vamos a suponer que nuestro set de datos es una matriz de $m$ filas y $n$ columnas o dimensiones. 
+La SVD (Singular Value Decomposition) es una de las herramientas mas importante para la reducción de dimensiones de un set de datos y surge de realizar una descomposición de una matriz. La SVD esta íntimamente relacionada con el hecho de diagonalizar una matriz simétrica.
 
-Cualquier dato en $n$ dimensiones es una hiper-elipse con $n$ ejes, si a este dato le aplicamos una transformación lineal lo que obtenemos es otra hiper-elipse.
+Sea $A$ una matriz de $nxm$, se puede demostrar que existen tres matrics $U$, $V$ y $\Sigma$ tales que:
 
-\begin{figure}[!htb]
-\centering
-\includegraphics[width=3in]{figures/svd-fig-2.png}
-\caption{SVD}
-\end{figure}
+\begin{equation}
+A=U*\Sigma*V^T
+\end{equation}
 
-Cualquier dato en dos dimensiones puede expresarse como una transformación lineal aplicada a un círculo de radio 1. Los ejes de la elipse surgen de multiplicar a los ejes del círculo por un par de constantes y luego eventualmente podemos rotar la elipse para obtener cualquiera de todas las elipses posibles en dos dimensiones. 
+Donde $U$ es una matriz unitaria en $nxn$, $V$ es otra matriz unitaria en $mxm$ y $\Sigma$ es una matriz diagonal en $nxm$.
 
-Un círculo está definido por una base de vectores unitarios $v_1..v_n$ por lo tanto podemos escribir la siguiente ecuación:
+A continuación, se muestra un método para obtener dichas matrices:
+\begin{enumerate}
+\item Calcular los autovalores y autovectores de $A^tA$.
+\item La matriz $\Sigma$ se compone de la raiz cuadrada de los autovalores de $A^tA$ de forma diagonal y ordenados de forma descendiente.
+\item La matriz $U$ se compone con los autovectores normalizados como columnas.
+\item La matriz $V$ se puede obtener resolviendo el sistema $AV=U\Sigma$ sabiendo que $V^TV$ es la matriz identidad.
+ \end{enumerate}
 
-$$AV = U\Sigma$$
-
-Lo que esta ecuación nos dice es que si aplicamos una matriz cualquiera $A$ a una base unitaria $V$ lo que obtenemos es una hiper-elipse que podemos expresar como el producto de una base $U$ por una matriz diagonal $\Sigma$ que nos indica la forma de estirar o contraer los ejes del círculo para obtener los ejes de la elipse.
-
-Multiplicando a ambos lados por $V^-1$
-
-$$AVV^-1 = U \Sigma V^-1$$
-
-$VV^-1=I$ y además como $V$ es una matriz unitaria su inversa es igual a su transpuesta.
-
-$$A = U \Sigma V^t$$
-
-Esta es la definición de la SVD, toda matriz se puede descomponer entonces en el producto de tres matrices: $U$, $\Sigma$ y $V$. 
-El cálculo de la SVD de una matriz es una tarea relativamente sencilla que se limita al cálculo de autovectores y autovalores.
-
-Sea $A$ una matriz cualquiera:
-
-$$A^tA = (U \Sigma V^t)^t(U \Sigma V^t)$$
-$$A^tA = (V \Sigma U^t U \Sigma V^t)$$
-$$A^tA = V \Sigma^2 V^t$$
-$$A^tAV = V \Sigma^2 V^t V$$
-$$A^t A V = V \Sigma^2$$
-
-Donde $V$ son los autovectores y $\Sigma^2$ son autovalores de $A^tAV$
-Y de la misma forma:
-
-$$AA^t = (U \Sigma V^t)(U \Sigma V^t)^t$$
-$$AA^t = (U \Sigma V^t V \Sigma U^t)$$
-$$AA^t = U \Sigma^2 U^t$$
-$$AA^tU = U \Sigma^2 U^t U$$
-$$AA^t = U \Sigma^2$$
-
-Donde $U$ son los autovectores y $\Sigma^2$ son autovalores de $AA^t$
-
-Por ejemplo sea la siguiente matriz:
+Por ejemplo, sea la siguiente matriz $A$:
 
 $$
-\begin{pmatrix} 
+A = \begin{pmatrix} 
 3 &0 \\
 0 & -2\\
 \end{pmatrix}
 $$
 
-Calculamos $A^tA$
+Al calcular $A^tA$ se obtiene la siguiente matriz:
 
 $$A^TA = \begin{pmatrix}
 9 &0 \\
 0 & 4\\
-\end{pmatrix}, \lambda_1=9, \lambda_2=4 \Rightarrow \sigma_1=3,\sigma_2=2
+\end{pmatrix}
 $$
 
-$$A^A = \begin{pmatrix}
-9 &0 \\
-0 & 4\\
-\end{pmatrix}, A^tAU = U \begin{pmatrix} 9 & 0 \\0 & 4\\ \end{pmatrix} \Rightarrow U = \begin{pmatrix}1 & 0 \\ 0 & 1 \\ \end{pmatrix}
+Los autovalores de $A^tA$ son $\lambda_1=9$ y $\lambda_2=4$ entonces la matriz sigma estará compuesta por $\sigma_1=3$ y $\sigma_2=2$ de la siguiente forma:
+
+$$\Sigma = \begin{pmatrix}
+3 &0 \\
+0 & 2\\
+\end{pmatrix}
 $$
+
+Por otro lado, los autovectores normalizados de $A^tA$ asociados a $\lambda_1=9$ y $\lambda_2=4$ son $v_1=[1,0]$ y $v_2=[0,1]$, entonces:
+
+$$U = \begin{pmatrix}
+1 &0 \\
+0 & 1\\
+\end{pmatrix}
+$$
+
+Para encontrar la matriz $V$ basta con resolver el sistema de ecuaciones dado por $AV=U\Sigma$. Realizando cuentas, se obtiene que la matriz $V$ es:
+
+$$V = \begin{pmatrix}
+1 &0 \\
+0 & -1\\
+\end{pmatrix}
+$$
+ 
+En consecuencia, se puede expresar la matriz $A$ de la siguiente forma:
 
 $$ A = U \Sigma V^t = \begin{pmatrix} 1 & 0 \\ 0 & 1\\ \end{pmatrix} \begin{pmatrix} 3& 0 \\ 0 & 2\\ \end{pmatrix} \begin{pmatrix} 1 & 0 \\ 0 & -1\\ \end{pmatrix}$$
 
-\subsection{Interpretación algebraica de la SVD (muy importante!)}
 
-Veamos una interpretación algebraica de la SVD que es fundamental para entender varios conceptos importantes en el mundo de Data Science. $A_{mxn}$ es nuestra matriz de datos. $U_{mxr}$ es una base ortogonal en donde $r$ es el rango de la matriz $A$. $\Sigma_{rxr}$ es una matriz diagonal con los valores singulares ordenados de mayor a menor: $\sigma_1,\sigma_2...\sigma_n$ y finalmente $V_{nxr}$ es otra matriz ortogonal.
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=3in]{figures/svd-fig-2.png}
+\caption{SVD}
+\label{fig:svd_example}
+\end{figure}
 
-Observemos que $V^t$ al ser una matriz de $rxn$ tiene la misma dimensionalidad que nuestra matriz original, por lo tanto $V$ es una \textbf{base} de $r$ vectores en $n$ dimensiones cada uno. $\Sigma_{rxr}$ nos da un escalar por el cual multiplicar cada uno de los vectores de la base, como $\Sigma$ tiene los valores singulares ordenados de mayor nos determina la importancia de los vectores de la base $V$, el primer vector de $V$ (la primer columna) es el mas importante de la base, el segundo es el segundo mas importante y así sucesivamente. Finalmente la matriz $U_{mxr}$ tiene tantos vectores como datos tenemos y cada vector tiene dimensionalidad igual a la cantidad de vectores en la base $V$ por lo tanto $U$ indica los coeficientes por los cuales tenemos que multiplicar a cada vector de la base $V$ para  reconstruir cada uno de los puntos de nuestro set de datos. 
+Se ha mencionado anteriormente que $U$ y $V$ son matrices unitarias. Esto quiere decir que $U^tU=I$ y que las columnas de $U$ forman una base ortonormal. Esto mismo también vale para $V$. En definitiva, si a una descomposición en valores singulares la multiplicamos a ambos lados por $V$ se obtiene lo siguiente:
 
-Dado un punto cualquiera de nuestro set de datos por ejemplo $A_i$ lo podemos expresar como una combinación lineal de vectores de la base $V$ de la forma: 
+$$AV = U\Sigma$$
 
-$$A_i = U_i * \Sigma * V$$
+Esto quiere decir que si a una base ortogonal le aplico una transformación $A$ entonces el resultado será una segunda base ortogonal donde los vectores que componen dicha base son multiplicados por un escalar. La imagen \ref{fig:svd_example} representa perfectamente este escenario.
 
-Mas adelante vamos a ver muchos métodos mas por los cuales podemos descomponer una matriz de datos en el producto de dos matrices, en todos los casos la primera matriz será una matriz de coeficientes y la segunda será una base, diferentes bases nos darán diferentes formas de aproximar la reconstrucción de nuestros datos.
+\subsection{SVD reducida}
+
+
+Se ha visto que $\Sigma$ se obtiene a partir de la raíz cuadrada de la matriz $A^tA$ y también se mencionó que estos valores son los que "estiran" a la base ortogonal compuesta por los vectores $U$. En determinadas ocasiones, estos valores pueden ser cero y la consecuencia que traen es que anulan ciertas componentes a la hora de realizar el producto matricial y de ahí surge el concepto de descomposición en valores singulares reducida. Resumidamente, de los elementos $\sigma_1,\sigma_2...\sigma_n$ de la matriz $\Sigma$ se pueden tomar solo aquellos $r$ valores que son positivos de forma tal que $\sigma_1,\sigma_2...\sigma_r$ son positivos. Teniendo esto en cuenta, sería necesario solamente utilizar las primeras $r$ columnas de $U$ y las primeras $r$ columnas de $V^t$. Se puede demostrar que este valor $r$ coincide con el rango de la matriz $A$.
+Por ejemplo, sea $A$ la siguiente matriz:
+
+$$
+A = \begin{pmatrix} 
+1 & 1  \\
+2 & 2\\
+\end{pmatrix}
+$$
+
+Su descomposición en valores singulares es la siguiente:
+
+$$ A = U \Sigma V^t = \begin{pmatrix} -0.4472136 & -0.89442719 \\ -0.89442719 & 0.4472136\\ \end{pmatrix} \begin{pmatrix} 3.16227766& 0 \\ 0 & 0\\ \end{pmatrix} \begin{pmatrix} -0.70710678 & -0.70710678 \\ -0.70710678 & 0.70710678\\ \end{pmatrix}$$
+
+
+Dicho lo anterior, nos quedamos con los $r$ valores no nulos y la matriz $A$ se puede expresar de la siguiente forma:
+
+$$ A  = \begin{pmatrix} -0.4472136  \\ -0.89442719 \\ \end{pmatrix} \begin{pmatrix} 3.16227766 \\ \end{pmatrix} \begin{pmatrix} -0.70710678 & -0.70710678 \\  \end{pmatrix}$$
+
+
+En resumen, la SVD da a entender que bajo determinados escenarios se podría encontrar una forma más compacta de representar la matriz $A$ y esto da origen a la SVD para el uso de \textit{compresión de imágenes}
 
 \subsection{Aproximación de Rango $k$}
 
-Hemos visto que la matriz $V$ es una base en donde los vectores de la base están ordenados por su grado de importancia, la primer columna de $V$ es el vector mas importante de la base, etc. Podemos pensar entonces en aproximar a nuestra matriz $A$ usando solamente los primeros $k$ vectores de la base $V$, a esto lo llamamos una aproximación de rango $k$ a nuestra matriz original.
+Se ha visto con la SVD reducida que una matriz $A$ se puede representar de una forma compacta donde utilizábamos aquellos $r$ valores singulares no nulos puesto que eran los únicos que aportaban información y entonces permitía también descartar ciertos vectores de $U$ y $V$.
 
-Para aproximar la matriz original con rango $k$ lo que hacemos es tomar las primeras $k$ columnas de $U$, las primeras $k$ filas y columnas de $\Sigma$ y las primeras $k$ columnas de $V$ (las primeras $k$ filas de $V^t$).
+Dicho de otra forma, se puede pensar que como los valores de la matriz $\Sigma$ se encuentran ordenados de mayor a menor entonces estos valores representan un grado de importancia de los datos. Esto podría dar a entender que la matriz $V$ es una base en donde los vectores de la base están ordenados por su grado de importancia. En consecuencia, se podría ir más allá de quedarse con los $r$ valores no nulos, es decir, podría ser posible quedarse con los $k$ valores no nulos de $\Sigma$ ($k<r$) y aproximar bastante bien a la matriz A. Esto también es conocido como aproximación de rango $k$.
 
-Veamos un ejemplo de esto:
+De la misma forma que se hacía con $r$, en este escenario hay que quedarse con las primeras $k$ columnas de $U$, las primeras $k$ filas y columnas de $\Sigma$ y las primeras $k$ columnas de $V$.
 
-Sea:
+Por ejemplo, sea $A$ la siguiente matriz:
 
 $$A=\begin{pmatrix}
 3 & 2 & 4 & 4\\
@@ -8172,7 +8202,7 @@ $$V=\begin{pmatrix}
 \end{pmatrix}
 $$
 
-Podemos aproximar nuestra matriz original usando 1,2 o 3 vectores de $V$
+Se puede aproximar la matriz original usando 1,2 o 3 vectores de $V$
 
 $$A_3 =
 \begin{pmatrix}
@@ -8246,18 +8276,18 @@ $$A_3=
 \end{pmatrix}
 $$
 
-La aproximación de rango 3 en realidad es igual a nuestra matriz original, esto es lógico ya que nuestra matriz es de rango 2. La aproximación de rango 2, usando solo dos vectores de la base $V$ es muy parecida a la matriz original, la aproximación de rango 1 no es tan exacta pero tenemos que tener en cuenta que estamos escribiendo los 4 vectores de nuestra matriz original como una combinación lineal de un único vector: $v=[0.5178, 0.2601, 0.5201, 0.6275]$
+La aproximación de rango 3 es igual a la matriz original puesto que la matriz es de rango 3 y entonces es el escenario análogo a aplicar una SVD reducida. La aproximación de rango 2, usando solo dos vectores de la base $V$ es muy parecida a la matriz original. La aproximación de rango 1 no es tan buena pero hay que tener en cuenta que los 4 vectores de la matriz original están siendo escritos como una combinación lineal de un único vector que es $v=[0.5178, 0.2601, 0.5201, 0.6275]$
 
-Se puede demostrar que la SVD nos da la \textbf{mejor} aproximación de rango $k$ posible a la matriz original. En donde "mejor" significa que tiene la menor diferencia con la matriz original de acuerdo a la \textit{norma de Frobenius} que es simplemente la sumatoria de cada elemento de la matriz al cuadrado. Es decir que la SVD minimiza la suma de cuadrados de la diferencia entre la matriz original y su aproximación. Esto se demuestra en el siguiente teorema:
+Se puede demostrar que la SVD da la \textbf{mejor} aproximación de rango $k$ posible a la matriz original. En donde "mejor" significa que tiene la menor diferencia con la matriz original de acuerdo a la \textit{norma de Frobenius} que es simplemente la sumatoria de cada elemento de la matriz al cuadrado. Es decir que la SVD minimiza la suma de cuadrados de la diferencia entre la matriz original y su aproximación. Esto se demuestra en el siguiente teorema:
 
 \begin{theorem}[Eckert-Young]
 Sea $A=U\Sigma V^t$ donde $U$ y $V$ son matrices unitarias y $\Sigma$ es una matriz diagonal con valores $(\sigma_n \leq \sigma_{n-1} \leq ... \leq \sigma_1)$. La i-ésima columna de U es $u_i$ y la i-ésima fila de $V^t$ es $v_i^t$
 
-Queremos demostrar que la aproximación de rango $k$ que minimiza $||A-A^k||_F$ es:
+Se quiere demostrar que la aproximación de rango $k$ que minimiza $||A-A^k||_F$ es:
 
 $$A^k = \sum_{i=1}^{k} u_i \sigma_i v_i^t$$
 
-Para cualquier matriz $B$ de igual tamaño que A definimos la matriz $D$ de la forma:
+Para cualquier matriz $B$ de igual tamaño que A, se define la matriz $D$ de la forma:
 
 $$D=U^tBV \Rightarrow B=UDV^t$$
 
@@ -8271,11 +8301,22 @@ $$\geq \sum_{i} |\sigma_i - D_{ii}|^2 \geq \sum_{i>k}|\sigma_i-D_{ii}|^2$$
 Por lo tanto la matriz $D$ de rango $k$ que minimiza $||A-B||_{F}^2$ es la matriz diagonal con elementos $(\sigma_1,\sigma_2,...,\sigma_n)$. Y entonces B es igual a $A^k$
 \end{theorem}
 
-\subsection{Usando la SVD para aproximar la dimensionalidad intrínseca de los datos}
+Si bien se ha visto que para distintos valores de $k$ podemos aproximar en peor o mejor medida la matriz $A$, es necesario entender en la práctica que valor de $k$ se debe utilizar. Para ello, se define el concepto de \textit{energía} de una matriz de la siguiente forma:
 
-La matriz $\Sigma$ que contiene los valores singulares ordenados de mayor a menor nos da varias pistas sobre la dimensionalidad intrínseca de nuestros datos, si definimos la \textit{energía} de la matriz como la sumatoria de los valores singulares al cuadrado entonces podemos calcular que porcentaje de energía mantenemos usando los $k$ valores singulares mas significativos que equivalen a los primeros $k$ vectores de la base $V$.
+\begin{equation}
+\sum_{i=1}^{n} \sigma_i^2
+\end{equation}
 
-Consideremos la siguiente matriz de 7x7:
+Como se ha mencionado anteriormente, $\sigma_i^2$ correspone al autovalor $\lambda_i$ de la matriz $A^tA$ y el valor $n$ corresponde al número de autovalores en cuestión.
+
+Al realizar una matriz de aproximación $k$, donde $k$ es menor que $n$, se captura un cierto porcentaje de la energía que se calcula como:
+
+\begin{equation}
+\alpha = \frac{\sum_{i=1}^{k} \sigma_i^2}{\sum_{i=1}^{n} \sigma_i^2} 
+\end{equation}
+
+
+Por ejemplo, sea $A$ la siguiente matriz:
 
 $$A=
 \begin{pmatrix}
@@ -8289,16 +8330,15 @@ $$A=
 \end{pmatrix}
 $$
 
-Si hacemos un plot de los valores singulares de la SVD de la matriz podemos en general tener una buena idea sobre la dimensionalidad intrínseca de nuestros datos.
+La tabla \ref{table:matrix_power} muestra cómo varía la energía a medida que se aumenta el valor de $k$. Claro está que si se utilizan todos los valores singulares posibles entonces la energía será 100.
+Es interesante graficar los autovalores en un gráfico de línea. Esta técnica es de utilidad para detectar en qué puntos se producen "codos" en el gráfico y de esta forma buscar números particulares donde se pueden producir grandes saltos en el valor de la energía. Esto se muestra en el gráfico \ref{fig:eigenvalues_k} donde se puede notar que hay un gran salto de energía en el segundo autovalor.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3in]{figures/sigma-fig-1.png}
 \caption{Valores Singulares de A}
-
+\label{fig:eigenvalues_k}
 \end{figure}
-
- En nuestro ejemplo podemos ver que hay dos "codos" en el plot de los valores singulares, uno en 3 y otro en 5, por lo tanto podemos decir que la dimensionalidad intrínseca de nuestros datos puede ser 3,4 o 5. De lo que podemos estar prácticamente seguros es que descartando los dos últimos valores singulares perdemos muy poco, haciendo las cuentas vemos que con 5 dimensiones conservamos un 99.79\% de la energía en la matriz original!
 
 \begin{table}[!hbt]
 \center{
@@ -8313,18 +8353,16 @@ Cantidad de Valores Singulares & Energía \\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
-\caption{Eligiendo $k$}
+\caption{Energía en función de $k$}
+\label{table:matrix_power}
 \end{table}
 
-Sorprendentemente con solo 2 vectores en la base $V$ podemos capturar un 91\% de la energía de la matriz y con 4 o mas vectores prácticamente capturamos la totalidad. Podemos afirmar entonces que tiene sentido representar a este set de datos en particular en 4 dimensiones y que una representación en dos dimensiones, es decir en el plano es aceptable.
+Sorprendentemente con solo 2 vectores en la base $V$ se puede capturar un 91\% de la energía de la matriz y con 4 o mas vectores prácticamente se captura la totalidad. Se podría afirmar entonces que tiene sentido representar a este set de datos en particular en 4 dimensiones y que una representación en dos dimensiones es aceptable.
 
-\subsection{Reducción de dimensiones usando la SVD}
+\subsection{Compresión de Imágenes}
 
-Una vez que hemos determinado a que dimensionalidad queremos reducir nuestro set de datos el proceso usando la SVD es muy simple: solo tenemos que quedarnos con las primeras $k$ columnas de la matriz $U$, esta matriz tiene tantas filas como datos tenemos y tantas columnas como vectores hay en la base, por lo tanto si queremos representar a nuestros datos en una base reducida a $k$ vectores las primeras $k$ columnas de $U$ tienen los coeficientes que necesitamos y sirven como representación de los datos en nuestro nuevo espacio.
-
-\subsection{Compresión de Imágenes usando la SVD}
-
-A modo de ejemplo del poder representativo de la SVD vamos a mostrar como podríamos usar la SVD para comprimir una imagen. Tenemos una imagen de la galaxia de Andrómeda de 127x350 píxeles es decir un total de 44450 píxeles. Podemos tratar ahora de obtener la aproximación de rango $k$ de la matriz y luego simplemente recalcular la imagen como el producto de $U*\Sigma*V$. Los resultados son los siguientes:
+Anteriormente se mencionó cómo la SVD reducida se puede utilizar para comprimir imágenes y también se mencionó que se puede ir mas allá de la SVD reducida y utilizar aproximaciones de rango $k$. 
+Para ver qué efecto tiene una aproximación de rango $k$ a la hora de comprimir imágenes, considerar el siguiente ejemplo de una imagen de la galaxia de Andrómeda de 127x350 (44450 píxeles) donde se realizan aproximaciones de rango $k=2$, $k=5$, $k=10$, $k=20$ y $k=50$.
 
 \begin{figure}[!htb]
 \centering
@@ -8340,23 +8378,20 @@ A modo de ejemplo del poder representativo de la SVD vamos a mostrar como podrí
 \caption{Andrómeda via SVD}
 \end{figure}
 
-En el caso en el cuál usamos, por ejemplo $k=50$ tenemos que nuestras matrices son de $127x50$ y $50x350$ esto nos da un total de 23850 píxeles es decir un53\% de la imagen original, y podemos ver que con este nivel de compresión tan extremo la galaxia puede distinguirse bien. 
+Cuando se utiliza $k=50$, los cálculos indican que es necesario almacenar 23850 píxeles, es decir un53\% de la imagen original. Se puede notar que con este valor de $k$ se obtiene una muy buena representación de la imagen original. En cambio, cuando $k=2$ se obtiene una imagen muy distorsionada.
+La SVD no es un mecanismo adecuado para comprimir imágenes ya que existen algoritmos específicos para imágenes mucho mejores como JPG. Sin embargo, aplicar SVD a imágenes permite llegar a una descomposición muy interesante de las mismas e ilustra el funcionamiento del algoritmo para aproximar datos en dimensiones reducidas.
 
-En el caso extremo podemos llegar hasta $k=2$ en el cual representamos a la imagen en un base de solamente dos dimensiones lo cual nos da una versión muy distorsionada de la galaxia en donde solo  retenemos su forma ovalada y el núcleo brillante de la misma.Pero cuando $k=2$ estamos reteniendo solo un 2\% de los píxeles de la imagen original.
+\subsection{Reducción de ruido}
+Considerando el principio de funcionamiento de la SVD reducida y energía de una matriz, se remarcó que los autovalores más grandes en cierta forma son los que colaboran a la conservación de la energía e indican cuál es la información "más importante" de los datos. Al utilizar una aproximación de rango $k$ se busca obtener solo aquellos autovalores más importantes a costas de perder cierta información. Sin embargo, en determinadas ocasiones, este hecho de perder información a veces tiene la fortuna de ser una forma de reducir el ruido del set de datos. La figura \ref{fig:svd_noise_1} muestra (a la derecha) el efecto de aplicar una SVD sobre una imagen de un cero que contiene ciertos pixels ruidosos que no son de interés. Se puede pensar que a la hora de aplicar una SVD a esta imagen, los autovalores más chicos son los que estan asociados al ruido entonces simplemente son eliminados y de esa forma se "elimina" el ruido.
 
-Podríamos pensar también en aplicar la SVD para retener la resolución de una imagen pero comprimir sus colores. En una imagen color cada píxel está representado por tres canales: R,G,B lo cual nos da una profundidad de color total de 24 bits. Para esto podemos tomar a nuestro set de datos como una matriz de $3xp$ en donde $p$ es la cantidad de pixeles de la imagen. 
-
-Aplicamos la SVD y nos quedamos con una representación de rango $k$ de la imagen ahora cada punto de nuestra imagen se ve reducido a alguno de $k$ puntos, es decir las $k$ combinaciones de colores mas representativas de la imagen. 
-
-Podemos entonces representar a la imagen en una gama de colores menores ya que en lugar de una cantidad de $p$ colores potencialmente diferentes ahora solo tenemos $k$ entonces podemos almacenar una tabla con los valores $RGB$ de estos colores y asignarle a cada pixel un número de entrada en esta tabla, esto es similar a lo que hace el algoritmo JPG y está basado en el hecho de que un ser humano no suele distinguir toda la gama de colores de 24 bits. 
-
-Si reducimos los colores a, por ejemplo 1024 colores representativos entonces cada pixel necesita $\log_2 1024=10$ bits lo cual implica una compresión de mas del 50\% con respecto a los 24 bits originales. 
-
-La SVD no es un mecanismo adecuado para comprimir imágenes ya que existen algoritmos específicos para imágenes mucho mejores como JPG.  Sin embargo aplicar SVD a imágenes nos permite una descomposición muy interesante de las mismas e ilustra el funcionamiento del algoritmo para aproximar datos en dimensiones reducidas.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=3in]{figures/svd_noise_1.png}	
+	\caption{Reducción del ruido. Del lado izquierdo, la imagen ruidosa. Del lado derecho, la imagen reducida}
+	\label{fig:svd_noise_1}
+\end{figure}
 
 \subsection{Eigenfaces}
-
-Vamos a aplicar la SVD a un set de datos que tiene 400 imágenes de 64x64 píxeles cada una, es decir que tenemos una matriz de 400x4096 en donde cada fila es una imagen y cada columna (dimensión) es un píxel.
 
 \begin{figure}[!htb]
 \centering
@@ -8365,90 +8400,82 @@ Vamos a aplicar la SVD a un set de datos que tiene 400 imágenes de 64x64 píxel
 \caption{Set de Datos de Rostros aparentemente humanos}
 \end{figure}
 
-Aprovechando que tenemos las imágenes como columnas vamos a calcular la SVD y quedarnos con 16 columnas como las 16 imágenes más representativas. Hay que tener en cuenta que estas 16 imágenes que surgen de la reducción de imágenes vía SVD no son 16 imágenes seleccionadas entre las originales sino que son 16 combinaciones lineales de todas las imágenes, las 16 combinaciones lineales más representativas. 
+Siguiendo la línea de la SVD aplicada a imágenes, si se representara un set de datos de imágenes donde cada imagen representa cada columna de la matriz, se puede utilizar la SVD para quedarse con las $k$ columnas/imágenes más representativas. Hay que tener en cuenta que estas $k$ imágenes que surgen de la reducción de imágenes vía SVD no son $k$ imágenes seleccionadas entre las originales sino que son $k$ combinaciones lineales de todas las imágenes, es decir, las $k$ imágenes más representativas.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/ef-fig-2.png}
 
-\caption{Las 16 EigenFaces mas representativas}
+\caption{Las $k$ EigenFaces mas representativas}
 \end{figure}
 
-Podemos ver que algunos rostros están en negativo, esto es admisible porque en la SVD podemos usar coordenadas negativas para alguno de los vectores.Como el primer rostro está en negativo esperamos que la primer coordenada de la matriz "U" esté dominada por valores negativos.  
 
-Este algoritmo que hemos usado para comprimir la cantidad de imágenes en un set basado en la SVD se denomina “Eigenpictures” y cuando se aplica a rostros se denomina “Eigenfaces” el algoritmo puede usarse para reconocimiento rápido de rostros de la siguiente manera: Primero calculamos los “k” eigenfaces por el método que presentamos recién. Luego  por cada rostro a almacenar y que queremos reconocer almacenamos la distancia euclidiana del mismo a cada uno de los “eigenfaces” en nuestro caso serían en total 16 distancias. 
+Esta técnica que se ha utilizado para comprimir la cantidad de imágenes en un set basado en la SVD se denomina \textit{Eigenpictures} y cuando se aplica a rostros se denomina \textit{Eigenfaces}.
+Este algoritmo puede usarse para reconocimiento rápido de rostros de la siguiente manera: Primero se calculan las $k$ eigenfaces por el método que se aplicó recién. Luego, por cada rostro a almacenar y que se quiere reconocer se almacena la distancia euclidiana del mismo a cada uno de los “eigenfaces”, es decir, se obtendrán $k$ distancias. De esta forma cada rostro queda almacenado en una base de datos como un simple vector de $k$ componentes. Cuando se quiere reconocer un rostro nuevo se calculan sus $k$ componentes y se busca en la base de datos a ver si existe un rostro cuya semejanza en los $k$ factores sea muy similar al que se quiere reconocer y en base a esto se decide si tenemos un rostro que ya se ha capturado, un rostro nuevo o una imagen que no es un rostro. Esto último se puede calcular mediante la diferencia entre los $k$ valores de la nueva imagen y un promedio de los eigenfaces.
 
-De esta forma cada rostro queda almacenado en una base de datos como un simple vector de 16 componentes. Cuando queremos reconocer un rostro nuevo calculamos sus 16 componentes y buscamos en nuestra base de datos a ver si existe un rostro cuya semejanza en los 16 factores sea muy similar al que queremos reconocer, en base a esto decidimos si tenemos un rostro que ya hemos capturado, un rostro nuevo o una imagen que no es un rostro. Esto último lo podemos calcular mediante la diferencia entre los “k” valores de la nueva imagen y un promedio de los eigenfaces.
+\subsection{Agregar nuevos datos}
 
-\subsection{SVD en la práctica}
-
-En muchos lenguajes y bibliotecas existen rutinas numéricas muy eficientes para calcular la SVD de una matriz para un cierto rango $k$. Estos procedimientos se basan en el algoritmo de Lanczos que permite de forma iterativa ir obteniendo los autovalores mas significativos de una matriz, como solo queremos $k$ el procedimiento puede ser muy eficiente incluso para matrices muy grandes. Esto es bueno ya que permite aplicar la SVD a datos masivos lo cual es muy importante ya que la SVD es el principal algoritmo para reducir las dimensiones de un conjunto de datos. 
-
-\subsection{Agregando nuevos datos en el nuevo espacio}
-
-Una vez que hemos calculado la SVD y reducido nuestro set de datos, tenemos el potencial problema de necesitar agregar nuevos datos, estos nuevos datos van a venir en la dimensionalidad original de los datos. Agregar los datos nuevos a los originales y re-calcular la SVD funciona pero es un proceso potencialmente costoso. Para evitarlo podemos simplemente "plegar" los datos nuevos a nuestro nuevo espacio de dimensiones.
-
-Partimos de:
+Una vez calculada la SVD puede surgir la necesidad de agregar nuevas filas a la matriz $A$, es decir, agregar nuevos datos en las mismas dimensiones. En consecuencia, es necesario obtener la nueva SVD. La forma trivial de obtenerla es simplemente recalcular la SVD, pero esto puede llegar a ser una tarea muy costosa. La forma no trivial es intentar reutilizar la descomposición que tenemos y realizar ciertos cálculos.
+Si bien no hay una única forma de recalcular una SVD cuando se agregan datos, la forma más sencilla es pensar cómo se relaciona la matriz $U$ con las demás matrices:
 
 $$A = U \Sigma V^t$$
 
-Y queremos despejar $U$ que es la matriz reducida en dimensiones, en el caso de un solo dato será de 1xn pero podríamos plegar tantos datos como quisiéramos.
+De esta ecuación, se puede despejar $U$ de la siguiente forma:
 
 $$AV = U \Sigma V^TV = U \Sigma $$
 $$AV\Sigma^-1 = U \Sigma \Sigma^-1 = U$$
 
-Entonces una vez que tenemos nuevos datos ($A$) para plegarlos al nuevo espacio de dimensiones tenemos que multiplicarlos por $V$ y luego por $\Sigma^-1$. De esta forma obtenemos su representación dentro de nuestro nuevo espacio. 
-
-Debemos notar que al plegar nuevos vectores al espacio reducido en dimensiones estamos agregando datos que no fueron usados para el cálculo de la SVD, por lo tanto cuando la cantidad de datos agregados supere un cierto umbral la SVD que calculamos originalmente pierde precisión con respecto a su capacidad de aproximar los datos originales en dimensiones reducidas. Por lo tanto si se necesita agregar muchos datos puede ser conveniente cada cierto tiempo reconstruir la SVD por completo.
+Se podría pensar de este despeje que si se agregara una nueva fila a la matriz $A$ entonces se la podría multiplicar por la matriz $V$ y luego por $\Sigma^-1$. De esta forma obtenemos su representación dentro de nuestro nuevo espacio, es decir, un nuevo vector que se agregará en la última fila de la matriz $U$.
+Si bien este método es sencillo, a medida que se van agregando datos se irá perdiendo la precisión de la SVD calculada originalmente y será necesario recalcular por completo la SVD para recuperar la precisión.
 
 \section{PCA: Principal Component Analysis}
 
-PCA es uno de los algoritmos mas usados en el mundo de Data Science y vamos a demostrar que es idéntico a la SVD por lo que, irónicamente, nadie debería usarlo, pero dejemos esto para mas adelante y expliquemos la idea y el funcionamiento de PCA.
+PCA es uno de los algoritmos mas usados en el mundo de Data Science y se puede demostrar que es idéntico a la SVD.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3in]{figures/pca-fig-1.png}
-
 \caption{PCA}
 \label{fig:pca}
 \end{figure}
 
-EL gráfico nos muestra una nube de puntos en dos dimensiones, la idea de PCA es encontrar las "direcciones" principales de los datos es decir aquellas direcciones sobre las cuales podemos proyectar los datos reteniendo su variabilidad. En la figura ~\ref{fig:pca} hay dos direcciones principales y el eje mas largo es aquel que nos daría la mayor variabilidad si proyectáramos los datos sobre el mismo. 
+La imagen \ref{fig:pca} muestra una nube de puntos en dos dimensiones y la idea de PCA es encontrar las "direcciones" principales de los datos, es decir, aquellas direcciones sobre las cuales podemos proyectar los datos reteniendo su variabilidad. En la figura ~\ref{fig:pca} hay dos direcciones principales y el eje mas largo es aquel que podría dar la mayor variabilidad si proyectáramos los datos sobre el mismo. 
 
-En concreto PCA ajusta una hiper-elipse a los datos y nos devuelve los ejes de la misma. Estos son los que llamamos \textit{componentes principales}, luego podemos usar estos componentes para proyectar nuestros datos y reducir la dimensionalidad de los mismos. 
+En concreto, PCA ajusta una hiper-elipse a los datos y  devuelve los ejes que la componen también conocidos como \textit{componentes principales}. Luego, los datos se podrán proyectar sobre estas componentes logrando así una reducción de dimensiones.
 
-Una primera observación es que los datos deben estar centrados en el origen para que los componentes principales tengan sentido, este es el primer paso al aplicar PCA, centrar todos los datos de forma tal que el promedio de cada columna sea cero. Esto se logra normalizando los datos restando el promedio de cada columna. Opcionalmente podemos dividir los datos por la desviación standard de cada columna para que todas las columnas tengan promedio cero y desviación standard igual a 1.
-Luego de centrar los datos es necesario calcular la matriz de covarianza de los mismos que se calcula de la forma:
+Una forma sencilla de utilizar este método sobre una matriz $A$ es la siguiente:
 
-$$ cov(X) = \frac{1}{n-1} X^tX$$
+\begin{enumerate}
+\item Para cada elemento de la columna de $A_i$, restarle el promedio de dicha columna. Esto permite centrar los datos en el origen.
+\item Para cada elemento de la columna $A_i$, dividirlo por la desviación estándar de dicha columna. Esto permite escalar los datos.
+\item Calcular la matriz de covarianza $$ cov(A) = \frac{1}{n-1} A^tA$$
+\item Calcular los autovalores y autovectores de la matriz de covarianza. Los autovectores conformarán las componentes principales y los autovalores indicarán la importancia de cada componente.
+\end{enumerate}
 
-Notar que si los datos no están normalizados la definición de matriz de covarianza es diferente.
 
-La matriz de covarianza es simétrica y en cada celda nos indica la covarianza entre las columnas $i$ y $j$ de nuestra matriz original. Cuando la covarianza es cercana a 0 las columnas son independientes y cuando la covarianza es cercana a 1 o -1 las columnas son dependientes. En el caso concreto de covarianza igual a 1 o -1 una columna es una combinación lineal de la otra y esto quiere decir que una de ellas es redundante. 
+La matriz de covarianza es simétrica y en cada celda indica la covarianza entre las columnas $i$ y $j$ de nuestra matriz original. Cuando la covarianza es cercana a 0 las columnas son independientes y cuando la covarianza es cercana a 1 o -1 las columnas son dependientes. En el caso concreto de covarianza igual a 1 o -1 una columna es una combinación lineal de la otra y esto quiere decir que una de ellas es redundante. 
 
-En el set de datos Iris que tiene 4 dimensiones la matriz de covarianza es la siguiente:
+Por ejemplo, del famoso set de datos Iris (en 4 dimensiones) la matriz de covarianza es la siguiente:
 
-$$coviris = \begin{pmatrix}
+$$Cov(Iris) = \begin{pmatrix}
 1 & 0.9559 & -0.3670 & 0.8136 \\
 0.9559 & 1  & -0.4354 & 0.8709 \\
 -0.3670 & -0.4354 & 1 & -0.1153\\
 0.8136 & 0.8709 & -0.1153 & 1\\
 \end{pmatrix}$$
 
-En la matriz de covarianza podemos aprender que hay una relación muy fuerte entre las columnas 1 y 2 de nuestros datos es decir el largo y alto de los pétalos de las flores. Esto tiene sentido ya que en una flor es lógico que si los pétalos son grandes entonces el largo del mismo sea proporcional a su altura. 
+Se puede notar que hay una relación muy fuerte entre las columnas 1 y 2 de y esto tiene sentido puesto que representan el largo y el alto de los pétalos de las flores y se entiende que en una flor si los pétalos son grandes entonces el largo del mismo debería ser proporcional a su altura. 
 
-Podemos hacer una matriz de plots de cada columna de nuestro set de datos contra cada otra:
+En el gráfico \ref{fig:pca_iris} se muestra la relación que hay entre cada par de columnas del set de datos de Iris. Se puede notar, por ejemplo, la relación casi lineal que hay entre la columna 1 y 2 y esto se pone evidente en la matriz de covarianza donde tienen una relación del 0.9559. Ocurre algo análogo entre las columnas 1 y 4 tanto así como la 2 y 4.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3in]{figures/pca-fig-2.png}
 \caption{PCA para Iris}
-
+\label{fig:pca_iris}
 \end{figure}
 
-En el plot vemos la relación prácticamente lineal que existe entre las columnas 1 y 2. También hay una relación fuerte entre las columnas 1 y 4 y entre las columnas 2 y 4. Esto concuerda con los valores que vimos en la matriz de covarianza (0.81 y 0.87 respectivamente).
-
-Para obtener los componentes principales simplemente calculamos los autovalores y autovectores de la matriz de covarianza.En el caso de Iris tenemos:
+Para obtener los componentes principales simplemente se calculan los autovalores y autovectores de la matriz de covarianza.En el caso de Iris, sus matrices de autovectores y autovalores serán:
 
 $$V=\begin{pmatrix}
 0.4965 & -0.6565 & 0.0680 & 0.5638 \\
@@ -8464,196 +8491,130 @@ S=\begin{pmatrix}
 \end{pmatrix}
 $$
 
-La matriz $V$ tiene los componentes principales y el grado de importancia de los mismos está dado por los elementos de los autovalores ($S$) aunque en este caso no están ordenados de mayor a menor como en la SVD.
+Es interesante remarcar que para reducir dimensiones se pueden tomar las $k$ componentes principales más importantes y proyectas los puntos de la matriz (previamente normalizada) sobre estas $k$ componentes principales reduciendo así las dimensiones.
 
-Para finalizar esta sección vamos a demostrar que la base encontrada por PCA es en realidad la misma base que la de la SVD de la matriz asumiendo que la misma ha sido normalizada. 
 
-\subsection{PCA=SVD}
+\subsection{Equivalencia entre PCA y SVD}
 
-\begin{theorem}[PCA=SVD]
-La matriz de covarianza es $X^tX$, como esta matriz es simétrica es diagonalizable y los autovectores pueden normalizarse de forma tal que sean ortonormales:
+\begin{theorem}[PCA es equivalente a SVD]
+Sea la matriz de covarianza $X^tX$. Dado que esta matriz es simétrica entonces es diagonalizable y los autovectores pueden normalizarse de forma tal que sean ortonormales:
 
 $$X^tX = WDW^t$$
 
 Donde $W$ tiene los autovectores y $D$ los autovalores de la matriz de covarianza.
 
-Por otro lado aplicando la SVD a la matriz $X$ tenemos:
+Por otro lado aplicando la SVD a la matriz $X$ se obtiene que:
 
 $$X=U\Sigma V^t$$
 
-Si construimos la matriz de covarianza para la descomposición de la SVD tenemos:
+Si se construye la matriz de covarianza para la descomposición de la SVD tenemos:
 
 $$X^tX = (U \Sigma V^t)^t(U \Sigma V^t)$$
 $$X^tX = (V \Sigma U^t U \Sigma V^t)$$
 $$X^tX = V \Sigma^2 V^t$$
 
 
-Aquí podemos ver que hay una equivalencia directa por lo tanto $V$=$W$ y $D$ = $\Sigma^2$. Por lo tanto los autovectores de la matriz de covarianza son iguales a la base de la SVD de la matriz normalizada.
+Aquí se puede ver que hay una equivalencia directa por lo tanto $V$=$W$ y $D$ = $\Sigma^2$. Por lo tanto los autovectores de la matriz de covarianza son iguales a la base de la SVD de la matriz normalizada.
 \end{theorem}
 
 \subsection{Conclusión}
 
-Para concluir debemos señalar que calcular la SVD es en general mas eficiente y numéricamente mas estable que PCA dado que no hace falta construir la matriz de covarianza, es por este motivo que como método genérico lineal para reducción de dimensiones preferimos siempre usar la SVD de la matriz de datos.
+La SVD es en general mas eficiente y numéricamente mas estable que PCA dado que no hace falta construir la matriz de covarianza y es por este motivo que como método genérico lineal para reducción de dimensiones se prefiere siempre usar la SVD.
 
 \section{MDS: Multidimensional Scaling}
 
-Vamos a explicar el algoritmo llamado \textit{multidimensional scaling} (MDS) a partir de un problema muy simple: Tenemos una matriz con las distancias entre diez ciudades que desconocemos, el objetivo del algoritmo es encontrar coordenadas en el plano para estas diez ciudades de forma tal que las distancias entre las mismas se aproximen lo mas posible a las distancias de nuestra matriz.
+El algoritmo \textit{multidimensional scaling} (MDS) busca resolver el siguiente problema: Dada una matriz con las distancias entre ciudades que se desconocen, se quieren encontrar coordenadas en el plano para estas ciudades de forma tal que las distancias entre las mismas se aproximen lo mas posible a las distancias de nuestra matriz.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=5in]{figures/mds-fig-1.png}
 \caption{Tabla de Distancias Entre Ciudades Desconocidas}
-
+\label{fig:distance_matrix}
 \end{figure}
 
-Es decir que dada una matriz de distancias entre puntos queremos hallar los puntos. La dimensionalidad de los puntos en nuestro problema la hemos fijado en 2, mas adelante veremos como resolver también la dimensionalidad.
+Es decir que dada una matriz de distancias entre puntos queremos hallar los puntos en sí. 
 
-Llamemos $D$ a nuestra a matriz de distancias entre $n$ puntos, $D$ es de $nxn$. Llamemos $X$ de $nxq$ la matriz con los puntos que desconocemos (en nuestro problema $q=2$)
-
-Definimos una matriz $B$:
-
-$$B=XX^t$$
-
-Y sea $M$ una matriz ortogonal ($MM^t=I$) entonces:
-
-$$B=(XM)(XM)^t$$
-
-Los elementos de $B$ están dados por:
-
-$$b_{ij} = \sum_{k=1}^{q} X_{ik} X_{jk}$$
-
-Entonces el cuadrado de las distancias entre las filas de $X$ puede escribirse como:
-
-$$D_{ij}^2 = b_{ii} + b_{jj} - 2b_{ij}$$
-
-Si podemos obtener los $b_{ij}$ a partir de los $D_{ij}$ entonces podemos encontrar a $X$ a partir de $B$. 
-
-Vamos a introducir como restricción que las filas y  columnas de $X$ estén centradas es decir que tengan promedio cero.
-
-$$\sum_{i=1}^{n} X_{ik} = 0$$
-
-Esto implica que la suma de términos en cualquier fila de $B$ debe ser cero:
-
-$$\sum_{j=1}^{n} b_{ij} = \sum_{j=1}^{n} \sum_{k=1}^{q} X_{ik} X_{jk} = \sum_{k=1}^{q} X_{ik} (\sum_{j=1}^{n} X_{jk})$$
-
-Sea $T$ la traza de $B$. Para obtener $B$ a partir de $D$ notemos que:
-
-$$\sum_{i=1}^{n} d_{ij}^2 = T+nb_{jj}$$
-$$\sum_{j=1}^{n} d_{ij}^2 = T+nb_{ii}$$
-$$\sum_{i=1}^{n} \sum_{j=1}^{n} d_{ij}^2 = 2nT$$
-
-Podemos ahora calcular los elementos de $B$ en función de $D$:
-
-$$b_{ij} = -\frac{1}{2} (d_{ij}^2 - d_i^2 -d_j^2 +d^2)$$
-
-donde:
-
-$$d_i^2 = \frac{\sum_{j=1}^{n} d_{ij}^2}{n}$$
-$$d_j^2 = \frac{\sum_{i=1}^{n} d_{ij}^2}{n}$$
-$$d^2 = \frac{\sum_{i=1}^{n} \sum_{j=1}^{n} d_{ij}^2}{n}$$
-
-Podemos entonces escribir a $B$ de la forma:
-
-$$B = V \Lambda V^t$$
-
-Donde $\Lambda$ es la matriz diagonal con los autovalores de $B$ y $V$ es la matriz con los autovectores de $B$ como columnas.
-
-Ahora como $D$ surge de una matriz de $nxq$ entonces el rango de $D$ es $q$ (suponiendo $q<n$). Es decir que los últimos n-q autovalores deberían ser cero.
-Entonces escribimos a $B$ como:
-
-$$B=V^* \Lambda^* V^{*t}$$
-
-Donde $V^*$ es la matriz con los primeros $q$ autovectores de  y $\Lambda^*$ es la matriz con los primeros $q$ autovalores.
-
-Y tenemos entonces una solución para $X$:
-
-$$X = V^* \Lambda^{1/2}$$
-
-Y esto nos da un algoritmo para calcular MDS:
-
+Para poder aplicar el algoritmo, se debe realizar lo siguiente:
 \begin{enumerate}
-\item Elevar la matriz de distancias al cuadrado
-\item Centrar la matriz para que las filas y columnas tengan promedio cero
-\item Calcular la SVD de la matriz
-\item Las primeras $q$ columnas de $U$ nos da las coordenadas para nuestros puntos.
+	\item Elevar la matriz de distancias al cuadrado
+	\item Centrar la matriz para que las filas y columnas tengan promedio cero
+	\item Calcular la SVD de la matriz
+	\item Las primeras $q$ columnas de $U$ da las coordenadas para los puntos que se quieren buscar.
 \end{enumerate}
 
-Aplicando nuestro algoritmo a nuestra matriz de distancias obtenemos la siguiente representación en el plano:
 
+Por ejemplo, considerando la matriz de distancias en la imagen \ref{fig:distance_matrix}, se aplica el algoritmo y el resultado es el que se muestra en la imagen \ref{fig:mds_points}. De hecho, esos puntos corresponden a las coordenadas de las ciudades que se muestran en la imagen \ref{fig:mds_cities}.
+ 
 \begin{figure}[!htb]
-\centering
-\includegraphics[width=4in]{figures/mds-fig-2.png}
-\caption{Las Ciudades en el plano}
-
+	\centering
+	\includegraphics[width=4in]{figures/mds-fig-2.png}
+	\caption{Las Ciudades en el plano}
+	\label{fig:mds_points}
 \end{figure}
 
-Y con un poco de trabajo podemos llegar a resolver de que ciudades se trata:
-
 \begin{figure}[!htb]
-\centering
-\includegraphics[width=4in]{figures/mds-fig-3.png}
-\caption{Las Ciudades Misteriosas}
-
+	\centering
+	\includegraphics[width=4in]{figures/mds-fig-3.png}
+	\caption{Las Ciudades Misteriosas}
+	\label{fig:mds_cities}
 \end{figure}
 
-Notemos que las coordenadas que nos devuelve MDS pueden estar espejadas y rotadas con respecto a la realidad ya que las distancias en todos los casos son las mismas.
+Notar que las coordenadas que devuelve MDS pueden estar espejadas y rotadas con respecto a la realidad ya que las distancias en todos los casos son las mismas.
 
-Al utilizar la SVD resolvemos también el problema de la dimensionalidad si es que no conocemos el mismo. Simplemente tenemos que observar la matriz $\Sigma$ con los valores singulares y ver cuantos valores singulares tiene sentido mantener para conservar la mayor cantidad de energía de la matriz. 
+Al utilizar la SVD resolvemos también el problema de la dimensionalidad si es que no se conoce el mismo. Simplemente se debe observar la matriz $\Sigma$ con los valores singulares y ver cuántos valores singulares tiene sentido mantener para conservar la mayor cantidad de energía de la matriz. 
 
 \subsection{Perceptual Mapping}
 
-Perceptal Mapping es una aplicación interesante de MDS para aprender los datos a partir de evaluaciones subjetivas u objetivas de los mismos. Supongamos que tenemos un conjunto de autos de diferentes marcas y modelos. Podemos pedirles a los usuarios que nos indiquen que tan parecidos o diferentes son dos autos en un cuestionario o encuesta, con la opinión de muchos usuarios sobre todos los pares posibles podemos construir una matriz de distancias. Luego usando MDS podemos a partir de las distancias construir una representación vectorial para cada modelo de auto en una cierta cantidad de dimensiones que también obtendremos de MDS. Lo interesante es que cada una de estas dimensiones nos va a aportar algún tipo de información sobre los autos, por ejemplo su consumo, seguridad, etc. Podemos ver para cada "feature" cual es el valor que toma cada modelo de auto y deducir cual es el "feature". Lo que estamos haciendo es construyendo los datos mismos a partir de las comparaciones entre pares de datos. Este tema tiene muchas aplicaciones en marketing y estudio de mercado.
+Perceptual Mapping es una aplicación interesante de MDS para aprender los datos a partir de evaluaciones subjetivas u objetivas de los mismos. Suponer que se tiene un conjunto de autos de diferentes marcas y modelos. Podemos pedirles a los usuarios que indiquen que tan parecidos o diferentes son dos autos en un cuestionario o encuesta. Con la opinión de muchos usuarios sobre todos los pares posibles se puede construir una matriz de distancias. Luego, usando MDS, a partir de las distancias se puede construir una representación vectorial para cada modelo de auto en una cierta cantidad de dimensiones. Lo interesante es que cada una de estas dimensiones va a aportar algún tipo de información sobre los autos, por ejemplo su consumo, seguridad, etc. Se puede ver para cada "feature" cuál es el valor que toma cada modelo de auto y deducir cual es el "feature". Lo que se esta haciendo es una construcción de los datos mismos a partir de las comparaciones entre pares de datos. 
 
 \section{ISOMAP}
 
-ISOMAP es nuestro primer algoritmo de Manifold Learning no-lineal, esta basado en principios muy simples y tiene fama de producir resultados por lo menos aceptables en muchos casos. Puede usarse para visualización de datos, como pre-procesamiento o como features a agregar a los datos mismos. 
+ISOMAP es un algoritmo de Manifold Learning no-lineal basado en principios muy simples y tiene fama de producir resultados por lo menos aceptables en muchos casos. Puede usarse para visualización de datos, como pre-procesamiento o como features a agregar a los datos mismos. 
 El algoritmo consiste en construir un grafo a partir de los datos, calcular las distancias en dicho grafo y luego aplicar MDS para obtener una representación de los datos en pocas dimensiones.
 
 \subsection{Construcción del Grafo}
 
-El primer paso de ISOMAP es muy simple: creamos un grafo no-dirigido en donde cada punto de nuestro set de datos va a estar conectado a sus $k$ vecinos mas cercanos.Para determinar las distancias podemos usar una métrica a elección. En el grafo dos puntos $i$ y $j$ estarán conectados si $j$ está entre los $k$ vecinos mas cercanos de $i$ o si $i$ está entre los $k$ vecinos mas cercanos de $j$. Este paso es muy sencillo de completar usando KNN. La matriz del grafo va a tener en cada posición $M_{ij}$ la distancia entre los puntos. El grafo va a ser muy disperso ya que cada punto solo va a tener $k$ vecinos.
+El primer paso es crear un grafo no-dirigido en donde cada punto del set de datos va a estar conectado a sus $k$ vecinos mas cercanos.Para determinar las distancias se puede usar una métrica a elección. En el grafo dos puntos $i$ y $j$ estarán conectados si $j$ está entre los $k$ vecinos mas cercanos de $i$ o si $i$ está entre los $k$ vecinos mas cercanos de $j$. Este paso es muy sencillo de completar usando por ejemplo KNN. La matriz del grafo va a tener en cada posición $M_{ij}$ la distancia entre los puntos. El grafo va a ser muy disperso ya que cada punto solo va a tener $k$ vecinos.
 
 \subsection{Cálculo de Distancias}
 
-Una vez que tenemos la matriz de distancias armada vamos a construir una matriz de distancias de todos los puntos contra todos. Para hacer esto hay que aplicar el algoritmo de Floyd-Warshall que dada una matriz de distancias entre pares de puntos nos devuelve la matriz de distancias mínimas de todos contra todos. Floyd-Warshall es $O(n^3)$ por lo que hay que tener un poco de cuidado al aplicar ISOMAP a sets de datos masivos. 
+Una vez obtenida la matriz de distancias, se construye una nueva matriz de distancias de todos los puntos contra todos. Para hacer esto hay que aplicar el algoritmo de Floyd-Warshall que dada una matriz de distancias entre pares de puntos nos devuelve la matriz de distancias mínimas de todos contra todos. Floyd-Warshall es $O(n^3)$ por lo que hay que tener un poco de cuidado al aplicar ISOMAP a sets de datos masivos. 
 
-\subsection{MDS}
+\subsection{Aplicación de MDS}
 
-Una vez que tenemos la matriz de distancias de todos los puntos contra todos simplemente aplicamos MDS con $k=2$ o $k=3$ para obtener la representación de nuestros puntos en dos o tres dimensiones.
+Una vez obtenida esta nueva matriz de distancias de todos los puntos contra todos, simplemente se aplica MDS con $k=2$ o $k=3$ para obtener la representación de nuestros puntos en dos o tres dimensiones respectivamente.
 
-A modo de ejemplo podemos aplicar ISOMAP al set de datos "Swiss Roll" que es un manifold de dos dimensiones dentro de un espacio de tres dimensiones:
+A modo de ejemplo, se puede aplicar ISOMAP al set de datos "Swiss Roll" (ver imagen \ref{fig:swiss_roll}) que es un manifold de dos dimensiones dentro de un espacio de tres dimensiones. El resultado se muestra en la imagen \ref{fig:swiss_roll_isomap}, donde se puede ver que ISOMAP hace un buen trabajo en este set de datos distribuyendo los puntos en franjas casi verticales en el plano de acuerdo a su posición en manifold original.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3in]{figures/swiss-fig-1.png}
 \caption{Swiss Roll}
-
+\label{fig:swiss_roll}
 \end{figure}
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3in]{figures/isomap-fig-1.png}
 \caption{Swiss Roll luego de ISOMAP}
-
+\label{fig:swiss_roll_isomap}
 \end{figure}
-
-Como podemos ver ISOMAP hace un buen trabajo en este set de datos distribuyendo los puntos en franjas casi verticales en el plano de acuerdo a su posición en la cinta/rollito/cosito original.
 
 \section{Laplacian Eigenmaps}
 
-En este algoritmo presentado en [Belkin] vamos a crear un grafo a partir de los datos pero de una forma diferente a la que usamos en ISOMAP, la forma en la cual creamos el grafo aquí es compartida por muchos algoritmos por lo que es muy importante entenderla tanto desde el punto de vista práctico como teórico. La descomposición espectral que vamos a hacer de los datos sirve no solo para este algoritmo sino también para Clustering Espectral, Spectral Hashing y muchos otros algoritmos importantes.
+En este algoritmo también se crea un grafo a partir de los datos pero de una forma diferente a la que se utilizó en ISOMAP. En este algoritmo, la forma en la cual se crea el grafo es compartida por muchos otros como Clustering Espectral y Spectral Hashing.
 
-\subsection{Creación del Grafo}
+\subsection{Construcción del Grafo}
 
-Para la creación del grafo vamos a construir una matriz de adyacencias en donde cada nodo va a estar conectado con sus $k$ vecinos mas cercanos, el peso de las aristas entre nodos vecinos, es decir los valores en la matriz de adyacencias, van a estar dados por la siguiente fórmula:
+Para la construcción del grafo es necesario construir una matriz de adyacencias en donde cada nodo va a estar conectado con sus $k$ vecinos mas cercanos y el peso de las aristas entre nodos vecinos estará dado por la siguiente fórmula:
 
 \begin{myequation}
 W_{ij} = e^{-\frac{||x_i - x_j||^2}{\sigma}}
 \end{myequation}
 
-El parámetro $\sigma$ regula el radio alrededor del cual dos puntos se consideran vecinos. Cuando el exponente $||x_i-x_j||^2 / \sigma$ es muy cercano a cero el valor de $W_ij$ es muy cercano a 1 mientras que si el exponente se hace mayor a 4 (aprox) $W_{ij}$ se vuelve 0. Esto nos permite regular cuando consideramos que dos puntos son vecinos y cuando no. Observemos que el tomar los $k$ vecinos mas cercanos es en cierta forma equivalente a establecer una condición de corte para la cual consideramos que $W_{ij}$ es nulo. 
+El parámetro $\sigma$ regula el radio alrededor del cual dos puntos se consideran vecinos. Cuando el exponente $||x_i-x_j||^2 / \sigma$ es muy cercano a cero el valor de $W_{ij}$ es muy cercano a 1 mientras que si el exponente se hace mayor a 4 aproximadamente $W_{ij}$ es prácticamente 0. Esto permite regular cuándo se considera que dos puntos son vecinos. Observar que el tomar los $k$ vecinos mas cercanos es en cierta forma equivalente a establecer una condición de corte para la cual se considera que $W_{ij}$ es nulo. 
 
-La matriz $W$ es una matriz de adyacencias pero no de distancias, cuanto mas grande el valor de $W_{ij}$ mas cercanos son los puntos. En una matriz de adyacencias binaria usamos $1$ si los puntos son vecinos y $0$ sino, esto es exactamente lo mismo solo que con valores entre 0 y 1 para determinar el grado de vecindad entre dos puntos.
+La matriz $W$ es una matriz de adyacencias pero no de distancias. Cuanto mas grande es el valor de $W_{ij}$ mas cercanos son los puntos. En una matriz de adyacencias binaria usamos $1$ si los puntos son vecinos y $0$ si no. Esto es exactamente lo mismo solo que con valores entre 0 y 1 para determinar el grado de vecindad entre dos puntos.
 
 \subsection{Construcción del Laplaciano}
 
@@ -8663,81 +8624,81 @@ A partir de un grafo y su matriz de adyacencias se puede calcular la matriz Lapl
 L = D - W
 \end{myequation}
 
-En donde $D$ es una matriz diagonal con el grado de cada vértice del grafo siendo el grado la sumatoria de todas las aristas que inciden sobre el mismo es decir que $D_{ii} = \sum_{j=1}^{n} W_{ij}$.
+En donde $D$ es una matriz diagonal con el grado de cada vértice del grafo siendo el grado la sumatoria de todas las aristas que inciden sobre el mismo, osea $D_{ii} = \sum_{j=1}^{n} W_{ij}$.
 
-La matriz resultante $L$ tendrá en su diagonal el valor del grado ya que la diagonal de $W$ es cero, el resto de los elementos de $L$ es igual a la matriz W cambiada de signo ya que todos los elementos de D que no están en la diagonal son cero. Como consecuencia de esto la suma de cualquier fila y columna de $L$ es cero.
-Siendo $L$ una matriz simétrica sabemos que todos sus autovalores son reales. El tercer y último paso del algoritmo es descomponer la matriz $L$ en sus autovalores y autovectores.
+La matriz resultante $L$ tendrá en su diagonal el valor del grado ya que la diagonal de $W$ es cero. El resto de los elementos de $L$ es igual a la matriz W cambiada de signo ya que todos los elementos de D que no están en la diagonal son cero. Como consecuencia de esto la suma de cualquier fila y columna de $L$ es cero.
+Siendo $L$ una matriz simétrica sabemos que todos sus autovalores son reales. El último paso del algoritmo es descomponer la matriz $L$ en sus autovalores y autovectores.
 
 \subsection{Descomposición Espectral del Laplaciano}
 
-En una matriz Laplaciana el autovalor mas pequeño en valor absoluto siempre va a ser cero, y su multiplicidad va a ser igual a la cantidad de componentes conexos del grafo. Es decir que en un grafo conexo $L$ va a tener exactamente un autovalor igual a 0. Si queremos representar a nuestros datos en $k$ dimensiones debemos tomar entonces los $k$ autovalores mas chicos en valor absoluto ignorando el 0. Los autovectores correspondientes a dichos autovalores son la representación de los datos en $k$ dimensiones.
+En una matriz Laplaciana el autovalor mas pequeño en valor absoluto siempre va a ser cero, y su multiplicidad va a ser igual a la cantidad de componentes conexos del grafo. Es decir que en un grafo conexo $L$ va a tener exactamente un autovalor igual a 0. Si se quisiera representar a los datos en $k$ dimensiones entonces hay que tomar los $k$ autovalores mas chicos en valor absoluto ignorando el 0. Los autovectores correspondientes a dichos autovalores son la representación de los datos en $k$ dimensiones.
 
 \subsection{Teoría de la descomposición espectral}
 
-Vamos a intentar demostrar ahora que si los puntos están cercanos en el espacio original entonces la descomposición espectral los mantiene cercanos en el nuevo espacio de dimensiones reducidas.
+Se puede probar que si los puntos están cercanos en el espacio original entonces la descomposición espectral los mantiene cercanos en el nuevo espacio de dimensiones reducidas.
 
-Vamos a llamar $Y_i$ a los puntos en el nuevo espacio de dimensiones reducidas. Podemos definir entonces la siguiente función costo:
+Sean $Y_i$ los puntos en el nuevo espacio de dimensiones reducidas, podemos definir entonces la siguiente función costo:
 
 \begin{myequation}
 J = \sum_{ij}(y_i - y_j)^2 W_{ij}
 \end{myequation}
 
-Analicemos la validez de esta función. W vale 0 cuando los puntos no son lo suficientemente cercanos en el espacio original, cuando esto pasa permitimos que los puntos estén a cualquier distancia en nuestro nuevo espacio sin costo. Cuando $W_{ij}$ tiende a 1 queremos que los puntos estén cercanos en el nuevo espacio para minimizar el costo. En resumen queremos minimizar las distancia entre los puntos en en nuevo espacio ponderando por el valor de $W_{ij}$ en el espacio original. Esto tiene mucho sentido.
+W vale 0 cuando los puntos no son lo suficientemente cercanos en el espacio original, y cuando esto pasa se permite que los puntos estén a cualquier distancia en nuestro nuevo espacio sin costo. Cuando $W_{ij}$ tiende a 1 se quiere que los puntos estén cercanos en el nuevo espacio para minimizar el costo. En resumen, se quiere minimizar las distancia entre los puntos en el nuevo espacio ponderando por el valor de $W_{ij}$ en el espacio original.
 
 \begin{theorem}\cite{Belkin}
 
 Si los puntos $y_i$ tienen $k$ dimensiones entonces los valores que minimizan $J$ para dichos puntos están dados por la fila $i$ de los $k$ autovectores mas chicos de la matriz Laplaciana.
 
-Escribimos entonces:
+Entonces:
 
 $$\sum_{ij}(y_i - y_j)^2 W_{ij} = \sum_{ij}(y_i^2 + y_j^2 -2y_i y_j) W_{ij}$$
 
-Sabemos que $D_{ii} = \sum_j W_{ij}$ por lo tanto:
+Dado que $D_{ii} = \sum_j W_{ij}$, entonces:
 
 $$=\sum_i y_i^2 D_{ii} + \sum_j y_j^2 D_{jj} - 2 \sum_{ij} y_i y_j W_ij $$
 
 Aplicando que $L=D-W$:
 
-$$= 2yLy^t$$
+$$\sum_{ij}(y_i - y_j)^2 W_{ij} = 2yLy^t$$
 
 Reemplazando en J:
 
 $$\frac{1}{2}J = \frac{1}{2} \sum_{ij} (y_i - y_j)^2 W_{ij} = yLy^t$$
 
-Por lo tanto podemos escribir:
+Por lo tanto se puede escribir:
 
 $$J=\sum_i y_iLy_i^t$$
 
-Agreguemos la siguiente restricción simplemente para evitar que escalando una solución válida tengamos otra solución válida:
+Se agrega la siguiente restricción simplemente para evitar que escalando una solución válida tengamos otra solución válida:
 
 $$y_i D y_i^t = 1 $$
 
-Llamemos $\lambda$ al valor mínimo de nuestra función costo:
+Se llama $\lambda$ al valor mínimo de nuestra función costo:
 
 $$\lambda_i = y_i L y_i^t$$
 
-Como $y_i D y_i^t =1 $ podemos escribir:
+Como $y_i D y_i^t =1 $ se puede escribir:
 
 $$y_i L y_i^t = \lambda y_i D y_i^t$$
 
 Generalizando:
 
-\begin{myequation}
+\begin{equation}
 Ly = \lambda D y
-\end{myequation}
+\label{eq:laplacian_equation}
+\end{equation}
 
-Resulta ser ahora que la ecuación 6.4 define que $y$ es un autovector de $L$ y $\lambda D$ es un autovalor. Si $y$ es un vector unitario entonces $\lambda$ es igual a cero ya que la matriz es Laplaciana y la suma de todas sus filas y columnas es cero.
-
-Para evitar que la solución a cualquier problema sea la misma tomamos entonces el segundo autovalor mas chico y su correspondiente autovector y estos serán los que minimicen nuestra función costo.  Es decir que si queremos representar los datos en $k$ dimensiones tenemos que tomar los $k$ autovalores mas chicos que sean distintos de cero y sus correspondientes autovectores. Que es lo que queríamos demostrar.
 \end{theorem}
 
-Este teorema justifica desde el punto de vista teórico que la descomposición espectral del Laplaciano que surge del grafo que representa nuestros datos en el espacio original preserva a los puntos que eran cercanos como cercanos en el nuevo espacio sin imponer restricciones sobre los puntos que no eran vecinos. Esta es la base de cualquier algoritmo de Manifold Learning!
+La ecuación \ref{eq:laplacian_equation} define que $y$ es un autovector de $L$ y $\lambda D$ es un autovalor. Si $y$ es un vector unitario entonces $\lambda$ es igual a cero ya que la matriz es Laplaciana y la suma de todas sus filas y columnas es cero.
 
-\subsection{Ejemplos}
+Para evitar que la solución a cualquier problema sea la misma se toma entonces el segundo autovalor mas chico y su correspondiente autovector y estos serán los que minimicen la función costo. Es decir que si se quiere representar los datos en $k$ dimensiones entonces hay que tomar los $k$ autovalores mas chicos que sean distintos de cero y sus correspondientes autovectores y esto es lo que se quiso demostrar.
 
-Vamos a ver en primer lugar un ejemplo numérico y teórico para entender el funcionamiento del algoritmo y luego un ejemplo gráfico para ver que resultados genera.
+Este teorema justifica desde el punto de vista teórico que la descomposición espectral del Laplaciano que surge del grafo que representa los datos en el espacio original preserva a los puntos que eran cercanos como cercanos en el nuevo espacio sin imponer restricciones sobre los puntos que no eran vecinos.
 
-Consideremos los siguientes puntos en dos dimensiones:
+\subsection{Ejemplo del algoritmo}
+
+Considerar los siguientes puntos en dos dimensiones:
 
 \begin{figure}[!htb]
 \centering
@@ -8747,42 +8708,41 @@ Consideremos los siguientes puntos en dos dimensiones:
 \label{fig:undmanifold}
 \end{figure}
 
-Esta figura (~\ref{fig:undmanifold}) es un manifold unidimensional embebido en un espacio de dos dimensiones. Queremos ver si Laplacian Eigenmaps puede descubrir el manifold.
-Construimos la matriz $W$ usando $\sigma=2$ y $k=2$ es decir los dos vecinos mas cercanos. El resultado es la siguiente matriz de adyacencias:
+La figura \ref{fig:undmanifold} es un manifold unidimensional embebido en un espacio de dos dimensiones. Se quiere ver si Laplacian Eigenmaps puede descubrir el manifold.
+Se construye la matriz $W$ usando $\sigma=2$ y $k=2$ (para obtener los dos vecinos más cercanos). El resultado es la matriz que se visualiza en \ref{fig:eigen_fig_2}. En las figura \ref{fig:eigen_fig_3} se muestra la matriz $L$. Las figuras \ref{fig:eigen_fig_4} y \ref{fig:eigen_fig_5} muestran los autovalores y autovectores de $L$ respectivamente. 
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=5in]{figures/eigen-fig-2.png}
 \caption{W}
-
+\label{fig:eigen_fig_2}
 \end{figure}
 
-Calculando la matriz $D$ y $L=D-W$ tenemos que L es:
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=5in]{figures/eigen-fig-3.png}
 \caption{L}
-
+\label{fig:eigen_fig_3}
 \end{figure}
 
-Calculando los autovaloes y autovectores de L:
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=5in]{figures/eigen-fig-4.png}
 \caption{Autovalores de L}
-
+\label{fig:eigen_fig_4}
 \end{figure}
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=5in]{figures/eigen-fig-5.png}
 \caption{Autovectores de L}
-
+\label{fig:eigen_fig_5}
 \end{figure}
 
-Como era de esperarse el grafo es conexo y por lo tanto $L$ tiene un único autovalor cero. Si queremos representar los datos en una sola dimensión estamos interesados entonces en el segundo autovector que es:
+Como era de esperarse el grafo es conexo y por lo tanto $L$ tiene un único autovalor cero. Si se quiere representar los datos en una sola dimensión entonces se usa el primer autovector asociado al primer autovalor no nulo, que en este caso es el segundo autovector:
+
 $$
 V=\left ( 
 \begin{matrix} 
@@ -8801,82 +8761,80 @@ V=\left (
  \right )
 $$
 
-En este autovector los puntos quedan ordenados! Es decir que si los dibujamos sobre una línea nos quedaría P1,P2,P3,P4,P5,P6...P11 que es lo que queríamos pues mantiene el orden de los puntos en nuestro manifold. En una sola dimensión P1 es cercano a P2, P2 es cercano a P1 y P3 etc...
+La figura \ref{fig:eigen_fig_7} muestra qué ocurre al graficar el primer autovector que se seleccionó. Como se puede ver, los puntos $P_0, P_1...P_{10}$ mantienen el mismo orden que tenían su representación original. Aún más, aquellos puntos que eran cercanos en el espacio original también siguen siendo cercanos en este nuevo espacio. Ejemplos claros de esto son $P_0$ con $P_1$, o bien $P_5$ con $P_6$, etcétera.
 
-Veamos ahora el resultado de Laplacian Eigenmaps para el Swiss Roll:
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=5in]{figures/eigen-fig-7.png}
+	\caption{Puntos del primer autovector}
+	\label{fig:eigen_fig_7}
+\end{figure}
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{cc}
 \includegraphics[width=2in]{figures/swiss-fig-1.png} &\includegraphics[width=2in]{figures/eigen-fig-6.png}\\
 \end{tabular}
-
+\caption{Laplacian Eigenmaps aplicado a Swiss Roll}
+\label{table:swiss_roll_laplacian}
 \end{table}
 
-Podemos ver un buen resultado, curiosamente podríamos volver a aplicar LE al resultado para obtener una representación en una única dimensión. 
+Este algoritmo puede aplicarse también a Swiss Roll y se obtienen los resultados que se muestran en \ref{table:swiss_roll_laplacian}. Curiosamente se podría volver a aplicar el algoritmo a este resultado para obtener una representación en una única dimensión. 
 
 \section{TSNE}
 
 T-SNE\cite{vanDerMaatenHinton} es, al momento de escribir este capítulo, el mejor algoritmo para la representación de datos en dos y tres dimensiones. Es, por lo tanto, el algoritmo más usado y el más importante para visualizar datos multidimensionales en el plano o en 3D. 
 
-La idea básica detrás de T-SNE es poder representar datos que originalmente están en muchas dimensiones en solo dos o tres dimensiones de la mejor forma posible. Vimos anteriormente que PCA/SVD lograba esto mismo intentando preservar la varianza de los datos. Esto es equivalente a que los puntos que están alejados en “n” dimensiones se mantengan alejados cuando los proyectamos en “k” dimensiones. 
+T-SNE, a diferencia de PCA y al igual que en Laplacian Eigenmaps, va a intentar que los puntos que estaban cerca en $n$ dimensiones se mantengan cercanos en $k$ dimensiones. Estas son dos formas radicalmente opuestas de encarar el mismo problema.
 
-T-SNE a diferencia de PCA y al igual que en Laplacian Eigenmaps va a intentar que los puntos que estaban cerca en “n” dimensiones se mantengan cercanos en “k” dimensiones. Estas son dos formas radicalmente opuestas de encarar el mismo problema.
-
-Para la formulación de T-SNE vamos a comenzar con una forma de calcular $p_{i|j}$ que es la probabilidad de que $j$ sea vecino dado un punto $i$.
+Este algoritmo comienza calculando una probabilidad de que $j$ sea vecino de $i$. Entonces, define a $p_{i|j}$ como:
 
 \begin{myequation}
 p_{i|j} = \frac{\exp(-||x_i - x_j||^2 / 2\sigma_i^2)}{\sum_{k \neq i} \exp(-||x_i - x_k||/2 \sigma_i^2)}
 \end{myequation}
 
-El numerador es simplemente un gaussiano alrededor del punto $x_i$, notemos que cada punto tiene asociado un parámetro $\sigma_i$ que indica la densidad alrededor del punto para considerar a otro punto como cercano, esta es la diferencia fundamental con otros métodos como Laplacian Eigenmaps en donde el parámetro $\sigma$ es global, el mismo para todos los puntos. El denominador es la sumatoria de todos los gaussianos para normalizar la probabilidad. Podemos calcular entonces la probabilidad de que dos puntos sean vecinos que es igual a la probabilidad de que $i$ sea vecino de $j$ y $j$ sea vecino de $i$
+El numerador es simplemente un gaussiano alrededor del punto $x_i$. Notar que cada punto tiene asociado un parámetro $\sigma_i$ que indica la densidad alrededor del punto para considerar a otro punto como cercano, y esta es la diferencia fundamental con otros métodos como Laplacian Eigenmaps en donde el parámetro $\sigma$ es global () )el mismo para todos los puntos). El denominador es la sumatoria de todos los gaussianos para normalizar la probabilidad. Se puede calcular entonces la probabilidad de que dos puntos sean vecinos que es igual a la probabilidad de que $i$ sea vecino de $j$ y $j$ sea vecino de $i$
 
 \begin{myequation}
 p_{ij} = \frac{p_{i|j}+p_{j|i}}{2N}
 \end{myequation}
 
-Llamemos $Y$ a los puntos mapeados a 2 o 3 dimensiones. Calculemos la probabilidad de que dos puntos $Y_i$ y $Y_j$ sean cercanos:
+Si llamamos $Y$ a los puntos mapeados a 2 o 3 dimensiones, se puede calcular la probabilidad de que dos puntos $Y_i$ y $Y_j$ sean cercanos utilizando una distribución T de Student de la siguiente forma:
 
 \begin{myequation}
 q_{ij} = \frac{(1+||y_i - y_j||^2)-1}{\sum_{k \neq i}(1+||y_k - y_i||^2)-1}
 \end{myequation}
 
-Esto no es un gaussiano sino una distribución T (Student) simplemente porque funciona mejor lo cual se prueba empíricamente.
-
-El objetivo de T-SNE es lograr que si $p_{ij}$ es un valor cercano a 1 entonces $q_{ij}$ sea un valor cercano a 1 y si $p_{ij}$ es un valor cercano a cero entonces $q_{ij}$ puede quedar libre. Esto se logra mediante la divergencia de Kullback-Leibler que estudiamos en el capítulo de teoría de la información y que permite comparar dos distribuciones de probabilidades.
+El objetivo de T-SNE es lograr que si $p_{ij}$ es un valor cercano a 1 entonces $q_{ij}$ sea un valor cercano a 1 y si $p_{ij}$ es un valor cercano a cero entonces $q_{ij}$ puede quedar libre. Esto se logra mediante la divergencia de Kullback-Leibler mencionada en el capítulo de Teoría de la Información y que permite comparar dos distribuciones de probabilidades:
 
 \begin{myequation}
 KL(P||Q) = \sum_{i \neq j} p_{ij} \log{\frac{p_{ij}}{q_{ij}}}
 \end{myequation}
 
-Y nuestro objetivo es minimizar esta divergencia. Observemos que cuando $p_{ij}$ es muy grande y $q_{ij}$ es chico la divergencia nos da un número muy grande. En cambio cuando $p_{ij}$ es grande y $q_{ij}$ también es grande nos da un número pequeño. Notemos que si $p_{ij}$ es pequeño no importa si $q_{ij}$ es grande o pequeño. Es decir que lo que nos importa es que si los puntos eran cercanos en el espacio original ($p_{ij}$ grande) también sean cercanos en dos o tres dimensiones. Si los puntos estaban alejados en el espacio original no tenemos preferencias en el espacio reducido.
+El objetivo será minimizar esta divergencia, observando que cuando $p_{ij}$ es muy grande y $q_{ij}$ es chico la divergencia da un número muy grande. En cambio cuando $p_{ij}$ es grande y $q_{ij}$ también es grande nos da un número pequeño. Notar que si $p_{ij}$ es pequeño no importa si $q_{ij}$ es grande o pequeño. En consecuencia, lo que importa es que si los puntos eran cercanos en el espacio original ($p_{ij}$ grande) también sean cercanos en dos o tres dimensiones. Si los puntos estaban alejados en el espacio original no se tienen preferencias en el espacio reducido.
 
-A modo de ejemplo veamos el resultado de T-SNE para MNIST en donde tenemos datos en 764 dimensiones representando dígitos manuscritos, cada dato es una imagen de 28x28.
+A modo de ejemplo, la figura \ref{tsne_mnist} muestra el resultado de aplicar T-SNE al set de datos MNIST que contiene datos en 764 dimensiones representando dígitos manuscritos (cada dato es una imagen de 28x28). Se puede notar que el algoritmo separa los dígitos en zonas bien diferenciadas (marcadas en colores) en el plano 2D.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3in]{figures/tsne-fig-1.png}
 \caption{T-SNE para MNIST}
-
+\label{fig:tsne_mnist}
 \end{figure}
-
-Como puede verse T-SNE hace un excelente trabajo separando los dígitos en zonas bien diferenciadas en el plano en 2D. T-SNE es una herramienta fundamental en la visualización de datos multidimensionales por lo que siempre resulta conveniente tener una implementación de este algoritmo eficiente disponible en el lenguaje en el que trabajemos.
 
 \section{Teorema Fundamental de la Dimensionalidad}
 
-Uno de los puntos fundamentales cuando usamos algoritmos para reducir la dimensionalidad de un set de datos es saber si es conveniente o no reducir las dimensiones de nuestro set de datos.
+Uno de los puntos fundamentales cuando se usan algoritmos para reducir la dimensionalidad de un set de datos es saber si es conveniente o no reducir las dimensiones de nuestro set de datos.
 
 \begin{theorem}[Teorema Fundamental de la Dimensionalidad]
 No siempre es conveniente reducir la dimensionalidad de un set de datos.
 \end{theorem}
 
-Este teorema se demuestra fácilmente por el \textbf{"pigeonhole principle"}. Si siempre fuera conveniente aplicar reducción de dimensiones entonces recursivamente podríamos llevar a cualquier set de datos a una única dimensión. Si aceptamos que esto no tiene sentido entonces el teorema queda demostrado.
+Este teorema se demuestra fácilmente por el \textbf{"pigeonhole principle"}. Si siempre fuera conveniente aplicar reducción de dimensiones entonces recursivamente se podría llevar a cualquier set de datos a una única dimensión. Si se acepta que esto no tiene sentido entonces el teorema queda demostrado.
+La consecuencia directa de este teorema es que será necesario analizar en qué casos es conveniente aplicar reducción de dimensiones y en qué casos no. Teniendo en cuenta los algoritmos vistos anteriormente, cuando se trata de visualización T-SNE suele ser un buen algoritmo para empezar. Cuando los resultados de T-SNE no son buenos se pueden utilizar otros algoritmos como ISOMAP, Laplacian Eigenmaps, LLE, Hessian, MDS, Kernel PCA etc. 
 
-La consecuencia directa de este teorema es que debemos analizar en que casos es conveniente aplicar reducción de dimensiones y en que casos no y tenemos también que decidir de que forma hacerlo.
-
-Cuando se trata de visualización T-SNE suele ser un buen algoritmo para empezar, cuando los resultados de T-SNE no son buenos podemos probar con otros algoritmos como ISOMAP, Laplacian Eigenmaps, LLE, Hessian, MDS, Kernel PCA etc. Hay realmente muchísimas opciones.
-
-Si se trata de reducir las dimensiones por cuestiones de performance o para mejorar el rendimiento de un algoritmo la SVD debería ser siempre nuestra primera opción, teniendo en cuenta la posibilidad de usar algoritmos mas avanzados como Autoencoders en caso de ser necesario.
+Si se trata de reducir las dimensiones por cuestiones de performance o para mejorar el rendimiento de un algoritmo la SVD debería ser la primera opción, teniendo en cuenta la posibilidad de usar algoritmos mas avanzados como Autoencoders.
 
 \chapter{Information Retrieval}
 
