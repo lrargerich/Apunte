@@ -3098,7 +3098,7 @@ Métodos similares pueden usarse para computar de forma eficiente el Join entre 
 
 \section{Big Data}
 
-Entendemos por \textit{Big Data} a datos que no pueden ser procesados por métodos tradicionales. Por ejemplo datos cuyo volumen requiere que sean almacenados en un cluster o datos cuya velocidad de arribo impide que sean procesados por algoritmos tradicionales.
+Entendemos por \textit{Big Data} a datos que no pueden ser procesados por métodos tradicionales. Por ejemplo, datos cuyo volumen requiere que sean almacenados en un cluster o datos cuya velocidad de arribo impide que sean procesados por algoritmos tradicionales.
 
 En general al hablar de Big Data se mencionan las cinco "Vs", que son:
 
@@ -3114,33 +3114,44 @@ Explicaremos que quiere decir cada una de estas "Vs" en el contexto de grandes d
 
 \subsection{Volumen}
 
-La primer "V" hace al tamaño de los datos, independientemente de la capacidad de almacenamiento que tenga un equipo existen datos que superan dicha capacidad y necesitan ser almacenados en un cluster. A modo de ejemplo al momento de escribir esta sección del apunte Ebay generaba unos 100 Petabytes de datos por día, es decir 100.000 terabytes, sitios como Amazon, Google, Facebook y Twitter generan cifras similares. Un avión en vuelo genera mas de 2 Terabytes de datos por tramo y el proyecto SLOAN que reune imágenes astronómicas lleva mas de 2 Petabytes acumulados. 
+La primer "V" hace al tamaño de los datos. Independientemente de la capacidad de almacenamiento que tenga un equipo, existen datos que superan dicha capacidad y necesitan ser almacenados en un cluster.
 
-Para enfrentar el problema de almacenamiento es necesario contar con clusters que permitan almacenar esta enorme cantidad de información de forma económica y segura, es decir tolerante a fallos de hardware. 
+Entendemos como cluster un conjunto de computadoras que trabajan en conjunto y pueden ser vistas como un sistema único.
+
+A modo de ejemplo al momento de escribir esta sección del apunte Ebay generaba unos 100 Petabytes de datos por día, es decir 100.000 terabytes, sitios como Amazon, Google, Facebook y Twitter generan cifras similares. Un avión en vuelo genera mas de 2 Terabytes de datos por tramo y el proyecto SLOAN que reune imágenes astronómicas lleva mas de 2 Petabytes acumulados.
+
+Para enfrentar el problema de almacenamiento es necesario contar con clusters que permitan almacenar esta enorme cantidad de información de forma económica y segura, es decir tolerante a fallos de hardware y que permita escalarlo largo del tiempo.
 
 \subsection{Velocidad}
 
-En muchos casos el problema no es la cantidad de datos sino la velocidad con la cual se generan los mismos. Facebook genera unos 284.000 posts por segundo y podemos considerar que el flujo de datos es continuo, es decir infinito. Para procesar este tipo de información necesitamos sistemas y algoritmos de Streaming, es decir algoritmos especializados que pueden procesar una enorme cantidad de datos con una latencia bajísima, de lo contrario los datos se acumularían y el algoritmo se vería forzado a descartar un gran volúmen de información.
+En muchos casos el problema no es la cantidad de datos sino la velocidad con la cual se generan los mismos. Facebook genera unos 284.000 posts por segundo y podemos considerar que el flujo de datos es continuo, es decir infinito. Para procesar este tipo de información necesitamos sistemas y algoritmos de Streaming, algoritmos especializados que pueden procesar una enorme cantidad de datos con una latencia bajísima. De lo contrario los datos se acumularían y el algoritmo se vería forzado a descartar un gran volúmen de información.
 
 \subsection{Variedad}
 
-La variedad describe los diferentes tipos de datos que podemos procesar. En un sistema de procesamiento de datos relativamente normal es frecuente que co-existan datos en muchos formatos diferentes. Podemos contar con datos almacenados en bases de datos relacionales (SQL), datos almacenados en bases de datos especializadas (NoSQL), datos que tienen formato de texto, imágenes, sonido,etc. 
+La variedad describe los diferentes tipos de datos que podemos procesar. En un sistema de procesamiento de datos relativamente normal es frecuente que co-existan datos en muchos formatos diferentes. Podemos contar con datos almacenados en bases de datos relacionales (SQL), datos almacenados en bases de datos especializadas (NoSQL), datos que tienen formato de texto, imágenes, sonido, etc.
 
-La gran variedad de datos a procesar implica la necesidad de contar con herramientas especializadas tanto para almacenarlos como para poder procesarlos correctamente y además implica un importante esfuerzo de integración ya que en general un proceso de análisis involucra datos que provienen de diversas fuentes y en diferentes formatos.
+La gran variedad de datos a procesar implica la necesidad de contar con herramientas especializadas tanto para almacenarlos como para poder procesarlos correctamente. Esto implica un importante esfuerzo de integración ya que en general un proceso de análisis involucra datos que provienen de diversas fuentes y en diferentes formatos.
 
 \subsection{Veracidad}
 
-La veracidad está relacionada con la validez de los datos, en todo conjunto de datos grande es probable que existan datos incorrectos. Datos mal cargados, información incorrecta de un sensor, valores fuera de escala, valores duplicados,valores incompletos, etc. Además pueden existir datos que tengan formato correcto pero cuyo valor sea nulo para el análisis que estamos efectuando, estos datos constituyen ruido y es muy importante luchar contra ellos.
+La veracidad está relacionada con la validez de los datos. En todo conjunto de datos grande es probable que existan datos incorrectos: Mal cargados, información incorrecta de un sensor, valores fuera de escala, valores duplicados, valores incompletos, etc.
 
-En general la validez de los datos se soluciona mediante procesos de limpieza (cleanup), de-duplicación y pre-procesamiento que suelen involucrar un tiempo de procesamiento importante. En muchos casos se suele decir que el 80\% del tiempo se invierte en limpiar los datos y el 20\% restante en procesarlos.  
+También pueden existir datos que tengan formato correcto pero cuyo valor sea nulo para el análisis que estamos efectuando. 
+Estos datos constituyen ruido y es muy importante luchar contra ellos.
+
+En general la validez de los datos se soluciona mediante procesos de limpieza (cleanup), de-duplicación y pre-procesamiento involucrando usualmente un tiempo de procesamiento importante. En muchos casos se suele decir que el 80\% del tiempo se invierte en limpiar los datos y el 20\% restante en procesarlos.  
 
 \subsection{Valencia}
 
-La quinta "V" proviene del concepto de valencia en química y tiene que ver con el grado de conectividad que tienen los datos. En general esto aplica a información en forma de grafo. Por ejemplo al procesar una Red Social. En muchas redes a medida que el tiempo pasa los nodos se van relacionando entre sí generando un grado de valencia cada vez mayor lo cual puede implicar un problema de performance en algoritmos cuyo orden depende de la cantidad de aristas en el grafo.
+La quinta "V" proviene del concepto de valencia en química relacionado al grado de conectividad que tienen los datos entre si (Generalmente sobre información en forma de grafo). 
+
+Un caso de aplicación es el procesamiento de Redes Sociales. En muchas redes a medida que el tiempo pasa los nodos se van relacionando entre sí generando un grado de valencia cada vez mayor. Esto puede impactar directamente en la performance de algoritmos que podriamos estar utilizando si su orden depende de la cantidad de aristas en el grafo.
 
 \section{Almacenamiento Distribuido}
 
-El almacenamiento distribuido consiste, como su nombre lo indica, en almacenar información en varios equipos. En general se utilizan equipos económicos muy similares a un equipo de escritorio con discos comunes. Como este tipo de hardware tiene una cierta tasa de fallas la información se almacena replicada de forma tal que la caída de un equipo no implique la perdida de información. En cada equipo del cluster existe un file-system local que sólo es accesible desde el equipo y un file-system distribuido que es global a todo el cluster. Es posible mover archivos desde un file-system al otro.
+El almacenamiento distribuido consiste, como su nombre lo indica, en almacenar información en varios equipos. En general se utilizan equipos económicos muy similares a un equipo de escritorio con discos comunes. Dado que este tipo de hardware tiene una cierta tasa de fallas, la información se almacena replicada de forma tal que la caída de un equipo no implique la perdida de información. 
+
+En cada equipo del cluster existe un file-system local que sólo es accesible desde el equipo y un file-system distribuido que es global a todo el cluster siendo posible mover archivos desde un file-system al otro.
 
 \begin{figure}[!htb]
 \centering
@@ -3149,15 +3160,17 @@ El almacenamiento distribuido consiste, como su nombre lo indica, en almacenar i
 
 \end{figure}
 
-En un file-system distribuido un archivo se representa como una sucesión de registros que pueden tener tamaño y estructura arbitrarios, el file-system se encarga de dividir cada archivo en "bloques" y almacenar estos bloques en diferentes equipos del cluster de forma replicada. 
+En un file-system distribuido un archivo se representa como una sucesión de registros que pueden tener tamaño y estructura arbitrarios. El gestor interno del file-system se encarga de dividir cada archivo en "bloques" y almacenar estos bloques en diferentes equipos del cluster de forma replicada. 
 
-Por ejemplo, si tenemos un archivo de 10tb, el file-system puede decidir particionarlo en bloques de 100Mb y almacenar cada bloque en tres equipos diferentes del cluster. Es necesario que las réplicas no estén dentro del mismo rack o switch para que la caída de un switch no implique perder el acceso a esta información. 
+A modo de ejemplo, si tenemos un archivo de 10TB, el gestor interno del file-system puede decidir particionarlo en bloques de 100Mb y almacenar cada bloque en tres equipos diferentes del cluster. 
 
-Todos estos datos son almacenados y manejados por un "name server"  o "master node" que es un nodo especial del cluster que "sabe" de que forma se han repartido los archivos en el cluster. El master node se replica en un backup de forma tal que la caída de este equipo no implique una perdida catastrófica de todo el file-system distribuido. 
+También es necesario que el gestor interno no ubique las réplicas dentro del mismo rack o switch. Esto se debe a que si se produce la caída de un switch y consecuentemente la caida de las computadoras conectadas en ese rack no implique perder el acceso a esta información. Es por eso que se habla que la replicación debe tener "rack-awareness".
 
-Cuando se quiere acceder a un determinado registro de un archivo el "master" se encarga de determinar en que equipos está dicha información y acceder a la misma, si el equipo en cuestión no responde el master se encarga de acceder a una replica y disparar una nueva replica en otro nodo del cluster. Todo esto por supuesto es configurable y dependiente de las diferentes implementaciones y versiones que existen de un file-system distribuido.
+Todos estos datos son almacenados y manejados por un nodo llamado "name server" o "master node". Este es un nodo especial del cluster que "sabe" de que forma se han repartido los archivos en el cluster. El master node se replica en un backup fuera de linea de forma tal que la caída de este equipo no implique la perdida catastrófica de todo el file-system distribuido. 
 
-Algo importante a destacar es que en general los archivos distribuidos son inmutables, puede leerse y puede agregarse información al final del archivo pero la información existente no puede modificarse. Para modificar un archivo distribuido hay que crear un nuevo archivo distribuido con los cambios necesarios y destruir el anterior. 
+Cuando se quiere acceder a un determinado registro de un archivo el "master node" se encarga de determinar en que equipos está dicha información y acceder a la misma. Si el equipo en cuestión no responde el master se encarga de acceder a una replica y disparar la creacion de una nueva replica en otro nodo del cluster. Por supuesto todo esto es configurable y dependiente de las diferentes implementaciones y versiones que existen del file-system distribuido.
+
+Algo importante a destacar es que en general los archivos distribuidos son inmutables: Puede leerse y agregarse información al final del archivo pero la información existente no puede modificarse. Es por eso que para modificar un archivo distribuido hay que crear un nuevo archivo distribuido con los cambios necesarios y destruir el anterior. 
 
 \section{El Ecosistema Hadoop}
 
