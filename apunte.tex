@@ -13121,34 +13121,34 @@ SVM es un pariente cercano de KNN porque se basa en la semejanza (kernel) entre 
 
 \epigraph{Figures don't lie but liers do figure.}{- Mark Twain}
 
-El proceso que conocemos como \textit{clustering} es el ejemplo mas claro de aprendizaje no-supervisado. Dado un set de datos queremos agrupar los datos en \textit{clusters} de forma tal que todos los datos dentro de un mismo cluster sean similares entre sí pero diferentes a los de cualquier otro cluster. Algunos estudios sugieren que esta es una forma de aprendizaje universal y que es la forma principal de aprendizaje del cerebro humano, mediante la asociación de objetos aprendemos su significado de la misma forma que un niño es capaz de determinar que cosas se pueden comer y que cosas sirven para jugar aun al verlas por primera vez. 
+El proceso que se conoce como \textit{clustering} es el ejemplo mas claro de aprendizaje no supervisado\footnote{En el aprendizaje supervisado, los datos no requieren ser etiquetados. Es decir, no se necesita ningún conocimiento a priori como sí se necesita por ejemplo en tareas de clasificación}. Dado un set de datos se quiere agrupar los datos en \textit{clusters} de forma tal que todos los datos dentro de un mismo cluster sean similares entre sí pero diferentes a los de cualquier otro cluster. Algunos estudios sugieren que esta es una forma de aprendizaje universal y que es la forma principal de aprendizaje del cerebro humano puesto que mediante la asociación de objetos se puede aprender su significado de la misma forma que un niño es capaz de determinar qué cosas se pueden comer y qué cosas sirven para jugar aun al verlas por primera vez. 
 
-El aprendizaje no-supervisado no necesita saber a que clase pertenece cada objeto, es decir que solo necesita los objetos mismos. En el mundo real la gran mayoría de los datos que podemos recolectar son de este tipo, no tienen \textit{labels}. 
+Los algoritmos de clustering son importantes en todo tipo de aplicaciones. Por ejemplo, un supermercado o tienda online puede agrupar productos que se suelen vender juntos o enviarnos recomendaciones de productos similares a los que compramos. Podemos agrupar música y luego encontrar temas similares a los que nos gustan analizando de qué clusters provienen esos temas. Podemos reconocer imágenes u objetos, entre otras cosas. 
 
-Los algoritmos de clustering son importantes en todo tipo de aplicaciones, por ejemplo un supermercado o tienda online puede agrupar productos que se suelen vender juntos o enviarnos recomendaciones de productos similares a los que compramos. Podemos agrupar música y luego encontrar temas similares a los que nos gustan analizando de que clusters provienen esos temas. Podemos reconocer imágenes u objetos, etc. 
+Para algunos autores el aprendizaje no supervisado es el área que mas va a necesitarse en el futuro, estos algoritmos son los que mas datos van a tener en el futuro por poder trabajar sin necesidad de labels.
 
-Para algunos autores el aprendizaje no-supervisado es el área que mas va a necesitarse en el futuro, estos algoritmos son los que mas datos van a tener en el futuro por poder trabajar sin necesidad de labels, si los datos son el nuevo petróleo estos algoritmos son las refinerías. Los algoritmos de clustering están agazapados, esperando que llegue su gran momento para dominar el mundo.
+En las siguientes secciones se desarrollarán distintos algoritmos de clustering.
 
 \section{Clustering Jerárquico}
 
-El método de clustering jerárquico, también llamado aglomerativo es uno de los algoritmos de clustering más importantes ya que genera una descomposición jerárquica del set de datos creando clusters desde $k=1$ hasta $m$ es decir la cantidad de puntos de nuestro set de datos. Es útil tanto como herramienta de clustering como así también como instrumento para el análisis exploratorio de los datos ya que tanto la descomposición creada como su representación gráfica aportan información que ayuda en gran medida a entender los datos. El gran problema del clustering jerárquico es su eficiencia para grandes volúmenes de datos, tema del cual nos ocuparemos más adelante.
+El método de clustering jerárquico, también llamado clustering aglomerativo, es uno de los algoritmos de clustering más importantes ya que genera una descomposición jerárquica del set de datos creando clusters desde $k=1$ hasta $m$, siendo $m$ la cantidad de puntos del set de datos. Es útil tanto como herramienta de clustering como así también como instrumento para el análisis exploratorio de los datos ya que tanto la descomposición creada como su representación gráfica aportan información que ayuda en gran medida a entender los datos. El gran problema del clustering jerárquico es su eficiencia para grandes volúmenes de datos.
 
-El algoritmo en sí es extremadamente sencillo, comenzamos suponiendo que cada punto es un cluster es decir que tenemos $m$ clusters inicialmente. Luego en cada paso tomamos los dos clusters más cercanos entre sí y los unimos en un nuevo cluster. Este proceso se repite hasta que tenemos un único cluster. El paralelo con los códigos de Huffman es evidente. 
+El algoritmo en sí es extremadamente sencillo. Comienza suponiendo que cada punto es un cluster. En consecuencia, en el primer paso hay $m$ clusters. Luego, en cada paso, se toman los dos clusters más cercanos entre sí y se los une en un nuevo cluster. Este proceso se repite hasta que queda un único cluster. Recordando la unidad de compresión de datos, este algoritmo es el dual a los códigos de Huffman.
 
-Hay dos cuestiones importantes que tenemos que definir para poner en marcha el algoritmo:
+Dicho esto, hay dos cuestiones importantes que es necesario definir para poner en marcha el algoritmo:
 
 \begin{itemize}
-\item Que distancia usar
-\item Como calcular la distancia entre dos clusters
+\item Distancia a utilizar
+\item Forma de calcular la distancia entre clusters
 \end{itemize}
 
-Sobre las distancias ya hemos hablado a lo largo de varios capítulos, al igual que en KNN tenemos que elegir la métrica que mejor se ajuste a nuestro set de datos. 
+La distancia a utilizar entre dos puntos puede ser cualquier que se ajuste a la naturaleza del set de datos. Por ejemplo, si son puntos en el plano se puede utilizar distancia euclídea. Si fueran archivos, se podría usar la distancia de Jaccard.
+
+El punto interesante es entender cómo calcular la distancia entre dos clusters.
 
 \subsection{Distancia Entre Clusters}
 
-En el primer paso comparamos los datos todos contra todos y elegimos los dos objetos mas similares. Tenemos ahora $m-1$ clusters, 1 cluster de tamaño 2 y $m-1$ clusters de tamaño 1. En el paso siguiente hay que volver a elegir los dos clusters mas cercanos pero ahora no alcanza con comparar item a item porque uno de nuestros clusters tiene mas de un ítem. Necesitamos una forma de medir la distancia entre dos \textit{grupos} de ítems.
-
-Las opciones son:
+En el primer paso del algoritmo, se comparan todos los datos contra todos y se eligen los dos objetos mas similares y en consecuencia se tendrán $m-1$ clusters de los cuales uno de ellos será de tamaño 2 y los $m-1$ restantes serán de tamaño 1. En el paso siguiente hay que volver a elegir los dos clusters mas cercanos pero ahora no alcanza con comparar punto a punto porque uno de los clusters tiene mas de un punto. Se necesita entonces una forma de medir la distancia entre dos \textit{grupos} de puntos, y para ello se sugieren las siguientes opciones:
 
 \begin{itemize}
 \item La distancia mínima entre dos puntos de cada cluster
@@ -13158,20 +13158,20 @@ Las opciones son:
 \item El método de Ward \cite{Ward}
 \end{itemize}
 
-\subsection{Encontrando la Cantidad de Clusters}
+\subsection{Encontrando la cantidad de Clusters}
 
-Veamos ahora de que forma podemos usar clustering jerárquico para determinar la cantidad de clusters que hay en nuestro set de datos. Vamos a usar el siguiente ejemplo en el plano con la distancia euclideana.
+Entender qué cantidad de clusters elegir no es una tarea trivial. Para ello, se analizará un ejemplo como el que se muestra en la figura \ref{fig:clustering_example}
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/hclus-fig-1.png}
 \caption{Puntos para Clustering Jerárquico}
-
+\label{fig:clustering_example}
 \end{figure}
 
-Aplicamos el algoritmo completo, es decir hasta que nos queda un único cluster con todos los puntos. El resultado es una lista de que clusters debemos unir en cada paso, por ejemplo si en el primer paso unimos el punto 100 y el 121 la primera fila de nuestra lista es (100,121) y a partir de ahora existe el cluster $m+1$ que representa a estos dos puntos. 
+Al aplicar el algoritmo completo (es decir, hasta que queda un único cluster con todos los puntos) se obtiene como resultado una lista que indica qué clusters debemos unir en cada paso. Por ejemplo, si en el primer paso se une el punto 100 con el 121 entonces la primera fila de la lista será (100,121) y a partir de ahora existe el cluster $m+1$ que representa a estos dos puntos. 
 
-Ejemplo: Si tenemos 5 puntos y la siguiente lista:
+Un sencillo ejemplo es el de la siguiente lista que surgió de aplicar clustering jerárquico a un set de 5 puntos. En el primer paso, se une el punto 1 con el 3 indicado como (1,3) formando el cluster 6. Luego, en el segundo paso, el cluster 6 se une con el punto 5 y esto se entiende como que se forma el cluster 7 formado como ((1,3),5). En el siguiente paso, el punto 2 se une con el 4 formando el cluster 8 como (2,4). En el último paso, se une el cluster 7 y 8 formando el cluster 9 como (((1,3),5),(2,4))
 
 \begin{verbatim}
 1 3
@@ -13180,9 +13180,8 @@ Ejemplo: Si tenemos 5 puntos y la siguiente lista:
 7 8
 \end{verbatim}
 
-Unimos el punto 1 y el 3 en el cluster 6 (los puntos son 5) el cluster 6 es (1,3). Luego unimos el cluster 6 y el 5 en el cluster 7 (1,3,5) luego el cluster 2 y 4 en el cluster 8 (2,4) finalmente el cluster 7 y el 8 (1,3,5,2,4).
 
-En cada paso podemos indicar la distancia entre los clusters que sabemos es la mínima de todas las posibles distancias entre clusters. Por ejemplo:
+A su vez, en cada paso se puede indicar la distancia entre los clusters. Suponiendo en este ejemplo que se utiliza la distancia mínima entre dos puntos de cada cluster, entonces la lista podría quedar de la siguiente forma:
 
 \begin{verbatim}
 1 3 2
@@ -13191,30 +13190,30 @@ En cada paso podemos indicar la distancia entre los clusters que sabemos es la m
 7 8 12
 \end{verbatim}
 
-Podemos graficar la distancia para nuestro set de 135 puntos:
+Siguiendo con el ejemplo de la figura \ref{fig:clustering_example}, se aplica el algoritmo y luego en cada paso se puede graficar cual fue la distancia entre los dos clusters que se unieron tal como se muestra en la figura \ref{fig:clustering_distances}.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/hclus-fig-2.png}
 \caption{Distancias al hacer clustering Jerárquico}
-
+\label{fig:clustering_distances}
 \end{figure}
 
-Como podemos ver en cada paso la distancia es cada vez mayor, esta información es valiosa.
-Podemos por ejemplo discretizar las distancias en una cierta cantidad de “buckets” por ejemplo 20 en nuestro ejemplo de 135 puntos. Una vez que hicimos esto podemos encontrar el primer "hueco" es decir el primer bucket que no contiene ninguna distancia y esto nos da el primer "gap" o salto de distancias. 
+Como se puede ver, en cada paso la distancia es cada vez mayor, esta información es valiosa.
+Se podría discretizar las distancias en una cierta cantidad de “buckets” (podría ser 20 en este ejemplo) de 135 puntos. Una vez que se hace esto se puede encontrar el primer bucket que no contiene ninguna distancia y esto da el primer "gap" o salto de distancias. 
 
-En el caso de nuestros 135 puntos el valor es 4 lo cual nos indica que, teóricamente, tenemos 4 clusters en nuestro set de datos. Esto coincide con lo que vemos visualmente. El método no es infalible pero puede usarse como una herramienta ya que no necesita absolutamente ningún parámetro.
+En el caso de estos 135 puntos el valor es 4 lo cual indica que teóricamente hay 4 clusters en el set de datos. Esto coincide con lo que se visualmente. El método no es infalible pero puede usarse como una herramienta ya que no necesita absolutamente ningún parámetro.
 
-Podemos ver ahora que resultado tendríamos si cortamos el algoritmo en una cierta cantidad de clusters fija.
+La figura \ref{fig:clustering_test_k} muestra los resultados que se obtienen si se corta el algoritmo en una cierta cantidad de clusters fija.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/hclus-fig-3.png}
 \caption{Probando la cantidad de clusters}
-
+\label{fig:clustering_test_k}
 \end{figure}
 
-Notemos que si bien hay 4 clusters “visibles” en nuestro set de datos recién llegamos al resultado que queremos con 9 clusters (k=9) esto se debe por un lado a la forma en la cual calculamos la distancia entre clusters (en este caso por default) y también a que el método es sensible a los outliers, es decir datos que no pertenecen a ningún cluster. 
+Notar que si bien hay 4 clusters “visibles” en el set de datos recién se llega al resultado que queremos con 9 clusters (k=9) y esto se debe por un lado a la forma en la cual se calcula la distancia entre clusters (en este caso por default) y también a que el método es sensible a los outliers\footnote{Los outliers son datos que no pertenecen a ningun cluster o datos "defectuosos"}.
 
 \subsection{Dendrogramas}
 
@@ -13222,29 +13221,26 @@ Notemos que si bien hay 4 clusters “visibles” en nuestro set de datos recié
 \centering
 \includegraphics[width=3.5in]{figures/hclus-fig-4.png}
 \caption{Dendrograma}
-
+\label{fig:dendrograma}
 \end{figure}
 
-A partir de los datos generados por la función de clustering jerárquico podemos generar un diagrama que nos muestre en cada paso que clusters se han unido y con qué distancia. Este diagrama se denomina “dendrograma”.
+A partir de los datos generados por la función de clustering jerárquico, se puede generar un diagrama que nos muestre en cada paso qué clusters se han unido y con qué distancia. Este diagrama se lo conoce como \textit{dendrograma}.
 
-La altura de las líneas representa la distancia a la cual estaban los puntos.Podemos usar este diagrama para ver que $k=4$ es mejor que $k=3$ ya que estaríamos cortando distancias más grandes. Esto nos da una idea aproximada de cuáles pueden ser los valores de k más adecuados para nuestro set de datos.
+La altura de las líneas representa la distancia a la cual estaban los puntos. Por ejemplo, usando la figura \ref{fig:dendrograma}, se puede ver que $k=4$ es mejor que $k=3$ ya que se estarían cortando distancias más grandes. Esto da una idea aproximada de cuáles pueden ser los valores de k más adecuados para nuestro set de datos.
 
 \subsection{Performance}
 
-Está claro que el método de clustering jerárquico es extremadamente poderoso, tenemos todas las soluciones de clustering posibles para diferentes valores de $k$ al alcance de la mano. Y además tenemos información muy valiosa en la descomposición jerárquica del set de datos.
+Está claro que el método de clustering jerárquico es extremadamente poderoso puesto que se tienen todas las soluciones de clustering posibles para diferentes valores de $k$ al alcance de la mano. Además, se tiene información muy valiosa en la descomposición jerárquica del set de datos.
 
-El problema es cómo programar el algoritmo. 
+El problema es cómo programar el algoritmo. Es necesario en cada paso encontrar los clusters que están a distancia mínima, esto por fuerza bruta implica recorrer los $n$ clusters que hay y por lo tanto el algoritmo es de orden cuadrático (esto sin considerar que la distancia entre clusters también puede ser costosa según el método elegido).
 
-Es necesario en cada paso encontrar los clusters que están a distancia mínima, esto por fuerza bruta implica recorrer los “n” clusters que tenemos y por lo tanto nuestro algoritmo es de orden cuadrático. Y esto sin considerar que la distancia entre clusters también puede ser costosa según el método elegido.
+La solución pasa por aproximar el problema de los clusters más cercanos en cada etapa, en general se puede usar LSH como un algoritmo para evitar tener que calcular la distancia de todos contra todos. De esta forma, por cada cluster simplemente se busca el más cercano entre la lista de candidatos devuelto por LSH. Esto puede usarse calculando la distancia entre clusters como la distancia entre centroides. Cada vez que se crea un nuevo cluster se promedian sus puntos y este centroide será el punto que se hasheará con LSH insertándolo en la estructura de datos correspondiente. Luego por cada punto se calcula el más cercano y se obtiene el par que de distancia mínima. La gran ventaja de usar LSH es que buscar el cluster más cercano a uno dado es O(1) en lugar de O(n).
 
-La solución pasa por aproximar el problema de los clusters más cercanos en cada etapa, en general se puede usar LSH como un algoritmo para evitar tener que calcular la distancia de todos contra todos. De esta forma por cada cluster simplemente buscamos el más cercano entre la lista de candidatos devuelto por LSH. Esto puede usarse calculando la distancia entre clusters como la distancia entre centroides. Cada vez que creamos un nuevo cluster promediamos sus puntos y este centroide sera el punto que hasheamos con LSH insertándolo en nuestra estructura de datos. Luego por cada punto calculamos el más cercano y nos quedamos el par que nos de distancia mínima. La gran ventaja de usar LSH es que buscar el cluster más cercano a uno dado es O(1) en lugar de O(n).
-
-Una solución por fuerza bruta de clustering jerárquico puede ser mejor que K-Means, una solución aproximada usando LSH en general puede ser mejor, igual o peor que K-Means y por eso es que K-Means suele ser el método de clustering más usado. De todas formas para pocos puntos o como método exploratorio es fundamental conocer la herramienta de clustering jerárquico. Un dendrograma, el plot de distancias o el método para encontrar “k” pueden resultar fundamentales para el análisis de varios conjuntos de datos.
+Una solución por fuerza bruta de clustering jerárquico puede ser mejor que K-Means, una solución aproximada usando LSH en general puede ser mejor, igual o peor que K-Means y por eso es que K-Means suele ser el método de clustering más usado. De todas formas, para pocos puntos o como método exploratorio es fundamental conocer la herramienta de clustering jerárquico. Un dendrograma, el plot de distancias o el método para encontrar $k$ pueden resultar fundamentales para el análisis de varios conjuntos de datos.
 
 \section{K-Means}
 
-K-Means es el mas importante de los algoritmos de clustering, no solo como algoritmo de clustering sino como parte de otros algoritmos. Es un algoritmo que nunca funciona muy mal y a veces funciona muy bien lo cual lo hace una excelente herramienta de propósito general. Si agregamos que no necesita de ningún hiper parámetro excepto la cantidad de clusters podemos comprender porque es tan popular. Vamos a empezar planteando el objetivo de K-Means y luego el algoritmo y sus diferentes variantes y aplicaciones. Es realmente sorprendente la cantidad de usos impensados que podemos tener para un algoritmo tan sencillo.
-
+K-Means es uno de los mas importante de los algoritmos de clustering, no solo como algoritmo de clustering sino como parte de otros algoritmos. Es un algoritmo que nunca funciona muy mal y a veces funciona muy bien lo cual lo hace una excelente herramienta de propósito general. Si se agrega que no necesita de ningún hiper parámetro excepto la cantidad de clusters podemos comprender por qué es tan popular. Se comenzará esta sección planteando el objetivo de K-Means y luego el algoritmo con sus diferentes variantes y aplicaciones.
 \subsection{El Problema General}
 
 El problema de clustering general recibe una serie de $m$ puntos en $n$ dimensiones. El objetivo es encontrar cómo repartir los $m$ puntos en $k$ clusters de la mejor forma posible.En K-Means la cantidad de clusters $k$ es siempre un hiper-parámetro, luego hablaremos de como encontrar el óptimo.
