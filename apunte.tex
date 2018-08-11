@@ -13241,47 +13241,43 @@ Una solución por fuerza bruta de clustering jerárquico puede ser mejor que K-M
 \section{K-Means}
 
 K-Means es uno de los mas importante de los algoritmos de clustering, no solo como algoritmo de clustering sino como parte de otros algoritmos. Es un algoritmo que nunca funciona muy mal y a veces funciona muy bien lo cual lo hace una excelente herramienta de propósito general. Si se agrega que no necesita de ningún hiper parámetro excepto la cantidad de clusters podemos comprender por qué es tan popular. Se comenzará esta sección planteando el objetivo de K-Means y luego el algoritmo con sus diferentes variantes y aplicaciones.
-\subsection{El Problema General}
 
-El problema de clustering general recibe una serie de $m$ puntos en $n$ dimensiones. El objetivo es encontrar cómo repartir los $m$ puntos en $k$ clusters de la mejor forma posible.En K-Means la cantidad de clusters $k$ es siempre un hiper-parámetro, luego hablaremos de como encontrar el óptimo.
+\subsection{El Problema general}
 
-Es necesario, entonces, aclarar que queremos decir con “la mejor forma posible”. Podemos definir a cada cluster a partir de su centro (centroide) en cuyo caso la mejor distribución posible es aquella que minimiza la distancia entre cada punto y el centroide que se le ha asignado. Vamos a trabajar aquí con la distancia euclidiana ya que es la que se utiliza con mayor frecuencia en  K-means.
+El problema de clustering general recibe una serie de $m$ puntos en $n$ dimensiones. El objetivo es encontrar cómo repartir los $m$ puntos en $k$ clusters de la mejor forma posible. En K-Means, la cantidad de clusters $k$ es siempre un hiper-parámetro.
+
+Es necesario aclarar qué significa “la mejor forma posible”. Se puede definir a cada cluster a partir de su centro (centroide) en cuyo caso la mejor distribución posible es aquella que minimiza la distancia entre cada punto y el centroide que se le ha asignado. 
 
 \begin{myequation}
 \min \sum_{i=1}^m ||x_i - c_{idx(i)}||^2
+\label{eq:kmeans}
 \end{myequation}
 
-Esta fórmula calcula la distancia desde cada punto de nuestro set de datos hasta el centroide que le corresponde. $idx(i)$ es una función que nos dice el número de centroide (cluster) asignado al punto $i$ y $c_j$ es la posición del centroide $j$. Los centroides tienen igual cantidad de dimensiones que los puntos y pueden o no coincidir con puntos de los datos. Cuando un centroide es también un punto de los datos lo llamamos  “clusteroide”, en general no vamos a pedir que los centroides sean también puntos sino que vamos a permitir que tomen cualquier posición dentro del espacio de los datos.
+La fórmula \ref{eq:kmeans} calcula la distancia desde cada punto del set de datos hasta el centroide que le corresponde. $idx(i)$ es una función que indica el número de centroide (cluster) asignado al punto $i$ y $c_j$ es la posición del centroide $j$. Los centroides tienen igual cantidad de dimensiones que los puntos y pueden o no coincidir con puntos de los datos. Un centroide que es también un punto de los datos se lo llama \textit{clusteroid}. En general, no se va a pedir que los centroides sean también puntos sino que se permite que tomen cualquier posición dentro del espacio de los datos.
 
-Es importante entender esta función para comprender el problema genérico de clustering. 
-
-Sabemos que hay $k$ centroides, cada uno de estos centroides puede estar en cualquier punto de nuestro espacio, el objetivo es encontrar la posición óptima para nuestros centroides de forma tal de minimizar la distancia total entre los puntos y los centroides que se le han asignado. Es evidente que cada punto debe estar asignado a su centroide más cercano para minimizar la distancia por lo que el problema puede resumirse a encontrar la posición óptima para los $k$ centroides.
-
-Si tenemos un conjunto de puntos en dos dimensiones y un solo centroide ($k=1$) es evidente que la función de distorsión va a tener un único mínimo ya que hay una sola posición para el centroide que minimiza la suma de las distancias al cuadrado entre el centroide y todos los puntos.
+Es importante entender esta función para comprender el problema genérico de clustering. Se sabe que hay $k$ centroides y que cada uno de estos centroides puede estar en cualquier punto del espacio. El objetivo es encontrar la posición óptima para estos centroides de forma tal de minimizar la distancia total entre los puntos y los centroides que se le han asignado. Es evidente que cada punto debe estar asignado a su centroide más cercano para minimizar la distancia por lo que el problema puede resumirse a encontrar la posición óptima para los $k$ centroides. Si se tiene un conjunto de puntos en dos dimensiones y un solo centroide ($k=1$) es evidente que la función de distorsión va a tener un único mínimo ya que hay una sola posición para el centroide que minimiza la suma de las distancias al cuadrado entre el centroide y todos los puntos.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/kmeans-fig-1.png}
 \caption{Función costo de K-Means para $k=1$}
-
+\label{fig:k_means_cost_1}
 \end{figure}
 
-Buscar la posición óptima del centroide en este caso es una tarea sencilla. Lamentablemente k=1 es el único caso en el cual el problema de clustering genérico es sencillo, apenas pasamos a k=2 el problema cobra vida y se convierte en un monstruo.
-
-Usando $k=2$ y el mismo conjunto de puntos anterior graficamos la función de distorsión en base a la posición de los centroides. Cada posición posible $(x,y)$ la indexamos con un número de $1 a N$ de forma tal de poder graficar la función en tres dimensiones:
+Buscar la posición óptima del centroide en este caso es una tarea sencilla. Lamentablemente, $k=1$ es el único caso en el cual el problema de clustering genérico es sencillo. A partir de $k=2$, el problema se vuelve realmente complejo. Usando $k=2$ y el mismo conjunto de puntos anterior se grafica la función de distorsión en base a la posición de los centroides como se muestra en la figura \ref{fig:k_means_cost_2}. A cada posición posible $(x,y)$ se la indexa con un número de $1$ a $N$ de forma tal de poder graficar la función en tres dimensiones.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/kmeans-fig-2.png}
 \caption{Función costo de K-Means para $k=2$}
-
+\label{fig:k_means_cost_2}
 \end{figure}
 
-Como podemos ver la función de distorsión tiene ahora muchísimos mínimos locales, esto dificulta muchísimo construir algoritmos que encuentren el mínimo global. De la misma forma podemos observar algo positivo que es que los mínimos locales son muy cercanos al mínimo global por lo que un algoritmo que sea localmente óptimo no está lejos de ser globalmente óptimo. Esta propiedad es la que aprovechó Lloyd para desarrollar el algoritmo K-Means. Antes de ver este algoritmo cerremos el problema de clustering general. El problema de K-Means en general es NP-Hard a partir de $k=2$ en cualquier espacio euclideano a partir de $\mathcal{R}^2$.
+Como se puede ver en \ref{fig:k_means_cost_2}, la función de distorsión tiene ahora muchos mínimos locales y esto dificulta muchísimo construir algoritmos que encuentren el mínimo global. De la misma forma, se puede observar algo positivo que es que los mínimos locales son muy cercanos al mínimo global por lo que un algoritmo que sea localmente óptimo no está lejos de ser globalmente óptimo. Esta propiedad es la que aprovechó Lloyd para desarrollar el algoritmo K-Means. El problema de K-Means en general es NP-Hard a partir de $k=2$ en cualquier espacio euclideano a partir de $\mathcal{R}^2$.
 
-\subsection{El Algoritmo de Lloyd (conocido como K-Means)}
+\subsection{El Algoritmo de Lloyd}
 
-El algoritmo de Lloyd, que es el que conocemos como K-Means, es una forma de aproximar el problema de clustering general. Una de sus grandes virtudes es que se trata de un algoritmo muy sencillo que consta de solamente un ciclo y dos operaciones.
+El algoritmo de Lloyd, que es el que se conoce como K-Means, es una forma de aproximar el problema de clustering general. Una de sus grandes virtudes es que se trata de un algoritmo muy sencillo que consta de solamente un ciclo y dos operaciones tal como se muestra en el algoritmo \ref{alg:kmeans}
 
 \begin{algorithm}[]
 Inicializar Centroides\\
@@ -13290,74 +13286,65 @@ Inicializar Centroides\\
  recalcular cada centroide como el promedio de todos sus puntos \\
 }
 \caption{Kmeans}
+\label{alg:kmeans}
 \end{algorithm}
 
-Lo que hacemos es simplemente inicializar $k$ centroides al azar, por ejemplo eligiendo $k$ puntos del set de datos. Luego asignamos a cada punto a su centroide mas cercano. Re-calculamos los centroides como el promedio de todos sus puntos y repetimos el proceso hasta que los centroides convergen.
+Lo que se hace es simplemente inicializar $k$ centroides al azar, por ejemplo eligiendo $k$ puntos del set de datos (recordar que si el centroide es un punto del set de datos entonces es un clusteroide). Luego se asigna cada punto a su centroide mas cercano. Luego, se recalculan los centroides como el promedio de todos sus puntos y se repite el proceso hasta que los centroides convergen.
 
-K-Means pertenece a la familia de algoritmos EM (Expectation Maximization), partiendo de una cierta posición para los centroides la fase “E” (expectation) asigna a cada punto el centroide mas cercano. La fase “M” (maximization) recalcula cada centroide de forma tal de minimizar la distancia desde el centroide a los puntos asignados al mismo.
+K-Means pertenece a la familia de algoritmos EM(Expectation Maximization), partiendo de una cierta posición para los centroides la fase “E” (expectation) asigna a cada punto el centroide mas cercano. La fase “M” (maximization) recalcula cada centroide de forma tal de minimizar la distancia desde el centroide a los puntos asignados al mismo.
 
-La convergencia puede verificarse mediante la diferencia entre los centroides entre el paso anterior y el actual, cuando los centroides prácticamente ya no cambian de posición declaramos la convergencia del algoritmo.
+La convergencia puede verificarse mediante la diferencia entre los centroides entre el paso anterior y el actual. Cuando los centroides prácticamente ya no cambian de posición se declara la convergencia del algoritmo.
 
-Podemos garantizar que K-Means converge si analizamos la función de distorsión o costo:
+Se puede garantizar que K-Means converge al analizar la función de distorsión o costo que se muestra en la ecuación \ref{eq:k_means_convergence}
 
 \begin{myequation}
 J(c,idx) = \sum_{i=1}^m ||x_i  - c_{idx(i)}||^2
+\label{eq:k_means_convergence}
 \end{myequation}
+
 En la fase “E” los centroides están fijos y al asignarle a cada punto su centroide más cercano J disminuye. En la fase “M” se asigna a cada centroide el promedio de sus puntos y eso también hace que J disminuya. Por lo tanto J es monótona y decreciente lo cual garantiza su convergencia a un mínimo local.
 
-Veamos un ejemplo:
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/kmeans-fig-3.png}
 \caption{Ejemplo K-Means}
-
+\label{fig:k_means_example}
 \end{figure}
-
-Como podemos ver hay unos 4 clusters en nuestros datos y varios puntos aislados. Vamos a probar entonces correr K-Means con K=4. Los centroides los vamos a inicializar al azar dentro del rango [-3..4,-2..5].
-
-A continuación mostramos dos ejecuciones de K-Means inicializando los centroides al azar.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/kmeans-fig-4.png}
 \caption{Ejemplo K-Means}
-
+\label{fig:k_means_example_2}
 \end{figure}
 
-Las líneas muestran el movimiento de los centroides desde su posición inicial (random) hasta la posición en la cual el algoritmo converge. Podemos ver que en la primera ejecución (izquierda) K-Means detecta bien el cluster amarillo y el verde. Pero el cluster rojo es en realidad dos clusters y el azul reúne a un conjunto de puntos que no están asociados. En la segunda ejecución (derecha) el algoritmo detecta correctamente los cuatro clusters que queríamos identificar.
+La figura \ref{fig:k_means_example} muestra un ejemplo donde hay 4 clusters y varios puntos aislados. Al correr el algoritmo con $k=4$ e inicializando los centroides al azar se obtiene lo que se muestra en la figura \ref{fig:k_means_example_2}. Las líneas muestran el movimiento de los centroides desde su posición inicial (random) hasta la posición en la cual el algoritmo converge. Se puede ver que en la primera ejecución (izquierda) K-Means detecta bien el cluster amarillo y el verde pero el cluster rojo es en realidad dos clusters y el azul reúne a un conjunto de puntos que no están asociados. En la segunda ejecución (derecha) el algoritmo detecta correctamente los cuatro clusters que se querían identificar.
 
-La conclusión es muy simple: al ser un algoritmo que encuentra un mínimo local K-means es muy sensible a la posición inicial de los centroides.
+La conclusión es muy simple: al ser un algoritmo que encuentra un mínimo local K-means es muy sensible a la posición inicial de los centroides. Una posible solución para no caer en un mínimo local malo es realizar varias ejecuciones de K-means, idealmente en paralelo, y computar la función de distorsión $J$ para cada resultado final quedándonos con la mínima. Notemos que esto es una aplicación directa de un algoritmo tipo Montecarlo en donde en cada iteración probamos una inicialización aleatoria para los centroides.
 
-Una posible solución para no caer en un mínimo local malo es realizar varias ejecuciones de K-means, idealmente en paralelo, y computar la función de distorsión “J” para cada resultado final quedándonos con la mínima. Notemos que esto es una aplicación directa de un algoritmo tipo Montecarlo en donde en cada iteración probamos una inicialización aleatoria para los centroides.
-
-Veamos la mejor y peor solución de K-Means:
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/kmeans-fig-5.png}
 \caption{Ejemplo K-Means mejor y peor costo}
-
+\label{fig:k_means_example_cost}
 \end{figure}
 
-Como podemos ver el resultado de mejor costo es lo que esperábamos mientras que el resultado de peor costo es particularmente terrible. 
-
-El siguiente gráfico muestra el resultado de la función costo para 100 ejecuciones de K-Means y un histograma representando la cantidad de veces que observamos diferentes rangos de costo.
+La figura \ref{fig:k_means_example_cost} muestra el resultado del mejor y peor costo. Se puede ver que el resultado del peor costo es realmente muy malo mientras que el resultado del mejor costo es lo que se esperaba obtener.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/kmeans-fig-6.png}
 \caption{Costo en K-Means}
-
+\label{fig:k_means_example_cost_2}
 \end{figure}
 
-Como podemos ver, afortunadamente los costos bajos son amplia mayoría, es decir que únicamente con algunas pocas inicializaciones desafortunadas K-means llega a un mínimo global muy malo. Esto quiere decir que una sola iteración de K-Means nos dará un buen resultado con una probabilidad alta y hacer un ciclo con unas pocas ejecuciones es más que suficiente para llegar a un excelente resultado.
-
-Veamos ahora si inicializando los centroides de otra forma podemos garantizar un buen resultado en una única ejecución.
+El gráfico \ref{fig:k_means_example_cost_2} muestra el resultado de la función costo para 100 ejecuciones de K-Means y un histograma representando la cantidad de veces que se observaron diferentes rangos de costo. Como se puede ver, afortunadamente los costos bajos son amplia mayoría, es decir que únicamente con algunas pocas inicializaciones desafortunadas K-means llega a un mínimo global muy malo. Esto quiere decir que una sola iteración de K-Means nos dará un buen resultado con una probabilidad alta y hacer un ciclo con unas pocas ejecuciones es más que suficiente para llegar a un excelente resultado.
 
 \subsection{K-Means++}
 
-K-Means++ [Arthur '07] es una variante de K-Means en donde lo único que cambia con respecto al algoritmo de Lloyd es la forma en que se inicializan los centroides. La idea de K-means++ es asignar los centroides de forma espaciada, de esta forma el óptimo local obtenido por K-Means tiene una mayor probabilidad de estar cerca del óptimo global; o lo que es lo mismo el óptimo local está lejos de los óptimos que son muy malos con una probabilidad alta.
+K-Means++\cite{Arthur} es una variante de K-Means en donde lo único que cambia con respecto al algoritmo de Lloyd es la forma en que se inicializan los centroides. La idea de K-means++ es asignar los centroides de forma espaciada, de esta forma el óptimo local obtenido por K-Means tiene una mayor probabilidad de estar cerca del óptimo global; o lo que es lo mismo el óptimo local está lejos de los óptimos que son muy malos con una probabilidad alta. El algoritmo \ref{alg:k_means++} describe cómo se pueden inicializar los centroides.
 
 \begin{algorithm}[]
 Elegir un punto al azar como primer centroide\\
@@ -13368,24 +13355,25 @@ Elegir un punto al azar como primer centroide\\
  agregar el punto a la lista de centroides\\
 }
 \caption{Kmeans++}
+\label{alg:k_means++}
 \end{algorithm}
 
-Supongamos que el primer centroide elegido al azar es k1. El objetivo ahora es encontrar el siguiente centroide k2 de forma tal que esté alejado de k1. Pero no elegimos simplemente el centroide más lejano. Lo que hacemos es asignar a cada punto una probabilidad de acuerdo a su distancia a k1 y en base a dicha probabilidad elegimos el próximo centroide al azar. Notar que si ya tuviéramos más de un centroide entonces la probabilidad la calcularíamos en base a la distancia de cada punto al centroide más cercano.
+Suponer por ejemplo que el primer centroide elegido al azar es $k_1$. El objetivo ahora es encontrar el siguiente centroide $k_2$ de forma tal que esté alejado de $k_1$. Para ello, lo que se hace es asignar a cada punto una probabilidad de acuerdo a su distancia a $k_1$ y en base a dicha probabilidad se elige el próximo centroide al azar. Notar que si ya se tiene más de un centroide entonces la probabilidad se calcularía en base a la distancia de cada punto al centroide más cercano.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=5.5in]{figures/kmeans-fig-8.png}
 \caption{Kmeans++}
-
+\label{fig:k_means++_example}
 \end{figure}
 
-Como podemos ver K-means++ genera una inicialización más dispersa de los centroides iniciales. El problema de K-Means++ es que para datos realmente masivos necesita hacer "k" iteraciones sobre los datos para elegir los centroides, tarea que es todavía mas ineficiente cuando "k" es un número largo. Existe una variante a K-Means++ \cite{Bahmani} llamada K-Means paralell. La idea es hacer solo $log(k)$ pasadas sobre los datos, en cada iteración se agregan $l$ centroides en lugar de 1, el resultado es que tendremos una cantidad de centroides mayor a $k$ que son los centroides que necesitamos, los centroides finales se obtienen clusterizando los candidatos a centroides ponderados por la probabilidad con la cual fueron seleccionados, este paso se puede hacer, por ejemplo, usando clustering jerárquico.
+En la figura \ref{fig:k_means++_example} se puede ver K-means++ genera una inicialización más dispersa de los centroides iniciales. El problema de K-Means++ es que para datos realmente masivos necesita hacer $k$ iteraciones sobre los datos para elegir los centroides, tarea que es todavía mas ineficiente cuando $k$ es un número largo. Existe una variante a K-Means++ \cite{Bahmani} llamada K-Means paralell. La idea es hacer solo $log(k)$ pasadas sobre los datos, en cada iteración se agregan $l$ centroides en lugar de 1 y el resultado es que se tendrá una cantidad de centroides mayor a $k$. Los centroides finales se obtienen clusterizando los candidatos a centroides ponderados por la probabilidad con la cual fueron seleccionados, este paso se puede hacer, por ejemplo, usando clustering jerárquico. Las figuras \ref{fig:kmeansp1} y \ref{fig:kmeansp2} reflejan esta situación.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3in]{figures/kmeansp1.png}
 
-\caption{Suponiendo que usamos $k=4$ y $l=3$ en el primer paso elegimos un punto al azar como centroide, en el segundo paso elegimos 3 puntos usando K-means++, en el tercer paso otros 3 puntos y tenemos en total 7 candidatos a centroides. Clusterizando estos 7 centroides hasta que nos queden 4 nos quedarían los 4 centroides a usar como inicialización de K-Means}
+\caption{Suponiendo que se usa $k=4$ y $l=3$,  en el primer paso se elige un punto al azar como centroide, en el segundo paso se eligen 3 puntos usando K-means++, en el tercer paso otros 3 puntos y se tienen en total 7 candidatos a centroides. Clusterizando estos 7 centroides se obtendrán los 4 centroides que se usarán como inicialización de K-Means}
 \label{fig:kmeansp1}
 \end{figure}
 
@@ -13398,37 +13386,35 @@ Como podemos ver K-means++ genera una inicialización más dispersa de los centr
 \label{fig:kmeansp2}
 \end{figure}
 
-En general K-Means++ y su variante K-Means paralell generan una inicialización mejor para K-Means y esto permite no solo obtener una mejor solución final sino que también acelera la velocidad de convergencia del algoritmo.
+En general, K-Means++ y su variante K-Means paralell generan una inicialización mejor para K-Means y esto permite no solo obtener una mejor solución final sino que también acelera la velocidad de convergencia del algoritmo.
 
-\subsection{Como buscar K}
+\subsection{El valor K a utilizar}
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/kmeans-fig-9.png}
 \caption{Encontrando K}
-
+\label{fig:kmeanscost}
 \end{figure}
 
-En muchas ocasiones el número de clusters k a generar es desconocido. Es necesario entonces encontrar el k óptimo.En general la forma de buscar k es mediante un Grid-Search con diferentes valores  posibles. 
+En muchas ocasiones el número de clusters $k$ a generar es desconocido. Es necesario entonces encontrar el mejor valor de $k$ posible. En general, la forma de buscar $k$ es mediante un Grid-Search con diferentes valores  posibles. 
 
-Como métrica para evaluar la calidad de cada valor de k podemos usar un promedio de nuestra función de distorsión para varias iteraciones de K-Means o el diámetro promedio de los clusters, tomando como diámetro de un cluster la distancia máxima entre dos puntos del mismo. Existen otras métricas para evaluar la calidad de una solución de clustering pero todas tienen alguna falla así que es conveniente optar por la más simple.
+Como métrica para evaluar la calidad de cada valor de k se puede usar un promedio de nuestra función de distorsión para varias iteraciones de K-Means o el diámetro promedio de los clusters, tomando como diámetro de un cluster la distancia máxima entre dos puntos del mismo. Existen otras métricas para evaluar la calidad de una solución de clustering pero todas tienen alguna falla así que es conveniente optar por la más simple.
 
-Podemos graficar la función costo en función de K.
-
-El k óptimo en general está en el “codo” de este gráfico. En nuestro caso corresponde a k=4 lo cual es bastante lógico ya que teníamos cuatro clusters naturales. Es de destacar que cuando k es igual a la cantidad de puntos el costo total es cero y cada cluster contiene solo un punto pero esto obviamente no tiene mucho sentido. 
+En la figura \ref{fig:kmeanscost} se muestra como varía la función costo en función de $k$. El $k$ óptimo en general está en el “codo” de este gráfico. En este caso, corresponde a $k=4$ lo cual es bastante lógico ya que naturalmente se tenían cuatro clusters. Es de destacar que cuando $k$ es igual a la cantidad de puntos el costo total es cero y cada cluster contiene solo un punto pero esto obviamente no tiene mucho sentido. 
 
 \subsection{Diagramas de Voronoi}
 
-El proceso de clustering de K-means genera lo que llamamos un diagrama de “Voronoi” o una teselación de Voronoi que consiste en delimitar la frontera hasta la cual llega cada centroide. Por ejemplo para nuestro set de datos ejemplo corriendo K-Means nos queda delimitado el siguiente diagrama de Voronoi:
+El proceso de clustering de K-means genera lo que se conoce como un  \textit{diagrama de Voronoi} o una \textit{teselación de Voronoi }. Este diagrama consiste en delimitar la frontera hasta la cual llega cada centroide. Por ejemplo, la figura \ref{fig:k_means_voronoi} muestra el diagrama de Voronoi del set de datos de ejemplo.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/kmeans-fig-10.png}
 \caption{Diagrama de Voronoi}
-
+\label{fig:k_means_voronoi}
 \end{figure}
 
-El diagrama de Voronoi nos muestra a qué cluster quedaría asignado un punto nuevo que quisiéramos agregar a nuestros datos sin correr de nuevo K-Means. Un detalle fundamental de esto es que, como podemos ver, K-means realiza una partición de todo el espacio n-dimensional en el cual trabajamos. Esto quiere decir que podemos representar a cualquier punto de nuestro espacio de n-dimensiones en k-dimensiones de acuerdo a la separación establecida por el diagrama de Voronoi correspondiente al resultado de K-means. Esto va a ser muy útil más adelante.
+El diagrama de Voronoi muestra a qué cluster quedaría asignado un punto nuevo que se quisiera agregar al set de datos sin correr de nuevo K-Means. Un detalle fundamental de esto es que, como se puede ver, K-means realiza una partición de todo el espacio n-dimensional. Esto quiere decir que se puede representar a cualquier punto del espacio de n-dimensiones en k-dimensiones de acuerdo a la separación establecida por el diagrama de Voronoi correspondiente al resultado de K-means. Esto va a ser muy útil más adelante.
 
 \begin{figure}[!htb]
 \centering
@@ -13437,15 +13423,13 @@ El diagrama de Voronoi nos muestra a qué cluster quedaría asignado un punto nu
 
 \end{figure}
 
-Notemos la forma que toma un diagrama de Voronoi, cada sector del diagrama depende única y exclusivamente de un punto: el centroide. Las fronteras indican la separación entre centroides, a cada lado de las líneas estamos mas cerca de uno u otro centroide. El tamaño de cada área no depende de la cantidad de puntos asociados al centroide sino de que tan aislado se encuentra el centroide respecto del resto, cuanto mas aislado mas grande será la superficie de su área. 
+Notar la forma que toma un diagrama de Voronoi, cada sector del diagrama depende única y exclusivamente de un punto: el centroide. Las fronteras indican la separación entre centroides, a cada lado de las líneas estamos mas cerca de uno u otro centroide. El tamaño de cada área no depende de la cantidad de puntos asociados al centroide sino de que tan aislado se encuentra el centroide respecto del resto, cuanto mas aislado mas grande será la superficie de su área. 
 
-\subsection{Kmeans Online}
+\subsection{Kmeans online}
 
-Cuando se trata de procesar datos masivos, millones o billones de datos, el principal problema de K-Means es que requiere en cada iteración calcular el centroide más cercano a cada uno de los puntos y esta operación es costosa ya que hay que comparar cada punto contra cada centroide lo cual implica visitar todos los puntos del set de datos por cada iteración.
+Cuando se trata de procesar datos masivos, el principal problema de K-Means es que requiere en cada iteración calcular el centroide más cercano a cada uno de los puntos y esta operación es costosa ya que hay que comparar cada punto contra cada centroide lo cual implica visitar todos los puntos del set de datos por cada iteración. La versión online de K-Means procesa un punto por vez del set de datos, no necesita conocer todos los puntos antes de empezar y requiere un mínimo uso de memoria.
 
-La versión online de K-Means procesa un punto por vez del set de datos, no necesita conocer todos los puntos antes de empezar y requiere un mínimo uso de memoria.
-
-La idea es muy sencilla a partir de “k” centroides inicializados de alguna forma que es externa al algoritmo, por ejemplo al azar, se procesa cada punto asignándolo al centroide más cercano y luego se mueve ese centroide hacia el punto procesado de forma proporcional a la cantidad de puntos que tiene el cluster en total. Es necesario contar con un vector de “k” elementos en donde vamos a ir contando cuantos puntos contiene cada cluster hasta el momento.
+La idea es muy sencilla: a partir de $k$ centroides inicializados de alguna forma que es externa al algoritmo, por ejemplo al azar, se procesa cada punto asignándolo al centroide más cercano y luego se mueve ese centroide hacia el punto procesado de forma proporcional a la cantidad de puntos que tiene el cluster en total. Es necesario contar con un vector de $k$ elementos en donde se irán contando cuántos puntos contiene cada cluster hasta el momento. El algoritmo \ref{alg:k_means_online} refleja esta situación.
 
 \begin{algorithm}[]
 n[1..k] = 0\\
@@ -13457,36 +13441,33 @@ Asignar k centroides al azar $c_1..c_k$\\
  $c_j = c_j + \frac{1}{n[j]} (x_i - c_j)$\\
 }
 \caption{K-Means Online}
+\label{alg:k_means_online}
 \end{algorithm}
 
-Es importante destacar que por cada punto el algoritmo computa la distancia contra cada centroide pero la cantidad de centroides nunca es demasiado grande, el algoritmo tradicional, en cambio, computa en cada iteración la distancia de todos los puntos a todos los centroides.
+Es importante destacar que por cada punto el algoritmo computa la distancia contra cada centroide pero la cantidad de centroides nunca es demasiado grande. El algoritmo tradicional, en cambio, computa en cada iteración la distancia de todos los puntos a todos los centroides.
 
 Pueden realizarse varias iteraciones de  OnlineKMeans en caso de ser necesario, aunque cuando los puntos son millones o provienen de un stream infinito suele ser necesario y suficiente realizar una única iteración.
 
-Es interesante analizar el comportamiento del algoritmo frente a un stream, un flujo de datos infinito, a medida que se procesan mas y mas puntos cada punto va a quedar asociado mediante su cluster a aquellos que son más cercanos. Esto permite realizar clustering y clasificación online sobre streams sin prácticamente ninguna restricción de tiempo ni memoria!
-Veamos el diagrama de Voronoi resultante luego de procesar miles de puntos en 2D
+Es interesante analizar el comportamiento del algoritmo frente a un stream. A medida que se procesan mas y mas puntos cada punto va a quedar asociado mediante su cluster a aquellos que son más cercanos. Esto permite realizar clustering y clasificación online sobre streams sin prácticamente ninguna restricción de tiempo ni memoria.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.0in]{figures/kmeans-fig-12.png}
 \caption{Kmeans Online}
-
+\label{fig:k_means_online_voronoi}
 \end{figure}
 
-Podemos ver que el diagrama es muy similar al diagrama de Voronoi de K-Means tradicional con algunos puntos aislados que quedan dentro de un cluster pero pertenecen a otro.Esto es fácil de explicar ya que estos puntos fueron asignados originalmente a un cluster cuyo centroide se fue moviendo luego, la versión online de K-Means únicamente asigna una vez por punto, una vez que el punto fue asignado a un centroide permanece dentro de dicho cluster. Esto puede solucionarse, por supuesto, realizando mas de una iteración. 
+La figura \ref{fig:k_means_online_voronoi} es el diagrana de Voronoi resultante luego de procesar miles de puntos en 2D. Se puede ver que el diagrama es muy similar al diagrama de Voronoi de K-Means tradicional con algunos puntos aislados que quedan dentro de un cluster pero pertenecen a otro. Esto es fácil de explicar ya que estos puntos fueron asignados originalmente a un cluster cuyo centroide se fue moviendo luego. La versión online de K-Means únicamente asigna una vez por punto, una vez que el punto fue asignado a un centroide permanece dentro de dicho cluster. Esto puede solucionarse, por supuesto, realizando mas de una iteración. En la segunda iteración los puntos que quedaron mal asignados en la primera pasada pasan al cluster que les corresponde. 
 
-En la segunda iteración los puntos que quedaron mal asignados en la primera pasada pasan al cluster que les corresponde. 
-
-En el siguiente experimento promediamos varias ejecuciones de K-Means y K-Means Online para diferente número de iteraciones y comparamos el costo. 
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/kmeans-fig-16.png}
 \caption{Kmeans Onliine vs Kmeans++ y Kmeans}
-
+\label{fig:k_means_comparison}
 \end{figure}
 
-Como es lógico el costo promedio de la versión online disminuye a medida que aumentamos las iteraciones alcanzando su mejor rendimiento en unas 10 iteraciones  mientras que la versión tradicional oscila según comience con mejores o peores inicializaciones. Lo mas destacable es que a partir de tres o cuatro iteraciones el resultado de la versión online es siempre mejor que la versión tradicional.
+La figura \ref{fig:k_means_comparison} muestra el experimento realizado al promediar varias ejecuciones de K-Means y K-Means Online para diferente número de iteraciones y comparando el costo. Como es lógico, el costo promedio de la versión online disminuye a medida que se aumentan las iteraciones alcanzando su mejor rendimiento en unas 10 iteraciones  mientras que la versión tradicional oscila según comience con mejores o peores inicializaciones. Lo mas destacable es que a partir de tres o cuatro iteraciones el resultado de la versión online es siempre mejor que la versión tradicional.
 
 La versión Kmeans++ es mejor que las dos anteriores aunque muy similar a la versión online con múltiples iteraciones con el costo de tener que pre-procesar los datos para lograr los centroides iniciales.
 
