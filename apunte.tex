@@ -3174,7 +3174,7 @@ Algo importante a destacar es que en general los archivos distribuidos son inmut
 
 \section{El Ecosistema Hadoop}
 
-Hadoop es un proyecto desarrollado en Yahoo como respuesta al esquema de procesamiento distribuido propietario de Google. Hadoop se hizo open-source y es la base de una gran cantidad de herramientas open-source para el procesamiento de datos distribuidos, a este conjunto de herramientas se las conoce como el \textit{ecosistema} de Hadoop. En general se representa este ecosistema con un diagrama de capas en donde las capas superiores hacen uso de las capas inferiores.
+Hadoop es un proyecto desarrollado en Yahoo como respuesta al esquema de procesamiento distribuido propietario de Google (Descripto en el paper de MapReduce y en Google File System (GFS). Hadoop se hizo open-source como proyecto Apache y es la base de una gran cantidad de herramientas open-source para el procesamiento de datos distribuidos. A este conjunto de herramientas se las conoce como el \textit{ecosistema} de Hadoop. En general se representa este ecosistema con un diagrama de capas en donde las capas superiores hacen uso de las capas inferiores.
 
 \begin{figure}[!htb]
 \centering
@@ -3183,13 +3183,18 @@ Hadoop es un proyecto desarrollado en Yahoo como respuesta al esquema de procesa
 
 \end{figure}
 
-La base de Hadoop es HDFS, el file-system distribuido del cual ya hemos hablado. Sobre HDFS funciona YARN que es un administrador de recursos, YARN permite distribuir el procesamiento a los diferentes nodos de un cluster, es decir asignar procesos a equipos del cluster, monitorear su funcionamiento, repetirlos en otro nodo en caso de fallas, etc. Sobre YARN funciona MapReduce que es el paradigma de procesamiento distribuido mas popular para todo lo que es el procesamiento de datos en modo batch. Sobre MapReduce se ubican herramientas de mas alto nivel como HIVE o PIG que permiten procesar datos mediante consultas en lenguajes de alto nivel estilo SQL que luego son mapeadas a procesos Map Reduce. 
+La base de Hadoop es HDFS, el file-system distribuido del cual ya hemos hablado en la sección anterior.
 
-Otras herramientas populares no hacen uso de MapReduce, pero se apoyan en YARN. En concreto nos interesa SPARK que es una herramienta que permite el procesamiento de datos distribuidos en modo batch pero aprovechando los datos en memoria. Además podemos citar a Storm que es una herramienta para procesar streams de datos y Giraph que es una herramienta para procesar grafos inmensos de forma eficiente. 
+Sobre HDFS funciona YARN que es un administrador de recursos permitiendo distribuir el procesamiento a los diferentes nodos de un cluster. Esto consiste en asignar procesos a equipos del cluster, monitorear su funcionamiento, repetirlos en otro nodo en caso de fallas, etc.
+
+Sobre YARN funciona MapReduce, el paradigma de procesamiento distribuido mas popular para el procesamiento de datos en modo batch. Sobre MapReduce se ubican herramientas de mas alto nivel como HIVE o PIG que permiten procesar datos mediante consultas en lenguajes de alto nivel similares a SQL que luego son mapeadas a procesos Map Reduce.
+
+Existen otras herramientas populares no hacen uso de MapReduce, pero se apoyan en YARN. En concreto nos interesa SPARK, una herramienta que permite el procesamiento de datos distribuidos en modo batch pero aprovechando los datos en memoria. Además podemos citar a Storm, una herramienta para procesar streams de datos y a Giraph, una herramienta para procesar grafos inmensos de forma eficiente.
 
 
 \section{Map Reduce}
-El paradigma de programación Map-Reduce es una abstracción inspirada en el paradigma de programación funcional para procesar información que se encuentra almacenada de forma distribuida en un cluster. La principal característica de este paradigma es que podemos dividir el procesamiento de la información distribuida en tres fases:
+El paradigma de programación Map-Reduce es una abstracción inspirada en el paradigma de programación funcional que permite procesar información que se encuentra almacenada de forma distribuida en un cluster.
+La principal característica de este paradigma es que podemos dividir el procesamiento de la información distribuida en tres fases:
 
 \begin{enumerate}
 \item Fase de Map
@@ -3197,27 +3202,32 @@ El paradigma de programación Map-Reduce es una abstracción inspirada en el par
 \item Fase Reduce
 \end{enumerate}
 
-Vamos a presentar entonces cada una de estas fases de forma abstracta para luego poder usar lo aprendido en ejemplos mas concretos.
+Vamos a presentar cada una de estas fases de forma abstracta para luego poder usar lo aprendido en ejemplos mas concretos.
 
 \subsection{Fase de Map}
 
-En la fase de Map se realizan todas las operaciones que puedan hacerse de forma atómica sobre cada registro. En otras palabras cualquier cosa que no necesite mas de un registro del archivo. Por ejemplo podemos realizar transformaciones de datos, convirtiendo cada registro del archivo en el formato que necesitemos y creando un nuevo archivo distribuido. Podemos también filtrar datos eliminando los registros que no nos sirven o lo que es igual seleccionando los registros que nos interesan. 
+En la fase de Map se realizan todas las operaciones que puedan hacerse de forma atómica sobre cada registro. En otras palabras cualquier cosa que no necesite mas de un registro del archivo. Esto nos permite realizar transformaciones de datos, convirtiendo cada registro del archivo en el formato que necesitemos, creando un nuevo archivo distribuido. Podemos también filtrar datos eliminando los registros que no nos sirven o seleccionar los registros que nos interesan.
 
-Para la fase de Map lo que el "sistema" hace es asignar a cada bloque (conjunto de registros) del archivo una tarea que ejecute el código necesario para realizar la tarea encomendada, si algunos de estos workers falla o no responde el sistema puede asignar otro a la réplica del mismo bloque en otro equipo. En general el usuario no controla la cantidad de procesos "Map" que el sistema utiliza. La salida de un Map puede convertirse en un nuevo archivo distribuido o bien usarse como input para otro proceso Map o un proceso reduce.
+Para la fase de Map lo que el "sistema" hace es asignar a cada bloque (que contiene un conjunto de registros) del archivo una tarea que ejecute el código necesario para realizar la tarea encomendada a un worker. Si algunos de estos workers falla o no responde el sistema puede asignar otro a la réplica del mismo bloque en otro equipo.
+
+En general el usuario no controla la cantidad de procesos "Map" que el sistema utiliza. La salida de un Map puede convertirse en un nuevo archivo distribuido o bien usarse como input para otro proceso Map o un proceso reduce.
 
 La definición "formal" de Map que hace Hadoop es la siguiente:
 
 $$Map(k,v) \to [k2,v2]$$
 
-Map recibe un registro en formato clave (k) y valor (v) y devuelve una lista de registros en formato (clave,valor). Es de destacar que las claves que Map devuelve no tienen por qué ser las mismas que recibe, ni siquiera tienen que ser parecidas. Por cada registro procesado Map puede devolver uno, muchos o ningún registro.
+Map recibe un registro en formato clave (k) y valor (v) y devuelve una lista de registros en formato (k2,v2). Es de destacar que las claves que Map devuelve no tienen por qué ser las mismas que recibe, ni siquiera tienen que ser parecidas. Es por eso que por cada registro procesado Map uno puede devolver uno, muchos o ningún registro, aprovechando esto en el procesamiento.
 
-Desde el punto de vista del usuario/programador Map procesa un registro por vez, desde el punto de vista de Map Reduce el sistema asigna a un proceso Mapper a un cierto bloque del archivo y este proceso se encarga de procesar todos los registros dentro del bloque llamando a la función o método Map definido por el usuario. En definitiva Map tiene que ser una función definida por el usuario que reciba como parámetro un registro y devuelva 0 a N registros en cualquier formato que sea conveniente.
+Desde el punto de vista del usuario/programador Map procesa un registro por vez. Desde el punto de vista de Map Reduce el sistema asigna a un proceso Mapper un cierto bloque del archivo y este proceso se encarga de procesar todos los registros dentro del bloque. Esto lo realiza llamando a la función o método Map definido por el usuario.
 
-Por ejemplo podemos tener un archivo con números y mediante Map convertirlo en un archivo que contenga únicamente números primos. En este caso la "clave" de cada registro es simplemente un número de registro u algo que podemos ignorar. Por lo que podemos definir Map de la siguiente forma:
+En definitiva Map tiene que ser una función definida por el usuario que reciba como parámetro un registro y devuelva 0 a N registros en cualquier formato que sea conveniente.
+
+A modo de ejemplo imaginemos que tenemos un archivo con números y mediante Map queremos convertirlo en un archivo que contenga únicamente números primos. En este caso la "clave" de cada registro es simplemente un número de registro u algo que podemos ignorar. Por lo que podemos definir Map de la siguiente forma:
 
 $$Map(r) \to [r']$$
 
-Esta definición es mas genérica que la anterior. Map recibe un registro (r) y devuelve 0 a N registros r'. El registro "r" puede tener cualquier formato, por ejemplo puede ser una tupla de tipo (clave,valor) o puede ser simplemente un valor atómico o cualquier tipo de estructura, por ejemplo un diccionario. Esta es la definición que vamos a usar para Map ya que es mas genérica que la que vimos basada en Hadoop.
+Esta definición es mas genérica que la anterior. Map recibe un registro (r) y devuelve 0 a N registros r'.
+El registro "r" puede tener cualquier formato, por ejemplo una tupla de tipo (clave,valor), simplemente un valor atómico o cualquier tipo de estructura como un diccionario. Esta es la definición que vamos a usar para Map ya que es mas genérica que la que vimos basada en Hadoop.
 
 \subsection{Map Partitions}
 Map se aplica a cada registro de un archivo distribuido. Un archivo distribuido en un cluster es un conjunto de particiones y cada partición es un conjunto de registros. Suponiendo que cada partición entra en memoria podemos definir un método llamado "Map Partitions" que aplica una función a cada partición del archivo.
@@ -3234,7 +3244,8 @@ La fase de Reduce se encarga de las operaciones que necesiten mas de un registro
 
 \subsubsection{Reduce propiamente dicho}
 
-En esta forma reduce funciona realizando operaciones que deben ser asociativas y conmutativas entre registros del archivo. El resultado de un reduce pasa a ser parte del input de la siguiente operación, por ejemplo supongamos que tenemos un archivo formado por números de la forma [1,3,4,-2,5] si hacemos un reduce con la operación "+" lo que haremos es tomar primero "1" y "3" aplicar "+", el resultado nos da "4", a este resultado le aplicamos "+" con -2 y nos da 2, y a este resultado el aplicamos "+" con 5 y nos da el resultado final que es 7. 
+En esta forma reduce funciona realizando operaciones que deben ser asociativas y conmutativas entre registros del archivo donde el resultado de un reduce pasa a ser parte del input de la siguiente operación. Supongamos que tenemos un archivo formado por números de la forma [1,3,4,-2,5]. Si hacemos un reduce con la operación "+" lo que haremos es tomar primero "1" y "3" aplicar "+", el resultado nos da "4". A este resultado le aplicamos "+" con -2 y nos da 2. Por ultimo al resultado obtenido le aplicamos "+" con 5 y nos da el resultado final que es 7.
+
 Podemos definir reduce de la forma:
 
 $$Reduce(r,fun)  \to val$$
@@ -3246,25 +3257,31 @@ Por ejemplo podemos usar Reduce para encontrar el mínimo de un archivo con una 
 archivo2 = archivo.reduce(lambda x,y: x if x<y else y)
 \end{verbatim}
 
-Lo que hacemos es ir comparando los elementos de a 2 quedándonos siempre con el mínimo.
+En este caso lo que hacemos es ir comparando los elementos de a 2 quedándonos siempre con el mínimo.
 
 \subsubsection{Reduce by Key}
 
-En esta variante suponemos que cada registro esta formado por una tupla de tipo (clave,valor), notemos que tanto clave como valor pueden ser estructuras de todo tipo: listas, tuplas, diccionarios o valores atómicos. El sistema va a agrupar todos los registros para los cuales la clave es la misma y aplicarles a estos la función reduce. El funcionamiento de reduce es igual al anterior pero el resultado es un par (clave,valor) por cada clave del archivo. Para cada resultado automáticamente se agrega la clave.
+En esta variante suponemos que cada registro esta formado por una tupla de tipo (clave,valor). Notemos que tanto clave como valor pueden ser estructuras de todo tipo: listas, tuplas, diccionarios o valores atómicos. El sistema va a agrupar todos los registros para los cuales la clave es la misma y aplicarles a estos la función reduce. El funcionamiento de reduce es igual al anterior pero el resultado es un par (clave,valor) por cada clave del archivo. Para cada resultado automáticamente se agrega la clave.
 
 $$ReduceByKey((k,v),fun) \to [(k,v)]$$
 
-Para que reduce pueda funcionar el sistema debe asegurarse de juntar todos los registros que tienen igual clave en un mismo equipo, esto implica mover datos en la red y es una operación costosa que se realiza en la fase que llamamos "Shuffle \& Sort"
+Para que reduce pueda funcionar, el sistema debe asegurarse de juntar todos los registros que tienen igual clave en un mismo equipo. Esto implica mover datos en la red y es una operación costosa que se realiza en la fase que llamamos "Shuffle \& Sort"
 
 \subsection{Fase de Shuffle \& Sort}
 
-La fase de shuffle \& sort es la encargada de hacer que el sistema pueda ejecutar la fase de reduce o reduceByKey, en líneas generales implica mover la salida de cada proceso Map a un cierto equipo de forma tal que un proceso "Reducer" pueda procesar todos los registros que le corresponden. Cuando usamos reduceByKey el sistema debe encargarse que todos los registros con la misma clave puedan ser procesados por un mismo proceso Reducer. 
+La fase de shuffle \& sort es la encargada de hacer que el sistema pueda ejecutar la fase de reduce o reduceByKey. En líneas generales esto implica mover la salida de cada proceso Map a un cierto equipo de forma tal que un proceso "Reducer" pueda procesar todos los registros que le corresponden. Cuando usamos reduceByKey el sistema debe encargarse que todos los registros con la misma clave puedan ser procesados por un mismo proceso Reducer.
 
-La fase de shuffle \& sort es siempre la parte mas costosa de todo proceso Map-Reduce por lo que las optimizaciones siempre pasan por minimizar la cantidad de datos que deben moverse de un equipo a otro.
+La fase de shuffle \& sort es siempre la parte mas costosa de todo proceso Map-Reduce es por esta razón que las optimizaciones siempre pasan por minimizar la cantidad de datos que deben moverse de un equipo a otro.
 
 \section{Normalización}
 
-En nuestro primer ejemplo de Map Reduce vamos a normalizar un conjunto de datos de forma tal que todas las columnas (features) tengan promedio cero y desviación standard 1. Este paso es muy importante para muchos algoritmos que funcionan mejor con datos normalizados. Es de destacar que si vamos a normalizar los datos de entrenamiento también tenemos que normalizar los datos de validación y test es decir normalizar todos los datos como si fueran un único set de datos. Cuando no conocemos todos los puntos que queremos testear, clasificar o analizar con nuestro algoritmo la normalización en principio no es posible pero pueden usarse algunos trucos como por ejemplo tomar el logaritmo de cada valor de forma tal de acercarlo un poco a lo que sería una distribución normal. De todas formas dejemos esto para mas adelante y veamos como podemos normalizar un set de datos en Map-Reduce lo cual implica poder calcular el promedio y la desviación standard de cada columna.
+En nuestro primer ejemplo de Map Reduce vamos a normalizar un conjunto de datos de forma tal que todas las columnas (features) tengan promedio cero y desviación standard 1.
+
+Este paso es muy importante para muchos algoritmos que por sus caracteristicas funcionan mejor con datos normalizados. Es importante aclarar que si vamos a normalizar los datos de entrenamiento también tenemos que normalizar los datos de validación y test es decir, normalizar todos los datos como si fueran un único set de datos.
+
+Existen situaciones en las que no conocemos todos los puntos que queremos testear, clasificar o analizar con nuestro algoritmo. En estos casos la normalización en principio no es posible. Sin embargo, pueden usarse algunos trucos como por ejemplo tomar el logaritmo de cada valor de forma tal de acercarlo un poco a lo que sería una distribución normal.
+
+Estos aspectos los trataremos en profunidad mas adelante por lo que concentremonos ahora en como podemos normalizar un set de datos mediante Map-Reduce. Esto implicará poder calcular el promedio y la desviación standard de cada columna.
 
 El set de datos será el siguiente
 
@@ -3276,9 +3293,11 @@ El set de datos será el siguiente
 (0,(2,-2,0,1))
 \end{verbatim}
 
-El primer elemento de cada vector es su clase, hay solo dos clases 0 y 1. El segundo elemento es el vector propiamente dicho que, como vemos, tiene en nuestro ejemplo cuatro dimensiones. La cantidad de elementos (puntos,vectores) la podemos calcular fácilmente haciendo un count de la cantidad de datos. El count se hace siemplemente reemplazando cada dato por "1" y haciendo la suma en un reduce. 
+El primer elemento de cada vector indica su clase, e inspeccionando el set de datos notamos que hay solo dos clases 0 y 1.
+El segundo elemento es el vector propiamente dicho que, como vemos, tiene en nuestro ejemplo cuatro dimensiones.
+La cantidad de elementos (puntos,vectores) la podemos calcular fácilmente realizando un count de la cantidad de datos. El count se hace siemplemente reemplazando cada dato por "1" y haciendo un reduce usando la operación suma.
 
-Como nos interesa el promedio de cada columna lo que vamos a hacer es convertir a cada vector en una serie de tuplas de tipo (col,valor) indicando el número de columna y su correspondiente valor.
+El mismo tipo de idea la podemos utilizar conceptualmente para calcular el promedio de cada columna. Para ello vamos a convertir a cada vector en una serie de tuplas de tipo (col,valor) indicando el número de columna y su correspondiente valor visto en esa columna.
 
 \begin{verbatim}
 kdata = [(1,(1,0,2,3)),(0,(3,1,2,2)),(1,(0,0,-2,4)),(1,(1,1,-1,1)),(0,(2,-2,0,1))]
@@ -3296,7 +3315,7 @@ OUTPUT:
 ...etc
 \end{verbatim}
 
-Una vez que tenemos los datos en este formato es sencillo calcular el promedio simplemente sumando por cada dimensión usando reduceByKey y luego dividiendo por la cantidad total de puntos.
+Una vez que tenemos los datos en este formato es sencillo calcular el promedio simplemente sumando por cada dimensión usando reduceByKey y luego dividiendo por la cantidad total de puntos, calculada anteriormente.
 
 \begin{verbatim}
 rsk2 = rsk.flatMap(lambda x:([ (idx,val) for idx,val in enumerate(x[1])]))
@@ -3313,7 +3332,7 @@ El siguiente paso es calcular la desviación standard que se calcula de la forma
 
 $$\sigma = \sqrt  \frac{\sum_{i=1}^n (x-\mu)^2}{n-1}$$
 
-Es importante recordar que si sabemos el promedio de $n$ valores entonces solo necesitamos $n-1$ valores para reconstruirlos por eso en la desviación standard se hace el promedio sobre $n-1$ puntos y no $n$ para compensar el grado de libertad perdido.
+Es importante recordar que si sabemos el promedio de $n$ valores entonces solo necesitamos $n-1$ valores para reconstruirlos. Por eso en la desviación standard se hace el promedio sobre $n-1$ puntos y no $n$ para compensar el grado de libertad perdido.
 
 El cálculo de la desviación standard en Map-Reduce sigue la misma idea que el promedio, a cada vector le restamos el promedio ($\mu$) y luego generamos registros de tipo (col,valor) en donde el valor lo elevamos al cuadrado. Finalmente acumulamos por dimensión y dividimos por $n-1$
 
@@ -3341,17 +3360,17 @@ OUTPUT:
 ...etc
 \end{verbatim}
 
-Normalizar los datos es una parte fundamental en varios algoritmos y por eso es conveniente tener presente como podemos hacerlo usando Map-Reduce para poder procesar datos masivos.
+Normalizar los datos es una parte fundamental para el correcto funcionamiento de varios algoritmos y por eso es conveniente tener presente como podemos hacerlo usando Map-Reduce para poder procesar datos masivos.
 
 \section{KNN}
 
-Vamos a trabajar ahora con una simple versión de KNN. Vamos a suponer que no hace falta normalizar los datos y usaremos la distancia euclideana. Vamos a mostrar dos variantes en primer lugar el caso mas simple que es $k=1$ y luego el caso en el cual $k>1$.
+Vamos a trabajar ahora con una simple versión de KNN (K-Nearest Neighbors): Supondremos que no hace falta normalizar los datos y usaremos la distancia euclideana. Mostraremos dos variantes: En primer lugar el caso mas simple que es $k=1$ y luego el caso en el cual $k>1$.
 
 \subsection{NN}
 
-NN es la versión de KNN con $k=1$ vamos a tener un cierto punto como query o input y vamos a buscar en nuestro set de datos el punto mas cercano al mismo usando alguna métrica como distancia. En este caso vamos a usar la distancia euclideana pero podría usarse cualquier otra distancia y recordemos que determinar la métrica óptima es muy importante para el correcto funcionamiento de KNN.
+NN es la versión de KNN con $k=1$ donde vamos a tener un cierto punto como query o input y vamos a buscar en nuestro set de datos el punto mas cercano al mismo usando alguna métrica como distancia. En este caso vamos a usar la distancia euclideana pero podría usarse cualquier otra distancia. Rrecordemos que determinar la métrica óptima es muy importante para el correcto funcionamiento de KNN.
 
-El procedimiento es muy simple, calculamos la distancia entre cada punto y nuestro query y generamos un registro de tipo (distancia,(clase,vector)). Luego en la fase de reduce simplemente nos quedamos con el registro que tenga menor distancia comparando de a dos y conservando el menor.
+El procedimiento es muy simple: Calculamos la distancia entre cada punto y nuestro query generando un registro de tipo (distancia,(clase,vector)). Luego realizamos un reduce donde simplemente nos quedamos con el registro que tenga menor distancia comparando de a dos y conservando siempre el menor.
 
 \begin{verbatim}
 DATOS:
@@ -3377,7 +3396,7 @@ Es decir que si estuviéramos clasificando al punto "q" le asignaríamos la clas
 
 \subsection{KNN}
 
-La extensión lógica a NN es KNN es decir $K>1$ en este caso el procedimiento es muy similar pero ya no podemos hacer un reduce para quedarnos con el menor punto ya que necesitamos los $k$ vecinos mas cercanos. Vamos a ver un procedimiento que desde el punto de vista teórico no es del todo eficiente pero en la práctica funciona bien. La idea es calcular la distancia a cada punto y luego simplemente ordenar las distancias de menor a mayor y quedarnos los primeros $k$ registros.
+La extensión lógica a NN es KNN, es decir $K>1$. En este caso el procedimiento es muy similar, sin embargo ya no podemos hacer un reduce para quedarnos con el menor punto dado que necesitamos los $k$ vecinos mas cercanos. Vamos a ver un procedimiento que, desde el punto de vista teórico no es del todo eficiente pero en la práctica funciona bien. La idea es calcular la distancia a cada punto y luego simplemente ordenar las distancias de menor a mayor y quedarnos los primeros $k$ registros.
 
 \begin{verbatim}
 knn = rsk.map(lambda x:(euclid(x[1],q),(x[0],x[1])))
@@ -3389,11 +3408,11 @@ OUTPUT:
 (3.1622776601683795, (1, (1, 0, 2, 3)))
 \end{verbatim}
 
-Desde el punto de vista teórico este algoritmo no es eficiente ya que para obtener los $k$ vecinos mas cercanos no necesitamos ordenar todas las distancias que es $O(n \log n)$ sino que podemos simplemente recorrer todas las distancias secuencialmente y quedarnos con las $k$ mas pequeñas y sus correspondientes puntos. Sin embargo el proceso de sort que realiza map-reduce en la fase de shuffle \& sort sirve para obtener los primeros $k$ resultados de forma relativamente eficiente por lo que en la práctica esta solución es aceptable. 
+Desde el punto de vista teórico este algoritmo no es eficiente. Para obtener los $k$ vecinos mas cercanos no necesitamos ordenar todas las distancias, lo que resulta en una complejidad de $O(n \log n)$), sino que podemos simplemente recorrer todas las distancias secuencialmente y quedarnos con las $k$ mas pequeñas y sus correspondientes puntos. Sin embargo, el proceso de sort que realiza map-reduce en la fase de shuffle \& sort sirve para obtener los primeros $k$ resultados de forma relativamente eficiente por lo que en la práctica esta solución es aceptable. 
 
 \section{Procesamiento de Textos}
 
-En este primer ejemplo vamos a suponer que nuestro archivo distribuido está formado por un conjunto de textos (cada registro es un texto), esto puede aplicarse a muchísimas situaciones, por ejemplo un motor de búsqueda, resolución de consultas en lenguaje natural, etc.
+En este primer ejemplo vamos a suponer que nuestro archivo distribuido está formado por un conjunto de textos (cada registro es un texto), esto puede aplicarse a muchísimas situaciones, por ejemplo en la construcción de un motor de búsqueda, resolución de consultas en lenguaje natural, etc.
 
 \subsection{Wordcount}
 
@@ -3404,7 +3423,7 @@ El primer paso es tomar cada texto del archivo y hacer un "split" generando un r
 archivo2 = archivo.map(lambda x: x.split())
 \end{verbatim}
 
-Esto hace algo del estilo:
+Lo cual genera una salida del estilo:
 
 \begin{verbatim}
 [cada linea es un registro]
@@ -3443,7 +3462,7 @@ OUTPUT:
 (todos,1)
 \end{verbatim}
 
-Una vez que tenemos el archivo en este formato podemos hacer un reduceByKey sumando.
+Una vez que tenemos la salida  en este formato podemos hacer un reduceByKey sumando.
 
 \begin{verbatim}
 archivo4 = archivo3.reduceByKey(lambda x,y:x+y)
@@ -3456,7 +3475,7 @@ OUTPUT:
 (a ,1)
 \end{verbatim}
 
-Y el resultado final es el que queríamos. Eventualmente el sistema puede agregar funciones para ordenar el archivo, tomar los primeros "n" registros a modo de muestra, etc. Toda esta funcionalidad es accesoria, en este capítulo queremos concentrarnos únicamente en como hacer cosas usando únicamente Map y Reduce.
+Obteniendo el resultado final es el que queríamos. Eventualmente el sistema puede agregar funciones para ordenar el archivo, tomar los primeros "n" registros a modo de muestra, etc. Toda esta funcionalidad es accesoria, en este capítulo queremos concentrarnos únicamente en como hacer cosas usando únicamente Map y Reduce.
 
 \subsection{N-gramas}
 
@@ -3471,7 +3490,7 @@ Supongamos que queremos usar trigramas (n=3) y que tenemos los siguientes textos
 'I like this'
 \end{verbatim}
 
-En primer lugar hay que mapear cada texto a una lista de sus trigramas, esto lo hacemos mediante una función que dado un string devuelve una lista de sus trigramas y aplicando dicha función a cada texto via flatMap, flatMap deshace la estructura de lista que nos devuelve la función es decir que cada trigrama quedará como un registro en el archivo resultado.
+En primer lugar hay que mapear cada texto a una lista de sus trigramas, esto lo hacemos mediante una función que dado un string devuelve una lista de sus trigramas y aplicando dicha función a cada texto via flatMap. flatMap deshace la estructura de lista que nos devuelve la función es decir que cada trigrama quedará como un registro en el archivo resultado.
 
 \begin{verbatim}
 def trigrams(t):
@@ -3491,7 +3510,7 @@ OUTPUT:
 ...etc..
 \end{verbatim}
 
-A partir de esta estructura la convertimos en algo de tipo (trigrama,1) y luego hacemos un reduceByKey sumando con lo cual obtenemos la frecuencia de cada trigrama.A modo de ejemplo veamos que podemos ordenar el archivo resultante mediante la función sortBy a la cual le pasamos una función que nos devuelva cuál es la clave de cada registro que usaremos para comparar.
+A partir de esta estructura la convertimos en algo de tipo (trigrama,1), indicando las apariciones que tendremos para ese trigrama especifico al precesar el texto. Luego hacemos un reduceByKey sumando las apariciones para cada una de las claves, obteniendo de esta forma la frecuencia de cada trigrama. A modo de ejemplo, veamos que podemos ordenar el archivo resultante mediante la función sortBy a la cual le pasamos una función que nos devuelva cuál es la clave de cada registro que usaremos para comparar.
 
 \begin{verbatim}
 tdd = tdd.flatMap(lambda x:trigrams(x))
@@ -3509,7 +3528,7 @@ OUTPUT:
 etc...
 \end{verbatim}
 
-A partir de las frecuencias es posible acumular todas las frecuencias para calcular el total y luego dividir cada frecuencia por este total para obtener la probabilidad de cada trigrama.
+A partir de las frecuencias es posible acumular todas las frecuencias para calcular la frecuencia total acumulada y luego dividir cada frecuencia por este total para obtener la probabilidad de cada trigrama.
 
 \begin{verbatim}
 total = tdd.map(lambda x:x[1]).reduce(lambda x,y:x+y)
@@ -3526,7 +3545,7 @@ OUTPUT:
 etc...
 \end{verbatim}
 
-Un ejercicio similar es devolver por cada trigrama la lista de caracteres que siguen al trigrama y su probabilidad para hacer esto hay que generar registros de tipo (trigrama, caracter) y luego acumular por clave (trigrama) calculando la probabilidad de cada caracter que sigue al trigrama. 
+Un ejercicio similar es devolver por cada trigrama la lista de caracteres que siguen al trigrama y su probabilidad. Para realizar esto hay que generar registros de tipo (trigrama, caracter) y luego acumular por clave (trigrama) calculando la probabilidad de cada caracter que sigue al trigrama.
 
 
 \section{Join}
@@ -3598,12 +3617,12 @@ Como puede verse todos los registros de "A" están presentes ya sea que tengan u
 
 De la misma forma un "right join" deja en los resultados todos los registros de B independientemente de que haya un match con el archivo "A".
 
-Los joins son operaciones relativamente costosas en Map Reduce que involucran la necesidad de la fase de Shuffle \& Sort pero en muchos procesos son imprescindibles al ser la única forma de combinar el resultado de dos archivos distribuidos.
+Los joins son operaciones relativamente costosas. A su vez en Map Reduce que involucran la necesidad de la fase de Shuffle \& Sort pero en muchos procesos son imprescindibles al ser la única forma de combinar el resultado de dos archivos distribuidos.
 
 
 \section{Operaciones con Matrices}
 
-En esta sección vamos a operar con matrices dispersas almacenada en un archivo distribuido, cada registro es de la forma: (fila,columna,valor) 
+En esta sección vamos a operar con matrices dispersas almacenada en un archivo distribuido. Cada registro es de la forma: (fila,columna,valor)
 
 Por ejemplo el siguiente archivo:
 
@@ -3655,7 +3674,7 @@ Supongamos que nuestro vector es [1,2,3,4,5]:
 
 Para resolver el producto tenemos que multiplicar cada fila de nuestra matriz por el vector. Esto es equivalente a multiplicar cada elemento de la matriz dispersa por el elemento que le corresponde en el vector y acumular por filas. Vamos a realizar toda la operación paso a paso para poder ver como funciona esto usando Map reduce.
 
-La matriz dispersa viene en formato de triplas (fila, columna, valor) queremos que la fila sea la clave es decir convertir (fila,columna,valor) en (fila,(columna,valor)).Esto lo logramos con una sencilla operación Map.
+La matriz dispersa viene en formato de triplas (fila, columna, valor) y queremos que la fila sea la clave es decir convertir (fila,columna,valor) en (fila,(columna,valor)). Esto lo logramos con una sencilla operación Map.
 
 \begin{verbatim}
 m2 = matrixRDD.map(lambda x:(x[0],(x[1],x[2])))
@@ -3671,7 +3690,7 @@ OUTPUT:
 
 \end{verbatim}
 
-Notemos que en la mayoría de los lenguajes Map Reduce las tuplas y listas se indexan desde cero, nuestra matriz dispersa la hemos indexado a partir de 1, esto es algo a tener en cuenta.
+Notemos que en la mayoría de los lenguajes Map Reduce las tuplas y listas se indexan desde cero. Nuestra matriz dispersa ha sido indexada a partir de 1, por lo qes algo a tener en cuenta.
 
 Una vez que tenemos la matriz dispersa en un formato que nos conviene podemos multiplicar cada elemento de la matriz por el elemento del vector que le corresponde. Cada elemento de la matriz nos indica su número de columna y ese número de columna menos 1 nos indica el índice del vector por el que tenemos que multiplicar. Esto lo hacemos, nuevamente usando una operación Map.
 
@@ -3703,7 +3722,7 @@ OUTPUT:
 
 Notemos que el resultado es un vector en formato (fila,valor).
 
-Este proceso ha ilustrado el uso de Map y Reduce para manipular la forma de cada registro de forma tal de poder realizar las operaciones necesarias entre los mismos y dejarlos listos para que un reducer pueda generarnos el resultado final.
+Este proceso ha ilustrado el uso de Map y Reduce para manipular la forma de cada registro de forma tal que podamos realizar las operaciones necesarias entre los mismos y dejarlos listos para que un reducer pueda generarnos el resultado final.
 
 
 \subsection{Multiplicación matriz-matriz}
@@ -3721,7 +3740,7 @@ Ahora que hemos visto en detalle la multiplicación de una matriz por un vector 
 \end{pmatrix}=
 \]
 
-Para realizar el producto entre dos matrices debemos notar que los elementos de la primer columna de la matriz 1 (1 y 3) siempre se multiplican únicamente por los elementos de la primera fila de la matriz 2 (5 y 6) por lo tanto la estrategia es realizar un join en donde la columna de la matriz 1 coincida con la fila de la matriz 2. Las matrices las tenemos almacenadas en el siguiente formato:
+Para realizar el producto entre dos matrices debemos notar que los elementos de la primer columna de la matriz 1 (1 y 3) siempre se multiplican únicamente por los elementos de la primera fila de la matriz 2 (5 y 6) y asi sucesivamente. Por lo tanto la estrategia es realizar un join en donde la columna de la matriz 1 coincida con la fila de la matriz 2. Las matrices las tenemos almacenadas en el siguiente formato:
 
 \begin{verbatim}
 M1:
@@ -3773,8 +3792,9 @@ OUTPUT:
 (2, ((2, 4), (2, 8)))
 \end{verbatim}
 
-Observemos ahora que en este archivo tenemos toda la información necesaria para realizar el producto entre las matrices, tenemos que multiplicar los valores y el resultado hay que acumularlo en el número de fila y columna indicado en los registros.
+Observemos ahora que en este archivo tenemos toda la información necesaria para realizar el producto entre las matrices. Para realizarlo es necesario multiplicar los valores y el resultado hay que acumularlo en el número de fila y columna indicado en los registros.
 Por ejemplo para el registro $(2,((2,4),(1,7)))$ tenemos que multiplicar $4*7$ y ese resultado acumularlo para la fila2, columna1. 
+
 Vamos entonces a realizar los productos mediante Map dejando como clave (fila, columna) para luego poder acumular (sumar) mediante un reduce. Hay que tener mucho cuidado de usar los índices correctamente por favor prestar atención y asegurarse que entienden como funciona la siguiente línea.
 
 \begin{verbatim}
@@ -3820,7 +3840,7 @@ Y el resultado es el producto de M1*M2
 \end{pmatrix}
 \]
 
-Notar que la misma aproximación funcionaría para multiplicar una matriz por un vector cuando ninguno de los dos entra en memoria, es igual a multiplicar dos matrices solo que m2 tiene una sola columna.
+Notar que la misma aproximación funcionaría para multiplicar una matriz por un vector cuando ninguno de los dos entra en memoria. Esto es igual a multiplicar dos matrices solo que m2 tiene una sola columna.
 De esta forma podríamos realizar productos entre matrices o entre una matriz y un vector que sea dispersas y que tengan millones o incluso billones de registros paralelizando la operación dentro de un cluster. Esto es muy importante ya que muchos algoritmos importantes se basan en realizar operaciones entre matrices.
 
 \section{Redes Sociales}
@@ -3872,7 +3892,7 @@ El archivo que vamos a usar como ejemplo es el siguiente:
 \end{verbatim}
 
 La estrategia que vamos a usar tiene dos partes. En primer lugar vamos a determinar todas las relaciones de tipo $A \to B \to C$ luego usaremos estas relaciones para verificar si existe la relación $A \to C$ o $C \to A$ que cierre el triángulo. 
-Suponemos en este ejercicio que las relaciones de amistad son bilaterales es decir que si "A" es amigo de "B" entonces "B" es amigo de "A" pero en el archivo guardamos solo (A,B) o (B,A) indistintamente. Un buen comienzo es entonces ordenar cada registro del archivo para que siempre quede primero el usuario "menor".
+Suponemos en este ejercicio que las relaciones de amistad son bilaterales: Si "A" es amigo de "B" entonces "B" es amigo de "A", pero en el archivo guardamos solo (A,B) o (B,A) indistintamente. Un buen comienzo es entonces ordenar cada registro del archivo para que siempre quede primero el usuario "menor".
 
 \begin{verbatim}
 rs2RDD = rs2RDD.map(lambda x:tuple(sorted(x)))
@@ -3888,7 +3908,7 @@ OUTPUT:
 ('B', 'D')
 \end{verbatim}
 
-Ahora vamos a buscar todas las triplas (A,B,C) tales que exista (A,B) y (B,C). Para hacer esto vamos a generar por cada registro de tipo (A,B) dos registros uno de tipo (A,(B,0)) y otro (B,(A,1)) lo que indicamos es que para la clave "A" encontramos "B" a su derecha (0) y para la clave "B" encontramos "A" a su izquierda (1). 
+Ahora vamos a buscar todas las triplas (A,B,C) tales que exista (A,B) y (B,C). Para hacer esto vamos a generar por cada registro de tipo (A,B) dos registros uno de tipo (A,(B,0)) y otro (B,(A,1)). De esta forma, lo que indicamos es que para la clave "A" encontramos "B" a su derecha (0) y para la clave "B" encontramos "A" a su izquierda (1).
 
 \begin{verbatim}
 res3= rs2RDD.flatMap(lambda x:[(x[1],(x[0],1)),(x[0],(x[1],0))])
@@ -3942,8 +3962,11 @@ OUTPUT:
  ('A', 'B', 'D')
 \end{verbatim}
 
-La siguiente etapa es mucho mas simple, como sabemos que existe (A,B,E) lo que haremos es generar un registro con clave (A,E) y valor (A,B,E) que quiere decir que si existe (A,E) entonces se forma el triángulo (A,B,E). A este archivo luego le hacemos un join con el archivo original en donde convertimos (A,B) en algo de tipo ((A,B),1) es decir clave (A,B) y valor 1. 
-Como ejemplo pensemos que tenemos el registro (A,B,E) de la salida anterior, lo convertimos en ((A,E),(A,B,E)) es decir clave (A,E) y valor (A,B,E) por otro lado tenemos el registro (A,E) del archivo original que convertimos en ((A,E),1) cuando hacemos el join nos queda algo de tipo ((A,E),((A,B,E),1)). Notar que para los triángulos que no se cierran no se genera nada ya que si (A,E) no existe en el archivo original no se genera resultado alguno con clave (A,E) en el archivo final por tratarse de un inner join. Finalmente de los registros formamos extraemos el primer componente del segundo componente de la tupla para tener el triángulo. Si solo nos interesa la cantidad de triángulos simplemente hacemos un count, o lo que es igual a convertir cada registro en un 1 y sumar mediante un reduce.
+La siguiente etapa es mucho mas simple, como sabemos que existe (A,B,E) lo que haremos es generar un registro con clave (A,E) y valor (A,B,E) que quiere decir que si existe (A,E) entonces se forma el triángulo (A,B,E). A este archivo luego le hacemos un join con el archivo original en donde convertimos (A,B) en algo de tipo ((A,B),1) es decir clave (A,B) y valor 1.
+
+Como ejemplo pensemos que tenemos el registro (A,B,E) de la salida anterior, lo convertimos en ((A,E),(A,B,E)) es decir clave (A,E) y valor (A,B,E) y por otro lado tenemos el registro (A,E) del archivo original que convertimos en ((A,E),1). Cuando realizamos el join nos queda algo de tipo ((A,E),((A,B,E),1)).
+
+Es importante notar que para los triángulos que no se cierran no se genera nada ya que si (A,E) no existe en el archivo original no se genera resultado alguno con clave (A,E) en el archivo final por tratarse de un inner join. Finalmente de los registros formados extraemos el primer componente del segundo componente de la tupla para tener el triángulo. Si solo nos interesa la cantidad de triángulos simplemente hacemos un count, o lo que es igual a convertir cada registro en un 1 y sumar mediante un reduce.
 
 \begin{verbatim}
 rs2k = rs2RDD.map(lambda x:(x,1))
