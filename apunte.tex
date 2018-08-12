@@ -13876,7 +13876,7 @@ El éxito de este algoritmo comparado contra LOPQ o los inverted multi indexes d
 
 El algoritmo de Clustering Espectral \cite{WeissNgJordan} surge originalmente como una forma de realizar cortes entre componentes de un grafo, siendo un algoritmo originalmente pensado para grafos pasó un cierto tiempo hasta que se comenzó a usar para cualquier tipo de datos. Este algoritmo, al igual que Kernel K-Means, tiene la capacidad de detectar formas de clusters arbitrarias, no-lineales.
 
-Sea $X_{mxn}$ nuestra matriz de $m$ datos en $n$ dimensiones. Para transformarla en un grafo vamos a usar el mismo proceso que hemos usado en Laplacian Eigenmaps por lo que solamente lo repasaremos muy rápidamente.
+Sea $X_{mxn}$ la matriz de $m$ datos en $n$ dimensiones. Para transformarla en un grafo vamos a usar el mismo proceso que se ha utilizado en Laplacian Eigenmaps
 
 \subsection{Primer paso: construir la matriz de afinidad}
 
@@ -13896,7 +13896,7 @@ La matriz Laplaciana tiene varias construcciones posibles pero la más común es
 L = D-W
 \end{myequation}
 
-Siendo $D$ la matriz diagonal con el grado de cada vértice del grafo, donde por grado debemos entender la suma de cada columna de $W_{ij}$. Cuando “W” es la matriz de adyacencia de un grafo el grado es la cantidad de vértices conectados al mismo. En nuestro caso al ser el grafo completo y con pesos en las aristas el “grado” será la suma de todos los pesos de las aristas que inciden sobre cada nodo. Notemos que trabajamos con grafos no-dirigidos.
+Siendo $D$ la matriz diagonal con el grado de cada vértice del grafo, donde por grado se entiende la suma de cada columna de $W_{ij}$. Cuando $W$ es la matriz de adyacencia de un grafo el grado es la cantidad de vértices conectados al mismo. En este caso, al ser el grafo completo y con pesos en las aristas, el “grado” será la suma de todos los pesos de las aristas que inciden sobre cada nodo. Notar que se trabaja con grafos no-dirigidos.
 
 Otras variantes para L:
 
@@ -13908,45 +13908,35 @@ L2 = D^{1/2} (D-W) D^{1/2}
 L3 = D^{-1}-W
 \end{myequation}
 
-Propiedades oscuras, insondables de la teoría de grafos nos dicen que el espectro de la matriz Laplaciana sirve para encontrar cortes mínimos en un grafo. Un corte mínimo es aquel que divide el grafo en dos conjuntos de nodos de forma tal que las aristas entre nodos de los dos conjuntos tienen afinidad mínima. Es decir que podemos usarlo para separar el grafo en componentes lo cual equivale a realizar clustering entre los puntos que hemos representado como grafos del nodo.
+Ciertas propiedades de la teoría de grafos dicen que el espectro de la matriz Laplaciana sirve para encontrar cortes mínimos en un grafo. Un corte mínimo es aquel que divide el grafo en dos conjuntos de nodos de forma tal que las aristas entre nodos de los dos conjuntos tienen afinidad mínima. Es decir que se lo puede utilizar para separar el grafo en componentes lo cual equivale a realizar clustering entre los puntos que se han representado como grafos del nodo.
 
-El párrafo anterior explica la esencia del clustering espectral, si lo pasaron de largo por favor vuelvan a leerlo!
-
-Una propiedad interesante de los autovalores de la matriz Laplaciana de un grafo es que la cantidad de autovalores iguales a cero es igual a la cantidad de componentes conexos en el grafo, recordemos que la matriz Laplaciana representa la conectividad del mismo. En un grafo completo tendremos un solo autovalor igual a cero, en un grafo sin aristas tendremos que todos los autovalores son cero lo cual tiene mucho sentido.
+Una propiedad interesante de los autovalores de la matriz Laplaciana de un grafo es que la cantidad de autovalores iguales a cero es igual a la cantidad de componentes conexos en el grafo. Recordar que la matriz Laplaciana representa la conectividad del mismo. En un grafo completo habrá un solo autovalor igual a cero y en un grafo sin aristas todos los autovalores son cero lo cual tiene mucho sentido.
 
 \subsection{Tercer paso: Autovalores y Autovectores de la matriz Laplaciana}
 
-El siguiente paso es descomponer la matriz Laplaciana en sus autovalores y autovectores y determinar la cantidad de autovectores a usar. Esto lo podemos hacer analizando el plot de los autovalores de la matriz.
+El siguiente paso es descomponer la matriz Laplaciana en sus autovalores y autovectores y determinar la cantidad de autovectores a usar. Esto se lo puede hacer analizando el plot de los autovalores de la matriz.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/spec-fig-2.png}
 \caption{Autovalores de L}
-
+\label{fig:clustering_eigenvalues}
 \end{figure}
 
-Tenemos un único autovalor en cero lo cual indica que el grafo es conexo. Lo que buscamos es un "salto" en los valores de los autovalores. Podemos ver en este caso que el salto se produce luego del tercer autovalor. Como el autovalor 0 lo descartamos podríamos deducir que en este caso en particular es conveniente usar 1 o 2 autovectores. Es decir que vamos a representar a nuestros datos en 1 o 2 dimensiones.
+La figura \ref{fig:clustering_eigenvalues} muestra los distintos autovalores de $L$. Se nota que hay un único autovalor en cero lo cual indica que el grafo es conexo. Lo que se busca es un "salto" en los valores de los autovalores. En este caso, el salto se produce luego del tercer autovalor. Como el autovalor 0 lo descartamos se podría deducir que en este caso en particular es conveniente usar 1 o 2 autovectores. Es decir, que nuestros datos se representarán en 1 o 2 dimensiones.
 
-Vamos a volver pronto a los autovalores, grafiquemos ahora los primeros autovectores, es decir los asociados a los autovalores más pequeños.
-
-Ordenamos los autovectores en el mismo orden que los autovalores:
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/spec-fig-3.png}
 \caption{Autovectores de L}
-
+\label{fig:clustering_eigenvectors}
 \end{figure}
 
-Observando con detenimiento los autovectores podemos ver que tienen una estructura muy particular. Es decir toman valores muy similares para un cierto conjunto de puntos. Los autovectores no están mostrando ni más ni menos que la estructura de nuestra matriz de afinidad en diferentes niveles. 
+La figura \ref{fig:clustering_eigenvectors} muestra los autovectores de la matriz $L$ (los autovectores estan ordenados de la misma forma que los autovalores). Observando con detenimiento los autovectores, se puede ver que tienen una estructura muy particular puesto que toman valores muy similares para un cierto conjunto de puntos. Los autovectores no están mostrando ni más ni menos que la estructura de la matriz de afinidad en diferentes niveles. 
+Es posible que uno solo de estos autovectores sea suficiente para realizar el clustering de los datos, en general el primer autovector. Otras veces se necesita un conjunto de autovectores. 
 
-Es posible que uno solo de estos autovectores sea suficiente para realizar el clustering de nuestros datos, en general el primer autovector. Otras veces necesitamos un conjunto de autovectores. El algoritmo de clustering espectral es entonces el siguiente:
-
-\begin{enumerate}
-\item determinar el número de autovectores a usar de la matriz Laplaciana del grafo
-\item correr K-Means sobre estos autovectores
-\item Asignar a los puntos originales los clusters de acuerdo al resultado de K-Means.
-\end{enumerate}
+El algoritmo \ref{alg:spectral_clustering} resume el paso a paso del clustering espectral.
 
 \begin{algorithm}[]
 Construir matriz W\\
@@ -13956,24 +13946,25 @@ Determinar z=el numero de autovalores  a usar\\
 Aplicar K-Means a los z autovectores de L\\
 Asignar los puntos originales de acuerdo a las asignaciones de Kmeans\\
 \caption{Clustering Espectral}
+\label{alg:spectral_clustering}
 \end{algorithm}
 
-Observemos el resultado luego de aplicar K-Means en el espacio del espectro de la matriz Laplaciana:
+La figura \ref{fig:spectral_clustering_example_1} muestra el resultado luego de aplicar K-Means en el espacio del espectro de la matriz Laplaciana.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/spec-fig-4.png}
 \caption{Clustering Espectral}
-
+\label{fig:spectral_clustering_example_1}
 \end{figure}
 
-El método de clustering espectral permite encontrar clusters de formas realmente arbitrarias como lo muestra el ejemplo:
+El método de clustering espectral permite encontrar clusters de formas realmente arbitrarias como lo muestra el ejemplo \ref{fig:spectral_clustering_example_2}.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/spec-fig-5.png}
 \caption{Clustering Espectral}
-
+\label{fig:spectral_clustering_example_2}
 \end{figure}
 
 \subsection{Selección de Hiper-Parámetros}
@@ -13987,31 +13978,31 @@ Al realizar clustering espectral hay que tener mucho cuidado en la selección de
 \end{itemize}
 
 En muchas ocasiones esto implica un proceso complejo con varias pruebas antes de llegar a los resultados esperados. También implica que usar Spectral Clustering sin seleccionar los parámetros no tiene mucho sentido y puede producir cualquier tipo de resultado. 
-En muchos casos la selección de hiper-parámetros se puede automatizar usando la función costo de K-Means, aplicandola sobre los puntos originales y los centroides que surgirían del promedio de los puntos que pertenecen a cada uno. Es decir que Clustering Espectral solo nos dice a que cluster pertenece cada punto y con esto podemos calcular los centroides y la distancia de cada punto a su centroide. 
+En muchos casos la selección de hiper-parámetros se puede automatizar usando la función costo de K-Means, aplicandola sobre los puntos originales y los centroides que surgirían del promedio de los puntos que pertenecen a cada uno. Es decir que Clustering Espectral solo dice a qué cluster pertenece cada punto y con esto se pueden calcular los centroides y la distancia de cada punto a su centroide. 
 
-El algoritmo de clustering espectral es una herramienta muy poderosa ya que puede solucionar casos en los cuales la mayoría de los algoritmos falla, especialmente los casos en que K-Means no funciona en ninguna de sus innumerables variantes. El mecanismo por el cual solucionamos el problema es realizando el clustering en un espacio de dimensiones completamente diferente pero que surge en función del espacio original. La selección de los hiper-parámetros es crítica en el algoritmo de Clustering Espectral. Por más poderoso que sea el misil de nada sirve si no apunta a donde queremos.
+El algoritmo de clustering espectral es una herramienta muy poderosa ya que puede solucionar casos en los cuales la mayoría de los algoritmos falla, especialmente los casos en que K-Means no funciona en ninguna de sus innumerables variantes. El mecanismo por el cual se soluciona el problema es realizando el clustering en un espacio de dimensiones completamente diferente pero que surge en función del espacio original. La selección de los hiper-parámetros es crítica en el algoritmo de Clustering Espectral. Por más poderoso que sea el misil de nada sirve si no apunta a donde se quiere.
 
 \subsection{Aproximaciones: KASP}
 
-El algoritmo de Clustering Espectral tiene como problema la necesidad de contar con la matriz de afinidad “W” que es una matriz de mxm siendo “m” la cantidad de datos. Esto puede llegar a ser un número imposible de manejar. Es necesario entonces realizar una aproximación que nos permita usar clustering espectral sin la necesidad de calcular W de forma completa. La aproximación que veremos se llama “Kasp” \cite{YanHuangJordan} y está basada en K-Means.
+El algoritmo de Clustering Espectral tiene como problema la necesidad de contar con la matriz de afinidad $W$ que es una matriz de $mxm$ siendo $m$ la cantidad de datos. Esto puede llegar a ser un número imposible de manejar. Es necesario entonces realizar una aproximación que permita usar clustering espectral sin la necesidad de calcular $W$ de forma completa. Una aproximación que se puede utilizar se llama \textit{Kasp} \cite{YanHuangJordan} y está basada en K-Means.
 
 El procedimiento es muy simple:
 
 \begin{enumerate}
-\item Usar K-Means para generar “z” centroides a partir de los datos.
+\item Usar K-Means para generar $z$ centroides a partir de los datos.
 \item Usar clustering espectral sobre los centroides.
 \item Asignar a cada punto del set original el cluster al que pertenece su centroide.
 \end{enumerate}
 
-Como vemos este procedimiento es realmente muy sencillo. Solo tenemos que usar primero K-Means, luego clustering espectral y simplemente recuperar para cada punto el centroide asignado por el algoritmo de clustering espectral que corresponde al centroide asignado por K-Means para el punto. Es notable que usamos Kmeans como método de compresión del set de datos de $m$ a $k$ puntos en donde $k$ puede ser arbitrario.
+Es un procedimiento muy sencillo. Solo hay que usar primero K-Means, luego clustering espectral y simplemente recuperar para cada punto el centroide asignado por el algoritmo de clustering espectral que corresponde al centroide asignado por K-Means para el punto. Es notable que se usa Kmeans como método de compresión del set de datos de $m$ a $k$ puntos en donde $k$ puede ser arbitrario.
 
-Clustering Espectral puede aplicarse de forma directa a la detección de comunidades en grafos, por ejemplo en redes sociales, en este caso la matriz W es la matriz de adyacencia del grafo y el resto del algoritmo no requiere ningún cambio. 
+Clustering Espectral puede aplicarse de forma directa a la detección de comunidades en grafos. Por ejemplo, en redes sociales y en este caso la matriz W es la matriz de adyacencia del grafo y el resto del algoritmo no requiere ningún cambio. 
 
 \section{CURE}
 
 CURE \cite{GuhaRastogiShim} (Cluserint Using Representatives) es un algoritmo de clustering para grandes cantidades de datos, que es robusto a datos anómalos y permite clusters de forma arbitraria. CURE combina clustering jerárquico y K-Means de forma eficiente.
 
-El primer paso es elegir un subconjunto de puntos al azar y agruparlos en $k$ clusters usando clustering jerárquico. Es necesario conocer la cantidad de clusters que queremos $k$ igual que en K-Means. Estos puntos no pueden ser muchos ya que, como sabemos, sería ineficiente realizar el proceso de clustering jerárquico. 
+El primer paso es elegir un subconjunto de puntos al azar y agruparlos en $k$ clusters usando clustering jerárquico. Es necesario conocer la cantidad de clusters que queremos $k$ igual que en K-Means. Estos puntos no pueden ser muchos ya que, como se sabe, sería ineficiente realizar el proceso de clustering jerárquico. 
 
 \begin{figure}[!htb]
 \centering
@@ -14030,7 +14021,7 @@ El tercer paso es mover los puntos representativos un 20\% hacia el centro del c
 
 \end{figure}
 
-En el paso final por cada punto del set de datos que falta procesar lo asignamos al cluster que corresponde al punto representativo mas cercano al punto.
+En el paso final por cada punto del set de datos que falta procesar se lo asigna al cluster que corresponde al punto representativo mas cercano al punto.
 
 \begin{algorithm}[]
 Elegir $L$ puntos al azar\\
