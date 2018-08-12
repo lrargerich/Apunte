@@ -14042,12 +14042,11 @@ El orden de CURE es $O(n^2 \log n)$ por lo que puede resultar ineficiente para d
 
 \section{DBScan}
 
-DBScan es un algoritmo de clustering basado en el concepto de "densidad" es decir encontrar zonas en las cuales haya una densidad de puntos altas e identificar estas zonas como un cluster. Gracias a esto DBscan es capaz de determinar automáticamente la cantidad de clusters y puede también detectar outliers, es decir puntos anómalos que no pertenecen a ningún cluster. 
+DBScan es un algoritmo de clustering basado en el concepto de "densidad" es decir encontrar zonas en las cuales haya una densidad de puntos altas e identificar estas zonas como un cluster. Gracias a esto, DBscan es capaz de determinar automáticamente la cantidad de clusters y puede también detectar outliers. 
 
-DBScan tiene dos hiper-parámetros: la distancia mínima entre dos puntos para estar en un mismo cluster que llamaremos "$e$"  y la cantidad mínima de puntos vecinos a la distancia correcta para poder generar nuevos clusters "$k$". Ambos son fáciles de interpretar, $e$ nos dice la densidad con la cual vamos a agrupar puntos y $k$ nos dice la cantidad mínima de puntos que puede tener un cluster. Los puntos que no pertenecen a un cluster y no son suficientes para formar un nuevo cluster son los outliers. 
+DBScan tiene dos hiper-parámetros: la distancia mínima entre dos puntos para estar en un mismo cluster que llamaremos "$e$"  y la cantidad mínima de puntos vecinos a la distancia correcta para poder generar nuevos clusters "$k$". Ambos son fáciles de interpretar, $e$ dice la densidad con la cual se agruparán los puntos y $k$ es la cantidad mínima de puntos que puede tener un cluster. Los puntos que no pertenecen a un cluster y no son suficientes para formar un nuevo cluster son los outliers. 
 
-El algoritmo comienza con un punto cualquiera, si el punto no pertenece a un cluster entonces analizamos si tiene al menos $k-1$ vecinos a distancia menor o igual a $e$ en cuyo caso formamos un nuevo cluster con estos $k$ puntos. 
-Si el punto ya pertenece a un cluster entonces buscamos los puntos a distancia $e$ o menor y los agregamos al cluster.
+El algoritmo comienza con un punto cualquiera, si el punto no pertenece a un cluster entonces se analiza si tiene al menos $k-1$ vecinos a distancia menor o igual a $e$ en cuyo caso se forma un nuevo cluster con estos $k$ puntos. Si el punto ya pertenece a un cluster entonces se buscan los puntos a distancia $e$ o menor y se los agrega al cluster.
 
 \begin{figure}[!htb]
 \centering
@@ -14056,48 +14055,45 @@ Si el punto ya pertenece a un cluster entonces buscamos los puntos a distancia $
 
 \end{figure}
 
-DBscan es capaz de detectar formas arbitrarias de casi cualquier tipo como por ejemplo:
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/dbscan-fig-3.png}
 \caption{Ejemplo DBScan}
-
+\label{fig:dbscan_example}
 \end{figure}
 
-Esto funciona siempre y cuando todos los clusters tengan densidades parecidas, es decir que los puntos dentro de cada cluster se encuentren a distancias similares. Cuando los clusters tienen distintas densidades DBscan falla ya que puede no ser posible encontrar un parámetro $e$ que sirva.
+DBscan es capaz de detectar formas arbitrarias de casi cualquier tipo como se muestra a modo ejemplo en la figura \ref{fig:dbscan_example}. Esto funciona siempre y cuando todos los clusters tengan densidades parecidas, es decir que los puntos dentro de cada cluster se encuentren a distancias similares. Cuando los clusters tienen distintas densidades DBscan falla ya que puede no ser posible encontrar un parámetro $e$ que sirva.
 
-En cuanto a performance tenemos el problema de po cada punto encontrar los puntos a distancia menor o igual a $e$ que es $O(n^2)$ por fuerza bruta. La solución en DBscan es usar algún tipo de índice espacial para llevar esto a $O(n \log n)$. Como sabemos estos índices no escalan bien en muchas dimensiones por lo que en espacios de muchas dimensiones DBScan sufre el problema de la dimensión de la dimensionalidad igual que KNN.
+En cuanto a performance se encuentra el problema de por cada punto encontrar los puntos a distancia menor o igual a $e$ y eso es $O(n^2)$ por fuerza bruta. La solución en DBscan es usar algún tipo de índice espacial para llevar esto a $O(n \log n)$. Como ya se sabe estos índices no escalan bien en muchas dimensiones por lo que en espacios de muchas dimensiones DBScan sufre el problema de la dimensión al igual que KNN.
 
 \section{HDBScan}
 
-HDBScan \cite{CampelloMoulaviSander} es un algoritmo de clustering basado en DBScan que soluciona el problema de las densidades diferentes en los clusters. El problema es que si se usa una distancia muy pequeña $e$ los clusters con densidades de puntos bajas quedan sin identificar es decir como un enorme conjunto de outliers mientras que si usamos una densidad grande suficiente para encontrar los clusters menos densos empiezan a mergearse entre sí. 
+HDBScan \cite{CampelloMoulaviSander} es un algoritmo de clustering basado en DBScan que soluciona el problema de las densidades diferentes en los clusters. El problema es que si se usa una distancia muy pequeña $e$ los clusters con densidades de puntos bajas quedan sin identificar es decir como un enorme conjunto de outliers mientras que si se usa una densidad grande suficiente para encontrar los clusters menos densos empiezan a mergearse entre sí. 
 
-Vamos a usar a lo largo de esta sección el siguiente conjunto de puntos:
+A lo largo de esta sección se trabajará con el conjunto de puntos de la figura \ref{fig:hdbscan_example}.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/hdbscan-fig-9.png}
 \caption{HDBScan ejemplo}
-
+\label{fig:hdbscan_example}
 \end{figure}
 
 El primer paso de HDBScan es construir una matriz de distancias entre los puntos pero en lugar de usar la distancia euclideana en HDScan se usa una distancia especial denominada "Mutual Reachability Distance (MRD)".
 
 \subsection{La Distancia MRD}
 
-Vamos a asociar a cada punto con la distancia de su vecindario que es la distancia máxima entre sus $k$ vecinos mas cercanos. $k$ es un hiper-parámetro para el algoritmo. 
+Se asocia a cada punto con la distancia de su vecindario que es la distancia máxima entre sus $k$ vecinos mas cercanos. $k$ es un hiper-parámetro para el algoritmo. A esta distancia se la conoce como el $\textit{core}_k$ del punto. Cada punto tiene asociada una cierta distancia correspondiente a $\text{core}_k(x_i)$ que, tal como se mencionó, es la distancia máxima entre el punto y sus $k$ vecinos mas cercanos. La figura \ref{fig:hdbscan_core} refleja esta situación.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/hdbscan-fig-1.png}
 \caption{Vecindario de un punto}
-
+\label{fig:hdbscan_core}
 \end{figure}
 
-A esta distancia la vamos a llamar el $\textit{core}_k$ del punto. Cada punto tiene asociada una cierta distancia correspondiente a $\text{core}_k(x_i)$ que, recordemos, es la distancia máxima entre el punto y sus $k$ vecinos mas cercanos. 
-
-La distancia MRD \cite{Eldridge} se define de la siguiente forma:
+La distancia MRD \cite{Eldridge} se define entonces de la siguiente forma:
 
 \begin{myequation}
 \text{MRD}(a,b) = \max\{\text{core}_k(a),\text{core}_k(b),d(a,b)\}
@@ -14107,11 +14103,11 @@ MRD funciona particularmente bien junto con clustering jerárquico que es uno de
 
 \subsection{El árbol Generador Mínimo}
 
-Usando la matriz de distancias MRD el objetivo de HDBScan es encontrar las "islas" de puntos que tienen alta densidad en donde la densidad es variable para cada isla. Conceptualmente lo que vamos a hacer es considerar a los datos como un grafo en donde el peso de las aristas es la distancia MRD entre los puntos. 
+Usando la matriz de distancias MRD el objetivo de HDBScan es encontrar las "islas" de puntos que tienen alta densidad en donde la densidad es variable para cada isla. Conceptualmente lo que se hace es considerar a los datos como un grafo en donde el peso de las aristas es la distancia MRD entre los puntos. 
 
-Pensemos ahora que podríamos ir variando un cierto umbral y deshacernos de las aristas que tengan una distancia mayor al mismo, eventualmente tenemos una jerarquía de componentes conexos que descubre las "islas" del grafo que estábamos buscando. 
+Se podría ir variando un cierto umbral y descartar las aristas que tengan una distancia mayor al mismo, eventualmente se tiene una jerarquía de componentes conexos que descubre las "islas" del grafo que se estaba buscando. 
 
-Una forma análoga de hacer esto es construyendo el árbol generador mínimo para el grafo. Esto se puede hacer de forma muy eficiente mediante el algoritmo de Kruskal. Empezamos con un grafo vacío y en cada paso agregamos la arista de menor peso que conecte el árbol actual a un nodo que todavía no forme parte del árbol. Notemos que el árbol generador usando la distancia MRD no es igual al árbol generador usando la distancia euclideana.
+Una forma análoga de hacer esto es construyendo el árbol generador mínimo para el grafo. Esto se puede hacer de forma muy eficiente mediante el algoritmo de Kruskal. Se empieza con un grafo vacío y en cada paso se agrega la arista de menor peso que conecte el árbol actual a un nodo que todavía no forme parte del árbol. Notar que el árbol generador usando la distancia MRD no es igual al árbol generador usando la distancia euclideana.
 
 \begin{figure}[!htb]
 \centering
@@ -14120,7 +14116,7 @@ Una forma análoga de hacer esto es construyendo el árbol generador mínimo par
 
 \end{figure}
 
-Una vez que tenemos el árbol generador mínimo vamos a usar el algoritmo de clustering jerárquico sobre estos puntos usando la distancia MRD.
+Una vez que se tiene el árbol generador mínimo se usa el algoritmo de clustering jerárquico sobre estos puntos usando la distancia MRD.
 
 \subsection{Clustering Jerárquico}
 
@@ -14128,39 +14124,37 @@ Una vez que tenemos el árbol generador mínimo vamos a usar el algoritmo de clu
 \centering
 \includegraphics[width=4.5in]{figures/hdbscan-fig-5.png}
 \caption{Clustering Jerárquico sobre los puntos del árbol generador mínimo}
-
+\label{fig:hdbscan_dendrogram}
 \end{figure}
 
-El resultado es un dendrograma, en este momento necesitamos usar la información en el dendrograma para identificar cuales son los clusters en nuestro set de datos. De abajo hacia arriba el dendrograma puede interpretarse como que clusters fuimos uniendo para formar clusters mas grandes, en este caso eso no nos interesa sino que queremos recorrer el dendrograma de arriba hacia abajo. Si recorremos el dendrograma de arriba hacia abajo partimos de un único cluster con todos los puntos que se va subdividiendo en otros clusters, al igual que en DBScan nos interesa fijar un tamaño mínimo para que un conjunto de puntos se pueda considerar un cluster. Para que un split de nuestro dendrograma genere dos nuevos clusters éstos tienen que tener al menos la cantidad mínima de puntos que establecimos, en caso contrario lo vamos a considerar como un cluster que pierde puntos pero sigue siendo el mismo cluster.
+La figura \ref{fig:hdbscan_dendrogram} muestra un dendrograma en el cual se podrán identificar cuáles son los clusters en el set de datos. De abajo hacia arriba el dendrograma puede interpretarse como qué clusters se fueron uniendo para formar clusters mas grandes. En este caso eso no es de interés sino que se quiere recorrer el dendrograma de arriba hacia abajo. Si se recorre el dendrograma de arriba hacia abajo se parte de un único cluster con todos los puntos que se va subdividiendo en otros clusters, al igual que en DBScan se quiere fijar un tamaño mínimo para que un conjunto de puntos se pueda considerar un cluster. Para que un split del dendrograma genere dos nuevos clusters éstos tienen que tener al menos la cantidad mínima de puntos que se estableció. En caso contrario, se lo considera como un cluster que pierde puntos pero sigue siendo el mismo cluster.
 
-Esto nos permite podar el dendrograma en donde solo quedan los splits que generan clusters válidos. La cantidad de puntos en los clusters puede ir variando porque los clusters que no se subdividen pueden perder puntos, esto lo podemos representar con un nuevo dendrograma de la siguiente forma:
+Esto permite podar el dendrograma en donde solo quedan los splits que generan clusters válidos. La cantidad de puntos en los clusters puede ir variando porque los clusters que no se subdividen pueden perder puntos, esto se lo puede representar con un nuevo dendrograma como se muestra en la figura \ref{fig:hdbscan_dendrogram_2}.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/hdbscan-fig-6.png}
 \caption{Dendrograma luego de la poda}
-
+\label{fig:hdbscan_dendrogram_2}
 \end{figure}
 
-\subsection{Extraer los Clusters}
+\subsection{Extraer los clusters}
 
-Empezamos con un único cluster con muchos puntos, este se subdivide en 2, la rama izquierda inmediatamente se divide en dos clusters que perduran en el tiempo perdiendo algunos puntos. La rama derecha se dividen en el paso 2 en dos clusters el de la rama izquierda queda y el de la rama derecha se divide en 2 en el paso 3. Esta representación simplificada tiene información muy importante sobre los clusters en nuestro set de datos. 
+Se empieza con un único cluster con muchos puntos y éste se subdivide en 2. La rama izquierda inmediatamente se divide en dos clusters que perduran en el tiempo perdiendo algunos puntos. La rama derecha se dividen en el paso 2 en dos clusters siendo que el de la rama izquierda queda y el de la rama derecha se divide en 2 en el paso 3. Esta representación simplificada tiene información muy importante sobre los clusters en el set de datos. 
 
-Intuitivamente queremos aquellos clusters que persisten a lo largo del tiempo, los clusters que duran muy poco probablemente sean simplemente ruido. Observando el dendrograma luego de la poda podemos decir que queremos los clusters que tienen mayor área en el plot. Si seleccionamos un cluster no podemos luego elegir a ningún descendiente del mismo, esto es obvio porque compartirían puntos. 
+Intuitivamente se quieren aquellos clusters que persisten a lo largo del tiempo puesto que los clusters que duran muy poco probablemente sean simplemente ruido. Observando el dendrograma luego de la poda se puede decir que se quieren los clusters que tienen mayor área en el plot. Si se selecciona un cluster no se podrá luego elegir a ningún descendiente del mismo porque compartirían puntos. 
 
-En primer lugar necesitamos una medida de distancia para medir la persistencia de los clusters. Recordemos que en cada paso del clustering jerárquico tenemos la distancia a la que estaban los clusters unidos, vamos a usar $\lambda=1/distance$. Por cada cluster tenemos entonces dos lambdas, uno que es el valor con el cual el cluster nace y otro con el cual el cluster muere (es decir se subdivide en dos clusters de al menos $p$ puntos). Llamemos a estos $\lambda_{\text{birth}}$ y $\lambda_{\text{death}}$
+En primer lugar se necesita una medida de distancia para medir la persistencia de los clusters. Recordar que en cada paso del clustering jerárquico se tiene la distancia a la que estaban los clusters unidos. Para ello, se utilizará $\lambda=1/distance$. Por cada cluster se tendrán entonces dos lambdas: uno que es el valor con el cual el cluster nace y otro con el cual el cluster muere (es decir se subdivide en dos clusters de al menos $p$ puntos). A estos se los llamarán $\lambda_{\text{birth}}$ y $\lambda_{\text{death}}$.
 
-Además, por cada punto $p$ en un cluster tenemos $\lambda_p$ que esl valor de lambda en el momento en el cual el punto "cayó" fuera del cluster, este valor va a estar entre $\lambda_{\text{birth}}$ y $\lambda_{\text{death}}$ ya que el punto o bien cae fuera durante la vida del cluster o bien abandona el cluster cuando el cluster muere. Notemos que el hecho de que un punto "caiga" fuera de un cluster no quiere decir que el punto deje de pertenecer al cluster.
+Además, por cada punto $p$ en un cluster se tiene $\lambda_p$ que es el valor de $\lambda$ en el momento en el cual el punto "cayó" fuera del cluster, y este valor va a estar entre $\lambda_{\text{birth}}$ y $\lambda_{\text{death}}$ ya que el punto o bien cae fuera durante la vida del cluster o bien abandona el cluster cuando el cluster muere. Notar que el hecho de que un punto "caiga" fuera de un cluster no quiere decir que el punto deje de pertenecer al cluster.
 
-Vamos a definir la \textit{estabilidad} de un cluster como:
+Se define la \textit{estabilidad} de un cluster como:
 
 \begin{myequation}
 \sum_{p \in \text{cluster}} (\lambda_p - \lambda_{\text{birth}})
 \end{myequation}
 
-Tenemos ahora todos los elementos para explicar el algoritmo con el cual seleccionaremos los clusters.
-
-Empezamos con cada hoja del dendrograma podado como un cluster seleccionado. Vamos a recorrer el árbol hacia arriba (ordenamiento topológico inverso). Si la suma de la estabilidad de los dos hijos es mayor que la estabilidad del padre entonces seteamos la estabilidad del padre como la suma de la estabilidad de sus hijos. Si la suma de la estabilidad de los hijos es menor que la estabilidad del padre entonces declaramos al cluster padre como un cluster seleccionado y des-seleccionamos a los hijos. Una vez que llegamos a la raíz el conjunto de clusters seleccionados constituye nuestro grupo de clusters.
+Ahora que se tienen todos los elementos para explicar el algoritmo con el cual seleccionaremos los clusters: se empieza con cada hoja del dendrograma podado como un cluster seleccionado. Se recorre el árbol hacia arriba (ordenamiento topológico inverso). Si la suma de la estabilidad de los dos hijos es mayor que la estabilidad del padre entonces seteamos la estabilidad del padre como la suma de la estabilidad de sus hijos. Si la suma de la estabilidad de los hijos es menor que la estabilidad del padre entonces se declara al cluster padre como un cluster seleccionado y se des-seleccionan a los hijos. Una vez que se llega a la raíz el conjunto de clusters seleccionados constituye el grupo de clusters.
 
 \begin{figure}[!htb]
 \centering
@@ -14169,39 +14163,39 @@ Empezamos con cada hoja del dendrograma podado como un cluster seleccionado. Vam
 
 \end{figure}
 
-Una vez que tenemos los clusters es fácil llegar al resultado final. Cualquier punto que no esté en alguno de los clusters seleccionados es ruido y le asignamos un label -1. Por cada cluster tenemos tenemos el valor de $\lambda_p$ para cada punto del cluster, si normalizamos esto valores en el rango 0..1 tenemos una medida de pertenencia de cada punto al cluster.  Esto lo podemos usar como la probabilidad de que cada punto pertenezca al mismo. La solución final para nuestro ejemplo es:
+Una vez que se obtienen los clusters es fácil llegar al resultado final. Cualquier punto que no esté en alguno de los clusters seleccionados es ruido y se le asigna un label -1. Por cada cluster se tiene el valor de $\lambda_p$ para cada punto del cluster, y si se normalizan esto valores en el rango $0..1$ se tendrá una medida de pertenencia de cada punto al cluster.  Esto se lo puede usar como la probabilidad de que cada punto pertenezca al mismo. La solución final para este ejemplo es la que se muestra en la figura \ref{fig:hdbscan_dendrogram_3}.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/hdbscan-fig-8.png}
 \caption{Resultado Final de HDBScan}
-
+\label{fig:hdbscan_dendrogram_3}
 \end{figure}
 
-La intensidad del color refleja la probabilidad de que el punto pertenezca al cluster. En este caso no tenemos outliers, todos los puntos quedaron identificados dentro de algún cluster. 
+La intensidad del color en la figura \ref{fig:hdbscan_dendrogram_3} refleja la probabilidad de que el punto pertenezca al cluster. En este caso no hay outliers, todos los puntos quedaron identificados dentro de algún cluster. 
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/hdbscan-fig-10.png}
 \caption{Otro ejemplo de HDBScan}
-
+\label{fig:hdbscan_example_2}
 \end{figure}
 
-En el segundo ejemplo vemos como HDBScan identifica los clusters principales en el set de datos independientemente de su forma o densidad y como quedan como outliers los puntos para los cuales no hay una forma lógica de asociarlos a un cluster. Un punto a considerar es que algunos puntos que, aparentemente, deberían quedar dentro de un cluster aparecen como outliers, HDBScan tiende a detectar mas outliers de los necesarios, esto puede corregirse controlando el porcentaje de outliers y variando los hiper-parámetros del algoritmo.
+En el segundo ejemplo mostrado en la figura \ref{fig:hdbscan_example_2} se puede ver cómo HDBScan identifica los clusters principales en el set de datos independientemente de su forma o densidad y cómo quedan como outliers los puntos para los cuales no hay una forma lógica de asociarlos a un cluster. Un punto a considerar es que algunos puntos que, aparentemente, deberían quedar dentro de un cluster aparecen como outliers, HDBScan tiende a detectar mas outliers de los necesarios y esto puede corregirse controlando el porcentaje de outliers y variando los hiper-parámetros del algoritmo.
 
 HDBScan es un algoritmo muy interesante ya que permite encontrar clusters de forma arbitraria y con densidades arbitrarias, identificar outliers y detectar automáticamente el número de clusters.
 
 \section{Biclustering}
 
-Supongamos que tenemos un set de documentos y la matriz de términos por documentos correspondiente al mismo. Un algoritmo de clustering tradicional puede usarse tanto para agrupar documentos como para agrupar términos usando la matriz o su transpuesta según el caso. Lo interesante es agrupar en base a ambas cosas, es decir crear clusters que representen a un conjunto de términos y documentos. A esto se lo conoce como bi-clustering o co-clustering. 
+Suponer que hay un set de documentos y la matriz de términos por documentos correspondiente al mismo. Un algoritmo de clustering tradicional puede usarse tanto para agrupar documentos como para agrupar términos usando la matriz o su transpuesta según el caso. Lo interesante es agrupar en base a ambas cosas, es decir, crear clusters que representen a un conjunto de términos y documentos. A esto se lo conoce como bi-clustering o co-clustering. 
 
-La utilidad de este algoritmo es permitir agrupar los documentos en clusters y al mismo tiempo obtener una agrupación de cuáles son los términos que están mas asociados a esos documentos, notemos que esto no es lo mismo que clusterizar los documentos y luego extraer los términos mas significativos de cada cluster.
+La utilidad de este algoritmo es permitir agrupar los documentos en clusters y al mismo tiempo obtener una agrupación de cuáles son los términos que están mas asociados a esos documentos. Notar que esto no es lo mismo que clusterizar los documentos y luego extraer los términos mas significativos de cada cluster.
 
-Vamos a ver dos algoritmos para bi-clustering, uno basado en clustering espectral y el otro basado en LSI. En primer lugar porque son los dos algoritmos que suelen dar mejores resultados y en segundo lugar porque es hermoso re-usar los temas que ya vimos antes.
+Para lograr esto, se verán dos algoritmos para bi-clustering: uno basado en clustering espectral y el otro basado en LSI.
 
 \subsection{Co-clustering Espectral}
 
-El algoritmo de co-clustering espectral \cite{Dhillon} se basa en el principio de aplicar clustering espectral al Laplaciano del grafo bipartito entre las filas y las columnas de una matriz. Afortunadamente el grafo que sería de $(m+n)x(m+n)$ no es necesario ya que puede derivarse de la matriz de datos que llamaremos $A$, en nuestro ejemplo esta es simplemente la matriz de términos x documentos. Por ejemplo:
+El algoritmo de co-clustering espectral \cite{Dhillon} se basa en el principio de aplicar clustering espectral al Laplaciano del grafo bipartito entre las filas y las columnas de una matriz. Afortunadamente el grafo que sería de $(m+n)x(m+n)$ no es necesario ya que puede derivarse de la matriz de datos que llamaremos $A$. Por ejemplo:
 
 $$A=\begin{pmatrix}
 5&1&4&0\\
@@ -14210,7 +14204,7 @@ $$A=\begin{pmatrix}
 1&4&1&4\\
 \end{pmatrix}$$
 
-En primer lugar vamos a calcular una matriz diagonal $R$ que tendrá la suma por filas de la matriz $A$ y una matriz $C$ que será una matriz diagonal con la suma por columnas de la matriz $A$, se llaman $R$ y $C$ por "rows" and "columns". Muy ingenioso.
+En primer lugar se calcula una matriz diagonal $R$ que tendrá la suma por filas de la matriz $A$ y una matriz $C$ que será una matriz diagonal con la suma por columnas de la matriz $A$. Se llaman $R$ y $C$ por "rows" and "columns".
 
 \begin{equation}
 \begin{aligned}
@@ -14236,7 +14230,7 @@ El siguiente paso es obtener la matriz normalizada que llamaremos $A_n$ que se o
 A_n = R^{-1/2}AC^{-1/2}
 \end{myequation}
 
-En nuestro caso el resultado es:
+En este caso el resultado es:
 
 $$A_n=\begin{pmatrix}
 0.4564 &   0.0877 &   0.4000  &       0\\
@@ -14279,9 +14273,9 @@ V=\begin{pmatrix}
 \end{aligned}
 \end{equation}
 
-Vamos a descartar la primer columna de $U$ y $V$ y quedarnos con las siguientes $\log_2(k)$ columnas en donde $k$ es la cantidad de clusters que queremos formar. En nuestro ejemplo estamos interesados en formar 2 clusters por lo tanto $k=2$ y nos vamos a quedar solo con la segunda columna de $U$ y $V$, en general son varias las columnas a conservar y no solo una.
+Se descarta la primer columna de $U$ y $V$ y se quedan con las siguientes $\log_2(k)$ columnas en donde $k$ es la cantidad de clusters que se quiere formar. En este ejemplo se quieren formar 2 clusters por lo tanto $k=2$ y entonces se usa solo la segunda columna de $U$ y $V$. En general, son varias las columnas a conservar y no solo una.
 
-Vamos a normalizar las columnas de la siguiente forma:
+Las columnas se normalizan de la siguiente forma:
 
 \begin{myequation}
 U_2 = R^{-1/2} U[:,2:(2+\log_2(k))]
@@ -14291,7 +14285,7 @@ U_2 = R^{-1/2} U[:,2:(2+\log_2(k))]
 V_2 = C^{-1/2} V[:,2:(2+\log_2(k))]
 \end{myequation}
 
-Finalmente formamos la matriz $Z$ concatenando (x filas) las matrices $U_2$ y $V_2$ nuestro resultado queda:
+Finalmente se forma la matriz $Z$ concatenando (x filas) las matrices $U_2$ y $V_2$ y el resultado quedará:
 
 $$
 Z = \begin{pmatrix}
@@ -14306,11 +14300,11 @@ Z = \begin{pmatrix}
 \end{pmatrix}
 $$
 
-El último paso es aplicar K-Means sobre la matriz $Z$, las primeras $m$ filas de $Z$ nos dan la asignación de las filas de la matriz $A$ a los clusters y las siguientes $n$ filas nos dan la asignación de las columnas. Notemos que en nuestra matriz nos quedaron numeros positivos para las filas y columnas pares y negativos para las filas y columnas impares, lo cual tiene sentido para nuestra matriz $A$, por lo tanto luego de correr K-Means vamos a obtener un bi-cluster formado por \{d1,d3,t1,t3\} y otro bi-cluster formado por \{d2,d4,t2,t4\}.
+El último paso es aplicar K-Means sobre la matriz $Z$. Las primeras $m$ filas de $Z$ dan la asignación de las filas de la matriz $A$ a los clusters y las siguientes $n$ filas dan la asignación de las columnas. Notar que en esta matriz quedaron numeros positivos para las filas y columnas pares y negativos para las filas y columnas impares, lo cual tiene sentido para la matriz $A$. Por lo tanto, luego de correr K-Means, se obtendrá un bi-cluster formado por \{d1,d3,t1,t3\} y otro bi-cluster formado por \{d2,d4,t2,t4\}.
 
-Notar que el algoritmo está usando la matriz $U$ de la SVD para agrupar las filas y la matriz $V$ de la SVD para agrupar las columnas, esto tiene mucho sentido si recordamos la interpretación algebraica de la SVD.
+Notar que el algoritmo está usando la matriz $U$ de la SVD para agrupar las filas y la matriz $V$ de la SVD para agrupar las columnas, esto tiene mucho sentido si se recuerda la interpretación algebraica de la SVD.
 
-El algoritmo de bi-clustering entonces es el siguiente:
+El algoritmo \ref{alg:bi_clustering_spectral} resume el funcionamiento de este bi-clustering.
 
 \begin{algorithm}
 \SetAlgoLined
@@ -14327,11 +14321,12 @@ $Z = [R^{-1/2}U_2;C^{-1/2}V_2]$\;
 $C = Kmeans(Z)$
 }
 \caption{Spectral Co-Clustering}
+\label{alg:bi_clustering_spectral}
 \end{algorithm}
 
 \subsection{LSI Co-clustering}
 
-El algoritmo basado en LSI es muy similar al anterior cambiando solamente el contenido de la matriz, es decir la forma en que normalizamos la misma. Antes suponíamos que teníamos una matriz de términos por documentos en donde indicábamos la cantidad de veces que cada término ocurría en cada documento. Ahora vamos a usar una matriz del estilo de la que usamos en LSI es decir basada en TF-IDF por ejemplo de la forma:
+El algoritmo basado en LSI es muy similar al anterior cambiando solamente el contenido de la matriz, es decir, la forma en que se normaliza la misma. Antes se suponía que había una matriz de términos por documentos en donde se indicaba la cantidad de veces que cada término ocurría en cada documento. Ahora se usará una matriz del estilo de la que se usa en LSI (es decir, basada en TF-IDF) como por ejemplo:
 
 \begin{myequation}
 W_{ij} = \log_2(ft_{ij}) \log(\frac{N}{ft_i}+1)
@@ -14339,11 +14334,9 @@ W_{ij} = \log_2(ft_{ij}) \log(\frac{N}{ft_i}+1)
 
 Donde $ft_{ij}$ es la cantidad de veces que el término $i$ ocurre en el documento $j$ ; $ft_i$ es la cantidad de documentos en los que ocurre el término $i$ y $N$ es la cantidad total de documentos en la colección.
 
-A esta matriz que llamaremos $L$ le aplicamos la SVD tal y como hacíamos en LSI. Una vez que hicimos est tenemos que la matriz $U$ nos da la relación entre los términos y los conceptos latentes y la matriz $V$ nos da la relación entre los documentos y los conceptos latentes. A ambas matrices las vamos a multiplicar por la matriz de valores singulares $\Sigma$ para darles el peso que corresponde. Luego de cada matriz tomamos $\log_2(k)$ columnas esta vez a partir de la columna 1.
+A esta matriz se la llamará $L$ y se le aplicará la SVD tal y como se hacía en LSI. Una vez realizado esto se tendrá que la matriz $U$ dará la relación entre los términos y los conceptos latentes y la matriz $V$ dará la relación entre los documentos y los conceptos latentes. A ambas matrices se las multiplica por la matriz de valores singulares $\Sigma$ para darles el peso que corresponde. Luego de cada matriz se toman $\log_2(k)$ columnas partiendo de la columna 1. Finalmente, se conctenan los dos resultados por filas y se aplica K-Means pero esta vez en lugar de aplicar K-Means tradicional hay que aplicar K-Means esférico. 
 
-Luego simplemente concatenamos los dos resultados por filas y aplicamos K-Means pero esta vez en lugar de aplicar K-Means tradicional tenemos que aplicar K-Means esférico es decir usando la distancia angular entre los vectores. 
-
-El algoritmo completo es:
+El algoritmo \ref{alg:co_clustering_lsi} explica el funcionamiento de co-clustering basado en LSI.
 
 \begin{algorithm}
 \SetAlgoLined
@@ -14357,9 +14350,10 @@ $Z = [\Sigma U_2;V_2 \Sigma]$\;
 $C = SphericalKmeans(Z)$
 }
 \caption{LSI Co-Clustering}
+\label{alg:co_clustering_lsi}
 \end{algorithm}
 
-Ambos algoritmos dan resultados similares \cite{ParkLeckie} y son los algoritmos mas usados para aplicar bi-clustering a una matriz de términos por documentos. Los resultados obtenidos son muy interesantes ya que permiten analizar los clusters en base a los términos que fueron clusterizados junto con los documentos. Por ejemplo luego de aplicar Spectral Co-Clustering a una serie de textos de newsgroups los resultados fueron los siguientes:
+Ambos algoritmos dan resultados similares \cite{ParkLeckie} y son los algoritmos mas usados para aplicar bi-clustering a una matriz de términos por documentos. Los resultados obtenidos son muy interesantes ya que permiten analizar los clusters en base a los términos que fueron clusterizados junto con los documentos. Por ejemplo, luego de aplicar Spectral Co-Clustering a una serie de textos de newsgroups los resultados fueron los siguientes:
 
 \begin{verbatim}
 Best biclusters:
@@ -14385,15 +14379,15 @@ categories   : 100% rec.sport.hockey
 words        : scorer, unassisted, reichel, semak, sweeney, kovalenko, ricci, audette, momesso, nedved
 \end{verbatim}
 
-Se puede observar que los términos nos permiten interpretar el significado de cada uno de los clusters. 
+Se puede observar que los términos permiten interpretar el significado de cada uno de los clusters. 
 
 \section{NMF: Non-negative matrix factorization}
 
-Este capítulo aborda el fascinante mundo de la factorización de matrices, concretamente las factorizaciones no-negativas. Vamos a ver que poder factorizar una matriz como el producto de dos matrices no-negativas tiene una enorme cantidad de aplicaciones, algunas de ellas muy curiosas. Como buena noticia los algoritmos para resolver la factorización son realmente simples y elegantes y las aplicaciones son muy interesantes así que tendremos muy poco costo y un gran beneficio. 
+Este capítulo aborda el fascinante mundo de la factorización de matrices, concretamente las factorizaciones no-negativas. Factorizar una matriz como el producto de dos matrices no-negativas tiene una enorme cantidad de aplicaciones, algunas de ellas muy curiosas. Como buena noticia, los algoritmos para resolver la factorización son realmente simples y elegantes y las aplicaciones son muy interesantes así que habrá muy poco costo y un gran beneficio. 
 
-Antes de empezar con el tema debemos hacer dos aclaraciones importantes: En primer lugar vemos NMF dentro de Clustering pero es un tema que tiene muchas aplicaciones mas, simplemente había que ponerlo en algún lado. La segunda aclaración es que existen \textbf{muchos} algoritmos para NMF y solo podemos ver alguno de ellos. 
+Antes de empezar con el tema, es necesario remarcar dos cosas: en primer lugar NMF tiene muchas aplicaciones más fuera del mundo del Clustering, y en segundo lugar es que existen \textbf{muchos} algoritmos para NMF. 
 
-Vamos a partir de una matriz $A$ de $mxn$ no-negativa. Queremos hallar dos matrices: $W$ y $H$ en donde $W$ es una matriz de $mxk$ no-negativa y $H$ es una matriz de $kxn$ no-negativa tales que:
+Se parte de una matriz $A$ de $mxn$ no-negativa. Se quieren hallar dos matrices $W$ y $H$ en donde $W$ es una matriz de $mxk$ no-negativa y $H$ es una matriz de $kxn$ no-negativa tales que:
 
 \begin{myequation}
 A \approx W*H
@@ -14446,24 +14440,24 @@ $$X \approx \begin{pmatrix}
     0.2801   & 0.1482   & 0.2776   & 0.2322\\
 \end{pmatrix}$$
 
-En el ejemplo vemos que hemos usado una aproximación de rango 2 a la matriz original y que el resultado es una aproximación bastante buena. Sabemos que no es la mejor aproximación ya que ésta es la que devuelve la SVD pero la diferencia es que estas matrices solo pueden tener números positivos.
+Notar en el ejemplo que se ha utilizado una aproximación de rango 2 a la matriz original y que el resultado es una aproximación bastante buena. Se sabe que no es la mejor aproximación ya que ésta es la que devuelve la SVD pero la diferencia es que estas matrices solo pueden tener números positivos.
 
 El estudio de la convergencia de este algoritmo es complicado. Al estar basado en multiplicaciones está garantizado que las matrices siempre serán no-negativas. Por el mismo motivo una vez que un elemento de alguna de las dos matrices se hace igual a cero queda en cero en la matriz resultado. Esto es bueno porque contribuye a que el resultado tienda a generar matrices relativamente dispersas pero por otro lado es malo ya que una vez que el algoritmo inicia su proceso ésta “condenado” a llegar a una única solución posible. 
 
-Esta solución es totalmente dependiente de la inicialización por lo que diferentes ejecuciones del algoritmo pueden generar resultados bastante distintos, es decir que tenemos una importante tasa de incertidumbre. Es bueno, en caso de ser posible, agregar restricciones a NMF y luego proceder por Gradient Descent. 
+Esta solución es totalmente dependiente de la inicialización por lo que diferentes ejecuciones del algoritmo pueden generar resultados bastante distintos, es decir que hay una importante tasa de incertidumbre. Es bueno, en caso de ser posible, agregar restricciones a NMF y luego proceder por Gradient Descent. 
 
 \subsection{La Base de NMF}
 
-Al igual que la SVD o K-Means NMF descompone una matriz en una base y coordenadas en esa base, la base tiene $k$ vectores de igual que los datos. En el caso de NMF la base y las coordenadas solo pueden tener elementos positivos.Esto obliga al algoritmo a descomponer cada vector del set de datos original en una suma de partes. Cada vector en la base debe ser entonces una "parte" del set de datos original de forma tal que sumando partes de los diferentes vectores logremos aproximar la reconstrucción del set de datos original.
+Al igual que la SVD o K-Means, NMF descompone una matriz en una base y coordenadas en esa base, la base tiene $k$ vectores de igual dimensión que los datos. En el caso de NMF la base y las coordenadas solo pueden tener elementos positivos. Esto obliga al algoritmo a descomponer cada vector del set de datos original en una suma de partes. Cada vector en la base debe ser entonces una "parte" del set de datos original de forma tal que sumando partes de los diferentes vectores se pueda aproximar la reconstrucción del set de datos original.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/nmf-fig-1.png}
 \caption{Comparacion de SVD, K-Means y NMF}
-
+\label{fig_svd_kmeans_nmf}
 \end{figure}
 
-En esta comparación podemos ver los vectores en la base de K-Means, SVD y NMF para un set de imágenes con rostros. Como vemos los vectores de la base en K-Means parecen rostros del set de datos original, esto es porque cada rostro es un promedio de otros rostros, en general similares. En SVD los rostros son fantasmagóricos, algunos están en negativo porque las coordenadas de la descomposición de la SVD pueden ser negativas, los vectores además están ordenados por importancia, el primero es el mas importante para reconstruir cualquier rostro del set de datos, el segundo es el segundo mas importante, etc. Finalmente NFM nos muestra imágenes muy oscuras, en donde cada imagen tiene una zona mas clara, estas son las diferentes "partes" que luego podemos sumar para reconstruir cualquier rostro de nuestro set de datos original.
+En la figura \ref{fig_svd_kmeans_nmf} se muestra una comparación donde se puede ver los vectores en la base de K-Means, SVD y NMF para un set de imágenes con rostros. Los vectores de la base en K-Means parecen rostros del set de datos original y esto es porque cada rostro es un promedio de otros rostros, en general similares. En SVD los rostros son fantasmagóricos, algunos están en negativo porque las coordenadas de la descomposición de la SVD pueden ser negativas y además los vectores están ordenados por importancia siendo que el primero es el mas importante para reconstruir cualquier rostro del set de datos, el segundo es el segundo mas importante, etc. Finalmente NFM muestra imágenes muy oscuras, en donde cada imagen tiene una zona mas clara, estas son las diferentes "partes" que luego se pueden sumar para reconstruir cualquier rostro de nuestro set de datos original.
 
 En cuanto a poder de reconstrucción SVD suele dar los mejores resultados, esto es lógico pues aprendimos que es la mejor aproximación de rango “k” a la matriz original. La desventaja de SVD es que la base que genera no es muy útil y la reconstrucción es difícil de interpretar al ser una combinación lineal de la base.
 
@@ -14486,27 +14480,21 @@ Vectores ordenados por importancia& No & Si & No \\ \hline
 \caption{SVD, Kmeans y NMF}
 \end{table}
 
-Veamos la base de NMF para MNIST:
-
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=2.5in]{figures/nmf-fig-2.png}
 \caption{Base de NMF para MNIST}
-
+\label{fig:nmf_mnist}
 \end{figure}
 
-Estas son las partes de los trazos a partir de las cuales podemos reconstruir cualquier dígito.  Podemos analizar el poder de reconstrucción de NMF.
+La figura \ref{fig:nmf_mnist} muestra las partes de los trazos a partir de las cuales se puede reconstruir cualquier dígito de MNIST. Analizando la figura \ref{fig:nmf_mnist_2}, se puede ver claramente como las bases de mayor cantidad de vectores logran una mejor reconstrucción de los datos originales. Esto no es ni más ni menos que una forma de compresión destructiva de los datos, mediante las matrices $W$ y $H$ se representan a los datos originales en mucho menos espacio. Por ejemplo, una matriz de $40x2$ y una matriz de $2x40$ suman en total 160 elementos que son muchos menos que los $40x40$ necesarios para almacenar los datos originales. Esto funciona para cualquier tipo de dato. Es decir que tanto K-Means como SVD como NMF pueden funcionar como algoritmos de compresión de datos o para reducir dimensiones. 
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/nmf-fig-3.png}
 \caption{Reconstrucción de MNIST con NMF}
-
+\label{fig:nmf_mnist_2}
 \end{figure}
-
-Se puede ver claramente como las bases de mayor cantidad de vectores logran una mejor reconstrucción de los datos originales. Esto no es ni más ni menos que una forma de compresión destructiva de los datos, mediante las matrices $W$ y $H$ representamos a los datos originales en mucho menos espacio. Por ejemplo una matriz de $40x2$ y una matriz de $2x40$ suman en total 160 elementos que son muchos menos que los $40x40$ necesarios para almacenar los datos originales. Esto funciona para cualquier tipo de dato!. Es decir que tanto K-Means como SVD como NMF pueden funcionar como algoritmos de compresión de datos o para reducir dimensiones. 
-
-
 
 
 \chapter{Sistemas de Recomendaciones}
