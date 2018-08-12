@@ -18330,9 +18330,9 @@ La densificación es una ley de potencias con exponente menor a 2, por lo tanto 
 
 \section{Grafos de Kronecker}
 
-Hemos visto varios modelos de redes que nos permiten reproducir algunas de las características de una red social. En esta sección vamos a intentar desarrollar un modelo generativo que nos permita hacer "crecer" un grafo de forma tal que el mismo tenga características similares a una red social. El modelo que vamos a usar está basado en grafos de Kronecker y consiste en replicar una pequeña estructura recursivamente como si fuera un fractal. La hipótesis es que cada parte de la red se parece a la red misma.
+Se han visto varios modelos de redes que permiten reproducir algunas de las características de una red social. En esta sección se intentará desarrollar un modelo generativo que permita hacer "crecer" un grafo de forma tal que el mismo tenga características similares a una red social. El modelo que se usará está basado en grafos de Kronecker y consiste en replicar una pequeña estructura recursivamente como si fuera un fractal. La hipótesis es que cada parte de la red se parece a la red misma.
 
-Empecemos definiendo una operación fundamental que vamos a usar que el el \textit{producto de Kronecker} entre dos matrices $A$ y $B$:
+Se define una operación fundamental llamada \textit{producto de Kronecker} entre dos matrices $A$ y $B$:
 
 \begin{myequation}
 A_{nxm} \otimes B_{kxl} = \begin{pmatrix}
@@ -18345,9 +18345,7 @@ a_{n1}B & a_{n2}B & ... & a{nm}B\\
 
 El resultado es una matriz de $nk x ml$.
 
-El producto de Kronecker entre dos grafos es el producto de Kronecker entre sus matrices de adyacencias.
-
-Ejemplo:
+El producto de Kronecker entre dos grafos es el producto de Kronecker entre sus matrices de adyacencias. Por ejemplo:
 
 $$\begin{pmatrix}
 1&1&0\\
@@ -18373,9 +18371,9 @@ $$\begin{pmatrix}
 \end{pmatrix}
 $$
 
-Observemos que al multiplicar una matriz de Kronecker por si misma lo que obtenemos es una replicación de la matriz original de acuerdo al patrón de 1s y 0s en la misma. Recomiendo tomar un tiempito para estudiar este resultado y hacer algunos ejemplos mas para poder comprender el funcionamiento de la operación.
+Observar que al multiplicar una matriz de Kronecker por si misma lo que se obtiene es una replicación de la matriz original de acuerdo al patrón de 1s y 0s en la misma. 
 
-Tenemos entonces un proceso recursivo para expandir un grafo, nuestro grafo va a estar formado por:
+Ahora se tiene un proceso recursivo para expandir un grafo, siendo que el grafo estará formado por:
 
 \begin{myequation}
  K_m = K_1 \otimes K_1 \otimes K_1 \otimes .... \otimes K_1 = K_{m-1} \otimes K_1
@@ -18385,20 +18383,20 @@ Tenemos entonces un proceso recursivo para expandir un grafo, nuestro grafo va a
 \centering
 \includegraphics[width=4.5in]{figures/rs-fig-50.png}
 \caption{Grafos de Kronecker}
-
+\label{fig:kronecker_example}
 \end{figure}
 
-Por ejemplo a partir de un cierto grafo generador y su matriz de adyacencias podemos obtener la matriz/grafo que vemos en color azul. 
+Por ejemplo, a partir de un cierto grafo generador y su matriz de adyacencias, se puede obtener la matriz/grafo que se ve en color azul en la figura \ref{fig:kronecker_example}. 
 
 \subsection{Propiedades}
 
-La primera observación importante sobre los grafos de Kronecker es que si tenemos un generador $K_1$ con $N_1$ nodos y $E_1$ aristas entonces el grafo de Kronecker $K_m$ tiene: $N_1^m$ nodos y $E_1^m$ aristas.Es decir que tenemos que la densificación es una ley de potencias (!). El exponente de densificación se puede calcular de la forma:
+La primera observación importante sobre los grafos de Kronecker es que si se tiene un generador $K_1$ con $N_1$ nodos y $E_1$ aristas entonces el grafo de Kronecker $K_m$ tiene: $N_1^m$ nodos y $E_1^m$ aristas. Es decir que la densificación es una ley de potencias. El exponente de densificación se puede calcular de la siguiente forma:
 
 \begin{myequation}
 \alpha = \frac{log(E(t))}{\log(N(t))} = \frac{\log(E_1^t)}{\log(N_1^t)} = \frac{\log(E_1)}{\log(N_1)}
 \end{myequation}
 
-Como sabemos que $E(t)>N(t)$ entonces $\alpha>1$
+Como se sabe que $E(t)>N(t)$ entonces $\alpha>1$
 
 De la misma forma se pueden probar las siguientes propiedades:
 
@@ -18408,13 +18406,9 @@ De la misma forma se pueden probar las siguientes propiedades:
 \item La distribución de los autovalores es una ley de potencias
 \end{itemize}
 
-Estas propiedades no las demostraremos por razones de espacio (?) pero nos sirven para entender que los grafos de Kronecker tienen propiedades muy similares al grafo de una red social.
+\subsection{Grafos de Kronecker estocásticos}
 
-\subsection{Grafos de Kronecker Estocásticos}
-
-En un grafo de Kronecker estocástico la matriz generadora no tiene 1s y 0s sino la probabilidad de cada arista. Llamaremos a la matriz generadora estocástica $\Theta_1$. Al igual que antes calcularemos $\Theta_k$ y luego cada celda de $\Theta$ nos dará la probabilidad de que nuestro grafo tenga cada una de las aristas posibles, en base a estas probabilidades construimos luego nuestro grafo.
-
-Ejemplo:
+En un grafo de Kronecker estocástico la matriz generadora no tiene 1s y 0s sino la probabilidad de cada arista. Se llamará a la matriz generadora estocástica $\Theta_1$. Al igual que antes, se calcula $\Theta_k$ y luego cada celda de $\Theta$ dará la probabilidad de que el grafo tenga cada una de las aristas posibles. En base a estas probabilidades se construye luego el grafo. Por ejemplo:
 
 \begin{myequation}
 \Theta_1 = \begin{pmatrix}
@@ -18432,7 +18426,7 @@ Ejemplo:
 \end{pmatrix}
 \end{myequation}
 
-A partir de esta matriz podemos generar un grafo que cumpla con estas probabilidades por ejemplo:
+A partir de esta matriz se podrá generar un grafo que cumpla con estas probabilidades. Por ejemplo:
 
 \begin{myequation}
 G = \begin{pmatrix}
@@ -18446,32 +18440,28 @@ G = \begin{pmatrix}
 Los grafos de Kronecker estocásticos a partir de una matriz generadora de tipo $\Theta_1 =\begin{pmatrix}a&b\\c&d\\ \end{pmatrix}$  tienen varias propiedades importantes:
 
 \begin{itemize}
-\item el grafo es conexo si $b+c>1$
+\item El grafo es conexo si $b+c>1$
 \item El grafo tiene un componente conexo de tamaño $\Theta(n)$ si: $(a+b)(b+c)>1$
 \item El diámetro es constante si: $b+c>1$
 \end{itemize}
 
 \subsection{Estimación de la matriz generadora}
 
-Queremos ahora resolver el problema de dado el grafo de una red social calcular cuál es la matriz generadora de forma tal que el grafo de Kronecker sea lo mas parecido posible al grafo real. Es decir queremos maximizar $P(G|\Theta)$ usando, por ejemplo, gradient descent.
+Se quiere ahora resolver el siguiente problema: dado el grafo de una red social, calcular cuál es la matriz generadora de forma tal que el grafo de Kronecker sea lo mas parecido posible al grafo real. Es decir, se quiere maximizar $P(G|\Theta)$ usando, por ejemplo, gradient descent.
 
-Podemos calcular $P(G|\Theta)$ de la forma:
+$P(G|\Theta)$ se puede calcular de la forma:
 
 \begin{myequation}
 P(G|\Theta) = \prod_{(u,v)\in G} \Theta_k[u,v] \prod_{(u,v) \notin G} (1-\Theta_k[u,v])
 \end{myequation}
 
-Es decir que para las aristas que realmente pertenecen al grafo queremos que su probabilidad en $\Theta_k$ sea cercana a 1 y para las aristas que no están en el grafo queremos que su probabilidad sea cercana a cero.
+Es decir que para las aristas que realmente pertenecen al grafo se quiere que su probabilidad en $\Theta_k$ sea cercana a 1 y para las aristas que no están en el grafo se quiere que su probabilidad sea cercana a cero. Un serio problema es que no se sabe cuál es la correspondencia entre los nodos en la matriz de Kronecker y la matriz de adyacencias real del grafo, y hay un total de $O(n!)$ correspondencias posibles. Esto no es nada bueno.
 
-Un serio problema es que no sabemos cuál es la correspondencia entre los nodos en la matriz de Kronecker y la matriz de adyacencias real del grafo, y hay un total de $O(n!)$ correspondencias posibles. Esto no es nada bueno.
-
-Para resolver este problema vamos a aplicar una variante del algoritmo Hill-Climbing que vimos en el capítulo 1, hace ya tanto tiempo.
-
-Empezamos con una permutación al azar de los $N$ nodos que define una correspondencia, por ejemplo [1,3,4,2] define que el nodo 1 del grafo es el primer nodo en la matriz de Kronecker, el nodo 2 del grafo es el cuarto nodo en la matriz de Kronecker, etc. A partir de esta permutación tomamos dos nodos al azar y los intercambiamos, calculamos $P(G|\Theta)$ si el resultado mejora entonces mantenemos el cambio y sino lo deshacemos. Esto lo repetimos hasta que no mejore la semejanza. Podemos repetir el proceso algunas veces, dependiendo del tiempo que querramos dedicarle, para evitar máximos locales.
+Para resolver este problema se puede aplicar una variante del algoritmo Hill-Climbing. Se comienza con una permutación al azar de los $N$ nodos que define una correspondencia: por ejemplo [1,3,4,2] define que el nodo 1 del grafo es el primer nodo en la matriz de Kronecker, el nodo 2 del grafo es el cuarto nodo en la matriz de Kronecker, etc. A partir de esta permutación, se intercambian dos nodos al azar y se calcula $P(G|\Theta)$. Si el resultado mejora entonces se mantiene el cambio y sino lo deshacemos. Esto se repite hasta que no mejore la semejanza. Se puede repetir el proceso algunas veces para evitar máximos locales.
 
 \subsection{Generando Redes Sociales con Grafos de Kronecker}
 
-El experimento que queremos hacer es dado el grafo de una red social $G$ estimar la matriz generadora de Kronecker $\Theta_1$ y luego en base a esta matriz generar un grafo de Kronecker artificial $K$. Finalmente queremos comparar las propiedades de $G$ y$K$.
+El experimento que se quiere hacer es: dado el grafo de una red social $G$ estimar la matriz generadora de Kronecker $\Theta_1$ y luego en base a esta matriz generar un grafo de Kronecker artificial $K$. Finalmente se quieren comparar las propiedades de $G$ y$K$.
 
 \begin{figure}[!htb]
 \centering
@@ -18480,7 +18470,11 @@ El experimento que queremos hacer es dado el grafo de una red social $G$ estimar
 
 \end{figure}
 
-Por ejemplo para la red social de Epinions la matriz generadora es $\Theta_1=\begin{pmatrix}0.99&0.54\\0.49&0.13\\ \end{pmatrix}$ y vemos que la mayoría de las propiedades del grafo real son prácticamente iguales en el grafo de Kronecker(!!). Por lo tanto hemos mostrado que una red social puede caracterizarse como la repetición recursiva de una estructura muy simple, queremos ver que podemos aprender a partir de esta estructura:
+Por ejemplo, para la red social de Epinions la matriz generadora es la siguiente:
+
+ $\Theta_1=\begin{pmatrix}0.99&0.54\\0.49&0.13\\ \end{pmatrix}$
+ 
+Se puede ver en la figura \ref{fig:kronecker_example_2} que la mayoría de las propiedades del grafo real son prácticamente iguales en el grafo de Kronecker. Por lo tanto, se ha mostrado que una red social puede caracterizarse como la repetición recursiva de una estructura muy simple. 
 
 \begin{myequation}
 \Theta_1 = \begin{pmatrix}
@@ -18493,11 +18487,10 @@ c&d\\
 \centering
 \includegraphics[width=5.5in]{figures/rs-fig-52.png}
 \caption{Grafos de Kronecker}
-
+\label{fig:kronecker_example_2}
 \end{figure}
 
-Podemos ver que diferentes redes nos van a dar diferentes matrices generadoras. La estructura de una red la podemos caracterizar como una cebolla en donde cada capa de la misma se descompone en un núcleo y una periferia, recordemos que esta periferia es donde están las comunidades con mejor conductancia. Los valores de $a,b,c$ y $d$ nos permiten estudiar de que forma se va armando la estructura de la red y relacionarlos con la forma del núcleo y la periferia en la estructura real.
-
+Notar que diferentes redes van a dar diferentes matrices generadoras. La estructura de una red se la puede caracterizar como una cebolla en donde cada capa de la misma se descompone en un núcleo y una periferia (recordar que esta periferia es donde están las comunidades con mejor conductancia). Los valores de $a,b,c$ y $d$ permiten estudiar de qué forma se va armando la estructura de la red y relacionarlos con la forma del núcleo y la periferia en la estructura real.
 
 
 \chapter{Análisis Topológico de Datos}
