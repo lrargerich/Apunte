@@ -17251,9 +17251,9 @@ En cierta forma HITS es mas flexible que PageRank pero sin embargo tuvo muy poco
 
 \epigraph{By giving people the power to share we're making the world more transparent }{- Mark Zuckerberg}
 
-En este capítulo vamos a estudiar el análisis de Redes Sociales y los algoritmos que podemos usar para obtener información a partir de ellas. Una Red Social, es, básicamente, un grafo en el cual los nodos son usuarios y las aristas expresan las relaciones entre los mismos. En algunas redes las relaciones son dirigidas, por ejemplo en Twitter un usuario puede seguir a otro pero la relación puede no ser recíproca. En Facebook la relación de amistad no tiene dirección, una vez que se acepta la amistad la misma queda expresada mediante una arista no dirigida. En otras situaciones las aristas pueden tener signos o valores, por ejemplo en las Redes en las cuales se puede votar a favor o en contra de un usuario. 
+En este capítulo se estudiará el análisis de Redes Sociales y los algoritmos que se pueden utilizar para obtener información a partir de ellas. Una Red Social, es, básicamente, un grafo en el cual los nodos son usuarios y las aristas expresan las relaciones entre los mismos. En algunas redes las relaciones son dirigidas. Por ejemplo, en Twitter un usuario puede seguir a otro pero la relación puede no ser recíproca. En Facebook la relación de amistad no tiene dirección, una vez que se acepta la amistad la misma queda expresada mediante una arista no dirigida. En otras situaciones las aristas pueden tener signos o valores, por ejemplo en las Redes en las cuales se puede votar a favor o en contra de un usuario. 
 
-En definitiva cada Red Social se presenta como un grafo o red y por eso este capítulo es un estudio sobre grafos y redes, vamos a comenzar entonces con un repaso de propiedades interesantes que podemos obtener a partir de un grafo para luego ver de que forma podemos caracterizar a una Red Social.
+En definitiva, cada Red Social se presenta como un grafo o red y por eso este capítulo es un estudio sobre grafos y redes. Se comenzará entonces con un repaso de propiedades interesantes que se pueden obtener a partir de un grafo para luego ver de que forma se podrá caracterizar a una Red Social.
 
 \begin{figure}[!htb]
 \centering
@@ -17266,33 +17266,37 @@ En definitiva cada Red Social se presenta como un grafo o red y por eso este cap
 
 \subsection{Propiedades Básicas}
 
-Vamos a llamar indistintamente nodo o vértice a cada usuario de la Red Social. Vamos a llamar $N$ a la cantidad de nodos del grafo y $E$ a la cantidad de aristas.Llamaremos $k_i$ al grado de cada nodo. Vamos a llamar $k$ al grado promedio del grafo. Si el grafo no es dirigido entonces $k=2E/N$.
+Se llama indistintamente nodo o vértice a cada usuario de la Red Social. Se llamará $N$ a la cantidad de nodos del grafo y $E$ a la cantidad de aristas. También se llamará $k_i$ al grado de cada nodo, y se llamará $k$ al grado promedio del grafo. Si el grafo no es dirigido entonces $k=2E/N$.
 
 Un grafo \textit{completo} es aquel que tiene todas sus aristas, en un grafo no dirigido esto quiere decir que $k=N-1$ porque cada nodo está conectado con todos los demás y entonces $E=N(N-1)/2$.
 
-Las Redes Sociales no son grafos completos, por el contrario son grafos dispersos, donde $E<<E_{max}$ y$k<<N-1$. En concreto para la Web $k=9.64$ lo cual quiere decir que en promedio una página Web tiene 10 links. En Linedin $k=8.87$ es decir que en promedio cada usuario tiene 9 contactos. De la misma forma para la mayoría de las Redes Sociales el grado promedio es un número muy pequeño en relación a la cantidad de nodos en la red.
+Las Redes Sociales no son grafos completos sino que son grafos dispersos, donde $E<<E_{max}$ y$k<<N-1$. En concreto para la Web $k=9.64$ lo cual quiere decir que en promedio una página Web tiene 10 links. En Linedin $k=8.87$ y esto quiere decir que en promedio cada usuario tiene 9 contactos. De la misma forma para la mayoría de las Redes Sociales el grado promedio es un número muy pequeño en relación a la cantidad de nodos en la red.
 
-Esto nos lleva a definir de que forma debemos almacenar el grafo de una Red Social. 
+Esto llevará a definir de qué forma se debe almacenar el grafo de una Red Social. 
 
 \subsection{Almacenamiento del Grafo}
 
-Dado que cada nodo tiene una peqieña cantidad de vecinos la forma mas eficiente de almacenar el grafo de una Red Social es mediante una lista de adyacencias en donde por cada nodo almacenamos cuáles son sus nodos vecinos. 
+Dado que cada nodo tiene una pequeña cantidad de vecinos, la forma mas eficiente de almacenar el grafo de una Red Social es mediante una lista de adyacencias en donde por cada nodo se almacenan cuáles son sus nodos vecinos. 
 
-Supongamos por ejemplo que nuestra Red Social tiene mil millones de nodos. Necesitamos 30 bits por cada ID de nodo y como el promedio de vecinos es 10 necesitamos unos 300 bits para la lista de adyacencias, esto nos da un total de 330 bits por nodo. En total necesitaríamos unos 41 Gigabytes para almacenar el grafo completo. Notemos que esta cantidad es manejable en memoria por lo que incluso para grafos muy extensos es posible tener el grafo completo de la Red Social en memoria, esto es muy importante ya que en muchos casos no se analiza correctamente el poder de representar los grafos de forma compacta.
+Suponer por ejemplo que la Red Social tiene mil millones de nodos. Se necesitarían 30 bits por cada ID de nodo y como el promedio de vecinos es 10 se necesitarán unos 300 bits para la lista de adyacencias. Esto da un total de 330 bits por nodo. En total se necesitarían unos 41 Gigabytes para almacenar el grafo completo. Notar que esta cantidad es manejable en memoria por lo que incluso para grafos muy extensos es posible tener el grafo completo de la Red Social en memoria, esto es muy importante ya que en muchos casos no se analiza correctamente el poder de representar los grafos de forma compacta.
 
 \subsection{Componentes Conexos}
 
-En una Red Social en general existe un único componente conexo gigante, esta es una propiedad que tienen todos los grafos con muchos nodos. Es sencillo explicar el motivo por el cual esto pasa pensando en una Red Social en donde tenemos muchos nodos pero dos componentes conexos. Cuando agregamos una arista, la probabilidad de que la misma conecte dos nodos en distintos componentes conexos es muy alta y tarde o temprano nos quedará un único componente conexo gigante. De esto se desprende que las Redes Sociales son, casi siempre, grafos conexos.
+En una Red Social en general existe un único componente conexo gigante. Esta es una propiedad que tienen todos los grafos con muchos nodos. Es sencillo explicar el motivo por el cual esto pasa pensando en una Red Social en donde hay muchos nodos pero dos componentes conexos. Cuando agregamos una arista, la probabilidad de que la misma conecte dos nodos en distintos componentes conexos es muy alta y tarde o temprano quedará un único componente conexo gigante. De esto se desprende que las Redes Sociales son, casi siempre, grafos conexos.
 
 \subsection{Diámetro}
 
-El diámetro de un grafo es el máximo de todos los caminos mínimos. En otras palabras cuál es el máximo número de aristas que tenemos que visitar para llegar de un nodo del grafo a otro. Vamos a ver que las Redes Sociales tiene un diámetro muy bajo, lo cual da origen al fenómeno del mundo pequeño, los famosos 6 grados de separación. Otra propiedad sorprendente de las Redes Sociales es que a medida que las Redes Sociales crecen el diámetro en lugar de aumentar disminuye, esto no es algo lógico por lo que vamos a tener que tomarnos el tiempo para explicarlo mas adelante.
+El diámetro de un grafo es el máximo de todos los caminos mínimos. En otras palabras, cuál es el máximo número de aristas que tenemos que visitar para llegar de un nodo del grafo a otro. Las Redes Sociales tiene un diámetro muy bajo, lo cual da origen al fenómeno del mundo pequeño: los famosos 6 grados de separación. Otra propiedad sorprendente de las Redes Sociales es que a medida que las Redes Sociales crecen el diámetro en lugar de aumentar disminuye, esto no es algo lógico.
 
 Otro valor asociado al diámetro es el camino mínimo promedio que surge del promedio de todos los caminos mínimos del grafo.
 
 \subsection{Coeficiente de Clustering}
 
-El coeficiente de clustering mide que tan conectados están los vecinos de un nodo. Sea $k_i$ el grado del nodo entonces sus $k_i$ vecinos pueden tener a lo sumo $1/2 k_i(k_i-1)$ aristas. Llamemos $e_i$ a la cantidad de aristas entre los vecinos de $i$, el coeficiente de clustering para el nodo $i$ es:
+El coeficiente de clustering mide qué tan conectados están los vecinos de un nodo. Sea $k_i$ el grado del nodo entonces sus $k_i$ vecinos pueden tener a lo sumo $1/2 k_i(k_i-1)$ aristas. Llamando $e_i$ a la cantidad de aristas entre los vecinos de $i$, el coeficiente de clustering para el nodo $i$ es:
+
+\begin{myequation}
+	c_i = \frac{2e_i}{k_i(k-1)}
+\end{myequation}
 
 \begin{figure}[!htb]
 \centering
@@ -17301,29 +17305,25 @@ El coeficiente de clustering mide que tan conectados están los vecinos de un no
 
 \end{figure}
 
-\begin{myequation}
-c_i = \frac{2e_i}{k_i(k-1)}
-\end{myequation}
-
-Vamos a definir el coeficiente de clustering promedio de la Red como el promedio de todos los coeficientes de clustering:
+Se define el coeficiente de clustering promedio de la Red como el promedio de todos los coeficientes de clustering:
 
 \begin{myequation}
 C = \frac{\sum_i c_i}{N}
 \end{myequation}
 
-En una Red Social el coeficiente de clustering es en general un número alto, los vecinos de un nodo tienden a estar conectados entre sí precisamente por tener en común su relación con ese nodo. A este fenómeno lo llamamos \textit{clausura triangular} y lo vamos a estudiar mas adelante.
+En una Red Social, el coeficiente de clustering es en general un número alto. Los vecinos de un nodo tienden a estar conectados entre sí precisamente por tener en común su relación con ese nodo. A este fenómeno se lo conoce como \textit{clausura triangular} y se estudiará mas adelante.
 
 \subsection{Distribución del Grado}
 
-La distribución del grado estudia de que forma se distribuye el grado de los nodos en una Red Social, es decir cuántos nodos tienen grado 1, cuántos nodos tienen grado 2, etc etc. Un fenómeno muy curioso es que en casi todas las Redes Sociales la distribución del grado se distribuye de acuerdo a una \textit{ley de potencias} (power-law). En este tipo de distribución hay muchos nodos con grado bajo y pocos nodos con un grado muy alto, pero estos dominan la distribución por el fenómeno conocido como "long tail". El "long tail" significa que si bien la mayoría de los nodos tienen un grado bajo existen nodos con grados altísimos, completamente fuera de escala con respecto a los demás nodos de la Red Social.
+La distribución del grado estudia de qué forma se distribuye el grado de los nodos en una Red Social, es decir, cuántos nodos tienen grado 1, cuántos nodos tienen grado 2, etc etc. Un fenómeno muy curioso es que en casi todas las Redes Sociales la distribución del grado se distribuye de acuerdo a una \textit{ley de potencias} (power-law). En este tipo de distribución hay muchos nodos con grado bajo y pocos nodos con un grado muy alto, pero estos dominan la distribución por el fenómeno conocido como \textit{long tail}. El \textit{long tail} significa que si bien la mayoría de los nodos tienen un grado bajo existen nodos con grados altísimos, completamente fuera de escala con respecto a los demás nodos de la Red Social.
 
 \section{Propiedades del Grafo de una Red Social}
 
-Hemos visto varias propiedades de una grafo y hemos comentado que tipo de valores podemos esperar en una Red Social. En este capítulo vamos a analizar el valor de estas propiedades para Facebook en base al trabajo de \cite{Ugander}. El objetivo de esta sección es tomar idea de que tipo de valores toman las diferentes propiedades que hemos visto en una Red Social, mas adelante vamos a ver de que forma podemos interpretar estos valores mediante el uso de modelos de grafos.
+En este capítulo se analiza el valor de las propiedades mencionadas anteriormente para el caso particular de Facebook en base al trabajo de \cite{Ugander}. El objetivo de esta sección es tomar idea de qué tipo de valores toman las diferentes propiedades y mas adelante se verá de que forma interpretar estos valores mediante el uso de modelos de grafos.
 
 \subsection{Componente Conexo}
 
-En Facebook el 99.91\% de los usuarios pertenecen  a un único componente conexo. Si bien esto es esperable en grafos grandes el número es sorprendente ya que Facebook favorece la formación de pequeñas comunidades sin conexiones con el resto de la red, por ejemplo familias. Sin embargo es evidente que tarde o temprano estas pequeñas comunidades forman alguna amistad con un nodo en otra comunidad generando la conexión al resto de la Red. 
+En Facebook el 99.91\% de los usuarios pertenecen a un único componente conexo. Si bien esto es esperable en grafos grandes el número es sorprendente ya que Facebook favorece la formación de pequeñas comunidades sin conexiones con el resto de la red, por ejemplo familias. Sin embargo, es evidente que tarde o temprano estas pequeñas comunidades forman alguna amistad con un nodo en otra comunidad generando la conexión al resto de la Red. 
 
 \subsection{Distribución del Grado}
 
@@ -17334,9 +17334,9 @@ En Facebook el 99.91\% de los usuarios pertenecen  a un único componente conexo
 
 \end{figure}
 
-La distribución del grado en Facebook no sigue una ley de potencias, esto es muy fácil de explicar porque Facebook limita la cantidad máxima de contactos a 5000, por lo tanto no puede haber nodos con grado mayor a 5000 y esto evita que exista un "long tail". El fenómeno del Cisne Negro es imposible en Facebook ya que sabemos que incluso los usuarios mas populares no pueden tener mas de 5000 amistades. 
+La distribución del grado en Facebook no sigue una ley de potencias y esto es muy fácil de explicar porque Facebook limita la cantidad máxima de contactos a 5000, por lo tanto no puede haber nodos con grado mayor a 5000 y esto evita que exista un long tail. El fenómeno del Cisne Negro es imposible en Facebook ya que sabemos que incluso los usuarios mas populares no pueden tener mas de 5000 amistades. 
 
-Existe una anomalía cerca del número 20 porque Facebook alienta a los usuarios a formar nuevos contactos hasta que tienen al menos 20 contactos, esto se refleja en la distribución del grado haciendo que 20 sea un poco mas frecuente que 19 o 21. 
+Existe una anomalía cerca del número 20 porque Facebook alienta a los usuarios a formar nuevos contactos hasta que tienen al menos 20 contactos. Esto se refleja en la distribución del grado haciendo que 20 sea un poco mas frecuente que 19 o 21. 
 
 \subsection{Diámetro y Camino Mínimo Promedio}
 
@@ -17349,7 +17349,7 @@ Existe una anomalía cerca del número 20 porque Facebook alienta a los usuarios
 
 El camino mínimo promedio en Facebook es 4.7. El 99.6\% de los usuarios pueden alcanzarse con un número de conexiones entre 2 y 6. Esto refleja que el fenómeno del mundo pequeño es muy fuerte en Facebook. 
 
-El diámetro de Facebook es 11, un número extremadamente pequeño considerando la cantidad de usuarios de la Red, esta es la cantidad máxima de links que tenemos que recorrer para llegar de un nodo a otro dentro del componente conexo gigante. 
+El diámetro de Facebook es 11, un número extremadamente pequeño considerando la cantidad de usuarios de la Red. Esta es la cantidad máxima de links que tenemos que recorrer para llegar de un nodo a otro dentro del componente conexo gigante. 
 
 \subsection{Coeficiente de Clustering}
 
@@ -17357,16 +17357,16 @@ El diámetro de Facebook es 11, un número extremadamente pequeño considerando 
 \centering
 \includegraphics[width=3.3in]{figures/rs-fig-8.png}
 \caption{Coeficiente de Clustering en Facebook}
-
+\label{fig:clustering_coeff_facebook}
 \end{figure}
 
-El coeficiente de clustering promedio en Facebook es 0.14, este número es realmente enorme, es por ejemplo 5 veces mayor a otras redes sociales como MSN. En promedio si un usuario tiene $n$ amigos un 14\% de estos amigos estarán conectados entre sí. 
+El coeficiente de clustering promedio en Facebook es 0.14. Este número es realmente enorme, es por ejemplo 5 veces mayor a otras redes sociales como MSN. En promedio si un usuario tiene $n$ amigos un 14\% de estos amigos estarán conectados entre sí. 
 
-El gráfico muestra que a medida que aumenta el grado de un nodo su coeficiente de clustering disminuye con una caída notable en el grado=5000. Esto quiere decir que los usuarios que tienen 5000 amistades probablemente no están usando la red con fines sociales sino con fines comerciales y por eso la notable disminución el su coeficiente de clustering. Sus amistades son clientes y no se conocen entre ellos.
+El gráfico \ref{fig:clustering_coeff_facebook} muestra que a medida que aumenta el grado de un nodo su coeficiente de clustering disminuye con una caída notable en el grado=5000. Esto quiere decir que los usuarios que tienen 5000 amistades probablemente no están usando la red con fines sociales sino con fines comerciales y por eso la notable disminución el su coeficiente de clustering. Sus amistades son clientes y no se conocen entre ellos.
 
 \section{Modelos de Grafos}
 
-Podemos realizar un resumen sobre lo que sabemos acerca de las características del grafo de una Red Social en la siguiente tabla:
+La siguiente tabla resume lo que se sabe acerca de las características del grafo de una red social:
 
 \begin{table}[!hbt]
 \center{
@@ -17382,11 +17382,11 @@ Camino mínimo promedio & Bajo \\ \hline
 \caption{Características de una Red Social}
 \end{table}
 
-Tenemos que entender ahora como detectar cuando el diámetro es alto o bajo o cuando el coeficiente de clustering es alto o bajo. Para hacer esto podemos comparar los valores de nuestra Red Social contra un grafo aleatorio. Los grafos aleatorios son uno de los varios modelos de grafos que vamos a estudiar, cada modelo va a ayudarnos a explicar diferentes características de una Red Social.
+Hay que entender ahora cómo detectar cuando el diámetro es alto o bajo o cuando el coeficiente de clustering es alto o bajo. Para hacer esto se pueden comparar los valores de la Red Social contra un grafo aleatorio. Los grafos aleatorios son uno de los varios modelos de grafos que se estudiarán, y cada modelo ayudará a explicar diferentes características de una Red Social.
 
 \subsection{Modelo de Erd\"{o}s-Renyi}
 
-El modelo de Erd\"{o}s-Renyi es un grafo aleatorio con $N$ nodos y probabilidad $p$ para cada arista. A estos grafos los llamamos $G_{np}$
+El modelo de Erd\"{o}s-Renyi es un grafo aleatorio con $N$ nodos y probabilidad $p$ para cada arista. A estos grafos se los llamará $G_{np}$
 
 \begin{figure}[!htb]
 \centering
@@ -17395,11 +17395,11 @@ El modelo de Erd\"{o}s-Renyi es un grafo aleatorio con $N$ nodos y probabilidad 
 
 \end{figure}
 
-Podemos armar este grafo de varias formas posibles. Una es considerar cada par de nodos posible del grafo y unirlos con probabilidad $p$, este método requiere enumerar todas las combinaciones de nodos lo cual no es eficiente. Un método idéntico pero mas eficiente es calcular la cantidad de aristas en el grafo como $p N(N-1)/2$ y luego formar cada una de esas aristas tomando dos nodos al azar. 
+Se puede armar este grafo de varias formas posibles: una es considerar cada par de nodos posible del grafo y unirlos con probabilidad $p$, y este método requiere enumerar todas las combinaciones de nodos lo cual no es eficiente. Un método idéntico pero mas eficiente es calcular la cantidad de aristas en el grafo como $p N(N-1)/2$ y luego formar cada una de esas aristas tomando dos nodos al azar. 
 
 \subsubsection{Diámetro}
 
-El diámetro en $G_{np}$ está en el orden de $O(\log N)$  en el caso de Facebook con una muestra de 149 millones de usuarios el diámetro nos de 8 lo cual está muy cerca del valor real. Esto quiere decir que el diámetro de una Red Social no necesariamente obedece a características de la misma sino que puede ser, simplemente, una propiedad de un grafo aleatorio del mismo tamaño.
+El diámetro en $G_{np}$ está en el orden de $O(\log N)$. En el caso de Facebook con una muestra de 149 millones de usuarios el diámetro nos de 8 lo cual está muy cerca del valor real. Esto quiere decir que el diámetro de una Red Social no necesariamente obedece a características de la misma sino que puede ser, simplemente, una propiedad de un grafo aleatorio del mismo tamaño.
 
 \subsubsection{Distribución del Grado}
 
@@ -17409,15 +17409,15 @@ $$P(k) = {{n-1} \choose {k}} p^k (1-p)^{n-1-k}$$
 
 La varianza es $\sigma^2 = p(1-p)(n-1)$. 
 
-La distribución tiene forma normal y no se parece en absoluto a la distribución de una ley de potencias que es la que esperamos en una Red Social, por lo tanto podemos decir que la formación de aristas en una Red Social no es aleatoria, si lo fuera la distribución sería normal.
+La distribución tiene forma normal y no se parece en absoluto a la distribución de una ley de potencias que es la que esperamos en una Red Social, por lo tanto se puede decir que la formación de aristas en una Red Social no es aleatoria puesto que si lo fuera la distribución sería normal.
 
 \subsubsection{Coeficiente de Clustering}
 
-Recordemos que el coeficiente de clustering se calculaba como:
+Recordar que el coeficiente de clustering se calcula como:
 
 $$c_i = \frac{2e_i}{k_i(k_i-1)}$$
 
-Podemos calcular $e_i$ de la forma:
+Se puede calcular $e_i$ de la forma:
 
 $$e_i = p \frac{k_i (k_i-1)}{2}$$
 
@@ -17425,13 +17425,13 @@ Y entonces:
 
 $$C_i  = \\frac{p k_i (k_i-1)}{k_i(k_i-1)} = p = \frac{k}{n-1} \approx \frac{k}{N}$$
 
-En definitiva el coeficiente de clustering es $p$ que es un número muy pequeño. Esto tampoco coincide con lo que esperamos en una Red Social, por ejemplo el valor de $p$ para Facebook es $p=0.00000072$ que surge de analizar una muestra en donde tenemos 149 millones de nodos y 16000 millones de aristas. El total posible de aristas es (149 millones x 149 millones -1) y p es entonces (16000 millones / 149 millones al cuadrado). El coeficiente de clustering de Facebook sin embargo no es 0.00000072 sino que es 0.14 (!). Esto nos dice que en una Red Social el grado de conexión entre los amigos de un determinado nodo es realmente altísimo con respecto a lo que ocurriría simplemente por azar.
+En definitiva el coeficiente de clustering es $p$ que es un número muy pequeño. Esto tampoco coincide con lo que se esperaba en una Red Social, por ejemplo el valor de $p$ para Facebook es $p=0.00000072$ que surge de analizar una muestra en donde hay 149 millones de nodos y 16000 millones de aristas. El total posible de aristas es (149 millones x 149 millones -1) y p es entonces (16000 millones / 149 millones al cuadrado). El coeficiente de clustering de Facebook sin embargo no es 0.00000072 sino que es 0.14. Esto dice que en una Red Social el grado de conexión entre los amigos de un determinado nodo es realmente altísimo con respecto a lo que ocurriría simplemente por azar.
 
-Del estudio de $G_{np}$ podemos concluir que una Red Social no es random, el coeficiente de clustering denota una estructura local mucho mas alta que la que se esperaría por simple azar y la distribución del grado es completamente diferente. El siguiente modelo intentará explicar por qué la distribución del grado en las Redes Sociales sigue una ley de potencias.
+Del estudio de $G_{np}$ se puede concluir que una Red Social no es random, el coeficiente de clustering denota una estructura local mucho mas alta que la que se esperaría por simple azar y la distribución del grado es completamente diferente. El siguiente modelo intentará explicar por qué la distribución del grado en las Redes Sociales sigue una ley de potencias.
 
 \subsection{Modelo de Barabasi-Albert}
 
-El  modelo de Barabasi-Albert no genera las aristas del grafo de forma aleatoria sino que utiliza un modelo llamado \textit{preferential attachment} la idea es que la probabilidad de agregar una arista en el grafo depende del grado de cada nodo, cuanto mayor el grado del nodo mas probable es que genere una nueva arista. Este fenómeno se puede explicar como \textit{"the rich get richer"} ya que los nodos con mas contactos son los que con mayor probabilidad van a generar nuevos contactos aumentando mas su grado y su probabilidad de generar contactos.
+El  modelo de Barabasi-Albert no genera las aristas del grafo de forma aleatoria sino que utiliza un modelo llamado \textit{preferential attachment} donde la idea es que la probabilidad de agregar una arista en el grafo depende del grado de cada nodo. Cuanto mayor el grado del nodo mas probable es que genere una nueva arista. Este fenómeno se puede explicar como \textit{"the rich get richer"} ya que los nodos con mas contactos son los que con mayor probabilidad van a generar nuevos contactos aumentando mas su grado y su probabilidad de generar contactos.
 
 $$p_i = \frac{k_i}{\sum_j k_j}$$
 
@@ -17441,11 +17441,11 @@ Preferential Attachment genera la aparición de "Hubs", nodos que tienen muchos 
 
 \subsection{Modelo de Jackson-Rodgers}
 
-El modelo de Jackson-Rodgers es una combinación de $G_{np}$ y el modelo de Barabasi-Albert. Vamos a usar un coeficiente $\alpha$ que será la probabilidad de generar un link al azar en la red. Luego $1-\alpha$ es la probabilidad de generar un link siguiendo el proceso de Preferential attachment.
+El modelo de Jackson-Rodgers es una combinación de $G_{np}$ y el modelo de Barabasi-Albert. Se usa un coeficiente $\alpha$ que será la probabilidad de generar un link al azar en la red. Luego $1-\alpha$ es la probabilidad de generar un link siguiendo el proceso de Preferential attachment.
 
 Es decir que si $\alpha=0$ el modelo es igual a preferential attachment y si $\alpha=1$ el modelo es $G_{np}$
 
-Empíricamente se puede mostrar que en la mayoría de las Redes Sociales puede modelarse la formación de links de forma muy precisa para un cierto parámetro $\alpha$ que depende de la red. Por ejemplo para la web tenemos $\alpha=0.36$ es decir que 2/3 de los links en la web responden a preferential attachment y 1/3 son aleatorios. 
+Empíricamente se puede mostrar que en la mayoría de las Redes Sociales puede modelarse la formación de links de forma muy precisa para un cierto parámetro $\alpha$ que depende de la red. Por ejemplo, para la web tenemos $\alpha=0.36$ es decir que 2/3 de los links en la web responden a preferential attachment y 1/3 son aleatorios. 
 
 El problema del modelo es la necesidad de encontrar el valor de $\alpha$ que se tiene que buscar mediante una regresión lineal. 
 
@@ -17460,15 +17460,15 @@ El fenómeno del mundo pequeño surge en 1967 a partir de un famoso estudio real
 
 \end{figure}
 
-El resultado fue el que todos conocemos: en promedio fueron necesarios 6.2 pasos para llegar al destinatario en Boston. De aquí surgen los famosos 6 grados de separación. 
+El resultado fue el que todos conocen: en promedio fueron necesarios 6.2 pasos para llegar al destinatario en Boston. De aquí surgen los famosos 6 grados de separación. 
 
 El fenómeno se hizo popular cuando aparecieron muchos sitios como el "Oracle of Bacon" anunciando que era posible conectar a cualquier actor con Kevin Bacon en 6 o menos links. Esto no sólo es sorprendente sino que también es cierto. A la cantidad de links que unen a un actor con Kevin Bacon se la llama "número Bacon", el máximo es 10 y es realmente terriblemente difícil de encontrar. Para la mayoría de los actores es posible encontrar una conexión en menos de 6 links. Por ejemplo, el ganador del Oscar Guillermo Francella tiene número Bacon 3. Francella trabajó en "Camarero Nocturno en Mar del Plata" junto con Rodolfo Ranni, Ranni trabajó en "El Sekuestro" junto con José Ramón Rosario y este último actuó en Mystic River junto a Kevin Bacon.
 
-En un grafo aleatorio $G_{np}$ tenemos presente el fenómeno del mundo pequeño pero el coeficiente de clustering promedio es muy bajo. Si organizamos los nodos en una "grilla" en donde cada nodo se conecta con $k$ vecinos tenemos un coeficiente de clustering alto pero no tenemos el fenómeno del mundo pequeño. El problema es como encontrar un modelo que nos de ambas cosas.
+En un grafo aleatorio $G_{np}$ se tiene presente el fenómeno del mundo pequeño pero el coeficiente de clustering promedio es muy bajo. Si se organizan los nodos en una "grilla" en donde cada nodo se conecta con $k$ vecinos se tendrá un coeficiente de clustering alto pero no ocurrirá el fenómeno del mundo pequeño. El problema es cómo encontrar un modelo que nos de ambas cosas.
 
 \subsection{Modelo de Watts Strogratz}
 
-En este modelo vamos a partir de una grilla regular, por ejemplo en donde todo nodo está conectado a sus dos vecinos mas cercanos. Esta grilla tiene clustering alto pero también diámetro alto, es decir que no responde al fenómeno del mundo pequeño. Por cada arista con probabilidad $q$ vamos a cambiar uno de sus nodos por cualquier otro del grafo. 
+En este modelo se parte de una grilla regular, por ejemplo en donde todo nodo está conectado a sus dos vecinos mas cercanos. Esta grilla tiene clustering alto pero también diámetro alto, es decir que no responde al fenómeno del mundo pequeño. Por cada arista con probabilidad $q$ se va a cambiar uno de sus nodos por cualquier otro del grafo. 
 
 \begin{figure}[!htb]
 \centering
@@ -17477,9 +17477,9 @@ En este modelo vamos a partir de una grilla regular, por ejemplo en donde todo n
 
 \end{figure}
 
-Si usamos $q=0$ tenemos la grilla regular con alto clustering y alto diámetro. Si usamos $q=1$ tenemos $G_{np}$ con bajo clustering y bajo diámetro. El objetivo es encontrar $q$ tal que tengamos alto clustering y bajo diámetro como en las Redes Sociales. 
+Si se usa $q=0$ se obtiene la grilla regular con alto clustering y alto diámetro. Si se usa $q=1$ se tendrá $G_{np}$ con bajo clustering y bajo diámetro. El objetivo es encontrar $q$ tal que se obtenga alto clustering y bajo diámetro como en las Redes Sociales. 
 
-Se demuestra que con valores bajos de $q$ se logra un grafo con alto clustering y bajo diámetro es decir que agregar unos pocos links al azar alcanzan para que el modelo de Watts-Strogratz se convierta en una Red Social. Lamentablemente el modelo no tiene la distribución del grado que esperamos en una Red Socia ya que la misma no sigue una ley de potencias. 
+Se demuestra que con valores bajos de $q$ se logra un grafo con alto clustering y bajo diámetro es decir que agregar unos pocos links al azar alcanzan para que el modelo de Watts-Strogratz se convierta en una Red Social. Lamentablemente el modelo no tiene la distribución del grado que esperamos en una Red Social ya que la misma no sigue una ley de potencias. 
 
 \section{La Clausura Triangular}
 
@@ -17487,7 +17487,7 @@ La clausura triangular es el mecanismo que origina el coeficiente de clustering 
 
 La existencia de una cantidad inusualmente alta de triángulos automáticamente implica un coeficiente de clustering alto, contra triángulos dentro de un grafo es entonces una de las formas mas efectivas de determinar si el grafo responde a las características de una Red Social.
 
-\subsection{Contando Triángulos en un Grafo}
+\subsection{Contando triángulos en un grafo}
 
 \begin{figure}[!htb]
 \centering
@@ -17496,9 +17496,9 @@ La existencia de una cantidad inusualmente alta de triángulos automáticamente 
 
 \end{figure}
 
-El método trivial consiste en tomar cada nodo y por cada nodo tomar su vecinos y verificar si para cada par de vecinos existe un link entre ellos. Este método nos daría en nuestro ejemplo el total de 7 triángulos: 1-6-7,1-7-9,2-3-5,2-3-4,2-4-5,3-4-5,6-7-8. El problema del método es que es ineficiente y es inviable en grafos grandes. Por eso vamos a intentar un método aproximado que es mucho mas eficiente \cite{Charalampos}.
+El método trivial consiste en tomar cada nodo y por cada nodo tomar su vecinos y verificar si para cada par de vecinos existe un link entre ellos. Este método daría en este ejemplo el total de 7 triángulos: 1-6-7,1-7-9,2-3-5,2-3-4,2-4-5,3-4-5,6-7-8. El problema del método es que es ineficiente y es inviable en grafos grandes. Por eso se intentará un método aproximado que es mucho mas eficiente \cite{Charalampos}.
 
-Observemos la matriz de adyacencias de nuestro grafo:
+La matriz de adyacencias del grafo de ejemplo es:
 
 $$M=\begin{pmatrix}
 0&1&0&0&0&1&1&0&1\\
@@ -17511,7 +17511,7 @@ $$M=\begin{pmatrix}
 1&0&0&0&0&0&1&0&0\\
 \end{pmatrix}$$
 
-Calculamos $M^2$
+Se calcula $M^2$:
 
 $$M^2=\begin{pmatrix}
 4&0&2&1&1&1&2&2&1\\
@@ -17525,7 +17525,7 @@ $$M^2=\begin{pmatrix}
 1&1&0&0&0&2&1&1&2\\
 \end{pmatrix}$$
 
-El elemento $ij$ de $M^2$ representa los caminos de longitud 2 que empiezan en $i$ y terminan en $j$. Por ejemplo no hay ningún camino de longitud 2 que empiece en 1 y termine en 2. Hay 4 caminos de longitud 2 que empiezan y terminan en 1 (1-9-1,1-6-1,1-2-1,1-7-1).
+El elemento $ij$ de $M^2$ representa los caminos de longitud 2 que empiezan en $i$ y terminan en $j$. Por ejemplo, no hay ningún camino de longitud 2 que empiece en 1 y termine en 2. Hay 4 caminos de longitud 2 que empiezan y terminan en 1 (1-9-1,1-6-1,1-2-1,1-7-1).
 La diagonal de la matriz es el grado de cada vértice.
 
 $$M^3=\begin{pmatrix}
@@ -17540,17 +17540,17 @@ $$M^3=\begin{pmatrix}
 6&1&3&1&1&3&6&3&2\\
 \end{pmatrix}$$
 
-De la misma forma $M^3$ representa los caminos de longitud 3. La diagonal de la matriz representa ahora todos los caminos de longitud 3 que empiezan y terminan en el mismo nodo. Para el nodo 1 por ejemplo son 4: (1-7-9-1, 1-9-7-1,1-6-7-1,1-7-6-1). Por lo tanto la diagonal dividido 2 es la cantidad de triángulos en las que participa cada nodo. Esto quiere decir que la \textit{traza} de la matriz nos da el total de triángulos multiplicado por 6, por 2 por el motivo anterior y por 3 porque cada triángulo tiene 3 nodos participantes entonces para (1-7-9) vamos a contar 1 para el nodo 1, el 7 y el 9. En nuestro ejemplo la traza de la matriz es 42 que dividido por 6 nos da 7 que es el total de triángulos en el grafo.
+De la misma forma $M^3$ representa los caminos de longitud 3. La diagonal de la matriz representa ahora todos los caminos de longitud 3 que empiezan y terminan en el mismo nodo. Para el nodo 1 por ejemplo son 4: (1-7-9-1, 1-9-7-1,1-6-7-1,1-7-6-1). Por lo tanto la diagonal dividido 2 es la cantidad de triángulos en las que participa cada nodo. Esto quiere decir que la \textit{traza} de la matriz da el total de triángulos multiplicado por 6, por 2 por el motivo anterior y por 3 porque cada triángulo tiene 3 nodos participantes entonces para (1-7-9) se contará 1 para el nodo 1, el 7 y el 9. En este ejemplo la traza de la matriz es 42 que dividido por 6 da 7 que es el total de triángulos en el grafo.
 
-Pero por supuesto no podemos pretender elevar una matriz que ni siquiera podemos almacenar al cubo. Afortunadamente esto no hace falta. Sabemos que si $\lambda$ es un autovalor de $A$ entonces $\lambda^n$ es un autovalor de $A^n$ y sabemos que la suma de los autovalores es igual a la traza de la matriz. Por lo tanto podemos estimar la cantidad de triángulos en el grafo como:
+Pero por supuesto no se puede pretender elevar una matriz que ni siquiera podemos almacenar al cubo. Afortunadamente, esto no hace falta porque se sabe que si $\lambda$ es un autovalor de $A$ entonces $\lambda^n$ es un autovalor de $A^n$ y se sabe que la suma de los autovalores es igual a la traza de la matriz por lo tanto se puede estimar la cantidad de triángulos en el grafo como:
 
 \begin{myequation}
 \frac{1}{6} \sum_{i=1}^n \lambda_i^3
 \end{myequation}
 
-Los autvalores de la matriz se pueden obtener de forma muy eficiente con el método de Lanczos y ni siquiera nos hacen falta todos, podemos estimar la cantidad de triángulos a partir de los $k$ autovalores de mayor valor absoluto de la matriz con un error muy pequeño. El método de Lanczos está basado en el power method con el que calculamos PageRank, recordemos que el power method nos da el autovalor principal de la matriz.
+Los autvalores de la matriz se pueden obtener de forma muy eficiente con el método de Lanczos y ni siquiera hacen falta todos porque se puede estimar la cantidad de triángulos a partir de los $k$ autovalores de mayor valor absoluto de la matriz con un error muy pequeño. El método de Lanczos está basado en el power method con el que se calcula PageRank (Recordar que el power method da el autovalor principal de la matriz).
 
-Como un múltiplo de un autovector también es un autovector vamos a normalizar el vector resultado de cada iteración del power method de forma tal que tenga norma 1. De esta forma podemos obtener el autovector asociado al autovalor principal cuya norma es 1. El autovalor asociado se puede calcular simplemente mediante: 
+Como un múltiplo de un autovector también es un autovector se va a normalizar el vector resultado de cada iteración del power method de forma tal que tenga norma 1. De esta forma se puede obtener el autovector asociado al autovalor principal cuya norma es 1. El autovalor asociado se puede calcular simplemente mediante: 
 
 \begin{myequation}
 \lambda = x^tAx
@@ -17558,15 +17558,15 @@ Como un múltiplo de un autovector también es un autovector vamos a normalizar 
 
 Donde $x$ es el autovector principal. Esto surge de despejar $\lambda$ en $Ax=\lambda x$.
 
-Una vez que se obtiene el autovector asociado al autovalor principal podemos neutralizar el efecto del mismo en la matriz para encontrar el segundo autovector. Para eso usamos:
+Una vez que se obtiene el autovector asociado al autovalor principal se puede neutralizar el efecto del mismo en la matriz para encontrar el segundo autovector. Para eso se usa lo siguiente:
 
 \begin{myequation}
 A^*=A-\lambda x x^t
 \end{myequation}
  
- Aplicando el power method a la nueva matriz $A^*$ obtenemos el segundo autovector. Repitiendo este método obtenemos uno a uno los autovectores y autovalores de una matriz de forma iterativa.
+ Aplicando el power method a la nueva matriz $A^*$ se obtiene el segundo autovector. Repitiendo este método se obtienen uno a uno los autovectores y autovalores de una matriz de forma iterativa.
 
-En nuestro ejemplo los autovalores son:
+En este ejemplo los autovalores serán:
 
 $$\lambda = \begin{pmatrix}
 -11.32\\
@@ -17580,7 +17580,7 @@ $$\lambda = \begin{pmatrix}
 43.13\\
 \end{pmatrix}$$
 
-La suma de todos da 42 y por supuesto 42/7=6 que es la cantidad de triángulos. Observemos que el autovalor principal es $\lambda_1=43.13$ es decir que podríamos estimar la cantidad de triángulos calculando simplemente $\lambda_1/6$ con buen resultado. El Power-Method nos da este autovalor automáticamente.
+La suma de todos da 42 y por supuesto 42/7=6 que es la cantidad de triángulos. Observar que el autovalor principal es $\lambda_1=43.13$ es decir que se podría estimar la cantidad de triángulos calculando simplemente $\lambda_1/6$ con buen resultado. El Power-Method da este autovalor automáticamente.
 
 \subsection{Triángulos Locales}
 
@@ -17600,7 +17600,7 @@ Donde $u_{ij}$ es la i-ésima entrada del j-ésimo autovector.
 
 \end{figure}
 
-Si graficamos la cantidad de triángulos en los que participa un nodo lo que tenemos es, oh-sorpresa! una ley de potencias. En escala logarítmica tenemos una recta casi perfecta. Esto quiere decir que la mayoría de los nodos participa en una cantidad de triángulos baja pero hay nodos que participan en una cantidad enorme de triángulos. Es muy interesante detectar cuales son esos nodos. En Twitter, por ejemplo Barack Obama participa de una cantidad descomunal de triángulos lo cual refleja que sus seguidores son altamente sociales. Esto no es tan evidente en los seguidores de McCain, quizás esto explique algún resultado electoral.
+Si se grafica la cantidad de triángulos en los que participa un nodo lo que tenemos es una ley de potencias. En escala logarítmica se obtiene una recta casi perfecta. Esto quiere decir que la mayoría de los nodos participa en una cantidad de triángulos baja pero hay nodos que participan en una cantidad enorme de triángulos. Es muy interesante detectar cuales son esos nodos. En Twitter, por ejemplo, Barack Obama participa de una cantidad descomunal de triángulos lo cual refleja que sus seguidores son altamente sociales. Esto no es tan evidente en los seguidores de McCain, quizás esto explique algún resultado electoral.
 
 \begin{figure}[!htb]
 \centering
@@ -17619,10 +17619,10 @@ Se puede realizar un análisis del espectro de la matriz de adyacencias de una R
 \centering
 \includegraphics[width=4.6in]{figures/rs-fig-16.png}
 \caption{Eigenplots en una Red Social}
-
+\label{fig:ee_plots}
 \end{figure}
 
-Podemos ver plots en donde cada eje es un autovector de la matriz de adyacencias de la Red Social, estos plots nos dan una representación de la topología de la Red, cada uno tiene información que podemos aprovechar para detectar comunidades, estructuras bipartitas, grupos anómalos y otras características. Lo único que tenemos que hacer es identificar cuáles son los nodos que participan de las estructuras que nos llamen la atención de los distintos plots. En el primer plot tenemos dos "direcciones", esto nos da una clasificación de la red en dos grupos y es interesante averiguar cual es el factor que separa los dos grupos. 
+Observando la figura \ref{fig:ee_plots}, cada eje es un autovector de la matriz de adyacencias de la Red Social. Estos plots dan una representación de la topología de la Red donde cada uno tiene información que se puede aprovechar para detectar comunidades, estructuras bipartitas, grupos anómalos y otras características. Lo único que hay que hacer es identificar cuáles son los nodos que participan de las estructuras que llamen la atención de los distintos plots. En el primer plot hay dos "direcciones" y esto da una clasificación de la red en dos grupos y es interesante averiguar cuál es el factor que separa los dos grupos. 
 
 \begin{figure}[!htb]
 \centering
@@ -17631,11 +17631,11 @@ Podemos ver plots en donde cada eje es un autovector de la matriz de adyacencias
 
 \end{figure}
 
-Los autovalores de la matriz de adyacencias de un grafo grande son valiosos también para aproximar otros problemas difíciles. Si un grafo es bipartito entonces sus autovalores son simétricos, por ejemplo (3,2,1,-2 y -3). Esto sirve para encontrar dentro de un grafo grande estructuras bipartitas es decir en donde tenemos dos grupos que interactúan entre sí pero no existe relación alguna entre los miembros de cada grupo.
+Los autovalores de la matriz de adyacencias de un grafo grande son valiosos también para aproximar otros problemas difíciles. Si un grafo es bipartito entonces sus autovalores son simétricos, por ejemplo (3,2,1,-2 y -3). Esto sirve para encontrar dentro de un grafo grande estructuras bipartitas en donde hay dos grupos que interactúan entre sí pero no existe relación alguna entre los miembros de cada grupo.
 
 \section{Centralidad}
 
-En esta sección vamos a estudiar el concepto de \textit{centralidad} en Redes Sociales, lo que queremos es una medida de la importancia que cada nodo tiene en la Red. Existen muchas formas de medir la centralidad y cada métrica es útil para diferentes tipos de Redes, vamos a analizar las diferentes definiciones que podemos tener para calcular la centralidad de un nodo y sus aplicaciones.
+El concepto de \textit{centralidad} en Redes Sociales es una medida de la importancia que cada nodo tiene en la Red. Existen muchas formas de medir la centralidad y cada métrica es útil para diferentes tipos de Redes. Se analizarán las diferentes definiciones que puede haber para calcular la centralidad de un nodo y sus aplicaciones.
 
 \subsection{Grado}
 
@@ -17646,7 +17646,7 @@ En esta sección vamos a estudiar el concepto de \textit{centralidad} en Redes S
 
 \end{figure}
 
-El grado de un nodo es la medida mas simple de centralidad, a mayor cantidad de vecinos (amigos) mas importante es el nodo. En esta métrica suponemos que no importa quienes son los vecinos de un nodo sino simplemente cuántos son.
+El grado de un nodo es la medida mas simple de centralidad, a mayor cantidad de vecinos (amigos) mas importante es el nodo. En esta métrica se supone que no importa quienes son los vecinos de un nodo sino simplemente cuántos son.
 
 \begin{figure}[!htb]
 \centering
@@ -17655,7 +17655,7 @@ El grado de un nodo es la medida mas simple de centralidad, a mayor cantidad de 
 
 \end{figure}
 
-Para poder comparar la centralidad de dos nodos es recomendable normalizar el grado dividiendo por el grado máximo que sabemos es $N-1$ esto permite comparar la centralidad de dos nodos aunque estén en redes diferentes.
+Para poder comparar la centralidad de dos nodos es recomendable normalizar el grado dividiendo por el grado máximo que sabemos es $N-1$ y esto permite comparar la centralidad de dos nodos aunque estén en redes diferentes.
 
 \begin{figure}[!htb]
 \centering
@@ -17665,12 +17665,11 @@ Para poder comparar la centralidad de dos nodos es recomendable normalizar el gr
 \label{fig:brokerage}
 \end{figure}
 
-
-El grado no captura la importancia que tiene un nodo como nexo de dos o mas comunidades (\textit{brokerage}). En la figura ~\ref{fig:brokerage} vemos que tanto $Y$ como $X$ tienen grado 2, sin embargo es lógico pensar que si tenemos una red de comercio el nodo $X$ es mucho mas importante ya que nos permite comunicar a los nodos que están a cada lado de él. Para medir esto usaremos el concepto de \textit{betweenness}
+El grado no captura la importancia que tiene un nodo como nexo de dos o mas comunidades (\textit{brokerage}). En la figura ~\ref{fig:brokerage} se ve que tanto $Y$ como $X$ tienen grado 2. Sin embargo, es lógico pensar que si hay una red de comercio el nodo $X$ es mucho mas importante ya que permite comunicar a los nodos que están a cada lado de él. Para medir esto se usa el concepto de \textit{betweenness}
 
 \subsection{Betweenness}
 
-La definición de betweenness es: "la cantidad de caminos mínimos que pasan por un nodo o arista". Es decir que puede usarse tanto para calcular la importancia de los nodos como de las aristas.
+La definición de betweenness se interpreta como la cantidad de caminos mínimos que pasan por un nodo o arista. Es decir que puede usarse tanto para calcular la importancia de los nodos como de las aristas.
 
 La definición formal es:
 
@@ -17678,16 +17677,16 @@ La definición formal es:
 C_B(i) = \sum_{j<k} g_{jk}(i)/g_{jk}
 \end{myequation}
 
-En donde $g_{jk}$ es la cantidad de caminos mínimos que conectan $j$ y $k$ y $g_{jk}(i)$ es la cantidad de caminos mínimos entre $j$ y $k$ de los que participa $i$. En general podemos normalizar el betwenness dividiendo por $(n-1)(n-2)/2$ que es la cantidad de pares de vértices que existen excluyendo al vértice mismo. La normalización es opcional.
+En donde $g_{jk}$ es la cantidad de caminos mínimos que conectan $j$ y $k$, y $g_{jk}(i)$ es la cantidad de caminos mínimos entre $j$ y $k$ de los que participa $i$. En general se puede normalizar el betwenness dividiendo por $(n-1)(n-2)/2$ que es la cantidad de pares de vértices que existen excluyendo al vértice mismo. La normalización es opcional.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/rs-fig-21.png}
 \caption{Betweenness}
-
+\label{fig:betweenness_example}
 \end{figure}
 
-Veamos los caminos mínimos para nuestro ejemplo:
+Para el ejemplo de la figura \ref{fig:betweenness_example}, los caminos mínimos son los siguientes:
 
 \begin{verbatim}
 A-B = A-B
@@ -17702,9 +17701,9 @@ C-E = C-E
 E-D = E-D
 \end{verbatim}
 
-Es decir que el betweenness de "E" que falta calcular es 0.5 ya que participa de "medio" camino mínimo entre C y D ya que hay dos caminos mínimos entre C y D y E solo está en el medio de uno de ellos.
+Es decir que el betweenness de "E" que falta calcular es 0.5 ya que participa de "medio" camino mínimo entre C y D ya que hay dos caminos mínimos entre C y D, y E solo está en el medio de uno de ellos.
 
-En algunos casos no queremos medir la cantidad de amigos que tiene un nodo ni que tan "en medio" se encuentra el nodo sino que queremos medir que tan cerca esta el nodo del centro de la red. Esto lo vamos a medir mediante la centralidad que llamaremos \textit{closeness}
+En algunos casos no se quiere medir la cantidad de amigos que tiene un nodo ni que tan "en medio" se encuentra el nodo sino que se quiere medir que tan cerca esta el nodo del centro de la red. Esto se lo puede medir mediante la centralidad que se llamará \textit{closeness}
 
 \subsection{Closeness}
 
@@ -17716,26 +17715,26 @@ En algunos casos no queremos medir la cantidad de amigos que tiene un nodo ni qu
 \label{fig:closeness}
 \end{figure}
 
-En la figura ~\ref{fig:closeness} el nodo amarillo solo tiene grado 1 y no tiene un betwenness alto sin embargo esta cerca del "centro" del grafo. El concepto de \textit{closeness} está basado en el promedio de los caminos mínimos entre el nodo y todos los demás nodos de la red.Como este valor nos da mas chico cuanto mas central es el nodo usamos el recíproco es decir 1 dividido el promedio de los caminos mínimos, de esta forma la centralidad nos da mayor cuanto mas cerca del centro de la red se encuentre el nodo.
+En la figura ~\ref{fig:closeness} el nodo amarillo solo tiene grado 1 y no tiene un betwenness alto sin embargo esta cerca del "centro" del grafo. El concepto de \textit{closeness} está basado en el promedio de los caminos mínimos entre el nodo y todos los demás nodos de la red. Como este valor es mas chico cuanto mas central es el nodo se usará el recíproco, es decir, 1 dividido el promedio de los caminos mínimos. De esta forma la centralidad dará mayor cuanto mas cerca del centro de la red se encuentre el nodo.
 
 \begin{myequation}
-C_c(i) - [\sum_{j=1}^N d(i,j)]^{-1}
+C_c(i) = [\sum_{j=1}^N d(i,j)]^{-1}
 \end{myequation}
 
-Opcionalmente podemos normalizar dividiendo por $(N-1)$.
+Opcionalmente se puede normalizar dividiendo por $(N-1)$.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/rs-fig-23.png}
-\caption{Closeness, ejemplo}
-
+\caption{Ejemplo de Closeness}
+\label{fig:closeness_example}
 \end{figure}
 
-En el ejemplo usamos la versión de closeness normalizada. Los caminos mínimos desde A tienen longitud 1,2,3 y 4 respectivamente hacia B,C,D y Epor lo tanto el valor de centralidad closeness para A es: $[1+2+3+4/4]^{-1}$ = 0.4
+En el ejemplo \ref{fig:closeness_example} se usa la versión de closeness normalizada. Los caminos mínimos desde A tienen longitud 1,2,3 y 4 respectivamente hacia B,C,D y E por lo tanto el valor de centralidad closeness para A es: $[(1+2+3+4)/4]^{-1}$ = 0.4
 
 \subsection{Eigenvector Centrality y PageRank}
 
-El concepto de EigenVector Centrality es que la centralidad de un nodo depende de la centralidad de los nodos que apuntan hacia dicho nodo. Es decir la misma idea que vimos al estudiar PageRank. EigenVector Centrality es PageRank sin teletransportación. No vamos a entrar en detalles sobre estas métricas ya que las hemos analizado extensamente en el capítulo sobre PageRank.
+El concepto de Eigenvector Centrality es que la centralidad de un nodo depende de la centralidad de los nodos que apuntan hacia dicho nodo. Es decir, Eigenvector Centrality es la misma idea que PageRank sin teletransportación. 
 
 \subsection{Centralidad de Bonacich}
 
@@ -17749,11 +17748,9 @@ c_i(\beta) = \sum_j (\alpha + \beta c_j) A_{ji}
 c(\beta) = \alpha (I-\beta A)^{-1} A1
 \end{myequation}
 
-$\alpha$ es una constante de normalización. $\beta$ determina que tan importante es la centralidad de los vecinos. $A_{ij}$ es la matriz de adyacencias. Es decir que solamente sumamos $\alpha + \beta c_j$ para aquellos nodos $j$ que llevan a $i$.
+$\alpha$ es una constante de normalización. $\beta$ determina qué tan importante es la centralidad de los vecinos. $A_{ij}$ es la matriz de adyacencias. Es decir que solamente se suman $\alpha + \beta c_j$ para aquellos nodos $j$ que llevan a $i$.
 
-Cuando $\beta$ es un número chico solo los vecinos inmediatos son importantes. Cuando $\beta$ es un número grande el efecto global de la red es el factor mas importante. 
-
-Notemos que si $\beta=0$ nos queda $c_i = \sum_j \alpha A_{ij}$ que es la definición del grado del nodo. 
+Cuando $\beta$ es un número chico solo los vecinos inmediatos son importantes. Cuando $\beta$ es un número grande el efecto global de la red es el factor mas importante. Notar que si $\beta=0$ entonces queda $c_i = \sum_j \alpha A_{ij}$ que es la definición del grado del nodo. 
 
 Cuando $\beta>0$ los nodos tienen mayor centralidad cuando tienen aristas hacia otros nodos con mucha centralidad.
 Cuando $\beta<0$ los nodos tienen mayor centralidad cuando tienen aristas hacia nodos con poca centralidad.
@@ -17766,7 +17763,7 @@ Cuando $\beta<0$ los nodos tienen mayor centralidad cuando tienen aristas hacia 
 \label{fig:bonacich}
 \end{figure}
 
-En la figura ~\ref{fig:bonacich} vemos como con $\beta=0.25$ el nodo de mayor centralidad es el del medio, pero cambiando el signo de $\beta$ los nodos que están a los lados del del medio son mas importantes, esto es porque tienen links a los nodos de las puntas que tienen baja centralidad mientras que el nodo central no tiene links a estos nodos. 
+En la figura ~\ref{fig:bonacich} se ve como con $\beta=0.25$ el nodo de mayor centralidad es el del medio, pero cambiando el signo de $\beta$ los nodos que están a los lados del del medio son mas importantes y esto es porque tienen links a los nodos de las puntas que tienen baja centralidad mientras que el nodo central no tiene links a estos nodos. 
 
 \subsection{Centralidad de la Red (Freeman)}
 
@@ -17785,36 +17782,36 @@ En donde $C_D(i)$ es la centralidad del nodo $i$ de acuerdo a alguna métrica y 
 
 \end{figure}
 
-La centralidad de Freeman es un número entre 0 y 1, una red con centralidad 1 indica que hay un nodo que es el que tiene máxima centralidad y todos los demás son mínimos, es decir una topología tipo estrella. Una centralidad cercana a 0 indica una red cuya topología está fuertemente des-centralizada y todos los nodos tienen centralidades muy similares. En general esto evidencia una estructura mas caótica.
+La centralidad de Freeman es un número entre 0 y 1. Una red con centralidad 1 indica que hay un nodo que es el que tiene máxima centralidad y todos los demás son mínimos, es decir una topología tipo estrella. Una centralidad cercana a 0 indica una red cuya topología está fuertemente des-centralizada y todos los nodos tienen centralidades muy similares. En general esto evidencia una estructura mas caótica.
 
 \section{Detección de Comunidades}
 
 \subsection{Uniones Fuertes y Débiles}
 
-Podemos caracterizar las aristas de una red según la \textit{fuerza} de su uniones. En general una unión es débil cuando al removerla el camino mínimo entre los nodos que la arista unía se incrementa. Definimos el "span" de una arista como la distancia entre los nodos si removemos la arista. Un "puente local" es una arista cuyos vecinos no tienen vecinos en común.
+Se pueden caracterizar las aristas de una red según la \textit{fuerza} de su uniones. En general una unión es débil cuando al removerla el camino mínimo entre los nodos que la arista unía se incrementa. Se define el "span" de una arista como la distancia entre los nodos si se remueve la arista. Un "puente local" es una arista cuyos vecinos no tienen vecinos en común.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/rs-fig-26.png}
 \caption{Uniones débiles}
-
+\label{fig:soft_union_example}
 \end{figure}
 
-La arista A-B esun puente local ya que A y B no tienen vecinos en común y el span de esta arista es 4 ya que si removemos la arista el camino mínimo entre A y B pasa a ser 4.
+En la figura \ref{fig:soft_union_example} se ve que la arista A-B e sun puente local ya que A y B no tienen vecinos en común y el span de esta arista es 4 ya que si se remueve la arista entonces el camino mínimo entre A y B será 4.
 
-Un estudio realizado por Granovetter comprobó que las uniones débiles son muy importantes en las Redes ya que son aquellas que permiten "descubrir" cosas. Por ejemplo si una persona está buscando un trabajo, aquellas amistades que lo conectan con grupos de interés diferentes al círculo cercano de la persona son los que mayor probabilidad tienen de referenciar a la persona para un nuevo trabajo.
+Un estudio realizado por Granovetter comprobó que las uniones débiles son muy importantes en las Redes ya que son aquellas que permiten "descubrir" cosas. Por ejemplo, si una persona está buscando un trabajo, aquellas amistades que lo conectan con grupos de interés diferentes al círculo cercano de la persona son los que mayor probabilidad tienen de referenciar a la persona para un nuevo trabajo.
 
 La conclusión es que una Red Social es un conjunto de comunidades unidas entre sí por uniones débiles. Detectar estas comunidades es algo muy importante en el estudio de Redes Sociales.
 
 \subsection{Modularidad}
 
-La función de modularidad \cite{ClausetNewmanMoore} permite evaluar que tan modular es una red separada en un cierto conjunto de comunidades. La función supone la existencia de una función $\delta(v_1,v_2)$ que vale 1 si los vértices $v_1$ y $v_2$ están en la misma comunidad y cero en caso contrario. La definición de modularidad es la siguiente:
+La función de modularidad \cite{ClausetNewmanMoore} permite evaluar qué tan modular es una red separada en un cierto conjunto de comunidades. La función supone la existencia de una función $\delta(v_1,v_2)$ que vale 1 si los vértices $v_1$ y $v_2$ están en la misma comunidad y cero en caso contrario. La definición de modularidad es la siguiente:
 
 \begin{myequation}
 Q = \frac{1}{2m} \sum_{vw} [A_{vw} - \frac{K_v K_w}{wm}] \delta(c_v,c_w)
 \end{myequation}
 
-Donde $A_{vw}$ es la matriz de adyacencias. $K_v$ y $K_w$ son el grado de los vértices. $m$ es la cantidad total de aristas en el grafo y $\delta$ es la función que ya hemos explicado. Para redes completamente aleatorias $Q=0$.
+Donde $A_{vw}$ es la matriz de adyacencias. $K_v$ y $K_w$ son el grado de los vértices, $m$ es la cantidad total de aristas en el grafo y $\delta$ es la función que ya se ha explicado anteriormente. Para redes completamente aleatorias $Q=0$.
 
 \begin{figure}[!htb]
 \centering
@@ -17823,21 +17820,20 @@ Donde $A_{vw}$ es la matriz de adyacencias. $K_v$ y $K_w$ son el grado de los v�
 
 \end{figure}
 
-
-La función de modularidad tiene una forma bastante particular \cite{GoodMontjoyeClauset} que es propicia a ser optimizada por un algoritmo del estilo Hill-Climbing, sin embargo las variantes por Hill Climbing pueden ser ineficientes, existe una variante greedy para optimizar la modularidad que es la que actualmente se usa.
+La función de modularidad tiene una forma bastante particular \cite{GoodMontjoyeClauset} que es propicia a ser optimizada por un algoritmo del estilo Hill-Climbing. Sin embargo, las variantes por Hill Climbing pueden ser ineficientes. Existe una variante greedy para optimizar la modularidad que es la que actualmente se usa.
 
 \subsubsection{Algoritmo de Louvain}
 
-El algoritmo de Louvain \cite{Louvain} es muy simple: inicialmente cada nodo pertenece a su propia comunidad, es decir que hay tantas comunidades como nodos y la función $delta(x,y)$ vale 0 para todos los pares de nodos. La modularidad inicial es entonces $1/2m$. Luego por cada nodo de la red buscamos asignarlo a la comunidad vecina que maximice la modularidad. Una vez que hemos recorrido todos los nodos asignando a cada uno a la comunidad que corresponde vamos a considerar a cada comunidad como si fuera un nodo y repetimos el proceso. Cuando consideramos a cada comunidad un nuevo nodo los links entre nodos dentro de esta comunidad se consideran links del nodo a si mismo.
+El algoritmo de Louvain \cite{Louvain} es muy simple: inicialmente cada nodo pertenece a su propia comunidad, es decir que hay tantas comunidades como nodos y la función $delta(x,y)$ vale 0 para todos los pares de nodos. La modularidad inicial es entonces $1/2m$. Luego por cada nodo de la red se busca asignarlo a la comunidad vecina que maximice la modularidad. Una vez que se han recorrido todos los nodos asignando a cada uno a la comunidad que corresponde se considerará a cada comunidad como si fuera un nodo y se repite el proceso. Cuando se considera a cada comunidad un nuevo nodo los links entre nodos dentro de esta comunidad se consideran links del nodo a si mismo.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/rs-fig-28.png}
 \caption{Función Modularidad}
-
+\label{fig:modularity_example}
 \end{figure}
 
-En el ejemplo vemos como el primer paso detecta 4 comunidades diferentes: [0,1,2,4,5] [3,7,6] [8,9,10,12,14,15] [11 13]. En la segunda etapa construimos el pequeño grafo que tiene solo 4 nodos, uno por cada comunidad detectada en el paso anterior. En este paso unimos la comunidad verde con la azul y la roja cola celeste. Finalmente quedan detectadas dos comunidades en el grafo una con los nodos [0,1,2,3,4,5,6,7] y la otra con [8,9,19,11,12,13,14,15] finalmente el algoritmo detecta que unir estas dos comunidades no aumenta la modularidad por lo que se detiene con un resultado final de dos comunidades.
+En el ejemplo de la figura \ref{fig:modularity_example} se puede ver como el primer paso detecta 4 comunidades diferentes: [0,1,2,4,5] [3,7,6] [8,9,10,12,14,15] [11 13]. En la segunda etapa se construye el pequeño grafo que tiene solo 4 nodos, uno por cada comunidad detectada en el paso anterior. En este paso se une la comunidad verde con la azul y la roja cola celeste. Finalmente quedan detectadas dos comunidades en el grafo: una con los nodos [0,1,2,3,4,5,6,7] y la otra con [8,9,19,11,12,13,14,15]. Finalmente el algoritmo detecta que unir estas dos comunidades no aumenta la modularidad por lo que se detiene con un resultado final de dos comunidades.
 
 En redes que son muy grandes el algoritmo de Louvain tiende a detectar comunidades grandes ya que suele pasar que mergear dos comunidades aumente la modularidad, es decir que la \textit{resolución} del algoritmo depende del tamaño de la red y en redes muy grandes el algoritmo no puede detectar comunidades pequeñas. 
 
@@ -17849,36 +17845,33 @@ El algoritmo de Girwan-Newman realiza una descomposición de la red usando el c�
 \centering
 \includegraphics[width=4.5in]{figures/rs-fig-29.png}
 \caption{Algoritmo de Girwan-Newman}
-
+\label{fig:girwan_newman_example}
 \end{figure}
 
-En el ejemplo la primer arista a eliminar es la que tiene betweenness = 49, esto nos divide la red en dos comunidades. En el segundo paso nos quedan 6 comunidades, 4 de 3 nodos cada una y dos nodos sueltos. Finalmente podemos seguir hasta que solo quedan comunidades de un único nodo lo cual en general no tiene mucho sentido.
+En el ejemplo de la figura \ref{fig:girwan_newman_example} la primer arista a eliminar es la que tiene betweenness = 49. Esto dividirá la red en dos comunidades. En el segundo paso quedan 6 comunidades, siendo 4 de 3 nodos cada una y dos nodos sueltos. Finalmente se puede seguir hasta que solo quedan comunidades de un único nodo lo cual en general no tiene mucho sentido.
 
 \subsection{Clustering Espectral}
 
-El algoritmo de Clustering Espectral puede aplicarse directamente sobre la matriz de adyacencias de la Red de forma tal de obtener una cantidad de comunidades que tenemos que conocer con anticipación. Este algoritmo ya lo hemos desarrollado en el capítulo sobre clustering por lo que no vamos a volver a entrar en detalles.
+El algoritmo de Clustering Espectral puede aplicarse directamente sobre la matriz de adyacencias de la Red de forma tal de obtener una cantidad de comunidades que tenemos que conocer con anticipación. 
 
 \subsection{Infomap}
 
 Infomap \cite{RosvallBergstrom} es un algoritmo para detectar comunidades en redes sociales basado en los principios de la compresión de datos y la teoría de la información.
+Dada una red dirigida o no dirigida se puede generar un random-walk de longitud arbitraria, que se supone que es infinito, si la red es dirigida entonces se agrega teletransportación con $\beta=0.85$ para evitar quedar atrapados sin salida en algún ciclo de la red. En este random walk se puede contar la frecuencia con la que se visita cada nodo y por lo tanto la probabilidad de visitar el mismo. Con esta probabilidad se podría calcular la longitud en bits de cada nodo en base a la fórmula ya conocida basada en la entropía: $L_i=-log_2(P_i)$. Esto daría una forma de comprimir un random-walk en una red en donde no hay clusters. 
 
-Dada una red dirigida o no dirigida podemos generar un random-walk de longitud arbitraria, que suponemos es infinito, si la red es dirigida agregamos teletransportación con $\beta=0.85$ para evitar quedar atrapados sin salida en algún ciclo de la red. En este random walk podemos contar la frecuencia con la que visitamos cada nodo y por lo tanto la probabilidad de visitar el mismo, con esta probabilidad podríamos calcular la longitud en bits de cada nodo en base a la fórmula que conocemos basada en la entropía: $L_i=-log_2(P_i)$. Esto nos daría una forma de comprimir un random-walk en una red en donde no hay clusters. 
+En una Red en donde existen clusters o comunidades es posible que el random-walk quede ciclando en estas comunidades durante un cierto tiempo hasta eventualmente encontrar una salida. Los clusters son entonces una forma de \textit{contexto} que se puede usar para comprimir mejor: se calcularán las probabilidades de los nodos dentro de su cluster y no de forma global.
 
-En una Red en donde existen clusters o comunidades es posible que el random-walk quede ciclando en estas comunidades durante un cierto tiempo hasta eventualmente encontrar una salida, los clusters son entonces una forma de \textit{contexto} que podemos usar para comprimir mejor: calcularemos las probabilidades de los nodos dentro de su cluster y no de forma global.
-
-Supongamos una red en donde ya conocemos cuáles son las comunidades (clusters), vamos a usar un árbol de huffman o tabla de probabilidades para indicar cuál es el cluster en cual empezamos, una vez dentro del cluster vamos a tener una tabla de huffman o tabla de probabilidades para cada nodo dentro del cluster mas un elemento extra que usaremos para decir que salimos del cluster.
-
-Un random-walk arbitrario puede codificarse entonces de la forma: entrar-cluster-A,A1,A3,A2,A4,A1,A2,salir-cluster-A, entrar-cluster-C, C2,C1,C3,C2,C1,C3, salir-cluster-C... etc. Notemos que cuando encontramos el símbolo correspondiente a salir de un cluster tenemos que cambiar de tabla o árbol a aquella que nos indicará a que cluster ingresar a continuación.
+Suponiendo una red en donde ya se conoce cuáles son las comunidades (clusters), se utilizará un árbol de huffman o tabla de probabilidades para indicar cuál es el cluster en el cual se comienza, y una vez dentro del cluster habrá una tabla de huffman o tabla de probabilidades para cada nodo dentro del cluster mas un elemento extra que se usará para decir que salimos del cluster. Un random-walk arbitrario puede codificarse entonces de la forma: entrar-cluster-A,A1,A3,A2,A4,A1,A2,salir-cluster-A, entrar-cluster-C, C2,C1,C3,C2,C1,C3, salir-cluster-C... etc. Notar que cuando se encuentra el símbolo correspondiente a salir de un cluster hay que cambiar de tabla o árbol a aquella que indicará a qué cluster ingresar a continuación.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3in]{figures/infomap4.png}
 
-\caption{Ejemplo de codificación de un Random-Walk en una red. Tenemos cuatro clusters los códigos de cada nodo dentro de cada cluster responden a la probabilidad de los mismos. Debajo del grafo vemos los códigos usados para ingresar y salir de cada cluster. Notar que el código de salida comparte el mismo árbol de codificación que los nodos del cluster mientras que los códigos de ingreso a cada cluster constituyen un segundo árbol independiente}
+\caption{Ejemplo de codificación de un Random-Walk en una red. Hay cuatro clusters, donde los códigos de cada nodo dentro de cada cluster responden a la probabilidad de los mismos. Debajo del grafo están los códigos usados para ingresar y salir de cada cluster. Notar que el código de salida comparte el mismo árbol de codificación que los nodos del cluster mientras que los códigos de ingreso a cada cluster constituyen un segundo árbol independiente}
 \label{fig:infomap4}
 \end{figure}
 
-De acuerdo a lo que aprendimos en compresión de datos sobre el uso de contextos dividir la red en clusters nos permite comprimir mas ya que podemos usar códigos compactos dentro de cada cluster en lugar de tener que compartir todos los códigos juntos en un único árbol para toda la red. 
+De acuerdo a lo la teoría de compresión de datos sobre el uso de contextos, dividir la red en clusters permite comprimir mas ya que se pueden usar códigos compactos dentro de cada cluster en lugar de tener que compartir todos los códigos juntos en un único árbol para toda la red. 
 
 El objetivo de Infomap es encontrar cuál es la partición de nodos en comunidades que minimiza la longitud en bits necesaria para codificar los random-walks dentro de la misma. Esto se puede expresar mediante la ecuación denominada "Map Equation"
 
@@ -17888,13 +17881,13 @@ L(M) = q \curvearrowright H(\mathbb{Q}) + \sum \limits_{i=1}^{m} p^i \circlearro
 \end{myequation}
 \end{defn}
 
-La ecuación es importante pero en realidad no es necesaria, simplemente podemos calcular la longitud que tomaría nuestro random-walk codificándolo en base a las probabilidades que podemos obtener del random-walk mismo. Veamos el siguiente ejemplo:
+La ecuación es importante pero en realidad no es necesaria, simplemente se puede calcular la longitud que tomaría el random-walk codificándolo en base a las probabilidades que se pueden obtener del random-walk mismo. Por ejemplo:
 
 \begin{verbatim}
 RW = A,B,C,B,A,C,D,E,F,D,F,D,C,B,A,C,C,B
 \end{verbatim}
 
-Supongamos en primer lugar que usamos un único cluster. Calculamos entonces la probabilidad de cada nodo:
+Suponer en primer lugar que se usa un único cluster. Se calcula entonces la probabilidad de cada nodo tal como se muestra en la tabla \ref{table:random_walk_probs}.
 
 \begin{table}[!hbt]
 \center{
@@ -17909,16 +17902,16 @@ F & 2/18 \\ \hline
 \end{tabular} 
 }
 \caption{Ejemplo sin clusters}
+\label{table:random_walk_probs}
 \end{table}
 
-En total necesitamos 43.9392 bits para representar al random-walk. Veamos qué pasa ahora si decidimos particionar la red en dos clusters: un cluster con \{A,B,C\} y otro con \{D,E,F\}. Nuestro random walk es ahora:
+En total se necesitarían 43.9392 bits para representar al random-walk. Si se decidiera particionar la red en dos clusters (un cluster con \{A,B,C\} y otro con \{D,E,F\}), el random walk será:
 
 \begin{verbatim}
 RW = CL1,A,B,C,B,A,C,EXIT1,CL2,D,E,F,D,F,D,EXIT2,CL1,C,B,A,C,C,B,EXIT1
 \end{verbatim}
 
-Nuestras probabilidades ahora son:
-
+Las probabilidades ahora serán las que se muestran en la tabla \ref{table:random_walk_probs_2}.
 \begin{table}[!hbt]
 \center{
 \begin{tabular}{|l|l|l|}\hline
@@ -17934,11 +17927,12 @@ Nuestras probabilidades ahora son:
 \end{tabular} 
 }
 \caption{Ejemplo con dos clusters}
+\label{table:random_walk_probs_2}
 \end{table}
 
-La probabilidad del cluster 1 es 2/3 y la del cluster 2 es 1/3 por lo tanto necesitamos 2.7549 bits para representar los tres símbolos: CL1,CL2,CL1. Para el cluster 1 necesitamos 26.9384 bits y para el 2 12.8966 bits el total es: 42.5893 bits. Es decir que particionando la red en dos clusters necesitamos menos bits para representar nuestro random-walk que los que usábamos suponiendo que toda la red era un único cluster. Los bits que perdemos indicando que salimos de un cluster y entramos a otro los ganamos al poder representar con menor cantidad de bits a los nodos dentro de cada cluster. 
+La probabilidad del cluster 1 es $2/3$ y la del cluster 2 es $1/3$ por lo tanto se necesitarán 2.7549 bits para representar los tres símbolos: CL1,CL2,CL1. Para el cluster 1 se necesitarán 26.9384 bits y para el 2 12.8966 bits el total es: 42.5893 bits. Es decir que particionando la red en dos clusters se necesitan menos bits para representar el random-walk que los que se usaban suponiendo que toda la red era un único cluster. Los bits que se pierden indicando que se sale de un cluster y se entra a otro son recuperados al poder representar con menor cantidad de bits a los nodos dentro de cada cluster. 
 
-Hemos comentado cómo podemos usar la ecuación de infomap para estimar si una cierta partición de la red en comunidades es mejor que otra: simplemente calculando cuántos bits necesitaríamos para codificar un random-walk suficientemente largo como para considerarlo significativo. Tenemos que ver ahora de que forma construir un algoritmo que use esto y la respuesta es que vamos a usar exactamente el mismo método que usamos en el algoritmo de Louvain con la diferencia que en Louvain usábamos la modularidad para comparar clusterizaciones y ahora usaremos la ecuación de Infomap.
+En resumen, se mencionó cómo se puede usar la ecuación de Infomap para estimar si una cierta partición de la red en comunidades es mejor que otra: simplemente se calculan cuántos bits se necesitarían para codificar un random-walk suficientemente largo como para considerarlo significativo. Hay que ver ahora de qué forma construir un algoritmo que use esto y la respuesta es que se usará exactamente el mismo método que se usó en el algoritmo de Louvain con la diferencia que en Louvain se usaba la modularidad para comparar clusterizaciones y ahora se usará la ecuación de Infomap.
 
 \begin{algorithm}[]
 Inicializar ListOfclusters con cada nodo de la red \\
@@ -17960,9 +17954,10 @@ While(bestResult $<$ lastResult) {
 }
 Return ListOfclusters
 \caption{Infomap}
+\label{alg:infomap}
 \end{algorithm}
 
-El algoritmo comienza suponiendo que cada nodo de la red es un cluster. Luego por cada nodo de la red hace un merge del mismo con el cluster que le de una mayor disminución en la longitud del random-walk, este proceso se repite hasta que no haya ninguna opción de merge posible.
+El algoritmo \ref{alg:infomap} comienza suponiendo que cada nodo de la red es un cluster. Luego, por cada nodo de la red, hace un merge del mismo con el cluster que le de una mayor disminución en la longitud del random-walk. Este proceso se repite hasta que no haya ninguna opción de merge posible.
 
 \begin{figure}[!tbp]
   \centering
@@ -17982,11 +17977,9 @@ La diferencia fundamental entre el algoritmo de Louvain (modularidad) e Infomap 
 
 \subsection{Comunidades con Solapamiento: Big Clam}
 
-Estudiaremos el caso en el cual un nodo puede pertenecer a mas de una comunidad, es decir que existe solapamiento entre las comunidades de la Red. Este caso es el mas realista en Redes Sociales ya que es frecuente que un usuario pertenezca, al mismo tiempo, a varias comunidades. Por ejemplo a sus familiares, amigos, compañeros de trabajo, compañeros de hobby, etc.
+Se estudiará el caso en el cual un nodo puede pertenecer a mas de una comunidad, es decir que existe solapamiento entre las comunidades de la Red. Este caso es el mas realista en Redes Sociales ya que es frecuente que un usuario pertenezca, al mismo tiempo, a varias comunidades. Por ejemplo a sus familiares, amigos, compañeros de trabajo, compañeros de hobby, etc.
 
-El algoritmo que estudiaremos llamado BigClam \cite{Leskovec} es eficiente para encontrar comunidades con solapamiento en Redes grandes. 
-
-Vamos a necesitar el número de comunidades que queremos encontrar $k$ como parámetro. Cadad comunidad tendráa asociada una probabilidad $P_k$ de que un nodo pertenezca a ella. La probabilidad de que dos nodos estén unidos está dada entonces por la probabilidad de que exista un link en alguna de las comunidades que ambos integran. 
+El algoritmo que se estudiará se llama BigClam \cite{Leskovec} y es eficiente para encontrar comunidades con solapamiento en Redes grandes. Se necesitará el número de comunidades que se quiere encontrar $k$ como parámetro. Cada comunidad tendrá asociada una probabilidad $P_k$ de que un nodo pertenezca a ella. La probabilidad de que dos nodos estén unidos está dada entonces por la probabilidad de que exista un link en alguna de las comunidades que ambos integran. 
 
 \begin{myequation}
 P(u,v) = 1 - \prod_{c \in M_u \cap M_v}(1-p_c)
@@ -17994,21 +17987,21 @@ P(u,v) = 1 - \prod_{c \in M_u \cap M_v}(1-p_c)
 
 La fórmula parte de la probabilidad de que un nodo no pertenezca a una comunidad $(1-P_c)$, la probablidad de que un nodo no pertenezca a ninguna comunidad es entonces la productoria de estas probabilidades. La probabilidad de que exista el link entre $u$ y $v$ es 1 menos la probabilidad de que $u$ y $v$ no estén juntos en ninguna comunidad.
 
-Lo que queremos es encontrar el modelo que maximice la semejanza con el grafo de nuestra red social que conocemos:
+Se quiere encontrar el modelo que maximice la semejanza con el grafo de la red social en cuestión:
 
 \begin{myequation}
 P(G|\Omega) = \prod_{(u,v)\in F} P(u,v) \prod_{(u,v) \notin G} (1-P(u,v))
 \end{myequation}
 
-Es decir que queremos maximizar P(u,v) cuando en el grafo existe una arista entre u y v y queremos minimizar P(u,v) cuando la arista no existe realmente en el grafo.
+Es decir que se quiere maximizar P(u,v) cuando en el grafo existe una arista entre u y v y se quiere minimizar P(u,v) cuando la arista no existe realmente en el grafo.
 
-Definimos $F_{ua}$ a la fuerza de conexión del nodo $u$ con la comunidad $a$. Por lo tanto para la comunidad $a$ la probabilidad de que $u$ y $v$ se conecten es:
+Se define $F_{ua}$ a la fuerza de conexión del nodo $u$ con la comunidad $a$. Por lo tanto para la comunidad $a$ la probabilidad de que $u$ y $v$ se conecten es:
 
 \begin{myequation}
 P_A(u,v) = 1-\exp(-F_{ua} F_{va})
 \end{myequation}
 
-Calculamos entonces $P(u,v)$
+Se calcula entonces $P(u,v)$:
 
 \begin{myequation}
 \begin{aligned}
@@ -18018,7 +18011,7 @@ P(u,v)&=1-\prod_c(1-P_c(u,v))\\
 \end{aligned}
 \end{myequation}
 
-Supongamos que tenemos 4 comunidades (a,b,c,d) y 3 nodos: $u,v,w$. Sea la siguiente matriz $F$:
+Por ejemplo, suponer que tenemos 4 comunidades (a,b,c,d) y 3 nodos: $u,v,w$. Sea la siguiente matriz $F$:
 
 \[
 \begin{blockarray}{ccccc}
@@ -18033,7 +18026,7 @@ a & b & c & d \\
 
 Por lo tanto $F_u F^t_v = (0,1.2,0,0.2) * (0.5,0,0,0.8)^t = 0.16$ y $P(u,v) = 1-\exp(-0.16) = 0.14$ por otro lado $P(u,w)= 0.88$ y $P(v,w)=0$
 
-Podemos representar ahora el algoritmo como un problema de optimización (maximización):
+Se puede representar ahora el algoritmo como un problema de optimización (maximización):
 
 \begin{myequation}
 l(F) =  \sum_{(u,v) \in E} \log (1-\exp(-F_u F^t_v)) - \sum_{(u,v) \notin E} F_u F^t_v
@@ -18047,18 +18040,19 @@ Esta función se puede optimizar por Gradient Descent:
 
 Donde $N(u)$ indica los vecinos de $u$ en el grafo original.
 
-El algoritmo entonces realiza lo siguiente: 
+El algoritmo \ref{alg:big_claim} describe el paso a paso.
 
 \begin{algorithm}[]
 Inicializar F al azar\\
 \For{($u \in G$)} {
 $ F_u = F_u - \alpha \nabla(F_u)$\\
-Si algun elemento de $F$ es negativo lo convertimos en 0 (no hay probs negativas)\\
+Si algun elemento de $F$ es negativo se lo convierte en 0 (no hay probs negativas)\\
 }
 \caption{Big Clam}
+\label{alg:big_claim}
 \end{algorithm}
 
-Luego de optimizar $F$ tenemos que la matriz de probabilidades es:
+Luego de optimizar $F$ se obtiene la siguiente matriz de probabilidades:
 
 \begin{myequation}
 1-\exp(-F F^t)
@@ -18068,42 +18062,42 @@ En la matriz F tenemos la probabilidad de que cada nodo del grafo pertenezca a c
 
 \section{Análisis de comunidades en Redes Sociales}
 
-Intentemos ahora evaluar cada comunidad de una Red Social, ¿cómo podemos medir si una comunidad tiene mejor estructura que otra?. Para que un cluster sea bueno tiene que tener muchas aristas internas y muy pocas aristas que salgan del cluster. Esto se define como la "conductancia" de un cluster. 
+Es interesante evaluar cómo se puede medir si una comunidad tiene mejor estructura que otra. Para que un cluster sea bueno tiene que tener muchas aristas internas y muy pocas aristas que salgan del cluster. Esto se define como la "conductancia" de un cluster:
 
 \begin{myequation}
 \phi(S) = \frac{|\{(i,j) \in E; i \in S, j \notin S\}|}{\sum_{s \in S} k_s}
 \end{myequation}
 
-Contamos  la cnaitdad de links que salen del cluster y dividimos por la sumatoria de los grados de los nodos del cluster.
+Se cuenta la cantidad de links que salen del cluster y se la divide por la sumatoria de los grados de los nodos del cluster.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=2.5in]{figures/rs-fig-31.png}
 \caption{Ejemplo Conductancia}
-
+\label{fig:cond_social_network}
 \end{figure}
 
-Para el cluster $S$ tenemos 3 links que salen del cluster y la sumatoria de los grados es: 16 por lo que la conductancia es $3/16=0.1875$ en el caso de $S'$ tenemos 2 aristas que salen del cluster y la sumatoria de grados es: 19 por lo que la conductancia es: 0.105. Cuanto menor sea la conductancia mejor será la calidad del cluster.
+En la figura \ref{fig:cond_social_network}, en el cluster $S$ hay 3 links que salen del cluster y la sumatoria de los grados es 16 por lo que la conductancia es $3/16=0.1875$. En el caso de $S'$ hay 2 aristas que salen del cluster y la sumatoria de grados es 19 por lo que la conductancia será 0.105. Cuanto menor sea la conductancia mejor será la calidad del cluster.
 
-Para analizar la estructura de una Red podemos realizar un plot del mejor valor de conductancia para una comunidad de $k$ nodos en función de $k$ . Es decir que para cada valor de $k$ tomamos el mínimo de todas las conductancias de clusters de tamaño $k$
+Para analizar la estructura de una Red se puede realizar un plot del mejor valor de conductancia para una comunidad de $k$ nodos en función de $k$ . Es decir que para cada valor de $k$ se toma el mínimo de todas las conductancias de clusters de tamaño $k$
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/rs-fig-32.png}
 \caption{NCP plot}
-
+\label{fig:ncp_plot}
 \end{figure}
 
-El plot NCP muestra picos de "calidad" para las verdaderas comunidades de la Red, es decir que podemos usarlo para encontrar cuáles son las verdaderas comunidades de nuestro grafo. Estos "valles" corresponden a las comunidades que podemos ver visualmente en el grafo de la Red.
+El plot \ref{fig:ncp_plot} muestra picos de "calidad" para las verdaderas comunidades de la Red, es decir que se lo puede usar para encontrar cuáles son las verdaderas comunidades del grafo. Estos "valles" corresponden a las comunidades que se pueden ver visualmente en el grafo de la Red.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/rs-fig-33.png}
 \caption{NCP plots}
-
+\label{fig:ncp_plot_2}
 \end{figure}
 
-En todos los casos vemos que la calidad de los clusters mejora a medida que estos tienen mayor cantidad de miembros pero luego de un cierto umbral empeoran dramáticamente. La explicación es que a medida que el tamaño de los clusters aumenta la cantidad de aristas dentro de cada cluster crece de forma menor a la cantidad de aristas que salen de cada cluster, por esto la conductancia empeora.
+En todos los casos de la figura \ref{fig:ncp_plot_2} se puede ver que la calidad de los clusters mejora a medida que estos tienen mayor cantidad de miembros pero luego de un cierto umbral empeoran dramáticamente. La explicación es que a medida que el tamaño de los clusters aumenta la cantidad de aristas dentro de cada cluster crece de forma menor a la cantidad de aristas que salen de cada cluster, por esto la conductancia empeora.
 
 \begin{figure}[!htb]
 \centering
@@ -18112,16 +18106,15 @@ En todos los casos vemos que la calidad de los clusters mejora a medida que esto
 
 \end{figure}
 
-
-Esto quiere decir que los mejores clusters apenas están conectados con el resto de la red. Esto da origen a una explicación sobre la estructura de las Redes Sociales en donde podemos ver a la red como un núcleo y un conjunto de comunidades satelitales apenas unidas al núcleo. Estas comunidades satélites son las mejores comunidades de la Red. 
+Esto quiere decir que los mejores clusters apenas están conectados con el resto de la red. Esto da origen a una explicación sobre la estructura de las Redes Sociales en donde se puede ver a la red como un núcleo y un conjunto de comunidades satelitales apenas unidas al núcleo. Estas comunidades satélites son las mejores comunidades de la Red. 
 
 \section{Cascadas en Redes Sociales}
 
-Estudiaremos ahora el flujo de la información en las Redes Sociales, en concreto la forma en la cual la información se difunde a través de la topología de la red. Esto es importante en temas como marketing, prevención y atención de catástrofes, conversión electoral y muchas aplicaciones mas. La difusión de la información se inicia cuando un usuario de la red genera el primer mensaje sobre dicho tema, este mensaje se va propagando por la topología de la red y llega alcanza un cierto número de nodos (usuarios), al conjunto de nodos a los cuales llega la información lo llamaremos una \textit{cascada}. 
+En esta sección se estudiará el flujo de la información en las Redes Sociales. En concreto, se estudiará la forma en la cual la información se difunde a través de la topología de la red. Esto es importante en temas como marketing, prevención y atención de catástrofes, conversión electoral y muchas aplicaciones mas. La difusión de la información se inicia cuando un usuario de la red genera el primer mensaje sobre dicho tema, este mensaje se va propagando por la topología de la red y llega alcanzando un cierto número de nodos (usuarios). Al conjunto de nodos a los cuales llega la información se lo llamará una \textit{cascada}. 
 
-Para poder estudiar cascadas en redes sociales es necesario contar con un modelo de difusión, es decir un criterio que hace que un nodo comparta la información que le ha llegado. Vamos a usar un modelo de difusión muy simple que es "si al menos q\% de mis vecinos difuncen algo yo también lo hago" vamos a decir que esto nos define una cascada $q$.
+Para poder estudiar cascadas en redes sociales es necesario contar con un modelo de difusión, es decir, un criterio que hace que un nodo comparta la información que le ha llegado. Para ello, se usará un modelo de difusión muy simple que es "si al menos q\% de mis vecinos difunden algo yo también lo hago". Eso definirá una cascada $q$.
 
-Nos interesa estudiar cuándo se detiene una cascada en una red social y como maximizar la influencia, es decir como llegar a la mayor cantidad de nodos posibles.
+Es de particular interés estudiar cuándo se detiene una cascada en una red social y como maximizar la influencia, es decir, cómo llegar a la mayor cantidad de nodos posibles.
 
 \subsection{Cascadas}
 
@@ -18129,10 +18122,10 @@ Nos interesa estudiar cuándo se detiene una cascada en una red social y como ma
 \centering
 \includegraphics[width=4in]{figures/rs-fig-35.png}
 \caption{Cascadas en Redes Sociales}
-
+\label{fig:cascade_example}
 \end{figure}
 
-En nuestro primer ejemplo tenemos que los nodos $u$ y $v$ inician la cascada y $q=0.5$ con la condición de que mas del 50\% de los vecinos tienen que difundir la información para que un nodo la difunda. rápidamente podemos ver que en el instante $t+1$ los dos nodos que están por encima de $u$ y $v$ van a difundir la cascada ya que 2/2 o 2/3 de sus vecinos lo hacen. 
+En el ejemplo de la figura \ref{fig:cascade_example} se ve que los nodos $u$ y $v$ inician la cascada y $q=0.5$ con la condición de que mas del 50\% de los vecinos tienen que difundir la información para que un nodo la difunda. Rápidamente se puede ver que en el instante $t+1$ los dos nodos que están por encima de $u$ y $v$ van a difundir la cascada ya que 2/2 o 2/3 de sus vecinos lo hacen. 
 
 \begin{figure}[!htb]
 \centering
@@ -18141,42 +18134,38 @@ En nuestro primer ejemplo tenemos que los nodos $u$ y $v$ inician la cascada y $
 
 \end{figure}
 
-
-Continuando de esta forma llegaremos a que únicamente los dos nodos a la izquierda del grafo no difunden la información para estos nodos solo $u$ difunde y nunca tendrán mas de un 50\% de vecinos difundiendo el mensaje. 
-
-Nos interesa estudiar por qué se detiene una cascada. Para ello vamos a definir que un cluster tiene densidad $p$ si todos los nodos del cluster tienen al menos $p$ aristas dentro del mismo. 
+Continuando de esta forma se llegará a que únicamente los dos nodos a la izquierda del grafo no difunden la información. Para estos dos nodos solo $u$ difunde y nunca tendrán mas de un 50\% de vecinos difundiendo el mensaje. 
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=2.5in]{figures/rs-fig-37.png}
 \caption{Densidad de un Cluster}
-
+\label{fig:cluster_density}
 \end{figure}
 
-En el ejemplo vemos que para el primer cluster todos los nodos tienen al menos 3 de sus aristas dentro del cluster. Por lo tanto la densidad es 3/5. En el segundo caso p es igual a 2/3. Vemos que es el mínimo porcentaje de aristas que queda dentro del cluster para cualquier nodo.
+Es interesante estudiar por qué se detiene una cascada. Para ello, se define que un cluster tiene densidad $p$ si todos los nodos del cluster tienen al menos $p$ aristas dentro del mismo. 
+En el ejemplo \ref{fig:cluster_density}, en el primer cluster todos los nodos tienen al menos 3 de sus aristas dentro del cluster. Por lo tanto, la densidad es 3/5. En el segundo caso, p es igual a 2/3. Notar que es el mínimo porcentaje de aristas que queda dentro del cluster para cualquier nodo.
 
-El $p$ mínimo de un cluster nos determina el $q$ máximo. Es decir que para que una cascada $q$ no se detenga no puede haber un cluster con densidad $p>(1-q)$. En nuestro caso el $p$ mínimo entre todos los clusters es 3/5 por lo tanto el $q$ máximo es 2/5, es decir que para que la información se difunda a todos los nodos esta tiene que compartirse a lo sumo si 2/5 de los vecinos de un nodo lo hacen. Es decir que un $q$ de 3/5 o 4/5 no alcanzaría todos los nodos del grafo.
+El $p$ mínimo de un cluster determina el $q$ máximo. Es decir que para que una cascada $q$ no se detenga no puede haber un cluster con densidad $p>(1-q)$. En este caso, el $p$ mínimo entre todos los clusters es 3/5 por lo tanto el $q$ máximo es 2/5. Entonces, para que la información se difunda a todos los nodos, ésta tiene que compartirse a lo sumo si 2/5 de los vecinos de un nodo lo hacen. Es decir que un $q$ de 3/5 o 4/5 no alcanzaría todos los nodos del grafo.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4in]{figures/rs-fig-38.png}
 \caption{Difusión de Cascadas}
-
+\label{fig:cascade_example_2}
 \end{figure}
 
-En el ejemplo y con $q=2/5$ la información se difunde a todos los nodos del cluster [4,5,6,7,8,9,10] pero ahí se detiene, los otros nodos nunca llegan a tener 2/5 de sus vecinos difundiendo la información. 
+En el ejemplo \ref{fig:cascade_example_2} usando $q=2/5$ la información se difunde a todos los nodos del cluster [4,5,6,7,8,9,10] pero ahí se detiene. Los otros nodos nunca llegan a tener 2/5 de sus vecinos difundiendo la información. 
 
-La conclusión es que los clusters: las comunidades son obstáculos para la difusión de la información en las redes sociales. 
+La conclusión es que los clusters son obstáculos para la difusión de la información en las redes sociales. 
 
 \subsection{Maximización de Influencia}
 
-Maximizar influencia implica llegar a la mayor cantidad de nodos posibles en una red mediante el uso de la menor cantidad de nodos posibles. Es decir que nos interesa descubrir un conjunto pequeño de nodos influyentes de forma tal que la información llegue a la mayor cantidad de usuarios posibles. Esto tiene, claramente, todo tipo de aplicaciones, desde campañas de marketing hasta campañas electorales o simplemente publicidad. 
+Maximizar la influencia implica llegar a la mayor cantidad de nodos posibles en una red mediante el uso de la menor cantidad de nodos posibles. Es decir que interesa descubrir un conjunto pequeño de nodos influyentes de forma tal que la información llegue a la mayor cantidad de usuarios posibles. Esto tiene, claramente, todo tipo de aplicaciones, desde campañas de marketing hasta campañas electorales o simplemente publicidad. 
 
-Lamentablemente el problema formal es NP-Completo, se trata del conocido problema de Set-Cover en donde queremos encontrar el conjunto mínimo de vértices de forma tal que estos cubran todas las aristas del grafo. Es necesario aproximar el problema.
+Lamentablemente el problema formal es NP-Completo, y se trata del conocido problema de Set-Cover en donde se quiere encontrar el conjunto mínimo de vértices de forma tal que estos cubran todas las aristas del grafo. Es necesario entonces aproximar el problema. Para ello, se define a $f$ como la función que recibe un conjunto de nodos y devuelve la "influencia" de los mismos. Esta función es una función \textit{submodular} y esto quiere decir que si se agrega un nodo a un conjunto el resultado dará menor o igual ganancia que agregarlo a un subconjunto.
 
-Vamos a definir a $f$ como la función que recibe un conjunto de nodos y nos devuelve la "influencia" de los mismos. Esta función es una función \textit{submodular}, esto quiere decir que si agregamos un nodo a un conjunto el resultado nos da menor o igual ganancia que agregarlo a un subconjunto.
-
-Supongamos que tenemos el conjunto de nodos $\{A,B,C,D\}$ y queremos agregar $\{E\}$, la ganancia de influencia es $f(\{A,B,C,D,E\})-f(\{A,B,C,D\})=f1$. Por otro lado tomemos el conjunto $\{A,B,C\}$ y agreguemos el nodo $\{E\}$ , la ganancia de influencia es ahora: $f(\{A,B,C,E\})-f(\{A,B,C\})=f2$. Es evidente que $f2$ tiene que ser al menos mayor o igual a $f1$. El motivo es muy simple: lo que el nodo $E$ nos aporte en el segundo caso siempre va a ser mayor o igual a lo que nos aporte en el primero donde no teníamos a $D$, todo depende de que tanto se superpone la influencia de $E$ y $D$, en ningún caso podemos ganar mas influencia agregando un nodo a un super-conjunto con respecto a cualquier conjunto original. 
+Suponer por ejemplo que se tiene el conjunto de nodos $\{A,B,C,D\}$ y se quiere agregar $\{E\}$. La ganancia de influencia es $f(\{A,B,C,D,E\})-f(\{A,B,C,D\})=f1$. Por otro lado, tomando el conjunto $\{A,B,C\}$, al agregar el nodo $\{E\}$ la ganancia de influencia será $f(\{A,B,C,E\})-f(\{A,B,C\})=f2$. Es evidente que $f2$ tiene que ser al menos mayor o igual a $f1$. El motivo es muy simple: lo que el nodo $E$ nos aporte en el segundo caso siempre va a ser mayor o igual a lo que nos aporte en el primero donde no teníamos a $D$. Todo depende de qué tanto se superpone la influencia de $E$ y $D$ y en ningún caso se puede ganar mas influencia agregando un nodo a un super-conjunto con respecto a cualquier conjunto original. 
 
 Sea $S \subseteq T$
 
@@ -18184,17 +18173,17 @@ Sea $S \subseteq T$
 f(S \cup \{u\}) - f(S) \geq f(T \cup \{u\}) - f(T)
 \end{myequation}
 
-El primer término es lo que ganamos agregando $u$ a un conjunto chico y el segundo término la ganancia de agregar $u$ al conjunto mayor. 
+El primer término es lo que se gana agregando $u$ a un conjunto chico y el segundo término la ganancia de agregar $u$ al conjunto mayor. 
 
-Cuando $f$ es una función monótona y sub-modular un algoritmo tipo greedy es en el peor caso un 63\% de la solución óptima. Esto es bastante aceptable por lo que podemos usar un algoritmo greedy muy simple para maximizar influencia: en cada paso agregamos el nodo que mayor ganancia de influencia nos aporte.
+Cuando $f$ es una función monótona y sub-modular un algoritmo tipo greedy es en el peor caso un 63\% de la solución óptima. Esto es bastante aceptable por lo que se puede usar un algoritmo greedy muy simple para maximizar influencia: en cada paso se agrega el nodo que mayor ganancia de influencia nos aporte.
 
-El problema es que la función $f$ que mide la influencia de un nodo en realidad no existe. Afortunadamente esta función se puede simular, mediante un modelo de cascadas y la topología de la red podemos estudiar a cuantos nodos llega la información a partir de un cierto conjunto de nodos, agregando siempre en cada paso el nodo que mayor ganancia de influencia nos da. 
+El problema es que la función $f$ que mide la influencia de un nodo en realidad no existe. Afortunadamente esta función se puede simular. Mediante un modelo de cascadas y la topología de la red se podrá estudiar a cuantos nodos llega la información a partir de un cierto conjunto de nodos, agregando siempre en cada paso el nodo que mayor ganancia de influencia da. 
 
-En definitiva se trata de resolver un problema NP-Completo mediante un algoritmo greedy que optimiza una función que en realidad no existe (!!).
+En definitiva se trata de resolver un problema NP-Completo mediante un algoritmo greedy que optimiza una función que en realidad no existe.
 
 \section{Redes Sociales con Signo}
 
-En ciertas redes sociales las relaciones entre los usuarios pueden expresarse de forma positiva o negativa. Por ejemplo votos a favor o en contra de una propuesta del usuario, amigos y enemigos en una red social, confianza o desconfianza en un sitio de ventas online, etc. En esta sección analizaremos un algoritmo para predecir el signo de una relación que aun no existe entre dos usuarios, decir poder predecir si dos usuarios van a ser amigos o enemigos o si un usuario va a votar a favor o en contra de la propuesta de un determinado usuario.
+En ciertas redes sociales las relaciones entre los usuarios pueden expresarse de forma positiva o negativa. Por ejemplo, votos a favor o en contra de una propuesta del usuario, amigos y enemigos en una red social, confianza o desconfianza en un sitio de ventas online, etc. En esta sección se analizará un algoritmo para predecir el signo de una relación que aun no existe entre dos usuarios, es decir, poder predecir si dos usuarios van a ser amigos o enemigos o si un usuario va a votar a favor o en contra de la propuesta de un determinado usuario.
 
 \begin{figure}[!htb]
 \centering
@@ -18203,7 +18192,7 @@ En ciertas redes sociales las relaciones entre los usuarios pueden expresarse de
 
 \end{figure}
 
-Vamos a analizar las relaciones triangulares es decir entre tres usuarios de la red. Hay dos triángulos que son naturalmente estables (balanceados) que son los que obedecen a las siguientes reglas:
+Hay dos triángulos que son naturalmente estables (balanceados) y son los que obedecen a las siguientes reglas:
 
 \begin{enumerate}
 \item Los amigos de mis amigos son mis amigos
@@ -18217,7 +18206,7 @@ Vamos a analizar las relaciones triangulares es decir entre tres usuarios de la 
 
 \end{figure}
 
-Otras relaciones son inestables, por ejemplo si tengo dos amigos pero estos son enemigos entre sí. O un grupo de tres usuarios en los cuales todos son enemigos de todos. Explorando estos 4 triángulos en redes sociales podemos analizar cuantas veces aparece cada uno en relación a cuantas veces aparecería si los signos de las aristas fueran completamente aleatorios. El resultado es que la relaciones balanceadas son mas frecuentes que en el caso aleatorio y las relaciones desbalanceadas son menos frecuentes aunque en el caso de las tres enemistades en realidad la desviación es mínima.
+Otras relaciones son inestables. Por ejemplo si se tienen dos amigos pero estos son enemigos entre sí, o bien un grupo de tres usuarios en los cuales todos son enemigos de todos. Explorando estos 4 triángulos en redes sociales se puede analizar cuántas veces aparece cada uno en relación a cuantas veces aparecería si los signos de las aristas fueran completamente aleatorios. El resultado es que la relaciones balanceadas son mas frecuentes que en el caso aleatorio y las relaciones desbalanceadas son menos frecuentes aunque en el caso de las tres enemistades en realidad la desviación es mínima.
 
 \begin{table}[!hbt]
 \center{
@@ -18233,7 +18222,7 @@ unbalanced 2& -0.002 & +0.0001\\  \hline
 \caption{Relaciones triangulares en Wikipedia y Epinions}
 \end{table}
 
-El caso mas dramático es el triángulo no balanceado en donde A es amigo de B y C pero B y C son enemigos. Esto es lógico ya que va en contra del mecanismo de clausura triangular que hemos estudiado y es tan popular en las redes sociales, cuando un usuario tiene dos amigos la tendencia es que estos formen una amistad, que formen una relación de enemigos es todavía menos probable a que no se relacionen en absoluto.
+El caso mas dramático es el triángulo no balanceado en donde A es amigo de B y C pero B y C son enemigos. Esto es lógico ya que va en contra del mecanismo de clausura triangular que se ha estudiado y es tan popular en las redes sociales. Cuando un usuario tiene dos amigos la tendencia es que estos formen una amistad, que formen una relación de enemigos es todavía menos probable a que no se relacionen en absoluto.
 
 \begin{figure}[!htb]
 \centering
@@ -18242,33 +18231,29 @@ El caso mas dramático es el triángulo no balanceado en donde A es amigo de B y
 
 \end{figure}
 
-Nos interesa predecir el signo de una relación faltante en un triángulo, es decir descubrir como se van a llevar dos usuarios en base a un usuario en común. 
-
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/rs-fig-42.png}
 \caption{Contextos posibles}
-
+\label{fig:triangles_example}
 \end{figure}
 
-Existen 16 casos a analizar en donde nos falta el signo de una relación (marcada en color rojo). Lo que vamos a hacer es contar cuántos triángulos de cada tipo cerraría la relación faltante. Tenemos un set de entrenamiento en donde podemos ver para cada uno de los 16 contextos posibles cuál es la predicción para la relación faltante. Con este set de entrenamiento podemos usar Logistic Regression o un SVM lineal para predecir el signo de la relación A-B para cada uno de los triángulos que cerraría y luego simplemente definimos por mayoría. 
+Es interesante predecir el signo de una relación faltante en un triángulo, es decir, descubrir cómo se van a llevar dos usuarios en base a un usuario en común. Viendo la figura \ref{fig:triangles_example}, existen 16 casos a analizar en donde falta el signo de una relación (marcada en color rojo). Lo que se hará es contar cuántos triángulos de cada tipo cerraría la relación faltante. Se tiene un set de entrenamiento en donde se puede ver para cada uno de los 16 contextos posibles cuál es la predicción para la relación faltante, y con este set de entrenamiento se podrá usar Logistic Regression o un SVM lineal para predecir el signo de la relación A-B para cada uno de los triángulos que cerraría y luego simplemente se termina definiendo por mayoría. 
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3in]{figures/rs-fig-43.png}
 \caption{Triángulos para la relación A-B}
-
+\label{fig:triangles_example_2}
 \end{figure}
 
-En nuestro ejemplo la relación faltante A-B cierra varios triángulos, tenemos que correr para cada uno de estos triángulos una predicción del signo que falta y luego ver si ganan los positivos o los negativos. 
-
-Este algoritmo alcanza entre un 81\% y hasta un 95\% de precisión para predecir el signo de las relaciones faltantes entre los usuarios. Por ejemplo 94.4\% de efectividad en Slashdot y 81\% de efectividad en Wikipedia en donde aparentemente las relaciones entre los usuarios son mas complejas que en Slashdot. 
+En el ejemplo \ref{fig:triangles_example_2}, la relación faltante A-B cierra varios triángulos. Es necesario correr para cada uno de estos triángulos una predicción del signo que falta y luego ver si ganan los positivos o los negativos. Este algoritmo alcanza entre un 81\% y hasta un 95\% de precisión para predecir el signo de las relaciones faltantes entre los usuarios. Por ejemplo, 94.4\% de efectividad en Slashdot y 81\% de efectividad en Wikipedia en donde aparentemente las relaciones entre los usuarios son mas complejas que en Slashdot. 
 
 Es interesante que la estructura de la red alcance sea lo único necesario para predecir la relación entre dos usuarios de la misma que aun no se conocen. 
 
 \section{Motifs}
 
-Un "motif" es un sub-grafo de $k$ nodos. Es decir alguno de todos los posibles grafos que podemos formar con $k$ nodos, por ejemplo con 3 nodos y aristas dirigidas hay exactamente 13 sub-grafos. Para 4 nodos la cantidad es mas de 100.
+Un "motif" es un sub-grafo de $k$ nodos. Es decir alguno de todos los posibles grafos que se pueden formar con $k$ nodos. Por ejemplo, con 3 nodos y aristas dirigidas hay exactamente 13 sub-grafos. Para 4 nodos la cantidad es mas de 100.
 
 \begin{figure}[!htb]
 \centering
@@ -18277,20 +18262,18 @@ Un "motif" es un sub-grafo de $k$ nodos. Es decir alguno de todos los posibles g
 
 \end{figure}
 
-La teoría es que ciertos motifs ocurren con mayor frecuencia en las Redes Sociales que en redes aleatorias. Para comprobar esto podemos construir un grafo aleatorio $G_{np}$ de igual cantidad de nodos y aristas que nuestra red y contar la cantidad de motifs de cada tipo en nuestra red y en el grafo aleatorio. La diferencia sirve para caracterizar la red. 
-
-Esto sirve para comparar redes sociales entre sí y ver si la forma en la que se distribuyen los motifs es similar en una u otra red.
+La teoría es que ciertos motifs ocurren con mayor frecuencia en las Redes Sociales que en redes aleatorias. Para comprobar esto se puede construir un grafo aleatorio $G_{np}$ de igual cantidad de nodos y aristas que la red bajo análisis y contar la cantidad de motifs de cada tipo en la red y en el grafo aleatorio. La diferencia sirve para caracterizar la red. Esto sirve para comparar redes sociales entre sí y ver si la forma en la que se distribuyen los motifs es similar en una u otra red.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/rs-fig-45.png}
 \caption{Motifs en Redes Sociales}
-
+\label{fig:motifs_example}
 \end{figure}
 
-En el ejemplo vemos 19 redes y sus profiles de acuerdo a la aparición de los 13 motifs de 3 nodos en cada una de ellas. Podemos ver que la Web tiene características similares a las redes sociales y la principal característica es un profundo rechazo al motif número 6 en donde tenemos el caso de que A sigue a B y B sigue a A, A sigue a C y C sigue a A pero B no sigue a C ni C sigue a B. Esto es un desafío a la clausura triangular y sabemos que las redes sociales tienen una fuerte debilidad por la misma.
+En el ejemplo \ref{fig:motifs_example} se ven 19 redes y sus profiles de acuerdo a la aparición de los 13 motifs de 3 nodos en cada una de ellas. Se puede ver que la Web tiene características similares a las redes sociales y la principal característica es un profundo rechazo al motif número 6 en donde se tiene el caso de que A sigue a B y B sigue a A, A sigue a C y C sigue a A pero B no sigue a C ni C sigue a B. Esto es un desafío a la clausura triangular y se sabe que las redes sociales tienen una fuerte debilidad por la misma.
 
-Existe software que permite obtener el profile de una red mediante sus motifs y esto permite caracterizar a la red y compararla contra otras redes independientemente de sus dimensiones, de esta forma podemos agrupar las redes en familias y esto permite saber que los algoritmos que funcionan bien en una determinada red probablemente funcionen bien en otras redes de la misma familia pero no en familias diferentes.
+Existe software que permite obtener el profile de una red mediante sus motifs y esto permite caracterizar a la red y compararla contra otras redes independientemente de sus dimensiones, de esta forma se pueden agrupar las redes en familias y esto permite saber que los algoritmos que funcionan bien en una determinada red probablemente funcionen bien en otras redes de la misma familia pero no en familias diferentes.
 
 \section{El Lenguaje en las Redes Sociales}
 
@@ -18301,7 +18284,7 @@ Existe software que permite obtener el profile de una red mediante sus motifs y 
 
 \end{figure}
 
-En una red social podemos estudiar no solo la topología de la misma sino el contenido que los usuarios escriben. Estos contenidos pueden ser posts, mensajes, tweets, reviews, comentarios, preguntas, respuestas, etc. Lo que queremos estudiar es el lenguaje utilizado en estos posts. Por ejemplo podemos analizar el porcentaje o probabilidad de aparición de una palabra en cualquier mensaje de la red a lo largo del tiempo. Observaremos que ciertas palabras son "adoptadas" por la comunidad y se vuelven mas populares en detrimento de otras palabras que pasan de moda y dejan de usarse. En definitiva los usuarios tienden a copiar el lenguaje de otros usuarios, esto ocurre de forma involuntaria.
+En una red social se puede estudiar no solo la topología de la misma sino el contenido que los usuarios escriben. Estos contenidos pueden ser posts, mensajes, tweets, reviews, comentarios, preguntas, respuestas, etc. Lo que se quiere estudiar es el lenguaje utilizado en estos posts. Por ejemplo, se podría analizar el porcentaje o probabilidad de aparición de una palabra en cualquier mensaje de la red a lo largo del tiempo. Observar que ciertas palabras son "adoptadas" por la comunidad y se vuelven mas populares en detrimento de otras palabras que pasan de moda y dejan de usarse. En definitiva, los usuarios tienden a copiar el lenguaje de otros usuarios y esto ocurre de forma involuntaria.
 
 \begin{figure}[!htb]
 \centering
@@ -18310,28 +18293,26 @@ En una red social podemos estudiar no solo la topología de la misma sino el con
 
 \end{figure}
 
-Podemos hacer un promedio de todos los mensajes de la red y esto nos dará el modelo de lenguaje promedio de la red social. Podemos entonces comparar el lenguaje de un determinado usuario contra el lenguaje de la red a lo largo del tiempo. Lo que observamos es que los usuarios se van adaptando al lenguaje de la red y la "distancia" entre el lenguaje del usuario y el lenguaje promedio de la red va disminuyendo a lo largo del tiempo. 
+Se puede hacer un promedio de todos los mensajes de la red y esto nos dará el modelo de lenguaje promedio de la red social. Entonces se podrá comparar el lenguaje de un determinado usuario contra el lenguaje de la red a lo largo del tiempo. Lo que se observa es que los usuarios se van adaptando al lenguaje de la red y la "distancia" entre el lenguaje del usuario y el lenguaje promedio de la red va disminuyendo a lo largo del tiempo. 
 
-Esto ocurre hasta que en un determinado instante el usuario empieza a separarse del lenguaje promedio de la red, el motivo por el cual esto pasa es porque el usuario queda atrapado en el pasado, su lenguaje evoluciona hasta un punto tal en que ya no puede modificarlo y a partir de ahí sus posts van a estar cada vez mas lejos del lenguaje promedio de la red. 
+Esto ocurre hasta que en un determinado instante el usuario empieza a separarse del lenguaje promedio de la red. El motivo por el cual esto puede ocurrir es porque el usuario queda atrapado en el pasado, su lenguaje evoluciona hasta un punto tal en que ya no puede modificarlo y a partir de ahí sus posts van a estar cada vez mas lejos del lenguaje promedio de la red. 
 
 Algo muy interesante es que esto es independiente de cuanto tiempo vaya a permanecer el usuario en la red. En el momento en que el lenguaje del usuario comienza a distanciarse del promedio sus días están contados. Esta tendencia se verifica en foros, sitios de reviews y sitios con preguntas y respuestas, eventualmente también en grupos de Facebook considerando a cada grupo como una red social independiente. 
 
-Esto permite varias cosas. En primer lugar podemos predecir la longevidad del usuario en la red, una curva de lenguaje que sigue acercándose al promedio de la red es señal de que el usuario es un participante activo de la red y que todavía tiene capacidad de aprender de la misma. Un usuario que rápidamente se distancia del lenguaje promedio es un usuario que en general dura muy poco en la red. Este mecanismo sirve, por ejemplo, como método de detección de trolls, ya que estos en ningún momento se preocupan por adaptarse al lenguaje promedio de la red.
+Esto permite varias cosas. En primer lugar se puede predecir la longevidad del usuario en la red. Una curva de lenguaje que sigue acercándose al promedio de la red es señal de que el usuario es un participante activo de la red y que todavía tiene capacidad de aprender de la misma. Un usuario que rápidamente se distancia del lenguaje promedio es un usuario que en general dura muy poco en la red. Este mecanismo sirve, por ejemplo, como método de detección de trolls, ya que estos en ningún momento se preocupan por adaptarse al lenguaje promedio de la red.
 
 \section{Evolución de una Red Social}
 
-Analizaremos ahora la evolución de la topología de una red social a lo largo del tiempo. Nos interesa analizar de que forma evolucionan las diferentes métricas que estudiamos al principio del capítulo a medida que la red social crece.
+Se analiza ahora la evolución de la topología de una red social a lo largo del tiempo, siendo de particular interés analizar de qué forma evolucionan las diferentes métricas que se estudiaron al principio del capítulo a medida que la red social crece.
 
 \subsection{Cantidad de Nodos y Aristas}
 
-Queremos ver de que forma evoluciona la cantidad de aristas de una red en función de la cantidad de nodos. Una suposición es decir que el grado promedio se va a mantener constante a lo largo del tiempo. Esto no funciona así en las redes sociales.
-
-A medida que la cantidad de nodos aumenta la cantidad de aristas aumenta aun mas, es decir que el grado promedio de la red aumenta a lo largo del tiempo. Este proceso se denomina "densificación" y responde, adivina adivinador, a una ley de potencias.
+Se quiere ver de qué forma evoluciona la cantidad de aristas de una red en función de la cantidad de nodos. Una suposición es decir que el grado promedio se va a mantener constante a lo largo del tiempo. Esto no funciona así en las redes sociales. A medida que la cantidad de nodos aumenta la cantidad de aristas aumenta aun mas, es decir que el grado promedio de la red aumenta a lo largo del tiempo. Este proceso se denomina "densificación" y responde a una ley de potencias.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/rs-fig-48.png}
-\caption{Cantidad de aristas en función de la cantidad de nodos, escala logarítmica}
+\caption{Cantidad de aristas en función de la cantidad de nodos usando escala logarítmica}
 
 \end{figure}
 
@@ -18347,9 +18328,9 @@ o lo que es igual
 \frac{\log(E(t))}{\log(N(t))} = \text{const}
 \end{myequation}
 
-En donde $\alpha$ es el exponente de densificación. Para la web es $\alpha=1.2$ y para la red de citaciones en papers tenemos $\alpha=1.6$ observemos que en escala logarítmica tenemos una recta casi perfecta lo cual indica que la ley de potencias se cumple casi de forma perfecta. 
+En donde $\alpha$ es el exponente de densificación. Para la web es $\alpha=1.2$ y para la red de citaciones en papers es $\alpha=1.6$. Observar que en escala logarítmica se tiene una recta casi perfecta lo cual indica que la ley de potencias se cumple casi de forma perfecta. 
 
-En general el exponente de densificación es mayor a 1 e inferior a 2. Cuando $\alpha=1$ tenemos una densificación lineal (las redes sociales no funcionan así) y cuando $\alpha=2$ la densificación es cuadrática y el resultado es un grafo fuertemente conexo, las redes sociales tampoco son fuertemente conexas. Por eso el exponente siempre es mayor a 1 y menor a 2.
+En general, el exponente de densificación es mayor a 1 e inferior a 2. Cuando $\alpha=1$ se tiene una densificación lineal (las redes sociales no funcionan así) y cuando $\alpha=2$ la densificación es cuadrática y el resultado es un grafo fuertemente conexo (las redes sociales tampoco son fuertemente conexas). Por eso el exponente siempre es mayor a 1 y menor a 2.
 
 
 \subsection{Diámetro}
@@ -18363,19 +18344,17 @@ La intuición es que a medida que se agregan nodos en una red el diámetro de la
 
 \end{figure}
 
-Esto quiere decir que a medida que la red crece la distancia entre los nodos lentamente disminuye. En primer lugar deberíamos analizar si esto es consecuencia de la densificación. Haciendo el experimento en una red aleatoria usando un exponente de densificación $\alpha=1.3$ observamos que el diámetro en realidad crece a lo largo del tiempo por lo tanto tiene que haber otra explicación.
+Esto quiere decir que a medida que la red crece la distancia entre los nodos lentamente disminuye. En primer lugar se debería analizar si esto es consecuencia de la densificación. Haciendo el experimento en una red aleatoria y usando un exponente de densificación $\alpha=1.3$, se observa que el diámetro en realidad crece a lo largo del tiempo por lo tanto tiene que haber otra explicación, y la explicación está dada por la combinación de la densificación y la forma en la que se distribuye el grado en una red social. Si se compara la evolución del diámetro en una red social y una red aleatoria con igual exponente de densificación e igual distribución del grado entonces el diámetro disminuye exactamente de la misma forma en ambas. 
 
-La explicación está dada por la combinación de la densificación y la forma en la que se distribuye el grado en una red social, si comparamos la evolución del diámetro en una red social y una red aleatoria con igual exponente de densificación e igual distribución del grado entonces el diámetro disminuye exactamente de la misma forma en ambas. 
-
-En conclusión la forma en que se forman los links (preferential attachment) y la densificación son los factores que hacen que el diámetro de las redes sociales disminuya a lo largo del tiempo.
+En conclusión, la forma en que se forman los links (preferential attachment) y la densificación son los factores que hacen que el diámetro de las redes sociales disminuya a lo largo del tiempo.
 
 La densificación es una ley de potencias con exponente menor a 2, por lo tanto su promedio es infinito, esto quiere decir que manteniendo constante el exponente de densificación $\alpha$ el grado promedio crece.
 
 \section{Grafos de Kronecker}
 
-Hemos visto varios modelos de redes que nos permiten reproducir algunas de las características de una red social. En esta sección vamos a intentar desarrollar un modelo generativo que nos permita hacer "crecer" un grafo de forma tal que el mismo tenga características similares a una red social. El modelo que vamos a usar está basado en grafos de Kronecker y consiste en replicar una pequeña estructura recursivamente como si fuera un fractal. La hipótesis es que cada parte de la red se parece a la red misma.
+Se han visto varios modelos de redes que permiten reproducir algunas de las características de una red social. En esta sección se intentará desarrollar un modelo generativo que permita hacer "crecer" un grafo de forma tal que el mismo tenga características similares a una red social. El modelo que se usará está basado en grafos de Kronecker y consiste en replicar una pequeña estructura recursivamente como si fuera un fractal. La hipótesis es que cada parte de la red se parece a la red misma.
 
-Empecemos definiendo una operación fundamental que vamos a usar que el el \textit{producto de Kronecker} entre dos matrices $A$ y $B$:
+Se define una operación fundamental llamada \textit{producto de Kronecker} entre dos matrices $A$ y $B$:
 
 \begin{myequation}
 A_{nxm} \otimes B_{kxl} = \begin{pmatrix}
@@ -18388,9 +18367,7 @@ a_{n1}B & a_{n2}B & ... & a{nm}B\\
 
 El resultado es una matriz de $nk x ml$.
 
-El producto de Kronecker entre dos grafos es el producto de Kronecker entre sus matrices de adyacencias.
-
-Ejemplo:
+El producto de Kronecker entre dos grafos es el producto de Kronecker entre sus matrices de adyacencias. Por ejemplo:
 
 $$\begin{pmatrix}
 1&1&0\\
@@ -18416,9 +18393,9 @@ $$\begin{pmatrix}
 \end{pmatrix}
 $$
 
-Observemos que al multiplicar una matriz de Kronecker por si misma lo que obtenemos es una replicación de la matriz original de acuerdo al patrón de 1s y 0s en la misma. Recomiendo tomar un tiempito para estudiar este resultado y hacer algunos ejemplos mas para poder comprender el funcionamiento de la operación.
+Observar que al multiplicar una matriz de Kronecker por si misma lo que se obtiene es una replicación de la matriz original de acuerdo al patrón de 1s y 0s en la misma. 
 
-Tenemos entonces un proceso recursivo para expandir un grafo, nuestro grafo va a estar formado por:
+Ahora se tiene un proceso recursivo para expandir un grafo, siendo que el grafo estará formado por:
 
 \begin{myequation}
  K_m = K_1 \otimes K_1 \otimes K_1 \otimes .... \otimes K_1 = K_{m-1} \otimes K_1
@@ -18428,20 +18405,20 @@ Tenemos entonces un proceso recursivo para expandir un grafo, nuestro grafo va a
 \centering
 \includegraphics[width=4.5in]{figures/rs-fig-50.png}
 \caption{Grafos de Kronecker}
-
+\label{fig:kronecker_example}
 \end{figure}
 
-Por ejemplo a partir de un cierto grafo generador y su matriz de adyacencias podemos obtener la matriz/grafo que vemos en color azul. 
+Por ejemplo, a partir de un cierto grafo generador y su matriz de adyacencias, se puede obtener la matriz/grafo que se ve en color azul en la figura \ref{fig:kronecker_example}. 
 
 \subsection{Propiedades}
 
-La primera observación importante sobre los grafos de Kronecker es que si tenemos un generador $K_1$ con $N_1$ nodos y $E_1$ aristas entonces el grafo de Kronecker $K_m$ tiene: $N_1^m$ nodos y $E_1^m$ aristas.Es decir que tenemos que la densificación es una ley de potencias (!). El exponente de densificación se puede calcular de la forma:
+La primera observación importante sobre los grafos de Kronecker es que si se tiene un generador $K_1$ con $N_1$ nodos y $E_1$ aristas entonces el grafo de Kronecker $K_m$ tiene: $N_1^m$ nodos y $E_1^m$ aristas. Es decir que la densificación es una ley de potencias. El exponente de densificación se puede calcular de la siguiente forma:
 
 \begin{myequation}
 \alpha = \frac{log(E(t))}{\log(N(t))} = \frac{\log(E_1^t)}{\log(N_1^t)} = \frac{\log(E_1)}{\log(N_1)}
 \end{myequation}
 
-Como sabemos que $E(t)>N(t)$ entonces $\alpha>1$
+Como se sabe que $E(t)>N(t)$ entonces $\alpha>1$
 
 De la misma forma se pueden probar las siguientes propiedades:
 
@@ -18451,13 +18428,9 @@ De la misma forma se pueden probar las siguientes propiedades:
 \item La distribución de los autovalores es una ley de potencias
 \end{itemize}
 
-Estas propiedades no las demostraremos por razones de espacio (?) pero nos sirven para entender que los grafos de Kronecker tienen propiedades muy similares al grafo de una red social.
+\subsection{Grafos de Kronecker estocásticos}
 
-\subsection{Grafos de Kronecker Estocásticos}
-
-En un grafo de Kronecker estocástico la matriz generadora no tiene 1s y 0s sino la probabilidad de cada arista. Llamaremos a la matriz generadora estocástica $\Theta_1$. Al igual que antes calcularemos $\Theta_k$ y luego cada celda de $\Theta$ nos dará la probabilidad de que nuestro grafo tenga cada una de las aristas posibles, en base a estas probabilidades construimos luego nuestro grafo.
-
-Ejemplo:
+En un grafo de Kronecker estocástico la matriz generadora no tiene 1s y 0s sino la probabilidad de cada arista. Se llamará a la matriz generadora estocástica $\Theta_1$. Al igual que antes, se calcula $\Theta_k$ y luego cada celda de $\Theta$ dará la probabilidad de que el grafo tenga cada una de las aristas posibles. En base a estas probabilidades se construye luego el grafo. Por ejemplo:
 
 \begin{myequation}
 \Theta_1 = \begin{pmatrix}
@@ -18475,7 +18448,7 @@ Ejemplo:
 \end{pmatrix}
 \end{myequation}
 
-A partir de esta matriz podemos generar un grafo que cumpla con estas probabilidades por ejemplo:
+A partir de esta matriz se podrá generar un grafo que cumpla con estas probabilidades. Por ejemplo:
 
 \begin{myequation}
 G = \begin{pmatrix}
@@ -18489,32 +18462,28 @@ G = \begin{pmatrix}
 Los grafos de Kronecker estocásticos a partir de una matriz generadora de tipo $\Theta_1 =\begin{pmatrix}a&b\\c&d\\ \end{pmatrix}$  tienen varias propiedades importantes:
 
 \begin{itemize}
-\item el grafo es conexo si $b+c>1$
+\item El grafo es conexo si $b+c>1$
 \item El grafo tiene un componente conexo de tamaño $\Theta(n)$ si: $(a+b)(b+c)>1$
 \item El diámetro es constante si: $b+c>1$
 \end{itemize}
 
 \subsection{Estimación de la matriz generadora}
 
-Queremos ahora resolver el problema de dado el grafo de una red social calcular cuál es la matriz generadora de forma tal que el grafo de Kronecker sea lo mas parecido posible al grafo real. Es decir queremos maximizar $P(G|\Theta)$ usando, por ejemplo, gradient descent.
+Se quiere ahora resolver el siguiente problema: dado el grafo de una red social, calcular cuál es la matriz generadora de forma tal que el grafo de Kronecker sea lo mas parecido posible al grafo real. Es decir, se quiere maximizar $P(G|\Theta)$ usando, por ejemplo, gradient descent.
 
-Podemos calcular $P(G|\Theta)$ de la forma:
+$P(G|\Theta)$ se puede calcular de la forma:
 
 \begin{myequation}
 P(G|\Theta) = \prod_{(u,v)\in G} \Theta_k[u,v] \prod_{(u,v) \notin G} (1-\Theta_k[u,v])
 \end{myequation}
 
-Es decir que para las aristas que realmente pertenecen al grafo queremos que su probabilidad en $\Theta_k$ sea cercana a 1 y para las aristas que no están en el grafo queremos que su probabilidad sea cercana a cero.
+Es decir que para las aristas que realmente pertenecen al grafo se quiere que su probabilidad en $\Theta_k$ sea cercana a 1 y para las aristas que no están en el grafo se quiere que su probabilidad sea cercana a cero. Un serio problema es que no se sabe cuál es la correspondencia entre los nodos en la matriz de Kronecker y la matriz de adyacencias real del grafo, y hay un total de $O(n!)$ correspondencias posibles. Esto no es nada bueno.
 
-Un serio problema es que no sabemos cuál es la correspondencia entre los nodos en la matriz de Kronecker y la matriz de adyacencias real del grafo, y hay un total de $O(n!)$ correspondencias posibles. Esto no es nada bueno.
-
-Para resolver este problema vamos a aplicar una variante del algoritmo Hill-Climbing que vimos en el capítulo 1, hace ya tanto tiempo.
-
-Empezamos con una permutación al azar de los $N$ nodos que define una correspondencia, por ejemplo [1,3,4,2] define que el nodo 1 del grafo es el primer nodo en la matriz de Kronecker, el nodo 2 del grafo es el cuarto nodo en la matriz de Kronecker, etc. A partir de esta permutación tomamos dos nodos al azar y los intercambiamos, calculamos $P(G|\Theta)$ si el resultado mejora entonces mantenemos el cambio y sino lo deshacemos. Esto lo repetimos hasta que no mejore la semejanza. Podemos repetir el proceso algunas veces, dependiendo del tiempo que querramos dedicarle, para evitar máximos locales.
+Para resolver este problema se puede aplicar una variante del algoritmo Hill-Climbing. Se comienza con una permutación al azar de los $N$ nodos que define una correspondencia: por ejemplo [1,3,4,2] define que el nodo 1 del grafo es el primer nodo en la matriz de Kronecker, el nodo 2 del grafo es el cuarto nodo en la matriz de Kronecker, etc. A partir de esta permutación, se intercambian dos nodos al azar y se calcula $P(G|\Theta)$. Si el resultado mejora entonces se mantiene el cambio y sino lo deshacemos. Esto se repite hasta que no mejore la semejanza. Se puede repetir el proceso algunas veces para evitar máximos locales.
 
 \subsection{Generando Redes Sociales con Grafos de Kronecker}
 
-El experimento que queremos hacer es dado el grafo de una red social $G$ estimar la matriz generadora de Kronecker $\Theta_1$ y luego en base a esta matriz generar un grafo de Kronecker artificial $K$. Finalmente queremos comparar las propiedades de $G$ y$K$.
+El experimento que se quiere hacer es: dado el grafo de una red social $G$ estimar la matriz generadora de Kronecker $\Theta_1$ y luego en base a esta matriz generar un grafo de Kronecker artificial $K$. Finalmente se quieren comparar las propiedades de $G$ y$K$.
 
 \begin{figure}[!htb]
 \centering
@@ -18523,7 +18492,11 @@ El experimento que queremos hacer es dado el grafo de una red social $G$ estimar
 
 \end{figure}
 
-Por ejemplo para la red social de Epinions la matriz generadora es $\Theta_1=\begin{pmatrix}0.99&0.54\\0.49&0.13\\ \end{pmatrix}$ y vemos que la mayoría de las propiedades del grafo real son prácticamente iguales en el grafo de Kronecker(!!). Por lo tanto hemos mostrado que una red social puede caracterizarse como la repetición recursiva de una estructura muy simple, queremos ver que podemos aprender a partir de esta estructura:
+Por ejemplo, para la red social de Epinions la matriz generadora es la siguiente:
+
+ $\Theta_1=\begin{pmatrix}0.99&0.54\\0.49&0.13\\ \end{pmatrix}$
+ 
+Se puede ver en la figura \ref{fig:kronecker_example_2} que la mayoría de las propiedades del grafo real son prácticamente iguales en el grafo de Kronecker. Por lo tanto, se ha mostrado que una red social puede caracterizarse como la repetición recursiva de una estructura muy simple. 
 
 \begin{myequation}
 \Theta_1 = \begin{pmatrix}
@@ -18536,11 +18509,10 @@ c&d\\
 \centering
 \includegraphics[width=5.5in]{figures/rs-fig-52.png}
 \caption{Grafos de Kronecker}
-
+\label{fig:kronecker_example_2}
 \end{figure}
 
-Podemos ver que diferentes redes nos van a dar diferentes matrices generadoras. La estructura de una red la podemos caracterizar como una cebolla en donde cada capa de la misma se descompone en un núcleo y una periferia, recordemos que esta periferia es donde están las comunidades con mejor conductancia. Los valores de $a,b,c$ y $d$ nos permiten estudiar de que forma se va armando la estructura de la red y relacionarlos con la forma del núcleo y la periferia en la estructura real.
-
+Notar que diferentes redes van a dar diferentes matrices generadoras. La estructura de una red se la puede caracterizar como una cebolla en donde cada capa de la misma se descompone en un núcleo y una periferia (recordar que esta periferia es donde están las comunidades con mejor conductancia). Los valores de $a,b,c$ y $d$ permiten estudiar de qué forma se va armando la estructura de la red y relacionarlos con la forma del núcleo y la periferia en la estructura real.
 
 
 \chapter{Análisis Topológico de Datos}
