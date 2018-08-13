@@ -13144,34 +13144,34 @@ SVM es un pariente cercano de KNN porque se basa en la semejanza (kernel) entre 
 
 \epigraph{Figures don't lie but liers do figure.}{- Mark Twain}
 
-El proceso que conocemos como \textit{clustering} es el ejemplo mas claro de aprendizaje no-supervisado. Dado un set de datos queremos agrupar los datos en \textit{clusters} de forma tal que todos los datos dentro de un mismo cluster sean similares entre sí pero diferentes a los de cualquier otro cluster. Algunos estudios sugieren que esta es una forma de aprendizaje universal y que es la forma principal de aprendizaje del cerebro humano, mediante la asociación de objetos aprendemos su significado de la misma forma que un niño es capaz de determinar que cosas se pueden comer y que cosas sirven para jugar aun al verlas por primera vez. 
+El proceso que se conoce como \textit{clustering} es el ejemplo mas claro de aprendizaje no supervisado\footnote{En el aprendizaje supervisado, los datos no requieren ser etiquetados. Es decir, no se necesita ningún conocimiento a priori como sí se necesita por ejemplo en tareas de clasificación}. Dado un set de datos se quiere agrupar los datos en \textit{clusters} de forma tal que todos los datos dentro de un mismo cluster sean similares entre sí pero diferentes a los de cualquier otro cluster. Algunos estudios sugieren que esta es una forma de aprendizaje universal y que es la forma principal de aprendizaje del cerebro humano puesto que mediante la asociación de objetos se puede aprender su significado de la misma forma que un niño es capaz de determinar qué cosas se pueden comer y qué cosas sirven para jugar aun al verlas por primera vez. 
 
-El aprendizaje no-supervisado no necesita saber a que clase pertenece cada objeto, es decir que solo necesita los objetos mismos. En el mundo real la gran mayoría de los datos que podemos recolectar son de este tipo, no tienen \textit{labels}. 
+Los algoritmos de clustering son importantes en todo tipo de aplicaciones. Por ejemplo, un supermercado o tienda online puede agrupar productos que se suelen vender juntos o enviarnos recomendaciones de productos similares a los que compramos. Podemos agrupar música y luego encontrar temas similares a los que nos gustan analizando de qué clusters provienen esos temas. Podemos reconocer imágenes u objetos, entre otras cosas. 
 
-Los algoritmos de clustering son importantes en todo tipo de aplicaciones, por ejemplo un supermercado o tienda online puede agrupar productos que se suelen vender juntos o enviarnos recomendaciones de productos similares a los que compramos. Podemos agrupar música y luego encontrar temas similares a los que nos gustan analizando de que clusters provienen esos temas. Podemos reconocer imágenes u objetos, etc. 
+Para algunos autores el aprendizaje no supervisado es el área que mas va a necesitarse en el futuro, estos algoritmos son los que mas datos van a tener en el futuro por poder trabajar sin necesidad de labels.
 
-Para algunos autores el aprendizaje no-supervisado es el área que mas va a necesitarse en el futuro, estos algoritmos son los que mas datos van a tener en el futuro por poder trabajar sin necesidad de labels, si los datos son el nuevo petróleo estos algoritmos son las refinerías. Los algoritmos de clustering están agazapados, esperando que llegue su gran momento para dominar el mundo.
+En las siguientes secciones se desarrollarán distintos algoritmos de clustering.
 
 \section{Clustering Jerárquico}
 
-El método de clustering jerárquico, también llamado aglomerativo es uno de los algoritmos de clustering más importantes ya que genera una descomposición jerárquica del set de datos creando clusters desde $k=1$ hasta $m$ es decir la cantidad de puntos de nuestro set de datos. Es útil tanto como herramienta de clustering como así también como instrumento para el análisis exploratorio de los datos ya que tanto la descomposición creada como su representación gráfica aportan información que ayuda en gran medida a entender los datos. El gran problema del clustering jerárquico es su eficiencia para grandes volúmenes de datos, tema del cual nos ocuparemos más adelante.
+El método de clustering jerárquico, también llamado clustering aglomerativo, es uno de los algoritmos de clustering más importantes ya que genera una descomposición jerárquica del set de datos creando clusters desde $k=1$ hasta $m$, siendo $m$ la cantidad de puntos del set de datos. Es útil tanto como herramienta de clustering como así también como instrumento para el análisis exploratorio de los datos ya que tanto la descomposición creada como su representación gráfica aportan información que ayuda en gran medida a entender los datos. El gran problema del clustering jerárquico es su eficiencia para grandes volúmenes de datos.
 
-El algoritmo en sí es extremadamente sencillo, comenzamos suponiendo que cada punto es un cluster es decir que tenemos $m$ clusters inicialmente. Luego en cada paso tomamos los dos clusters más cercanos entre sí y los unimos en un nuevo cluster. Este proceso se repite hasta que tenemos un único cluster. El paralelo con los códigos de Huffman es evidente. 
+El algoritmo en sí es extremadamente sencillo. Comienza suponiendo que cada punto es un cluster. En consecuencia, en el primer paso hay $m$ clusters. Luego, en cada paso, se toman los dos clusters más cercanos entre sí y se los une en un nuevo cluster. Este proceso se repite hasta que queda un único cluster. Recordando la unidad de compresión de datos, este algoritmo es el dual a los códigos de Huffman.
 
-Hay dos cuestiones importantes que tenemos que definir para poner en marcha el algoritmo:
+Dicho esto, hay dos cuestiones importantes que es necesario definir para poner en marcha el algoritmo:
 
 \begin{itemize}
-\item Que distancia usar
-\item Como calcular la distancia entre dos clusters
+\item Distancia a utilizar
+\item Forma de calcular la distancia entre clusters
 \end{itemize}
 
-Sobre las distancias ya hemos hablado a lo largo de varios capítulos, al igual que en KNN tenemos que elegir la métrica que mejor se ajuste a nuestro set de datos. 
+La distancia a utilizar entre dos puntos puede ser cualquier que se ajuste a la naturaleza del set de datos. Por ejemplo, si son puntos en el plano se puede utilizar distancia euclídea. Si fueran archivos, se podría usar la distancia de Jaccard.
+
+El punto interesante es entender cómo calcular la distancia entre dos clusters.
 
 \subsection{Distancia Entre Clusters}
 
-En el primer paso comparamos los datos todos contra todos y elegimos los dos objetos mas similares. Tenemos ahora $m-1$ clusters, 1 cluster de tamaño 2 y $m-1$ clusters de tamaño 1. En el paso siguiente hay que volver a elegir los dos clusters mas cercanos pero ahora no alcanza con comparar item a item porque uno de nuestros clusters tiene mas de un ítem. Necesitamos una forma de medir la distancia entre dos \textit{grupos} de ítems.
-
-Las opciones son:
+En el primer paso del algoritmo, se comparan todos los datos contra todos y se eligen los dos objetos mas similares y en consecuencia se tendrán $m-1$ clusters de los cuales uno de ellos será de tamaño 2 y los $m-1$ restantes serán de tamaño 1. En el paso siguiente hay que volver a elegir los dos clusters mas cercanos pero ahora no alcanza con comparar punto a punto porque uno de los clusters tiene mas de un punto. Se necesita entonces una forma de medir la distancia entre dos \textit{grupos} de puntos, y para ello se sugieren las siguientes opciones:
 
 \begin{itemize}
 \item La distancia mínima entre dos puntos de cada cluster
@@ -13181,20 +13181,20 @@ Las opciones son:
 \item El método de Ward \cite{Ward}
 \end{itemize}
 
-\subsection{Encontrando la Cantidad de Clusters}
+\subsection{Encontrando la cantidad de Clusters}
 
-Veamos ahora de que forma podemos usar clustering jerárquico para determinar la cantidad de clusters que hay en nuestro set de datos. Vamos a usar el siguiente ejemplo en el plano con la distancia euclideana.
+Entender qué cantidad de clusters elegir no es una tarea trivial. Para ello, se analizará un ejemplo como el que se muestra en la figura \ref{fig:clustering_example}
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/hclus-fig-1.png}
 \caption{Puntos para Clustering Jerárquico}
-
+\label{fig:clustering_example}
 \end{figure}
 
-Aplicamos el algoritmo completo, es decir hasta que nos queda un único cluster con todos los puntos. El resultado es una lista de que clusters debemos unir en cada paso, por ejemplo si en el primer paso unimos el punto 100 y el 121 la primera fila de nuestra lista es (100,121) y a partir de ahora existe el cluster $m+1$ que representa a estos dos puntos. 
+Al aplicar el algoritmo completo (es decir, hasta que queda un único cluster con todos los puntos) se obtiene como resultado una lista que indica qué clusters debemos unir en cada paso. Por ejemplo, si en el primer paso se une el punto 100 con el 121 entonces la primera fila de la lista será (100,121) y a partir de ahora existe el cluster $m+1$ que representa a estos dos puntos. 
 
-Ejemplo: Si tenemos 5 puntos y la siguiente lista:
+Un sencillo ejemplo es el de la siguiente lista que surgió de aplicar clustering jerárquico a un set de 5 puntos. En el primer paso, se une el punto 1 con el 3 indicado como (1,3) formando el cluster 6. Luego, en el segundo paso, el cluster 6 se une con el punto 5 y esto se entiende como que se forma el cluster 7 formado como ((1,3),5). En el siguiente paso, el punto 2 se une con el 4 formando el cluster 8 como (2,4). En el último paso, se une el cluster 7 y 8 formando el cluster 9 como (((1,3),5),(2,4))
 
 \begin{verbatim}
 1 3
@@ -13203,9 +13203,8 @@ Ejemplo: Si tenemos 5 puntos y la siguiente lista:
 7 8
 \end{verbatim}
 
-Unimos el punto 1 y el 3 en el cluster 6 (los puntos son 5) el cluster 6 es (1,3). Luego unimos el cluster 6 y el 5 en el cluster 7 (1,3,5) luego el cluster 2 y 4 en el cluster 8 (2,4) finalmente el cluster 7 y el 8 (1,3,5,2,4).
 
-En cada paso podemos indicar la distancia entre los clusters que sabemos es la mínima de todas las posibles distancias entre clusters. Por ejemplo:
+A su vez, en cada paso se puede indicar la distancia entre los clusters. Suponiendo en este ejemplo que se utiliza la distancia mínima entre dos puntos de cada cluster, entonces la lista podría quedar de la siguiente forma:
 
 \begin{verbatim}
 1 3 2
@@ -13214,30 +13213,30 @@ En cada paso podemos indicar la distancia entre los clusters que sabemos es la m
 7 8 12
 \end{verbatim}
 
-Podemos graficar la distancia para nuestro set de 135 puntos:
+Siguiendo con el ejemplo de la figura \ref{fig:clustering_example}, se aplica el algoritmo y luego en cada paso se puede graficar cual fue la distancia entre los dos clusters que se unieron tal como se muestra en la figura \ref{fig:clustering_distances}.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/hclus-fig-2.png}
 \caption{Distancias al hacer clustering Jerárquico}
-
+\label{fig:clustering_distances}
 \end{figure}
 
-Como podemos ver en cada paso la distancia es cada vez mayor, esta información es valiosa.
-Podemos por ejemplo discretizar las distancias en una cierta cantidad de “buckets” por ejemplo 20 en nuestro ejemplo de 135 puntos. Una vez que hicimos esto podemos encontrar el primer "hueco" es decir el primer bucket que no contiene ninguna distancia y esto nos da el primer "gap" o salto de distancias. 
+Como se puede ver, en cada paso la distancia es cada vez mayor, esta información es valiosa.
+Se podría discretizar las distancias en una cierta cantidad de “buckets” (podría ser 20 en este ejemplo) de 135 puntos. Una vez que se hace esto se puede encontrar el primer bucket que no contiene ninguna distancia y esto da el primer "gap" o salto de distancias. 
 
-En el caso de nuestros 135 puntos el valor es 4 lo cual nos indica que, teóricamente, tenemos 4 clusters en nuestro set de datos. Esto coincide con lo que vemos visualmente. El método no es infalible pero puede usarse como una herramienta ya que no necesita absolutamente ningún parámetro.
+En el caso de estos 135 puntos el valor es 4 lo cual indica que teóricamente hay 4 clusters en el set de datos. Esto coincide con lo que se visualmente. El método no es infalible pero puede usarse como una herramienta ya que no necesita absolutamente ningún parámetro.
 
-Podemos ver ahora que resultado tendríamos si cortamos el algoritmo en una cierta cantidad de clusters fija.
+La figura \ref{fig:clustering_test_k} muestra los resultados que se obtienen si se corta el algoritmo en una cierta cantidad de clusters fija.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/hclus-fig-3.png}
 \caption{Probando la cantidad de clusters}
-
+\label{fig:clustering_test_k}
 \end{figure}
 
-Notemos que si bien hay 4 clusters “visibles” en nuestro set de datos recién llegamos al resultado que queremos con 9 clusters (k=9) esto se debe por un lado a la forma en la cual calculamos la distancia entre clusters (en este caso por default) y también a que el método es sensible a los outliers, es decir datos que no pertenecen a ningún cluster. 
+Notar que si bien hay 4 clusters “visibles” en el set de datos recién se llega al resultado que queremos con 9 clusters (k=9) y esto se debe por un lado a la forma en la cual se calcula la distancia entre clusters (en este caso por default) y también a que el método es sensible a los outliers\footnote{Los outliers son datos que no pertenecen a ningun cluster o datos "defectuosos"}.
 
 \subsection{Dendrogramas}
 
@@ -13245,70 +13244,63 @@ Notemos que si bien hay 4 clusters “visibles” en nuestro set de datos recié
 \centering
 \includegraphics[width=3.5in]{figures/hclus-fig-4.png}
 \caption{Dendrograma}
-
+\label{fig:dendrograma}
 \end{figure}
 
-A partir de los datos generados por la función de clustering jerárquico podemos generar un diagrama que nos muestre en cada paso que clusters se han unido y con qué distancia. Este diagrama se denomina “dendrograma”.
+A partir de los datos generados por la función de clustering jerárquico, se puede generar un diagrama que nos muestre en cada paso qué clusters se han unido y con qué distancia. Este diagrama se lo conoce como \textit{dendrograma}.
 
-La altura de las líneas representa la distancia a la cual estaban los puntos.Podemos usar este diagrama para ver que $k=4$ es mejor que $k=3$ ya que estaríamos cortando distancias más grandes. Esto nos da una idea aproximada de cuáles pueden ser los valores de k más adecuados para nuestro set de datos.
+La altura de las líneas representa la distancia a la cual estaban los puntos. Por ejemplo, usando la figura \ref{fig:dendrograma}, se puede ver que $k=4$ es mejor que $k=3$ ya que se estarían cortando distancias más grandes. Esto da una idea aproximada de cuáles pueden ser los valores de k más adecuados para nuestro set de datos.
 
 \subsection{Performance}
 
-Está claro que el método de clustering jerárquico es extremadamente poderoso, tenemos todas las soluciones de clustering posibles para diferentes valores de $k$ al alcance de la mano. Y además tenemos información muy valiosa en la descomposición jerárquica del set de datos.
+Está claro que el método de clustering jerárquico es extremadamente poderoso puesto que se tienen todas las soluciones de clustering posibles para diferentes valores de $k$ al alcance de la mano. Además, se tiene información muy valiosa en la descomposición jerárquica del set de datos.
 
-El problema es cómo programar el algoritmo. 
+El problema es cómo programar el algoritmo. Es necesario en cada paso encontrar los clusters que están a distancia mínima, esto por fuerza bruta implica recorrer los $n$ clusters que hay y por lo tanto el algoritmo es de orden cuadrático (esto sin considerar que la distancia entre clusters también puede ser costosa según el método elegido).
 
-Es necesario en cada paso encontrar los clusters que están a distancia mínima, esto por fuerza bruta implica recorrer los “n” clusters que tenemos y por lo tanto nuestro algoritmo es de orden cuadrático. Y esto sin considerar que la distancia entre clusters también puede ser costosa según el método elegido.
+La solución pasa por aproximar el problema de los clusters más cercanos en cada etapa, en general se puede usar LSH como un algoritmo para evitar tener que calcular la distancia de todos contra todos. De esta forma, por cada cluster simplemente se busca el más cercano entre la lista de candidatos devuelto por LSH. Esto puede usarse calculando la distancia entre clusters como la distancia entre centroides. Cada vez que se crea un nuevo cluster se promedian sus puntos y este centroide será el punto que se hasheará con LSH insertándolo en la estructura de datos correspondiente. Luego por cada punto se calcula el más cercano y se obtiene el par que de distancia mínima. La gran ventaja de usar LSH es que buscar el cluster más cercano a uno dado es O(1) en lugar de O(n).
 
-La solución pasa por aproximar el problema de los clusters más cercanos en cada etapa, en general se puede usar LSH como un algoritmo para evitar tener que calcular la distancia de todos contra todos. De esta forma por cada cluster simplemente buscamos el más cercano entre la lista de candidatos devuelto por LSH. Esto puede usarse calculando la distancia entre clusters como la distancia entre centroides. Cada vez que creamos un nuevo cluster promediamos sus puntos y este centroide sera el punto que hasheamos con LSH insertándolo en nuestra estructura de datos. Luego por cada punto calculamos el más cercano y nos quedamos el par que nos de distancia mínima. La gran ventaja de usar LSH es que buscar el cluster más cercano a uno dado es O(1) en lugar de O(n).
-
-Una solución por fuerza bruta de clustering jerárquico puede ser mejor que K-Means, una solución aproximada usando LSH en general puede ser mejor, igual o peor que K-Means y por eso es que K-Means suele ser el método de clustering más usado. De todas formas para pocos puntos o como método exploratorio es fundamental conocer la herramienta de clustering jerárquico. Un dendrograma, el plot de distancias o el método para encontrar “k” pueden resultar fundamentales para el análisis de varios conjuntos de datos.
+Una solución por fuerza bruta de clustering jerárquico puede ser mejor que K-Means, una solución aproximada usando LSH en general puede ser mejor, igual o peor que K-Means y por eso es que K-Means suele ser el método de clustering más usado. De todas formas, para pocos puntos o como método exploratorio es fundamental conocer la herramienta de clustering jerárquico. Un dendrograma, el plot de distancias o el método para encontrar $k$ pueden resultar fundamentales para el análisis de varios conjuntos de datos.
 
 \section{K-Means}
 
-K-Means es el mas importante de los algoritmos de clustering, no solo como algoritmo de clustering sino como parte de otros algoritmos. Es un algoritmo que nunca funciona muy mal y a veces funciona muy bien lo cual lo hace una excelente herramienta de propósito general. Si agregamos que no necesita de ningún hiper parámetro excepto la cantidad de clusters podemos comprender porque es tan popular. Vamos a empezar planteando el objetivo de K-Means y luego el algoritmo y sus diferentes variantes y aplicaciones. Es realmente sorprendente la cantidad de usos impensados que podemos tener para un algoritmo tan sencillo.
+K-Means es uno de los mas importante de los algoritmos de clustering, no solo como algoritmo de clustering sino como parte de otros algoritmos. Es un algoritmo que nunca funciona muy mal y a veces funciona muy bien lo cual lo hace una excelente herramienta de propósito general. Si se agrega que no necesita de ningún hiper parámetro excepto la cantidad de clusters podemos comprender por qué es tan popular. Se comenzará esta sección planteando el objetivo de K-Means y luego el algoritmo con sus diferentes variantes y aplicaciones.
 
-\subsection{El Problema General}
+\subsection{El Problema general}
 
-El problema de clustering general recibe una serie de $m$ puntos en $n$ dimensiones. El objetivo es encontrar cómo repartir los $m$ puntos en $k$ clusters de la mejor forma posible.En K-Means la cantidad de clusters $k$ es siempre un hiper-parámetro, luego hablaremos de como encontrar el óptimo.
+El problema de clustering general recibe una serie de $m$ puntos en $n$ dimensiones. El objetivo es encontrar cómo repartir los $m$ puntos en $k$ clusters de la mejor forma posible. En K-Means, la cantidad de clusters $k$ es siempre un hiper-parámetro.
 
-Es necesario, entonces, aclarar que queremos decir con “la mejor forma posible”. Podemos definir a cada cluster a partir de su centro (centroide) en cuyo caso la mejor distribución posible es aquella que minimiza la distancia entre cada punto y el centroide que se le ha asignado. Vamos a trabajar aquí con la distancia euclidiana ya que es la que se utiliza con mayor frecuencia en  K-means.
+Es necesario aclarar qué significa “la mejor forma posible”. Se puede definir a cada cluster a partir de su centro (centroide) en cuyo caso la mejor distribución posible es aquella que minimiza la distancia entre cada punto y el centroide que se le ha asignado. 
 
 \begin{myequation}
 \min \sum_{i=1}^m ||x_i - c_{idx(i)}||^2
+\label{eq:kmeans}
 \end{myequation}
 
-Esta fórmula calcula la distancia desde cada punto de nuestro set de datos hasta el centroide que le corresponde. $idx(i)$ es una función que nos dice el número de centroide (cluster) asignado al punto $i$ y $c_j$ es la posición del centroide $j$. Los centroides tienen igual cantidad de dimensiones que los puntos y pueden o no coincidir con puntos de los datos. Cuando un centroide es también un punto de los datos lo llamamos  “clusteroide”, en general no vamos a pedir que los centroides sean también puntos sino que vamos a permitir que tomen cualquier posición dentro del espacio de los datos.
+La fórmula \ref{eq:kmeans} calcula la distancia desde cada punto del set de datos hasta el centroide que le corresponde. $idx(i)$ es una función que indica el número de centroide (cluster) asignado al punto $i$ y $c_j$ es la posición del centroide $j$. Los centroides tienen igual cantidad de dimensiones que los puntos y pueden o no coincidir con puntos de los datos. Un centroide que es también un punto de los datos se lo llama \textit{clusteroid}. En general, no se va a pedir que los centroides sean también puntos sino que se permite que tomen cualquier posición dentro del espacio de los datos.
 
-Es importante entender esta función para comprender el problema genérico de clustering. 
-
-Sabemos que hay $k$ centroides, cada uno de estos centroides puede estar en cualquier punto de nuestro espacio, el objetivo es encontrar la posición óptima para nuestros centroides de forma tal de minimizar la distancia total entre los puntos y los centroides que se le han asignado. Es evidente que cada punto debe estar asignado a su centroide más cercano para minimizar la distancia por lo que el problema puede resumirse a encontrar la posición óptima para los $k$ centroides.
-
-Si tenemos un conjunto de puntos en dos dimensiones y un solo centroide ($k=1$) es evidente que la función de distorsión va a tener un único mínimo ya que hay una sola posición para el centroide que minimiza la suma de las distancias al cuadrado entre el centroide y todos los puntos.
+Es importante entender esta función para comprender el problema genérico de clustering. Se sabe que hay $k$ centroides y que cada uno de estos centroides puede estar en cualquier punto del espacio. El objetivo es encontrar la posición óptima para estos centroides de forma tal de minimizar la distancia total entre los puntos y los centroides que se le han asignado. Es evidente que cada punto debe estar asignado a su centroide más cercano para minimizar la distancia por lo que el problema puede resumirse a encontrar la posición óptima para los $k$ centroides. Si se tiene un conjunto de puntos en dos dimensiones y un solo centroide ($k=1$) es evidente que la función de distorsión va a tener un único mínimo ya que hay una sola posición para el centroide que minimiza la suma de las distancias al cuadrado entre el centroide y todos los puntos.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/kmeans-fig-1.png}
 \caption{Función costo de K-Means para $k=1$}
-
+\label{fig:k_means_cost_1}
 \end{figure}
 
-Buscar la posición óptima del centroide en este caso es una tarea sencilla. Lamentablemente k=1 es el único caso en el cual el problema de clustering genérico es sencillo, apenas pasamos a k=2 el problema cobra vida y se convierte en un monstruo.
-
-Usando $k=2$ y el mismo conjunto de puntos anterior graficamos la función de distorsión en base a la posición de los centroides. Cada posición posible $(x,y)$ la indexamos con un número de $1 a N$ de forma tal de poder graficar la función en tres dimensiones:
+Buscar la posición óptima del centroide en este caso es una tarea sencilla. Lamentablemente, $k=1$ es el único caso en el cual el problema de clustering genérico es sencillo. A partir de $k=2$, el problema se vuelve realmente complejo. Usando $k=2$ y el mismo conjunto de puntos anterior se grafica la función de distorsión en base a la posición de los centroides como se muestra en la figura \ref{fig:k_means_cost_2}. A cada posición posible $(x,y)$ se la indexa con un número de $1$ a $N$ de forma tal de poder graficar la función en tres dimensiones.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/kmeans-fig-2.png}
 \caption{Función costo de K-Means para $k=2$}
-
+\label{fig:k_means_cost_2}
 \end{figure}
 
-Como podemos ver la función de distorsión tiene ahora muchísimos mínimos locales, esto dificulta muchísimo construir algoritmos que encuentren el mínimo global. De la misma forma podemos observar algo positivo que es que los mínimos locales son muy cercanos al mínimo global por lo que un algoritmo que sea localmente óptimo no está lejos de ser globalmente óptimo. Esta propiedad es la que aprovechó Lloyd para desarrollar el algoritmo K-Means. Antes de ver este algoritmo cerremos el problema de clustering general. El problema de K-Means en general es NP-Hard a partir de $k=2$ en cualquier espacio euclideano a partir de $\mathcal{R}^2$.
+Como se puede ver en \ref{fig:k_means_cost_2}, la función de distorsión tiene ahora muchos mínimos locales y esto dificulta muchísimo construir algoritmos que encuentren el mínimo global. De la misma forma, se puede observar algo positivo que es que los mínimos locales son muy cercanos al mínimo global por lo que un algoritmo que sea localmente óptimo no está lejos de ser globalmente óptimo. Esta propiedad es la que aprovechó Lloyd para desarrollar el algoritmo K-Means. El problema de K-Means en general es NP-Hard a partir de $k=2$ en cualquier espacio euclideano a partir de $\mathcal{R}^2$.
 
-\subsection{El Algoritmo de Lloyd (conocido como K-Means)}
+\subsection{El Algoritmo de Lloyd}
 
-El algoritmo de Lloyd, que es el que conocemos como K-Means, es una forma de aproximar el problema de clustering general. Una de sus grandes virtudes es que se trata de un algoritmo muy sencillo que consta de solamente un ciclo y dos operaciones.
+El algoritmo de Lloyd, que es el que se conoce como K-Means, es una forma de aproximar el problema de clustering general. Una de sus grandes virtudes es que se trata de un algoritmo muy sencillo que consta de solamente un ciclo y dos operaciones tal como se muestra en el algoritmo \ref{alg:kmeans}
 
 \begin{algorithm}[]
 Inicializar Centroides\\
@@ -13317,74 +13309,65 @@ Inicializar Centroides\\
  recalcular cada centroide como el promedio de todos sus puntos \\
 }
 \caption{Kmeans}
+\label{alg:kmeans}
 \end{algorithm}
 
-Lo que hacemos es simplemente inicializar $k$ centroides al azar, por ejemplo eligiendo $k$ puntos del set de datos. Luego asignamos a cada punto a su centroide mas cercano. Re-calculamos los centroides como el promedio de todos sus puntos y repetimos el proceso hasta que los centroides convergen.
+Lo que se hace es simplemente inicializar $k$ centroides al azar, por ejemplo eligiendo $k$ puntos del set de datos (recordar que si el centroide es un punto del set de datos entonces es un clusteroide). Luego se asigna cada punto a su centroide mas cercano. Luego, se recalculan los centroides como el promedio de todos sus puntos y se repite el proceso hasta que los centroides convergen.
 
-K-Means pertenece a la familia de algoritmos EM (Expectation Maximization), partiendo de una cierta posición para los centroides la fase “E” (expectation) asigna a cada punto el centroide mas cercano. La fase “M” (maximization) recalcula cada centroide de forma tal de minimizar la distancia desde el centroide a los puntos asignados al mismo.
+K-Means pertenece a la familia de algoritmos EM(Expectation Maximization), partiendo de una cierta posición para los centroides la fase “E” (expectation) asigna a cada punto el centroide mas cercano. La fase “M” (maximization) recalcula cada centroide de forma tal de minimizar la distancia desde el centroide a los puntos asignados al mismo.
 
-La convergencia puede verificarse mediante la diferencia entre los centroides entre el paso anterior y el actual, cuando los centroides prácticamente ya no cambian de posición declaramos la convergencia del algoritmo.
+La convergencia puede verificarse mediante la diferencia entre los centroides entre el paso anterior y el actual. Cuando los centroides prácticamente ya no cambian de posición se declara la convergencia del algoritmo.
 
-Podemos garantizar que K-Means converge si analizamos la función de distorsión o costo:
+Se puede garantizar que K-Means converge al analizar la función de distorsión o costo que se muestra en la ecuación \ref{eq:k_means_convergence}
 
 \begin{myequation}
 J(c,idx) = \sum_{i=1}^m ||x_i  - c_{idx(i)}||^2
+\label{eq:k_means_convergence}
 \end{myequation}
+
 En la fase “E” los centroides están fijos y al asignarle a cada punto su centroide más cercano J disminuye. En la fase “M” se asigna a cada centroide el promedio de sus puntos y eso también hace que J disminuya. Por lo tanto J es monótona y decreciente lo cual garantiza su convergencia a un mínimo local.
 
-Veamos un ejemplo:
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/kmeans-fig-3.png}
 \caption{Ejemplo K-Means}
-
+\label{fig:k_means_example}
 \end{figure}
-
-Como podemos ver hay unos 4 clusters en nuestros datos y varios puntos aislados. Vamos a probar entonces correr K-Means con K=4. Los centroides los vamos a inicializar al azar dentro del rango [-3..4,-2..5].
-
-A continuación mostramos dos ejecuciones de K-Means inicializando los centroides al azar.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/kmeans-fig-4.png}
 \caption{Ejemplo K-Means}
-
+\label{fig:k_means_example_2}
 \end{figure}
 
-Las líneas muestran el movimiento de los centroides desde su posición inicial (random) hasta la posición en la cual el algoritmo converge. Podemos ver que en la primera ejecución (izquierda) K-Means detecta bien el cluster amarillo y el verde. Pero el cluster rojo es en realidad dos clusters y el azul reúne a un conjunto de puntos que no están asociados. En la segunda ejecución (derecha) el algoritmo detecta correctamente los cuatro clusters que queríamos identificar.
+La figura \ref{fig:k_means_example} muestra un ejemplo donde hay 4 clusters y varios puntos aislados. Al correr el algoritmo con $k=4$ e inicializando los centroides al azar se obtiene lo que se muestra en la figura \ref{fig:k_means_example_2}. Las líneas muestran el movimiento de los centroides desde su posición inicial (random) hasta la posición en la cual el algoritmo converge. Se puede ver que en la primera ejecución (izquierda) K-Means detecta bien el cluster amarillo y el verde pero el cluster rojo es en realidad dos clusters y el azul reúne a un conjunto de puntos que no están asociados. En la segunda ejecución (derecha) el algoritmo detecta correctamente los cuatro clusters que se querían identificar.
 
-La conclusión es muy simple: al ser un algoritmo que encuentra un mínimo local K-means es muy sensible a la posición inicial de los centroides.
+La conclusión es muy simple: al ser un algoritmo que encuentra un mínimo local K-means es muy sensible a la posición inicial de los centroides. Una posible solución para no caer en un mínimo local malo es realizar varias ejecuciones de K-means, idealmente en paralelo, y computar la función de distorsión $J$ para cada resultado final quedándonos con la mínima. Notemos que esto es una aplicación directa de un algoritmo tipo Montecarlo en donde en cada iteración probamos una inicialización aleatoria para los centroides.
 
-Una posible solución para no caer en un mínimo local malo es realizar varias ejecuciones de K-means, idealmente en paralelo, y computar la función de distorsión “J” para cada resultado final quedándonos con la mínima. Notemos que esto es una aplicación directa de un algoritmo tipo Montecarlo en donde en cada iteración probamos una inicialización aleatoria para los centroides.
-
-Veamos la mejor y peor solución de K-Means:
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/kmeans-fig-5.png}
 \caption{Ejemplo K-Means mejor y peor costo}
-
+\label{fig:k_means_example_cost}
 \end{figure}
 
-Como podemos ver el resultado de mejor costo es lo que esperábamos mientras que el resultado de peor costo es particularmente terrible. 
-
-El siguiente gráfico muestra el resultado de la función costo para 100 ejecuciones de K-Means y un histograma representando la cantidad de veces que observamos diferentes rangos de costo.
+La figura \ref{fig:k_means_example_cost} muestra el resultado del mejor y peor costo. Se puede ver que el resultado del peor costo es realmente muy malo mientras que el resultado del mejor costo es lo que se esperaba obtener.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/kmeans-fig-6.png}
 \caption{Costo en K-Means}
-
+\label{fig:k_means_example_cost_2}
 \end{figure}
 
-Como podemos ver, afortunadamente los costos bajos son amplia mayoría, es decir que únicamente con algunas pocas inicializaciones desafortunadas K-means llega a un mínimo global muy malo. Esto quiere decir que una sola iteración de K-Means nos dará un buen resultado con una probabilidad alta y hacer un ciclo con unas pocas ejecuciones es más que suficiente para llegar a un excelente resultado.
-
-Veamos ahora si inicializando los centroides de otra forma podemos garantizar un buen resultado en una única ejecución.
+El gráfico \ref{fig:k_means_example_cost_2} muestra el resultado de la función costo para 100 ejecuciones de K-Means y un histograma representando la cantidad de veces que se observaron diferentes rangos de costo. Como se puede ver, afortunadamente los costos bajos son amplia mayoría, es decir que únicamente con algunas pocas inicializaciones desafortunadas K-means llega a un mínimo global muy malo. Esto quiere decir que una sola iteración de K-Means nos dará un buen resultado con una probabilidad alta y hacer un ciclo con unas pocas ejecuciones es más que suficiente para llegar a un excelente resultado.
 
 \subsection{K-Means++}
 
-K-Means++ [Arthur '07] es una variante de K-Means en donde lo único que cambia con respecto al algoritmo de Lloyd es la forma en que se inicializan los centroides. La idea de K-means++ es asignar los centroides de forma espaciada, de esta forma el óptimo local obtenido por K-Means tiene una mayor probabilidad de estar cerca del óptimo global; o lo que es lo mismo el óptimo local está lejos de los óptimos que son muy malos con una probabilidad alta.
+K-Means++\cite{Arthur} es una variante de K-Means en donde lo único que cambia con respecto al algoritmo de Lloyd es la forma en que se inicializan los centroides. La idea de K-means++ es asignar los centroides de forma espaciada, de esta forma el óptimo local obtenido por K-Means tiene una mayor probabilidad de estar cerca del óptimo global; o lo que es lo mismo el óptimo local está lejos de los óptimos que son muy malos con una probabilidad alta. El algoritmo \ref{alg:k_means++} describe cómo se pueden inicializar los centroides.
 
 \begin{algorithm}[]
 Elegir un punto al azar como primer centroide\\
@@ -13395,24 +13378,25 @@ Elegir un punto al azar como primer centroide\\
  agregar el punto a la lista de centroides\\
 }
 \caption{Kmeans++}
+\label{alg:k_means++}
 \end{algorithm}
 
-Supongamos que el primer centroide elegido al azar es k1. El objetivo ahora es encontrar el siguiente centroide k2 de forma tal que esté alejado de k1. Pero no elegimos simplemente el centroide más lejano. Lo que hacemos es asignar a cada punto una probabilidad de acuerdo a su distancia a k1 y en base a dicha probabilidad elegimos el próximo centroide al azar. Notar que si ya tuviéramos más de un centroide entonces la probabilidad la calcularíamos en base a la distancia de cada punto al centroide más cercano.
+Suponer por ejemplo que el primer centroide elegido al azar es $k_1$. El objetivo ahora es encontrar el siguiente centroide $k_2$ de forma tal que esté alejado de $k_1$. Para ello, lo que se hace es asignar a cada punto una probabilidad de acuerdo a su distancia a $k_1$ y en base a dicha probabilidad se elige el próximo centroide al azar. Notar que si ya se tiene más de un centroide entonces la probabilidad se calcularía en base a la distancia de cada punto al centroide más cercano.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=5.5in]{figures/kmeans-fig-8.png}
 \caption{Kmeans++}
-
+\label{fig:k_means++_example}
 \end{figure}
 
-Como podemos ver K-means++ genera una inicialización más dispersa de los centroides iniciales. El problema de K-Means++ es que para datos realmente masivos necesita hacer "k" iteraciones sobre los datos para elegir los centroides, tarea que es todavía mas ineficiente cuando "k" es un número largo. Existe una variante a K-Means++ \cite{Bahmani} llamada K-Means paralell. La idea es hacer solo $log(k)$ pasadas sobre los datos, en cada iteración se agregan $l$ centroides en lugar de 1, el resultado es que tendremos una cantidad de centroides mayor a $k$ que son los centroides que necesitamos, los centroides finales se obtienen clusterizando los candidatos a centroides ponderados por la probabilidad con la cual fueron seleccionados, este paso se puede hacer, por ejemplo, usando clustering jerárquico.
+En la figura \ref{fig:k_means++_example} se puede ver K-means++ genera una inicialización más dispersa de los centroides iniciales. El problema de K-Means++ es que para datos realmente masivos necesita hacer $k$ iteraciones sobre los datos para elegir los centroides, tarea que es todavía mas ineficiente cuando $k$ es un número largo. Existe una variante a K-Means++ \cite{Bahmani} llamada K-Means paralell. La idea es hacer solo $log(k)$ pasadas sobre los datos, en cada iteración se agregan $l$ centroides en lugar de 1 y el resultado es que se tendrá una cantidad de centroides mayor a $k$. Los centroides finales se obtienen clusterizando los candidatos a centroides ponderados por la probabilidad con la cual fueron seleccionados, este paso se puede hacer, por ejemplo, usando clustering jerárquico. Las figuras \ref{fig:kmeansp1} y \ref{fig:kmeansp2} reflejan esta situación.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3in]{figures/kmeansp1.png}
 
-\caption{Suponiendo que usamos $k=4$ y $l=3$ en el primer paso elegimos un punto al azar como centroide, en el segundo paso elegimos 3 puntos usando K-means++, en el tercer paso otros 3 puntos y tenemos en total 7 candidatos a centroides. Clusterizando estos 7 centroides hasta que nos queden 4 nos quedarían los 4 centroides a usar como inicialización de K-Means}
+\caption{Suponiendo que se usa $k=4$ y $l=3$,  en el primer paso se elige un punto al azar como centroide, en el segundo paso se eligen 3 puntos usando K-means++, en el tercer paso otros 3 puntos y se tienen en total 7 candidatos a centroides. Clusterizando estos 7 centroides se obtendrán los 4 centroides que se usarán como inicialización de K-Means}
 \label{fig:kmeansp1}
 \end{figure}
 
@@ -13425,37 +13409,35 @@ Como podemos ver K-means++ genera una inicialización más dispersa de los centr
 \label{fig:kmeansp2}
 \end{figure}
 
-En general K-Means++ y su variante K-Means paralell generan una inicialización mejor para K-Means y esto permite no solo obtener una mejor solución final sino que también acelera la velocidad de convergencia del algoritmo.
+En general, K-Means++ y su variante K-Means paralell generan una inicialización mejor para K-Means y esto permite no solo obtener una mejor solución final sino que también acelera la velocidad de convergencia del algoritmo.
 
-\subsection{Como buscar K}
+\subsection{El valor K a utilizar}
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/kmeans-fig-9.png}
 \caption{Encontrando K}
-
+\label{fig:kmeanscost}
 \end{figure}
 
-En muchas ocasiones el número de clusters k a generar es desconocido. Es necesario entonces encontrar el k óptimo.En general la forma de buscar k es mediante un Grid-Search con diferentes valores  posibles. 
+En muchas ocasiones el número de clusters $k$ a generar es desconocido. Es necesario entonces encontrar el mejor valor de $k$ posible. En general, la forma de buscar $k$ es mediante un Grid-Search con diferentes valores  posibles. 
 
-Como métrica para evaluar la calidad de cada valor de k podemos usar un promedio de nuestra función de distorsión para varias iteraciones de K-Means o el diámetro promedio de los clusters, tomando como diámetro de un cluster la distancia máxima entre dos puntos del mismo. Existen otras métricas para evaluar la calidad de una solución de clustering pero todas tienen alguna falla así que es conveniente optar por la más simple.
+Como métrica para evaluar la calidad de cada valor de k se puede usar un promedio de nuestra función de distorsión para varias iteraciones de K-Means o el diámetro promedio de los clusters, tomando como diámetro de un cluster la distancia máxima entre dos puntos del mismo. Existen otras métricas para evaluar la calidad de una solución de clustering pero todas tienen alguna falla así que es conveniente optar por la más simple.
 
-Podemos graficar la función costo en función de K.
-
-El k óptimo en general está en el “codo” de este gráfico. En nuestro caso corresponde a k=4 lo cual es bastante lógico ya que teníamos cuatro clusters naturales. Es de destacar que cuando k es igual a la cantidad de puntos el costo total es cero y cada cluster contiene solo un punto pero esto obviamente no tiene mucho sentido. 
+En la figura \ref{fig:kmeanscost} se muestra como varía la función costo en función de $k$. El $k$ óptimo en general está en el “codo” de este gráfico. En este caso, corresponde a $k=4$ lo cual es bastante lógico ya que naturalmente se tenían cuatro clusters. Es de destacar que cuando $k$ es igual a la cantidad de puntos el costo total es cero y cada cluster contiene solo un punto pero esto obviamente no tiene mucho sentido. 
 
 \subsection{Diagramas de Voronoi}
 
-El proceso de clustering de K-means genera lo que llamamos un diagrama de “Voronoi” o una teselación de Voronoi que consiste en delimitar la frontera hasta la cual llega cada centroide. Por ejemplo para nuestro set de datos ejemplo corriendo K-Means nos queda delimitado el siguiente diagrama de Voronoi:
+El proceso de clustering de K-means genera lo que se conoce como un  \textit{diagrama de Voronoi} o una \textit{teselación de Voronoi }. Este diagrama consiste en delimitar la frontera hasta la cual llega cada centroide. Por ejemplo, la figura \ref{fig:k_means_voronoi} muestra el diagrama de Voronoi del set de datos de ejemplo.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/kmeans-fig-10.png}
 \caption{Diagrama de Voronoi}
-
+\label{fig:k_means_voronoi}
 \end{figure}
 
-El diagrama de Voronoi nos muestra a qué cluster quedaría asignado un punto nuevo que quisiéramos agregar a nuestros datos sin correr de nuevo K-Means. Un detalle fundamental de esto es que, como podemos ver, K-means realiza una partición de todo el espacio n-dimensional en el cual trabajamos. Esto quiere decir que podemos representar a cualquier punto de nuestro espacio de n-dimensiones en k-dimensiones de acuerdo a la separación establecida por el diagrama de Voronoi correspondiente al resultado de K-means. Esto va a ser muy útil más adelante.
+El diagrama de Voronoi muestra a qué cluster quedaría asignado un punto nuevo que se quisiera agregar al set de datos sin correr de nuevo K-Means. Un detalle fundamental de esto es que, como se puede ver, K-means realiza una partición de todo el espacio n-dimensional. Esto quiere decir que se puede representar a cualquier punto del espacio de n-dimensiones en k-dimensiones de acuerdo a la separación establecida por el diagrama de Voronoi correspondiente al resultado de K-means. Esto va a ser muy útil más adelante.
 
 \begin{figure}[!htb]
 \centering
@@ -13464,15 +13446,13 @@ El diagrama de Voronoi nos muestra a qué cluster quedaría asignado un punto nu
 
 \end{figure}
 
-Notemos la forma que toma un diagrama de Voronoi, cada sector del diagrama depende única y exclusivamente de un punto: el centroide. Las fronteras indican la separación entre centroides, a cada lado de las líneas estamos mas cerca de uno u otro centroide. El tamaño de cada área no depende de la cantidad de puntos asociados al centroide sino de que tan aislado se encuentra el centroide respecto del resto, cuanto mas aislado mas grande será la superficie de su área. 
+Notar la forma que toma un diagrama de Voronoi, cada sector del diagrama depende única y exclusivamente de un punto: el centroide. Las fronteras indican la separación entre centroides, a cada lado de las líneas estamos mas cerca de uno u otro centroide. El tamaño de cada área no depende de la cantidad de puntos asociados al centroide sino de que tan aislado se encuentra el centroide respecto del resto, cuanto mas aislado mas grande será la superficie de su área. 
 
-\subsection{Kmeans Online}
+\subsection{Kmeans online}
 
-Cuando se trata de procesar datos masivos, millones o billones de datos, el principal problema de K-Means es que requiere en cada iteración calcular el centroide más cercano a cada uno de los puntos y esta operación es costosa ya que hay que comparar cada punto contra cada centroide lo cual implica visitar todos los puntos del set de datos por cada iteración.
+Cuando se trata de procesar datos masivos, el principal problema de K-Means es que requiere en cada iteración calcular el centroide más cercano a cada uno de los puntos y esta operación es costosa ya que hay que comparar cada punto contra cada centroide lo cual implica visitar todos los puntos del set de datos por cada iteración. La versión online de K-Means procesa un punto por vez del set de datos, no necesita conocer todos los puntos antes de empezar y requiere un mínimo uso de memoria.
 
-La versión online de K-Means procesa un punto por vez del set de datos, no necesita conocer todos los puntos antes de empezar y requiere un mínimo uso de memoria.
-
-La idea es muy sencilla a partir de “k” centroides inicializados de alguna forma que es externa al algoritmo, por ejemplo al azar, se procesa cada punto asignándolo al centroide más cercano y luego se mueve ese centroide hacia el punto procesado de forma proporcional a la cantidad de puntos que tiene el cluster en total. Es necesario contar con un vector de “k” elementos en donde vamos a ir contando cuantos puntos contiene cada cluster hasta el momento.
+La idea es muy sencilla: a partir de $k$ centroides inicializados de alguna forma que es externa al algoritmo, por ejemplo al azar, se procesa cada punto asignándolo al centroide más cercano y luego se mueve ese centroide hacia el punto procesado de forma proporcional a la cantidad de puntos que tiene el cluster en total. Es necesario contar con un vector de $k$ elementos en donde se irán contando cuántos puntos contiene cada cluster hasta el momento. El algoritmo \ref{alg:k_means_online} refleja esta situación.
 
 \begin{algorithm}[]
 n[1..k] = 0\\
@@ -13484,44 +13464,39 @@ Asignar k centroides al azar $c_1..c_k$\\
  $c_j = c_j + \frac{1}{n[j]} (x_i - c_j)$\\
 }
 \caption{K-Means Online}
+\label{alg:k_means_online}
 \end{algorithm}
 
-Es importante destacar que por cada punto el algoritmo computa la distancia contra cada centroide pero la cantidad de centroides nunca es demasiado grande, el algoritmo tradicional, en cambio, computa en cada iteración la distancia de todos los puntos a todos los centroides.
+Es importante destacar que por cada punto el algoritmo computa la distancia contra cada centroide pero la cantidad de centroides nunca es demasiado grande. El algoritmo tradicional, en cambio, computa en cada iteración la distancia de todos los puntos a todos los centroides.
 
 Pueden realizarse varias iteraciones de  OnlineKMeans en caso de ser necesario, aunque cuando los puntos son millones o provienen de un stream infinito suele ser necesario y suficiente realizar una única iteración.
 
-Es interesante analizar el comportamiento del algoritmo frente a un stream, un flujo de datos infinito, a medida que se procesan mas y mas puntos cada punto va a quedar asociado mediante su cluster a aquellos que son más cercanos. Esto permite realizar clustering y clasificación online sobre streams sin prácticamente ninguna restricción de tiempo ni memoria!
-Veamos el diagrama de Voronoi resultante luego de procesar miles de puntos en 2D
+Es interesante analizar el comportamiento del algoritmo frente a un stream. A medida que se procesan mas y mas puntos cada punto va a quedar asociado mediante su cluster a aquellos que son más cercanos. Esto permite realizar clustering y clasificación online sobre streams sin prácticamente ninguna restricción de tiempo ni memoria.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.0in]{figures/kmeans-fig-12.png}
 \caption{Kmeans Online}
-
+\label{fig:k_means_online_voronoi}
 \end{figure}
 
-Podemos ver que el diagrama es muy similar al diagrama de Voronoi de K-Means tradicional con algunos puntos aislados que quedan dentro de un cluster pero pertenecen a otro.Esto es fácil de explicar ya que estos puntos fueron asignados originalmente a un cluster cuyo centroide se fue moviendo luego, la versión online de K-Means únicamente asigna una vez por punto, una vez que el punto fue asignado a un centroide permanece dentro de dicho cluster. Esto puede solucionarse, por supuesto, realizando mas de una iteración. 
+La figura \ref{fig:k_means_online_voronoi} es el diagrana de Voronoi resultante luego de procesar miles de puntos en 2D. Se puede ver que el diagrama es muy similar al diagrama de Voronoi de K-Means tradicional con algunos puntos aislados que quedan dentro de un cluster pero pertenecen a otro. Esto es fácil de explicar ya que estos puntos fueron asignados originalmente a un cluster cuyo centroide se fue moviendo luego. La versión online de K-Means únicamente asigna una vez por punto, una vez que el punto fue asignado a un centroide permanece dentro de dicho cluster. Esto puede solucionarse, por supuesto, realizando mas de una iteración. En la segunda iteración los puntos que quedaron mal asignados en la primera pasada pasan al cluster que les corresponde. 
 
-En la segunda iteración los puntos que quedaron mal asignados en la primera pasada pasan al cluster que les corresponde. 
-
-En el siguiente experimento promediamos varias ejecuciones de K-Means y K-Means Online para diferente número de iteraciones y comparamos el costo. 
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/kmeans-fig-16.png}
 \caption{Kmeans Onliine vs Kmeans++ y Kmeans}
-
+\label{fig:k_means_comparison}
 \end{figure}
 
-Como es lógico el costo promedio de la versión online disminuye a medida que aumentamos las iteraciones alcanzando su mejor rendimiento en unas 10 iteraciones  mientras que la versión tradicional oscila según comience con mejores o peores inicializaciones. Lo mas destacable es que a partir de tres o cuatro iteraciones el resultado de la versión online es siempre mejor que la versión tradicional.
+La figura \ref{fig:k_means_comparison} muestra el experimento realizado al promediar varias ejecuciones de K-Means y K-Means Online para diferente número de iteraciones y comparando el costo. Como es lógico, el costo promedio de la versión online disminuye a medida que se aumentan las iteraciones alcanzando su mejor rendimiento en unas 10 iteraciones  mientras que la versión tradicional oscila según comience con mejores o peores inicializaciones. Lo mas destacable es que a partir de tres o cuatro iteraciones el resultado de la versión online es siempre mejor que la versión tradicional.
 
 La versión Kmeans++ es mejor que las dos anteriores aunque muy similar a la versión online con múltiples iteraciones con el costo de tener que pre-procesar los datos para lograr los centroides iniciales.
 
 \subsubsection{Teoría de K-Means Online}
 
-Vamos a probar ahora que K-Means online también optimiza la función costo de K-Means \cite{BottouBengio}.
-
-Podemos considerar la función costo de K-Means como la sumatoria del costo de cada punto.
+Se puede probar que K-Means online también optimiza la función costo de K-Means \cite{BottouBengio}. Se puede considerar la función costo de K-Means como la sumatoria del costo de cada punto.
 
 \begin{myequation}
 J = \sum \limits_{i} L(x_i,c)
@@ -13533,7 +13508,7 @@ En donde el costo de cada punto es su distancia al centroide mas cercano:
 L(x_i,c) = \min_k \frac{1}{2} (x_i-c_k)^2
 \end{myequation}
 
-El Hessiano de la función costo es la matriz que tiene la derivada segunda de la función costo con respecto a cada par de parámetros (centroides). Podemos descomponer la matriz $H$ como la suma de matrices $H_i$ en donde $H_i$ es la matriz asociada al i-ésimo punto. Además $H_i$ se puede descomponer en bloques para cada par de centroides el costo $L(x_i,c)$ solo depende del centroide mas cercano al punto $x_i$ por lo tanto ese bloque de $H_i$ es la matriz identidad y el resto son todos ceros. Si sumamos todas las matrices $H_i$ lo que obtenemos es una matriz diagonal en donde cada elemento de la diagonal es la cantidad de puntos asociados a cada centroide:
+El Hessiano de la función costo es la matriz que tiene la derivada segunda de la función costo con respecto a cada par de parámetros (centroides). Se puede descomponer la matriz $H$ como la suma de matrices $H_i$ en donde $H_i$ es la matriz asociada al i-ésimo punto. Además $H_i$ se puede descomponer en bloques y para cada par de centroides el costo $L(x_i,c)$ solo depende del centroide mas cercano al punto $x_i$ por lo tanto ese bloque de $H_i$ es la matriz identidad y el resto son todos ceros. Si se suman todas las matrices $H_i$ lo que se obtiene es una matriz diagonal en donde cada elemento de la diagonal es la cantidad de puntos asociados a cada centroide:
 
 $$
 H=\begin{pmatrix}
@@ -13555,75 +13530,70 @@ $$
 \right.
 $$
 
-Notemos que esta es precisamente la definición de K-Means online por lo tanto podemos afirmar que K-Means online optimiza la función costo de K-Means mediante el método de Newton-Raphson! 
+Notar que esta es precisamente la definición de K-Means online por lo tanto se puede afirmar que K-Means online optimiza la función costo de K-Means mediante el método de Newton-Raphson. 
 
 
 \subsection{Soft K-Means}
 
-En esta sección vamos a ver una generalización de K-Means que se conoce con varios nombres: Soft K-Means, Fuzzy C-Means o simplemente EM (Expectation Maximization). El objetivo de este algoritmo es muy simple: permitirle a cada punto pertenecer al mismo tiempo a más de un cluster. Generalizando, cada punto pertenece a todos los clusters y lo que determinamos en el algoritmo es el grado de pertenencia de cada punto a cada cluster o la probabilidad de que el punto pertenezca a cada cluster.
+Este algoritmo es una una generalización de K-Means que también se conoce con varios nombres como Fuzzy C-Means o simplemente EM (Expectation Maximization). El objetivo de este algoritmo es muy simple: permitirle a cada punto pertenecer al mismo tiempo a más de un cluster. Generalizando, cada punto pertenece a todos los clusters y lo que determinamos en el algoritmo es el grado de pertenencia de cada punto a cada cluster o la probabilidad de que el punto pertenezca a cada cluster.
 
-El algoritmo K-Means tal y como lo conocemos asigna a cada punto al centroide más cercano realizando luego el recalculo de los mismos, eventualmente el algoritmo converge a la asignación final en la cual los centroides ya no se mueven.  Decimos que la asignación de K-Means es “hard” ya que cada punto queda asignado a un único cluster, el más cercano y la posición de todos los demás centroides no es importante. 
+El algoritmo K-Means tal y como se lo conoce asigna a cada punto al centroide más cercano realizando luego el recalculo de los mismos y eventualmente el algoritmo converge a la asignación final en la cual los centroides ya no se mueven. Se dice que la asignación de K-Means es \textit{hard} ya que cada punto queda asignado a un único cluster (al más cercano) y la posición de todos los demás centroides no es importante. 
 
-Una versión “soft” de K-Means asigna a cada punto k probabilidades, siendo cada una de ellas la probabilidad de que el punto se asigne a cada uno de los k-centroides. Cuanto más cerca está el punto del centroide mayor es su probabilidad. Para calcular estas probabilidades podemos sumar todas las distancias y luego realizar 1-(dist/suma). De esta forma la suma de todas las probabilidades para cada punto es igual a 1.
+Una versión \textit{soft} de K-Means asigna a cada punto k probabilidades, siendo cada una de ellas la probabilidad de que el punto se asigne a cada uno de los k-centroides. Cuanto más cerca está el punto del centroide mayor es su probabilidad. Para calcular estas probabilidades se pueden sumar todas las distancias y luego realizar 1-(dist/suma). De esta forma, la suma de todas las probabilidades para cada punto es igual a 1.
 
-El algoritmo se basa en dos pasos que son los mismos que teníamos en K-Means.
+El algoritmo se basa en dos pasos que son los mismos que teníamos en K-Means:
 
 \begin{enumerate}
 \item Dada la asignación de cada punto a cada cluster calcular los centroides.
 \item Dados los centroides calcular la asignación de cada punto a cada cluster.
 \end{enumerate}
 
-Estos procesos se repiten en un ciclo hasta que los centroides no cambien (con una cierta tolerancia).
-
-Para calcular la asignación de cada punto “i” a cada cluster “k” usamos la siguiente fórmula:
+Estos procesos se repiten en un ciclo hasta que los centroides no cambien (con una cierta tolerancia). Para calcular la asignación de cada punto $i$ a cada cluster $k$ se usa la siguiente fórmula:
 
 \begin{myequation}
 w_{ik} = (\sum_j (\frac{d(c_k,x_i)^2}{d(c_j,x_i)^2}))^{-1}
+\label{eq:soft_k_means_assignment}
 \end{myequation}
 
-Notemos que la fórmula simplemente calcula la distancia entre el punto y el centroide dividiendo por la sumatoria de la distancia entre el punto y todos los centroides. Finalmente elevando esto al cuadrado.
+Notar que la fórmula \ref{eq:soft_k_means_assignment} simplemente calcula la distancia entre el punto y el centroide dividiendo por la sumatoria de la distancia entre el punto y todos los centroides. Finalmente eleva esto al cuadrado.
 
-Para calcular los centroides usamos la siguiente fórmula:
+Para calcular los centroides se usa la siguiente fórmula:
 
 \begin{myequation}
 c_k = \frac{\sum_i x w_{xk}^2 }{\sum_x w_{xk}^2}
 \end{myequation}
 
-Es decir simplemente un promedio de todos los puntos ponderado por el peso de la asignación de cada punto a cada centroide. 
-
-Veamos un ejemplo:
+Es decir, simplemente un promedio de todos los puntos ponderado por el peso de la asignación de cada punto a cada centroide. 
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/skmeans-fig-5.png}
 \caption{Soft Kmeans}
-
+\label{fig:soft_kmeans_example}
 \end{figure}
 
-El resultado nos muestra una típica salida de K-Means los puntos cercanos a los centroides están asignados casi por completo a los mismos y los puntos “en el medio” están repartidos. Hay un punto de color violeta en el medio de los clusters rojo y azul. El punto de más arriba de todo es mayormente verde pero tiene algo de azul. Etc.
-
-Podemos generar el diagrama de Voronoi para la versión "soft" de K-Means:
+La figura \ref{fig:soft_kmeans_example} es un ejemplo de Soft K-Means. El resultado muestra una típica salida de K-Means donde los puntos cercanos a los centroides están asignados casi por completo a los mismos y los puntos “en el medio” están repartidos. Hay un punto de color violeta en el medio de los clusters rojo y azul. El punto de más arriba de todo es mayormente verde pero tiene algo de azul, y así sucesivamente.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/skmeans-fig-6.png}
 \caption{Soft Kmeans}
-
+\label{fig:soft_kmeans_voronoi}
 \end{figure}
 
-Y este diagrama de Voronoi “soft” nos muestra claramente el grado de influencia de cada cluster en nuestro espacio de puntos. Esto es algo muy interesante además de verse muy bonito.
+La figura \ref{fig:soft_kmeans_voronoi} muestra el diagrama de Voronoi \textit{soft} donde se nota claramente el grado de influencia de cada cluster en nuestro espacio de puntos. Esto es algo muy interesante además de verse muy bonito.
 
 \subsubsection{Versión Online}
 
-Al igual que con la versión tradicional de K-Means podemos necesitar una versión online para poder procesar millones o billones de puntos. Vamos a proceder exactamente igual que en la versión tradicional. Tomamos un punto, calculamos la probabilidad de cada centroide en base al punto y acercamos a cada centroide en proporción a dicha probabilidad y a la acumulación total de probabilidades que tenga el centroide. Es decir que cuantos más puntos se “peguen” fuertemente a un centroide menos se moverá el mismo al procesar un punto nuevo.
+Al igual que con la versión tradicional de K-Means, se puede necesitar una versión online para poder procesar millones o billones de puntos. Para ello, se procede exactamente igual que en la versión tradicional. Se toma un punto, se calcula la probabilidad de cada centroide en base al punto y se acerca a cada centroide en proporción a dicha probabilidad y a la acumulación total de probabilidades que tenga el centroide. Es decir que cuantos más puntos se “peguen” fuertemente a un centroide menos se moverá el mismo al procesar un punto nuevo.
 
 La versión online de Soft K-Means tiende a generar el mismo resultado que la versión anterior en una cantidad relativamente baja de iteraciones.
 
-La versión “soft” de K-Means es una generalización en la cual obtenemos para cada punto la probabilidad de que el mismo pertenezca a cada cluster. Esto tiene una enorme cantidad de aplicaciones ya que en muchísimos problemas de clustering una asignación “soft” de los puntos es preferible. Por ejemplo si estamos haciendo clustering de documentos de texto es posible que un texto pertenezca a varios “temas” en distinto nivel. Por ejemplo 20\% noticias, 80\% deportes. Así como éste podemos pensar en muchos ejemplos más. Soft K-Means es un algoritmo muy importante y que debemos tener siempre presente.
+La versión \textit{soft} de K-Means es una generalización en la cual se obtiene para cada punto la probabilidad de que el mismo pertenezca a cada cluster. Esto tiene una enorme cantidad de aplicaciones ya que en muchísimos problemas de clustering una asignación \textit{soft} de los puntos es preferible. Por ejemplo, si se realiza clustering de documentos de texto es posible que un texto pertenezca a varios “temas” en distinto nivel. Por ejemplo 20\% noticias, 80\% deportes. Así como éste se pueden pensar en muchos ejemplos más. 
 
 \subsection{La base de Kmeans y sus aplicaciones}
 
-Para entender esta sección vamos a partir de un ejemplo de Soft K-Means.Vamos a usar 4 puntos en 3 dimensiones que representamos con la siguiente matriz de 4x3:
+Para entender esta sección se parte de un ejemplo de Soft K-Means donde se usan 4 puntos en 3 dimensiones representados por la siguiente matriz de 4x3:
 
 $$X=\begin{pmatrix}
 0.815&0.632&0.957\\
@@ -13633,7 +13603,7 @@ $$X=\begin{pmatrix}
 \end{pmatrix}$$
 
 
-Vamos a aplicar Soft-Kmeans usando $k=2$, como resultado vamos a tener por un lado el grado de pertenencia de cada punto a cada cluster que podemos representar con una matriz de 4x2:
+Al aplicar Soft-Kmeans usando $k=2$, como resultado se va a obtener el grado de pertenencia de cada punto a cada cluster que se representa en la siguiente matriz de 4x2:
 
 $$IDX =\begin{pmatrix}
 0.0328&0.9672\\
@@ -13642,18 +13612,16 @@ $$IDX =\begin{pmatrix}
 0.0096&0.9904\\
 \end{pmatrix}$$
 
-Según vemos el punto 3 pertenece a un cluster y el resto pertenecen a un segundo cluster. Mirando los puntos esto tiene sentido ya que el tercer punto tiene la primer y tercer coordenada completamente a los otros 3 que tienen valores muy similares!
+Se puede ver que el punto 3 claramente pertenece a un cluster y el resto pertenecen al segundo cluster. Mirando los puntos esto tiene sentido ya que el tercer punto tiene la primer y tercer coordenada completamente distinta a los otros 3 que tienen valores muy similares.
 
-Otro resultado que nos da Soft Kmeans son los centroides, como $k=2$ vamos a tener 2 centroides de 3 dimensiones:
+Otro de los resultados que se obtienen de Soft Kmeans son los centroides. Como $k=2$ entonces se obtienen 2 centroides de 3 dimensiones:
 
 $$C=\begin{pmatrix}
 0.1333&0.2776&0.1643\\
 0.8776&0.4392&0.9644\\
 \end{pmatrix}$$
 
-El primer centroide es casi igual al punto 3 y el otro centroide es el promedio ponderado de los otros 3 puntos de acuerdo a sus probabilidades de pertenecer a cada cluster.
-
-Lo interesante de todo esto es que podemos tomar a los centroides como una \textit{base} y a las asignaciones como \textit{cordenadas} y entonces nuestra matriz de puntos $X$ se puede aproximar como $IDX * C$
+El primer centroide es casi igual al punto 3 y el otro centroide es el promedio ponderado de los otros 3 puntos de acuerdo a sus probabilidades de pertenecer a cada cluster. Lo interesante de todo esto es que se pueden tomar a los centroides como una \textit{base} y a las asignaciones como \textit{cordenadas} y entonces la matriz de puntos $X$ se puede aproximar como $IDX * C$
 
 $$\begin{pmatrix}
 0.0328&0.9672\\
@@ -13671,61 +13639,57 @@ $$\begin{pmatrix}
 0.8704 & 0.4377 & 0.9567 \\
 \end{pmatrix}$$
 
-Notemos que la matriz reconstruida es muy similar a la matriz original, la tercer fila que corresponde al tercer punto de $X$ es prácticamente igual. En el caso de K-Means tradicional el funcionamiento es igual pero la matriz IDX tiene únicamente 1s y 0s porque la asignación es hard pero igual podemos usar esta matriz y los centroides para aproximar la matriz original, en el caso de Kmeans tradicional cada punto se representa mediante su centroide. En el caso de Soft K-Means cada punto se representa mediante una combinación lineal de todos los centroides. Todo esto nos lleva a conclusiones que son realmente muy importantes:
+Notar que la matriz reconstruida es muy similar a la matriz original. La tercer fila que corresponde al tercer punto de $X$ es prácticamente igual. En el caso de K-Means tradicional el funcionamiento es igual pero la matriz IDX tiene únicamente 1s y 0s porque la asignación es hard pero igual podemos usar esta matriz y los centroides para aproximar la matriz original. En el caso de Kmeans tradicional cada punto se representa mediante su centroide. En el caso de Soft K-Means cada punto se representa mediante una combinación lineal de todos los centroides. Todo esto nos lleva a conclusiones que son realmente muy importantes:
 
 \begin{enumerate}
-\item Podemos usar K-Means como una forma de reducción de dimensiones, en donde cada punto se representa mediante las coordenadas del mismo con respecto a una base que son los centroides.
-\item La cantidad de clusters $k$ nos da la cantidad de vectores en la base y por lo tanto nos permite regular la cantidad de dimensiones en la que representaremos a los datos.
-\item El diagrama de Voronoi nos da las fronteras para representar nuevos puntos de acuerdo a la base obtenida originalmente por K-Means.
+\item Se puede usar K-Means como una forma de reducción de dimensiones, en donde cada punto se representa mediante las coordenadas del mismo con respecto a una base que son los centroides.
+\item La cantidad de clusters $k$ da la cantidad de vectores en la base y por lo tanto permite regular la cantidad de dimensiones en la que representaremos a los datos.
+\item El diagrama de Voronoi da las fronteras para representar nuevos puntos de acuerdo a la base obtenida originalmente por K-Means.
 \item Cada vector de la base es un centroide por lo tanto es un promedio de puntos de nuestro set de datos
-\item Por lo tanto usando K-Means como base representamos a cada punto mediante una combinación lineal de vectores que surgen de promediar puntos de nuestro set de datos.
+\item Por lo tanto usando K-Means como base se representa a cada punto mediante una combinación lineal de vectores que surgen de promediar puntos del set de datos.
 \item Por ser promedio de puntos del set de datos los vectores de la base de Kmeans pueden interpretarse como nuevos datos.
 \item A mayor cantidad de centroides mas precisa será la reconstrucción de la matriz de datos original.
-\item Cada punto se representa mediante una combinación afín de centroides (las coordenadas son positivas y suman 1) es decir que por cada centroide tomamos un cierto porcentaje del mismo y lo usamos para representar parte de nuestro punto. Notar que esto vale tanto para soft K-Means como para hard K-Means en cuyo caso hay un único centroide con coordenada 1 y todos los demás son 0.
+\item Cada punto se representa mediante una combinación afín de centroides (las coordenadas son positivas y suman 1) es decir que por cada centroide se toma un cierto porcentaje del mismo y se lo usa para representar parte del punto. Notar que esto vale tanto para soft K-Means como para hard K-Means en cuyo caso hay un único centroide con coordenada 1 y todos los demás son 0.
 \end{enumerate}
-
-A modo de ejemplo veamos qué pasa si aplicamos K-Means con $k=10$ al set de datos Mnist que tiene 60000 imágenes en 784 dimensiones.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/kmeans-fig-17.png}
 \caption{Centroides de Kmeans con $k=10$ para MNIST}
-
+\label{fig:k_means_mnist}
 \end{figure}
 
-Como podemos ver K-Means encuentra centroides que representan cada "cluster" . Lo ideal sería que cada cluster represente a un dígito pero este caso sería demasiado perfecto. Podemos ver que hay una cierta confusión entre los "4"s y los "9s" ya que hay tres centroides que parecen "9"s. Si repetimos el proceso usando ahora 100 centroides obtenemos lo siguiente:
+La figura \ref{fig:k_means_mnist} muestra los centroides luego de aplicar K-Means con $k=10$ al set de datos Mnist que tiene 60000 imágenes en 784 dimensiones. Como se puede ver, K-Means encuentra centroides que representan cada "cluster" . Lo ideal sería que cada cluster represente a un dígito pero este caso sería demasiado perfecto. Se puede ver que hay una cierta confusión entre los "4"s y los "9s" ya que hay tres centroides que parecen "9"s. Si se repite el proceso usando ahora 100 centroides se obtiene lo que se muestra en la figura  \ref{fig:k_means_mnist_2} donde aparecen los 100 centroides encontrados por K-Means y como se puede ver hay varias formas de escribir cada dígito representada por un centroide. Estos centroides son promedios de los puntos asignados a los mismos y se nota que hay diferentes formas de escribir cada dígito.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4in]{figures/kmeans-fig-18.png}
 \caption{Centroides de Kmeans con $k=100$ para MNIST}
-
+\label{fig:k_means_mnist_2}
 \end{figure}
 
-Estos son los 100 centroides encontrados por K-Means como vemos tenemos varias formas de escribir cada dígito representada por un centroide. Estos centroides son promedios de los puntos asignados a los mismos. Podemos ver que hay diferentes formas de escribir cada dígito. PAra MNIST tal vez 100 centroides sean muchos pero siempre es interesante ver los centroides que genera K-Means e interpretarlos como si fueran datos. 
+
 
 \subsection{Reducción de Dimensiones con K-Means}
 
-Habiendo hablado de la base de K-Means podemos ver como usar K-Means para reducir las dimensiones de un set de datos. Una posibilidad es representar a cada punto mediante su centroide mas cercano (hard Kmeans) o mediante una combinación afín de centroides. Los sistemas basados en coordenadas requieren de la base de K-Means para tener sentido, el objetivo es encontrar una forma de representar los datos en $k$ dimensiones sin que sean necesarios los centroides.
+Habiendo hablado de la base de K-Means se puede ver como usar K-Means para reducir las dimensiones de un set de datos. Una posibilidad es representar a cada punto mediante su centroide mas cercano (hard Kmeans) o mediante una combinación afín de centroides. Los sistemas basados en coordenadas requieren de la base de K-Means para tener sentido, el objetivo es encontrar una forma de representar los datos en $k$ dimensiones sin que sean necesarios los centroides.
 
-Una forma simple de hacer esto es por cada punto calcular la distancia a cada uno de los $k$ centroides y usar estas $k$ distancias como $k$ coordenadas por cada punto. Esto nos da una forma simple y directa de representar los datos en $k$ dimensiones.
-
-Para corregir problemas de escala podemos usar una función que mapee la distancia al centroide $x$ a un número entre 0 y 1 por ejemplo:
+Una forma simple de hacer esto es por cada punto calcular la distancia a cada uno de los $k$ centroides y usar estas $k$ distancias como $k$ coordenadas por cada punto. Esto da una forma simple y directa de representar los datos en $k$ dimensiones. Para corregir problemas de escala se puede usar una función que mapee la distancia al centroide $x$ a un número entre 0 y 1 por ejemplo:
 
 \begin{myequation}
 y = e^{-x\gamma}
 \end{myequation}
 
-$\gamma$ es un hiper-parámetro que regula la forma en la que mapeamos, por ejemplo con $\gamma=0.5$ tenemos:
+$\gamma$ es un hiper-parámetro que regula la forma en la que se mapea, por ejemplo con $\gamma=0.5$ se obtiene el gráfico \ref{fig:gamma_map}.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/gamma-fig-1.png}
 \caption{Gamma map con $\gamma=0.5$}
-
+\label{fig:gamma_map}
 \end{figure}
 
-En este caso las distancias mayores a 8 van a quedar todas muy cerca de 0. El objetivo es encontrar un $\gamma$ que sea eficiente para distribuir las distancias que tenemos entre los puntos y los centroides de forma pareja. Esto puede hacerse, por supuesto usando grid-search y luego un histograma de los valores que tenemos para las $k$ coordenadas de nuestros puntos buscando que la distribución tienda a ser normal. Tener "features" con distribución normal es algo terriblemente beneficioso para varios algoritmos y podemos lograrlo usando K-Means.
+Con el gráfico \ref{fig:gamma_map} en mente, se ve que las distancias mayores a 8 van a quedar todas muy cerca de 0. El objetivo es encontrar un $\gamma$ que sea eficiente para distribuir las distancias que hay entre los puntos y los centroides de forma pareja. Esto puede hacerse, por supuesto, usando grid-search y luego un histograma de los valores que tenemos para las $k$ coordenadas de nuestros puntos buscando que la distribución tienda a ser normal. Tener \textit{features} con distribución normal es algo beneficioso para varios algoritmos y se lo puede lograr usando K-Means.
 
 Otra opción es simplemente usar un corte no-lineal para las distancias de los puntos a los centroides:
 
@@ -13733,51 +13697,35 @@ Otra opción es simplemente usar un corte no-lineal para las distancias de los p
 y = \max{0, x-\text{avgdist}}
 \end{myequation}
 
-Es decir que calculamos la diferencia entre la distancia y el promedio de distancias y si nos da negativo la convertimos en 0.
+Es decir que se calcula la diferencia entre la distancia y el promedio de distancias y si da negativo se la convierte a 0.
 
-Ambas opciones permiten extraer “k” features a partir de un set de datos en cualquier cantidad de dimensiones luego de aplicar K-Means con “k” centroides. Es muy sorprendente que estos features aprendidos por K-Means funcionan realmente muy bien como representación del set de datos, es muy común que un algoritmo de clasificación funcione mejor con estos features que con los datos originales.
+Ambas opciones permiten extraer $k$ features a partir de un set de datos en cualquier cantidad de dimensiones luego de aplicar K-Means con $k$ centroides. Es muy sorprendente que estos features aprendidos por K-Means funcionan realmente muy bien como representación del set de datos. Es muy común que un algoritmo de clasificación funcione mejor con estos features que con los datos originales.
 
-Dado que K-Means es en general eficiente un método sorprendente para manejar clasificación en un set de datos es aplicar K-Means par reducir los datos a $k$ dimensiones y luego aplicar sobre estos datos un clasificador lineal, hay varias cosas que funcionan muy bien basadas en esta técnica.
+Dado que K-Means es en general eficiente un método sorprendente para manejar clasificación en un set de datos es aplicar K-Means para reducir los datos a $k$ dimensiones y luego aplicar sobre estos datos un clasificador lineal. Hay varias cosas que funcionan muy bien basadas en esta técnica.
 
 \subsection{Kmeans Esférico}
 
-K-Means esférico es la aplicación de K-Means a la distancia angular en lugar de la distancia euclidiana.
+K-Means esférico es la aplicación de K-Means a la distancia angular en lugar de la distancia euclidiana. Esta distancia es útil siempre y cuando se agrupen datos en base a la dirección hacia la cual los datos apuntan en lugar de su posición en el espacio. Esto es particularmente útil para textos en donde la semejanza entre un texto y otro está directamente relacionada por la distancia angular entre los mismos. Se puede pensar que el “ángulo” de cada texto representa su significado por lo que al usar la distancia angular en lugar de la euclidiana se esta comparando el significado de los textos y no los textos en sí mismos. Este es un concepto muy poderoso ya que más de una vez textos que son completamente diferentes en contenido en realidad tienen el mismo significado.
 
- Esta distancia es útil siempre y cuando estemos agrupando datos en base a la dirección hacia la cual los datos apuntan en lugar de su posición en el espacio. Esto es particularmente útil para textos en donde la semejanza entre un texto y otro está directamente relacionada por la distancia angular entre los mismos. Podemos pensar que el “ángulo” de cada texto representa su significado, su semántica por lo que al usar la distancia angular en lugar de la euclidiana estamos comparando el significado de los textos y no los textos en sí mismos (!). 
-
-Este es un concepto muy poderoso ya que más de una vez textos que son completamente diferentes en contenido en realidad tienen el mismo significado.
-
-Recordemos que el coseno del ángulo entre dos vectores se puede calcular como:
+Recordar que el coseno del ángulo entre dos vectores se puede calcular como:
 
 \begin{myequation}
 \cos \theta = \frac{<x.y>}{||x|| ||y||}
 \end{myequation}
 
- Cuanto mayor es el coseno mas chico es el ángulo y más parecidos son los vectores. Cuanto menor sea el coseno mayor el ángulo y mayor la distancia entre los vectores.
+Cuanto mayor es el coseno mas chico es el ángulo y más parecidos son los vectores. Cuanto menor sea el coseno mayor el ángulo y mayor la distancia entre los vectores. Si se normalizan los vectores para que tengan norma 1 entonces el coseno del ángulo entre los mismos se reduce al producto interno entre los vectores. 
 
-Si normalizamos los vectores para que tengan norma=1 el coseno del ángulo entre los mismos se reduce al producto interno entre los vectores. Por lo tanto el primer paso en K-Means esférico es normalizar todos los vectores para que tengan norma=1. Esta normalización es por filas, no por columnas como hacemos habitualmente, lo que buscamos es que cada fila de nuestro set de datos tenga norma 1. 
-
-Los centroides iniciales los vamos a generar al azar con componentes entre 0 y 1 y también los vamos a normalizar por filas.
-
-Ahora tenemos un conjunto de “m” puntos en “n” dimensiones y tenemos “k” centroides en “n” dimensiones. Para calcular cuál es el centroide más cercano a cada punto tenemos que hacer el producto interno entre cada punto y cada centroide. Podemos hacer todas las cuentas juntas calculando el producto entre la matriz X de mxn y la matriz de centroides de kxn transpuesta.
+Para aplicar K-Means esférico, el primer paso es normalizar todos los vectores para que tengan norma=1. Esta normalización se realiza por filas. Los centroides iniciales se generan al azar con componentes entre 0 y 1 y también se los normaliza por filas. Ahora que se tiene un conjunto de $m$ puntos en $n$ dimensiones y hay $k$ centroides en $n$ dimensiones, para calcular cuál es el centroide más cercano a cada punto hay que hacer el producto interno entre cada punto y cada centroide. Se pueden hacer todas las cuentas juntas calculando el producto entre la matriz X de $mxn$ y la matriz de centroides de $kxn$ transpuesta.
 
 \begin{myequation}
 D = X*C
 \end{myequation}
 
-Esto nos da una matriz de m filas por k columnas. Donde cada fila representa a un punto y cada columna representa la semejanza (coseno) a cada uno de los “k” centroides.
+Este producto de matrices da una matriz D de $m$ filas por $k$ columnas, donde cada fila representa a un punto y cada columna representa la semejanza (coseno) a cada uno de los $k$ centroides. Para determinar a qué centroide se asigna cada punto simplemente se observa cual es el valor máximo para los cosenos entre cada punto y cada centroide. Notar que al contrario que en K-Means tradicional aquí se toma el máximo producto interno que corresponde a la mínima distancia angular.
 
-Para determinar a que centroide se asigna cada punto simplemente observamos cual es el valor máximo para los cosenos entre cada punto y cada centroide. Notar que al contrario que en K-Means tradicional aquí estamos tomando el máximo producto interno que corresponde a la mínima distancia angular.
+La matriz de asignación de puntos a centroides $S$ se la construye de $mxk$ en donde cada fila solo tiene un valor distinto de cero que es el valor del coseno entre dicho punto y su centroide mas similar. Es decir, $S$ es la matriz en la cual por cada fila de $D$ se deja únicamente el valor máximo y el resto se los convierte en 0.
 
-La matriz de asignación de puntos a centroides la vamos a construir de $m x k$ en donde cada fila solo tiene un valor distinto de cero que es el valor del coseno entre dicho punto y su centroide mas similar. 
-
-\begin{myequation}
-S = max_i{D}
-\end{myequation}
-
-Hemos cometido un abuso de notación, lo que queremos decir es que S es la matriz en la cual por cada fila de $D$ dejamos únicamente el valor máximo y el resto los convertimos en ceros.
-
-Ahora podemos recalcular los centroides como un promedio de los puntos que pertenecen a cada centroide ponderado por el valor del coseno del centroide con cada punto. Es decir simplemente calcular:
+Ahora se pueden recalcular los centroides como un promedio de los puntos que pertenecen a cada centroide ponderado por el valor del coseno del centroide con cada punto. Es decir,  se calcula lo siguiente:
 
 \begin{myequation}
 C = S^{(t)} X
@@ -13790,7 +13738,8 @@ C = C + S^{(t)} X
 \end{myequation}
 
 Esto se conoce como \textit{dampening} y sirve para que los centroides no cambien tan bruscamente de una iteración a otra.
-El paso final de K-Means esférico es normalizar los centroides para que tengan norma 1 y podamos volver a usarlos en la próxima iteración.
+
+El paso final de K-Means esférico es normalizar los centroides para que tengan norma 1 y se pueda volver a usarlos en la próxima iteración.
 
 \begin{algorithm}[]
 X = RowNormalize(X)\\
@@ -13809,160 +13758,138 @@ En general este algoritmo converge rápidamente en 10 o menos iteraciones y es b
 
 \subsubsection{Versión Online}
 
-La versión que hemos visto es eficiente pero puede consumir mucha memoria al calcular el producto entre la matriz de puntos y la matriz de centroides. Si los puntos son millones o si tenemos millones de dimensiones (o ambas) el cálculo de la matriz podría ser inviable. Por lo tanto necesitamos una versión “online” del algoritmo que pueda funcionar punto a punto. 
+La versión que se ha visto es eficiente pero puede consumir mucha memoria al calcular el producto entre la matriz de puntos y la matriz de centroides. Si los puntos son millones o si tenemos millones de dimensiones (o ambas) el cálculo de la matriz podría ser inviable. Por lo tanto se necesita una versión $online$ del algoritmo que pueda funcionar punto a punto. 
 
-Afortunadamente no hace falta hacer casi ninguna modificación excepto agregar un loop que procese punto por punto calculando el producto entre dicho punto y la matriz de centroides. Una vez procesados todos los puntos re-calculamos los centroides e iteramos este procedimiento tantas veces como sea necesario.
+Afortunadamente no hace falta hacer casi ninguna modificación excepto agregar un loop que procese punto por punto calculando el producto entre dicho punto y la matriz de centroides. Una vez procesados todos los puntos se recalculan los centroides y se itera este procedimiento tantas veces como sea necesario.
 
 \subsubsection{Voronoi Esférico}
 
-Podemos ver que tipo de forma tiene el diagrama de Voronoi asociado cuando usamos el ángulo entre los vectores como distancia.
+La figura \ref{fig:spherical_voronoi} muestra el diagrama de Voronoi asociado cuando se usa el ángulo entre los vectores como distancia. El resultado, además de ser muy bonito, muestra claramente cómo el algoritmo agrupa de acuerdo al ángulo entre los puntos. 
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/sfe-fig-1.png}
 \caption{K-Means esférico}
-
+\label{fig:spherical_voronoi}
 \end{figure}
 
-El  resultado, además de ser muy bonito, muestra claramente como el algoritmo agrupa de acuerdo al ángulo entre los puntos. 
-Ahora vamos a hacer el mismo experimento pero previamente hemos normalizado los puntos para que tengan norma=1.
+La figura \ref{fig:spherical_voronoi_2} muestra el diagrama luego de haber normalizado los puntos para que tengan norma 1. Aquí se ve exactamente el mismo resultado que antes pero con todos los puntos a distancia 1 del origen por haber sido normalizados.
+
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/sfe-fig-2.png}
 \caption{K-Means esférico}
+\label{fig:spherical_voronoi_2}
 
 \end{figure}
 
-Aquí vemos exactamente el mismo resultado que antes pero con todos los puntos a distancia 1 del origen por haber sido normalizados.
-
 \subsection{Kernel K-Means}
 
-Kernel K-Means es simplemente la aplicación de un kernel al algoritmo K-Means, de esta forma logramos clustering cuando los clusters no son linealmente separables. El funcionamiento y objetivo del kernel es el mismo que hemos usado con SVM: transformar los datos a un espacio de mayor cantidad de dimensiones, incluso infinitas dimensiones, de forma que sean linealmente separables. En este caso que los clusters queden separados linealmente que es un requisito para K-Means.
+Kernel K-Means es simplemente la aplicación de un kernel al algoritmo K-Means. De esta forma se puede lograr clustering cuando los clusters no son linealmente separables. El funcionamiento y objetivo del kernel es el mismo que se utiliza con SVM: transformar los datos a un espacio de mayor cantidad de dimensiones, incluso infinitas dimensiones, de forma que sean linealmente separables. En este caso, se quiere que los clusters queden separados linealmente puesto que es un requisito para K-Means. 
 
-Para poder usar kernels en K-Means tenemos que reducir toda la formulación del algoritmo al uso de productos internos. En primer lugar vamos a ver que es sencillo reducir la distancia entre dos puntos a productos internos:
+Para poder usar kernels en K-Means hay que reducir toda la formulación del algoritmo al uso de productos internos. En primer lugar se verá que es sencillo reducir la distancia entre dos puntos a productos internos:
 
 \begin{myequation}
 |x-y|^2 = x^2 + y^2 -2xy = <x,x> + <y,y> -2<x,y>
+\label{eq:kernel_k_means}
 \end{myequation}
 
-Con esta fórmula podemos usar cualquier kernel para calcular la distancia entre dos puntos, el problema en K-Means es el cálculo de los centroides. Los centroides se obtienen como un promedio de los puntos que pertenecen al cluster pero a su vez estos centroides residen en un espacio de muchas o infinitas dimensiones usando kernels, cosa que no podemos calcular. El truco es calcular directamente la distancia entre un punto y cada uno de los centroides sin tener que calcular los centroides. Veamos de qué forma esto es posible.
-
-Planteamos la distancia entre un punto y un centroide:
+Con la fórmula \ref{eq:kernel_k_means} se puede usar cualquier kernel para calcular la distancia entre dos puntos. El problema en K-Means es el cálculo de los centroides porque éstos se obtienen como un promedio de los puntos que pertenecen al cluster pero a su vez estos centroides residen en un espacio de muchas o infinitas dimensiones usando kernels, cosa que no se puede calcular. El truco es calcular directamente la distancia entre un punto y cada uno de los centroides sin tener que calcular los centroides. Para que esto sea posible, se plantea la distancia entre un punto y un centroide:
 
 \begin{myequation}
 ||\phi(x) - \frac{\sum \phi(a_i)}{N_i}||^2
 \end{myequation}
 
-Phi es la función que nos proyecta a un espacio de dimensiones superiores y que no sabemos ni queremos calcular. Nies la cantidad de puntos en el cluster ‘i” 
-
-Desarrollamos ahora la fórmula expandiendo el binomio:
+Phi es la función que proyecta a un espacio de dimensiones superiores y que no se sabe ni se quiere calcular. $N_i$ es la cantidad de puntos en el cluster $i$. Al expandir el binomio, se obtiene lo siguiente:
 
 \begin{myequation}
 \phi(x)*\phi(y) + \frac{\sum_{a_j,a_l \in i} \phi(a_j) \phi(a_k)}{N_i^2} - 2 \frac{\sum_{a_j \in i} \phi(a_j) \phi(x)}{N_i}
 \end{myequation}
 
-Y ahora tenemos todo expresado en productos internos y podemos reemplazar por los kernels
+Y ahora se tiene todo expresado en productos internos y se puede reemplazar por los kernels:
 
 \begin{myequation}
 ||x-c_i||^2 = K(x,x) + \frac{\sum_{a_j,a_l \in i} K(a_l,a_j)}{N_i^2} -2 \frac{\sum_{a_j \in i} K(a_j,x)}{N_i}
 \end{myequation}
 
-La primera sumatoria implica el kernel entre todos los puntos que pertenecen al cluster. La segunda sumatoria usa el kernel entre el punto “x” que queremos asignar y todos los que pertenecen al cluster “i”.
+La primera sumatoria implica el kernel entre todos los puntos que pertenecen al cluster. La segunda sumatoria usa el kernel entre el punto $x$ que se quiere asignar y todos los que pertenecen al cluster $i$.
 
-Notemos que la forma en que funciona K-Means ahora se ha modificado ya que se hace todo en un solo paso.
-
-En primer lugar asignamos a cada punto un cluster al azar entre 1 y k.
-
-Luego por cada punto calculamos la distancia entre el punto y cada cluster con la fórmula anterior y asignamos el punto al cluster más cercano.
-
-Este proceso se repite hasta lograr la convergencia o bien hasta superar un cierto número de iteraciones. Notemos que al asignar el punto al cluster más cercano estamos modificando las asignaciones que usamos para calcular la distancia misma por lo que solo hace falta este paso para lograr la convergencia. En otras palabras la asignación de los puntos a los centroides cambia los centroides sin necesidad de tener que calcular estos últimos.
+Notar que la forma en que funciona K-Means ahora se ha modificado ya que se hace todo en un solo paso. En primer lugar se asigna a cada punto un cluster al azar entre 1 y k. Luego por cada punto se calcula la distancia entre el punto y cada cluster con la fórmula anterior y se asigna el punto al cluster más cercano. Este proceso se repite hasta lograr la convergencia o bien hasta superar un cierto número de iteraciones. Notar que al asignar el punto al cluster más cercano se están modificando las asignaciones que se usan para calcular la distancia misma por lo que solo hace falta este paso para lograr la convergencia. En otras palabras, la asignación de los puntos a los centroides cambia los centroides sin necesidad de tener que calcular estos últimos.
 
 Para que Kernel - K-Means sea eficiente es necesario pre-calcular la matriz de kernel entre todos los puntos por lo que es necesario que la cantidad de puntos en total no sea muy grande. No es un algoritmo eficiente para datos masivos.
 
 \subsection{K-Modes}
 
-K-Modes es una variante de K-Means para datos que tienen atributos categóricos. Es posible usar K-Means con atributos categóricos convirtiéndolos usando One-Hot encoding o métodos similares que ya hemos visto. K-Modes tiene como ventaja que no se necesita conversión alguna de los datos.
+K-Modes es una variante de K-Means para datos que tienen atributos categóricos. Es posible usar K-Means con atributos categóricos convirtiéndolos usando One-Hot encoding o métodos similares. K-Modes tiene como ventaja que no se necesita conversión alguna de los datos.
 
-El algoritmo en sí es idéntico al que ya conocemos, solo tenemos que redefinir de que forma hacemos el promedio de puntos para calcular los centroides y de que forma medimos las distancias entre puntos y centroides.
+El algoritmo en sí es idéntico al que ya se ha visto, solo hay que redefinir de qué forma se computa el promedio de puntos para calcular los centroides y de qué forma se miden las distancias entre puntos y centroides. Para medir la distancia entre dos puntos se usará la norma $l_0$, es decir la cantidad de atributos en los cuáles los datos difieren. Por ejemplo, si $x_1=(3,\text{blue},\text{Y},\text{Chicago})$ y $x_2=(5,\text{blue},\text{Y},\text{Denver})$ la distancia entre $x_1$ y $x_2$ es 2 ya que los puntos difieren en dos atributos. 
 
-Para medir la distancia entre dos puntos vamos a usar la norma $l_0$, es decir la cantidad de atributos en los cuáles los datos difieren. Por ejemplo si $x_1=(3,\text{blue},\text{Y},\text{Chicago})$ y $x_2=(5,\text{blue},\text{Y},\text{Denver})$ la distancia entre $x_1$ y $x_2$ es 2 ya que los puntos difieren en dos atributos. 
-
-Para calcular el "promedio" entre $n$ puntos tomaremos por cada dimensión el valor que mas veces aparece, es decir la "moda" y por eso el nombre K-Modes. Si hay empate desempataremos al azar. 
-
-En general esto funciona bien cuando la cantidad de atributos es muy grande para que pueda haber mayor precisión en el rango de distancias posibles.  
+Para calcular el "promedio" entre $n$ puntos se tomará por cada dimensión el valor que mas veces aparece, es decir la "moda" y por eso el nombre K-Modes. Si hay empate se desempata al azar. En general esto funciona bien cuando la cantidad de atributos es muy grande para que pueda haber mayor precisión en el rango de distancias posibles.  
 
 \subsection{K-Means y el Problema de los Vecinos Mas Cercanos}
 
-Es posible usar K-Means para aproximar el problema de los vecinos mas cercanos (KNN) de forma eficiente. En primer lugar analicemos la posibilidad de correr K-Means sobre el set de datos con una cierta cantidad de centroides $k$ y luego usar la estructura resultante para resolver el problema de los vecinos mas cercanos.
+Es posible usar K-Means para aproximar el problema de los vecinos mas cercanos (KNN) de forma eficiente. En primer lugar, se analiza la posibilidad de correr K-Means sobre el set de datos con una cierta cantidad de centroides $k$ y luego usar la estructura resultante para resolver el problema de los vecinos mas cercanos.
 
-Si tenemos  $n$ puntos en $d$ dimensiones y usamos $k=\sqrt{n}$ K-Means nos devuelve los $k$ centroides y el centroide asignado a cada punto, es decir que cada uno de los $n$ puntos queda asignado a un centroide entre 1 y $k$. Para buscar los puntos mas cercanos a un cierto punto $q$ tenemos que comparar $q$ contra cada uno de los $k$ centroides y luego para el centroide mas cercano comparar contra todos los centroides asignados a dicho punto. Para esto podemos usar un índice invertido en donde tenemos $k$ entradas y por cada entrada la lista de puntos que fueron asignados a dicho centroide. 
+Si se tienen $n$ puntos en $d$ dimensiones y se usa $k=\sqrt{n}$ K-Means devuelve los $k$ centroides y el centroide asignado a cada punto. Es decir que cada uno de los $n$ puntos queda asignado a un centroide entre 1 y $k$. Para buscar los puntos mas cercanos a un cierto punto $q$ hay que comparar $q$ contra cada uno de los $k$ centroides y luego para el centroide mas cercano comparar contra todos los centroides asignados a dicho punto. Para esto se puede usar un índice invertido en donde tenemos $k$ entradas y por cada entrada la lista de puntos que fueron asignados a dicho centroide. 
 
-Esto nos da un algoritmo que es $O(2\sqrt{m})=O(\sqrt{m})$  esto es muy eficiente ya que para millones de puntos solo tenemos que realizar miles de comparaciones. El proceso puede hacerse online usando K-Means online e ir consultando a medida que se van agregando puntos con lo cual sirve también como un algoritmo de Streaming.
-
-Veamos el resultado usando puntos al azar:
+Esto da un algoritmo que es $O(2\sqrt{m})=O(\sqrt{m})$ y esto es muy eficiente ya que para millones de puntos solo hay que realizar miles de comparaciones. El proceso puede hacerse online usando K-Means online e ir consultando a medida que se van agregando puntos con lo cual sirve también como un algoritmo de Streaming.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/klsh-fig-1.png}
 \caption{LSH via Kmeans}
-
+\label{fig:lsh_kmeans}
 \end{figure}
 
-El resultado es un diagrama de Voronoi, como vemos cada uno de los clusters tiene aproximadamente 100 puntos. Cuando queremos hacer una consulta el punto a consultar cae dentro de alguno de los 100 clusters existentes ys olo comparamos contra los miembros de dicho cluster. Si el punto pertenece a la frontera del cluster entonces es posible que estemos dejando de lado algunos puntos que pueden ser similares. Más sobre esto más adelante.
-
-Usando este método para encontrar imágenes similares en CIFAR-10 obtenemos este ejemplo:
+La figura \ref{fig:lsh_kmeans} es un diagrama de Voronoi, y se puede ver que cada uno de los clusters tiene aproximadamente 100 puntos. Cuando se quiere hacer una consulta el punto a consultar cae dentro de alguno de los 100 clusters existentes y solo comparamos contra los miembros de dicho cluster. Si el punto pertenece a la frontera del cluster entonces es posible que estemos dejando de lado algunos puntos que pueden ser similares. 
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/klsh-fig-2.png}
 \caption{LSH via Kmeans para CIFAR-10}
-
+\label{fig:lsh_kmeans_cifar}
 \end{figure}
 
-Los resultados son buenos y no es necesario ningún tipo de parametrización especial. Lo mas interesante es que el método escala muy bien incluso para millones de imágenes dado que el proceso de K-Means se hace una única vez al principio y hemos visto variantes muy eficientes de K-Means. Por ejemplo puede usarse K-Means online que corra en background continuamente actualizando los centroides en base a las imágenes para obtener cada vez mejores resultados.
+La figura \ref{fig:lsh_kmeans_cifar} muestra los resultados de aplicar este método para encontrar imágenes similares en CIFAR-10. Los resultados son buenos y no es necesario ningún tipo de parametrización especial. Lo mas interesante es que el método escala muy bien incluso para millones de imágenes dado que el proceso de K-Means se hace una única vez al principio y se han visto variantes muy eficientes de K-Means. Por ejemplo, puede usarse K-Means online que corra en background continuamente actualizando los centroides en base a las imágenes para obtener cada vez mejores resultados.
 
-En nuestro algoritmo a partir de una consulta es necesario en primer lugar comparar la misma contra cada uno de los centroides para obtener el más cercano, por lo tanto podemos aprovechar y usar las distancias a los centroides para ver si no hay dos centroides que estén muy cercanos al punto que buscamos en cuyo caso podemos buscar en ambos. Es una negociación de precisión por performance.
+En este algoritmo a partir de una consulta es necesario en primer lugar comparar la misma contra cada uno de los centroides para obtener el más cercano, por lo tanto se puede aprovechar y usar las distancias a los centroides para ver si no hay dos centroides que estén muy cercanos al punto que se busca en cuyo caso se puede buscar en ambos. Es una negociación de precisión por performance.
 
 \subsubsection{Datos Masivos, realmente masivos}
 
-Si los puntos son tantos que la cantidad de puntos a buscar por cada centroide se hace muy grande una posible solución es usar un valor de $k$ mas grande para tener menor cantidad de puntos asignados a cada centroide pero es evidente que esta solución no es eficiente porque tenemos que comparar el query contra una cantidad mayor de centroides y además el proceso de K-Means se vuelve mucho mas lento. En el extremo si $k=n$ volvemos a la búsqueda por fuerza bruta. Es decir que aumentar el valor de $k$ solo nos acerca a la búsqueda por fuerza bruta que es precisamente lo que queremos evitar.
+Si los puntos son tantos que la cantidad de puntos a buscar por cada centroide se hace muy grande una posible solución es usar un valor de $k$ mas grande para tener menor cantidad de puntos asignados a cada centroide pero es evidente que esta solución no es eficiente porque habrá que comparar el query contra una cantidad mayor de centroides y además el proceso de K-Means se vuelve mucho mas lento. En el extremo si $k=n$ entonces estamos frente a una búsqueda por fuerza bruta. Es decir que aumentar el valor de $k$ solo acerca a la búsqueda por fuerza bruta que es precisamente lo que queremos evitar.
 
-Vamos a ver dos soluciones para este problema: una basada en una estructura llamada \textit{inverted multi index} y otra usando árboles basados en K-means, ambas soluciones solo tienen sentido si tenemos cientos de millones o incluso billones de puntos a los cuales queremos aplicar KNN.
+Hay al menos dos soluciones para este problema: una basada en una estructura llamada \textit{inverted multi index} y otra usando árboles basados en K-means. Ambas soluciones solo tienen sentido si tenemos cientos de millones o incluso billones de puntos a los cuales se quiere aplicar KNN.
 
 \subsection{The Inverted Multi-Index}
 
-En este algoritmo \cite{Babenko} vamos a empezar dividiendo las columnas $d$ del set de datos en dos bloques de $d/2$ columnas cada uno. Luego vamos a usar K-Means sobre cada uno de estos bloques como si fuera un set de datos independiente, es decir primero corremos K-Means con las primeras $d/2$ columnas de los datos y luego con las últimas $d/2$ columnas. Esto nos da dos juegos de centroides independientes $U$ y $V$ y dos centroides asignados a cada punto. Ahora en lugar de tener un índice invertido por cada centroide tendremos un índice por cada \textit{par} de centroides. 
+En este algoritmo \cite{Babenko} se comienza dividiendo las columnas $d$ del set de datos en dos bloques de $d/2$ columnas cada uno. Luego se usa K-Means sobre cada uno de estos bloques como si fuera un set de datos independiente, es decir primero se corre K-Means con las primeras $d/2$ columnas de los datos y luego con las últimas $d/2$ columnas. Esto dará dos juegos de centroides independientes $U$ y $V$ y dos centroides asignados a cada punto. Ahora en lugar de tener un índice invertido por cada centroide se tendrá un índice por cada \textit{par} de centroides. 
 
-Al usar dos valores la cantidad de puntos en cada \textit{celda} del índice se reduce notablemente, es posible incluso que en una celda no tengamos la cantidad de puntos necesarios para encontrar los $k$ vecinos mas cercanos a un cierto query.
-
-Para el query, simplemente buscaremos los dos centroides mas cercanos al mismo y esto nos dará la primera entrada del índice invertido múltiple a buscar. Por ejemplo (2,3) indicando que el query es cercano al cluster 2 del primer K-means y al cluster 3 del segundo K-means. Al ir comparando el query con los $2k$ centroides podemos calcular la distncia del mismo a cada centroide por lo que tendremos para cada combinación de centroides una distancia que es la suma de la distancia del query a cada centroide. Para resolver el problema de KNN vamos a acceder al índice invertido en orden de distancias decreciente hasta completar los $k$ puntos.
+Al usar dos valores, la cantidad de puntos en cada \textit{celda} del índice se reduce notablemente, es posible incluso que en una celda no se tenga la cantidad de puntos necesarios para encontrar los $k$ vecinos mas cercanos a un cierto query. Para el query, simplemente se buscan los dos centroides mas cercanos al mismo y esto nos dará la primera entrada del índice invertido múltiple a buscar. Por ejemplo (2,3) indicando que el query es cercano al cluster 2 del primer K-means y al cluster 3 del segundo K-means. Al ir comparando el query con los $2k$ centroides se puede calcular la disatncia del mismo a cada centroide por lo que se tendrá para cada combinación de centroides una distancia que es la suma de la distancia del query a cada centroide. Para resolver el problema de KNN se accederá al índice invertido en orden de distancias decreciente hasta completar los $k$ puntos.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/invertedmulti.png}
 
-\caption{Inverted Multi Index: En primer lugar calculamos la distancia desde el query Q a cada centroide usando $d/2$ columnas de Q en cada caso. Luego en base a las distancias entre el query y cada centroide calculamos la suma de las dos distancias ($r$ y $s$). Por lo tanto vamos a acceder primero al índice por las posiciones (3,4) cuya distancia sumada es 0.6, luego vamos a (4,4) con distancia 0.8, luego a (3,3) y así sucesivamente. Cada uno de estos pares sirve como clave de un índice invertido que almacena que puntos del set de datos original quedaron asignados a cada par de centroides}
+\caption{Inverted Multi Index: En primer lugar se calcula la distancia desde el query Q a cada centroide usando $d/2$ columnas de Q en cada caso. Luego, en base a las distancias entre el query y cada centroide, se calcula la suma de las dos distancias ($r$ y $s$). Por lo tanto será necesario acceder primero al índice por las posiciones (3,4) cuya distancia sumada es 0.6, luego por (4,4) con distancia 0.8, luego a (3,3) y así sucesivamente. Cada uno de estos pares sirve como clave de un índice invertido que almacena qué puntos del set de datos original quedaron asignados a cada par de centroides}
 \label{fig:invertedmulti}
 \end{figure}
 
-Hay múltiples variantes de esta estructura, por ejemplo se puede aplicar primero la SVD al set de datos sin reducir la cantidad de dimensiones, luego correr los 2 K-Means como hemos descripto y luego dentro de cada celda podemos volver a aplicar el algoritmo como si cada celda fuera un set de datos independiente. Esta estructura recursiva da lugar a varios algoritmos que son extremadamente eficientes como por ejemplo LOPQ \cite{KalantidisAvrithis}. 
+Hay múltiples variantes de esta estructura. Por ejemplo, se puede aplicar primero la SVD al set de datos sin reducir la cantidad de dimensiones, luego correr los 2 K-Means como se ha descripto y luego dentro de cada celda se puede volver a aplicar el algoritmo como si cada celda fuera un set de datos independiente. Esta estructura recursiva da lugar a varios algoritmos que son extremadamente eficientes como por ejemplo LOPQ \cite{KalantidisAvrithis}. 
 
-Estos métodos son muy necesarios, por ejemplo para búsqueda de imágenes similares a otras en donde podemos tener billones de puntos (imágenes) en millones de dimensiones. Para estos sets de datos KNN suele ser el mejor algoritmo para encontrar semejanzas, en algunos casos extrayendo features de las imágenes usando algoritmos como por ejemplo SIFT. Incluso reduciendo la cantidad de dimensioenes a cientos o miles KNN es completamente inviable y son necesarias aproximaciones. Los Multi-Inverted indexes,LOPQ o K-Means Trees son una solución a este problema y por eso su importancia.
-
-Hablando de estructuras recursivas una idea simple es aplicar K-Means al resultado de K-Means...
+Estos métodos son muy necesarios por ejemplo para búsqueda de imágenes similares a otras en donde puede haber billones de puntos (imágenes) en millones de dimensiones. Para estos sets de datos KNN suele ser el mejor algoritmo para encontrar semejanzas. En algunos casos extrayendo features de las imágenes usando algoritmos como por ejemplo SIFT. Incluso reduciendo la cantidad de dimensioenes a cientos o miles KNN es completamente inviable y son necesarias aproximaciones. Los Multi-Inverted indexes,LOPQ o K-Means Trees son una solución a este problema y por eso su importancia.
 
 \subsubsection{K-means Trees}
 
-Para datos que son realmente masivos o streams el uso de la versión online de K-Means es necesario pero aún así podemos tener el problema de que la cantidad de comparaciones en cada paso sea muy costosa, por ejemplo con 1 millón de datos necesitamos 1000 comparaciones por consulta y puede que este sea un número demasiado alto.
+Para datos que son realmente masivos o streams el uso de la versión online de K-Means es necesario pero aún así se puede presentar el problema de que la cantidad de comparaciones en cada paso sea muy costosa. Por ejemplo, con 1 millón de datos se necesitan 1000 comparaciones por consulta y puede que este sea un número demasiado alto.
 
-Es posible acotar la cantidad de comparaciones que hacemos en cada punto construyendo múltiples niveles de K-Means. A esto lo llamamos “árboles de K-Means” cada nivel tiene una cantidad fija de centroides y una cantidad fija de puntos. Cuando la cantidad de puntos en una de las ramas del árbol supera el máximo creamos un nuevo nivel de K-Means en donde cada punto va a ser un centroide y no tendrá puntos asociados, de esta forma podemos ir llenando el árbol garantizando tiempo constante para inserciones y consultas.
+Es posible acotar la cantidad de comparaciones que hacemos en cada punto construyendo múltiples niveles de K-Means. A esto se lo conoce como “árboles de K-Means” donde cada nivel tiene una cantidad fija de centroides y una cantidad fija de puntos. Cuando la cantidad de puntos en una de las ramas del árbol supera el máximo se crea un nuevo nivel de K-Means en donde cada punto va a ser un centroide y no tendrá puntos asociados. De esta forma se puede ir llenando el árbol garantizando tiempo constante para inserciones y consultas.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3in]{figures/kmeanstrees.png}
 
-\caption{Ejemplo de K-Means recursivo en dos niveles. En primer lugar se hace un K-Means con $k=9$, luego un K-Means de estos 9 centroides con $k=3$. Si nuestro query es el punto rojo tenemos que comparar primero con los tres centroides fucsias ir al mas cercano y repetir el proceso, usando backtracking si es necesario hasta recolectar los $k$ vecinos mas cercanos al query.}
+\caption{Ejemplo de K-Means recursivo en dos niveles. En primer lugar se hace un K-Means con $k=9$, luego un K-Means de estos 9 centroides con $k=3$. Si el query es el punto rojo habrá que comparar primero con los tres centroides fucsias, ir al mas cercano y repetir el proceso, usando backtracking si es necesario hasta recolectar los $k$ vecinos mas cercanos al query.}
 \label{fig:kmeanstrees}
 \end{figure}
 
@@ -13972,7 +13899,7 @@ El éxito de este algoritmo comparado contra LOPQ o los inverted multi indexes d
 
 El algoritmo de Clustering Espectral \cite{WeissNgJordan} surge originalmente como una forma de realizar cortes entre componentes de un grafo, siendo un algoritmo originalmente pensado para grafos pasó un cierto tiempo hasta que se comenzó a usar para cualquier tipo de datos. Este algoritmo, al igual que Kernel K-Means, tiene la capacidad de detectar formas de clusters arbitrarias, no-lineales.
 
-Sea $X_{mxn}$ nuestra matriz de $m$ datos en $n$ dimensiones. Para transformarla en un grafo vamos a usar el mismo proceso que hemos usado en Laplacian Eigenmaps por lo que solamente lo repasaremos muy rápidamente.
+Sea $X_{mxn}$ la matriz de $m$ datos en $n$ dimensiones. Para transformarla en un grafo vamos a usar el mismo proceso que se ha utilizado en Laplacian Eigenmaps
 
 \subsection{Primer paso: construir la matriz de afinidad}
 
@@ -13992,7 +13919,7 @@ La matriz Laplaciana tiene varias construcciones posibles pero la más común es
 L = D-W
 \end{myequation}
 
-Siendo $D$ la matriz diagonal con el grado de cada vértice del grafo, donde por grado debemos entender la suma de cada columna de $W_{ij}$. Cuando “W” es la matriz de adyacencia de un grafo el grado es la cantidad de vértices conectados al mismo. En nuestro caso al ser el grafo completo y con pesos en las aristas el “grado” será la suma de todos los pesos de las aristas que inciden sobre cada nodo. Notemos que trabajamos con grafos no-dirigidos.
+Siendo $D$ la matriz diagonal con el grado de cada vértice del grafo, donde por grado se entiende la suma de cada columna de $W_{ij}$. Cuando $W$ es la matriz de adyacencia de un grafo el grado es la cantidad de vértices conectados al mismo. En este caso, al ser el grafo completo y con pesos en las aristas, el “grado” será la suma de todos los pesos de las aristas que inciden sobre cada nodo. Notar que se trabaja con grafos no-dirigidos.
 
 Otras variantes para L:
 
@@ -14004,45 +13931,35 @@ L2 = D^{1/2} (D-W) D^{1/2}
 L3 = D^{-1}-W
 \end{myequation}
 
-Propiedades oscuras, insondables de la teoría de grafos nos dicen que el espectro de la matriz Laplaciana sirve para encontrar cortes mínimos en un grafo. Un corte mínimo es aquel que divide el grafo en dos conjuntos de nodos de forma tal que las aristas entre nodos de los dos conjuntos tienen afinidad mínima. Es decir que podemos usarlo para separar el grafo en componentes lo cual equivale a realizar clustering entre los puntos que hemos representado como grafos del nodo.
+Ciertas propiedades de la teoría de grafos dicen que el espectro de la matriz Laplaciana sirve para encontrar cortes mínimos en un grafo. Un corte mínimo es aquel que divide el grafo en dos conjuntos de nodos de forma tal que las aristas entre nodos de los dos conjuntos tienen afinidad mínima. Es decir que se lo puede utilizar para separar el grafo en componentes lo cual equivale a realizar clustering entre los puntos que se han representado como grafos del nodo.
 
-El párrafo anterior explica la esencia del clustering espectral, si lo pasaron de largo por favor vuelvan a leerlo!
-
-Una propiedad interesante de los autovalores de la matriz Laplaciana de un grafo es que la cantidad de autovalores iguales a cero es igual a la cantidad de componentes conexos en el grafo, recordemos que la matriz Laplaciana representa la conectividad del mismo. En un grafo completo tendremos un solo autovalor igual a cero, en un grafo sin aristas tendremos que todos los autovalores son cero lo cual tiene mucho sentido.
+Una propiedad interesante de los autovalores de la matriz Laplaciana de un grafo es que la cantidad de autovalores iguales a cero es igual a la cantidad de componentes conexos en el grafo. Recordar que la matriz Laplaciana representa la conectividad del mismo. En un grafo completo habrá un solo autovalor igual a cero y en un grafo sin aristas todos los autovalores son cero lo cual tiene mucho sentido.
 
 \subsection{Tercer paso: Autovalores y Autovectores de la matriz Laplaciana}
 
-El siguiente paso es descomponer la matriz Laplaciana en sus autovalores y autovectores y determinar la cantidad de autovectores a usar. Esto lo podemos hacer analizando el plot de los autovalores de la matriz.
+El siguiente paso es descomponer la matriz Laplaciana en sus autovalores y autovectores y determinar la cantidad de autovectores a usar. Esto se lo puede hacer analizando el plot de los autovalores de la matriz.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/spec-fig-2.png}
 \caption{Autovalores de L}
-
+\label{fig:clustering_eigenvalues}
 \end{figure}
 
-Tenemos un único autovalor en cero lo cual indica que el grafo es conexo. Lo que buscamos es un "salto" en los valores de los autovalores. Podemos ver en este caso que el salto se produce luego del tercer autovalor. Como el autovalor 0 lo descartamos podríamos deducir que en este caso en particular es conveniente usar 1 o 2 autovectores. Es decir que vamos a representar a nuestros datos en 1 o 2 dimensiones.
+La figura \ref{fig:clustering_eigenvalues} muestra los distintos autovalores de $L$. Se nota que hay un único autovalor en cero lo cual indica que el grafo es conexo. Lo que se busca es un "salto" en los valores de los autovalores. En este caso, el salto se produce luego del tercer autovalor. Como el autovalor 0 lo descartamos se podría deducir que en este caso en particular es conveniente usar 1 o 2 autovectores. Es decir, que nuestros datos se representarán en 1 o 2 dimensiones.
 
-Vamos a volver pronto a los autovalores, grafiquemos ahora los primeros autovectores, es decir los asociados a los autovalores más pequeños.
-
-Ordenamos los autovectores en el mismo orden que los autovalores:
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/spec-fig-3.png}
 \caption{Autovectores de L}
-
+\label{fig:clustering_eigenvectors}
 \end{figure}
 
-Observando con detenimiento los autovectores podemos ver que tienen una estructura muy particular. Es decir toman valores muy similares para un cierto conjunto de puntos. Los autovectores no están mostrando ni más ni menos que la estructura de nuestra matriz de afinidad en diferentes niveles. 
+La figura \ref{fig:clustering_eigenvectors} muestra los autovectores de la matriz $L$ (los autovectores estan ordenados de la misma forma que los autovalores). Observando con detenimiento los autovectores, se puede ver que tienen una estructura muy particular puesto que toman valores muy similares para un cierto conjunto de puntos. Los autovectores no están mostrando ni más ni menos que la estructura de la matriz de afinidad en diferentes niveles. 
+Es posible que uno solo de estos autovectores sea suficiente para realizar el clustering de los datos, en general el primer autovector. Otras veces se necesita un conjunto de autovectores. 
 
-Es posible que uno solo de estos autovectores sea suficiente para realizar el clustering de nuestros datos, en general el primer autovector. Otras veces necesitamos un conjunto de autovectores. El algoritmo de clustering espectral es entonces el siguiente:
-
-\begin{enumerate}
-\item determinar el número de autovectores a usar de la matriz Laplaciana del grafo
-\item correr K-Means sobre estos autovectores
-\item Asignar a los puntos originales los clusters de acuerdo al resultado de K-Means.
-\end{enumerate}
+El algoritmo \ref{alg:spectral_clustering} resume el paso a paso del clustering espectral.
 
 \begin{algorithm}[]
 Construir matriz W\\
@@ -14052,24 +13969,25 @@ Determinar z=el numero de autovalores  a usar\\
 Aplicar K-Means a los z autovectores de L\\
 Asignar los puntos originales de acuerdo a las asignaciones de Kmeans\\
 \caption{Clustering Espectral}
+\label{alg:spectral_clustering}
 \end{algorithm}
 
-Observemos el resultado luego de aplicar K-Means en el espacio del espectro de la matriz Laplaciana:
+La figura \ref{fig:spectral_clustering_example_1} muestra el resultado luego de aplicar K-Means en el espacio del espectro de la matriz Laplaciana.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/spec-fig-4.png}
 \caption{Clustering Espectral}
-
+\label{fig:spectral_clustering_example_1}
 \end{figure}
 
-El método de clustering espectral permite encontrar clusters de formas realmente arbitrarias como lo muestra el ejemplo:
+El método de clustering espectral permite encontrar clusters de formas realmente arbitrarias como lo muestra el ejemplo \ref{fig:spectral_clustering_example_2}.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/spec-fig-5.png}
 \caption{Clustering Espectral}
-
+\label{fig:spectral_clustering_example_2}
 \end{figure}
 
 \subsection{Selección de Hiper-Parámetros}
@@ -14083,31 +14001,31 @@ Al realizar clustering espectral hay que tener mucho cuidado en la selección de
 \end{itemize}
 
 En muchas ocasiones esto implica un proceso complejo con varias pruebas antes de llegar a los resultados esperados. También implica que usar Spectral Clustering sin seleccionar los parámetros no tiene mucho sentido y puede producir cualquier tipo de resultado. 
-En muchos casos la selección de hiper-parámetros se puede automatizar usando la función costo de K-Means, aplicandola sobre los puntos originales y los centroides que surgirían del promedio de los puntos que pertenecen a cada uno. Es decir que Clustering Espectral solo nos dice a que cluster pertenece cada punto y con esto podemos calcular los centroides y la distancia de cada punto a su centroide. 
+En muchos casos la selección de hiper-parámetros se puede automatizar usando la función costo de K-Means, aplicandola sobre los puntos originales y los centroides que surgirían del promedio de los puntos que pertenecen a cada uno. Es decir que Clustering Espectral solo dice a qué cluster pertenece cada punto y con esto se pueden calcular los centroides y la distancia de cada punto a su centroide. 
 
-El algoritmo de clustering espectral es una herramienta muy poderosa ya que puede solucionar casos en los cuales la mayoría de los algoritmos falla, especialmente los casos en que K-Means no funciona en ninguna de sus innumerables variantes. El mecanismo por el cual solucionamos el problema es realizando el clustering en un espacio de dimensiones completamente diferente pero que surge en función del espacio original. La selección de los hiper-parámetros es crítica en el algoritmo de Clustering Espectral. Por más poderoso que sea el misil de nada sirve si no apunta a donde queremos.
+El algoritmo de clustering espectral es una herramienta muy poderosa ya que puede solucionar casos en los cuales la mayoría de los algoritmos falla, especialmente los casos en que K-Means no funciona en ninguna de sus innumerables variantes. El mecanismo por el cual se soluciona el problema es realizando el clustering en un espacio de dimensiones completamente diferente pero que surge en función del espacio original. La selección de los hiper-parámetros es crítica en el algoritmo de Clustering Espectral. Por más poderoso que sea el misil de nada sirve si no apunta a donde se quiere.
 
 \subsection{Aproximaciones: KASP}
 
-El algoritmo de Clustering Espectral tiene como problema la necesidad de contar con la matriz de afinidad “W” que es una matriz de mxm siendo “m” la cantidad de datos. Esto puede llegar a ser un número imposible de manejar. Es necesario entonces realizar una aproximación que nos permita usar clustering espectral sin la necesidad de calcular W de forma completa. La aproximación que veremos se llama “Kasp” \cite{YanHuangJordan} y está basada en K-Means.
+El algoritmo de Clustering Espectral tiene como problema la necesidad de contar con la matriz de afinidad $W$ que es una matriz de $mxm$ siendo $m$ la cantidad de datos. Esto puede llegar a ser un número imposible de manejar. Es necesario entonces realizar una aproximación que permita usar clustering espectral sin la necesidad de calcular $W$ de forma completa. Una aproximación que se puede utilizar se llama \textit{Kasp} \cite{YanHuangJordan} y está basada en K-Means.
 
 El procedimiento es muy simple:
 
 \begin{enumerate}
-\item Usar K-Means para generar “z” centroides a partir de los datos.
+\item Usar K-Means para generar $z$ centroides a partir de los datos.
 \item Usar clustering espectral sobre los centroides.
 \item Asignar a cada punto del set original el cluster al que pertenece su centroide.
 \end{enumerate}
 
-Como vemos este procedimiento es realmente muy sencillo. Solo tenemos que usar primero K-Means, luego clustering espectral y simplemente recuperar para cada punto el centroide asignado por el algoritmo de clustering espectral que corresponde al centroide asignado por K-Means para el punto. Es notable que usamos Kmeans como método de compresión del set de datos de $m$ a $k$ puntos en donde $k$ puede ser arbitrario.
+Es un procedimiento muy sencillo. Solo hay que usar primero K-Means, luego clustering espectral y simplemente recuperar para cada punto el centroide asignado por el algoritmo de clustering espectral que corresponde al centroide asignado por K-Means para el punto. Es notable que se usa Kmeans como método de compresión del set de datos de $m$ a $k$ puntos en donde $k$ puede ser arbitrario.
 
-Clustering Espectral puede aplicarse de forma directa a la detección de comunidades en grafos, por ejemplo en redes sociales, en este caso la matriz W es la matriz de adyacencia del grafo y el resto del algoritmo no requiere ningún cambio. 
+Clustering Espectral puede aplicarse de forma directa a la detección de comunidades en grafos. Por ejemplo, en redes sociales y en este caso la matriz W es la matriz de adyacencia del grafo y el resto del algoritmo no requiere ningún cambio. 
 
 \section{CURE}
 
 CURE \cite{GuhaRastogiShim} (Cluserint Using Representatives) es un algoritmo de clustering para grandes cantidades de datos, que es robusto a datos anómalos y permite clusters de forma arbitraria. CURE combina clustering jerárquico y K-Means de forma eficiente.
 
-El primer paso es elegir un subconjunto de puntos al azar y agruparlos en $k$ clusters usando clustering jerárquico. Es necesario conocer la cantidad de clusters que queremos $k$ igual que en K-Means. Estos puntos no pueden ser muchos ya que, como sabemos, sería ineficiente realizar el proceso de clustering jerárquico. 
+El primer paso es elegir un subconjunto de puntos al azar y agruparlos en $k$ clusters usando clustering jerárquico. Es necesario conocer la cantidad de clusters que queremos $k$ igual que en K-Means. Estos puntos no pueden ser muchos ya que, como se sabe, sería ineficiente realizar el proceso de clustering jerárquico. 
 
 \begin{figure}[!htb]
 \centering
@@ -14126,7 +14044,7 @@ El tercer paso es mover los puntos representativos un 20\% hacia el centro del c
 
 \end{figure}
 
-En el paso final por cada punto del set de datos que falta procesar lo asignamos al cluster que corresponde al punto representativo mas cercano al punto.
+En el paso final por cada punto del set de datos que falta procesar se lo asigna al cluster que corresponde al punto representativo mas cercano al punto.
 
 \begin{algorithm}[]
 Elegir $L$ puntos al azar\\
@@ -14147,12 +14065,11 @@ El orden de CURE es $O(n^2 \log n)$ por lo que puede resultar ineficiente para d
 
 \section{DBScan}
 
-DBScan es un algoritmo de clustering basado en el concepto de "densidad" es decir encontrar zonas en las cuales haya una densidad de puntos altas e identificar estas zonas como un cluster. Gracias a esto DBscan es capaz de determinar automáticamente la cantidad de clusters y puede también detectar outliers, es decir puntos anómalos que no pertenecen a ningún cluster. 
+DBScan es un algoritmo de clustering basado en el concepto de "densidad" es decir encontrar zonas en las cuales haya una densidad de puntos altas e identificar estas zonas como un cluster. Gracias a esto, DBscan es capaz de determinar automáticamente la cantidad de clusters y puede también detectar outliers. 
 
-DBScan tiene dos hiper-parámetros: la distancia mínima entre dos puntos para estar en un mismo cluster que llamaremos "$e$"  y la cantidad mínima de puntos vecinos a la distancia correcta para poder generar nuevos clusters "$k$". Ambos son fáciles de interpretar, $e$ nos dice la densidad con la cual vamos a agrupar puntos y $k$ nos dice la cantidad mínima de puntos que puede tener un cluster. Los puntos que no pertenecen a un cluster y no son suficientes para formar un nuevo cluster son los outliers. 
+DBScan tiene dos hiper-parámetros: la distancia mínima entre dos puntos para estar en un mismo cluster que llamaremos "$e$"  y la cantidad mínima de puntos vecinos a la distancia correcta para poder generar nuevos clusters "$k$". Ambos son fáciles de interpretar, $e$ dice la densidad con la cual se agruparán los puntos y $k$ es la cantidad mínima de puntos que puede tener un cluster. Los puntos que no pertenecen a un cluster y no son suficientes para formar un nuevo cluster son los outliers. 
 
-El algoritmo comienza con un punto cualquiera, si el punto no pertenece a un cluster entonces analizamos si tiene al menos $k-1$ vecinos a distancia menor o igual a $e$ en cuyo caso formamos un nuevo cluster con estos $k$ puntos. 
-Si el punto ya pertenece a un cluster entonces buscamos los puntos a distancia $e$ o menor y los agregamos al cluster.
+El algoritmo comienza con un punto cualquiera, si el punto no pertenece a un cluster entonces se analiza si tiene al menos $k-1$ vecinos a distancia menor o igual a $e$ en cuyo caso se forma un nuevo cluster con estos $k$ puntos. Si el punto ya pertenece a un cluster entonces se buscan los puntos a distancia $e$ o menor y se los agrega al cluster.
 
 \begin{figure}[!htb]
 \centering
@@ -14161,48 +14078,45 @@ Si el punto ya pertenece a un cluster entonces buscamos los puntos a distancia $
 
 \end{figure}
 
-DBscan es capaz de detectar formas arbitrarias de casi cualquier tipo como por ejemplo:
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/dbscan-fig-3.png}
 \caption{Ejemplo DBScan}
-
+\label{fig:dbscan_example}
 \end{figure}
 
-Esto funciona siempre y cuando todos los clusters tengan densidades parecidas, es decir que los puntos dentro de cada cluster se encuentren a distancias similares. Cuando los clusters tienen distintas densidades DBscan falla ya que puede no ser posible encontrar un parámetro $e$ que sirva.
+DBscan es capaz de detectar formas arbitrarias de casi cualquier tipo como se muestra a modo ejemplo en la figura \ref{fig:dbscan_example}. Esto funciona siempre y cuando todos los clusters tengan densidades parecidas, es decir que los puntos dentro de cada cluster se encuentren a distancias similares. Cuando los clusters tienen distintas densidades DBscan falla ya que puede no ser posible encontrar un parámetro $e$ que sirva.
 
-En cuanto a performance tenemos el problema de po cada punto encontrar los puntos a distancia menor o igual a $e$ que es $O(n^2)$ por fuerza bruta. La solución en DBscan es usar algún tipo de índice espacial para llevar esto a $O(n \log n)$. Como sabemos estos índices no escalan bien en muchas dimensiones por lo que en espacios de muchas dimensiones DBScan sufre el problema de la dimensión de la dimensionalidad igual que KNN.
+En cuanto a performance se encuentra el problema de por cada punto encontrar los puntos a distancia menor o igual a $e$ y eso es $O(n^2)$ por fuerza bruta. La solución en DBscan es usar algún tipo de índice espacial para llevar esto a $O(n \log n)$. Como ya se sabe estos índices no escalan bien en muchas dimensiones por lo que en espacios de muchas dimensiones DBScan sufre el problema de la dimensión al igual que KNN.
 
 \section{HDBScan}
 
-HDBScan \cite{CampelloMoulaviSander} es un algoritmo de clustering basado en DBScan que soluciona el problema de las densidades diferentes en los clusters. El problema es que si se usa una distancia muy pequeña $e$ los clusters con densidades de puntos bajas quedan sin identificar es decir como un enorme conjunto de outliers mientras que si usamos una densidad grande suficiente para encontrar los clusters menos densos empiezan a mergearse entre sí. 
+HDBScan \cite{CampelloMoulaviSander} es un algoritmo de clustering basado en DBScan que soluciona el problema de las densidades diferentes en los clusters. El problema es que si se usa una distancia muy pequeña $e$ los clusters con densidades de puntos bajas quedan sin identificar es decir como un enorme conjunto de outliers mientras que si se usa una densidad grande suficiente para encontrar los clusters menos densos empiezan a mergearse entre sí. 
 
-Vamos a usar a lo largo de esta sección el siguiente conjunto de puntos:
+A lo largo de esta sección se trabajará con el conjunto de puntos de la figura \ref{fig:hdbscan_example}.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/hdbscan-fig-9.png}
 \caption{HDBScan ejemplo}
-
+\label{fig:hdbscan_example}
 \end{figure}
 
 El primer paso de HDBScan es construir una matriz de distancias entre los puntos pero en lugar de usar la distancia euclideana en HDScan se usa una distancia especial denominada "Mutual Reachability Distance (MRD)".
 
 \subsection{La Distancia MRD}
 
-Vamos a asociar a cada punto con la distancia de su vecindario que es la distancia máxima entre sus $k$ vecinos mas cercanos. $k$ es un hiper-parámetro para el algoritmo. 
+Se asocia a cada punto con la distancia de su vecindario que es la distancia máxima entre sus $k$ vecinos mas cercanos. $k$ es un hiper-parámetro para el algoritmo. A esta distancia se la conoce como el $\textit{core}_k$ del punto. Cada punto tiene asociada una cierta distancia correspondiente a $\text{core}_k(x_i)$ que, tal como se mencionó, es la distancia máxima entre el punto y sus $k$ vecinos mas cercanos. La figura \ref{fig:hdbscan_core} refleja esta situación.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/hdbscan-fig-1.png}
 \caption{Vecindario de un punto}
-
+\label{fig:hdbscan_core}
 \end{figure}
 
-A esta distancia la vamos a llamar el $\textit{core}_k$ del punto. Cada punto tiene asociada una cierta distancia correspondiente a $\text{core}_k(x_i)$ que, recordemos, es la distancia máxima entre el punto y sus $k$ vecinos mas cercanos. 
-
-La distancia MRD \cite{Eldridge} se define de la siguiente forma:
+La distancia MRD \cite{Eldridge} se define entonces de la siguiente forma:
 
 \begin{myequation}
 \text{MRD}(a,b) = \max\{\text{core}_k(a),\text{core}_k(b),d(a,b)\}
@@ -14212,11 +14126,11 @@ MRD funciona particularmente bien junto con clustering jerárquico que es uno de
 
 \subsection{El árbol Generador Mínimo}
 
-Usando la matriz de distancias MRD el objetivo de HDBScan es encontrar las "islas" de puntos que tienen alta densidad en donde la densidad es variable para cada isla. Conceptualmente lo que vamos a hacer es considerar a los datos como un grafo en donde el peso de las aristas es la distancia MRD entre los puntos. 
+Usando la matriz de distancias MRD el objetivo de HDBScan es encontrar las "islas" de puntos que tienen alta densidad en donde la densidad es variable para cada isla. Conceptualmente lo que se hace es considerar a los datos como un grafo en donde el peso de las aristas es la distancia MRD entre los puntos. 
 
-Pensemos ahora que podríamos ir variando un cierto umbral y deshacernos de las aristas que tengan una distancia mayor al mismo, eventualmente tenemos una jerarquía de componentes conexos que descubre las "islas" del grafo que estábamos buscando. 
+Se podría ir variando un cierto umbral y descartar las aristas que tengan una distancia mayor al mismo, eventualmente se tiene una jerarquía de componentes conexos que descubre las "islas" del grafo que se estaba buscando. 
 
-Una forma análoga de hacer esto es construyendo el árbol generador mínimo para el grafo. Esto se puede hacer de forma muy eficiente mediante el algoritmo de Kruskal. Empezamos con un grafo vacío y en cada paso agregamos la arista de menor peso que conecte el árbol actual a un nodo que todavía no forme parte del árbol. Notemos que el árbol generador usando la distancia MRD no es igual al árbol generador usando la distancia euclideana.
+Una forma análoga de hacer esto es construyendo el árbol generador mínimo para el grafo. Esto se puede hacer de forma muy eficiente mediante el algoritmo de Kruskal. Se empieza con un grafo vacío y en cada paso se agrega la arista de menor peso que conecte el árbol actual a un nodo que todavía no forme parte del árbol. Notar que el árbol generador usando la distancia MRD no es igual al árbol generador usando la distancia euclideana.
 
 \begin{figure}[!htb]
 \centering
@@ -14225,7 +14139,7 @@ Una forma análoga de hacer esto es construyendo el árbol generador mínimo par
 
 \end{figure}
 
-Una vez que tenemos el árbol generador mínimo vamos a usar el algoritmo de clustering jerárquico sobre estos puntos usando la distancia MRD.
+Una vez que se tiene el árbol generador mínimo se usa el algoritmo de clustering jerárquico sobre estos puntos usando la distancia MRD.
 
 \subsection{Clustering Jerárquico}
 
@@ -14233,39 +14147,37 @@ Una vez que tenemos el árbol generador mínimo vamos a usar el algoritmo de clu
 \centering
 \includegraphics[width=4.5in]{figures/hdbscan-fig-5.png}
 \caption{Clustering Jerárquico sobre los puntos del árbol generador mínimo}
-
+\label{fig:hdbscan_dendrogram}
 \end{figure}
 
-El resultado es un dendrograma, en este momento necesitamos usar la información en el dendrograma para identificar cuales son los clusters en nuestro set de datos. De abajo hacia arriba el dendrograma puede interpretarse como que clusters fuimos uniendo para formar clusters mas grandes, en este caso eso no nos interesa sino que queremos recorrer el dendrograma de arriba hacia abajo. Si recorremos el dendrograma de arriba hacia abajo partimos de un único cluster con todos los puntos que se va subdividiendo en otros clusters, al igual que en DBScan nos interesa fijar un tamaño mínimo para que un conjunto de puntos se pueda considerar un cluster. Para que un split de nuestro dendrograma genere dos nuevos clusters éstos tienen que tener al menos la cantidad mínima de puntos que establecimos, en caso contrario lo vamos a considerar como un cluster que pierde puntos pero sigue siendo el mismo cluster.
+La figura \ref{fig:hdbscan_dendrogram} muestra un dendrograma en el cual se podrán identificar cuáles son los clusters en el set de datos. De abajo hacia arriba el dendrograma puede interpretarse como qué clusters se fueron uniendo para formar clusters mas grandes. En este caso eso no es de interés sino que se quiere recorrer el dendrograma de arriba hacia abajo. Si se recorre el dendrograma de arriba hacia abajo se parte de un único cluster con todos los puntos que se va subdividiendo en otros clusters, al igual que en DBScan se quiere fijar un tamaño mínimo para que un conjunto de puntos se pueda considerar un cluster. Para que un split del dendrograma genere dos nuevos clusters éstos tienen que tener al menos la cantidad mínima de puntos que se estableció. En caso contrario, se lo considera como un cluster que pierde puntos pero sigue siendo el mismo cluster.
 
-Esto nos permite podar el dendrograma en donde solo quedan los splits que generan clusters válidos. La cantidad de puntos en los clusters puede ir variando porque los clusters que no se subdividen pueden perder puntos, esto lo podemos representar con un nuevo dendrograma de la siguiente forma:
+Esto permite podar el dendrograma en donde solo quedan los splits que generan clusters válidos. La cantidad de puntos en los clusters puede ir variando porque los clusters que no se subdividen pueden perder puntos, esto se lo puede representar con un nuevo dendrograma como se muestra en la figura \ref{fig:hdbscan_dendrogram_2}.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/hdbscan-fig-6.png}
 \caption{Dendrograma luego de la poda}
-
+\label{fig:hdbscan_dendrogram_2}
 \end{figure}
 
-\subsection{Extraer los Clusters}
+\subsection{Extraer los clusters}
 
-Empezamos con un único cluster con muchos puntos, este se subdivide en 2, la rama izquierda inmediatamente se divide en dos clusters que perduran en el tiempo perdiendo algunos puntos. La rama derecha se dividen en el paso 2 en dos clusters el de la rama izquierda queda y el de la rama derecha se divide en 2 en el paso 3. Esta representación simplificada tiene información muy importante sobre los clusters en nuestro set de datos. 
+Se empieza con un único cluster con muchos puntos y éste se subdivide en 2. La rama izquierda inmediatamente se divide en dos clusters que perduran en el tiempo perdiendo algunos puntos. La rama derecha se dividen en el paso 2 en dos clusters siendo que el de la rama izquierda queda y el de la rama derecha se divide en 2 en el paso 3. Esta representación simplificada tiene información muy importante sobre los clusters en el set de datos. 
 
-Intuitivamente queremos aquellos clusters que persisten a lo largo del tiempo, los clusters que duran muy poco probablemente sean simplemente ruido. Observando el dendrograma luego de la poda podemos decir que queremos los clusters que tienen mayor área en el plot. Si seleccionamos un cluster no podemos luego elegir a ningún descendiente del mismo, esto es obvio porque compartirían puntos. 
+Intuitivamente se quieren aquellos clusters que persisten a lo largo del tiempo puesto que los clusters que duran muy poco probablemente sean simplemente ruido. Observando el dendrograma luego de la poda se puede decir que se quieren los clusters que tienen mayor área en el plot. Si se selecciona un cluster no se podrá luego elegir a ningún descendiente del mismo porque compartirían puntos. 
 
-En primer lugar necesitamos una medida de distancia para medir la persistencia de los clusters. Recordemos que en cada paso del clustering jerárquico tenemos la distancia a la que estaban los clusters unidos, vamos a usar $\lambda=1/distance$. Por cada cluster tenemos entonces dos lambdas, uno que es el valor con el cual el cluster nace y otro con el cual el cluster muere (es decir se subdivide en dos clusters de al menos $p$ puntos). Llamemos a estos $\lambda_{\text{birth}}$ y $\lambda_{\text{death}}$
+En primer lugar se necesita una medida de distancia para medir la persistencia de los clusters. Recordar que en cada paso del clustering jerárquico se tiene la distancia a la que estaban los clusters unidos. Para ello, se utilizará $\lambda=1/distance$. Por cada cluster se tendrán entonces dos lambdas: uno que es el valor con el cual el cluster nace y otro con el cual el cluster muere (es decir se subdivide en dos clusters de al menos $p$ puntos). A estos se los llamarán $\lambda_{\text{birth}}$ y $\lambda_{\text{death}}$.
 
-Además, por cada punto $p$ en un cluster tenemos $\lambda_p$ que esl valor de lambda en el momento en el cual el punto "cayó" fuera del cluster, este valor va a estar entre $\lambda_{\text{birth}}$ y $\lambda_{\text{death}}$ ya que el punto o bien cae fuera durante la vida del cluster o bien abandona el cluster cuando el cluster muere. Notemos que el hecho de que un punto "caiga" fuera de un cluster no quiere decir que el punto deje de pertenecer al cluster.
+Además, por cada punto $p$ en un cluster se tiene $\lambda_p$ que es el valor de $\lambda$ en el momento en el cual el punto "cayó" fuera del cluster, y este valor va a estar entre $\lambda_{\text{birth}}$ y $\lambda_{\text{death}}$ ya que el punto o bien cae fuera durante la vida del cluster o bien abandona el cluster cuando el cluster muere. Notar que el hecho de que un punto "caiga" fuera de un cluster no quiere decir que el punto deje de pertenecer al cluster.
 
-Vamos a definir la \textit{estabilidad} de un cluster como:
+Se define la \textit{estabilidad} de un cluster como:
 
 \begin{myequation}
 \sum_{p \in \text{cluster}} (\lambda_p - \lambda_{\text{birth}})
 \end{myequation}
 
-Tenemos ahora todos los elementos para explicar el algoritmo con el cual seleccionaremos los clusters.
-
-Empezamos con cada hoja del dendrograma podado como un cluster seleccionado. Vamos a recorrer el árbol hacia arriba (ordenamiento topológico inverso). Si la suma de la estabilidad de los dos hijos es mayor que la estabilidad del padre entonces seteamos la estabilidad del padre como la suma de la estabilidad de sus hijos. Si la suma de la estabilidad de los hijos es menor que la estabilidad del padre entonces declaramos al cluster padre como un cluster seleccionado y des-seleccionamos a los hijos. Una vez que llegamos a la raíz el conjunto de clusters seleccionados constituye nuestro grupo de clusters.
+Ahora que se tienen todos los elementos para explicar el algoritmo con el cual seleccionaremos los clusters: se empieza con cada hoja del dendrograma podado como un cluster seleccionado. Se recorre el árbol hacia arriba (ordenamiento topológico inverso). Si la suma de la estabilidad de los dos hijos es mayor que la estabilidad del padre entonces seteamos la estabilidad del padre como la suma de la estabilidad de sus hijos. Si la suma de la estabilidad de los hijos es menor que la estabilidad del padre entonces se declara al cluster padre como un cluster seleccionado y se des-seleccionan a los hijos. Una vez que se llega a la raíz el conjunto de clusters seleccionados constituye el grupo de clusters.
 
 \begin{figure}[!htb]
 \centering
@@ -14274,39 +14186,39 @@ Empezamos con cada hoja del dendrograma podado como un cluster seleccionado. Vam
 
 \end{figure}
 
-Una vez que tenemos los clusters es fácil llegar al resultado final. Cualquier punto que no esté en alguno de los clusters seleccionados es ruido y le asignamos un label -1. Por cada cluster tenemos tenemos el valor de $\lambda_p$ para cada punto del cluster, si normalizamos esto valores en el rango 0..1 tenemos una medida de pertenencia de cada punto al cluster.  Esto lo podemos usar como la probabilidad de que cada punto pertenezca al mismo. La solución final para nuestro ejemplo es:
+Una vez que se obtienen los clusters es fácil llegar al resultado final. Cualquier punto que no esté en alguno de los clusters seleccionados es ruido y se le asigna un label -1. Por cada cluster se tiene el valor de $\lambda_p$ para cada punto del cluster, y si se normalizan esto valores en el rango $0..1$ se tendrá una medida de pertenencia de cada punto al cluster.  Esto se lo puede usar como la probabilidad de que cada punto pertenezca al mismo. La solución final para este ejemplo es la que se muestra en la figura \ref{fig:hdbscan_dendrogram_3}.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/hdbscan-fig-8.png}
 \caption{Resultado Final de HDBScan}
-
+\label{fig:hdbscan_dendrogram_3}
 \end{figure}
 
-La intensidad del color refleja la probabilidad de que el punto pertenezca al cluster. En este caso no tenemos outliers, todos los puntos quedaron identificados dentro de algún cluster. 
+La intensidad del color en la figura \ref{fig:hdbscan_dendrogram_3} refleja la probabilidad de que el punto pertenezca al cluster. En este caso no hay outliers, todos los puntos quedaron identificados dentro de algún cluster. 
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/hdbscan-fig-10.png}
 \caption{Otro ejemplo de HDBScan}
-
+\label{fig:hdbscan_example_2}
 \end{figure}
 
-En el segundo ejemplo vemos como HDBScan identifica los clusters principales en el set de datos independientemente de su forma o densidad y como quedan como outliers los puntos para los cuales no hay una forma lógica de asociarlos a un cluster. Un punto a considerar es que algunos puntos que, aparentemente, deberían quedar dentro de un cluster aparecen como outliers, HDBScan tiende a detectar mas outliers de los necesarios, esto puede corregirse controlando el porcentaje de outliers y variando los hiper-parámetros del algoritmo.
+En el segundo ejemplo mostrado en la figura \ref{fig:hdbscan_example_2} se puede ver cómo HDBScan identifica los clusters principales en el set de datos independientemente de su forma o densidad y cómo quedan como outliers los puntos para los cuales no hay una forma lógica de asociarlos a un cluster. Un punto a considerar es que algunos puntos que, aparentemente, deberían quedar dentro de un cluster aparecen como outliers, HDBScan tiende a detectar mas outliers de los necesarios y esto puede corregirse controlando el porcentaje de outliers y variando los hiper-parámetros del algoritmo.
 
 HDBScan es un algoritmo muy interesante ya que permite encontrar clusters de forma arbitraria y con densidades arbitrarias, identificar outliers y detectar automáticamente el número de clusters.
 
 \section{Biclustering}
 
-Supongamos que tenemos un set de documentos y la matriz de términos por documentos correspondiente al mismo. Un algoritmo de clustering tradicional puede usarse tanto para agrupar documentos como para agrupar términos usando la matriz o su transpuesta según el caso. Lo interesante es agrupar en base a ambas cosas, es decir crear clusters que representen a un conjunto de términos y documentos. A esto se lo conoce como bi-clustering o co-clustering. 
+Suponer que hay un set de documentos y la matriz de términos por documentos correspondiente al mismo. Un algoritmo de clustering tradicional puede usarse tanto para agrupar documentos como para agrupar términos usando la matriz o su transpuesta según el caso. Lo interesante es agrupar en base a ambas cosas, es decir, crear clusters que representen a un conjunto de términos y documentos. A esto se lo conoce como bi-clustering o co-clustering. 
 
-La utilidad de este algoritmo es permitir agrupar los documentos en clusters y al mismo tiempo obtener una agrupación de cuáles son los términos que están mas asociados a esos documentos, notemos que esto no es lo mismo que clusterizar los documentos y luego extraer los términos mas significativos de cada cluster.
+La utilidad de este algoritmo es permitir agrupar los documentos en clusters y al mismo tiempo obtener una agrupación de cuáles son los términos que están mas asociados a esos documentos. Notar que esto no es lo mismo que clusterizar los documentos y luego extraer los términos mas significativos de cada cluster.
 
-Vamos a ver dos algoritmos para bi-clustering, uno basado en clustering espectral y el otro basado en LSI. En primer lugar porque son los dos algoritmos que suelen dar mejores resultados y en segundo lugar porque es hermoso re-usar los temas que ya vimos antes.
+Para lograr esto, se verán dos algoritmos para bi-clustering: uno basado en clustering espectral y el otro basado en LSI.
 
 \subsection{Co-clustering Espectral}
 
-El algoritmo de co-clustering espectral \cite{Dhillon} se basa en el principio de aplicar clustering espectral al Laplaciano del grafo bipartito entre las filas y las columnas de una matriz. Afortunadamente el grafo que sería de $(m+n)x(m+n)$ no es necesario ya que puede derivarse de la matriz de datos que llamaremos $A$, en nuestro ejemplo esta es simplemente la matriz de términos x documentos. Por ejemplo:
+El algoritmo de co-clustering espectral \cite{Dhillon} se basa en el principio de aplicar clustering espectral al Laplaciano del grafo bipartito entre las filas y las columnas de una matriz. Afortunadamente el grafo que sería de $(m+n)x(m+n)$ no es necesario ya que puede derivarse de la matriz de datos que llamaremos $A$. Por ejemplo:
 
 $$A=\begin{pmatrix}
 5&1&4&0\\
@@ -14315,7 +14227,7 @@ $$A=\begin{pmatrix}
 1&4&1&4\\
 \end{pmatrix}$$
 
-En primer lugar vamos a calcular una matriz diagonal $R$ que tendrá la suma por filas de la matriz $A$ y una matriz $C$ que será una matriz diagonal con la suma por columnas de la matriz $A$, se llaman $R$ y $C$ por "rows" and "columns". Muy ingenioso.
+En primer lugar se calcula una matriz diagonal $R$ que tendrá la suma por filas de la matriz $A$ y una matriz $C$ que será una matriz diagonal con la suma por columnas de la matriz $A$. Se llaman $R$ y $C$ por "rows" and "columns".
 
 \begin{equation}
 \begin{aligned}
@@ -14341,7 +14253,7 @@ El siguiente paso es obtener la matriz normalizada que llamaremos $A_n$ que se o
 A_n = R^{-1/2}AC^{-1/2}
 \end{myequation}
 
-En nuestro caso el resultado es:
+En este caso el resultado es:
 
 $$A_n=\begin{pmatrix}
 0.4564 &   0.0877 &   0.4000  &       0\\
@@ -14384,9 +14296,9 @@ V=\begin{pmatrix}
 \end{aligned}
 \end{equation}
 
-Vamos a descartar la primer columna de $U$ y $V$ y quedarnos con las siguientes $\log_2(k)$ columnas en donde $k$ es la cantidad de clusters que queremos formar. En nuestro ejemplo estamos interesados en formar 2 clusters por lo tanto $k=2$ y nos vamos a quedar solo con la segunda columna de $U$ y $V$, en general son varias las columnas a conservar y no solo una.
+Se descarta la primer columna de $U$ y $V$ y se quedan con las siguientes $\log_2(k)$ columnas en donde $k$ es la cantidad de clusters que se quiere formar. En este ejemplo se quieren formar 2 clusters por lo tanto $k=2$ y entonces se usa solo la segunda columna de $U$ y $V$. En general, son varias las columnas a conservar y no solo una.
 
-Vamos a normalizar las columnas de la siguiente forma:
+Las columnas se normalizan de la siguiente forma:
 
 \begin{myequation}
 U_2 = R^{-1/2} U[:,2:(2+\log_2(k))]
@@ -14396,7 +14308,7 @@ U_2 = R^{-1/2} U[:,2:(2+\log_2(k))]
 V_2 = C^{-1/2} V[:,2:(2+\log_2(k))]
 \end{myequation}
 
-Finalmente formamos la matriz $Z$ concatenando (x filas) las matrices $U_2$ y $V_2$ nuestro resultado queda:
+Finalmente se forma la matriz $Z$ concatenando (x filas) las matrices $U_2$ y $V_2$ y el resultado quedará:
 
 $$
 Z = \begin{pmatrix}
@@ -14411,11 +14323,11 @@ Z = \begin{pmatrix}
 \end{pmatrix}
 $$
 
-El último paso es aplicar K-Means sobre la matriz $Z$, las primeras $m$ filas de $Z$ nos dan la asignación de las filas de la matriz $A$ a los clusters y las siguientes $n$ filas nos dan la asignación de las columnas. Notemos que en nuestra matriz nos quedaron numeros positivos para las filas y columnas pares y negativos para las filas y columnas impares, lo cual tiene sentido para nuestra matriz $A$, por lo tanto luego de correr K-Means vamos a obtener un bi-cluster formado por \{d1,d3,t1,t3\} y otro bi-cluster formado por \{d2,d4,t2,t4\}.
+El último paso es aplicar K-Means sobre la matriz $Z$. Las primeras $m$ filas de $Z$ dan la asignación de las filas de la matriz $A$ a los clusters y las siguientes $n$ filas dan la asignación de las columnas. Notar que en esta matriz quedaron numeros positivos para las filas y columnas pares y negativos para las filas y columnas impares, lo cual tiene sentido para la matriz $A$. Por lo tanto, luego de correr K-Means, se obtendrá un bi-cluster formado por \{d1,d3,t1,t3\} y otro bi-cluster formado por \{d2,d4,t2,t4\}.
 
-Notar que el algoritmo está usando la matriz $U$ de la SVD para agrupar las filas y la matriz $V$ de la SVD para agrupar las columnas, esto tiene mucho sentido si recordamos la interpretación algebraica de la SVD.
+Notar que el algoritmo está usando la matriz $U$ de la SVD para agrupar las filas y la matriz $V$ de la SVD para agrupar las columnas, esto tiene mucho sentido si se recuerda la interpretación algebraica de la SVD.
 
-El algoritmo de bi-clustering entonces es el siguiente:
+El algoritmo \ref{alg:bi_clustering_spectral} resume el funcionamiento de este bi-clustering.
 
 \begin{algorithm}
 \SetAlgoLined
@@ -14432,11 +14344,12 @@ $Z = [R^{-1/2}U_2;C^{-1/2}V_2]$\;
 $C = Kmeans(Z)$
 }
 \caption{Spectral Co-Clustering}
+\label{alg:bi_clustering_spectral}
 \end{algorithm}
 
 \subsection{LSI Co-clustering}
 
-El algoritmo basado en LSI es muy similar al anterior cambiando solamente el contenido de la matriz, es decir la forma en que normalizamos la misma. Antes suponíamos que teníamos una matriz de términos por documentos en donde indicábamos la cantidad de veces que cada término ocurría en cada documento. Ahora vamos a usar una matriz del estilo de la que usamos en LSI es decir basada en TF-IDF por ejemplo de la forma:
+El algoritmo basado en LSI es muy similar al anterior cambiando solamente el contenido de la matriz, es decir, la forma en que se normaliza la misma. Antes se suponía que había una matriz de términos por documentos en donde se indicaba la cantidad de veces que cada término ocurría en cada documento. Ahora se usará una matriz del estilo de la que se usa en LSI (es decir, basada en TF-IDF) como por ejemplo:
 
 \begin{myequation}
 W_{ij} = \log_2(ft_{ij}) \log(\frac{N}{ft_i}+1)
@@ -14444,11 +14357,9 @@ W_{ij} = \log_2(ft_{ij}) \log(\frac{N}{ft_i}+1)
 
 Donde $ft_{ij}$ es la cantidad de veces que el término $i$ ocurre en el documento $j$ ; $ft_i$ es la cantidad de documentos en los que ocurre el término $i$ y $N$ es la cantidad total de documentos en la colección.
 
-A esta matriz que llamaremos $L$ le aplicamos la SVD tal y como hacíamos en LSI. Una vez que hicimos est tenemos que la matriz $U$ nos da la relación entre los términos y los conceptos latentes y la matriz $V$ nos da la relación entre los documentos y los conceptos latentes. A ambas matrices las vamos a multiplicar por la matriz de valores singulares $\Sigma$ para darles el peso que corresponde. Luego de cada matriz tomamos $\log_2(k)$ columnas esta vez a partir de la columna 1.
+A esta matriz se la llamará $L$ y se le aplicará la SVD tal y como se hacía en LSI. Una vez realizado esto se tendrá que la matriz $U$ dará la relación entre los términos y los conceptos latentes y la matriz $V$ dará la relación entre los documentos y los conceptos latentes. A ambas matrices se las multiplica por la matriz de valores singulares $\Sigma$ para darles el peso que corresponde. Luego de cada matriz se toman $\log_2(k)$ columnas partiendo de la columna 1. Finalmente, se conctenan los dos resultados por filas y se aplica K-Means pero esta vez en lugar de aplicar K-Means tradicional hay que aplicar K-Means esférico. 
 
-Luego simplemente concatenamos los dos resultados por filas y aplicamos K-Means pero esta vez en lugar de aplicar K-Means tradicional tenemos que aplicar K-Means esférico es decir usando la distancia angular entre los vectores. 
-
-El algoritmo completo es:
+El algoritmo \ref{alg:co_clustering_lsi} explica el funcionamiento de co-clustering basado en LSI.
 
 \begin{algorithm}
 \SetAlgoLined
@@ -14462,9 +14373,10 @@ $Z = [\Sigma U_2;V_2 \Sigma]$\;
 $C = SphericalKmeans(Z)$
 }
 \caption{LSI Co-Clustering}
+\label{alg:co_clustering_lsi}
 \end{algorithm}
 
-Ambos algoritmos dan resultados similares \cite{ParkLeckie} y son los algoritmos mas usados para aplicar bi-clustering a una matriz de términos por documentos. Los resultados obtenidos son muy interesantes ya que permiten analizar los clusters en base a los términos que fueron clusterizados junto con los documentos. Por ejemplo luego de aplicar Spectral Co-Clustering a una serie de textos de newsgroups los resultados fueron los siguientes:
+Ambos algoritmos dan resultados similares \cite{ParkLeckie} y son los algoritmos mas usados para aplicar bi-clustering a una matriz de términos por documentos. Los resultados obtenidos son muy interesantes ya que permiten analizar los clusters en base a los términos que fueron clusterizados junto con los documentos. Por ejemplo, luego de aplicar Spectral Co-Clustering a una serie de textos de newsgroups los resultados fueron los siguientes:
 
 \begin{verbatim}
 Best biclusters:
@@ -14490,15 +14402,15 @@ categories   : 100% rec.sport.hockey
 words        : scorer, unassisted, reichel, semak, sweeney, kovalenko, ricci, audette, momesso, nedved
 \end{verbatim}
 
-Se puede observar que los términos nos permiten interpretar el significado de cada uno de los clusters. 
+Se puede observar que los términos permiten interpretar el significado de cada uno de los clusters. 
 
 \section{NMF: Non-negative matrix factorization}
 
-Este capítulo aborda el fascinante mundo de la factorización de matrices, concretamente las factorizaciones no-negativas. Vamos a ver que poder factorizar una matriz como el producto de dos matrices no-negativas tiene una enorme cantidad de aplicaciones, algunas de ellas muy curiosas. Como buena noticia los algoritmos para resolver la factorización son realmente simples y elegantes y las aplicaciones son muy interesantes así que tendremos muy poco costo y un gran beneficio. 
+Este capítulo aborda el fascinante mundo de la factorización de matrices, concretamente las factorizaciones no-negativas. Factorizar una matriz como el producto de dos matrices no-negativas tiene una enorme cantidad de aplicaciones, algunas de ellas muy curiosas. Como buena noticia, los algoritmos para resolver la factorización son realmente simples y elegantes y las aplicaciones son muy interesantes así que habrá muy poco costo y un gran beneficio. 
 
-Antes de empezar con el tema debemos hacer dos aclaraciones importantes: En primer lugar vemos NMF dentro de Clustering pero es un tema que tiene muchas aplicaciones mas, simplemente había que ponerlo en algún lado. La segunda aclaración es que existen \textbf{muchos} algoritmos para NMF y solo podemos ver alguno de ellos. 
+Antes de empezar con el tema, es necesario remarcar dos cosas: en primer lugar NMF tiene muchas aplicaciones más fuera del mundo del Clustering, y en segundo lugar es que existen \textbf{muchos} algoritmos para NMF. 
 
-Vamos a partir de una matriz $A$ de $mxn$ no-negativa. Queremos hallar dos matrices: $W$ y $H$ en donde $W$ es una matriz de $mxk$ no-negativa y $H$ es una matriz de $kxn$ no-negativa tales que:
+Se parte de una matriz $A$ de $mxn$ no-negativa. Se quieren hallar dos matrices $W$ y $H$ en donde $W$ es una matriz de $mxk$ no-negativa y $H$ es una matriz de $kxn$ no-negativa tales que:
 
 \begin{myequation}
 A \approx W*H
@@ -14551,24 +14463,24 @@ $$X \approx \begin{pmatrix}
     0.2801   & 0.1482   & 0.2776   & 0.2322\\
 \end{pmatrix}$$
 
-En el ejemplo vemos que hemos usado una aproximación de rango 2 a la matriz original y que el resultado es una aproximación bastante buena. Sabemos que no es la mejor aproximación ya que ésta es la que devuelve la SVD pero la diferencia es que estas matrices solo pueden tener números positivos.
+Notar en el ejemplo que se ha utilizado una aproximación de rango 2 a la matriz original y que el resultado es una aproximación bastante buena. Se sabe que no es la mejor aproximación ya que ésta es la que devuelve la SVD pero la diferencia es que estas matrices solo pueden tener números positivos.
 
 El estudio de la convergencia de este algoritmo es complicado. Al estar basado en multiplicaciones está garantizado que las matrices siempre serán no-negativas. Por el mismo motivo una vez que un elemento de alguna de las dos matrices se hace igual a cero queda en cero en la matriz resultado. Esto es bueno porque contribuye a que el resultado tienda a generar matrices relativamente dispersas pero por otro lado es malo ya que una vez que el algoritmo inicia su proceso ésta “condenado” a llegar a una única solución posible. 
 
-Esta solución es totalmente dependiente de la inicialización por lo que diferentes ejecuciones del algoritmo pueden generar resultados bastante distintos, es decir que tenemos una importante tasa de incertidumbre. Es bueno, en caso de ser posible, agregar restricciones a NMF y luego proceder por Gradient Descent. 
+Esta solución es totalmente dependiente de la inicialización por lo que diferentes ejecuciones del algoritmo pueden generar resultados bastante distintos, es decir que hay una importante tasa de incertidumbre. Es bueno, en caso de ser posible, agregar restricciones a NMF y luego proceder por Gradient Descent. 
 
 \subsection{La Base de NMF}
 
-Al igual que la SVD o K-Means NMF descompone una matriz en una base y coordenadas en esa base, la base tiene $k$ vectores de igual que los datos. En el caso de NMF la base y las coordenadas solo pueden tener elementos positivos.Esto obliga al algoritmo a descomponer cada vector del set de datos original en una suma de partes. Cada vector en la base debe ser entonces una "parte" del set de datos original de forma tal que sumando partes de los diferentes vectores logremos aproximar la reconstrucción del set de datos original.
+Al igual que la SVD o K-Means, NMF descompone una matriz en una base y coordenadas en esa base, la base tiene $k$ vectores de igual dimensión que los datos. En el caso de NMF la base y las coordenadas solo pueden tener elementos positivos. Esto obliga al algoritmo a descomponer cada vector del set de datos original en una suma de partes. Cada vector en la base debe ser entonces una "parte" del set de datos original de forma tal que sumando partes de los diferentes vectores se pueda aproximar la reconstrucción del set de datos original.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/nmf-fig-1.png}
 \caption{Comparacion de SVD, K-Means y NMF}
-
+\label{fig_svd_kmeans_nmf}
 \end{figure}
 
-En esta comparación podemos ver los vectores en la base de K-Means, SVD y NMF para un set de imágenes con rostros. Como vemos los vectores de la base en K-Means parecen rostros del set de datos original, esto es porque cada rostro es un promedio de otros rostros, en general similares. En SVD los rostros son fantasmagóricos, algunos están en negativo porque las coordenadas de la descomposición de la SVD pueden ser negativas, los vectores además están ordenados por importancia, el primero es el mas importante para reconstruir cualquier rostro del set de datos, el segundo es el segundo mas importante, etc. Finalmente NFM nos muestra imágenes muy oscuras, en donde cada imagen tiene una zona mas clara, estas son las diferentes "partes" que luego podemos sumar para reconstruir cualquier rostro de nuestro set de datos original.
+En la figura \ref{fig_svd_kmeans_nmf} se muestra una comparación donde se puede ver los vectores en la base de K-Means, SVD y NMF para un set de imágenes con rostros. Los vectores de la base en K-Means parecen rostros del set de datos original y esto es porque cada rostro es un promedio de otros rostros, en general similares. En SVD los rostros son fantasmagóricos, algunos están en negativo porque las coordenadas de la descomposición de la SVD pueden ser negativas y además los vectores están ordenados por importancia siendo que el primero es el mas importante para reconstruir cualquier rostro del set de datos, el segundo es el segundo mas importante, etc. Finalmente NFM muestra imágenes muy oscuras, en donde cada imagen tiene una zona mas clara, estas son las diferentes "partes" que luego se pueden sumar para reconstruir cualquier rostro de nuestro set de datos original.
 
 En cuanto a poder de reconstrucción SVD suele dar los mejores resultados, esto es lógico pues aprendimos que es la mejor aproximación de rango “k” a la matriz original. La desventaja de SVD es que la base que genera no es muy útil y la reconstrucción es difícil de interpretar al ser una combinación lineal de la base.
 
@@ -14591,27 +14503,21 @@ Vectores ordenados por importancia& No & Si & No \\ \hline
 \caption{SVD, Kmeans y NMF}
 \end{table}
 
-Veamos la base de NMF para MNIST:
-
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=2.5in]{figures/nmf-fig-2.png}
 \caption{Base de NMF para MNIST}
-
+\label{fig:nmf_mnist}
 \end{figure}
 
-Estas son las partes de los trazos a partir de las cuales podemos reconstruir cualquier dígito.  Podemos analizar el poder de reconstrucción de NMF.
+La figura \ref{fig:nmf_mnist} muestra las partes de los trazos a partir de las cuales se puede reconstruir cualquier dígito de MNIST. Analizando la figura \ref{fig:nmf_mnist_2}, se puede ver claramente como las bases de mayor cantidad de vectores logran una mejor reconstrucción de los datos originales. Esto no es ni más ni menos que una forma de compresión destructiva de los datos, mediante las matrices $W$ y $H$ se representan a los datos originales en mucho menos espacio. Por ejemplo, una matriz de $40x2$ y una matriz de $2x40$ suman en total 160 elementos que son muchos menos que los $40x40$ necesarios para almacenar los datos originales. Esto funciona para cualquier tipo de dato. Es decir que tanto K-Means como SVD como NMF pueden funcionar como algoritmos de compresión de datos o para reducir dimensiones. 
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.5in]{figures/nmf-fig-3.png}
 \caption{Reconstrucción de MNIST con NMF}
-
+\label{fig:nmf_mnist_2}
 \end{figure}
-
-Se puede ver claramente como las bases de mayor cantidad de vectores logran una mejor reconstrucción de los datos originales. Esto no es ni más ni menos que una forma de compresión destructiva de los datos, mediante las matrices $W$ y $H$ representamos a los datos originales en mucho menos espacio. Por ejemplo una matriz de $40x2$ y una matriz de $2x40$ suman en total 160 elementos que son muchos menos que los $40x40$ necesarios para almacenar los datos originales. Esto funciona para cualquier tipo de dato!. Es decir que tanto K-Means como SVD como NMF pueden funcionar como algoritmos de compresión de datos o para reducir dimensiones. 
-
-
 
 
 \chapter{Sistemas de Recomendaciones}
