@@ -16597,36 +16597,35 @@ Desde su publicación en 2004 este algoritmo se ha usado en una gran cantidad de
 
 \epigraph{It's quite complicated and sounds circular, but we've worked out a way of calculate a Web site's importance}{- Larry Page}
 
-PageRank \cite{PageBrin} es uno de los algoritmos mas importantes en la historia de la computación, es el algoritmo que dio origen a Google y permitió que los Search Engines le ganen la pulseada a los spammers en una batalla que continua hasta el día de hoy. PageRank está basado en principios matemáticos muy simples y elegantes. Es un algoritmo que tiene muchísimas variantes y algoritmos derivados, en este capítulo vamos a estudiar el fascinante mundo de PageRank y muchos de sus derivados .
+PageRank \cite{PageBrin} es uno de los algoritmos mas importantes en la historia de la computación. Es el algoritmo que dio origen a Google y permitió que los Search Engines le ganen la pulseada a los spammers en una batalla que continua hasta el día de hoy. PageRank está basado en principios matemáticos muy simples y elegantes. Es un algoritmo que tiene muchísimas variantes y en este capítulo vamos a estudiar el fascinante mundo de PageRank y muchos de sus derivados.
 
 En un principio los motores dedicados a buscar páginas web trabajaban analizando pura y
 exclusivamente el contenido de estas páginas. De acuerdo a la consulta del usuario se asignaba un
-puntaje a cada página que dependía de cosas como la cantidad de veces que los términos buscados
+puntaje a cada página que dependía de factores como la cantidad de veces que los términos buscados
 aparecían en la página, la distancia entre los mismos, el lugar en que aparecían los términos, etc.
 
-Lamentablemente este método es sensible a que los usuarios modifiquen, maliciosamente, el
+Lamentablemente este método es sensible a que los usuarios modifiquen de forma maliciosa el
 contenido de sus páginas para quedar mejor posicionados en los resultados de las búsquedas. Por
-ejemplo para una cierta búsqueda podemos ver que página queda primera, copiar su contenido y
-pegarlo a nuestra página en texto oculto, luego de esto deberíamos ranquear en los primeros lugares.
-Otra técnica común era repetir en texto oculto una cierta palabra miles o millones de veces, por
-ejemplo ponemos "movies" en texto invisible 1 millón de veces en nuestra página y cuando el
-usuario busque "movies" nuestra página estará entre las primeras aunque ni siquiera se trate sobre
-ese tema.
+ejemplo para una cierta búsqueda popular podiamos ver que página quedaba primera en los resultados, copiar su contenido y
+pegarlo a nuestra página en texto oculto. Una vez hecho esto nuestra página debería haber ranqueado en los primeros lugares, sin importar si el contenido de la misma este relacionado a la búsqueda en cuestión.
+
+Otra técnica común era repetir en texto oculto una cierta palabra miles o millones de veces. Prodiamos poner "movies" en texto invisible 1 millón de veces en nuestra página y cuando el usuario buscaba "movies" nuestra página figiraba entre las primeras aunque ni siquiera se tratara sobre ese tema.
 
 El gran éxito de Google fue lograr ranquear los resultados de las búsquedas de forma independiente
-del contenido de las mismas y eso fue logrado con el algoritmo PageRank.
+del contenido de las mismas mediante el algoritmo PageRank.
 
-PageRank se basa en la estructura de links de la Web. El concepto básico es que cada página tiene
-una cierta "importancia" que es intrínseca y depende de los links que lleven a dicha página. Cuántos
+PageRank se basa en la estructura de links que existe entre los documentos/páginas de la Web. El concepto básico es que cada página tiene una cierta "importancia" que es intrínseca y depende de los links que lleven a dicha página. Cuántos
 mas links nos puedan llevar a una cierta página mas importante será la misma.
 
-Para entender la idea detrás de PageRank vamos a comenzar con el modelo matemático detrás de PageRank que es el modelo de Random surfers.
+Para entender la idea detrás de PageRank vamos a comenzar con el modelo matemático detrás de PageRank, el modelo de Random surfers.
 
 \section{Random Surfers}
 
-Un \textit{Random Surfer} es un navegante aleatorio en la web. Este navegante comienza en cualquier página al azar, desde esa página nuestro navegante elige un link al azar y navega a la página, este proceso se repite indefinidamente. En su camino aleatorio por la web el navegante va pasando por las distintas páginas, el concepto detrás de pagerank es darle a cada página un peso que es igual a la probabilidad de que nuestro random surfer termine su recorrido en esa página luego de $n$ saltos.
+Un \textit{Random Surfer} es un navegante aleatorio en la web. Este navegante comienza en cualquier página al azar de todas las disponibles. Desde esa página nuestro navegante elige un link al azar de la página en la que se encuentra y navega a la página seleccionada, repitiendo este proceso en la nueva pagina que ha visitado. Este proceso se repite indefinidamente en las sucesivas iteraciones del navegante aleatorio.
 
-El modelo de random surfers no es ni mas ni menos que un modelo de Markov en donde tenemos tantos nodos como páginas y aristas como links. La probabilidad de cada arista es 1 sobre el total de links en la página. Es decir que si una página tiene dos links cada uno tiene una probabilidad de $1/2$.
+El concepto detrás de pagerank consiste en darle a cada página un peso que es igual a la probabilidad de que nuestro Random Surfer termine su recorrido en esa página luego de $n$ saltos.
+
+El modelo de random surfers no es ni mas ni menos que un modelo de Markov en donde tenemos tantos nodos como páginas y aristas como links. La probabilidad de cada arista es 1 sobre el total de links en la página. A modo de ejemplo, si una página tiene dos links cada uno tiene una probabilidad de $1/2$.
 
 Ejemplo: Supongamos que tenemos tres páginas: A,B y C. La página A tiene links a B y C. la página B solo linkea a A y la página C solo linkea a B.  Nuestra cadena de Markov tiene el siguiente aspecto.
 
@@ -16649,15 +16648,20 @@ A = \begin{pmatrix}
 \end{pmatrix}
 \end{myequation}
 
-Notar que hemos puesto los links que salen de cada página por columnas. Desde A podemos ir a B y C, desde B solo a A y desde C solo a B.
+Es importante notar que hemos puesto los links que salen de cada página por columnas. Desde A podemos ir a B y C, desde B solo a A y desde C solo a B.
 
 Nuestro objetivo es ahora calcular la probabilidad de cada página luego del primer salto.
 
-Si comenzamos en A (prob 1/3) podemos ir a B o C entonces la probabilidad de A va a ser cero (no podemos quedarnos), la de B 1/6 y la de C 1/6.
-Por otro lado comenzando en B (prob 1/3) solo podemos ir a A entonces la prob de A va a ser 1/3 la de B 0 y la de C 0
-Finalmente empezando desde C las probabilidades son 0,1/3,0.
+Si comenzamos en A (prob 1/3) podemos ir a B o C entonces la probabilidad luego del primer salto de A va a ser cero (no podemos quedarnos), la de B será 1/6 y la de C será igual a 1/6.
 
-La probabilidad de caer en A luego de un link es igual a la probabilidad de empezar en A y quedar en A (0) mas la probabilidad de empezar en B e ir a A (1/3) mas la probabilidad de empezar en C y pasar a A (0). Por lo tanto la probabilidad de A luego de 1 salto es 1/3. Observemos que esto es igual al producto de la fila 1 de la matriz por la probabilidad de A, ya que la fila 1 de la matriz tiene las probabilidades con las cuales se puede llegar desde otras páginas hasta A.
+Por otro lado si comenzamos en B (prob 1/3) solo podemos ir a A entonces la probabilidad luego del primer salto de A va a ser 1/3, la de B será 0 y la de C será tambien 0 (dado que no podemos llegar a ellos desde B).
+
+Finalmente empezando desde C las probabilidad luego del primer salto de llegar a A,B,C serán respectivamente 0, 1/3 y 0.
+
+Para poder calcular la probabilidad de llegar a una determinada página luego del primer salto, considerando todos los casos posibles debemos operar de la siguiente forma:
+La probabilidad de llegar en A luego del primer salto es igual a la probabilidad de empezar en A y quedarse en A (0) más la probabilidad de empezar en B e ir a A (1/3) más la probabilidad de empezar en C y pasar a A (0). Por lo tanto la probabilidad de A luego de 1 salto es 1/3.
+
+Observemos que esto es igual al producto de la fila 1 de la matriz por la probabilidad de A, ya que la fila 1 de la matriz tiene las probabilidades con las cuales se puede llegar desde otras páginas hasta A.
 
 De la misma forma la probabilidad de B luego de un salto surge de multiplicar la fila 2 de la matriz por la probabilidad de B y nos da 1/2.
 
@@ -16714,9 +16718,9 @@ Si $A$ es una matriz estocástica entonces existe $v$ tal que:
 $$Av = v$$
 \end{theorem}
 
-Una matriz estocástica es aquella en la cual todas sus filas o columnas suman 1, en el caso de PageRank por definición todas las columnas suman 1 y por lo tanto la matriz es, en principio, estocástica. Existen algunos casos patológicos en los cuales la matriz no es estocástica de los que vamos a hablar mas adelante.
+Una matriz estocástica es aquella en la cual todas sus filas o columnas suman 1. En el caso de PageRank por definición todas las columnas suman 1 y por lo tanto la matriz es, en principio, estocástica. Existen algunos casos patológicos en los cuales la matriz no es estocástica de los que vamos a hablar mas adelante.
 
-Queremos probar que existe $v$ tal que $$Av=v$$ lo cual demostraría que existe una distribución de probabilidades estacionaria, es decir que no cambia al pre-multiplicarla por la matriz $A$.
+Queremos probar que existe $v$ tal que $$Av=v$$. Esto demostraría que existe una distribución de probabilidades estacionaria, es decir que no cambia al pre-multiplicarla por la matriz $A$.
 
 Si $Av=v$ entonces la matriz $A$ tiene un autovalor igual a 1. Queremos mostrar entonces que una matriz estocástica tiene un autovalor igual a 1.
 
@@ -16726,21 +16730,21 @@ El autovalor principal de una matriz estocástica es igual a 1
 
 Para demostrar esto primero vamos a demostrar que 1 es un autovalor y luego demostraremos que no puede existir un autovalor mayor. 
 
-Sabemos que todas las columnas suman 1 por lo tanto en $A-I$ todas las columnas suman cero. Esto muestra que $A-I$ es singular. Por lo tanto existe una combinación lineal no trivial de de sus columnas $v$ que nos da el vector nulo. Por lo tanto 1 es un autovalor y $v$ es el autovector asociado.
+Sabemos que todas las columnas suman 1 por lo tanto en $A-I$ todas las columnas suman cero. Esto muestra que $A-I$ es una matriz singular. De esto se desprende que existe una combinación lineal no trivial de sus columnas $v$ que nos da el vector nulo. Por lo tanto 1 es un autovalor y $v$ es el autovector asociado.
 
 Hemos demostrado que $A$ tiene un autovalor igual a 1. Veamos ahora que no puede haber un autovalor mayor a 1.
 
-Supongamos que existe $\lambda>1$ tal que $Ax=\lambda x$. Como todas las columnas de A suman 1 ningún elemento en $Ax$ puede ser mayor al elemento máximo de $x$, por otro lado si $\lambda>1$ entonces algún elemento de $\lambda x$ es mayor al elemento máximo de $x$, por lo tanto llegamos a un absurdo. Es simple demostrar que el autovalor 1 es único, si existiera otro autovalor igual a 1 entonces tendríamos que para $v_1 \neq v2$ $Av_1 =v_1$ y $Av_2 = v_2$ y entonces $v_1 y v_2$ tienen que ser iguales. 
+Supongamos que existe $\lambda>1$ tal que $Ax=\lambda x$. Como todas las columnas de A suman 1 ningún elemento en $Ax$ puede ser mayor al elemento máximo de $x$. Por otro lado si $\lambda>1$ entonces algún elemento de $\lambda x$ es mayor al elemento máximo de $x$, por lo tanto llegamos a un absurdo. Es simple demostrar que el autovalor 1 es único dado que si existiera otro autovalor igual a 1 entonces tendríamos que para $v_1 \neq v2$ $Av_1 =v_1$ y $Av_2 = v_2$ y entonces $v_1 y v_2$ tienen que ser iguales.
 
 Hemos demostrado entonces que una matriz estocástica tiene un único autovalor igual a 1 y que es el autovalor principal de la matriz. 
 
 Ahora vamos a demostrar que el método iterativo que hemos propuesto converge a la distribución estacionaria.
 
 \begin{theorem}[Power Method]
-Sea $A$ una matriz diagonalizable y sea $x_0$ un vector aleatorio si repetimos $x_0 = A x_0$ en el límite $x_0$ es el autovector asociado al autovalor de mayor valor absoluto de la matriz
+Sea $A$ una matriz diagonalizable y sea $x_0$ un vector aleatorio si repetimos $x_0 = A x_0$ en el límite $x_0$ es el autovector asociado al autovalor de mayor valor absoluto de la matriz.
 \end{theorem}
 
-Notemos que este teorema sirve para cualquier matriz, no solo para matrices estocásticas
+Notemos que este teorema sirve para cualquier matriz, no solo para matrices estocásticas.
 
 Para demostrar esto vamos a escribir a $x_0$ como una combinación lineal de los autovectores de $A$:
 
@@ -16750,29 +16754,31 @@ Si calculamos $x_t = A * x_0$ tenemos:
 
 $$x_t = \alpha_1 \lambda_1^{(t)} v_1 + .... + \alpha_n \lambda_n^{(t)} v_n$$
 
-Si suponemos que $\lambda_1$ es mayor a $\lambda_2$ entonces el coeficiente de $v_1$ crece mas rapido que los demás coeficientes y luego de varias iteraciones domina la fórmula, por lo tanto luego de iterar:
+Si suponemos que $\lambda_1$ es mayor a $\lambda_2$ entonces el coeficiente de $v_1$ crece mas rapido que los demás coeficientes y luego de varias iteraciones domina la fórmula. Por lo tanto luego de iterar:
 
 $$x_t = \alpha_1 \lambda_1^{(t)} v_1$$
 
 Como $v_1$ es un autovector entonces $\alpha_1 \lambda_1^{(t)} v_1$ también lo es y como $\lambda_1$ tiene que ser el autovalor de mayor valor absoluto para dominar la fórmula entonces $v_1$ es un autovector asociado a dicho autovalor. 
 
-Por lo tanto mediante el método iterativo encontramos el autovalor principal de una matriz y un autovector asociado al mismo.
+Por esta razón mediante el método iterativo encontramos el autovalor principal de una matriz y un autovector asociado al mismo.
 
-En el caso de una matriz estocástica hemos probado que el autovalor principal es 1 por lo tanto el autovector asociado es aquel que cumple que $Av = 1v$ por lo tanto $Av = v$ y esto prueba que el método converge. 
+En el caso de una matriz estocástica hemos probado que el autovalor principal es 1 por lo tanto el autovector asociado es aquel que cumple que $Av = 1v$ por lo tanto $Av = v$. Eesto prueba que el método iterativo que estamos revisando converge. 
 
 En conclusión la matriz de PageRank tiene un único autovalor principal igual a 1 y el método iterativo converge a un autovector asociado a dicho autovalor. 
 
-En nuestro ejemplo si repetimos el método iterativo llegamos a que PR(A)=0.4, PR(B)=0.4, PR(C)=0.2. Si observamos nuestro modelo de Markov podemos analizar que esto tiene sentido ya que podemos ir de A hacia B o de B hacia A pero a C solo podemos llegar desde A, es decir que es lógico que la probabilidad de A sea igual a la de B y que estas probabilidades sean mayores a las de C. 
+Volviendo a nuestro ejemplo inicial, si repetimos el método iterativo la suficiente cantidad de veces, llegamos a que PR(A)=0.4, PR(B)=0.4, PR(C)=0.2. Si observamos nuestro modelo de Markov podemos analizar que esto tiene sentido ya que podemos ir de A hacia B o de B hacia A pero a C solo podemos llegar desde A, es decir que es lógico que la probabilidad de A sea igual a la de B y que estas probabilidades sean mayores a las de C. 
 
 Finalmente en base a todos los teoremas anteriores podemos enunciar el último eslabón que nos faltaba.
 
 \begin{theorem}[Teorema Fundamental de las Cadenas de Markov]
-Para un Random-Walk suficientemente largo en una cadena de Markov la probabilidad de terminar en un cierto vértice "v" es independiente del vértice en el cual se inició el Random Walk.
+Para un Random Walk lo suficientemente largo en una cadena de Markov la probabilidad de terminar en un cierto vértice $v$ es independiente del vértice en el cual se inició el Random Walk.
 \end{theorem}
 
-Este teorema se desprende del teorema de la distribución estacionaria que ya hemos visto y es muy importante porque es la pieza final en el rompecabezas de PageRank, mediante un  Random-Walk lo suficientemente largo podemos calcular la probabilidad de terminar en cada una de las páginas de nuestro grafo y al ser esto independiente de donde comenzamos nos sirve como una medida de importancia de cada página. 
+Este teorema se desprende del teorema de la distribución estacionaria y es muy importante porque es la pieza final en el rompecabezas de PageRank. Mediante un Random Walk lo suficientemente largo podemos calcular la probabilidad de terminar en cada una de las páginas de nuestro grafo y al ser esto independiente de donde comenzamos nos sirve como una medida de importancia de cada de ellas.
 
-Hemos pasado por varios teoremas pero lo bueno es que ya estamos en condiciones de entender todo el capítulo, PageRank en cualquiera de sus variantes es un algoritmo que busca el autovector principal de una matriz estocástica, si entendemos esto ya entendimos todo el algoritmo.
+Hemos pasado por varios teoremas pero lo bueno es que ya estamos en condiciones de entender todo el capítulo: PageRank en cualquiera de sus variantes es un algoritmo que busca el autovector principal de una matriz estocástica. Si entendemos esto, ya entendimos todo el algoritmo.
+
+En las siguientes secciones estudiaremos algunos casos patológicos que suelen presentarse en la web que hacen que tengamos que realizar algunas variantes en el algoritmo que las condiciones planteadas sigan siendo válidas.
 
 \section{Dead Ends}
 
@@ -16796,7 +16802,9 @@ Y su matriz asociada:
 \end{pmatrix}
 \end{myequation}
 
-La página D es un \textit{dead-end} es decir una página desde la cual no se puede ir a ninguna otra página. Nuestro navegante aleatorio eventualmente va a caer en D y quedará atrapado. Por lo tanto D va a capturar todo el PageRank y las otras páginas van a quedar en cero. El problema es que la matriz no es estocástica, para que PR funcione la matriz \textbf{siempre} tiene que ser estocástica. Cuando una página es un dead-end tenemos que corregirla y la forma de hacerlo es agregando links a todas las otras páginas con probabilidad 1/n.
+La página D es un \textit{dead-end} es decir una página desde la cual no se puede ir a ninguna otra página. En esta situación, nuestro navegante aleatorio eventualmente va a caer en D y quedará atrapado en esa página. Por lo tanto D va a capturar todo el PageRank y las otras páginas van a quedar en cero. El problema se hace evidente al analizar la matriz y ver que la misma no es estocástica, dado que toda la columna correspondiente a D se encuentra en 0.
+
+Para que PageRank funcione, la matriz \textbf{siempre} tiene que ser estocástica, por lo que cuando una página es un dead-end tenemos que corregirla. La forma usual de hacerlo es agregando links a todas las otras páginas con probabilidad 1/n, indicándole al navegante aleatorio que puede visitar cualquiera de las paginas disponibles desde allí.
 
 \begin{myequation}
 A=\begin{pmatrix}
@@ -16807,7 +16815,7 @@ A=\begin{pmatrix}
 \end{pmatrix}
 \end{myequation}
 
-Luego de la corrección el PR final de cada página converge a: [0.2308, 0.3077, 0.1538, 0.3077], es decir que las páginas mas importantes son B y D, luego A y finalmente C.
+Luego de la corrección el PageRank final de cada página converge a: [0.2308, 0.3077, 0.1538, 0.3077], es decir que las páginas mas importantes son B y D, luego A y finalmente C.
 
 Siempre que encontremos dead-ends el primer paso es corregirlos para asegurar que la matriz sea estocástica. 
 
@@ -16818,7 +16826,7 @@ Consideremos ahora el siguiente grafo:
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=3.5in]{figures/pr-fig-3.png}
-\caption{Dead Ends}
+\caption{Spider Traps}
 
 \end{figure}
 
@@ -16834,15 +16842,15 @@ A=\begin{pmatrix}
 \end{pmatrix}
 \end{myequation}
 
-Podemos ver el en grafo que una vez que nuestro navegante aleatorio llegue a D va a quedar atrapado en D y E sin poder salir, por lo tanto el PageRank va a distribuirse entre D y E y el resto de las páginas va a quedar en cero. Esto es lo que llamamos un \textit{Spider Trap}. El término hace alusión a los robots indexadores de los buscadores que se llaman "spiders", una vez que un robot encuentre el link A-D o B-D y lo navegue no va a poder salir del ciclo D-E-D-E... es decir que queda encerrado en una trampa.
+Podemos ver el en grafo que una vez que nuestro navegante aleatorio llegue a D va a quedar atrapado en D y E sin poder salir. Por lo tanto, el PageRank va a distribuirse entre D y E y el resto de las páginas va a quedar en cero. Esto es lo que llamamos un \textit{Spider Trap}. El término hace alusión a los robots indexadores de los buscadores que se llaman "spiders". Una vez que un robot encuentre el link A-D o B-D y lo navegue no va a poder salir del ciclo D-E-D-E... es decir que queda encerrado en una trampa.
 
 Si observamos la matriz asociada al grafo veremos que es estocástica por lo que en principio no hace falta hacerle ninguna corrección. La solución a este problema fue el gran descubrimiento del algoritmo PageRank y se llama \textit{teletransportación}.
 
-Cada vez que nuestro navegante aleatorio llegue a una página con probabilidad $\beta$ lo vamos a hacer elegir un link al azar y seguirlo y con probabilidad $1-\beta$ lo vamos a teletransportar a cualquier página al azar (todas equiprobables). 
+Cada vez que nuestro navegante aleatorio llegue a una página vamos a darle dos posibilidades: Con probabilidad $\beta$ le vamos hacer elegir un link al azar y navegarlo como venimos trabajando hasta el momento y con probabilidad $1-\beta$ vamos a teletransportarlo a cualquier otra página al azar (siendo todas equiprobables).
 
-En nuestro grafo el navegante aleatorio va a llegar a D y puede que haga algunas veces el ciclo D-E-D-E... pero eventualmente se va a teletransportar a otra página y va a poder salir del loop. 
+En nuestro grafo el navegante aleatorio va a llegar a D y puede que haga algunas veces el ciclo D-E-D-E... pero eventualmente se va a teletransportar a otra página del grafo y va a poder salir del loop.
 
-Tenemos que ver como aplicar la teletransportación a la matriz de PR, y es algo muy simple:
+La forma de aplicar teletransportación a la matriz de PageRank es algo muy simple, como puede a verse a continuación reformulando A:
 
 $$
 A= \beta \begin{pmatrix}
@@ -16861,9 +16869,9 @@ A= \beta \begin{pmatrix}
 \end{pmatrix}
 $$
 
-Si usamos PR ahora con nuestra nueva matriz A usando $\beta=0.8$ obtenemos [0.07,0.09,0.07,0.39,0.35], las páginas D y E tienen el mayor PR lo cual es lógico pero ahora el PR de las otras páginas no es cero. 
+Si usamos PageRank ahora con nuestra nueva matriz A usando $\beta=0.8$ obtenemos [0.07,0.09,0.07,0.39,0.35] teniendo las páginas D y E el mayor PageRank. Esto es lógico pero ahora el PageRank de las otras páginas no es cero.
 
-Observemos que el proceso de multiplicar la matriz A por el vector de PR es equivalente a a hacer:
+Observemos que el proceso de multiplicar la matriz A por el vector de PageRank es equivalente a a hacer:
 
 $$
 \begin{pmatrix}
@@ -16898,9 +16906,9 @@ E\\
 \end{pmatrix}
 $$
 
-Donde [A,B,C,D,E] son los PR en alguna de las iteraciones. Es decir que podemos multiplicar el vector de PR por la matriz de links multiplicada por $\beta$ y luego a cada elemento del vector sumarle $1-\beta \frac{1}{N}$. Los resultados son exactamente los mismos. 
+Donde [A,B,C,D,E] son los PageRank en alguna de las iteraciones. Es decir que podemos multiplicar el vector de PageRank por la matriz de links multiplicada por $\beta$ y luego a cada elemento del vector sumarle $1-\beta \frac{1}{N}$. Los resultados son exactamente los mismos. 
 
-La teletransportación soluciona otro problema que es el caso de los grafos periódicos. 
+A su vez, La teletransportación soluciona otro problema que es el caso de los grafos periódicos.
 
 \begin{figure}[!htb]
 \centering
@@ -16909,19 +16917,29 @@ La teletransportación soluciona otro problema que es el caso de los grafos peri
 
 \end{figure}
 
-Si el grafo es periódico el PR no converge sino que oscila. Para que esto no ocurra debe ser posible garantizar que luego de un Random-Walk lo suficientemente largo existe una probabilidad positiva de estar en cualquier vértice del grafo en el próximo paso. Una forma de asegurar esto que se usa en Cadenas de Markov es agregando un link en cada nodo a si mismo, pero en PageRank no es necesario hacer esto porque la teletransportación asegura la aperiodicidad del grafo, ya que en cualquier momento con una probabilidad positiva podemos teletransportarnos a cualquier otro nodo.
+Si el grafo es periódico el PageRank no converge sino que oscila. Para que esto no ocurra debe ser posible garantizar que luego de un Random Walk lo suficientemente largo existe una probabilidad positiva de estar en cualquier vértice del grafo en el próximo paso.
 
-Con el agregado de la teletransportación y recordando que es necesario arreglar los dead-ends tenemos desarrollado el algoritmo de PR de forma completa. Vamos a comentar ahora como hacer para que PR funcione cuando el grafo tiene billones de nodos es decir en el caso de Google y la Web.
+Una forma de asegurar esto que se usa en Cadenas de Markov es agregando un link en cada nodo a si mismo, pero en PageRank no es necesario hacer esto porque la teletransportación asegura la aperiodicidad del grafo: En cualquier momento con una probabilidad positiva podemos teletransportarnos a cualquier otro nodo.
 
 \subsubsection{Interpretando $\beta$}
 
-El parámetro $\beta$ es la probabilidad de seguir un link es decir de no teletransportarse. En general se usar $\beta=0.8$ o similar. Analicemos el efecto de $\beta$ en nuestro navegante aleatorio. Cuando $\beta=1$ tenemos el caso sin teletransportación, en este caso hay un único random-walk infinito sobre nuestra cadena de Markov. Si $\beta <1$ entonces la cadena se reinicia cada tanto, cuanto menor sea $\beta$ mas random-walks vamos a tener y mas cortos van a ser estos. En el límite cuando $\beta \rightarrow 0$ tenemos infinitos random-walks de longitud 0 es decir que simplemente tomamos nodos al azar de nuestro grafo para visitarlos y el resultado será que el PR de cada uno va a ser $1/N$.
+El parámetro $\beta$ es la probabilidad de seguir un link es decir de no teletransportarse. En general se usa $\beta=0.8$ o similar. 
+
+Analicemos el efecto de $\beta$ en nuestro navegante aleatorio. Cuando $\beta=1$ tenemos el caso sin teletransportación. En este caso hay un único random walk infinito sobre nuestra cadena de Markov. Si $\beta <1$ entonces la cadena se reinicia cada tanto, cuanto menor sea $\beta$ mas random walks vamos a tener y mas cortos van a ser estos. En el límite cuando $\beta \rightarrow 0$ tenemos infinitos random walks de longitud 0 es decir que simplemente tomamos nodos al azar de nuestro grafo para visitarlos y el resultado será que el PageRank de cada uno va a ser $1/N$.
+
+Con el agregado de la teletransportación y recordando que es necesario arreglar los dead-ends tenemos desarrollado el algoritmo de PageRank de forma completa. 
+
+En la siguiente sección vamos a hacer una introducción a como hacer para que PageRank funcione cuando el grafo tiene billones de nodos, el caso de Google y la Web.
 
 \section{Page Rank en la práctica}
 
-Si tenemos una matriz con billones de nodos no podemos pensar en calcular el producto de la matriz por el vector de PR de las páginas ya que incluso para una sola iteración este proceso sería inviable. Afortunadamente, como en tantos otros casos, hay otra forma de hacer lo mismo. Existe una relación casi simbiótica entre PageRank y MapReduce, esto explica el gran éxito de Google ya que MapReduce surge, precisamente, como la solución al problema de aplicar PR para toda la Web. 
+Si tenemos una matriz con billones de nodos no podemos pensar en calcular el producto de la matriz por el vector de PageRank de las páginas ya que incluso para una sola iteración este proceso sería inviable. Afortunadamente, como en tantos otros casos, hay otra forma de hacer lo mismo.
 
-Consideremos de que forma queremos procesar el PR, podemos ir página por página y en cada página tenemos una serie de links a otras páginas, sabemos ademas el PR de cada página. Entonces estando en una página sabemos que esta transfiere su PR a cada una de las páginas linkeadas de forma equiprobable. Podemos entonces simplemente sumar a cada una de las otras páginas el PR correspondiente a la página origen dividido por la cantidad de links y multiplicado por $\beta$. Una vez que hicimos esto para todas las páginas simplemente sumamos al vector resultado la teletransportación que es $(1-\beta)*(1/N)$. Esto nos da un algoritmo muy simple para procesar el PR si tenemos el vector de PR en memoria:
+Existe una relación casi simbiótica entre PageRank y MapReduce, esto explica el gran éxito de Google ya que MapReduce surge, precisamente, como la solución al problema de aplicar PR para toda la Web. 
+
+Consideremos de que forma queremos procesar el PageRank. Podemos ir página por página y en cada página tenemos una serie de links a otras páginas, sabemos ademas el PageRank de cada página. Entonces estando en una página sabemos que esta transfiere su PageRank a cada una de las páginas linkeadas de forma equiprobable.
+
+Podemos entonces simplemente sumar a cada una de las otras páginas el PageRank correspondiente a la página origen dividido por la cantidad de links y multiplicado por $\beta$. Una vez que hicimos esto para todas las páginas simplemente sumamos al vector resultado la teletransportación que es $(1-\beta)*(1/N)$. Esto nos da un algoritmo muy simple para procesar el PageRank si tenemos el vector de PageRank en memoria:
 
 \begin{algorithm}[]
 $PR[1..N] = 1/N$
@@ -16938,13 +16956,13 @@ $PR = PR + (1-\beta)  (1/N)$
 \caption{PageRank v1.0}
 \end{algorithm}
 
-Observemos que la matriz de links en realidad no hace falta, solo necesitamos el vector con el PR de cada página y por cada página los links que tiene la misma. 
+Observemos que la matriz de links en realidad no hace falta. Solo necesitamos el vector con el PageRank de cada página y por cada página los links que tiene la misma.
 
 Este método es suficiente para grafos realmente grandes pero no para billones de páginas como en el caso de Google, en estos casos es donde podemos usar Map Reduce de una forma muy simple.
 
 \subsection{PageRank via Map Reduce}
 
-En base al procedimiento anterior podemos pensar una versión muy simple de PageRank usando MapReduce, el proceso Map procesa una página y sus links y emite un registro por cada link en la página transfiriéndole la parte del PageRank que le corresponde, el proceso Reduce suma todos los puntajes obtenidos y agrega la teletransportación.
+En base al procedimiento anterior podemos pensar una versión muy simple de PageRank usando MapReduce. El proceso Map procesa una página con sus links y emite un registro por cada link en la página transfiriéndole la parte del PageRank que le corresponde. El proceso Reduce suma todos los puntajes obtenidos y agrega la teletransportación.
 
 \begin{algorithm}[]
  \KwData{url,pagerank,listalinks}
@@ -16960,15 +16978,17 @@ emit(url,sum(puntajes)+($1-\beta$)/N\\
 \caption{PageRank Reduce}
 \end{algorithm}
 
-Este proceso se repite tantas veces como sea necesario para llegar a la convergencia, es decir que vamos alternando fases de Map y Reduce en donde cada reduce actualiza el valor del PageRank para cada página y sirve como dato para la siguiente fase de Map.
+Este proceso se repite tantas veces como sea necesario para llegar a la convergencia. Vamos alternando fases de Map y Reduce en donde cada reduce actualiza el valor del PageRank para cada página y sirve como dato para la siguiente fase de Map.
 
-Notemos que si agregamos nuevas páginas podemos incorporarlas simplemente con PR=0 y tarde o temprano el algoritmo va a converger, no es necesario volver a empezar el algoritmo ya que comenzando con cualquier vector el método iterativo siempre converge al autovector asociado al autovalor principal de la matriz.
+Si agregamos nuevas páginas podemos incorporarlas simplemente con PR=0 y tarde o temprano el algoritmo va a converger, no es necesario volver a empezar el algoritmo ya que comenzando con cualquier vector el método iterativo siempre converge al autovector asociado al autovalor principal de la matriz.
+
+En las siguientes secciones veremos una serie de aplicaciones de los conceptos de PageRank para resolver diversos tipos de problemas, en particular aprovechando la noción de teletransportación para decidir adonde teletransportarnos.
 
 \section{TopicRank}
 
 El concepto de teletransportación en PageRank es muy importante y permite varias variantes interesantes. En el algoritmo tradicional nos teletransportamos con igual probabilidad a cualquier página, pero esto lo podemos cambiar. Si decidimos, por ejemplo, teletransportarnos solo a aquellas páginas que tratan sobre un determinado tema tenemos una variante de PageRank llamada TopicRank en donde las búsquedas sobre un cierto tema van a darnos como resultado páginas que tratan sobre dicho tema. Esto se logra manipulando el concepto de teletransportación.
 
-Supongamos que sabemos, de alguna forma, cuáles son las páginas que tratan sobre un determinado tema, necesitamos entonces correr una versión de PR para dicho tema, tendremos un PR por cada tema. Para realizar el PR temático en lugar de sumar $(1-\beta)/N$ a cada página sumamos $(1-\beta)/|C|$ en donde $|C|$ es la cardinalidad del tema, es decir la cantidad de páginas que están clasificadas dentro del tema que nos interesa.
+Supongamos que sabemos, de alguna forma, cuáles son las páginas que tratan sobre un determinado tema, necesitamos entonces correr una versión de PageRank para dicho tema, tendremos un PageRank por cada tema. Para realizar el PageRank temático en lugar de sumar $(1-\beta)/N$ a cada página sumamos $(1-\beta)/|C|$ en donde $|C|$ es la cardinalidad del tema, es decir la cantidad de páginas que están clasificadas dentro del tema que nos interesa.
 
 \begin{figure}[!htb]
 \centering
@@ -16977,7 +16997,7 @@ Supongamos que sabemos, de alguna forma, cuáles son las páginas que tratan sob
 
 \end{figure}
 
-Tomemos el siguiente ejemplo, si aplicamos PR tradicional con $\beta=0.8$ llegaremos al siguierte resultado: A=0.2028, B=0.3821, C=0.2840, D=0.1311. Supongamos ahora que las páginas temáticas son A y D entonces tenemos:
+Tomemos el siguiente ejemplo, si aplicamos PR tradicional con $\beta=0.8$ llegaremos al siguiente resultado: A=0.2028, B=0.3821, C=0.2840, D=0.1311. Supongamos ahora que las páginas temáticas son A y D entonces tenemos:
 
 \begin{figure}[!htb]
 \centering
@@ -17000,11 +17020,11 @@ $$r=\beta \begin{pmatrix}
 1/2\\
 \end{pmatrix}$$
 
-Iterando llegamos a A=0.2358, B=0.3396, C=0.2302, D=0.1943. Podemos ver que el PR de A y D es mayor al calculado antes. Si queremos darle mayor peso todavía a las páginas temáticas tenemos que darle mayor probabilidad a la teletransportación es decir usar un $\beta$ mas chico. Usando $\beta=0.5$ obtenemos A=0.3077, B=0.2308, C=1346, D=3269 en donde las páginas temáticas son las que tienen mayor PR.
+Iterando llegamos a A=0.2358, B=0.3396, C=0.2302, D=0.1943. Podemos ver que el PageRank de A y D es mayor al calculado antes. Si queremos darle mayor peso todavía a las páginas temáticas tenemos que darle mayor probabilidad a la teletransportación, es decir usar un $\beta$ mas chico. Usando $\beta=0.5$ obtenemos A=0.3077, B=0.2308, C=1346, D=3269 en donde las páginas temáticas son las que tienen mayor PageRank.
 
 \section{TrustRank}
 
-TrustRank es una variante de PageRank para lograr disminuir el efecto de las \textit{spamfarms}. El objetivo de una SpamFarm es aumentar, el PR de una determinada página. Para lograr esto los spammers crean una gran cantidad de páginas que linkean a la página en cuestión y links desde la página a estas otras, formado una "red". Luego insertan links en páginas públicas que lleven a la página objetivo. 
+TrustRank es una variante de PageRank para lograr disminuir el efecto de las \textit{spamfarms}. El objetivo de una SpamFarm es aumentar, el PageRank de una determinada página. Para lograr esto los spammers crean una gran cantidad de páginas que linkean a la página en cuestión y links desde la página a estas otras, formado una "red". Luego insertan links en páginas públicas que lleven a la página objetivo.
 
 \begin{figure}[!htb]
 \centering
@@ -17013,23 +17033,23 @@ TrustRank es una variante de PageRank para lograr disminuir el efecto de las \te
 
 \end{figure}
 
-Los links a la página se pueden lograr insertando links en comentarios en sitios confiables que admiten comentarios del los usuarios, por ejemplo los comentarios de noticias en algún diario, foros, comentarios en Redes Sociales, etc. Todos estos links públicos permiten que los robots que indexan las páginas descubran la página objetivo. Una vez que esto ocurre el robot va a descubrir los links desde esta página a todas las que están dentro del spam farm y el link desde estas a la página objetivo. Con algo de trabajo este método logra aumentar artificialmente el PR de una página. 
+Los links a la página se pueden lograr insertando links en comentarios en sitios confiables que admiten comentarios del los usuarios, por ejemplo los comentarios de noticias en algún diario, foros, comentarios en Redes Sociales, etc. Todos estos links públicos permiten que los robots que indexan las páginas descubran la página objetivo. Una vez que esto ocurre el robot va a descubrir los links desde esta página a todas las que están dentro del spam farm y el link desde estas a la página objetivo. Con algo de trabajo este método logra aumentar artificialmente el PageRank de una página. 
 
-La forma en que TrustRank combate los SpamFarms es mediante la manipulación de la teletransportación. La idea es simple: solo nos podemos teletransportar a páginas confiables. Esto es equivalente a tener un TopicRank en donde el "topic" es que la página es confiable.
+La forma en que TrustRank combate los SpamFarms es, nuevamente, mediante la manipulación de la teletransportación. La idea es simple: Solo nos podemos teletransportar a páginas confiables. Esto es equivalente a tener un TopicRank en donde el "topic" es que la página es confiable.
 
 Determinar qué páginas son confiables no es una tarea sencilla, podemos definir ciertos dominios como confiables como por ejemplo .gov, .edu, .mil, etc. Y luego para el resto de los dominios recurrir a la clasificación manual. 
 
-Al usar TrustRank cada página tiene un valor de TrustRank y un valor de PageRank, lo que nos importa es la diferencia entre ambos. Si llamamos TR al valor del TrustRank y PR al valor del pagerank podemos determinar la "masa de spam" de una página como:
+Al usar TrustRank cada página tiene un valor de TrustRank y un valor de PageRank, lo que nos importa es la diferencia entre ambos. Si llamamos TR al valor del TrustRank y PageRank al valor del pagerank podemos determinar la "masa de spam" de una página como:
 
 \begin{myequation}
 \text{SpamMass} = \frac{PR - TR}{PR}
 \end{myequation}
 
-A partir de la masa de spam podemos establecer un cierto umbral y eliminar las páginas que estén por encima del mismo. O flaggear las páginas para que un humano las supervise y decida si deben ser eliminadas del índice o no. 
+A partir de la masa de spam podemos establecer un cierto umbral y eliminar las páginas que estén por encima del mismo. O marcar las páginas para que un humano las supervise y decida si deben ser eliminadas del índice o no.
 
 \section{SimRank}
 
-Continuando con las variantes posibles para la teletransportación tenemos el caso en el cual solo podemos teletransportarnos a una única página. Lo que obtenemos entonces es una serie de random-walks en los cuales siempre volvemos al mismo punto de partida. El PageRank de cada página representa entonces la probabilidad de llegar a cada página desde una cierta página origen y a esto lo llamamos \textit{SimRank}
+Continuando con las variantes posibles para la teletransportación tenemos el caso en el cual solo podemos teletransportarnos a una única página. Lo que obtenemos entonces es una serie de random walks en los cuales siempre volvemos al mismo punto de partida. El PageRank de cada página representa entonces la probabilidad de llegar a cada página desde una cierta página origen y a esto lo llamamos \textit{SimRank}
 
 \begin{figure}[!htb]
 \centering
@@ -17052,15 +17072,15 @@ $$r=\beta \begin{pmatrix}
 0\\
 \end{pmatrix}$$
 
-El resultado es A=0.2897, B=0.2056, C=0.2804, D=0.2243. El PR de A no nos interesa, lo que nos interesa es que la página mas "similar" a A es la C, luego D y finalmente B. Es interesante tomarnos unos minutos e interpretar este resultado mirando el grafo. 
+El resultado es A=0.2897, B=0.2056, C=0.2804, D=0.2243. El PageRank de A no nos interesa, lo que nos interesa es que la página más "similar" a A es la C, luego D y finalmente B. Es interesante tomarnos unos minutos e interpretar este resultado mirando el grafo.
 
 \subsection{Sim Rank via Montecarlo}
 
 EL problema del algoritmo SimRank es que no podemos calcular el SimRank de cada página, esto tomaría un total de $N$ ejecuciones de SimRank lo cual, en general, no es aceptable. Además no es algo que tenga sentido hacer ya que no siempre necesitamos todas las semejanzas sino solo algunas pocas. 
 
-La solución pasa por no calcular el SimRank sino por simularlo mediante el método de Montecarlo. Cuando queremos obtener las páginas mas similares a alguna hacemos una simulación de Random-Walks comenzando en la página y con un cierto $\beta$ en donde $1-\beta$ es la probabilidad de re-iniciar el RandomWalk. A medida que realizamos los Random-Walks registramos por que páginas pasamos y cuántas veces visitamos cada una. Luego de simular una buena cantidad de RWs, lo cual puede hacerse muy rápidamente, tenemos una muy buena aproximación al SimRank de la página simplemente listando las demás en orden decreciente por cantidad de visitas.
+La solución pasa por no calcular el SimRank sino por simularlo mediante el método Montecarlo. Cuando queremos obtener las páginas mas similares a alguna hacemos una simulación de random walks comenzando en la página y con un cierto $\beta$ donde $1-\beta$ es la probabilidad de re-iniciar el random walk. A medida que realizamos los random walks registramos por que páginas pasamos y cuántas veces visitamos cada una. Luego de simular una buena cantidad de random walks, lo cual puede hacerse muy rápidamente, tenemos una muy buena aproximación al SimRank de la página simplemente listando las demás en orden decreciente por cantidad de visitas.
 
-Este método se puede usar en Redes Sociales para recomendar amigos o usuarios a seguir, es el método usado por Twitter para recomendar usuarios a seguir, cuando un usuario visita Twitter es sencillo simular $n$ Random-Walks a partir del usuario y contar las veces que pasamos por otros usuarios, luego simplemente recomendamos los que mas veces visitamos y no son seguidos por el usuario. El método tiene resultado muy buenos y consume muy pocos recursos ya que funciona en memoria sobre el grafo completo de la Red Social.
+Este método se puede usar en Redes Sociales para recomendar amigos o usuarios a seguir siendo el utilizado en Twitter. Cuando un usuario visita Twitter es sencillo simular $n$ Random-Walks a partir del usuario y contar las veces que pasamos por otros usuarios. Luego simplemente recomendamos los que mas veces visitamos y no son seguidos por el usuario. El método tiene resultado muy buenos y consume muy pocos recursos ya que funciona en memoria sobre el grafo completo de la Red Social.
 
 \subsection{Panther}
 
@@ -17074,7 +17094,7 @@ Por ejemplo si tenemos los siguientes caminos:
 3-7-5-8-2-3
 \end{verbatim}
 
-La semejanza entre los nodos 3 y 5 será 2/3 ya que aparecen juntos en dos de los tres paths generados. Este algoritmo sirve para calcular la semejanza entre dos nodos cualesquiera usando Random Walks y una estructura de datos adecuada para contabilizar la cantidad de veces que dos nodos aparecen juntos, por ejemplo puede usarse un índice invertido para indicar en que walks participa cada nodo. Luego dados dos nodos tomamos las listas de walks y contamos la intersección entre las listas como la cantidad de walks en los que ambos nodos aparecen, dividiendo por la cantidad total de walks tenemos la semejanza entre dos nodos cualesquiera.
+La semejanza entre los nodos 3 y 5 será 2/3 ya que aparecen juntos en dos de los tres paths generados. Este algoritmo sirve para calcular la semejanza entre dos nodos cualesquiera usando Random Walks y una estructura de datos adecuada para contabilizar la cantidad de veces que dos nodos aparecen juntos. Por ejemplo, puede usarse un índice invertido para indicar en que walks participa cada nodo. Luego dados dos nodos tomamos las listas de walks y contamos la intersección entre las listas como la cantidad de walks en los que ambos nodos aparecen. Dividiendo por la cantidad total de walks tenemos la semejanza entre dos nodos cualesquiera.
 
 El método es muy eficiente para redes de incluso billones de nodos.
 
@@ -17090,7 +17110,7 @@ VisualRank es un algoritmo para rankear imágenes en un buscador de imágenes. S
 \end{figure}
 
 
-El algoritmo VisualRank se encarga de resolver este problema mediante una ingeniosa idea: la imagen mas relevante debe ser aquella que mas se parece a todas las demás, si podemos rankear las imágenes de acuerdo a su semejanza contra todo el resto tendremos un orden muy efectivo para presentarle los resultados al usuario. 
+El algoritmo VisualRank se encarga de resolver este problema mediante una ingeniosa idea: la imagen mas relevante debe ser aquella que mas se parece a todas las demás. Si podemos rankear las imágenes de acuerdo a su semejanza contra todo el resto tendremos un orden muy efectivo para presentarle los resultados al usuario.
 
 VisualRank comienza armando un grafo entre todas las imágenes recuperadas, un grafo completo en donde cada arista representa la semejanza entre las imágenes. Luego corriendo PageRank en el grafo, usando la semejanza entre imágenes como la probabilidad de visitar una luego de otra, podemos rankear las imágenes y presentar el resultado final. El problema es como calcular la semejanza entre las imágenes.
 
@@ -17105,7 +17125,7 @@ Para calcular la semejanza entre dos imágenes VisualRank hace uso del algoritmo
 
 Cada punto extraído por SIFT tiene un descriptor de 128 elementos (un vector). La semejanza entre dos imágenes se calcula mediante la distancia entre todos los puntos SIFT de una imagen contra todos los puntos SIFT de la otra.
 
-Ocurre que comparar todos los puntos SIFT contra todos por cada par de imágenes es una tarea muy costosa por lo que VisualRank usa LSH para poder realizar estas comparaciones en O(1), aplicamos una función LSH a los puntos SIFT de dos imágenes y la semejanza es simplemente la cantidad de colisiones que tuvimos en total dividiendo por el total de puntos SIFT.
+Ocurre que comparar todos los puntos SIFT contra todos por cada par de imágenes es una tarea muy costosa por lo que VisualRank usa LSH para poder realizar estas comparaciones en $O(1)$. Aplicamos una función LSH a los puntos SIFT de dos imágenes y la semejanza es simplemente la cantidad de colisiones que tuvimos en total dividiendo por el total de puntos SIFT.
 
 VusalRank o variantes de VisualRank son usados por los buscadores de imágenes modernos para poder ordenar los resultados de una consulta por relevancia.
 
@@ -17138,9 +17158,9 @@ Si en lugar de frases extraemos palabras de un texto, tenemos un algoritmo para 
 
 HITS \cite{Kleinberg} es un algoritmo para calcular la importancia de los nodos de un grafo, fue publicado casi al mismo tiempo que PageRank y tiene resultados muy similares sin embargo, como es evidente, tuvo un destino muy diferente al de PageRank.
 
-La idea de HITS es calcular dos puntajes para cada página. Un puntaje como "Hub" y un puntaje como "Authority". Un Hub es una página que linkea a buenas páginas, por ejemplo un índice de Wikipedia. Una "Autoridad" es una página que es linkeada por buenos Hubs, en este sentido el puntaje de "Authority" es similar al PageRank.
+La idea de HITS es calcular dos puntajes para cada página. Un puntaje como "Hub" y un puntaje como "Authority". Un Hub es una página que linkea a buenas páginas, por ejemplo un índice de Wikipedia. Una "Autoridad" es una página que es linkeada por buenos Hubs. En este sentido el puntaje de "Authority" es similar al PageRank.
 
-Inicialmente cada página tiene valor 1 como Hub y valor 1 como Authority. Luego el algoritmo comienza a iterar. El valor de "authority" de una página es la suma del valor "Hub" de todas las páginas que linkean hacia ella. Una vez que calculamos el valor de Authority de cada página calculamos el valor de Hub de cada página como la suma de los valores de Authority de todas las páginas hacia las cuales la página linkea. Los valores de Hub y Authority se normalizan para que todos sumen 1. Este proceso se repite hasta alcanzarla convergencia.
+Inicialmente cada página tiene valor 1 como Hub y valor 1 como Authority. Luego el algoritmo comienza a iterar. El valor de "Authority" de una página es la suma del valor "Hub" de todas las páginas que linkean hacia ella. Una vez que calculamos el valor de Authority de cada página calculamos el valor de Hub de cada página como la suma de los valores de Authority de todas las páginas hacia las cuales la página linkea. Los valores de Hub y Authority se normalizan para que todos sumen 1. Este proceso se repite hasta alcanzarla convergencia.
 
 Veamos un ejemplo
 
@@ -17151,7 +17171,7 @@ Veamos un ejemplo
 
 \end{figure}
 
-En el primer paso calculamos el valor de "authority" de cada página que es igual simplemente a la cantidad de páginas que linkean hacia ella ya que inicialmente el valor de "Hub" de cada página es 1. En nuestro ejemplo podemos ver como a "New York Times" le asignamos valor de Authority 4 simplemente porque hay 4 páginas que tienen un link hacia "New York Times". Notemos que el grafo del ejemplo es bipartito solo por razones de simplicidad, el grafo real no tiene porque tener esta restricción.
+En el primer paso calculamos el valor de "authority" de cada página que es igual simplemente a la cantidad de páginas que linkean hacia ella ya que inicialmente el valor de "Hub" de cada página es 1. En nuestro ejemplo podemos ver como a "New York Times" le asignamos valor de Authority 4 simplemente porque hay 4 páginas que tienen un link hacia "New York Times". Es importante notar que el grafo del ejemplo es bipartito solo por razones de simplicidad. El grafo real no tiene porque tener esta restricción.
 
 \begin{figure}[!htb]
 \centering
@@ -17160,7 +17180,7 @@ En el primer paso calculamos el valor de "authority" de cada página que es igua
 
 \end{figure}
 
-En el paso dos procedemos en sentido inverso, ahora vamos a calcular el valor como "Hub" de cada página y para eso observamos los links que tiene cada página (salientes) y sumamos los valores de Authority de todas las páginas apuntadas. En el ejemplo el nodo apuntado con valor 11 obtiene sus 11 puntos mediante la suma de 2 puntos de "SJ Merc News", 2 puntos de "Wall St Journal", 4 puntos de "NY Times" y 3 puntos de "USA Today"
+En el paso dos procedemos en sentido inverso, ahora vamos a calcular el valor como "Hub" de cada página. Para eso observamos los links que tiene cada página (salientes) y sumamos los valores de Authority de todas las páginas apuntadas. En el ejemplo el nodo apuntado con valor 11 obtiene sus 11 puntos mediante la suma de 2 puntos de "SJ Merc News", 2 puntos de "Wall St Journal", 4 puntos de "NY Times" y 3 puntos de "USA Today"
 
 \begin{figure}[!htb]
 \centering
@@ -17169,13 +17189,13 @@ En el paso dos procedemos en sentido inverso, ahora vamos a calcular el valor co
 
 \end{figure}
 
-Luego repetimos el proceso, calculamos el nuevo puntaje como "Authority" de cada página sumando los puntajes como Hubs de los links (entrantes). Vemos como ahora el New York Times tiene score 31 que surge de los puntajes como Hub de las 4  páginas que lo apuntanL 8,11, 7 y 5. 
+Luego repetimos el proceso, calculamos el nuevo puntaje como "Authority" de cada página sumando los puntajes como Hubs de los links (entrantes). Vemos como ahora el New York Times tiene score 31 que surge de los puntajes como Hub de las 4  páginas que lo apuntan: 8, 11, 7 y 5. 
 
 \begin{theorem}\cite{Kleinberg}
 HITS normalizando en cada paso converge a un único valor tanto de Hub como de Authority.
 \end{theorem}
 
-Llamemos $A$ a la matriz de adyacencias del grafo, la matriz de links, en este caso con 0s y 1s indicando si existe o no un link desde una página hacia otra. Esta matriz es diferente a la de PageRank en la cual teníamos probabilidades. Llamaremos $h$ al vector de tamaño $N$ con los valores como Hub de cada página y llamaremos $a$ al vector con los puntajes como Authority de cada página. Tenemos entonces:
+Llamemos $A$ a la matriz de adyacencias del grafo, la matriz de links. En este caso con 0s y 1s indicando si existe o no un link desde una página hacia otra. Esta matriz es diferente a la de PageRank en la cual teníamos probabilidades. Llamaremos $h$ al vector de tamaño $N$ con los valores como Hub de cada página y llamaremos $a$ al vector con los puntajes como Authority de cada página. Tenemos entonces:
 
 \begin{myequation}
 \begin{aligned}
@@ -17193,7 +17213,9 @@ a = A^{t}Aa\\
 \end{aligned}
 \end{myequation}
 
-Es decir que $h$ converge al autovector asociado al autovalor principal de $AA^t$ y $a$ converge al autovector asociado al autovalor principal de $A^tA$ esto demuestra el teorema de la convergencia de HITS. La forma correcta de normalizar HITS para garantizar la convergencia es dividiendo cada puntaje por la raiz cuadrada de la sumatoria del cuadrado de todos los puntajes, es decir obligando a que los vectores $h$ y $a$ tengan norma igual a 1.
+Es decir que $h$ converge al autovector asociado al autovalor principal de $AA^t$ y $a$ converge al autovector asociado al autovalor principal de $A^tA$, demostrando el teorema de la convergencia de HITS.
+
+La forma correcta de normalizar HITS para garantizar la convergencia es dividiendo cada puntaje por la raiz cuadrada de la sumatoria del cuadrado de todos los puntajes, es decir obligando a que los vectores $h$ y $a$ tengan norma igual a 1.
 
 \begin{figure}[!htb]
 \centering
@@ -17219,7 +17241,7 @@ A^t=\begin{pmatrix}
 \end{aligned}
 \end{myequation}
 
-El ranking como Hubs nos da Yahoo=0.788, Amazon=0.577, Microsoft=0.211 mientras que el ranking como Authority nos da Yahoo=0.628, Amazon=0.459, Microsoft =0.628. Esto quiere decir que la página que mejor linkea a otras es Yaho, que curiosamente se linkea a si misma(!). Mientras que la mejor página en términos de quien la linkea es un empate entre Yahoo y Microsoft. 
+El ranking como Hubs nos da Yahoo=0.788, Amazon=0.577, Microsoft=0.211 mientras que el ranking como Authority nos da Yahoo=0.628, Amazon=0.459, Microsoft =0.628. Esto quiere decir que la página que mejor linkea a otras es Yahoo, que curiosamente se linkea a si misma(!). Mientras que la mejor página en términos de quien la linkea es un empate entre Yahoo y Microsoft.
 
 El algoritmo HITS es interesante porque plantea no uno sino dos rankings para cada página, esto nos da la oportunidad de rankear las páginas como fuente de links o de acuerdo a su importancia y también nos permite elaborar esquemas de ranking mixtos en donde usamos una combinación del puntaje como Hub y Authority de la página para el Ranking final. 
 
