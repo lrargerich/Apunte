@@ -7369,7 +7369,7 @@ La cantidad de funciones de hashing y la cantidad de datos influyen en la tasa d
 
 \epigraph{Any sufficiently advanced technology is indistinguishible from magic}{\textit{Arthur C. Clarke}}
 
-LSH (locality sensitive hashing) es una solución muy eficiente al problema de los vecinos mas cercanos (nearest neighbors). Anteriormente desarrollamos este problema y vimos que la solución por fuerza bruta es muy ineficiente ya que por cada punto se tiene que calcular la distancia contra todos los demás puntos para encontrar el mas cercano o los $k$ mas cercanos. Este problema aplica no solo a algoritmos como KNN sino a una enorme cantidad de otros algoritmos que necesitan encontrar el punto mas cercano o los $k$ puntos mas cercanos a un cierto punto de nuestro set de datos. LSH nos brinda una solución aproximada a este problema pero de forma mucho mas rápida que la búsqueda por fuerza bruta.
+LSH (Locality Sensitive Hashing) es una solución muy eficiente al problema de los vecinos más cercanos (nearest neighbors). Anteriormente desarrollamos este problema y vimos que la solución por fuerza bruta es muy ineficiente ya que por cada punto se tiene que calcular la distancia contra todos los demás puntos para encontrar el más cercano o los $k$ más cercanos. Este problema aplica no solo a algoritmos como KNN sino a una enorme cantidad de otros algoritmos que necesitan encontrar el punto más cercano o los $k$ puntos más cercanos a un cierto punto de nuestro set de datos. LSH nos brinda una solución aproximada a este problema pero de forma mucho más rápida que la búsqueda por fuerza bruta.
 
 \begin{figure}[!htb]
 \centering
@@ -7378,15 +7378,15 @@ LSH (locality sensitive hashing) es una solución muy eficiente al problema de l
 
 \end{figure}
 
-El concepto detrás de LSH es muy simple: aplicar a los puntos una función de hashing de forma tal que los puntos que son parecidos (cercanos) colisionen. Si logramos construir esta función es entonces sencillo resolver el problema de los vecinos mas cercanos, dado un punto "query" aplicamos la función de hashing y accedemos al bucket de la tabla de hash indicado por la misma, luego calculamos la distancia entre nuestro punto "q" y todos los puntos dentro del bucket devolviendo el más cercano  o los $k$ mas cercanos según el caso.
+El concepto detrás de LSH es muy simple: aplicar a los puntos una función de hashing de forma tal que los puntos que son parecidos (cercanos) colisionen. Si logramos construir esta función es entonces sencillo resolver el problema de los vecinos más cercanos. Dado un punto "query" aplicamos la función de hashing y accedemos al bucket de la tabla de hash indicado por la misma, luego calculamos la distancia entre nuestro punto "query" y todos los puntos dentro del bucket devolviendo el más cercano o los $k$ más cercanos según el caso.
 
-Nuestra función de hashing debe procesar cualquier punto en $\Re^d$ dimensiones y nos da como resultado un número de bucket, nos interesa la distribución de probabilidades que la función LSH hace sobre el conjunto de buckets. Supongamos que queremos encontrar los puntos mas cercanos a un cierto punto query $q$, queremos que la función LSH tenga una alta probabilidad de encontrar buckets con puntos cercanos y una probabilidad baja de encontrar buckets con puntos lejanos. Necesitamos entonces dos distancias y dos probabilidades. Llamaremos $d_1$ a la distancia para la cual queremos que dos puntos sean similares, y llamaremos $p_1$ a la probabilidad de que la función LSH nos de una colisión si la distancia entre dos puntos es menor o igual a $d_1$. Por otro lado llamaremos $d_2$ a la distancia para la cual queremos que dos puntos no sean similares y será $p_2$ la probabilidad de que la función nos de una colisión si los puntos están a distancia $p_2$ o mas.
+Nuestra función de hashing debe procesar cualquier punto en $\Re^d$ dimensiones y darnos como resultado un número de bucket. Nos interesa la distribución de probabilidades que la función LSH hace sobre el conjunto de buckets. Supongamos que queremos encontrar los puntos más cercanos a un cierto punto query $q$. Queremos que la función LSH tenga una alta probabilidad de encontrar buckets con puntos cercanos y una probabilidad baja de encontrar buckets con puntos lejanos. Necesitamos entonces dos distancias y dos probabilidades. Llamaremos $d_1$ a la distancia para la cual queremos que dos puntos sean similares, y llamaremos $p_1$ a la probabilidad de que la función LSH nos de una colisión si la distancia entre dos puntos es menor o igual a $d_1$. Por otro lado llamaremos $d_2$ a la distancia para la cual queremos que dos puntos no sean similares y será $p_2$ la probabilidad de que la función nos de una colisión si los puntos están a distancia $p_2$ o más.
 
 \begin{myequation}
 \mathcal{H}(d_1,d_2,p_1,p_2)
 \end{myequation}
 
-En general fijamos $d_2=c*d_1$ para una cierta constante $c$ y queremos que $p_1>p_2$, cuanto mayor es la diferencia entre $p_1$ y $p_2$ mejor será la función LSH. Una forma de evaluar esto es usando:
+En general fijamos $d_2=c*d_1$ para una cierta constante $c$ y queremos que $p_1>p_2$. Cuanto mayor es la diferencia entre $p_1$ y $p_2$ mejor será la función LSH. Una forma de evaluar esto es usando:
 
 \begin{myequation}
 \rho = \frac{\log 1/p_1}{\log 1/p_2}
@@ -7396,32 +7396,32 @@ De esta forma podemos comparar diferentes funciones LSH buscando maximizar el va
 
 \section{Minhashes}
 
-Hasta aquí hemos explicado la teoría básica detrás de LSH pero aun no sabemos construir esta función de hashing "mágica" que cumpla con las propiedades pedidas. Necesitamos una función para la cual la probabilidad de que dos claves colisionen dependa de la distancia entre las claves.
+Hasta aquí hemos explicado la teoría básica detrás de LSH pero aún no sabemos construir esta función de hashing "mágica" que cumpla con las propiedades pedidas. Necesitamos una función para la cual la probabilidad de que dos claves colisionen dependa de la distancia entre las claves.
 
 $$
 P[h(x)==h(y)] = f(||x-y||)
 $$
 
-A estas funciones las vamos a llamar "Minhashes", en concreto para que una función de hashing sea un minhash vamos a pedirle las siguientes condiciones:
+A estas funciones las vamos a llamar "Minhashes". En concreto para que una función de hashing sea un minhash vamos a pedirle las siguientes condiciones:
 
 \begin{enumerate}
-\item La probabilidad de que dos claves colisionen debe depender de la distancia entre las claves
+\item La probabilidad de que dos claves colisionen debe depender de la distancia entre las claves.
 \item La función debe ser monótona y continua.
 \item Debe existir una forma eficiente de calcular la función.
 \item Debe ser posible randomizar la función de forma tal de poder obtener muchos minhash diferentes para la misma clave.
 \end{enumerate}
 
-La primer propiedad es la que habíamos enunciado antes. Una función de hashing convencional no sirve como minhash dado que el resultado de la función no depende de la distancia a la cual están las claves, en una función de hashing convencional la probabilidad de que dos claves cercanas o distantes colisionen es la misma, esto era un requisito necesario para que sea una buena función de hashing!.
+La primer propiedad es la que habíamos enunciado antes. Una función de hashing convencional no sirve como minhash dado que el resultado de la función no depende de la distancia a la cual están las claves. En una función de hashing convencional la probabilidad de que dos claves cercanas o distantes colisionen es la misma. Esto era un requisito necesario para que sea una buena función de hashing!
 
-La segunda propiedad es importante ya que necesitamos que a medida que las claves estén mas cerca la probabilidad de colisionar sea mayor, una función que tiene una alta tasa de colisiones tanto para claves cercanas como lejanas no nos sirve como minhash. 
+La segunda propiedad es importante ya que necesitamos que a medida que las claves estén más cerca la probabilidad de colisionar sea mayor. Una función que tiene una alta tasa de colisiones tanto para claves cercanas como lejanas no nos sirve como minhash. 
 
-La tercer propiedad implica que la función debe ser eficiente lo cual es fundamental ya que de lo contrario calcular el minhash podría tardar mas que buscar por fuerza bruta comparando contra todos los datos. 
+La tercer propiedad implica que la función debe ser eficiente, lo cual es fundamental, ya que de lo contrario calcular el minhash podría tardar más que buscar por fuerza bruta comparando contra todos los datos. 
 
 Finalmente la cuarta propiedad hace a la necesidad de que cada minhash nos defina una \textbf{familia} de funciones a partir de la cual podamos generar muchos minhashes para la misma clave en caso de ser necesario.
 
-En general es deseable que la función sea decreciente en función de la distancia, es decir que a medida que la distancia es mayor la probabilidad de que dos datos colisionen sea menor.
+En general es deseable que la función sea decreciente en función de la distancia. Es decir, a medida que la distancia es mayor, la probabilidad de que dos datos colisionen sea menor.
 
-Supongamos ahora que proponemos una cierta función $h(x)$ como minhash, para una cierta distancia normalizada entre 0 y 1. Podemos realizar un plot que nos indique para claves a distintas distancias cuál es la probabilidad de que colisionen. Si no podemos derivar de forma teórica la probabilidad de colisión én función de la distancia entonces es sencillo hacer una simulación en la cual generamos claves a distintas distancias y calculamos la tasa de colisión, repitiendo el experimento $n$ veces y promediando. Supongamos que el plot obtenido es como el de la figure ~\ref{fig:minhash1}.
+Supongamos ahora que proponemos una cierta función $h(x)$ como minhash para una cierta distancia normalizada entre 0 y 1. Podemos realizar un plot que nos indique para claves a distintas distancias cuál es la probabilidad de que colisionen. Si no podemos derivar de forma teórica la probabilidad de colisión en función de la distancia entonces es sencillo hacer una simulación en la cual generamos claves a distintas distancias y calculamos la tasa de colisión, repitiendo el experimento $n$ veces y promediando. Supongamos que el plot obtenido es como el de la figure ~\ref{fig:minhash1}.
 
 \begin{figure}[!htb]
 \centering
@@ -7433,7 +7433,7 @@ Supongamos ahora que proponemos una cierta función $h(x)$ como minhash, para un
 
 En la figura ~\ref{fig:minhash1} vemos una función minhash que cumple las condiciones pedidas. La función es continua, monótona y decreciente en función de la distancia. Si la función es eficiente de calcular y admite la generación de muchos minhash diferentes para la misma clave entonces nos sirve como minhash.
 
-Un minhash nos define entonces una familia de funciones de hashing en donde $p_1$ y $p_2$ dependen de la distancia entre las claves, por lo tanto podemos escribir una familia genérica para cualquier minhash de la forma:
+Un minhash nos define entonces una familia de funciones de hashing en donde $p_1$ y $p_2$ dependen de la distancia entre las claves. Por lo tanto podemos escribir una familia genérica para cualquier minhash de la forma:
 
 $$\mathcal{H}(d_1,d_2,f(d_1),f(d_2))$$
 
@@ -7443,19 +7443,19 @@ $$\mathcal{H}(d_1,d_2,1-d_1,1-d_2)$$
 
 Ya que podemos ver que la probabilidad de colisionar es exactamente 1 menos la distancia.
 
-Una vez que tenemos una función minhash válida para la distancia que nos interese es posible amplificar la familia de funciones de hashing creadas por dicho minhash de forma tal que obtengamos los valores de $p_1$ y $p_2$ que necesitemos, esto se logra mediante el proceso conocido como \textbf{amplificación} 
+Una vez que tenemos una función minhash válida para la distancia que nos interese es posible amplificar la familia de funciones de hashing creadas por dicho minhash de forma tal que obtengamos los valores de $p_1$ y $p_2$ que necesitemos. Esto se logra mediante el proceso conocido como \textbf{amplificación} 
 
 \section{Amplificación de Familias LSH}
 
-Analicemos ahora que pasaría si usáramos la función minhash planteada. Para objetos a distancia 0.2 nuestra probabilidad de colisión es 0.8 es decir que a partir de hashear un query podemos recuperar un 80\% de los objetos que están a distancia 0.2 o menor. El 20\% de objetos que son cercanos pero no recuperamos lo denominamos \textit{falsos negativos}
+Analicemos ahora qué pasaría si usáramos la función minhash planteada. Para objetos a distancia 0.2 nuestra probabilidad de colisión es 0.8, es decir que a partir de hashear un query podemos recuperar un 80\% de los objetos que están a distancia 0.2 o menor. El 20\% de objetos que son cercanos pero no recuperamos lo denominamos \textit{falsos negativos}.
 
-Por otro lado si nuestros objetos están a distancia 0.6 o mayor entonces la probabilidad de recuperarlos es 0.4, si consideramos que objetos a distancia 0.6 o mayor no son cercanos igual vamos a estar recuperando un 40\% de ellos al acceder a nuestra tabla de hashing, estos objetos que no son cercanos pero debemos examinar los llamamos \textit{falso positivos}
+Por otro lado si nuestros objetos están a distancia 0.6 o mayor entonces la probabilidad de recuperarlos es 0.4. Si consideramos que objetos a distancia 0.6 o mayor no son cercanos igual vamos a estar recuperando un 40\% de ellos al acceder a nuestra tabla de hashing. Estos objetos que no son cercanos pero que igualmente colisionan los llamamos \textit{falso positivos}. A estos objetos debemos examinarlos y descartarlos luego.
 
 \subsection{Reducción de Falsos Positivos}
 
-Es posible reducir la cantidad de falsos positivos usando mas de una función minhash sobre la misma tabla. Si usamos $r$ funciones minhash en la misma tabla cada una de estas funciones nos dará como resultado un bucket, los documentos candidatos surgen entonces de la intersección de los documentos que están en los $r$ buckets que visitamos. Por ejemplo con $r=3$ aplicamos tres minhashes diferentes y obtenemos $h_1(x)=21, h_2(x)=30,h_3(x)=5$ accedemos al bucket 21 y recuperamos los objetos cuyos ids son $\{101,204,305,306,307,411,508\}$, accedemos al bucket 30 y recuperamos $\{101,208,210,305,508,611,903\}$ finalmente en el bucket 5 recuperamos $\{101,208,209,305\}$ por lo tanto los objetos contra los cuales debemos calcular la distancia son $\{101,305\}$, estos son los candidatos a ser cercanos a nuestro objeto query.
+Es posible reducir la cantidad de falsos positivos usando más de una función minhash sobre la misma tabla. Si usamos $r$ funciones minhash en la misma tabla cada una de ellas nos dará como resultado un bucket. Los documentos candidatos surgen entonces de la intersección de los documentos que están en los $r$ buckets que visitamos. Por ejemplo con $r=3$ aplicamos tres minhashes diferentes y obtenemos $h_1(x)=21, h_2(x)=30,h_3(x)=5$. Accedemos al bucket 21 y recuperamos los objetos cuyos ids son $\{101,204,305,306,307,411,508\}$. Accedemos al bucket 30 y recuperamos $\{101,208,210,305,508,611,903\}$. Finalmente en el bucket 5 recuperamos $\{101,208,209,305\}$. Por lo tanto los objetos contra los cuales debemos calcular la distancia son $\{101,305\}$. Estos son los candidatos a ser cercanos a nuestro objeto query.
 
-Si la probabilidad de colisionar es $p$ entonces la probabilidad de colisionar en los $r$ buckets es igual a $p^r$. Podemos graficar el efecto de usar mas de un minhash sobre la misma tabla y obtenemos el siguiente plot (fig: ~\ref{fig:minhash2}).
+Si la probabilidad de colisionar es $p$ entonces la probabilidad de colisionar en los $r$ buckets es igual a $p^r$. Podemos graficar el efecto de usar más de un minhash sobre la misma tabla y obtenemos el siguiente plot (fig: ~\ref{fig:minhash2}).
 
 \begin{figure}[!htb]
 \centering
@@ -7466,13 +7466,13 @@ Si la probabilidad de colisionar es $p$ entonces la probabilidad de colisionar e
 
 Podemos ver que la cantidad de falsos positivos disminuye a valores tan bajos como querramos pero también aumenta la cantidad de falsos negativos. 
 
-En este momento es importante notar que el tamaño de la tabla de hashing también es importante e influye en la cantidad de falsos positivos y negativos ya que si la tabla es pequeña pueden producirse colisiones entre elementos que no son similares. En general el tamaño de la tabla de hashing se elige en función de la función minhash a utilizar.
+En este momento es importante notar que el tamaño de la tabla de hashing también es importante e influye en la cantidad de falsos positivos y negativos, ya que si la tabla es pequeña pueden producirse colisiones entre elementos que no son similares. En general el tamaño de la tabla de hashing se elige en función de la función minhash a utilizar.
 
 \subsection{Reducción de Falsos Negativos}
 
-Reducir los falsos negativos implica poder recuperar mas objetos, es decir que no se nos escapen objetos que son similares a la query pero no son recuperados por LSH. La idea consiste en usar mas de una tabla de hashing, si usamos $b$ tablas de hashing podemos entonces considerar objetos candidatos a aquellos que son candidatos en \textbf{alguna} de las $b$ tablas.
+Reducir los falsos negativos implica poder recuperar más objetos. Es decir, que no se nos escapen objetos que son similares a la query pero no son recuperados por LSH. La idea consiste en usar más de una tabla de hashing. Si usamos $b$ tablas de hashing podemos entonces considerar objetos candidatos a aquellos que son candidatos en \textbf{alguna} de las $b$ tablas.
 
-Si la probabilidad de que dos claves colisionen es $p$ entonces la probabilidad de que dos claves no colisionen es $1-p$ y la probabilidad de que dos claves no colisionen en ninguna de las $b$ tablas es $(1-p)^b$, por lo tanto la probabilidad de que colisionen en alguna de las $b$ tablas es $1-(1-p)^b$
+Si la probabilidad de que dos claves colisionen es $p$ entonces la probabilidad de que dos claves no colisionen es $1-p$ y la probabilidad de que dos claves no colisionen en ninguna de las $b$ tablas es $(1-p)^b$. Por lo tanto, la probabilidad de que colisionen en alguna de las $b$ tablas es $1-(1-p)^b$
 
 Podemos graficar esto (fig: ~\ref{fig:minhash3})
 
@@ -7502,19 +7502,19 @@ $$p_{r,b} = 1-(1-p^r)^b$$
 \label{fig:minhash4}
 \end{figure}
 
-En la figura ~\ref{fig:minhash4} podemos ver como queda la curva de probabilidad de colisión en función de la distancia usando diferentes valores de $r$ y $b$ y partiendo de nuestro minhash default en el cual $p=1-d$
+En la figura ~\ref{fig:minhash4} podemos ver cómo queda la curva de probabilidad de colisión en función de la distancia usando diferentes valores de $r$ y $b$, partiendo de nuestro minhash default en el cual $p=1-d$
 
 \subsection{Encontrando los valores de $b$ y $r$}
 
-En general cuando usamos LSH empezamos definiendo la distancia que vamos a usar, para cada distancia hay uno, varios o ningún minhash posibles. Elegimos un minhash y obtenemos, de forma teórica o mediante una simulación, la probabilidad de colisión en función de la distancia. 
+En general cuando usamos LSH empezamos definiendo la distancia que vamos a usar. Para cada distancia hay uno, varios o ningún minhash posible. Elegimos un minhash y obtenemos, de forma teórica o mediante una simulación, la probabilidad de colisión en función de la distancia. 
 
-Luego definimos que valores queremos para $d_1$, $d_2$, $p_1$ y $p_2$. Por ejemplo suponiendo que la distancia es un valor entre 0 y 1 fijemos $d_1=0.2$  y $d_2=0.5$ podemos definir como objetivo que queremos $p_1=0.95$ y $p_2=0.05$. Recordemos que esto quiere decir que si dos objetos están a distancia $d_1$ o menor la probabilidad de que colisionen es $p_1$ y que si dos objetos están a distancia $d_2$ o mayor la probabilidad de que colisionen es $p_2$. Por lo tanto $1-p_1$ es la probabilidad de falsos negativos y $p_2$ es la probabilidad de falsos positivos, en nuestro caso fijamos $0.05$ para ambos casos.
+Luego definimos qué valores queremos para $d_1$, $d_2$, $p_1$ y $p_2$. Por ejemplo, suponiendo que la distancia es un valor entre 0 y 1, fijemos $d_1=0.2$  y $d_2=0.5$. Podemos definir como objetivo que queremos $p_1=0.95$ y $p_2=0.05$. Recordemos que esto quiere decir que si dos objetos están a distancia $d_1$ o menos, la probabilidad de que colisionen es $p_1$, y que, si dos objetos están a distancia $d_2$ o más, la probabilidad de que colisionen es $p_2$. Por lo tanto $1-p_1$ es la probabilidad de falsos negativos y $p_2$ es la probabilidad de falsos positivos. En nuestro caso fijamos $0.05$ para ambos.
 
-Suponiendo que usamos un minhash tal que $p = 1-d$ es decir que la probabilidad de colisión es la inversa de la distancia, con distancias entre 0 y 1. Entonces el objetivo es encontrar valores de $b$ y $r$ tales que para $d=0.2$ tengamos un valor de $p_1$ igual o mayor a 0.95 y para $d=0.4$ tengamos un valor de $p_2$ que sea 0.05 o menor.
+Suponiendo que usamos un minhash tal que $p = 1-d$, es decir que la probabilidad de colisión es la inversa de la distancia, con distancias entre 0 y 1. Entonces el objetivo es encontrar valores de $b$ y $r$ tales que para $d=0.2$ tengamos un valor de $p_1$ igual o mayor a 0.95 y para $d=0.4$ tengamos un valor de $p_2$ que sea 0.05 o menor.
 
-La fórmula que usamos es $p_{r,b} = 1-(1-p^r)^b$ en donde $p=1-d$ por lo tanto $p_{r,b} = 1-(1-(1-d)^r)^b$ lo que podemos hacer ahora es mediante grid-search buscar valores de $b$ y $r$.
+La fórmula que usamos es $p_{r,b} = 1-(1-p^r)^b$ en donde $p=1-d$. Por lo tanto, $p_{r,b} = 1-(1-(1-d)^r)^b$. Lo que podemos hacer ahora es mediante grid-search buscar valores de $b$ y $r$.
 
-Podemos empezar aumentando $r$ y ver que valor obtenemos para $p_2$ en nuestro caso:
+Podemos empezar aumentando $r$ y ver qué valor obtenemos para $p_2$. En nuestro caso:
 
 \begin{table}[!hbt]
 \center{
@@ -7532,15 +7532,15 @@ $r$&$b$&$p_1$&$p_2$\\\hline\hline
 \caption{Encontrando $r$.}
 \end{table}
 
-Para $r=6,b=1$ logramos que la probabilidad de falsos positivos baje a $0.0466$ que está dentro de los parámetros deseados. Sin embargo esto trajo como consecuencia que $p_1$ baje a $0.262144$ y queremos que sea $0.95$ o superior. Por lo tanto lo que tenemos que hacer a continuación es subir $b$ pero al subir $b$ va a subir $p_2$, por lo que tenemos que ir subiendo $b$ y $r$ gradualmente hasta llegar a los valores deseados para $p_1$ y $p_2$. Con un poco de práctica este proceso se hace menos tedioso. En nuestro caso llegamos a $r=15$ y $b=84$ para un total de $1260$ minhashes. Aquí podemos ver por qué era importante que un minhash se pueda calcular de forma eficiente y además que sea posible obtener muchos minhash para el mismo objeto de forma sencilla.
+Para $r=6,b=1$ logramos que la probabilidad de falsos positivos baje a $0.0466$ que está dentro de los parámetros deseados. Sin embargo, esto trajo como consecuencia que $p_1$ baje a $0.262144$ y queremos que sea $0.95$ o superior. Por lo tanto lo que tenemos que hacer a continuación es subir $b$ pero al subir $b$ va a subir $p_2$, por lo que tenemos que ir subiendo $b$ y $r$ gradualmente hasta llegar a los valores deseados para $p_1$ y $p_2$. Con un poco de práctica este proceso se hace menos tedioso. En nuestro caso llegamos a $r=15$ y $b=84$ para un total de $1260$ minhashes. Aquí podemos ver por qué era importante que un minhash se pueda calcular de forma eficiente y además que sea posible obtener muchos minhash para el mismo objeto de forma sencilla.
 
-Nos queda ahora ver como construir minhashes para diferentes distancias.
+Nos queda ahora ver cómo construir minhashes para diferentes distancias.
 
 \section{LSH para la distancia de Jaccard}
 
 En esta sección desarrollaremos una función minhash para documentos de texto basada en la distancia de Jaccard. Para empezar vamos a procesar cada documento obteniendo todos los n-gramas de $n$ caracteres a los cuales denominaremos "shingles".
 
-Por ejemplo para "hola" usando bigramas los shingles son \$h,ho,ol,la,a\$. Si usamos trigramas entonces \$ho,hol,ola,la\$. La elección de $n$ para el tamaño de los n-gramas depende de los datos, para documentos de texto en general un valor de $n$ entre 5 y 10 caracteres es una buena idea. 
+Por ejemplo para "hola" usando bigramas los shingles son \$h,ho,ol,la,a\$. Si usamos trigramas entonces \$ho,hol,ola,la\$. La elección de $n$ para el tamaño de los n-gramas depende de los datos. En general para documentos de texto un valor de $n$ entre 5 y 10 caracteres es una buena idea. 
 
 La semejanza de Jaccard entre dos documentos se define como:
 
@@ -7548,13 +7548,13 @@ $$sJ(D1,D2) = \frac{D1 \cap D2}{D1 \cup D2}$$
 
 Es decir que la semejanza es el cociente entre la cantidad de shingles que los documentos tienen en común (intersección) y la cantidad total de shingles en ambos documentos (unión). 
 
-La semejanza de Jaccard nos da un número entre 0 y 1, vale 0 cuando los documentos no tienen absolutamente ningún shingle en común y vale 1 cuando los documentos tienen exactamente los mismos shingles. En base a esto podemos definir la distancia de Jaccard como:
+La semejanza de Jaccard nos da un número entre 0 y 1. Vale 0 cuando los documentos no tienen absolutamente ningún shingle en común y vale 1 cuando los documentos tienen exactamente los mismos shingles. En base a esto podemos definir la distancia de Jaccard como:
 
 $$dJ(D1,D2) = 1- \frac{D1 \cap D2}{D1 \cup D2}$$
 
-Es importante tener en cuenta cuando estamos hablando de distancia y cuando de semejanza recordando que uno es 1 menos el otro. 
+Es importante tener en cuenta cuando estamos hablando de distancia y cuando de semejanza, recordando que uno es 1 menos el otro. 
 
-Imaginemos ahora una matriz en la cual las filas son todos los shingles que existen en nuestra colección y cada columna representa un documento, indicando con 1 o 0 según el shingle aparezca o no en el documento.
+Imaginemos ahora una matriz en la cual las filas son todos los shingles que existen en nuestra colección y cada columna representa un documento, indicando con 1 o 0 según el shingle aparezca o no en el documento (Table ~\ref{fig:shingles_documentos}).
 
 \begin{table}[!hbt]
 \center{
@@ -7569,9 +7569,10 @@ s4&0&0&1&0\\ \hline
 }
 \vskip 0.25cm
 \caption{Shingles y Documentos.}
+\label{fig:shingles_documentos}
 \end{table}
 
-Esta matriz no hace falta construirla realmente, la vamos a usar única y exclusivamente con fines teóricos. Tomemos ahora una permutación al azar de las filas de la matriz y consideremos en que número de fila aparece el primer 1 en cada columna, a este número lo llamaremos "minhash" (MH) cada documento tiene entonces un minhash asociado.
+Esta matriz no hace falta construirla realmente, la vamos a usar única y exclusivamente con fines teóricos. Tomemos ahora una permutación al azar de las filas de la matriz y consideremos en qué número de fila aparece el primer 1 en cada columna. A este número lo llamaremos "minhash" (MH). Cada documento tiene entonces un minhash asociado (Table ~\ref{fig:shingles_documentos_minhash}).
 
 \begin{table}[!hbt]
 \center{
@@ -7586,7 +7587,8 @@ MH&2&0&3&2\\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
-\caption{Shingles y Documentos.}
+\caption{Shingles, Documentos y Minhash.}
+\label{fig:shingles_documentos_minhash}
 \end{table}
 
 Queremos demostrar que la probabilidad de que el minhash de dos documentos coincida es igual a la semejanza de Jaccard entre ambos documentos.
@@ -7594,18 +7596,18 @@ Queremos demostrar que la probabilidad de que el minhash de dos documentos coinc
 Para demostrar esto vamos a considerar dos documentos aislados cualesquiera D1 y D2. Existen 3 posibilidades para cada shingle: 
 
 \begin{enumerate}
-\item El shingle aparece en ambos documentos (11 en la matriz)
-\item El shingle no aparece en ninguno de los documentos (00 en la matriz)
-\item El shingle aparece en uno de los documentos pero no en el otro (10 o 01 en la matriz)
+\item El shingle aparece en ambos documentos (1-1 en la matriz)
+\item El shingle no aparece en ninguno de los documentos (0-0 en la matriz)
+\item El shingle aparece en uno de los documentos pero no en el otro (1-0 o 0-1 en la matriz)
 \end{enumerate}
 
-Llamemos $x$ a la cantidad de casos en los cuales el shingle aparece en ambos documentos y $y$ a los casos en los cuales el shingle aparece en un documento o en el otro pero no en ambos.
+Llamemos $x$ a la cantidad de casos en los cuales el shingle aparece en ambos documentos e $y$ a los casos en los cuales el shingle aparece en un documento o en el otro pero no en ambos.
 
-Para calcular la probabilidad de que el primer 1 de cada columna coincida tenemos que los casos favorables son aquellos en los cuales el shingle aparece en ambos documentos: $x$ y los casos totales son aquellos en los cuales el shingle aparece en ambos documentos o bien aparece en uno pero no en el otro. Los casos en los cuales el shingle no aparece en ningún documento no hace falta contarlos porque son dos ceros y no afectan el lugar en donde aparece el primer 1.
+Calculemos la probabilidad de que el primer 1 de cada columna coincida. Los casos favorables son aquellos en los cuales el shingle aparece en ambos documentos: $x$. Los casos totales son aquellos en los cuales el shingle aparece en ambos documentos o bien aparece en uno pero no en el otro. Los casos en los cuales el shingle no aparece en ningún documento no hace falta contarlos porque son dos ceros y no afectan el lugar en donde aparece el primer 1. Por lo que nos queda $x+y$.
 
 $$P[MH(D1)=MH(D2)] = \frac{x}{x+y}$$
 
-Observemos ahora que esta probabilidad es igual a la semejanza de Jaccard entre los documentos ya que para la semejanza de Jaccard tomamos la intersección es decir aquellos shingles que aparecen en ambos documentos que sabemos que es $x$ y dividimos por la unión siendo la unión la suma de aquellos shingles que aparecen en ambos documentos ($x$) y los shingles que aparecen en uno u otro documento ($y$). Notar que aquellos shingles que no aparecen en ninguno de los dos documentos no forman parte ni de la unión ni de la intersección
+Observemos que esta probabilidad es igual a la semejanza de Jaccard entre los documentos. Para la semejanza de Jaccard tomamos la intersección, es decir aquellos shingles que aparecen en ambos documentos ($x$) y dividimos por la unión, siendo esta la suma de aquellos shingles que aparecen en ambos documentos ($x$) y los shingles que aparecen en uno u otro documento ($y$). Notar que aquellos shingles que no aparecen en ninguno de los dos documentos no forman parte ni de la unión ni de la intersección.
 
 $$sJ(D1,D2) = \frac{x}{x+y}$$
 
@@ -7613,15 +7615,13 @@ Como podemos ver la semejanza de Jaccard entre dos documentos es igual a la prob
 
 $$P[MH(D1)=MH(D2)] = sJ(D1,D2)$$
 
-De aquí se desprende que comparar los minhashes de los documentos es una forma lógica de evaluar la semejanza entre ambos. Notemos también que un solo minhash nos da muy poca granularidad para medir la semejanza entre dos documentos, si solo tenemos un minhash nuestras opciones se limitan a decir que los documentos son similares (el minhash coincide) o bien no lo son (el minhash no coincide). 
+De aquí se desprende que comparar los minhashes de los documentos es una forma lógica de evaluar la semejanza entre ambos. Notemos también que un solo minhash nos da muy poca granularidad para medir la semejanza entre dos documentos. Si solo tenemos un minhash nuestras opciones se limitan a decir que los documentos son similares (el minhash coincide) o bien no lo son (el minhash no coincide). 
 
-La solución, por supuesto es usar mas de un minhash y luego analizar cuantos minhash coinciden usando esta medida como semejanza entre documentos. Si usamos 4 minhash tenemos que dos documentos pueden tener semejanza 0, 1/4, 1/2, 3/4 o 1. Según coincidan 0,1,2,3 o los 4 minhash.
+La solución, por supuesto, es usar más de un minhash y luego analizar cuantos minhash coinciden usando esta medida como semejanza entre documentos. Si usamos 4 minhash tenemos que dos documentos pueden tener semejanza 0, 1/4, 1/2, 3/4 o 1, según coincidan 0,1,2,3 o los 4 minhash.
 
-Veamos entonces de que forma podemos calcular el minhash de un documento de forma eficiente.
+Veamos entonces de qué forma podemos calcular el minhash de un documento de forma eficiente.
 
-Vamos a usar tantas funciones de hashing como minhash querramos usar y vamos a construir una pequeña matriz que tiene tantas filas como documentos y tantas columnas como minhashes. Inicialmente el minhash de cada documento lo inicializaremos en infinito.
-
-Ejemplo:
+Vamos a usar tantas funciones de hashing como minhash querramos usar y vamos a construir una pequeña matriz que tiene tantas filas como documentos y tantas columnas como minhashes. Inicialmente el minhash de cada documento lo inicializaremos en infinito (Table ~\ref{fig:minhashes_init}).
 
 \begin{table}[!hbt]
 \center{
@@ -7633,10 +7633,11 @@ d2&$\infty$&$\infty$&$\infty$&$\infty$\\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
-\caption{Minhashes.}
+\caption{Minhashes Inicial.}
+\label{fig:minhashes_init}
 \end{table}
 
-A continuación vamos a procesar documento por documento, extrayendo los shingles y hasheando cada shingle con cada una de las 4 funciones de hashing. Supongamos que para el primer shingle de nuestro documento las funciones de hashing nos devuelven 23,317,41 y 1145 respectivamente. Lo que hacemos es actualizar la tabla siempre y cuando el valor de la función de hashing sea menor al valor existente en la tabla.
+A continuación vamos a procesar documento por documento, extrayendo los shingles y hasheando cada shingle con cada una de las 4 funciones de hashing. Supongamos que para el primer shingle de nuestro documento las funciones de hashing nos devuelven 23, 317, 41 y 1145, respectivamente. Lo que hacemos es actualizar la tabla siempre y cuando el valor de la función de hashing sea menor al valor existente en la tabla (Table ~\ref{fig:minhashes_update}).
 
 \begin{table}[!hbt]
 \center{
@@ -7649,38 +7650,38 @@ d2&$\infty$&$\infty$&$\infty$&$\infty$\\ \hline
 }
 \vskip 0.25cm
 \caption{Minhashes.}
+\label{fig:minhashes_update}
 \end{table}
 
 Este proceso continua con el siguiente shingle del primer documento, luego pasamos al documento 2, y repetimos hasta haber procesado todos los documentos. En una sola lectura secuencial de nuestra colección de textos podemos obtener el valor de todos los minhashes que deseemos para cada documento sin necesidad de espacio especial en memoria.
 
-Tenemos que mostrar ahora que el minhash calculado de esta manera es equivalente a la posición del primer uno en la columna de nuestra matriz de shingles y documentos para probar que sigue siendo válido que la probabilidad de coincidencia entre dos minhash sigue siendo igual a la semejanza de Jaccard entre los documentos.
+Tenemos que mostrar ahora que el minhash calculado de esta manera es equivalente a la posición del primer uno en la columna de nuestra matriz de shingles y documentos, para probar que sigue siendo válido que la probabilidad de coincidencia entre dos minhash es igual a la semejanza de Jaccard entre los documentos.
 
-La intuición para demostrar esto es muy simple: el valor que nos devuelve la función de hashing para un shingle lo podemos considerar igual al número de fila en la cual aparecería dicho shingle en una permutación al azar de la matriz. Por lo tanto el valor mínimo de minhash es equivalente al número de fila en el cual aparecería el primer uno de la matriz. Notar que los shingles que NO aparecen en un documento directamente no se hashean.De esto se desprende que el espacio de direcciones de las funciones de hashing a usar para los minhash es igual o mayor a la cantidad total de shingles en nuestra colección.
+La intuición para demostrar esto es muy simple: el valor que nos devuelve la función de hashing para un shingle lo podemos considerar igual al número de fila en la cual aparecería dicho shingle en una permutación al azar de la matriz. Por lo tanto, el valor mínimo de minhash es equivalente al número de fila en el cual aparecería el primer uno de la matriz. Notar que los shingles que NO aparecen en un documento directamente no se hashean. De esto se desprende que el espacio de direcciones de las funciones de hashing a usar para los minhash es igual o mayor a la cantidad total de shingles en nuestra colección.
 
 Hemos presentado entonces un algoritmo muy simple para calcular cualquier cantidad de minhash a partir de una colección de documentos y hemos demostrado que la probabilidad de que dos minhash coincidan es igual a la semejanza de Jaccard entre los documentos.
-\
 
 \section{Minhash para la distancia angular}
 
-Una métrica muy popular especialmente para textos y strings representados como vectores es distancia angular, la distancia que nos interesa aquí es el ángulo entre los vectores, el coseno entre los vectores sirve entonces como medida de semejanza, dos vectores que tienen igual dirección tienen distancia angular 0 y coseno igual a 1 mientras que vectores que apuntan en direcciones opuestas tienen distancia angular 180 grados y coseno=-1. El coseno entre dos vectores se calcula como:
+Una métrica muy popular especialmente para textos y strings representados como vectores es la distancia angular. La distancia que nos interesa aquí es el ángulo entre los vectores. El coseno entre los vectores sirve entonces como medida de semejanza. Dos vectores que tienen igual dirección tienen distancia angular 0 y coseno igual a 1, mientras que vectores que apuntan en direcciones opuestas tienen distancia angular 180 grados y coseno igual a -1. El coseno entre dos vectores se calcula como:
 
 $$\cos(\theta)=\frac{\dot{XY}}{|X||Y|}$$
 
-A efectos de simplificar podemos normalizar todos los vectores de forma tal que tengan norma 1 por lo que el problema se reduce a la distancia angular sobre la hiper-esfera unitaria.
+A efectos de simplificar podemos normalizar todos los vectores de forma tal que tengan norma 1, por lo que el problema se reduce a la distancia angular sobre la hiper-esfera unitaria.
 
 $$\cos(\theta)=\dot{XY}$$
 
-Notemos que en este caso la distancia angular en la hiper-esfera unitaria es equivalente a la distancia euclideana en el intervalo (0,2). En la práctica muchos métodos LSH basados en la distancia angular funcionan bien para la distancia euclideana, esto no tiene ninguna justificación teórica sino que simplemente funciona(!) es por esto que los minhashes para la distancia angular son de particular importancia.
+Notemos que en este caso la distancia angular en la hiper-esfera unitaria es equivalente a la distancia euclideana en el intervalo (0,2). En la práctica muchos métodos LSH basados en la distancia angular funcionan bien para la distancia euclideana. Esto no tiene ninguna justificación teórica sino que simplemente funciona(!). Es por esto que los minhashes para la distancia angular son de particular importancia.
 
 Para aproximar la distancia angular usando LSH existen varios minhashes posibles que desarrollaremos a continuación.
 
 \subsection{El método de los hiperplanos}
 
-Para generar un minhash válido para la distancia angular vamos a calcular el producto interno entre nuestro vector y un vector aleatorio que puede estar formado simplemente por valores +1 y -1 ya que estos son suficientes para definir un hiperplano aleatorio. El valor del minhash va a ser 1 si el resultado del producto interno es positivo y -1 si el resultado es negativo.
+Para generar un minhash válido para la distancia angular vamos a calcular el producto interno entre nuestro vector y un vector aleatorio. Este vector aleatorio puede estar formado simplemente por valores +1 y -1, ya que estos son suficientes para definir un hiperplano aleatorio. El valor del minhash va a ser 1 si el resultado del producto interno es positivo y -1 si el resultado es negativo.
 
-Por ejemplo si nuestro vector es $(3,-2,3,4)$ generamos un vector al azar tipo $(1,-1,-1,1)$ y el producto interno entre los vectores es 9 por lo tanto el valor del minhash es +1. 
+Por ejemplo, si nuestro vector es $(3,-2,3,4)$, generamos un vector al azar $(1,-1,-1,1)$ y el producto interno entre los vectores es 9. Por lo tanto, el valor del minhash es +1. 
 
-Interpretemos ahora el significado del minhash. La probabilidad de que dos vectores proyectados al azar sobre un hiperplano tengan diferente signo es igual al ángulo entre ellos dividido sobre 180: $\theta/180$ ya que cuanto mas chico es el ángulo mas probable es que las proyecciones tengan igual sentido. Por lo tanto la probabilidad de que los minhashes coincidan para dos vectores es:
+Interpretemos ahora el significado del minhash. La probabilidad de que dos vectores proyectados al azar sobre un hiperplano tengan diferente signo es igual al ángulo entre ellos dividido 180. $\theta/180$ ya que cuanto más chico es el ángulo más probable es que las proyecciones tengan igual sentido. Por lo tanto, la probabilidad de que los minhashes coincidan para dos vectores es:
 
 $$1-\theta/180$$
 
@@ -7696,9 +7697,9 @@ $$(d_1,d_2,1-d_1/\pi,1-d_2/\pi)$$
 
 En donde d1 y d2 son las distancias angulares entre los vectores. 
 
-En la práctica como cada minhash nos define un valor $\pm1$ podemos decir que cada minhash nos define un bit y calcular un hashmin de $k-bits$ usando $k$ hiperplanos aleatorios. De esta forma tenemos un minhash que puede devolvernos valores entre $0$ y $2^k$, siendo este el valor de cada una de las $b$ tablas de hash que vamos a usar. Notemos que a mayor valor de $k$ aumentan los falsos negativos ya que necesitamos que los puntos estén del mismo lado de los $k$ hiperplanos usados para que el valor del minhash coincida.
+En la práctica como cada minhash nos define un valor $\pm1$ podemos decir que cada minhash nos define un bit y calculamos un hashmin de $k-bits$ usando $k$ hiperplanos aleatorios. De esta forma tenemos un minhash que puede devolvernos valores entre $0$ y $2^k$, siendo este el valor de cada una de las $b$ tablas de hash que vamos a usar. Notemos que a mayor valor de $k$ aumentan los falsos negativos ya que necesitamos que los puntos estén del mismo lado de los $k$ hiperplanos usados para que el valor del minhash coincida.
 
-La distancia angular se puede estimar en función de la cantidad de minhash que coinciden. Por ejemplo si usamos 4 minhash tenemos 4 posibles casos:
+La distancia angular se puede estimar en función de la cantidad de minhash que coinciden. Por ejemplo, si usamos 4 minhash, tenemos 4 posibles casos:
 
 \begin{table}[!hbt]
 \center{
@@ -7719,21 +7720,21 @@ En realidad ni el ángulo ni el coseno realmente importan ya que lo que usaremos
 
 \subsection{Voronoi Hashing}
 
-En Voronoi hashing vamos a usar un conjunto de $T$ vectores aleatorios en donde los elementos de estos vectores surgen de una distribución normal, es decir $T$ vectores gaussianos. Vamos a calcular el producto interno entre cada uno de estos vectors y nuestro vector query y nos vamos a quedar con el índice del vector que nos da el máximo producto interno como valor del minhash.
+En Voronoi hashing vamos a usar un conjunto de $T$ vectores aleatorios en donde los elementos de estos vectores surgen de una distribución normal, es decir $T$ vectores gaussianos. Vamos a calcular el producto interno entre cada uno de estos vectors y nuestro vector query, y nos vamos a quedar con el índice del vector que nos da el máximo producto interno como valor del minhash.
 
 $$
 h(x) = \arg \max <G_i,x>
 $$
 
-Notemos que lo que este método está haciendo geometricamente es distribuyendo $T$ puntos al azar sobre la hiper-esfera unitaria y luego comparando cuál es el punto mas cercano al punto hasheado.
+Notemos que lo que este método está haciendo geometricamente es distribuyendo $T$ puntos al azar sobre la hiper-esfera unitaria y luego comparando cuál es el punto más cercano al punto hasheado.
 
-Es interesante destacar que si usamos solo 2 hiperplanos $T=2$ el método de Voronoi es idéntico al de los hiperplanos usando como hiperplano al que bisecte los dos puntos elegidos al azar por Voronoi. En general Voronoi con $T=2^k$ gaussianos es igual al método de los hiperplanos con $k$ hiperplanos.
+Es interesante destacar que si usamos solo 2 hiperplanos $T=2$, el método de Voronoi es idéntico al de los hiperplanos usando como hiperplano al que bisecte los dos puntos elegidos al azar por Voronoi. En general Voronoi con $T=2^k$ gaussianos es igual al método de los hiperplanos con $k$ hiperplanos.
 
 \subsection{El Método de los Polítopos}
 
-En este método si nuestros puntos están en $d$ dimensiones primero aplicamos a nuestro punto una rotación al azar de $d$ a $d'$ dimensiones, es decir que multiplicamos al punto que queremos hashear por una matrix aleatoria de $dxd'$. Una vez que hicimos esto buscamos cuál es el vértice del polítopo de $d'$ dimensiones mas cercano y ese es el valor del minhash.
+En este método, si nuestros puntos están en $d$ dimensiones, primero aplicamos a nuestro punto una rotación al azar de $d$ a $d'$ dimensiones. Es decir, multiplicamos el punto que queremos hashear por una matrix aleatoria de $dxd'$. Una vez que hicimos esto buscamos cuál es el vértice del polítopo de $d'$ dimensiones más cercano y ese es el valor del minhash.
 
-Un polítopo está delimitado por los vectores de la base unitaria con y sin signo. En 2d la base unitaria es \{(1,0),(0,1)\} por lo tanto el polítopo es \{(0,1),(0,-1),(1,0),(-1,0)\} es decir un cuadrado rotado. Numerando los vértices por ejemplo 0,1,2,3 si el resultado de aplicar una rotación al azar a nuestro vector fuera (0.25,-12) entonces el vértice mas cercano del polítopo en 2d es (0,-1) y el valor del minhash es por lo tanto 1 (el vértice cuyo número de orden es 1).Notemos que en $d$ dimensiones el polítopo tiene siempre $2d$ vértices. En 3d el polítopo es un octahedro que tiene 6 vértices y 8 caras y que es el dual del cubo que tiene 8 vértices y 6 caras.
+Un polítopo está delimitado por los vectores de la base unitaria con y sin signo. En 2d la base unitaria es \{(1,0),(0,1)\}, por lo tanto el polítopo es \{(0,1),(0,-1),(1,0),(-1,0)\}, es decir, un cuadrado rotado. Numerando los vértices, por ejemplo, 0, 1, 2, 3, si el resultado de aplicar una rotación al azar a nuestro vector fuera (0.25,-12), entonces el vértice más cercano del polítopo en 2d es (0,-1) y el valor del minhash es por lo tanto 1 (el vértice cuyo número de orden es 1). Notemos que en $d$ dimensiones el polítopo tiene siempre $2d$ vértices. En 3d el polítopo es un octahedro que tiene 6 vértices y 8 caras y que es el dual del cubo que tiene 8 vértices y 6 caras.
 
 Ejemplo: Sea el siguiente punto en 2d $x=(12,-7)$, generamos una matriz de rotación al azar de 2d:
 
@@ -7746,23 +7747,23 @@ $$
 
 Calculamos $R_1 * x = (-0.0612,-4.2223) $
 
-Si los vértices son: \{0:(0,1); 1:(0,-1); 2:(1,0); 3:(-1,0)\} entonces el mas cercano es (0,-1) y el valor del minhash es 1. Podemos generar tantos minhashes como necesitemos generando mas rotaciones al azar. Luego podemos amplificar con los métodos que ya hemos visto agrupando minhashes.
+Si los vértices son: \{0:(0,1); 1:(0,-1); 2:(1,0); 3:(-1,0)\} entonces el más cercano es (0,-1) y el valor del minhash es 1. Podemos generar tantos minhashes como necesitemos generando más rotaciones al azar. Luego podemos amplificar con los métodos vistos, agrupando minhashes.
 
-Para hacer mas eficiente este método en lugar de generar una matriz aleatoria de $kxk$ para realizar la rotación los autores \cite{Andoni} proponen usar la matriz: $H*D1*H*D2*H*D3$ en donde $H$ es la transformación de Hadamard y $Di$ es una matriz diagonal con +/-1 al azar. La transformación de Hadamard se puede calcular en $O(k \log k)$ y esto es mas rápido que el producto por una matriz aleatoria de $kxk$ que es $O(k^2)$. Empíricamente se observa que el resultado de aplicar $H*D1*H*D2*H*D3$ a un punto es equivalente a realizar una rotación aleatoria aunque nadie ha podido demostrar esto en la práctica.
+Para hacer más eficiente este método en lugar de generar una matriz aleatoria de $kxk$ para realizar la rotación, los autores \cite{Andoni} proponen usar la matriz: $H*D1*H*D2*H*D3$ en donde $H$ es la transformación de Hadamard y $Di$ es una matriz diagonal con +/-1 al azar. La transformación de Hadamard se puede calcular en $O(k \log k)$ y esto es más rápido que el producto por una matriz aleatoria de $kxk$ que es $O(k^2)$. Empíricamente se observa que el resultado de aplicar $H*D1*H*D2*H*D3$ a un punto es equivalente a realizar una rotación aleatoria aunque nadie ha podido demostrar esto en la práctica.
 
-Otra variante sugerida en \cite{Kennedy} es aplicar en primer lugar una reducción de dimensiones usando Johnson-Lindenstrauss para llevar los datos de $d$ a $m$ dimensiones ($m<<d$). Y luego aplicar una rotación que al mismo tiempo aumente la dimensionalidad de los datos mediante una matriz aleatoria de $mxd'$. Siendo $d'$ la dimensionalidad sobre la cual comparamos contra el polítopo mas cercano.
+Otra variante sugerida en \cite{Kennedy} es aplicar en primer lugar una reducción de dimensiones usando Johnson-Lindenstrauss para llevar los datos de $d$ a $m$ dimensiones ($m<<d$). Y luego aplicar una rotación que al mismo tiempo aumente la dimensionalidad de los datos mediante una matriz aleatoria de $mxd'$. Siendo $d'$ la dimensionalidad sobre la cual comparamos contra el polítopo más cercano.
 
 El método del polítopo es equivalente al método de Voronoi si en lugar de tomar el producto interno máximo tomamos el máximo valor absoluto y el signo como minhash. Es decir que con $T$ gaussianos en el método de Voronoi generamos un número entre $0$ y $2T$ ya que ahora además del índice del gaussiano el signo es parte del minhash. En general el método de los polítopos en $d'$ dimensiones es igual al método de Voronoi con $2d'$ gaussianos \footnote{El único detalle es aceptar un gaussiano como una pseudo-rotación lo cual en la práctica es exactamente equivalente}.
 
 \section{LSH para la distancia euclideana}
 
-La distancia euclideana es sin dudas una de las métricas mas usadas, en esta sección vamos a explicar mecanismos para aproximar la distancia euclideana usando LSH, algunos de estos mecanismos también sirven para la distancia Manhattan o norma L1. 
+La distancia euclideana es sin dudas una de las métricas más usadas. En esta sección vamos a explicar mecanismos para aproximar la distancia euclideana usando LSH. Algunos de estos mecanismos también sirven para la distancia Manhattan o norma L1. 
 
 Vamos a ver un método similar al que vimos para la distancia angular basado en proyecciones aleatorias y luego otro método basado en el algoritmo de clustering K-Means.
 
 \subsection{El Método de las Proyecciones Aleatorias}
 
-La idea es similar a la usada para la distancia angular, vamos a usar proyecciones aleatorias, en este caso los hiperplanos aleatorios surgirán de una distribución p-estable, una distribución normal funciona perfectamente. Cada vector entonces lo vamos a multiplicar por un hiperplano aleatorio para obtener un número. Y el número obtenido lo vamos a discretizar a un número de bucket dividiendo por un cierto parámetro $w$. El resultado es el número de bucket o minhash para la distancia euclideana.
+La idea es similar a la usada para la distancia angular. Vamos a usar proyecciones aleatorias, en este caso los hiperplanos aleatorios surgirán de una distribución p-estable, una distribución normal funciona perfectamente. Cada vector lo vamos a multiplicar por un hiperplano aleatorio para obtener un número. Y el número obtenido lo vamos a discretizar a un número de bucket dividiendo por un cierto parámetro $w$. El resultado es el número de bucket o minhash para la distancia euclideana.
 
 \begin{figure}[!htb]
 \centering
@@ -7777,7 +7778,7 @@ $$mh_i(x) = \left \lfloor{\frac{x * v_i + a}{w}}\right \rfloor $$
 
 Donde $w$ es un hiper-parámetro que depende de los datos, $a$ es un número entre 0 y $w-1$ y $v_i$ es un vector aleatorio de igual dimensionalidad que nuestros puntos.
 
-Cada proyección aleatoria implica un particionamiento del espacio en el cual estamos trabajando, diferentes proyecciones generan diferentes particiones:
+Cada proyección aleatoria implica un particionamiento del espacio en el cual estamos trabajando. Diferentes proyecciones generan diferentes particiones:
 
 \begin{figure}[!htb]
 \centering
@@ -7786,7 +7787,7 @@ Cada proyección aleatoria implica un particionamiento del espacio en el cual es
 
 \end{figure}
 
-En cada proyección los puntos que están en una misma franja son considerados similares.El parámetro $w$ regula el ancho de las bandas y la forma de discretizar y es dependiente de los datos, es decir que tenemos que calcularlo para nuestro set de datos específicamente.
+En cada proyección los puntos que están en una misma franja son considerados similares. El parámetro $w$ regula el ancho de las bandas y la forma de discretizar. Es dependiente de los datos, es decir que tenemos que calcularlo para nuestro set de datos específicamente.
 
 Analizaremos ahora la probabilidad de que dos documentos sean similares de acuerdo a la forma en que hemos definido los minhashes para la distancia euclideana.
 
@@ -7797,46 +7798,48 @@ Analizaremos ahora la probabilidad de que dos documentos sean similares de acuer
 
 \end{figure}
 
-Cuando la distancia entre dos puntos es menor a $w/2$ la probabilidad de que caigan en el mismo bucket es $1/2 $. Esto se puede demostrar fácilmente de forma geométrica ya que si los puntos están a distancia $w/2$ o inferior la única forma de que caigan en diferentes buckets es que uno de los puntos caiga fuera del bucket y el otro dentro del mismo y como el segmento nunca mide mas de $w/2$ en promedio la probabilidad de que esto ocurra nunca puede ser mayor a $1/2$
+Cuando la distancia entre dos puntos es menor a $w/2$ la probabilidad de que caigan en el mismo bucket es $1/2 $. Esto se puede demostrar fácilmente de forma geométrica ya que si los puntos están a distancia $w/2$ o inferior la única forma de que caigan en diferentes buckets es que uno de los puntos caiga fuera del bucket y el otro dentro del mismo. Como el segmento nunca mide más de $w/2$ en promedio, la probabilidad de que esto ocurra nunca puede ser mayor a $1/2$.
 
-Cuando la distancia es mayor a $2w$ los puntos solo caen dentro del bucket si su ángulo es cercano a 90 grados. En concreto si el ángulo es menor a 60 grados los puntos nunca pueden estar dentro del mismo bucket y por lo tanto podemos decir que la probabilidad es $1/3$ ya que esto ocurre en $1/3$ de los ángulos posibles. 
+Cuando la distancia es mayor a $2w$ los puntos solo caen dentro del bucket si su ángulo es cercano a 90 grados. En concreto, si el ángulo es menor a 60 grados, los puntos nunca pueden estar dentro del mismo bucket. Por lo tanto, podemos decir que la probabilidad es $1/3$, ya que esto ocurre en $1/3$ de los ángulos posibles. 
 
 Por lo tanto nuestra familia LSH es de la forma:
 
 $$LSH(w/2,2w,p\geq1/2,p\leq1/3)$$
 
-Pese a que esta familia tiene una definición no muy precisa igual podemos aplicar la misma amplificación que vimos en las secciones anteriores usando varios minhashes agrupándolos de la forma que nos resulte mas conveniente. Cuando usamos $r=1$ y $b=n$ que es el caso mas popular lo que estamos haciendo es devolviendo como similares a los documentos que están en la misma franja en alguna de las $n$ proyecciones aleatorias que usamos.
+Pese a que esta familia tiene una definición no muy precisa igual podemos aplicar la misma amplificación que vimos en las secciones anteriores usando varios minhashes y agrupándolos de la forma que nos resulte más conveniente. Cuando usamos $r=1$ y $b=n$, el caso más popular, lo que estamos haciendo es devolviendo como similares a los documentos que están en la misma franja en alguna de las $n$ proyecciones aleatorias que usamos.
 
 \subsection{Métodos basados en K-Means: KLSH}
 
-K-Means es un algoritmo de clustering que veremos mas adelante, para un conjunto de $m$ puntos en $d$ dimensiones y una cierta cantidad de clusters $k$ que el usuario debe especificar K-Means genera $k$ clusters y devuelve cuales son los $k$ centroides correspondientes a cada cluster y a que centroide queda asignado cada uno de los $m$ puntos. El algoritmo lo vamos a desarrollar cuando veamos clustering, lo tomaremos aquí como un modelo de caja negra que nos genera $k$ centroides.
+K-Means es un algoritmo de clustering que veremos más adelante. Dado un conjunto de $m$ puntos en $d$ dimensiones y una cierta cantidad de clusters $k$, que el usuario debe especificar, K-Means genera $k$ clusters. Devuelve cuales son los $k$ centroides correspondientes a cada cluster y a que centroide queda asignado cada uno de los $m$ puntos. El algoritmo lo vamos a desarrollar cuando veamos clustering, lo tomaremos aquí como un modelo de caja negra que nos genera $k$ centroides.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.3in]{figures/klsh.png}
 
-\caption{Ejemplo KLSH. El punto query es $q$ y nos interesa encontrar su vecino mas cercano. Podemos ver que en la segunda versión de K-Means el query queda dentro del mismo cluster que su vecino mas cercano por lo que accediendo al mismo vamos a poder encontrarlo, en los otros casos encontramos otros puntos pero no el mas cercano. Este es un ejemplo de usar $r=1$ y $b=4$ lo cual nos da muy buena precisión pero notar que cualquier punto dentro del mismo cluster que el query debe ser comparado contra el mismo para poder encontrar el verdadero vecino mas cerano.}
+\caption{Ejemplo KLSH.}
 \label{fig:klsh}
 \end{figure}
 
-El centroide al cual queda asignado cada punto es un número entre 1 y $k$ y nos sirve como minhash. Para generar varios minhashes podemos usar K-Means $n$ veces con diferentes inicializaciones, como el algoritmo converge a un mínimo local que es dependiente de la inicialización tendremos valores diferentes en cada caso. 
+El punto circular es nuestro query y nos interesa encontrar su vecino más cercano (el punto cuadrado). Podemos ver que en la segunda clusterización de K-Means el query queda dentro del mismo cluster que su vecino más cercano, por lo que accediendo al mismo vamos a poder encontrarlo. En los otros casos encontramos otros puntos pero no el más cercano. Este es un ejemplo de usar $r=1$ y $b=4$ lo cual nos da muy buena precisión. Notar que cualquier punto dentro del mismo cluster que el query debe ser comparado para poder encontrar el verdadero vecino más cerano.
+
+El centroide al cual queda asignado cada punto es un número entre 1 y $k$ y nos sirve como minhash. Para generar varios minhashes podemos usar K-Means $n$ veces con diferentes inicializaciones. Como el algoritmo converge a un mínimo local que es dependiente de la inicialización tendremos valores diferentes en cada caso. 
 
 Con estos minhashes podemos proceder exactamente como lo hacíamos antes, generando $b$ tablas de hash y usando $r$ minhashes por cada tabla en donde el valor de cada minhash es el número de cluster (centroide) al cual fue asignado el punto. 
 
-Cuando queremos buscar los vecinos mas cercanos a un query $q$ simplemente buscamos el centroide mas cercano de cada corrida de K-Means y eso nos da el minhash correspondiente al query. Luego procedemos como siempre.
+Cuando queremos buscar los vecinos más cercanos a un query $q$ simplemente buscamos el centroide más cercano de cada corrida de K-Means y eso nos da el minhash correspondiente al query. Luego procedemos como siempre.
 
 \subsection{Métodos basados en K-Means: K-Means jerárquico}
 
-Es posible aplicar K-Means de forma jerárquica a nuestro set de datos, por ejemplo a partir de $m$ puntos corremos K-Means con $k=\sqrt{m}$ centroides, esto nos da, teoricamente, un promedio de $\sqrt{m}$ puntos por centroide. Para los puntos asignados a cada centroide podemos repetir el proceso aplicando K-Means nuevamente, esto nos permite crear un árbol de K-Means. Cuando queremos resolver los vecinos mas cercanos a un query $q$ empezamos por encontrar el centroide mas cercano en el primer nivel y luego bajamos a los puntos asignados a dicho centroide en donde buscamos el centroide mas cercano nuevamente y así recursivamente. Este método es eficiente para casos en los cuales tenemos billones de puntos. Para mejorar la precisión del método podemos usar multi-probin que desarrollaremos mas abajo.
+Es posible aplicar K-Means de forma jerárquica a nuestro set de datos. Por ejemplo, a partir de $m$ puntos corremos K-Means con $k=\sqrt{m}$ centroides. Esto nos da, teoricamente, un promedio de $\sqrt{m}$ puntos por centroide. Para los puntos asignados a cada centroide podemos repetir el proceso aplicando K-Means nuevamente. Esto nos permite crear un árbol de K-Means. Cuando queremos resolver los vecinos más cercanos a un query $q$ empezamos por encontrar el centroide más cercano en el primer nivel. Luego bajamos a los puntos asignados a dicho centroide en donde buscamos el centroide más cercano nuevamente y así recursivamente. Este método es eficiente para casos en los cuales tenemos billones de puntos. Para mejorar la precisión del método podemos usar multi-probin que desarrollaremos mas abajo.
 
 Este método lo vamos a volver a desarrollar al ver K-Means.
 
 \section{LSH para la distancia Hamming}
 
 La distancia de Hamming indica simplemente el número de dimensiones en las cuales dos vectores difieren. Es igual a la norma $l0$.
-Por ejemplo la distancia de Hamming entre $(2,3,4,1)$ y $(2,5,0,1)$ es 2.
+Por ejemplo, la distancia de Hamming entre $(2,3,4,1)$ y $(2,5,0,1)$ es 2.
 
-Para la distancia de Hamming existe una forma inmediata de obtener un minhash, simplemente seleccionamos al azar alguna de las dimensiones del vector. La probabilidad de que los minhashes no coincidan es igual a la distancia de Hamming entre los vectores dividido por su longitud.Por lo tanto la probabilidad de que dos minhashes coincidan es:
+Para la distancia de Hamming existe una forma inmediata de obtener un minhash. Simplemente seleccionamos al azar alguna de las dimensiones del vector. La probabilidad de que los minhashes no coincidan es igual a la distancia de Hamming entre los vectores dividido por su longitud. Por lo tanto, la probabilidad de que dos minhashes coincidan es:
 
 $$p = 1-\frac{H(x,y)}{len(x)}$$
 
@@ -7848,80 +7851,80 @@ Podemos ahora simplemente amplificar esta familia usando la técnica que ya hemo
 
 \section{Multi-Probe LSH}
 
-Hasta el momento todas las funciones LSH que hemos visto se basan en la construcción de minhashes y luego en la búsqueda de vecinos en una cantidad de tablas de hash $b$ en donde por cada tabla accedemos a un número de bucket hasheando $r$ minhashes, esto equivale a decir que un punto es candidato a ser vecino de otro si en alguna de las $b$ tablas sus $r$ minhashes coinciden. 
+Hasta el momento todas las funciones LSH que hemos visto se basan en la construcción de minhashes y luego en la búsqueda de vecinos en una cantidad de tablas de hash $b$, en donde por cada tabla accedemos a un número de bucket hasheando $r$ minhashes. Esto equivale a decir que un punto es candidato a ser vecino de otro si en alguna de las $b$ tablas sus $r$ minhashes coinciden. 
 
-Para mayor precisión es decir que no haya falsos negativos es necesario usar un valor de $b$ grande, en general en el orden de entre 100 o 1000, pero esto queda limitado por el tamaño de la memoria, el método de multi-probe intenta aumentar la precisión de una función LSH sin necesitar una cantidad de tablas de hash muy grande.
+Para mayor precisión, es decir que no haya falsos negativos, es necesario usar un valor de $b$ grande. En general el tamaño de $b$ estará en el orden de entre 100 o 1000, pero esto queda limitado por el tamaño de la memoria. El método de multi-probe intenta aumentar la precisión de una función LSH sin necesitar una cantidad de tablas de hash muy grande.
 
 La idea es no acceder a un solo bucket por tabla sino a varios, siendo la probabilidad de acceder a un bucket proporcional a la distancia entre el query y los puntos del bucket, distancia que por supuesto desconocemos.
 
-El objetivo es entonces dado un query $q$ determinar cuáles son los buckets en donde hay mayor probabilidad de encontrar vecinos cercanos y acceder a una cierta cantidad $T$ de estos buckets. El bucket mas probable sabemos encontrarlo simplemente aplicando una función de hashing a los $r$ minhashes de $q$, el problema es como determinar cuáles son los mejores buckets a probar además de éste.
+El objetivo es entonces dado un query $q$ determinar cuáles son los buckets en donde hay mayor probabilidad de encontrar vecinos cercanos y acceder a una cierta cantidad $T$ de estos buckets. El bucket más probable sabemos encontrarlo simplemente aplicando una función de hashing a los $r$ minhashes de $q$. El problema es cómo determinar cuáles son los mejores buckets a probar además de éste.
 
-La respuesta depende, por supuesto, de la métrica empleada, a continuación veremos como podemos hacer multi-probing según el tipo de minhash generado.
+La respuesta depende, por supuesto, de la métrica empleada. A continuación veremos cómo podemos hacer multi-probing según el tipo de minhash generado.
 
 \subsection{Multi-Probing para la distancia euclideana, método de proyecciones aleatorias}
 
-En este caso el minhash surge de la división por $w$, por lo tanto los valores que nos interesan son los vecinos al resultado del minhash, es decir que si el minhash es (4) nos interesa el bucket 4 y luego el 3 y 5, luego el 2 y el 6, etc. Si usamos $r$ minhashes podemos entonces generar buckets candidatos modificando +/- 1 el valor de cada minhash. Por ejemplo si tenemos (3,12,9) podemos probar los buckets (3,12,9), (2,12,9), (4,12,9),(3,13,9),(3,11,9),(3,12,8),(3,12,10),etc.
+En este caso el minhash surge de la división por $w$, por lo tanto los valores que nos interesan son los vecinos al resultado del minhash. Es decir que si el minhash es (4) nos interesa el bucket 4 y luego el 3 y 5, luego el 2 y el 6, etc. Si usamos $r$ minhashes podemos entonces generar buckets candidatos modificando +/- 1 el valor de cada minhash. Por ejemplo, si tenemos (3,12,9) podemos probar los buckets (3,12,9), (2,12,9), (4,12,9) (3,13,9), (3,11,9), (3,12,8), (3,12,10), etc.
 
 \subsection{Multi-Probing para la distancia euclideana, métodos basados en K-Means}
 
-En este caso el esquema es muy simple ya que calculamos la distancia entre el query y cada centroide para saber el valor del minhash que es el centroide que está a menor distancia. Por lo tanto los minhashes alternativos son los números de centroides que siguen ordenados por distancia decreciente.
+En este caso, el esquema es muy simple ya que calculamos la distancia entre el query y cada centroide para saber el valor del minhash (que es el centroide que está a menor distancia). Por lo tanto, los minhashes alternativos son los números de centroides que siguen ordenados por distancia decreciente.
 
 En todos los métodos basados en K-Means podemos implementar Multi-Probing de forma sencilla accediendo a $T$ centroides en lugar de uno solo.
 
 \subsection{Multi-Probing para la distancia angular, método de proyecciones aleatorias}
 
-En este caso el minhash solo puede tomar dos valores: +1 o -1, supongamos que tenemos el caso (+1,-1,+1) usando 3 minhashes por tabla, si queremos aplicar multi-probing lo que podemos hacer es modificar alguno de los minhashes cambiando el signo y acceder a dicho bucket. 
+En este caso el minhash solo puede tomar dos valores: +1 o -1. Supongamos que tenemos el caso (+1,-1,+1) usando 3 minhashes por tabla. Si queremos aplicar multi-probing, lo que podemos hacer es modificar alguno de los minhashes cambiando el signo y acceder a dicho bucket. 
 
 \subsection{Multi-Probing para la distancia angular, método de los polítopos}
 
-En el método de los polítopos podemos aplicar multi-probing accediendo a los $T$ vértices mas cercanos en lugar del mas cercano, este es un procedimiento sencillo y que no cuesta nada ya que para determinar el vértice mas cercano es necesario calcular la distancia entre cada vértice y la rotación aleatoria del punto original, por lo tanto simplemente en lugar de un vértice usamos $T$.
+En el método de los polítopos podemos aplicar multi-probing accediendo a los $T$ vértices más cercanos en lugar de acceder unicamente al más cercano. Este es un procedimiento sencillo y que no cuesta nada, ya que para determinar el vértice más cercano es necesario calcular la distancia entre cada vértice y la rotación aleatoria del punto original. Por lo tanto, simplemente en lugar de un vértice usamos $T$.
 
 \subsection{Multi-Probing para la distancia de Jaccard}
 
-En la distancia Jaccard la cuestión no es simple, una posible variante es realizar alguna perturbación en el string (texto) query y ver cuales serían los minhashes para el mismo. Por ejemplo reemplazando alguna palabra por su sinónimo, cambiando de singular a plural etc. Cada perturbación nos da un string "similar" al que estamos buscando y por eso tiene sentido acceder a los buckets apuntados por dichos strings para buscar textos similares al que nos interesa. El método de perturbar el dato original para generar otros minhashes es genérico y podría usarse en cualquier esquema de LSH si fuera necesario.2s
+En la distancia Jaccard la cuestión no es simple. Una posible variante es realizar alguna perturbación en el string (texto) query y ver cuales serían los minhashes para el mismo. Por ejemplo, reemplazando alguna palabra por su sinónimo, cambiando de singular a plural, etc. Cada perturbación nos da un string "similar" al que estamos buscando y por eso tiene sentido acceder a los buckets apuntados por dichos strings para buscar textos similares al que nos interesa. El método de perturbar el dato original para generar otros minhashes es genérico y podría usarse en cualquier esquema de LSH si fuera necesario.
 
-Multi-Probing nos permite ganar precisión sacrificando tiempo. Al buscar en mayor cantidad de buckets disminuye la probabilidad de falsos negativos pero agregamos tiempo al tener que acceder a mas buckets, recuperar mas puntos y tener que calcular las distancias entre el query y estos puntos. La técnica es muy interesante porque permite ganar precisión sin sacrificar memoria.
+Multi-Probing nos permite ganar precisión sacrificando tiempo. Al buscar en mayor cantidad de buckets disminuye la probabilidad de falsos negativos pero agregamos tiempo al tener que acceder a más buckets, recuperar más puntos y tener que calcular las distancias entre el query y estos puntos. La técnica es muy interesante porque permite ganar precisión sin sacrificar memoria.
 
 \section{LSH Conclusiones}
 
 Es hora de cerrar esta parte del capítulo haciendo un resumen de lo visto hasta ahora.
 
-LSH tiene como objetivo resolver el problema de los $k$ vecinos mas cercanos de forma eficiente, idealmente en O(1) o similar usando la menor cantidad de espacio posible, en muchos casos esto implica una aproximación al problema ya que la solución que devolvemos puede no ser exacta. Esta inexactitud puede deberse a la presencia de puntos superfluos (falsos positivos) o la ausencia de puntos relevantes (falsos negativos).
-xnzsmdmdmcmfg 
-Un falso-positivo es un pun3wsto que no es cercano al que estamos buscando pero que LSH devuelve como similar. Los falsos-positivos se filtran facilmente simplemente calculando la distancia real entre el punto query $q$ y los puntos candidatos a ser similares devueltos por LSH, estas distancias siempre las tenemos que calcuar para saber cuales son los $k$ vecinos mas cercanos. El problema de los falsos-positivos es entonces de performance, si tenemos muchos falsos positivos tenderemos muchos puntos irrelevantes cuya distancia contra el query tenemos que calcular.
+LSH tiene como objetivo resolver el problema de los $k$ vecinos más cercanos de forma eficiente, idealmente en O(1) o similar usando la menor cantidad de espacio posible. En muchos casos esto implica una aproximación al problema ya que la solución que devolvemos puede no ser exacta. Esta inexactitud puede deberse a la presencia de puntos superfluos (falsos positivos) o la ausencia de puntos relevantes (falsos negativos).
 
-Un falso-negativo es un punto que es cercano al query pero que LSH no puede encontrar. Esto afecta la \textit{precisión} del método. Los falsos-negativos no tienen solución ya que la única forma de buscarlos sería recorrer todos los datos y si hacemos eso entonces estamos en KNN por fuerza bruta y no necesitamos LSH. 
+Un falso-positivo es un punto que no es cercano al que estamos buscando pero que LSH devuelve como similar. Los falsos-positivos se filtran facilmente simplemente calculando la distancia real entre el punto query $q$ y los puntos candidatos a ser similares devueltos por LSH. Estas distancias siempre las tenemos que calcuar para saber cuales son los $k$ vecinos más cercanos. El problema de los falsos-positivos es entonces de performance. Si tenemos muchos falsos positivos tendremos muchos puntos irrelevantes cuya distancia contra el query tenemos que calcular.
+
+Un falso-negativo es un punto que es cercano al query pero que LSH no puede encontrar. Esto afecta la \textit{precisión} del método. Los falsos-negativos no tienen solución ya que la única forma de buscarlos sería recorrer todos los datos y, si hacemos eso, entonces estamos en KNN por fuerza bruta y no necesitamos LSH. 
 
 En general todas las funciones LSH que definimos se caracterizan por tener una forma de calcular un minhash a partir del dato y luego definir los siguientes parámetros:
 
 \begin{itemize}
-\item $b$ que es la cantidad de tablas de hash a usar
-\item $r$ que es la cantidad de minhash a usar por tabla
-\item $T$ que es la cantidad de buckets a probar en cada tabla (multi-probing)
+\item $b$: la cantidad de tablas de hash a usar
+\item $r$: la cantidad de minhash a usar por tabla
+\item $T$: la cantidad de buckets a probar en cada tabla (multi-probing)
 \end{itemize}
 
-Si queremos disminuir los falsos negativos, es decir ganar precisión, podemos aumentar $b$ sacrificando memoria o aumentar $T$ sacrificando velocidad.
+Si queremos disminuir los falsos negativos, es decir, ganar precisión, podemos aumentar $b$ sacrificando memoria o aumentar $T$ sacrificando velocidad.
 
-En general vamos a definir $b$ en función de la memoria que tengamos disponible, cuanto mayor es $b$ mayor precisión va a tener el algoritmo. Luego una vez fijado $b$ tenemos que definir $r$ y $T$ en función de la cantidad de falsos positivos y falsos negativos que podamos manejar y la performance (velocidad) de las consultas.
+En general vamos a definir $b$ en función de la memoria que tengamos disponible. Cuanto mayor es $b$, mayor precisión va a tener el algoritmo. Luego una vez fijado $b$ tenemos que definir $r$ y $T$ en función de la cantidad de falsos positivos y falsos negativos que podamos manejar y la performance (velocidad) de las consultas.
 
-Para un $b$ fijo aumentar $r$ disminuye los falsos positivos y también disminuye la preicisión. Aumentar $T$ mejora la precisión pero disminuye la performance.
+Para un $b$ fijo aumentar $r$ disminuye los falsos positivos y también disminuye la precisión. Aumentar $T$ mejora la precisión pero disminuye la performance.
 
 \section{LSH Para Máxima semejanza}
 
-En líneas generales LSH es muy eficiente para recuperar elementos similares cuando usamos distancias relativamente amplias pero si queremos encontrar los elementos iguales o casi iguales a otros es decir con una semejanza muy grande puede resultar ineficiente en comparación con otros algoritmos. En esta sección exploramos algunas alternativas usando como base la distancia de Jaccard entre documentos.
+En líneas generales, LSH es muy eficiente para recuperar elementos similares cuando usamos distancias relativamente amplias. Pero si queremos encontrar los elementos iguales o casi iguales a otros, es decir, con una semejanza muy grande, puede resultar ineficiente en comparación con otros algoritmos. En esta sección exploramos algunas alternativas usando como base la distancia de Jaccard entre documentos.
 
-Dado un documento podemos extraer del mismo un conjunto de shingles que pertenecen al conjunto de shingles totales de nuestra colección. Si ordenamos todos los shingles en la colección podemos asociar a cada shingle un número, por ejemplo "HIS T" = 1094. Podemos representar entonces un documento como un conjunto de números que son los shingles que representan al documento ordenándolos de menor a mayor. En general el mejor orden para los shingles es por frecuencia descendente, de esta forma el shingle 23 es mucho mas raro que el shingle 193283. Para simplificar la explicación que sigue supongamos que solo existen 26 shingles posibles entonces podemos asociar cada uno con una letra del abecedario y cada documento nos queda representado por un string. Por ejemplo "acfj" es un documento que tiene el shingle 0, el 2, el 5 y el 9. Podemos entonces encarar la semejanza entre documentos como si fuera un problema de semejanza entre strings.
+Dado un documento podemos extraer del mismo un conjunto de shingles que pertenecen al conjunto de shingles totales de nuestra colección. Si ordenamos todos los shingles en la colección podemos asociar a cada shingle un número, por ejemplo "HIS T" = 1094. Podemos representar entonces un documento como un conjunto de números que son los shingles que representan al documento, ordenándolos de menor a mayor. En general el mejor orden para los shingles es por frecuencia descendente, de esta forma el shingle 23 es mucho más raro que el shingle 193283. Para simplificar la explicación que sigue supongamos que solo existen 26 shingles posibles. Podemos asociar cada uno con una letra del abecedario y cada documento nos queda representado por un string. Por ejemplo "acfj" es un documento que tiene el shingle 0, el 2, el 5 y el 9. Podemos entonces encarar la semejanza entre documentos como si fuera un problema de semejanza entre strings.
 
 \subsection{Usando la Longitud}
 
-Supongamos que queremos recuperar documentos que tengan semejanza de Jaccard 0.9 o superior con respecto a un cierto documento query. Según la longitud del documento query es decir la cantidad de shingles que tiene sabemos que longitudes pueden tener los documentos que pueden ser similares. Por ejemplo si nuestro documento tiene longitud $L_s=10$ entonces un documento con $L_s=9$,$L_s=10$ o con $L_s=11$ shingles puede ser similar pero un documento con 8 o 12 shingles no ya que a lo sumo tendremos 8/10 o 10/12 shingles en común y $8/10<0.9$ y $10/12<0.9$
+Supongamos que queremos recuperar documentos que tengan semejanza de Jaccard 0.9 o superior con respecto a un cierto documento query. Según la longitud del documento query, es decir, la cantidad de shingles que tiene, sabemos qué longitudes pueden tener los documentos que pueden ser similares. Por ejemplo, si nuestro documento tiene longitud $L_s=10$ entonces un documento con $L_s=9$, $L_s=10$ o con $L_s=11$ shingles puede ser similar pero un documento con 8 o 12 shingles no, ya que, a lo sumo, tendremos 8/10 o 10/12 shingles en común y $8/10<0.9$ y $10/12<0.9$.
 
 Como primera solución podemos entonces indexar cada documento en un bucket de acuerdo a su longitud y luego comparar el documento query únicamente contra aquellos documentos que están en los buckets cuya longitud puede satisfacer la consulta. Estos documentos pueden ser muchos, incluso millones.
 
 \subsection{Usando Prefijos}
 
-Sigamos pensando que queremos documentos cuya semejanza con un cierto documento query es 0.9 o mayor llamemos a este número $J$ ya que es la semejanza de Jaccard. Supongamos que nuestro documento tiene 10 shingles. Queremos mostrar que para que un documento sea similar éste debe tener alguno de los dos primeros shingles. Si no tuviera ninguno de los dos primeros shingles entonces solo podría tener 8 shingles en común y la semejanza de Jaccard sería a lo sumo $8/10$ que es menor a $J$. Por lo tanto si $J=0.9$ y nuestro texto tiene 10 shingles alcanzaría con indexar los primeros 2 shingles del mismo.
-Con textos mayores es necesario indexar mayor cantidad de shingles, consideremos un texto que tiene 50 shingles, para que la semejanza sea mayor o gual a $J=0.9$ contra algún documento query desconocido necesitamos que al menos 45 de los 50 shingles estén en la intersección por lo tanto necesitamos indexar los primeros 6 símbolos del documento. En concreto la cantidad de símbolos a indexar es:
+Sigamos pensando que queremos documentos cuya semejanza con un cierto documento query es 0.9 o mayor. Llamemos a este número $J$ ya que es la semejanza de Jaccard. Supongamos que nuestro documento tiene 10 shingles. Queremos mostrar que para que un documento sea similar éste debe tener alguno de los dos primeros shingles. Si no tuviera ninguno de los dos primeros shingles entonces solo podría tener 8 shingles en común y la semejanza de Jaccard sería a lo sumo $8/10$, que es menor a $J$. Por lo tanto si $J=0.9$ y nuestro texto tiene 10 shingles, alcanzaría con indexar los primeros 2 shingles del mismo.
+Con textos mayores es necesario indexar mayor cantidad de shingles. Consideremos un texto que tiene 50 shingles. Para que la semejanza sea mayor o igual a $J=0.9$ contra algún documento query desconocido necesitamos que al menos 45 de los 50 shingles estén en la intersección. Por lo tanto, necesitamos indexar los primeros 6 símbolos del documento. En concreto, la cantidad de símbolos a indexar es:
 
 $$p=\left \lfloor{(1-J)L_s}\right \rfloor +1 $$
 
@@ -7931,15 +7934,15 @@ Con este método vamos entonces a crear un bucket por cada shingle que haya que 
 
 \subsection{Prefijos y Posiciones}
 
-Consideremos los strings: s = acdefghijk  y t = bcdefghijk, usando $J=0.9$ como tienen longitud 10 ambos serían indexados por sus dos primeros shingles (representados por a,c y b,c respectivamente). Por lo tanto como coincidiríamos en el bucket de "c" los documentos serían candidatos a similares. Sin embargo la semejanza de Jaccard entre s y t es $9/11=0.81$ que es menor que $J=0.9$ 
+Consideremos los strings: s = acdefghijk  y t = bcdefghijk, usando $J=0.9$. Como ambos tienen longitud 10 serían indexados por sus dos primeros shingles (representados por a,c y b,c respectivamente). Como coincidiríamos en el bucket de "c" los documentos serían candidatos a similares. Sin embargo la semejanza de Jaccard entre s y t es $9/11=0.81$, que es menor que $J=0.9$ 
 
-Supongamos que construimos nuestro índice en base al par ordenado (Shingle,posición) es decir que para s usaríamos (a,0) y (c,1) mientras que para t usaríamos (b,0) y (c,1). Analicemos ahora como se haría una consulta. Empecemos con nuestro string s = acdefghijk , queremos encontrar strings que sean similares en $J=0.9$ o mas. Sabemos que como $L_s=10$ entonces $p=2$ por lo que solo consideramos los dos primeros caracteres (shingles) en nuestro string: a y c. Tenemos potencialmente que buscar en 4 buckets: (a,1) (a,2) (c,1) y (c,2) para encontrar documentos candidatos pero en realidad de esas 4 combinaciones hay una que no es posible que es (c,2). Si ya evaluamos (a,1)(a,2) y (c,1) sin encontrar candidatos entonces sabemos que no hay documentos que comiencen con el mismo shingle "a" que s, ya que buscamos (a,1) sin éxito. También sabemos que no hay documentos que comiencen con el segundo shingle de s que es "c" ya que buscamos (c,1) sin éxito y sabemos que no hay documentos que tengan el primer shingle de s en la segunda posición pues hemos buscado (a,2) por lo tanto un documento que tenga a "c" en la segunda posición no puede tener "a" en la primera es decir que vamos a tener al menos 11 shingles en la unión y de estos 11 shingles solo pueden coincidir 9 por lo tanto el documento no puede ser similar con $J=0.9$ un ejemplo es: x=bcdefghijk.
+Supongamos que construimos nuestro índice en base al par ordenado (Shingle,posición). Es decir que para s usaríamos (a,0) y (c,1), mientras que para t usaríamos (b,0) y (c,1). Analicemos ahora cómo se haría una consulta. Empecemos con nuestro string s = acdefghijk. Queremos encontrar strings que sean similares en $J=0.9$ o más. Sabemos que como $L_s=10$ entonces $p=2$, por lo que solo consideramos los dos primeros caracteres (shingles) en nuestro string: a y c. Tenemos potencialmente que buscar en 4 buckets: (a,1) (a,2) (c,1) y (c,2) para encontrar documentos candidatos. Pero en realidad, de esas 4 combinaciones, hay una que no es posible. Esta es (c,2). Si ya evaluamos (a,1), (a,2) y (c,1), sin encontrar candidatos, entonces sabemos que no hay documentos que comiencen con el mismo shingle "a" que s, ya que buscamos (a,1) sin éxito. También sabemos que no hay documentos que comiencen con el segundo shingle de s que es "c", ya que buscamos (c,1) sin éxito. Y sabemos que no hay documentos que tengan el primer shingle de s en la segunda posición pues hemos buscado (a,2), por lo tanto un documento que tenga a "c" en la segunda posición no puede tener "a" en la primera, es decir que vamos a tener al menos 11 shingles en la unión y de estos 11 shingles solo pueden coincidir 9. Por lo tanto, el documento no puede ser similar con $J=0.9$. Un ejemplo es: x=bcdefghijk.
 
 Desarrollemos esto de forma teórica sea $L_s$ la longitud del documento (cantidad de shingles) $J$ la semejanza de Jaccard que buscamos como mínimo, $i$ la posición del shingle en el documento query. Queremos hallar $j$ que es la posición máxima que puede tener el shingle $i$ en un documento candidato a ser similar. 
 
-Para calcular la cota superior para $j$ supongamos que $t$ es un documento cuyos primeros $j-1$ símbolos no matchearon nada en $s$ pero el $i$-esimo símbolo de $s$ es igual al $j$-ésimo símbolo de $t$ la semejanza máxima entre $s$ y $t$ se da cuando todos los símbolos a partir de $i$ y $j$ respectivamente son idénticos.
-Por ejemplo si s=ad* y t=bfd* entonces $i=2$ , $j=3$ y para que la semejanza sea máxima lo que sigue luego de d en ambos strings debería coincidir.
-El tamaño de la intersección es entonces: $L_s-i+1$  y la unión es $L_s+j-1$ Esto es porque $s$ contribuye su longitud $L_s$ a la unión y además hay $j-1$ símbolos que no están en $s$	 por lo tanto la semejanza máxima de Jaccard es:
+Para calcular la cota superior para $j$ supongamos que $t$ es un documento cuyos primeros $j-1$ símbolos no matchearon nada en $s$ pero el $i$-esimo símbolo de $s$ es igual al $j$-ésimo símbolo de $t$. La semejanza máxima entre $s$ y $t$ se da cuando todos los símbolos a partir de $i$ y $j$ respectivamente son idénticos.
+Por ejemplo, si s=ad* y t=bfd* entonces $i=2$ , $j=3$. Para que la semejanza sea máxima lo que sigue luego de d en ambos strings debería coincidir.
+El tamaño de la intersección es entonces: $L_s-i+1$  y la unión es $L_s+j-1$ Esto es porque $s$ contribuye su longitud $L_s$ a la unión y además hay $j-1$ símbolos que no están en $s$. Por lo tanto, la semejanza máxima de Jaccard es:
 
 $$J\leq \frac{L_s-i+1}{L_s+j-1}$$
 
@@ -7949,8 +7952,8 @@ $$j \leq (L_s(1-J)-i+1+J)/J$$
 
 Reemplacemos para verificar que funciona bien en nuestro ejemplo con s= acdefghijk. $L_s=10, J=0.9$
 
-Si $i=1$ entonces $j \leq (10(0.1) - 1 + 1 + 0.9)/0.9$ entonces $j \leq 2.11$ por lo que tenemos que analizar (a,1) y (a,2).
-Si $i=2$ entonces $j \leq (10(0.1) - 2 + 1 + 0.9)/0.9$ entonces $j \leq 1$ por lo que tenemos que analizar (c,1) únicamente.
+Si $i=1$ entonces $j \leq (10(0.1) - 1 + 1 + 0.9)/0.9$ entonces $j \leq 2.11$, por lo que tenemos que analizar (a,1) y (a,2).
+Si $i=2$ entonces $j \leq (10(0.1) - 2 + 1 + 0.9)/0.9$ entonces $j \leq 1$, por lo que tenemos que analizar (c,1) únicamente.
 
 \subsection{Prefijos, Posiciones y Longitud}
 
@@ -7966,26 +7969,26 @@ La cantidad máxima de shingles en la intersección es:
 
 $$L_s-i+1-(p-q)$$
 
-Ya que $L_s=i+p$  la intersección es entonces $q+1$. La unión como mínimo es $L_s+j-1$ igual que antes por lo tanto:
+Ya que $L_s=i+p$ la intersección es entonces $q+1$. La unión como mínimo es $L_s+j-1$, igual que antes. Por lo tanto:
 
 $$J\leq \frac{q+1}{L_s+j-1}$$
 
 \subsubsection{Segundo caso: $p < q$}
 
-Ahora la intersección tiene como máximo $L_s-i+1$ tal y como calculamos cuando no considerábamos los shingles siguientes. Pero la unión ahora cambia y es $K_s+j-1+q-p$. Si usamos de nuevo $L_s = i+p$ podemos reemplazar$L_s-p$ por $i$ y nos queda $i+j-1+q$ por lo tanto:
+Ahora la intersección tiene como máximo $L_s-i+1$ tal y como calculamos cuando no considerábamos los shingles siguientes. Pero la unión ahora cambia y es $K_s+j-1+q-p$. Si usamos de nuevo $L_s = i+p$ podemos reemplazar $L_s-p$ por $i$ y nos queda $i+j-1+q$. Por lo tanto:
 
 $$J\leq \frac{L_s-i+1}{i+j-1+q}$$
 
-Ejemplo: Sea s=acdefghijk y usemos $J=0.8$. Sabemos que $L_s=10$ calculamos la cantidad de shingles a indexar que es igual a 3 por lo que debemos considerar $i=1,2,3$ es decir los shingles a,c,d. Supongamos primero que $p \geq q$
+Ejemplo: Sea s=acdefghijk y usemos $J=0.8$. Sabemos que $L_s=10$, calculamos la cantidad de shingles a indexar que es igual a 3, por lo que debemos considerar $i=1,2,3$, es decir los shingles a,c,d. Supongamos primero que $p \geq q$
 
-Sea $i=1$ entonces $p=9$ por lo tanto $q=9$
+Sea $i=1$ entonces $p=9$, por lo tanto $q=9$
 
 si $q=9$ entonces $10/(9+j)\geq 0.8$ entonces j=1,2,3.
 si $q=8$ entonces $9/(9+j) \geq 0.8$ entonces j=1,2
 si $q=7$ entonces $8/(9+j) \geq 0.9$ entonces j=1
 si $q=6$ no hay valor de j
 
-Por lo tanto aquí deberíamos buscar en los buckets (a,1,9) (a,2,9) (a,3,9) (a,1,8) (a,2,8) (a,1,7)
+Finalmente deberíamos buscar en los buckets (a,1,9) (a,2,9) (a,3,9) (a,1,8) (a,2,8) (a,1,7).
 
 Sea $i=2$ entonces $p=9$ por lo tanto $q\geq 8$. Dado $(q+1)/(9+j)\geq 0.8$ podemos usar el mismo análisis pero excluyendo $q=9$ entonces:
 
@@ -8000,14 +8003,14 @@ Agregamos (d,1,7)
 
 Ahora consideremos $p<q$
 
-si $i=1$ entonces $p=9$ y $q\geq 10$ con $10/(q+j) \geq 0.8$ los posibles valores de $q$ y $j$ son:
+Si $i=1$ entonces $p=9$ y $q\geq 10$ con $10/(q+j) \geq 0.8$. Los posibles valores de $q$ y $j$ son:
 
 $q=10$ y $j=1,2$
 $q=11$ y $j=1$
 
 Agregamos entonces: (a,1,10) (a,2,10) (a,1,11)
 
-Si $i=2$ la única opción es $q=9$ y $j=1$ que ya hemos investigado
+Si $i=2$ la única opción es $q=9$ y $j=1$, que ya hemos investigado
 
 Si $i=3$ entonces no hay soluciones.
 
@@ -8016,18 +8019,18 @@ Si $i=3$ entonces no hay soluciones.
 \includegraphics[width=3in]{figures/lsh-fig-14.png}
 
 \caption{LSH para distancias muy pequeñas}
-\label{fig:lshdists}
+\label{fig:lsh_distspeq}
 \end{figure}
 
-La figura ~\ref{fig:lshdists} muestra el total de buckets a buscar que son 14. 
+La figura ~\ref{fig:lsh_distspeq} muestra el total de buckets a buscar que son 14. 
 
-Con este método la cantidad de falsos positivos encontrados en cada bucket disminuye sensiblemente, el contrapunto es la cantidad de espacio necesario ya que usamos una cantidad de buckets mucho mayor al usar 3 dimensiones para indexar los mismos.
+Con este método la cantidad de falsos positivos encontrados en cada bucket disminuye sensiblemente. El contrapunto es la cantidad de espacio necesario ya que usamos una cantidad de buckets mucho mayor al usar 3 dimensiones para indexar los mismos.
 
-Notemos que el método descripto en todas sus variantes puede tener falsos positivos pero nunca falsos negativos lo cual es una condición muy deseable.
+Notemos que el método descripto en todas sus variantes puede tener falsos positivos pero nunca falsos negativos, lo cual es una condición muy deseable.
 
 \section{LSH forests}
 
-Presentamos ahora una idea reciente \cite{Bawa} en la cual usamos LSH para construir un árbol binario de búsqueda. La idea consiste en convertir cada minhash en un 0 o 1, por ejemplo según sea par o impar e ir insertando los datos en un árbol binario de búsqueda, para cada dato generamos tantos minhashes como sean necesarios para que la concatenación de todos sus minhashes sea una cadena única es decir que le corresponda una hoja del árbol. Eventualmente puede ser necesario generar muchísimos minhashes por lo que es conveniente fijar una longitud máxima para la cantidad de minhashes que puede tener un dato, en este caso puede ocurrir que una hoja del árbol tenga mas de un dato pero en general serán muy pocos.
+Presentamos ahora una idea reciente \cite{Bawa} en la cual usamos LSH para construir un árbol binario de búsqueda. La idea consiste en convertir cada minhash en un 0 o 1, por ejemplo, según sea par o impar, e ir insertando los datos en un árbol binario de búsqueda. Para cada dato generamos tantos minhashes como sean necesarios para que la concatenación de todos sus minhashes sea una cadena única, es decir que le corresponda una hoja del árbol. Eventualmente puede ser necesario generar muchísimos minhashes por lo que es conveniente fijar una longitud máxima para la cantidad de minhashes que puede tener un dato. En este caso puede ocurrir que una hoja del árbol tenga más de un dato, pero en general serán muy pocos.
 
 \begin{figure}[!htb]
 \centering
@@ -8040,7 +8043,7 @@ Al igual que en LSH tradicional es conveniente crear no uno sino varios árboles
 
 A la hora de buscar resultados en base a un cierto query vamos aplicando los minhashes al dato y navegando en paralelo todos los árboles de nuestro forest hasta llegar en cada uno a la hoja que comparte el prefijo de mayor longitud con nuestro dato. Una vez que llegamos hasta la hoja correspondiente en cada forest podemos recuperar el o los datos que se encuentren en dicha hoja y luego hacer backtracking hacia arriba en cada árbol para ir recuperando otros datos hasta tener una cantidad suficiente de acuerdo a lo que estemos haciendo.
 
-Esta es una estructura bastante eficiente en el cual organizamos cada tabla de hash como un árbol binario de búsqueda, como contrapunto necesitamos generar una cantidad de minhashes muy superior a los que necesitamos en LSH tradicional.
+Esta es una estructura bastante eficiente en el cual organizamos cada tabla de hash como un árbol binario de búsqueda. Como contrapunto necesitamos generar una cantidad de minhashes muy superior a los que necesitamos en LSH tradicional.
 
 \chapter{Reducción de Dimensiones}
 
