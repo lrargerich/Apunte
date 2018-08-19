@@ -14531,8 +14531,8 @@ La figura \ref{fig:nmf_mnist} muestra las partes de los trazos a partir de las c
 
 Un sistema de recomendaciones tiene como objetivo descubrir contenidos que puedan ser
 interesantes para el usuario. Estos contenidos pueden ser de cualquier tipo: películas, música,
-libros, noticias, productos, etc. En el apunte usaremos películas como contenido por
-conveniencia pero todos los temas que veremos se aplican de la misma forma a cualquier otro
+libros, noticias, productos, etc. A modo de ejemplo, en este apunte usaremos películas como contenido por
+conveniencia. Sin embargo, todos los temas que veremos se aplican de la misma forma a cualquier otro
 tipo de contenidos.
 
 Los sistemas de recomendaciones en general tienen el enorme objetivo de transformar la forma
@@ -14540,17 +14540,17 @@ en la que los usuarios utilizan internet cambiando un modelo basado en “búsqu
 modelo basado en “descubrimiento”.
 
 En un modelo basado en búsquedas los usuarios usan motores de búsqueda como Google o
-Bing(?) para encontrar contenidos de interés, en un modelo basado en descubrimiento un
+Bing(?) para encontrar contenidos de interés. En un modelo basado en descubrimiento un
 sistema de recomendaciones descubre contenidos que pueden ser de interés para el usuario y
-se los acerca. Es decir que en lugar de hacer que el usuario busque los contenidos hacemos
-que los contenidos lleguen al usuario. El cambio filosófico es fundamental.
+se los presenta: En lugar de hacer que el usuario busque los contenidos hacemos
+que estos lleguen al usuario. El cambio filosófico es fundamental.
 
 Una diferencia fundamental entre un modelo de búsqueda y un modelo de descubrimiento es
-que en una búsqueda los usuarios deben saber que es lo que quieren encontrar, en cambio en
+que en una búsqueda los usuarios deben saber que es lo que quieren encontrar. En cambio en
 un modelo de descubrimiento el usuario encuentra cosas que no sabía que existían. Este tema
 es muy importante ya que sin un sistema de recomendaciones adecuado los usuarios no
-podrían acceder a los contenidos que no conocen y como veremos más adelante en general
-hay muchos más contenidos desconocidos que conocidos.
+podrían acceder a los contenidos que no conocen, quedando limitados solamente a lo conocido.
+Como veremos más adelante en general hay muchos más contenidos desconocidos que pueden ser de interés o relevancia para el usuario que los conocidos.
 
 \section{Características de un Sistema de Recomendaciones}
 
@@ -14565,26 +14565,27 @@ listamos a continuación:
 
 \subsection{Precisión}
 
-La precisión apunta a recomendarle al usuario contenidos que sea de su interés. Un buen
+La precisión apunta a recomendarle al usuario contenidos que sean de su interés. Un buen
 sistema de recomendaciones no debe recomendar al usuario cosas que al mismo no van a
-interesarle, el efecto de ésto puede ser catastrófico ya que el usuario deja de confiar en el
-sistema e ignora los productos recomendados.
+interesarle. El efecto de ésto puede ser catastrófico ya que el usuario deja de confiar en el
+sistema e ignora los productos o contenidos recomendados.
 
 La mayoría de los sistemas de recomendación se enfocan fuertemente en lograr una alta
-precisión, ésto es muy importante pero, como veremos, no es lo único que debemos
+precisión. Mas alla de que ésto es muy importante como veremos, no es lo único que debemos
 considerar.
 
 
 \subsection{Serendipity}
 
 El concepto de “serendipity” puede resumirse brevemente cómo: “no mostrarle al usuario
-contenidos que el usuario ya conoce o que puede descubrir fácilmente por sus propios medios”.
+contenidos que ya conoce o que puede descubrir fácilmente por sus propios medios”.
 
 Esto es equivalente a decir que el sistema debe ser capaz de recomendarle al usuario
 contenidos que no son muy populares en general.
-Este principio, que es de gran importancia, está asociado a la forma en la cuál se distribuye la
-popularidad de los contenidos en todos los sistemas de recomendaciones. Se verifica como ley
-que existen unos pocos contenidos que son muy populares y una enorme cantidad de
+
+Este principio, de gran importancia, está asociado a la forma en la cuál se distribuye la
+popularidad de los contenidos en todos los sistemas de recomendaciones. 
+Se verifica como ley que existen unos pocos contenidos que son muy populares y una enorme cantidad de
 contenidos que tienen baja popularidad. Esto se conoce como el principio del “Long Tail”.
 
 Si graficamos la cantidad de ítems en el eje “x” y la popularidad de los mismos en el eje “y”
@@ -14597,17 +14598,14 @@ independientemente del tipo contenido obtenemos algo de la siguiente forma:
 
 \end{figure}
 
-La distribución tiene la forma de un “power law” es decir y = x que no debemos confundir
+La distribución tiene la forma de un “power law” es decir y = x. Es importante no confundirla
 con una distribución exponencial.
 
 El “long tail” hace referencia a la enorme cantidad de productos que no son muy populares y es
-a estos productos a donde debe apuntar un sistema de recomendaciones. Los motivos son
-varios. En primer lugar los productos populares son conocidos y el usuario o bien ya los conoce
-o bien puede encontrarlos fácilmente. En segundo lugar la cantidad de contenidos poco
-populares es muy grande por lo que recomendándolos de forma eficiente podemos incrementar
-mucho la utilidad de nuestro sistema. Finalmente hay que destacar que estos productos poco
-populares son el diferencial entre las ventas online y las ventas tradicionales, ya que los
-negocios tradicionales no suelen tener la enorme variedad que tienen los sistemas online
+a estos donde debe apuntar sus sugerencias un sistema de recomendaciones. 
+Los motivos son diversos. En primer lugar los productos populares son conocidos, presentandose dos situacionesÑ el usuario o bien ya los conoce o puede encontrarlos fácilmente. 
+En segundo lugar la cantidad de contenidos poco populares es muy grande por lo que recomendándolos de forma eficiente podemos incrementar mucho la utilidad de nuestro sistema. 
+Finalmente hay que destacar que estos productos poco populares son el diferencial entre las ventas online y las ventas tradicionales, ya que los negocios tradicionales no suelen tener la enorme variedad que tienen los sistemas online.
 
 \begin{figure}[!htb]
 \centering
@@ -14616,19 +14614,19 @@ negocios tradicionales no suelen tener la enorme variedad que tienen los sistema
 
 \end{figure}
 
-En este ejemplo podemos ver que la música de “Britney Spears” es muy popular (el mundo
-está perdido), a los usuarios a quienes les gusta Britney suele gustarles Pink, pero recomendar
+En el ejemplo de la imagen podemos ver que la música de “Britney Spears” es muy popular (el mundo
+está perdido). A los usuarios a quienes les gusta Britney suele gustarles Pink. Sin embargo, recomendar
 música de Pink no tiene un gran atractivo porque Pink es una cantante muy popular y casi
 todos los usuarios la conocen. En cambio es más interesante recomendar temas de “No Doubt”
-o aun mejor de “The Selecter”. Si en éste preciso instante están buscando algún tema de “The
+o aun mejor de “The Selecter”. Si al momento de leer esto están buscando algún tema de “The
 Selecter” para ver de que se trata entonces habrán comprendido completamente el principio de
 “the long tail” y la importancia del principio de “serendipity” en un sistema de recomendaciones.
 
 \subsection{Diversidad}
 
 La diversidad apunta a no mostrarle al usuario contenidos que son exclusivamente de un
-mismo tipo. Si nuestros contenidos pudieran dividirse, de alguna forma, en categorías no es
-una buena idea recomendarle al usuario productos de una única y exclusiva categoría. Por
+mismo tipo. Si nuestros contenidos pudieran dividirse de alguna forma, por ejemplo en categorías, no es
+una buena idea recomendarle al usuario productos de una única y exclusiva. Por
 ejemplo no sería bueno recomendarle al usuario únicamente películas bélicas.
 
 \begin{figure}[!htb]
@@ -14652,7 +14650,7 @@ podemos sacar sobre ésto?. Tal vez el usuario se ha hartado de la ciencia ficci
 ahora leer sobre arte en cuyo caso deberíamos recomendarle libros sobre arte. O tal vez el
 usuario es simplemente un fan de la ciencia ficción que tuvo que leer algunos libros sobre
 historia del arte para una materia que está estudiando en la facultad. En cuyo caso deberíamos
-seguir recomendando libros de ciencia ficción. Como vemos éste problema es de difícil
+seguir recomendando libros de ciencia ficción. Éste problema es de difícil
 resolución porque en escenarios idénticos la mejor acción puede ser totalmente opuesta para
 dos usuarios.
 
@@ -14668,9 +14666,8 @@ años puede o no que siga pensando lo mismo pero sin dudas el peso de esta calif
 tan relevante hoy en día como lo fue hace dos años.
 
 Por otro lado se puede verificar que cuando una película es nueva sus calificaciones tienden a
-ser al principio más altas. Esto es fácil de explicar porque los usuarios consideran a que la
-película es una novedad como parte de la calificación. Una película que es muy esperada por
-los usuarios y que es muy mala tendrá al principio calificaciones mucho más altas que luego de
+ser al principio más altas. Esto es fácil de explicar porque los usuarios consideran a la novedad de la misma como parte de la calificación. Una película que es muy esperada por
+los usuarios y que es muy mala tendrá al principio calificaciones mucho más altas que las que tendrá luego de
 un tiempo simplemente por el factor de ansiedad. Los usuarios tardan un cierto tiempo en darse
 cuenta que aquello por lo que tanto esperaron en realidad es muy malo.
 
@@ -14682,7 +14679,7 @@ El famoso caso de “voy a ver una película mala para reírme un rato”. Model
 comportamiento en un sistema de recomendaciones es algo que, como podrán imaginar,
 resulta terriblemente difícil.
 
-\subsubsection{Lo que el usuario califica vs lo que el usuario ve}
+\subsubsection{Lo que el usuario califica vs. lo que el usuario ve}
 
 En los sitios en los cuáles el usuario puede calificar los contenidos se da a veces, en algunos
 usuarios (por suerte no en todos) un comportamiento muy particular. El usuario consume
@@ -14690,8 +14687,8 @@ contenido de un determinado tipo y sistemáticamente lo califica con bajos punta
 ejemplo el usuario ve en su mayoría comedias románticas pero les suele poner una o dos
 estrellitas. ¿Por qué pasa esto?
 
-Lo que ocurre es que el usuario piensa que el sistema de recomendaciones es para realizar
-una crítica artística de las películas y no para decir su opinión personal sobre las mismas. “A mi
+En esta situación el usuario piensa que el sistema de recomendaciones es para realizar
+una crítica artística de las películas y no para brindar su opinión personal sobre las mismas. “A mi
 esta película me gusta, pero como creo que no es muy buena le pongo 2 estrellitas”.
 
 Esto puede modelarse comparando lo que el usuario consume con las calificaciones del mismo
@@ -14702,27 +14699,31 @@ sistemas de recomendaciones.
 
 \section{Sistemas No Personalizados}
 
-Una primera aproximación a un sistema de recomendaciones consiste en recomendarle a todos los usuarios las mismas cosas, es decir suponer que la opinión de los usuarios como grupo es suficiente para recomendarle ítems a cualquiera de ellos. Un buen ejemplo de esto son sistemas del estilo de Tripadvisor en donde las recomendaciones dependen exclusivamente del promedio de calificaciones que todos los usuarios hicieron de cada ítem, a todos los usuarios se les muestra luego las mismas recomendaciones.
+Una primera aproximación a un sistema de recomendaciones consiste en recomendarle a todos los usuarios las mismas cosas, es decir suponer que la opinión de los usuarios como grupo es suficiente para recomendarle ítems a cualquiera de ellos. Un buen ejemplo de esto son sistemas del estilo de Tripadvisor. En ellos las recomendaciones dependen exclusivamente del promedio de calificaciones que todos los usuarios hicieron de cada ítem, luego mostrándole a todos los usuarios las mismas recomendaciones.
 
-Vamos a usar como ejemplo de un sistema no-personalizado a Reddit en donde es necesario ordenar tanto los comentarios de las noticias como las noticias que van a aparecer en la página principal. Recomendar noticias es mas complejo que recomendar comentarios porque las noticias envejecen, es decir son afectadas por el factor tiempo mientras que los comentarios son atemporales, queremos mostrar los mejores comentarios primero independientemente del momento en que fueron realizados.
+Vamos a usar como ejemplo de un sistema no-personalizado a Reddit en donde es necesario ordenar tanto los comentarios de las noticias como las noticias que van a aparecer en la página principal. Recomendar noticias es mas complejo que recomendar comentarios porque las noticias envejecen. Estas son afectadas por el factor tiempo mientras que los comentarios son atemporales: Queremos mostrar los mejores comentarios primero independientemente del momento en que fueron realizados.
 
 \subsection{Recomendando Comentarios en Reddit}
 
-En Reddit los usuarios pueden comentar noticias y además pueden votar a favor (upvote) o en contra (downvote) de cada comentario realizado, este sistema de upvotes y downvotes aplica en muchas situaciones por lo que es interesante estudiarlo. El objetivo es muy simple: mostrar los comentarios ordenados desde el mejor al peor, vamos a ver que esta tarea aunque muy simple puede resultar compleja y para demostrar esto vamos a comenzar con algunas ideas simples que lamentablemente no funcionan.
+En Reddit los usuarios pueden comentar noticias y además pueden votar a favor (upvote) o en contra (downvote) de cada comentario realizado. Este sistema de upvotes y downvotes aplica en muchas situaciones por lo que es interesante estudiarlo. El objetivo es muy simple: mostrar los comentarios ordenados desde el mejor al peor. 
+Vamos a ver que esta tarea aunque muy simple puede resultar compleja y para demostrar esto vamos a comenzar con algunas ideas simples que, lamentablemente, no funcionan.
 
-\subsubsection{Primera Aproximación Diferencia entre Upvotes y Downvotes}
+\subsubsection{Primera Aproximación: Diferencia entre Upvotes y Downvotes}
 
-En este esquema le damos un puntaje a su comentario de la forma $\text{Upvotes}-\text{Downvotes}$ el problema de esta aproximación es bastante simple, supongamos que un comentario $X$ tiene 200 upvotes y 100 downvotes, es decir un total de $2/3$ de votos positivos mienstras que otro comentario $Y$ tiene 3500 comentarios positivos y 3300 comentarios negativos, es decir un total de 51.8\% de comentarios positivos. El primer comentario debería aparecer primero por tener mayor proporción de upvotes pero con nuestra fórmula el score del primero es 100 y el score del segundo es 200, es decir que un comentario que tiene menor proporción de votos positivos que otro tiene el doble de puntaje. Claramente esto no está bien. La forma intuitiva de corregir esto es calculando la proporción de votos positivos sobre el total.
+En este esquema le damos un puntaje a su comentario de la forma $\text{Upvotes}-\text{Downvotes}$ el problema de esta aproximación es bastante simple. Supongamos que un comentario $X$ tiene 200 upvotes y 100 downvotes, es decir un total de $2/3$ de votos positivos mientras que otro comentario $Y$ tiene 3500 comentarios positivos y 3300 comentarios negativos, es decir un total de 51.8\% de comentarios positivos. El primer comentario debería aparecer primero por tener mayor proporción de upvotes. Sin embargo con nuestra fórmula el score del primero es 100 y el del segundo 200, es decir que un comentario que tiene menor proporción de votos positivos que otro tiene el doble de puntaje. Claramente esto no está bien. La forma intuitiva de corregir esto es calculando la proporción de votos positivos sobre el total.
 
-\subsubsection{Seugunda Aproximación Proporción de Upvotes sobre el total}
+\subsubsection{Segunda Aproximación: Proporción de Upvotes sobre el total}
 
-Calcularemos el puntaje de cada comentario con la fórmula $\text{Upvotes}/\text{Upvotes}+\text{Downvotes}$ esto nos da la proporción de votos positivos sobre el total que aparentemente podemos usar para rankear los comentarios. Lamentablemente esta aproximación también está mal, supongamos que un comentario tiene 2 votos positivos y ningún voto negativo mientras que otro comentario tiene 100 votos positivos y un voto negativo. En nuestra fórmula el primero tiene 100\% de votos positivos y estaría adelante del segundo que tiene "sólo" un 99\% de votos positivos. 
+Calcularemos el puntaje de cada comentario con la fórmula $\text{Upvotes}/\text{Upvotes}+\text{Downvotes}$ esto nos da la proporción de votos positivos sobre el total que aparentemente podemos usar para rankear los comentarios. Lamentablemente, esta aproximación también está mal. Supongamos que un comentario tiene 2 votos positivos y ningún voto negativo mientras que otro comentario tiene 100 votos positivos y un voto negativo. En nuestra fórmula el primero tiene 100\% de votos positivos y estaría adelante del segundo que tiene "sólo" un 99\% de votos positivos. 
 
-Estamos siendo víctimas de la ecuación mas peligrosa de la historia, que hace nuevamente una aparición para complicar las cosas. Los comentarios con pocos votos van a ser tanto los peores como los mejores porque tienen muy pocos votos pero mucha varianza. Una posible solución es filtrar los comentarios con pocos votos pero esto no es posible en Reddit porque no podemos hacer que los comentarios simplemente desaparezcan(!). Necesitamos entonces una fórmula que corrija el score de los comentarios de acuerdo a la variabilidad de los mismos. Y la solución para esto no es precisamente del todo simple....
+Una vez mas, estamos siendo víctimas de la ecuación mas peligrosa de la historia, que nuevamente hace su aparición para complicar las cosas. Los comentarios con pocos votos van a ser tanto los peores como los mejores porque tienen muy pocos votos pero mucha varianza. Una posible solución es filtrar los comentarios con pocos votos pero esto no es posible en Reddit porque no podemos hacer que los comentarios simplemente desaparezcan(!). Necesitamos entonces una fórmula que corrija el score de los comentarios de acuerdo a la variabilidad de los mismos. Y la solución para esto no es precisamente del todo simple....
 
 \subsection{Intervalos de Confianza}
 
-La pregunta que nos queremos hacer es de la forma: "Dados los upvotes y downvotes que tenemos, queremos saber con una confianza del 95\% cual es el límite inferior para la probabilidad de que el comentario sea positivo." Esto es equivalente a determinar si una moneda está desbalanceada en base a la cantidad de caras y secas que obtenemos. Si vemos 100 caras y 1 seca pensaremos que la moneda no es legal mientras que 2 caras y 0 secas no nos dan tanta confianza. El problema se reduce entonces al cálculo del intervalo de confianza para un proceso de tipo Bernoulli, tema que se puede solucionar de forma sencilla con la fórmula de Wilson para el cálculo de intervalos de confianza en una distribución Bernoulli.
+La pregunta que nos queremos hacer es de la forma: "Dados los upvotes y downvotes que tenemos, queremos saber con una confianza del 95\% cual es el límite inferior para la probabilidad de que el comentario sea positivo.".
+Esto es equivalente a determinar si una moneda está desbalanceada en base a la cantidad de caras y secas que obtenemos. Por ejemplo luego experimentar con la moneda, si vemos 100 caras y 1 seca pensaremos que la moneda no es legal. Por otro lado si solamente tiraramos la moneda 2 veces y vieramos 2 caras, y ninguna secas, no tendriamos tanta confianza en decir que la moneda esta cargada. 
+
+El problema se reduce entonces al cálculo del intervalo de confianza para un proceso de tipo Bernoulli. Esto se puede solucionar de forma sencilla con la fórmula de Wilson para el cálculo de intervalos de confianza en una distribución Bernoulli.
 
 Vamos a definir a $p = U / U+D$ como la proporción de upvotes. Y $n=U+D$ como el total de votos. La fórmula de Wilson es entonces:
 
@@ -14757,14 +14758,17 @@ Usando esta fórmula podemos calcular la probabilidad de que un comentario sea p
 }
 \end{table}
 
-En la tabla podemos ver que la probabilidad de que el comentario sea positivo es el valor que podemos usar para ordenar los comentarios que mostramos al usuario. Este es el sistema usado por Reddit para evitar caer en la ecuación mas peligrosa de la historia. El mismo sistema puede aplicarse en todos los casos en los cuales tengamos un sistema con votos a favor y en contra o positivos y negativos, es decir cualquier proceso tipo Bernoulli. Por ejemplo si votamos si un Tweet es interesante o no podemos ordenar Tweets de acuerdo a la probabilidad de que sean interesantes, o estimar la probabilidad de que un texto sea Spam o no en base a la opinión de los usuarios, etc.
+En la tabla podemos ver que la probabilidad de que el comentario sea positivo es el valor que podemos usar para ordenar los comentarios que mostramos al usuario. Este es el sistema usado por Reddit para evitar caer en la ecuación mas peligrosa de la historia. 
+
+El mismo sistema puede aplicarse en todos los casos en los cuales tengamos un sistema con votos a favor y en contra o positivos y negativos, es decir cualquier proceso tipo Bernoulli. Por ejemplo si votamos si un Tweet es interesante o no podemos ordenar Tweets de acuerdo a la probabilidad de que sean interesantes, o estimar la probabilidad de que un texto sea Spam o no en base a la opinión de los usuarios, etc.
+
 La belleza del sistema radica en que las probabilidades nos dan un ordenamiento independientemente del volumen de votos que haya en el sistema y de que haya ítems con muchos mas votos que otros debido a su popularidad.
 
 \subsection{Ordenando las noticias en Reddit}
 
-El homepage de Reddit es una pieza crítica para el éxito del sitio, la idea es mostrar las noticias ordenadas por importancia, esto es claramente un sistema de recomendaciones no-personalizado ya que estamos recomendando noticias a los usuarios pero a todos los usuarios les recomendamos las mismas noticias.
+El homepage de Reddit es una pieza crítica para el éxito del sitio: la idea de la misma es mostrar las noticias ordenadas por importancia. Esto es un sistema de recomendaciones no-personalizado ya que estamos recomendando noticias a los usuarios pero a todos los usuarios les recomendamos las mismas noticias.
 
-Los factores ue influyen en la dificultad del sistema radican en la edad de las noticias. Si basamos el score de cada noticia en la misma fórmula que usamos para los comentarios entonces las noticias nuevas son penalizadas por no tener muchos votos. Por otro lado a medida que pasa el tiempo queremos que el score de las noticias disminuya ya que las noticias van perdiendo relevancia a medida que pasa el tiempo. Estas diferencias hacen que, para ordenar las noticias, necesitemos una fórmula completamente diferente a la que usamos en los comentarios.
+Los factores que influyen en la dificultad del sistema radican en la edad de las noticias. Si basamos el score de cada noticia en la misma fórmula que usamos para los comentarios entonces las noticias nuevas son penalizadas por no tener muchos votos. Por otro lado, a medida que pasa el tiempo queremos que el score de las noticias disminuya. Esto se debe a que las noticias irán perdiendo relevancia a medida que pasa el tiempo. Estas diferencias hacen que, para ordenar las noticias, necesitemos una fórmula completamente diferente a la que usamos en los comentarios.
 
 \begin{figure}[!htb]
 \centering
@@ -14799,7 +14803,7 @@ p = \frac{U+1}{U+D+2}
 
 Esta es una estimación bayesiana generada a partir de una distribución beta con parámetros 1 y 2 (ver capítulo 1). 
 
-Para $q$ que es la probabilidad de que una noticia sea nueva podemos usar la suposición que hicimos acerca de las visitas de los usuarios al sitio, si los usuarios visitan Reddit cada $S$ segundos tenemos un proceso de tipo Poisson con una tasa de arribo de $\lambda = 1/S$. La probabilidad de que hayan pasado al menos $S$ segundos desde la última visita es entonces $q$ y se calcula como:
+Para $q$ que es la probabilidad de que una noticia sea nueva podemos usar la suposición que hicimos acerca de las visitas de los usuarios al sitio. Si los usuarios visitan Reddit cada $S$ segundos tenemos un proceso de tipo Poisson con una tasa de arribo de $\lambda = 1/S$. La probabilidad de que hayan pasado al menos $S$ segundos desde la última visita es entonces $q$ y se calcula como:
 
 \begin{myequation}
 q = e^{-\lambda t}
@@ -14817,7 +14821,7 @@ Podemos asumir que para las noticias viejas no obtenemos ninguna ganancia (c=d=0
 u(U,D,t) = \frac{U+1}{U+D+2} e^{-\lambda t} - \frac{D+1}{U+D+2} e^{-\lambda t}
 \end{myequation}
 
-Simplificanding...
+Simplificando...
 
 \begin{myequation}
 u(U,D,t) = \frac{U-D}{U+D+2} e^{-\lambda t}
@@ -14842,7 +14846,8 @@ Podemos demostrar que la fórmula de Reddit corresponde a la fórmula de utilida
 \section{Sistemas Basados en Contenidos (Content Based)}
 
 En un sistema de recomendaciones basado en contenidos el objetivo es recomendarle al usuario ítems similares a aquellos que le han gustado.
-Por cada ítem es necesario construir un \text{it} profile que es un vector que representa las características del ítem. Imaginemos que este vector es binario es decir que cada feature puede ser 1 o 0. Podemos usar como features cosas del estilo "película es de acción", "dirigida por Q. Tarantino","duración menor a 120 minutos", "año de estreno 2014", etc. El vector puede tener realmente muchas dimensiones a veces miles.
+
+Por cada ítem es necesario construir un \text{it} profile, un vector que representa las características del ítem. Imaginemos que este vector es binario es decir que cada feature puede ser 1 o 0. Podemos usar como features cosas del estilo "película es de acción", "dirigida por Q. Tarantino","duración menor a 120 minutos", "año de estreno 2014", etc. El vector puede tener realmente muchas dimensiones a veces miles.
 
 Por cada usuario podemos también construir un profile que es un vector de igual cantidad de dimensiones, luego cuando un usuario califica una película sumamos el puntaje a aquellas dimensiones para las cuales la película tiene un "1" en su feature. Por ejemplo si el usuario califica con un "5" a "Pulp Fiction" vamos a sumar 5 a la dimension que corresponde a "película de acción", "dirigida por Q. Tarantino", "con Bruce Willis", etc. 
 
@@ -14852,25 +14857,25 @@ Teniendo el profile de cada ítem y de cada usuario podemos estimar la calificac
 cos \theta = \frac{xy}{||x|| ||y||}
 \end{myequation}
 
-Eventualmente hay que hacer algunas cuentas, por ejemplo podemos normalizar a todos los vectores para que tengan norma = 1 y entonces el resultado del coseno es una semejanza entre 0 y 1, si la semejanza va de 0 a 1 podemos multiplicar por la calificación máxima para estimar una calificación.
+Eventualmente hay que hacer algunas cuentas: Podemos normalizar a todos los vectores para que tengan norma = 1 y entonces el resultado del coseno es una semejanza entre 0 y 1. Si la semejanza va de 0 a 1 podemos multiplicar por la calificación máxima para estimar una calificación.
 
 
-Los sistemas basados en contenido tienen varias ventajas: 
+Los sistemas basados en contenido poseen varias ventajas: 
 
 \begin{itemize}
-\item Solo necesitan la información del usuario para realizarle recomendaciones, es decir puede haber un único usuario y el sistema funciona. 
+\item Solo necesitan la información del usuario para realizarle recomendaciones, es decir que puede haber un único usuario y el sistema funciona. 
 \item Tienen la habilidad de detectar los gustos particulares de los usuarios. 
 \item Pueden recomendar ítems que sean nuevos o que no sean populares, solo se necesita tener el profile del ítem.
-\item Pueden explicar el motivo de sus recomendaciones, listando cuales son los features que hicieron que el ítem sea recomendado
+\item Pueden explicar el motivo de sus recomendaciones, listando cuales son los features que hicieron que el ítem sea recomendado.
 \end{itemize}
 
 Entre las desventajas podemos encontrar:
 
 \begin{itemize}
-\item Encontrar los features necesarios para construir los profiles es algo realmente difícil
-\item No puede recomendar nada a los usuarios nuevos ya que estos no tienen profile
-\item No pueden recomendar ítems que no estén dentro de los gustos del usuario, son sistemas que pueden quedar sobre-especializados
-\item No tienen la posibilidad de usar la opinión de otros usuarios sobre los ítems
+\item Encontrar los features necesarios para construir los profiles es algo realmente difícil.
+\item No puede recomendar nada a los usuarios nuevos ya que estos no tienen profile.
+\item No pueden recomendar ítems que no estén dentro de los gustos del usuario de forma que son sistemas que pueden quedar sobre-especializados.
+\item No tienen la posibilidad de usar la opinión de otros usuarios sobre los ítems.
 \end{itemize}
 
 Los sistemas basados en contenidos pueden funcionar muy bien pero son bastante difíciles de crear y mantener principalmente por la necesidad de seleccionar todos los features necesarios para construir un profile. En general no son tan populares como los sistemas basados en collaborative filtering.
@@ -14879,7 +14884,7 @@ Los sistemas basados en contenidos pueden funcionar muy bien pero son bastante d
 \section{Collaborative Filtering}
 
 Sean “n” usuarios y “m” ítems. Los usuarios califican los ítems con un número de 1 a 5.
-Podemos representar esto en una matriz de nxm que denominaremos “matriz de utilidad"
+Podemos representar esto en una matriz de $$nxm$$ que denominaremos “matriz de utilidad"
 
 \begin{figure}[!htb]
 \centering
@@ -14888,12 +14893,12 @@ Podemos representar esto en una matriz de nxm que denominaremos “matriz de uti
 
 \end{figure}
 
-Notemos que la matriz tiene muchos “huecos” porque de todas las calificaciones posibles solo
+Notemos que la matriz tiene muchos “huecos”. Esto se debe a que de todas las calificaciones posibles solo
 existen algunas pocas. Esto es en cierta forma similar a decir que la matriz es dispersa pero no
-es exactamente lo mismo ya que los elementos que faltan no son ceros sino que son números
-desconocidos.
+es exactamente lo mismo: Los elementos que faltan \textbf{no son ceros sino que son números
+desconocidos}.
 
-El objetivo de Collaborative Filtering es estimar las calificaciones que nos faltan en la matriz de
+El objetivo de Collaborative Filtering (CF) es estimar las calificaciones que nos faltan en la matriz de
 utilidad.
 
 CF tiene dos formas de estimar las calificaciones que faltan:
@@ -14903,10 +14908,10 @@ CF tiene dos formas de estimar las calificaciones que faltan:
 \item Semejanza entre ítems
 \end{itemize}
 
-\subsection{Semejanza User User}
+\subsection{Semejanza entre usuarios (User User)}
 
 Supongamos que queremos estimar las calificaciones que le faltan al usuario “i”. Lo que
-hacemos es buscar los usuarios mas similares a “i” y luego estimar las calificaciones que faltan
+hacemos es buscar los usuarios mas similares a “i” y luego estimar las calificaciones faltantes
 en base a un promedio ponderado de las calificaciones de los demás usuarios ponderadas de
 acuerdo a la semejanza que tengan con nuestro usuario “i”.
 
@@ -14936,11 +14941,13 @@ $ x = (2,NA,2,4,5,NA) \rightarrow \mu = 3.25 \rightarrow (1.25,NA,1.25,0.75,1.75
 Para un usuario dado, por ejemplo el u5 en nuestra matriz podemos calcular la semejanza con
 todos los demás usuarios usando el coseno, luego de restar el promedio a cada calificación.
 
-sim(5,1) = 0.27
-sim(5,2) = 0.72
-sim(5,3) = 0.5
-sim(5,4) = 0.13
-sim(5,6) = NA
+\begin{verbatim}
+  sim(5,1) = 0.27
+  sim(5,2) = 0.72
+  sim(5,3) = 0.5
+  sim(5,4) = 0.13
+  sim(5,6) = NA
+\end{verbatim}
 
 (suponer que estas cuentas están bien)
 
@@ -14950,25 +14957,25 @@ Ahora podemos calcular cada calificación faltante usando la siguiente fórmula:
 r_{xi} = \frac{\sum_{y \in N} s_{xy} r_{yi}}{\sum_{y \in N} s_{xy}}
 \end{myequation}
 
-En donde $N$ es el conjunto de los  $N$ usuarios más similares al que queremos estimar y $r_{yi}$ es el
+En donde $N$ es el conjunto de los $N$ usuarios más similares al que queremos estimar y $r_{yi}$ es el
 rating del usuario “y” para la película “i”.
 
-Por ejemplo podemos usar $N=2$ para tomar los dos usuarios mós similares al que nos interesa.
+Por ejemplo podemos usar $N=2$ para tomar los dos usuarios más similares al que nos interesa.
 
 En el caso de la primera película del usuario 5 tenemos que el único usuario que la ha
 calificado y que tiene semejanza positiva con nuestro usuario es el 2. Por lo tanto la cuenta es:
 $(5*0.72)/0.72 = 5$
 
 Es decir que estimamos que al usuario 5 le va a gustar mucho Sherlock porque Sherlock le ha
-gustado mucho al usuario 2 que es similar al 1. 
+gustado mucho al usuario 2 que es similar al 5. 
 
 Nota de implementación: Para tomar los “N” usuarios más parecidos al usuario al cuál le
 queremos recomendar podemos usar LSH que como sabemos implica tiempo sublineal.
 
-\subsection{Semejanza Item Item}
+\subsection{Semejanza entre ítems (Item Item)}
 
 En esta variante lo que vamos a hacer para estimar la calificación de un usuario para un ítem
-es buscar los ítems mas parecidos al que queremos estimar y que haya calificado el usuario.
+es buscar los ítems mas parecidos al que queremos estimar y que haya sido calificados por el usuario.
 Luego estimamos la calificación haciendo un promedio ponderado entre las calificaciones del
 usuario para estos ítems y la semejanza que tienen con el ítem que queremos estimar.
 
@@ -14995,7 +15002,7 @@ modelo ítem-ítem vamos a restar el promedio del ítem (película).
 
 \end{figure}
 
-Usando N=2 tomamos que las dos películas más similares a la 1 son la 6 con semejanza 0.59
+Usando $N=2$ tomamos que las dos películas más similares a la 1 son la 6 con semejanza 0.59
 y la 3 con semejanza 0.41. Por lo tanto estimamos la calificación del usuario 5 para la película 1
 calculando el promedio ponderado por la semejanza:
 
@@ -15016,12 +15023,12 @@ usando LSH en tiempo sublineal.
 En general el modelo ítem-ítem da mejores resultados que el modelo user-user. Esto puede
 explicarse pensando que los usuarios tienen gustos muy diversos y que incluso cambian con el
 tiempo mientras que la semejanza entre películas es algo mucho más estable para un número
-de calificaciones lo suficientemente grande. Aplica la ley de los grandes números!
+de calificaciones lo suficientemente grande. ¡Aplica la ley de los grandes números!
 
 
 \subsection{Collaborative Filtering en base a Desviaciones}
 
-A continuación describimos la forma en la cual suele implementarse collaborative filtering en un
+A continuación describimos la forma en la cual suele implementarse CF en un
 sistema de recomendaciones real.
 
 Vamos a estimar la calificación del usuario “i” a la película “j” de la siguiente forma:
@@ -15106,9 +15113,9 @@ Por lo tanto podemos estimar la calificación del usuario 5 película 1 como:
 $3.17+0.33+0.43-0.5=3.43$
 
 Observemos que esto es igual (o muy parecido) a lo que nos daba la estimación usando
-únicamente la semejanza ítem-ítem pero agregando la desviación del usuario y la desviación de
-la película. Es un usuario que suele calificar por encima del promedio y es una película que es
-mejor que el promedio por eso tiene sentido que hayamos pasado de 2.6 a 3.43 como
+únicamente la semejanza ítem-ítem pero \textbf{agregando la desviación del usuario y la desviación de
+la película}. Dado que es un usuario que suele calificar por encima del promedio y es una película que es
+mejor que el promedio, tiene sentido que hayamos pasado de 2.6 a 3.43 como
 estimación.
 
 Hemos presentado el algoritmo de collaborative filtering que estima las calificaciones de los
@@ -15118,11 +15125,11 @@ usuario con ese ítem y que se calcula en base a la semejanza ítem-ítem o usua
 
 \section{Evaluación de Sistemas de Recomendación}
 
-Evaluar un sistema de recomendación es una tarea compleja. En definitiva queremos saber si lo que recomendamos es realmente útil para el usuario lo cual es algo netamente subjetivo, es difícil construir métricas que sirvan para evaluar y comparar un sistema de recomendaciones. 
+Evaluar un sistema de recomendación es una tarea compleja. En definitiva queremos saber si lo que recomendamos es realmente útil para el usuario, lo cual es algo netamente subjetivo. Por esta razón es difícil construir métricas que sirvan para evaluar y comparar un sistema de recomendaciones. 
 
-Una paradoja interesante es la siguiente: Evaluamos un sistema de recomendación en base a las calificaciones que los usuarios hicieron de ciertos ítems, esto supone que los usuarios son "perfectos", pero si los usuarios son perfectos entonces ya consumieron todos los ítems que les resultaban interesantes y no necesitamos recomendarles cosas nuevas. Visto de otra forma, evaluamos los sistemas de recomendaciones en base a lo que los usuarios hicieron en el pasado suponiendo que un buen sistema es aquel que es capaz de predecir lo que el usuario consumió, esto tiene una falla fatal, a lo mejor los usuarios hubieran consumido otras cosas si se las hubiéramos recomendado. Como podemos ver el tema no es nada sencillo y hay que tomar con extremo cuidado el resultado de cualquier métrica.
+Una paradoja interesante es la siguiente: Evaluamos un sistema de recomendación en base a las calificaciones que los usuarios hicieron de ciertos ítems, esto supone que los usuarios son "perfectos". Pero si los usuarios son perfectos entonces ya consumieron todos los ítems que les resultaban interesantes y no necesitamos recomendarles cosas nuevas. Visto de otra forma, evaluamos los sistemas de recomendaciones en base a lo que los usuarios hicieron en el pasado suponiendo que un buen sistema es aquel que es capaz de predecir lo que el usuario consumió. Esto tiene una falla fatal dado que a lo mejor los usuarios hubieran consumido otras cosas si se las hubiéramos recomendado. Como podemos ver el tema no es nada sencillo y hay que tomar con extremo cuidado el resultado de cualquier métrica.
 
-En esta sección veremos algunas de las métricas populares.
+En esta sección veremos algunas de las métricas populares para intentar hacerlo.
 
 \subsection{Evaluación basada en las predicciones}
 
@@ -15145,18 +15152,19 @@ podemos calcular la efectividad del sistema mediante un simple cálculo:
 J=\sqrt{\frac{1}{N} \sum_{ij}(\hat{r}_{ij} - r_{ij})^2}
 \end{myequation}
 
-A esta métrica se la denomina RMSE (root mean squared error), también puede calcularse sin
+A esta métrica se la denomina RMSE (root mean squared error). También puede calcularse sin
 la raíz en cuyo caso se denomina MSE. El cuadrado cumple la función de hacer que el error
 sea mayor a medida que la diferencia entre la predicción y el valor conocido para el rating aumenta. 
 
-Gracias a esta métrica podemos probar diferentes algoritmos y diferentes parámetros para
-nuestros algoritmos de forma tal de encontrar el algoritmo que minimice el error total. Es
-recomendable realizar varios tests tomando cada vez un 80\% y 20\% al azar de las
+Gracias a esta métrica podemos probar diferentes algoritmos y parámetros para
+nuestros algoritmos de forma tal de encontrar el algoritmo que minimice el error total. 
+
+Es recomendable realizar varios tests tomando cada vez un 80\% y 20\% al azar de las
 calificaciones y calcular el promedio de error de todas las pruebas. De esta forma evitamos que
 un cierto muestreo de las calificaciones sea muy influyente en cuanto al rendimiento del
 sistema. A esta técnica en aprendizaje automático se la llama “cross validation”
 
-La principal crítica a las métricas basadas en RMSE o MSE es que ciertos errores no son tan importantes como otros, por ejemplo si un usuario le dio 5 estrellas a una película y el sistema predice 4 tenemos un error igual a 1, que es el mismo error entre darle 2.5 o 3.5 estrellas a una película, sin embargo el primero es bastante mas importante que el segundo ya que a la hora de recomendar queremos encontrar las películas de 5 estrellas. En definitiva cometer errores con las películas que mas le gustaron al usuario es mas grave que cometer errores sobre las películas que no le han gustado o con calificaciones intermedias. Las métricas basadas en el orden intentan atacar este problema.
+La principal crítica a las métricas basadas en RMSE o MSE es que ciertos errores no son tan importantes como otros, por ejemplo si un usuario le dio 5 estrellas a una película y el sistema predice 4 tenemos un error igual a 1, que es el mismo error entre darle 2.5 o 3.5 estrellas a una película. Sin embargo el primero es bastante mas importante que el segundo ya que a la hora de recomendar queremos encontrar las películas de 5 estrellas. En definitiva cometer errores con las películas que mas le gustaron al usuario es mas grave que cometer errores sobre las películas que no le han gustado o con calificaciones intermedias. Las métricas basadas en el orden intentan atacar este problema.
 
 \subsection{Evaluación basada en el orden de las recomendaciones}
 
@@ -15196,7 +15204,7 @@ MAP(O,U)=\frac{1}{n} \sum_{u \in U} AP(O(u))
 
 \subsubsection{Correlación de Spearman}
 
-En Collaborative Filtering hemos usado el coeficiente de correlación de Pearson para decidir la semejanza entre usuarios o ítems, el coeficiente de Pearson compara los valores de los ratings, el coeficiente de Spearman es similar pero en lugar de los valores de los ratings comparamos la posición o ranking de los valores. Es decir que si un vector es (5,3,4) lo convertimos en (1,3,2) que son las posiciones que tendrían 5,3 y 4 en el vector ordenado de mayor a menor. Los empates obtienen el promedio de las posiciones es decir que el vector (5,2,2) se convierte en (1,2.5,2.5) ya que para "2" promediamos las posiciones 2 y 3. Una vez transformados los valores en posiciones calculamos la correlación igual que lo hacíamos con la fórmula de Pearson. 
+En Collaborative Filtering hemos usado el coeficiente de correlación de Pearson para decidir la semejanza entre usuarios o ítems, comparando los valores de los ratings. El coeficiente de Spearman es similar pero en lugar de los valores de los ratings comparamos la posición o ranking de los valores. Es decir que si un vector es (5,3,4) lo convertimos en (1,3,2) que son las posiciones que tendrían 5,3 y 4 en el vector ordenado de mayor a menor. Los empates obtienen el promedio de las posiciones es decir que el vector (5,2,2) se convierte en (1,2.5,2.5) ya que para "2" promediamos las posiciones 2 y 3. Una vez transformados los valores en posiciones calculamos la correlación igual que lo hacíamos con la fórmula de Pearson. 
 
 El principal problema de la fórmula de Spearman es que castiga todos los errores de la misma forma. Si un sistema se equivoca en el orden de los ítems 1 a 3 el error debería ser mayor que equivocarse en el orden de los ítems 11 a 13. En general queremos que un error en el ordenamiento de los ítems recomendados sea mas grave cuanto mas chico es el ranking del ítem. Lo cual nos lleva a nuestra última métrica.
 
@@ -15226,7 +15234,7 @@ C 0
 Perfect DCG = 5/1 + 4/1 + 3/log(3) + 0/log(4) = 10.9
 \end{verbatim}
 
-Y simplemente calculamos DCG/Perfect DCG para obtener nDCG es decir nDCG = 9.5/10.9 = 0.872. Luego simplemente promediamos el nDCG para todos los usuarios para obtener un promedio para el sistema de recomendaciones. 
+Y simplemente calculamos DCG/Perfect DCG para obtener nDCG, es decir nDCG = 9.5/10.9 = 0.872. Luego simplemente promediamos el nDCG para todos los usuarios para obtener un promedio para el sistema de recomendaciones. 
 
 
 \section{Modelos Latentes}
@@ -15240,15 +15248,15 @@ tipo de películas.
 El algoritmo de collaborative filtering se limita únicamente a calcular semejanzas entre películas
 pero no es capaz de darse cuenta que un grupo de películas similares expresa la actitud del
 usuario hacia las películas de dicho tipo. A este tipo de modelización la llamamos “modelo
-latente” porque nos permite inferir preferencias de los usuarios que no están explícitas en la
-matriz de utilidad.
+latente” porque nos permite inferir \textbf{preferencias de los usuarios que no están explícitas en la
+matriz de utilidad}.
 
 Hay dos métodos que funcionan muy bien para obtener la información latente de la matriz de
 utilidad: RBMs o SVD++
 
 \subsection{SVD++}
 
-El algoritmo SVD++ \cite{Koren} fue presentado informalmente durante la competencia del premio Netflix por un millón de dólares. Este algoritmo representó un importante salto en la mejora de los sistemas de recomendaciones, hoy en día se usa extensamente. Está basado en el simple concepto de factorizar la matriz de utilidad para descubrir los modelos latentes. 
+El algoritmo SVD++ \cite{Koren} fue presentado informalmente durante la competencia del premio Netflix por un millón de dólares. Este algoritmo representó un importante salto en la mejora de los sistemas de recomendaciones y hoy en día se usa extensamente. Está basado en el simple concepto de factorizar la matriz de utilidad para descubrir los modelos latentes. 
 
 El principio aquí es muy simple: descomponer la matriz de utilidad en el producto de dos
 matrices: Q y P. En donde Q tendrá tantas filas como ítems y tantas columnas como factores
@@ -15259,7 +15267,7 @@ U_{mxn} = Q_{mxr} P^t_{nxr}
 \end{myequation}
 
 La cantidad de factores “r” es un parámetro que debemos fijar. Al descomponer la matriz $Q$ nos
-dará la relación entre los ítems y los factores y $P$ nos dará la relación entre los ítems y los
+dará la relación entre los ítems y los factores. $P$ nos dará la relación entre los ítems y los
 factores. Es decir que en $Q$ vamos a poder observar que tipo de factores están asociados a
 cada película y en $P$ tendremos las preferencias de los usuarios con respecto a los factores.
 
@@ -15283,15 +15291,15 @@ Por ejemplo en nuestro caso si queremos estimar la calificación del usuario 5 p
 Hacemos $q_2 = (-0.5,0.6,0.5)$ y  $p_5=(-2,0.3,2.4)$
 $q_2 * p_5^t = 2.4$
 
-Es decir que estimamos una calificación de 2.4
+Es decir que estimamos una calificación de 2.4.
 
 Tenemos que ahora que analizar de que forma hallar las matrices $Q$ y $P$.
 
 Notamos que el problema es muy similar a la indexación semántica latente en donde usamos la
 descomposición SVD para reducir las dimensiones de una matriz y obtener un modelo latente.
 Desafortunadamente no podemos usar SVD para nuestro sistema de recomendaciones porque
-la matriz de utilidad no está completa, tiene muchos “huecos” SVD no funciona si no tenemos
-todos los datos de la matriz original. Necesitamos por lo tanto un algoritmo similar a SVD pero
+la matriz de utilidad no está completa, tiene muchos “huecos”. Lamentablemente SVD no funciona si no tenemos
+todos los datos de la matriz original es por eso que necesitamos un algoritmo similar a SVD pero
 que funcione con matrices incompletas. Algo así como una SVD parcial.
 
 Podemos escribir el siguiente problema de optimización:
@@ -15362,7 +15370,7 @@ ejemplo podemos probar con lambda = \{0.005, 0.05, 0.5, 0, 0.5, 1,2\} y entonces
 combinaciones a probar para nuestros dos valores de lambda. Corremos el algoritmo de
 optimización SGD para cada valor y nos quedamos con los lambda que minimicen el error.
 
-Agregando las desviaciones del usuario y de la película.
+\subsubsection{Agregando las desviaciones del usuario y de la película.}
 
 Podemos volver a pensar que es conveniente modelar la recomendación en base a
 desviaciones a partir del promedio de calificaciones global:
@@ -15385,7 +15393,6 @@ $$
 Y lo resolvemos por SGD pero ahora ademas de actualizar $Q$ y $P$ tenemos también que ir
 actualizando $b_x$ y $b_i$ en cada paso. Lo cual no representa ningún problema pues solo implica
 hacer un par de actualizaciones mas en el código.
-
 
 \section{Factores Temporales}
 
@@ -15419,7 +15426,7 @@ $$
 \hat{y} = w_0 + w_1 \text{userid} + w_2 \text{movieid}
 $$
 
-Por supuesto que esto no funcionaría ya que no tiene sentido usar el userid y movieid como variables numéricas en una regresión lineal, que el userid sea 10 o 20000 no debería afectar el coeficiente para estimar la calificación del ítem. La solución a este problema es convertir el userid y movieid en "n" y "m" variables binarias mediante "one-hot encoding" si tenemos 4 usuarios el usuario 2 quedaría codificado como (0,1,0,0) y si tenemos 5 películas la película 3 quedaría (0,0,1,0,0) y entonces podríamos tener vectores de la forma: (0,1,0,0,0,0,1,0,0,4) indicando que el usuario 2 de 4 calificó con 4 la película 3 de 5.
+Por supuesto que esto no funcionaría ya que no tiene sentido usar el userid y movieid como variables numéricas en una regresión lineal. Que el userid sea 10 o 20000 no debería afectar el coeficiente para estimar la calificación del ítem. La solución a este problema es convertir el userid y movieid en "n" y "m" variables binarias mediante "one-hot encoding". Si tenemos 4 usuarios el usuario 2 quedaría codificado como (0,1,0,0) y si tenemos 5 películas la película 3 quedaría (0,0,1,0,0) y entonces podríamos tener vectores de la forma: (0,1,0,0,0,0,1,0,0,4) indicando que el usuario 2 de 4 calificó con 4 la película 3 de 5.
 
 Esto nos lleva a un modelo de regresión lineal de la forma:
 
@@ -15445,7 +15452,7 @@ $$
 \hat{y} = w_0 + \sum\limits_{i=1}^{n} w_i * x_i + \sum\limits_{i=1}^{n}\sum\limits_{j=i+1}^{n} w_{ij} * x_i * x_j
 $$
 
-Este modelo es muy completo pero tiene como problema que la cantidad de coeficientes sufre de un problema de explosión combinatoria, teniendo millones de usuarios y millones de películas no hay forma de manejar todas las interacciones posibles entre las variables del modelo. Este es el punto en el cuál el algoritmo de Factorization Machines aporta una solución muy ingeniosa y elegante. 
+Este modelo es muy completo pero tiene como problema que la cantidad de coeficientes sufre de un problema de explosión combinatoria. Teniendo millones de usuarios y millones de películas no hay forma de manejar todas las interacciones posibles entre las variables del modelo. Este es el punto en el cuál el algoritmo de Factorization Machines aporta una solución muy ingeniosa y elegante. 
 
 La idea es representar a cada variable (columna) de nuestro modelo mediante un vector de "k" elementos siendo "k" la cantidad de factores latentes que queremos usar. Si hacemos esto entonces podemos re-escribir nuestro modelo de regresión de la forma:
 
@@ -15495,7 +15502,7 @@ La implementación de referencia de FMs es LibFM y es muy simple de usar desde c
 
 \subsection{LibFM}
 
-El formato de LibFM es casi igual al de LibSVM, cada línea contiene un vector de nuestro set de datos, por cada vector indicamos primero el label (clase o rating) y luego pares de tipo columna:valor ya que los vectores son siempre muy dispersos. LibFM entrena en base a un archivo de entrenamiento en este formato y luego predice los valores para un archivo de test que tiene igual formato pero para el cual los labels se ignoran (pueden ser todos ceros).
+El formato de LibFM es casi igual al de LibSVM. Cada línea contiene un vector de nuestro set de datos, por cada vector indicamos primero el label (clase o rating) y luego pares de tipo columna:valor ya que los vectores son siempre muy dispersos. LibFM entrena en base a un archivo de entrenamiento en este formato y luego predice los valores para un archivo de test que tiene igual formato pero para el cual los labels se ignoran (pueden ser todos ceros).
 
 A modo de ejemplo usaremos 4 películas (dimensiones 0 a 3) y 5 usuarios (dimensiones 4 a 8), las películas 0 y 1 son de una misma hipotética categoría y las películas 2 y 3 también. Usaremos entonces 2 factores latentes ($k=2$).
 
@@ -15549,22 +15556,22 @@ El algoritmo Factorization Machines es uno de los mas poderosos para sistemas de
 
 \section{El Problema del Cold-Start: Multi-Armed Bandits}
 
-Uno de los problemas mas difíciles en un sistema de recomendaciones es como incorporar nuevos ítems al sistema, para los ítems que son populares podemos no hacer nada y eventualmente estos van a tener suficientes rankings como para ser recomendados, pero esto es algo que a un sistema de recomendaciones no le importa porque los ítems populares siempre van a ser consumidos, lo importante en un sistema de recomendaciones es poder recomendar ítems que no sean populares y que puedan ser del agrado de los usuarios, esto maximiza el uso del "long tail". Los ítems que son nuevos y no son populares (masivos) nunca son recomendados y por lo tanto nunca reciben rankings lo cual da genera un círculo vicioso que conocemos como \textit{cold start problem}
+Uno de los problemas mas difíciles en un sistema de recomendaciones es como incorporar nuevos ítems al sistema. Para los ítems que son populares podemos no hacer nada y eventualmente estos van a tener suficientes rankings como para ser recomendados. Esto es algo que a un sistema de recomendaciones no le importa porque los ítems populares siempre van a ser consumidos. Lo importante en un sistema de recomendaciones es poder recomendar ítems que no sean populares y que puedan ser del agrado de los usuarios maximizando el uso del "long tail". Los ítems que son nuevos y no son populares (masivos) nunca son recomendados y por lo tanto nunca reciben rankings lo cual da genera un círculo vicioso que conocemos como \textit{cold start problem}
 
 
-El objetivo es entonces desarrollar un algoritmo que nos permita recomendar ítems nuevos a los usuarios sin que estos sean populares. Algunos de estos ítems van a ser buenos y otros no, incluso pueden ser muy malos. El problema es similar a jugar con máquinas tragamonedas en donde sabemos que alguna máquina da mas premios que las otras pero no sabemos cual, tenemos que descubrir esto mediante experimentación, es por esto que los algoritmos que se encargan de este tipo de cuestiones se denominan \textit{"multi-armed bandits"}
+El objetivo es entonces desarrollar un algoritmo que nos permita recomendar ítems nuevos a los usuarios sin que estos sean populares. Algunos de estos ítems van a ser buenos y otros no, incluso pueden ser muy malos. El problema es similar a jugar con máquinas tragamonedas en donde sabemos que alguna máquina da mas premios que las otras pero no sabemos cual. Tenemos que descubrir esto mediante experimentación, es por esto que los algoritmos que se encargan de este tipo de cuestiones se denominan \textit{"multi-armed bandits"}
 
 \subsection{Multi-Armed Bandits}
 
-Supongamos que medimos si a un usuario le gustó o no una recomendación mediante un 1 o 0, supongamos que tenemos varios ítems y decidimos usar un algoritmo greedy es decir recomendar el ítem que tiene mejores resultados hasta ahora. Ofrecemos el ítem $k_1$ a un usuario cualquiera y al usuario no le gusta $x_1=0$ ofrecemos el ítem $k_2$ a algún usuario y al usuario le gusta $x_2=1$, a partir de aquí el ítem $k_1$ no va a volver a ser recomendado nunca mas ya que tien resultado =0 y el ítem $k_2$ en el peor de los casos será $1/N>0$. Greedy no funciona, porque abandona rápidamente a los ítems que no fueron exitosos en su primer intento.
+Supongamos que medimos si a un usuario le gustó o no una recomendación mediante un 1 o 0, supongamos que tenemos varios ítems y decidimos usar un algoritmo greedy es decir recomendar el ítem que tiene mejores resultados hasta ahora. Ofrecemos el ítem $k_1$ a un usuario cualquiera y al usuario no le gusta $x_1=0$ ofrecemos el ítem $k_2$ a algún usuario y al usuario le gusta $x_2=1$, a partir de aquí el ítem $k_1$ no va a volver a ser recomendado nunca mas ya que tiene resultado igual a 0 y el ítem $k_2$ en el peor de los casos será $1/N>0$. Greedy no funciona, porque abandona rápidamente a los ítems que no fueron exitosos en su primer intento.
 
-La clave consiste en combinar \textit{exploración} y \textit{explotación}. La explotación consiste en recomendar la mejor alternativa en base a los resultados observados. La exploración consiste en ofrecer nuevas alternativas. El algoritmo greedy explota pero no explora.
+La clave consiste en combinar \textit{exploración} y \textit{explotación}. La exploración consiste en ofrecer nuevas alternativas. La explotación consiste en recomendar la mejor alternativa en base a los resultados observados. El algoritmo greedy explota pero no explora.
 
 \subsection{Algoritmo Epsilon}
 
 En este algoritmo en cada instante con probabilidad $\epsilon$ elegimos el ítem con mejor promedio hasta ahora y con probabilidad $1-\epsilon$ elegimos un ítem cualquiera al azar (de los ítems que son nuevos obviamente).
 
-El hiper-parámetro $\epsilon$ controla el balance entre exploración y explotación y el valor óptimo depende de los datos. Uno de los problemas del algoritmo epsilon es que la exploración no tiene criterio, es completamente aleatoria.
+El hiper-parámetro $\epsilon$ controla el balance entre exploración y explotación, dependiendo el valor óptimo de los datos. Uno de los problemas del algoritmo epsilon es que la exploración no tiene criterio, es completamente aleatoria.
 
 
 \subsection{Algoritmo UCB1}
@@ -15581,7 +15588,7 @@ El promedio de cada ítem se puede estimar mediante algún algoritmo de Machine 
 
 Los algoritmos que vimos en esta sección no solo se aplican al problema del cold-start en sistemas de recomendaciones sino a muchos otros casos, como por ejemplo colocación de avisos en páginas web en base a su CTR (click through rate), posición de los artículos en un sitio de noticias, etc.
 
-Y a propósito si alguien quiere hacerle daño a una empresa que publicita en la web lo peor que podemos hacerles es clickear en sus avisos, esto no solo hace que se les cobre sino que genera un aumento en la probabilidad de que estos avisos sean mostrados generando un gasto todavía mayor.
+A propósito, si alguien quiere hacerle daño a una empresa que publicita en la web lo peor que podemos hacerles es clickear en sus avisos. Esto no solo hace que se les cobre sino que genera un aumento en la probabilidad de que estos avisos sean mostrados generando un gasto todavía mayor.
 
 \section{Diversidad: Optimización Submodular}
 
@@ -15594,7 +15601,7 @@ Uno de los puntos importantes en un sistema de recomendaciones es realizar suger
 
 \end{figure}
 
-Vamos a suponer que tenemos una cierta cantidad de ítems que podemos recomendar y que cada ítem pertenece a una o varias categorías. El objetivo es que los ítems que vamos a recomendar cubran la mayor cantidad de temas posibles. Este problema es conocido, se llama \textit{set-cover} y lamentablemente es NP-completo es decir que no existe una solución en tiempo polinómico. Vamos a suponer que la cantidad de ítems que vamos a recomendar es $k$
+Vamos a suponer que tenemos una cierta cantidad de ítems que podemos recomendar y que cada ítem pertenece a una o varias categorías. El objetivo es que los ítems que vamos a recomendar cubran la mayor cantidad de temas posibles. Este problema es conocido, se llama \textit{set-cover} y lamentablemente es NP-completo, es decir que no existe una solución en tiempo polinómico. Vamos a suponer que la cantidad de ítems que vamos a recomendar es $k$
 
 Una aproximación es usar un algoritmo greedy:
 
@@ -15609,7 +15616,7 @@ $A_0 = \{\}$\\
 
 Es fácil probar que greedy no es óptimo: Sea $S_1=\{1,2,3,4,5\}, S_2=\{1,2,3,7\},S_3=\{4,5,6,8\}$. Greedy toma en primer lugar a $S_1$ que nos agrega 5 categorías, luego tomamos a $S_3$ que nos agrega dos categorías (6 y 8) contra $S_2$ que solo agregaría 7. Finalmente agregamos $S_2$. Como podemos ver esto cubre todas las categorías usando 3 ítems (tres conjuntos) pero en realidad los conjuntos correspondientes a los ítems 2 y 3 ($S_2$ y $S_3$) cubrirían todas las categorías por lo que sería una mejor solución.
 
-Se puede demostrar que Greedy aproxima al menos un 63\% la solución óptima cuando la función a optimizar es submodular. Esto ya lo hemos usado en redes sociales para maximizar influencia.
+Se puede demostrar que Greedy aproxima al menos un 63\% la solución óptima cuando la función a optimizar es submodular. Esto lo utilizaremos en redes sociales para maximizar influencia.
 
 Recordemos que una función $F(S)$ es submodular si agregar un elemento al conjunto $S$ nos da una ganancia en $F$ que es peor o igual a agregar ese mismo elemento a un subconjunto de $S$
 
@@ -15622,7 +15629,7 @@ F(A\cup d) - F(A) \geq F(B \cup d) - F(B)
 
 Intuición: Si agregamos un mismo conjunto nuevo a un subconjunto de S seguramente la ganancia es mayor a agregarlo a S (porque S cubre mas cosas que cualquiera de sus subconjuntos)
 
-La submodularidad es la versión discreta de la concavidad!
+¡La submodularidad es la versión discreta de la concavidad!
 
 \begin{figure}[!htb]
 \centering
@@ -15710,7 +15717,7 @@ Si el feedback es positivo entonces multiplicamos $W_i$ por $\beta$ si el feedba
 
 \section{Learning to Rank}
 
-El paso final de todo sistema de recomendaciones es decidir en que orden presentar las recomendaciones al usuario. Las calificaciones que hemos pronosticado nos ayudan a saber qué ítems recomendar pero entre un ítem para el cual pronosticamos 4.64 y otro para el cual pronosticamos 4.63 no queda muy claro en que orden deberíamos mostrarlos. Los dos son prácticamente iguales en cuanto a la probabilidad de que al usuario le interese el ítem.
+El paso final de todo sistema de recomendaciones es decidir en que orden presentar las recomendaciones al usuario. Las calificaciones que hemos pronosticado nos ayudan a saber qué ítems recomendar. Sin embargo entre un ítem para el cual pronosticamos 4.64 y otro para el cual pronosticamos 4.63 no queda muy claro en que orden deberíamos mostrarlos. Los dos son prácticamente iguales en cuanto a la probabilidad de que al usuario le interese el ítem.
 
 La solución es usar algoritmos de \textit{Learning to Rank} como los que hemos visto en el capítulo 7 para aprender automáticamente el orden en el que debemos presentar los ítems a los usuarios. 
 
