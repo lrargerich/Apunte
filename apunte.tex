@@ -15740,25 +15740,27 @@ Hay muchos detalles mas que son particulares de cada sistema, estos sistemas son
 
 \epigraph{The final end of Eternity, and the beginning of Infinity}{- Isaac Asimov}
 
-Un stream es un flujo de datos que no tiene fin. Los streams son muy comunes hoy en día, los paquetes de una red son un claro ejemplo, los posts en Twitter o Faebook, los comentarios en un foro, las ventas en sitios como Amazon o Ebay, todos estos casos representan flujos de datos continuos.
+Un stream es un flujo de datos que no tiene fin. Los streams son muy comunes hoy en día: Los paquetes de una red, las publicaciones en redes sociales como Twitter o Facebook, los comentarios en un foro, las ventas en sitios como Amazon o Ebay, todos estos casos representan flujos de datos continuos.
 
-Los algoritmos tradicionales tienen graves problemas al procesar streams. En primer lugar es muy difícil calcular estadísticas, rankings y otros datos interesantes si los datos cambian constantemente, cuando calculamos un cierto valor ya ha perdido actualidad. Por otro lado prácticamente ningún algoritmo puede procesar una cantidad de datos infinitos. Los algoritmos de streaming están diseñados para solucionar estos problemas, son algoritmos que trabajan en memoria y procesan los datos a medida que estos ocurren actualizando constantemente su resultado. Esto permite obtener en tiempo real datos sobre un determinado stream.
+Los algoritmos tradicionales tienen graves problemas al procesar streams. En primer lugar es muy difícil calcular estadísticas, rankings y otras métricas interesantes si los datos cambian constantemente. Esto se debe a cuando calculamos un cierto valor este ya ha perdido actualidad por la cantidad de nueva información reciba. Por otro lado prácticamente ningún algoritmo puede procesar una cantidad de datos infinitos.
 
-Imaginemos que somos Amazon, la cantidad de estadísticas y datos que pueden interesarnos son enormes. Por ejemplo: ¿Cuáles son los productos mas vendidos en las últimas horas? ¿Cuántos productos diferentes se han vendido? ¿Hay algún producto que se esté vendiendo mas de lo habitual?, ¿Cuántos Iphones vendimos en las últimas 24 horaS?, etc. Todas estas preguntas son prácticamente imposibles de resolver sin usar algoritmos de streaming por el simple hecho de que en 2015 Amazon generaba U\$S 120.000 en ventas cada... 5 segundos(!)
+Los algoritmos de streaming están diseñados para solucionar estos problemas, son algoritmos que trabajan en memoria y procesan los datos a medida que estos ocurren actualizando constantemente su resultado. Esto permite obtener en tiempo real datos sobre un determinado stream, permitiendonos saber que esta ocurriendo y dejándonos tomar decisiones.
+
+Imaginemos por un momento que somos Amazon, la cantidad de estadísticas y datos que pueden interesarnos son enormes. Por ejemplo: ¿Cuáles son los productos mas vendidos en las últimas horas? ¿Cuántos productos diferentes se han vendido? ¿Hay algún producto que se esté vendiendo mas de lo habitual?, ¿Cuántos Iphones vendimos en las últimas 24 horas?, etc. Todas estas preguntas son prácticamente imposibles de resolver sin usar algoritmos de streaming por el simple hecho de que en 2015 Amazon generaba U\$S 120.000 en ventas cada... 5 segundos(!)
 
 \section{Reservoir Sampling}
 
-Nuestro primer algoritmo es muy importante porque permite convertir un stream infinito en un conjunto de datos finito, la idea es tener en cada momento una muestra (\textit{sample}) del stream en memoria y calcular los datos y estadísticas que nos interesen sobre el stream a partir de la muestra usando algoritmos tradicionales. El algoritmo necesita, entonces, mantener en memoria una cantidad fija de elementos $k$, para que las estadísticas tengan sentido debemos garantizar que la probabilidad de que un dato del stream esté en la muestra sea igual a:
+Nuestro primer algoritmo es muy importante porque permite convertir un stream infinito en un conjunto de datos finito. La idea es tener en cada momento una muestra (\textit{sample}) del stream en memoria. Luego podemos calcular los datos y estadísticas que nos interesen sobre el stream a partir de la muestra usando algoritmos tradicionales. El algoritmo necesita mantener en memoria una cantidad fija de elementos $k$. Para que las estadísticas tengan sentido debemos garantizar que la probabilidad de que un dato del stream esté en la muestra sea igual a:
 
 \begin{myequation}
 P(X_i \in \textit{sample}) = \frac{k}{N}
 \end{myequation}
 
-Donde $N$ es la cantidad de elementos del stream hasta el momento. Notemos que la probabilidad es dinámica es decir que a medida que observamos mas datos la probabilidad de que un dato esté en la muestra debe ser menor y, lo que es mas importante, la probabilidad de todos los elementos independientemente de cuando los observamos tiene que ser igual.
+Donde $N$ es la cantidad de elementos del stream hasta el momento. Notemos que la probabilidad es dinámica es decir que a medida que observamos más datos la probabilidad de que un dato esté en la muestra debe ser menor. A su vez también es importante entender que la probabilidad de todos los elementos independientemente de cuando los observamos debe ser igual.
 
-El algoritmo funciona de la siguiente manera: por cada dato que genera nuestro stream calculamos $p=k/n$ que es la probabilidad de que el dato ingrese a la muestra, luego generamos un número random y de acuerdo a p decidimos si el dato ingresa o no a la muestra, por ejemplo si $p=0.6$ generamos un random entre 0 y 1 y el dato ingresa a la muestra si el número es menor a 0.6. Si el dato no ingresa la muestra no cambia, si el dato ingresa entonces elegimos al azar un dato de la muestra y lo reemplazamos por nuestro dato.
+El algoritmo funciona de la siguiente manera: Por cada dato que genera nuestro stream calculamos $p=k/n$, la probabilidad de que el dato ingrese a la muestra. Luego generamos un número random y de acuerdo a $p$ decidimos si el dato ingresa o no a la muestra. Por ejemplo si resulta $p=0.6$, generamos un random entre $0$ y $1$ y el dato ingresará a la muestra si el número es menor a $0.6$. Si el dato no ingresa, la muestra no cambia. Si el dato ingresa entonces elegimos al azar un dato de la muestra y lo reemplazamos por nuestro dato.
 
-Consideremos el siguiente ejemplo: $k=3$ y nuestro stream consiste en números y observamos: 1,6,2,3. Los primeros $k$ (tres) números ingresan a la muestra, por lo que tendremos en la muestra 1,6,2. La probabilidad de que 3 ingrese es ahora 3/4. La probabilidad de que 1 siga en la muestra se puede calcular como la probabilidad de que 3 no ingrese (1/4) mas la probabilidad de que 3 ingrese pero 1 no sea reemplazado es decir (3/4*2/3=1/2). La probabilidad del 1 es entonces $1/4+1/2=3/4$, de esta forma vemos que con 4 elementos la probabilidad de cada uno de ellos es igual a 3/4 que es lo que queríamos. 
+Consideremos el siguiente ejemplo: $k=3$ y nuestro stream consiste en números y observamos: $1,6,2,3$. Los primeros $k$ (tres) números ingresan a la muestra, por lo que tendremos en la muestra $1,6,2$. La probabilidad de que $3$ ingrese es ahora $3/4$. La probabilidad de que $1$ siga en la muestra se puede calcular como la probabilidad de que $3$ no ingrese $(1/4)$ mas la probabilidad de que $3$ ingrese pero $1$ no sea reemplazado es decir $(3/4*2/3=1/2)$. Resulta entonces en la probabilidad del $1$ siga en la muestra es entonces $1/4+1/2=3/4$. Este mismo calculo se puede realizar de la misma forma para el resto de los elementos de la muestra (reformulando el evento: "1 siga en la muestra"). Por lo tanto que podemos ver que con 4 elementos la probabilidad de cada uno de ellos es igual a $3/4$ que es lo que queríamos.
 
 \begin{theorem}[Reservoir Sampling]
 Dado un stream de $n$ elementos la probabilidad de que un elemento esté en la muestra es $k/n$
@@ -15768,15 +15770,15 @@ Vamos a demostrar esto por inducción.
 
 Suponemos que luego de $n$ elemento la probabilidad es $k/n$ queremos ver que con $n+1$ elementos la probabilidad es $k/(n+1)$
 
-Caso base: si $n=k$ entonces la probabilidad de cada elemento es $k/k=1$.
+Caso base: Si $n=k$ entonces la probabilidad de cada elemento es $k/k=1$.
 
 Cuando el elemento $n+1$ es observado podemos calcular la probabilidad de que un elemento permanezca en la muestra como:
 
 probabilidad de que $n+1$ no ingrese + probabilidad de que $n+1$ ingrese por la probabilidad de que el elemento no sea eliminado.
 
-probabilidad de que $n+1$ no ingrese = 1-(k/(n+1))
-probabilidad de que n+1 ingrese  = k/(n+1)
-probabilidad de que el elemento sea reemplazado: k-(1/k)
+probabilidad de que $n+1$ no ingrese = $1-(k/(n+1))$
+probabilidad de que n+1 ingrese  = $k/(n+1)$
+probabilidad de que el elemento sea reemplazado: $k-(1/k)$
 
 
 $$1-(\frac{k}{n+1}) + (\frac{k}{n+1})(k-\frac{1}{k}) = \frac{n}{(n+1)}$$
@@ -15789,21 +15791,23 @@ $$(\frac{k}{n}) (\frac{n}{n+1}) = \frac{k}{n+1}$$
 
 Que es lo que queríamos demostrar.
 
-El algoritmo de Reservoir sampling es interesante porque nos da una forma práctica de resolver el problema de los datos infinitos usando una muestra de tamaño finita representativa de los mismos. 
+El algoritmo de Reservoir sampling es interesante porque nos da una forma práctica de resolver el problema de los datos infinitos usando una muestra de tamaño finita representativa de los mismos. En ese aspecto si tenemos implementaciones inciales para calcular esas métricas nos permitiria poder utilizarlas sobre un stream a partir de un muestreo del mismo.
 
 \section{Momentos de un Stream}
 
-Un stream es una colección de elementos, llamemos $M_i$ a la cantidad de veces que el elemento $i$ ocurrió en el stream. Por ejemplo si el stream es 1,2,3,2,4 entonces $M_1=1, M_2=2,M_3=1 y M_4=1$, observemos que el dato no necesariamente tiene que ser un número, el stream podría ser a,b,c,b,d y los valores serían los mismos: $M_a=1,M_b=2,M_c=1,M_d=1$. Vamos a definir el momento de orden $k$ de un stream como:
+Un stream es una colección de elementos, llamemos $M_i$ a la cantidad de veces que el elemento $i$ ocurrió en el stream. Por ejemplo si el stream es 1,2,3,2,4 entonces $M_1=1, M_2=2,M_3=1 y M_4=1$. Observemos que el dato no necesariamente tiene que ser un número, el stream podría ser a,b,c,b,d y los valores serían los mismos: $M_a=1,M_b=2,M_c=1,M_d=1$. Vamos a definir el momento de orden $k$ de un stream como:
 
 \begin{myequation}
 M^k(S) = \sum_{i \in S} M_i^k
 \end{myequation}
 
-El momento de orden 0 implica elevar la cantidad de veces que cada elemento distinto del stream aparece a la cero por lo que vamos a contar 1 por cada elemento diferente del stream. Por lo tanto el momento de orden 0 es la cantidad de elementos distintos en el stream. Calcular el momento de orden 0 no es sencillo ya por cada elemento del stream necesitamos saber si es nuevo o repetido porque solo los elementos nuevos suman, pero no podemos tener todos los elementos distintos que hemos observado en memoria y comparar porque estos podrían ser miles de millones y comparar cada elemento contra miles de millones es ineficiente.
+A partir de esta definición calculemos algunos de los momentos de interés al analizar un stream.
 
-El momento de orden 1 es simplemente la cantidad de elementos en total en el stream, es decir $n$, para calcular este momento no hace falta ningún algoritmo especial ya que simplemente sumamos 1 cada vez que observamos un dato del stream.
+El momento de orden 0 implica elevar la cantidad de veces que cada elemento distinto del stream aparece a la cero. Esto es equivalente a contar 1 por cada elemento diferente del stream. Por lo tanto, el momento de orden 0 es la cantidad de elementos distintos en el stream. Calcular el momento de orden 0 no es sencillo ya por cada elemento del stream necesitamos saber si es nuevo o ha sido previamente observado dado que solo los elementos nuevos suman. Sin embargo, no podemos tener todos los elementos distintos que hemos observado en memoria y comparar; estos podrían ser miles de millones y comparar cada elemento contra ellos es ineficiente.
 
-El momento de orden 2 del stream, es un poco mas difícil de interpretar y se lo conoce como \textit{número sorpresa} del stream. Es un indicador de si los datos del stream se distribuyen de forma pareja o de si hay un elemento que predomina sobre los demás.
+El momento de orden 1 es simplemente la cantidad de elementos en total en el stream, es decir $n$. Para calcular este momento no hace falta ningún algoritmo especial, simplemente sumamos 1 cada vez que observamos un dato del stream a un contador.
+
+El momento de orden 2 del stream, es un poco mas difícil de interpretar y se lo conoce como \textit{número sorpresa} del stream. Es un indicador de si los datos del stream se distribuyen de forma pareja o de si hay un elemento que predomina sobre los demás. Esto es de valor para detectar variaciones al irlo recalculando para el mismo stream a medida que se va recibiendo nueva información sobre el stream.
 
 Por ejemplo sea $S_1 = (1,2,3,4,5,6,7,8,9,1)$, $S_2=(1,1,2,3,1,1,4,5,1,7)$
 
@@ -15813,18 +15817,18 @@ $M^2(S_1) = 12$
 
 $M^0(S_2) = 6$
 $M^1(S_2) = 10$
-$M^2(S_3) = 30$
+$M^2(S_2) = 30$
 
 Para calcular el momento de orden 0 de un stream veremos el algoritmo de Flajolet-Martin y un derivado del mismo conocido como HyperLogLog.
 
-\section{Flajolet-Martin y el HyperLogLog}
+\section{Flajolet-Martin e HyperLogLog}
 
 \subsection{Flajolet-Martin}
 
 El algoritmo de Flajolet-Martin\cite{FlajoletMartin} es sumamente simple y sorprendente, implica solamente el uso de una función de hashing y un contador en memoria. 
 Por cada dato que observamos en nuestro stream aplicamos la función de hashing y contamos la cantidad de 0s consecutivos en la misma a partir del bit 0. En memoria llevaremos un contador $r$ con la cantidad máxima de ceros que hemos observado al comienzo de cualquier resultado de la función de hashing.
 
-El momento de orden 0 del stream se estima como:
+El momento de orden $0$ del stream se estima como:
 
 \begin{myequation}
 M^0(S) \approx 2^r
@@ -15846,11 +15850,21 @@ h(d) = 01010011 r=2
 Mo = 2^2 =  4
 \end{verbatim}
 
-La intución detrás del algoritmo es la siguiente. Si la función de hashing es buena entonces un 50\% de los hashes comienzan con 0, un 25\% de los hashes comienzan con 00, un 12.5\% de los hashes comienzan con 000, por lo tanto calcular $2^r$ aproxima a la cantidad de elementos que vimos en nuestro stream. Visto de otra forma si hemos visto $2^r$ elementos diferentes en el stream entonces alguno de ellos tiene que comenzar con $r$ ceros (si no hay colisiones).
+La intución detrás del algoritmo es la siguiente. Si la función de hashing es buena entonces:
 
-Como en el mundo real las colisiones existen el algoritmo no es perfecto y es muy sensible a los valores de la función de hashing. Por ejemplo si para algún dato la función de hashing nos diera 0 entonces todo el algoritmo dejaría de funcionar. Una forma de solucionar esto es usando $k$ funciones de hashing al mismo tiempo y llevando $k$ contadores $r_i$ en memoria.  
+\begin{itemize}
+  \item un 50\% de los hashes comienzan con 0.
+  \item un 25\% de los hashes comienzan con 00.
+  \item un 12.5\% de los hashes comienzan con 000.
+  \item y asi sucesivamente...
+\end{itemize}
 
-Si tenemos $k$ estimadores debemos notar que el promedio no es una buena estimación porque es muy sensible a valores extremos en alguno de los estimadores. La mediana es mas adecuada. El problema de la mediana es que siempre será una potencia de 2 y esto no es bueno ya que solo podríamos estimar potencias de 2 como resultado del algoritmo.
+Por lo tanto calcular $2^r$ aproxima a la cantidad de elementos que vimos en nuestro stream.
+Visto de otra forma, si hemos visto $2^r$ elementos diferentes en el stream entonces alguno de ellos tiene que comenzar con $r$ ceros (si no hay colisiones).
+
+Como en el mundo real las colisiones existen el algoritmo no es perfecto, siendo sensible a los valores de la función de hashing. Por ejemplo, si para algún dato la función de hashing nos diera $0$ entonces todo el algoritmo dejaría de funcionar. Una forma de solucionar esto es usando $k$ funciones de hashing al mismo tiempo y llevando $k$ contadores $r_i$ en memoria.
+
+Si tenemos $k$ estimadores debemos notar que el promedio no es una buena estimación porque es muy sensible a valores extremos en alguno de los estimadores. La mediana es mas adecuada, pero presenta el problema que siempre será una potencia de 2. Esto no es bueno ya que solo podríamos estimar potencias de 2 como resultado del algoritmo.
 
 La solución en el algoritmo de Flajolet-Martin pasa por dividir los $k$ estimadores en $b$ grupos de $m$ estimadores cada uno y calcular como resultado final el promedio de las medias de cada grupo.
 
@@ -15863,19 +15877,21 @@ $r_4 = 3$
 $r_5 = 3$
 $r_6 = 4$
 
-Si usamos 2 grupos de 3 estimadores cada uno entonces en el primer grupo tenemos 4,32,2 y la mediana es 4. En el segundo grupo tenemos 8,8 y 16 y la mediana es 8. Por lo tanto nuestra estimación es el promedio entre 8 y 4 es decir 6. Vamos a estimar que nuestro stream tiene 6 elementos distintos.
+Si usamos 2 grupos de 3 estimadores cada uno entonces en el primer grupo tenemos $4,32,2$ y la mediana es $4$. En el segundo grupo tenemos $8, 8, 16$ y la mediana es 8. Por lo tanto nuestra estimación es el promedio entre 8 y 4 es decir 6. Vamos a estimar que nuestro stream tiene 6 elementos distintos.
 
 \subsection{HyperLogLog}
 
-HyperLogLog (HLL) \cite{Flajolet} es una versión mejorada de los mismos autores y que es la que hoy en día mas se usa para estimar la cantidad de elementos distintos en un stream. HLL usa una única función de hashing, por ejemplo Jenkins y sobre la misma construye varios estimadores, calculando el resultado final como el promedio armónico de los estimadores. Eso es todo!
+HyperLogLog (HLL) \cite{Flajolet} es una versión mejorada de los mismos autores y que es la que hoy en día mas se usa para estimar la cantidad de elementos distintos en un stream.
 
-La función de hashing nos genera un número de 64 bits, los primeros $k$ bits los vamos a usar para el número de estimador. Por ejemplo si queremos 32 estimadores usamos los primeros 5 bits para calcular el número de estimador. De los restantes bits contamos como siempre la cantidad de ceros al comienzo de los mismos y actualizamos el estimador si esta cantidad es mayor a la anterior.
+HLL usa una única función de hashing, por ejemplo Jenkins y sobre la misma construye varios estimadores, calculando el resultado final como el promedio armónico de los estimadores. ¡Eso es todo!
+
+La función de hashing nos genera un número de 64 bits, los primeros $k$ bits los vamos a usar para el número de estimador. Por ejemplo, si queremos 32 estimadores usamos los primeros 5 bits para calcular el número de estimador, que usaremos para identificar el número de estimador que corresponde. De los restantes bits contamos como siempre la cantidad de ceros al comienzo de los mismos y actualizamos el contador del estimador correspondiente si esta cantidad es mayor a la anterior.
 
 \begin{myequation}
 M^0(S) \approx    \frac{n}{\sum_{j=1}^{n} 2^{-R_j}}
 \end{myequation}
 
-Por ejemplo si tenemos los siguientes estimadores: 3,5,2,2,3 el promedio es $(8+32+4+4+8)/5 = 11.2$ mientras que el promedio armónico es $5/(1/8+1/32+1/4+1/4+1/8)=6.4$. El promedio armónico mitiga el efecto de valores muy grandes en el promedio y aumenta el efecto de valores pequeños lo cual es ideal para el algoritmo HLL.
+Por ejemplo si tenemos los siguientes estimadores: $3,5,2,2,3$ el promedio es $(8+32+4+4+8)/5 = 11.2$ mientras que el promedio armónico es $5/(1/8+1/32+1/4+1/4+1/8)=6.4$. El uso del promedio armónico de debe a que este mitiga el efecto de valores muy grandes en el promedio y aumenta el efecto de valores pequeños; siendo esto ideal para el algoritmo HLL.
 
 \section{AMS}
 
