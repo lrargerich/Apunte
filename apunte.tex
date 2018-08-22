@@ -57,8 +57,11 @@
 }
 
 
-\title{Organización de Datos, Apunte del Curso}
-\author{Luis Argerich, FIUBA}
+\title{75.06, 95.58 Organización de Datos\\Apunte del Curso}
+\author{Luis Argerich, Natalia Golmar, Damián Martinelli, Martín Ramos Mejía,\\
+ Juan Andrés Laura.\\
+  Universidad de Buenos Aires\\
+  Facultad de Ingenieria}
 \date{\today\\v2.0}
 
 
@@ -7369,7 +7372,7 @@ La cantidad de funciones de hashing y la cantidad de datos influyen en la tasa d
 
 \epigraph{Any sufficiently advanced technology is indistinguishible from magic}{\textit{Arthur C. Clarke}}
 
-LSH (locality sensitive hashing) es una solución muy eficiente al problema de los vecinos mas cercanos (nearest neighbors). Anteriormente desarrollamos este problema y vimos que la solución por fuerza bruta es muy ineficiente ya que por cada punto se tiene que calcular la distancia contra todos los demás puntos para encontrar el mas cercano o los $k$ mas cercanos. Este problema aplica no solo a algoritmos como KNN sino a una enorme cantidad de otros algoritmos que necesitan encontrar el punto mas cercano o los $k$ puntos mas cercanos a un cierto punto de nuestro set de datos. LSH nos brinda una solución aproximada a este problema pero de forma mucho mas rápida que la búsqueda por fuerza bruta.
+LSH (Locality Sensitive Hashing) es una solución muy eficiente al problema de los vecinos más cercanos (nearest neighbors). Anteriormente desarrollamos este problema y vimos que la solución por fuerza bruta es muy ineficiente ya que por cada punto se tiene que calcular la distancia contra todos los demás puntos para encontrar el más cercano o los $k$ más cercanos. Este problema aplica no solo a algoritmos como KNN sino a una enorme cantidad de otros algoritmos que necesitan encontrar el punto más cercano o los $k$ puntos más cercanos a un cierto punto de nuestro set de datos. LSH nos brinda una solución aproximada a este problema pero de forma mucho más rápida que la búsqueda por fuerza bruta.
 
 \begin{figure}[!htb]
 \centering
@@ -7378,15 +7381,15 @@ LSH (locality sensitive hashing) es una solución muy eficiente al problema de l
 
 \end{figure}
 
-El concepto detrás de LSH es muy simple: aplicar a los puntos una función de hashing de forma tal que los puntos que son parecidos (cercanos) colisionen. Si logramos construir esta función es entonces sencillo resolver el problema de los vecinos mas cercanos, dado un punto "query" aplicamos la función de hashing y accedemos al bucket de la tabla de hash indicado por la misma, luego calculamos la distancia entre nuestro punto "q" y todos los puntos dentro del bucket devolviendo el más cercano  o los $k$ mas cercanos según el caso.
+El concepto detrás de LSH es muy simple: aplicar a los puntos una función de hashing de forma tal que los puntos que son parecidos (cercanos) colisionen. Si logramos construir esta función es entonces sencillo resolver el problema de los vecinos más cercanos. Dado un punto "query" aplicamos la función de hashing y accedemos al bucket de la tabla de hash indicado por la misma, luego calculamos la distancia entre nuestro punto "query" y todos los puntos dentro del bucket devolviendo el más cercano o los $k$ más cercanos según el caso.
 
-Nuestra función de hashing debe procesar cualquier punto en $\Re^d$ dimensiones y nos da como resultado un número de bucket, nos interesa la distribución de probabilidades que la función LSH hace sobre el conjunto de buckets. Supongamos que queremos encontrar los puntos mas cercanos a un cierto punto query $q$, queremos que la función LSH tenga una alta probabilidad de encontrar buckets con puntos cercanos y una probabilidad baja de encontrar buckets con puntos lejanos. Necesitamos entonces dos distancias y dos probabilidades. Llamaremos $d_1$ a la distancia para la cual queremos que dos puntos sean similares, y llamaremos $p_1$ a la probabilidad de que la función LSH nos de una colisión si la distancia entre dos puntos es menor o igual a $d_1$. Por otro lado llamaremos $d_2$ a la distancia para la cual queremos que dos puntos no sean similares y será $p_2$ la probabilidad de que la función nos de una colisión si los puntos están a distancia $p_2$ o mas.
+Nuestra función de hashing debe procesar cualquier punto en $\Re^d$ dimensiones y darnos como resultado un número de bucket. Nos interesa la distribución de probabilidades que la función LSH hace sobre el conjunto de buckets. Supongamos que queremos encontrar los puntos más cercanos a un cierto punto query $q$. Queremos que la función LSH tenga una alta probabilidad de encontrar buckets con puntos cercanos y una probabilidad baja de encontrar buckets con puntos lejanos. Necesitamos entonces dos distancias y dos probabilidades. Llamaremos $d_1$ a la distancia para la cual queremos que dos puntos sean similares, y llamaremos $p_1$ a la probabilidad de que la función LSH nos de una colisión si la distancia entre dos puntos es menor o igual a $d_1$. Por otro lado llamaremos $d_2$ a la distancia para la cual queremos que dos puntos no sean similares y será $p_2$ la probabilidad de que la función nos de una colisión si los puntos están a distancia $p_2$ o más.
 
 \begin{myequation}
 \mathcal{H}(d_1,d_2,p_1,p_2)
 \end{myequation}
 
-En general fijamos $d_2=c*d_1$ para una cierta constante $c$ y queremos que $p_1>p_2$, cuanto mayor es la diferencia entre $p_1$ y $p_2$ mejor será la función LSH. Una forma de evaluar esto es usando:
+En general fijamos $d_2=c*d_1$ para una cierta constante $c$ y queremos que $p_1>p_2$. Cuanto mayor es la diferencia entre $p_1$ y $p_2$ mejor será la función LSH. Una forma de evaluar esto es usando:
 
 \begin{myequation}
 \rho = \frac{\log 1/p_1}{\log 1/p_2}
@@ -7396,32 +7399,32 @@ De esta forma podemos comparar diferentes funciones LSH buscando maximizar el va
 
 \section{Minhashes}
 
-Hasta aquí hemos explicado la teoría básica detrás de LSH pero aun no sabemos construir esta función de hashing "mágica" que cumpla con las propiedades pedidas. Necesitamos una función para la cual la probabilidad de que dos claves colisionen dependa de la distancia entre las claves.
+Hasta aquí hemos explicado la teoría básica detrás de LSH pero aún no sabemos construir esta función de hashing "mágica" que cumpla con las propiedades pedidas. Necesitamos una función para la cual la probabilidad de que dos claves colisionen dependa de la distancia entre las claves.
 
 $$
 P[h(x)==h(y)] = f(||x-y||)
 $$
 
-A estas funciones las vamos a llamar "Minhashes", en concreto para que una función de hashing sea un minhash vamos a pedirle las siguientes condiciones:
+A estas funciones las vamos a llamar "Minhashes". En concreto para que una función de hashing sea un minhash vamos a pedirle las siguientes condiciones:
 
 \begin{enumerate}
-\item La probabilidad de que dos claves colisionen debe depender de la distancia entre las claves
+\item La probabilidad de que dos claves colisionen debe depender de la distancia entre las claves.
 \item La función debe ser monótona y continua.
 \item Debe existir una forma eficiente de calcular la función.
 \item Debe ser posible randomizar la función de forma tal de poder obtener muchos minhash diferentes para la misma clave.
 \end{enumerate}
 
-La primer propiedad es la que habíamos enunciado antes. Una función de hashing convencional no sirve como minhash dado que el resultado de la función no depende de la distancia a la cual están las claves, en una función de hashing convencional la probabilidad de que dos claves cercanas o distantes colisionen es la misma, esto era un requisito necesario para que sea una buena función de hashing!.
+La primer propiedad es la que habíamos enunciado antes. Una función de hashing convencional no sirve como minhash dado que el resultado de la función no depende de la distancia a la cual están las claves. En una función de hashing convencional la probabilidad de que dos claves cercanas o distantes colisionen es la misma. Esto era un requisito necesario para que sea una buena función de hashing!
 
-La segunda propiedad es importante ya que necesitamos que a medida que las claves estén mas cerca la probabilidad de colisionar sea mayor, una función que tiene una alta tasa de colisiones tanto para claves cercanas como lejanas no nos sirve como minhash. 
+La segunda propiedad es importante ya que necesitamos que a medida que las claves estén más cerca la probabilidad de colisionar sea mayor. Una función que tiene una alta tasa de colisiones tanto para claves cercanas como lejanas no nos sirve como minhash. 
 
-La tercer propiedad implica que la función debe ser eficiente lo cual es fundamental ya que de lo contrario calcular el minhash podría tardar mas que buscar por fuerza bruta comparando contra todos los datos. 
+La tercer propiedad implica que la función debe ser eficiente, lo cual es fundamental, ya que de lo contrario calcular el minhash podría tardar más que buscar por fuerza bruta comparando contra todos los datos. 
 
 Finalmente la cuarta propiedad hace a la necesidad de que cada minhash nos defina una \textbf{familia} de funciones a partir de la cual podamos generar muchos minhashes para la misma clave en caso de ser necesario.
 
-En general es deseable que la función sea decreciente en función de la distancia, es decir que a medida que la distancia es mayor la probabilidad de que dos datos colisionen sea menor.
+En general es deseable que la función sea decreciente en función de la distancia. Es decir, a medida que la distancia es mayor, la probabilidad de que dos datos colisionen sea menor.
 
-Supongamos ahora que proponemos una cierta función $h(x)$ como minhash, para una cierta distancia normalizada entre 0 y 1. Podemos realizar un plot que nos indique para claves a distintas distancias cuál es la probabilidad de que colisionen. Si no podemos derivar de forma teórica la probabilidad de colisión én función de la distancia entonces es sencillo hacer una simulación en la cual generamos claves a distintas distancias y calculamos la tasa de colisión, repitiendo el experimento $n$ veces y promediando. Supongamos que el plot obtenido es como el de la figure ~\ref{fig:minhash1}.
+Supongamos ahora que proponemos una cierta función $h(x)$ como minhash para una cierta distancia normalizada entre 0 y 1. Podemos realizar un plot que nos indique para claves a distintas distancias cuál es la probabilidad de que colisionen. Si no podemos derivar de forma teórica la probabilidad de colisión en función de la distancia entonces es sencillo hacer una simulación en la cual generamos claves a distintas distancias y calculamos la tasa de colisión, repitiendo el experimento $n$ veces y promediando. Supongamos que el plot obtenido es como el de la figure ~\ref{fig:minhash1}.
 
 \begin{figure}[!htb]
 \centering
@@ -7433,7 +7436,7 @@ Supongamos ahora que proponemos una cierta función $h(x)$ como minhash, para un
 
 En la figura ~\ref{fig:minhash1} vemos una función minhash que cumple las condiciones pedidas. La función es continua, monótona y decreciente en función de la distancia. Si la función es eficiente de calcular y admite la generación de muchos minhash diferentes para la misma clave entonces nos sirve como minhash.
 
-Un minhash nos define entonces una familia de funciones de hashing en donde $p_1$ y $p_2$ dependen de la distancia entre las claves, por lo tanto podemos escribir una familia genérica para cualquier minhash de la forma:
+Un minhash nos define entonces una familia de funciones de hashing en donde $p_1$ y $p_2$ dependen de la distancia entre las claves. Por lo tanto podemos escribir una familia genérica para cualquier minhash de la forma:
 
 $$\mathcal{H}(d_1,d_2,f(d_1),f(d_2))$$
 
@@ -7443,19 +7446,19 @@ $$\mathcal{H}(d_1,d_2,1-d_1,1-d_2)$$
 
 Ya que podemos ver que la probabilidad de colisionar es exactamente 1 menos la distancia.
 
-Una vez que tenemos una función minhash válida para la distancia que nos interese es posible amplificar la familia de funciones de hashing creadas por dicho minhash de forma tal que obtengamos los valores de $p_1$ y $p_2$ que necesitemos, esto se logra mediante el proceso conocido como \textbf{amplificación} 
+Una vez que tenemos una función minhash válida para la distancia que nos interese es posible amplificar la familia de funciones de hashing creadas por dicho minhash de forma tal que obtengamos los valores de $p_1$ y $p_2$ que necesitemos. Esto se logra mediante el proceso conocido como \textbf{amplificación} 
 
 \section{Amplificación de Familias LSH}
 
-Analicemos ahora que pasaría si usáramos la función minhash planteada. Para objetos a distancia 0.2 nuestra probabilidad de colisión es 0.8 es decir que a partir de hashear un query podemos recuperar un 80\% de los objetos que están a distancia 0.2 o menor. El 20\% de objetos que son cercanos pero no recuperamos lo denominamos \textit{falsos negativos}
+Analicemos ahora qué pasaría si usáramos la función minhash planteada. Para objetos a distancia 0.2 nuestra probabilidad de colisión es 0.8, es decir que a partir de hashear un query podemos recuperar un 80\% de los objetos que están a distancia 0.2 o menor. El 20\% de objetos que son cercanos pero no recuperamos lo denominamos \textit{falsos negativos}.
 
-Por otro lado si nuestros objetos están a distancia 0.6 o mayor entonces la probabilidad de recuperarlos es 0.4, si consideramos que objetos a distancia 0.6 o mayor no son cercanos igual vamos a estar recuperando un 40\% de ellos al acceder a nuestra tabla de hashing, estos objetos que no son cercanos pero debemos examinar los llamamos \textit{falso positivos}
+Por otro lado si nuestros objetos están a distancia 0.6 o mayor entonces la probabilidad de recuperarlos es 0.4. Si consideramos que objetos a distancia 0.6 o mayor no son cercanos igual vamos a estar recuperando un 40\% de ellos al acceder a nuestra tabla de hashing. Estos objetos que no son cercanos pero que igualmente colisionan los llamamos \textit{falso positivos}. A estos objetos debemos examinarlos y descartarlos luego.
 
 \subsection{Reducción de Falsos Positivos}
 
-Es posible reducir la cantidad de falsos positivos usando mas de una función minhash sobre la misma tabla. Si usamos $r$ funciones minhash en la misma tabla cada una de estas funciones nos dará como resultado un bucket, los documentos candidatos surgen entonces de la intersección de los documentos que están en los $r$ buckets que visitamos. Por ejemplo con $r=3$ aplicamos tres minhashes diferentes y obtenemos $h_1(x)=21, h_2(x)=30,h_3(x)=5$ accedemos al bucket 21 y recuperamos los objetos cuyos ids son $\{101,204,305,306,307,411,508\}$, accedemos al bucket 30 y recuperamos $\{101,208,210,305,508,611,903\}$ finalmente en el bucket 5 recuperamos $\{101,208,209,305\}$ por lo tanto los objetos contra los cuales debemos calcular la distancia son $\{101,305\}$, estos son los candidatos a ser cercanos a nuestro objeto query.
+Es posible reducir la cantidad de falsos positivos usando más de una función minhash sobre la misma tabla. Si usamos $r$ funciones minhash en la misma tabla cada una de ellas nos dará como resultado un bucket. Los documentos candidatos surgen entonces de la intersección de los documentos que están en los $r$ buckets que visitamos. Por ejemplo con $r=3$ aplicamos tres minhashes diferentes y obtenemos $h_1(x)=21, h_2(x)=30,h_3(x)=5$. Accedemos al bucket 21 y recuperamos los objetos cuyos ids son $\{101,204,305,306,307,411,508\}$. Accedemos al bucket 30 y recuperamos $\{101,208,210,305,508,611,903\}$. Finalmente en el bucket 5 recuperamos $\{101,208,209,305\}$. Por lo tanto los objetos contra los cuales debemos calcular la distancia son $\{101,305\}$. Estos son los candidatos a ser cercanos a nuestro objeto query.
 
-Si la probabilidad de colisionar es $p$ entonces la probabilidad de colisionar en los $r$ buckets es igual a $p^r$. Podemos graficar el efecto de usar mas de un minhash sobre la misma tabla y obtenemos el siguiente plot (fig: ~\ref{fig:minhash2}).
+Si la probabilidad de colisionar es $p$ entonces la probabilidad de colisionar en los $r$ buckets es igual a $p^r$. Podemos graficar el efecto de usar más de un minhash sobre la misma tabla y obtenemos el siguiente plot (fig: ~\ref{fig:minhash2}).
 
 \begin{figure}[!htb]
 \centering
@@ -7466,13 +7469,13 @@ Si la probabilidad de colisionar es $p$ entonces la probabilidad de colisionar e
 
 Podemos ver que la cantidad de falsos positivos disminuye a valores tan bajos como querramos pero también aumenta la cantidad de falsos negativos. 
 
-En este momento es importante notar que el tamaño de la tabla de hashing también es importante e influye en la cantidad de falsos positivos y negativos ya que si la tabla es pequeña pueden producirse colisiones entre elementos que no son similares. En general el tamaño de la tabla de hashing se elige en función de la función minhash a utilizar.
+En este momento es importante notar que el tamaño de la tabla de hashing también es importante e influye en la cantidad de falsos positivos y negativos, ya que si la tabla es pequeña pueden producirse colisiones entre elementos que no son similares. En general el tamaño de la tabla de hashing se elige en función de la función minhash a utilizar.
 
 \subsection{Reducción de Falsos Negativos}
 
-Reducir los falsos negativos implica poder recuperar mas objetos, es decir que no se nos escapen objetos que son similares a la query pero no son recuperados por LSH. La idea consiste en usar mas de una tabla de hashing, si usamos $b$ tablas de hashing podemos entonces considerar objetos candidatos a aquellos que son candidatos en \textbf{alguna} de las $b$ tablas.
+Reducir los falsos negativos implica poder recuperar más objetos. Es decir, que no se nos escapen objetos que son similares a la query pero no son recuperados por LSH. La idea consiste en usar más de una tabla de hashing. Si usamos $b$ tablas de hashing podemos entonces considerar objetos candidatos a aquellos que son candidatos en \textbf{alguna} de las $b$ tablas.
 
-Si la probabilidad de que dos claves colisionen es $p$ entonces la probabilidad de que dos claves no colisionen es $1-p$ y la probabilidad de que dos claves no colisionen en ninguna de las $b$ tablas es $(1-p)^b$, por lo tanto la probabilidad de que colisionen en alguna de las $b$ tablas es $1-(1-p)^b$
+Si la probabilidad de que dos claves colisionen es $p$ entonces la probabilidad de que dos claves no colisionen es $1-p$ y la probabilidad de que dos claves no colisionen en ninguna de las $b$ tablas es $(1-p)^b$. Por lo tanto, la probabilidad de que colisionen en alguna de las $b$ tablas es $1-(1-p)^b$
 
 Podemos graficar esto (fig: ~\ref{fig:minhash3})
 
@@ -7502,19 +7505,19 @@ $$p_{r,b} = 1-(1-p^r)^b$$
 \label{fig:minhash4}
 \end{figure}
 
-En la figura ~\ref{fig:minhash4} podemos ver como queda la curva de probabilidad de colisión en función de la distancia usando diferentes valores de $r$ y $b$ y partiendo de nuestro minhash default en el cual $p=1-d$
+En la figura ~\ref{fig:minhash4} podemos ver cómo queda la curva de probabilidad de colisión en función de la distancia usando diferentes valores de $r$ y $b$, partiendo de nuestro minhash default en el cual $p=1-d$
 
 \subsection{Encontrando los valores de $b$ y $r$}
 
-En general cuando usamos LSH empezamos definiendo la distancia que vamos a usar, para cada distancia hay uno, varios o ningún minhash posibles. Elegimos un minhash y obtenemos, de forma teórica o mediante una simulación, la probabilidad de colisión en función de la distancia. 
+En general cuando usamos LSH empezamos definiendo la distancia que vamos a usar. Para cada distancia hay uno, varios o ningún minhash posible. Elegimos un minhash y obtenemos, de forma teórica o mediante una simulación, la probabilidad de colisión en función de la distancia. 
 
-Luego definimos que valores queremos para $d_1$, $d_2$, $p_1$ y $p_2$. Por ejemplo suponiendo que la distancia es un valor entre 0 y 1 fijemos $d_1=0.2$  y $d_2=0.5$ podemos definir como objetivo que queremos $p_1=0.95$ y $p_2=0.05$. Recordemos que esto quiere decir que si dos objetos están a distancia $d_1$ o menor la probabilidad de que colisionen es $p_1$ y que si dos objetos están a distancia $d_2$ o mayor la probabilidad de que colisionen es $p_2$. Por lo tanto $1-p_1$ es la probabilidad de falsos negativos y $p_2$ es la probabilidad de falsos positivos, en nuestro caso fijamos $0.05$ para ambos casos.
+Luego definimos qué valores queremos para $d_1$, $d_2$, $p_1$ y $p_2$. Por ejemplo, suponiendo que la distancia es un valor entre 0 y 1, fijemos $d_1=0.2$  y $d_2=0.5$. Podemos definir como objetivo que queremos $p_1=0.95$ y $p_2=0.05$. Recordemos que esto quiere decir que si dos objetos están a distancia $d_1$ o menos, la probabilidad de que colisionen es $p_1$, y que, si dos objetos están a distancia $d_2$ o más, la probabilidad de que colisionen es $p_2$. Por lo tanto $1-p_1$ es la probabilidad de falsos negativos y $p_2$ es la probabilidad de falsos positivos. En nuestro caso fijamos $0.05$ para ambos.
 
-Suponiendo que usamos un minhash tal que $p = 1-d$ es decir que la probabilidad de colisión es la inversa de la distancia, con distancias entre 0 y 1. Entonces el objetivo es encontrar valores de $b$ y $r$ tales que para $d=0.2$ tengamos un valor de $p_1$ igual o mayor a 0.95 y para $d=0.4$ tengamos un valor de $p_2$ que sea 0.05 o menor.
+Suponiendo que usamos un minhash tal que $p = 1-d$, es decir que la probabilidad de colisión es la inversa de la distancia, con distancias entre 0 y 1. Entonces el objetivo es encontrar valores de $b$ y $r$ tales que para $d=0.2$ tengamos un valor de $p_1$ igual o mayor a 0.95 y para $d=0.4$ tengamos un valor de $p_2$ que sea 0.05 o menor.
 
-La fórmula que usamos es $p_{r,b} = 1-(1-p^r)^b$ en donde $p=1-d$ por lo tanto $p_{r,b} = 1-(1-(1-d)^r)^b$ lo que podemos hacer ahora es mediante grid-search buscar valores de $b$ y $r$.
+La fórmula que usamos es $p_{r,b} = 1-(1-p^r)^b$ en donde $p=1-d$. Por lo tanto, $p_{r,b} = 1-(1-(1-d)^r)^b$. Lo que podemos hacer ahora es mediante grid-search buscar valores de $b$ y $r$.
 
-Podemos empezar aumentando $r$ y ver que valor obtenemos para $p_2$ en nuestro caso:
+Podemos empezar aumentando $r$ y ver qué valor obtenemos para $p_2$. En nuestro caso:
 
 \begin{table}[!hbt]
 \center{
@@ -7532,15 +7535,15 @@ $r$&$b$&$p_1$&$p_2$\\\hline\hline
 \caption{Encontrando $r$.}
 \end{table}
 
-Para $r=6,b=1$ logramos que la probabilidad de falsos positivos baje a $0.0466$ que está dentro de los parámetros deseados. Sin embargo esto trajo como consecuencia que $p_1$ baje a $0.262144$ y queremos que sea $0.95$ o superior. Por lo tanto lo que tenemos que hacer a continuación es subir $b$ pero al subir $b$ va a subir $p_2$, por lo que tenemos que ir subiendo $b$ y $r$ gradualmente hasta llegar a los valores deseados para $p_1$ y $p_2$. Con un poco de práctica este proceso se hace menos tedioso. En nuestro caso llegamos a $r=15$ y $b=84$ para un total de $1260$ minhashes. Aquí podemos ver por qué era importante que un minhash se pueda calcular de forma eficiente y además que sea posible obtener muchos minhash para el mismo objeto de forma sencilla.
+Para $r=6,b=1$ logramos que la probabilidad de falsos positivos baje a $0.0466$ que está dentro de los parámetros deseados. Sin embargo, esto trajo como consecuencia que $p_1$ baje a $0.262144$ y queremos que sea $0.95$ o superior. Por lo tanto lo que tenemos que hacer a continuación es subir $b$ pero al subir $b$ va a subir $p_2$, por lo que tenemos que ir subiendo $b$ y $r$ gradualmente hasta llegar a los valores deseados para $p_1$ y $p_2$. Con un poco de práctica este proceso se hace menos tedioso. En nuestro caso llegamos a $r=15$ y $b=84$ para un total de $1260$ minhashes. Aquí podemos ver por qué era importante que un minhash se pueda calcular de forma eficiente y además que sea posible obtener muchos minhash para el mismo objeto de forma sencilla.
 
-Nos queda ahora ver como construir minhashes para diferentes distancias.
+Nos queda ahora ver cómo construir minhashes para diferentes distancias.
 
 \section{LSH para la distancia de Jaccard}
 
 En esta sección desarrollaremos una función minhash para documentos de texto basada en la distancia de Jaccard. Para empezar vamos a procesar cada documento obteniendo todos los n-gramas de $n$ caracteres a los cuales denominaremos "shingles".
 
-Por ejemplo para "hola" usando bigramas los shingles son \$h,ho,ol,la,a\$. Si usamos trigramas entonces \$ho,hol,ola,la\$. La elección de $n$ para el tamaño de los n-gramas depende de los datos, para documentos de texto en general un valor de $n$ entre 5 y 10 caracteres es una buena idea. 
+Por ejemplo para "hola" usando bigramas los shingles son \$h,ho,ol,la,a\$. Si usamos trigramas entonces \$ho,hol,ola,la\$. La elección de $n$ para el tamaño de los n-gramas depende de los datos. En general para documentos de texto un valor de $n$ entre 5 y 10 caracteres es una buena idea. 
 
 La semejanza de Jaccard entre dos documentos se define como:
 
@@ -7548,13 +7551,13 @@ $$sJ(D1,D2) = \frac{D1 \cap D2}{D1 \cup D2}$$
 
 Es decir que la semejanza es el cociente entre la cantidad de shingles que los documentos tienen en común (intersección) y la cantidad total de shingles en ambos documentos (unión). 
 
-La semejanza de Jaccard nos da un número entre 0 y 1, vale 0 cuando los documentos no tienen absolutamente ningún shingle en común y vale 1 cuando los documentos tienen exactamente los mismos shingles. En base a esto podemos definir la distancia de Jaccard como:
+La semejanza de Jaccard nos da un número entre 0 y 1. Vale 0 cuando los documentos no tienen absolutamente ningún shingle en común y vale 1 cuando los documentos tienen exactamente los mismos shingles. En base a esto podemos definir la distancia de Jaccard como:
 
 $$dJ(D1,D2) = 1- \frac{D1 \cap D2}{D1 \cup D2}$$
 
-Es importante tener en cuenta cuando estamos hablando de distancia y cuando de semejanza recordando que uno es 1 menos el otro. 
+Es importante tener en cuenta cuando estamos hablando de distancia y cuando de semejanza, recordando que uno es 1 menos el otro. 
 
-Imaginemos ahora una matriz en la cual las filas son todos los shingles que existen en nuestra colección y cada columna representa un documento, indicando con 1 o 0 según el shingle aparezca o no en el documento.
+Imaginemos ahora una matriz en la cual las filas son todos los shingles que existen en nuestra colección y cada columna representa un documento, indicando con 1 o 0 según el shingle aparezca o no en el documento (Table ~\ref{fig:shingles_documentos}).
 
 \begin{table}[!hbt]
 \center{
@@ -7569,9 +7572,10 @@ s4&0&0&1&0\\ \hline
 }
 \vskip 0.25cm
 \caption{Shingles y Documentos.}
+\label{fig:shingles_documentos}
 \end{table}
 
-Esta matriz no hace falta construirla realmente, la vamos a usar única y exclusivamente con fines teóricos. Tomemos ahora una permutación al azar de las filas de la matriz y consideremos en que número de fila aparece el primer 1 en cada columna, a este número lo llamaremos "minhash" (MH) cada documento tiene entonces un minhash asociado.
+Esta matriz no hace falta construirla realmente, la vamos a usar única y exclusivamente con fines teóricos. Tomemos ahora una permutación al azar de las filas de la matriz y consideremos en qué número de fila aparece el primer 1 en cada columna. A este número lo llamaremos "minhash" (MH). Cada documento tiene entonces un minhash asociado (Table ~\ref{fig:shingles_documentos_minhash}).
 
 \begin{table}[!hbt]
 \center{
@@ -7586,7 +7590,8 @@ MH&2&0&3&2\\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
-\caption{Shingles y Documentos.}
+\caption{Shingles, Documentos y Minhash.}
+\label{fig:shingles_documentos_minhash}
 \end{table}
 
 Queremos demostrar que la probabilidad de que el minhash de dos documentos coincida es igual a la semejanza de Jaccard entre ambos documentos.
@@ -7594,18 +7599,18 @@ Queremos demostrar que la probabilidad de que el minhash de dos documentos coinc
 Para demostrar esto vamos a considerar dos documentos aislados cualesquiera D1 y D2. Existen 3 posibilidades para cada shingle: 
 
 \begin{enumerate}
-\item El shingle aparece en ambos documentos (11 en la matriz)
-\item El shingle no aparece en ninguno de los documentos (00 en la matriz)
-\item El shingle aparece en uno de los documentos pero no en el otro (10 o 01 en la matriz)
+\item El shingle aparece en ambos documentos (1-1 en la matriz)
+\item El shingle no aparece en ninguno de los documentos (0-0 en la matriz)
+\item El shingle aparece en uno de los documentos pero no en el otro (1-0 o 0-1 en la matriz)
 \end{enumerate}
 
-Llamemos $x$ a la cantidad de casos en los cuales el shingle aparece en ambos documentos y $y$ a los casos en los cuales el shingle aparece en un documento o en el otro pero no en ambos.
+Llamemos $x$ a la cantidad de casos en los cuales el shingle aparece en ambos documentos e $y$ a los casos en los cuales el shingle aparece en un documento o en el otro pero no en ambos.
 
-Para calcular la probabilidad de que el primer 1 de cada columna coincida tenemos que los casos favorables son aquellos en los cuales el shingle aparece en ambos documentos: $x$ y los casos totales son aquellos en los cuales el shingle aparece en ambos documentos o bien aparece en uno pero no en el otro. Los casos en los cuales el shingle no aparece en ningún documento no hace falta contarlos porque son dos ceros y no afectan el lugar en donde aparece el primer 1.
+Calculemos la probabilidad de que el primer 1 de cada columna coincida. Los casos favorables son aquellos en los cuales el shingle aparece en ambos documentos: $x$. Los casos totales son aquellos en los cuales el shingle aparece en ambos documentos o bien aparece en uno pero no en el otro. Los casos en los cuales el shingle no aparece en ningún documento no hace falta contarlos porque son dos ceros y no afectan el lugar en donde aparece el primer 1. Por lo que nos queda $x+y$.
 
 $$P[MH(D1)=MH(D2)] = \frac{x}{x+y}$$
 
-Observemos ahora que esta probabilidad es igual a la semejanza de Jaccard entre los documentos ya que para la semejanza de Jaccard tomamos la intersección es decir aquellos shingles que aparecen en ambos documentos que sabemos que es $x$ y dividimos por la unión siendo la unión la suma de aquellos shingles que aparecen en ambos documentos ($x$) y los shingles que aparecen en uno u otro documento ($y$). Notar que aquellos shingles que no aparecen en ninguno de los dos documentos no forman parte ni de la unión ni de la intersección
+Observemos que esta probabilidad es igual a la semejanza de Jaccard entre los documentos. Para la semejanza de Jaccard tomamos la intersección, es decir aquellos shingles que aparecen en ambos documentos ($x$) y dividimos por la unión, siendo esta la suma de aquellos shingles que aparecen en ambos documentos ($x$) y los shingles que aparecen en uno u otro documento ($y$). Notar que aquellos shingles que no aparecen en ninguno de los dos documentos no forman parte ni de la unión ni de la intersección.
 
 $$sJ(D1,D2) = \frac{x}{x+y}$$
 
@@ -7613,15 +7618,13 @@ Como podemos ver la semejanza de Jaccard entre dos documentos es igual a la prob
 
 $$P[MH(D1)=MH(D2)] = sJ(D1,D2)$$
 
-De aquí se desprende que comparar los minhashes de los documentos es una forma lógica de evaluar la semejanza entre ambos. Notemos también que un solo minhash nos da muy poca granularidad para medir la semejanza entre dos documentos, si solo tenemos un minhash nuestras opciones se limitan a decir que los documentos son similares (el minhash coincide) o bien no lo son (el minhash no coincide). 
+De aquí se desprende que comparar los minhashes de los documentos es una forma lógica de evaluar la semejanza entre ambos. Notemos también que un solo minhash nos da muy poca granularidad para medir la semejanza entre dos documentos. Si solo tenemos un minhash nuestras opciones se limitan a decir que los documentos son similares (el minhash coincide) o bien no lo son (el minhash no coincide). 
 
-La solución, por supuesto es usar mas de un minhash y luego analizar cuantos minhash coinciden usando esta medida como semejanza entre documentos. Si usamos 4 minhash tenemos que dos documentos pueden tener semejanza 0, 1/4, 1/2, 3/4 o 1. Según coincidan 0,1,2,3 o los 4 minhash.
+La solución, por supuesto, es usar más de un minhash y luego analizar cuantos minhash coinciden usando esta medida como semejanza entre documentos. Si usamos 4 minhash tenemos que dos documentos pueden tener semejanza 0, 1/4, 1/2, 3/4 o 1, según coincidan 0,1,2,3 o los 4 minhash.
 
-Veamos entonces de que forma podemos calcular el minhash de un documento de forma eficiente.
+Veamos entonces de qué forma podemos calcular el minhash de un documento de forma eficiente.
 
-Vamos a usar tantas funciones de hashing como minhash querramos usar y vamos a construir una pequeña matriz que tiene tantas filas como documentos y tantas columnas como minhashes. Inicialmente el minhash de cada documento lo inicializaremos en infinito.
-
-Ejemplo:
+Vamos a usar tantas funciones de hashing como minhash querramos usar y vamos a construir una pequeña matriz que tiene tantas filas como documentos y tantas columnas como minhashes. Inicialmente el minhash de cada documento lo inicializaremos en infinito (Table ~\ref{fig:minhashes_init}).
 
 \begin{table}[!hbt]
 \center{
@@ -7633,10 +7636,11 @@ d2&$\infty$&$\infty$&$\infty$&$\infty$\\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
-\caption{Minhashes.}
+\caption{Minhashes Inicial.}
+\label{fig:minhashes_init}
 \end{table}
 
-A continuación vamos a procesar documento por documento, extrayendo los shingles y hasheando cada shingle con cada una de las 4 funciones de hashing. Supongamos que para el primer shingle de nuestro documento las funciones de hashing nos devuelven 23,317,41 y 1145 respectivamente. Lo que hacemos es actualizar la tabla siempre y cuando el valor de la función de hashing sea menor al valor existente en la tabla.
+A continuación vamos a procesar documento por documento, extrayendo los shingles y hasheando cada shingle con cada una de las 4 funciones de hashing. Supongamos que para el primer shingle de nuestro documento las funciones de hashing nos devuelven 23, 317, 41 y 1145, respectivamente. Lo que hacemos es actualizar la tabla siempre y cuando el valor de la función de hashing sea menor al valor existente en la tabla (Table ~\ref{fig:minhashes_update}).
 
 \begin{table}[!hbt]
 \center{
@@ -7649,38 +7653,38 @@ d2&$\infty$&$\infty$&$\infty$&$\infty$\\ \hline
 }
 \vskip 0.25cm
 \caption{Minhashes.}
+\label{fig:minhashes_update}
 \end{table}
 
 Este proceso continua con el siguiente shingle del primer documento, luego pasamos al documento 2, y repetimos hasta haber procesado todos los documentos. En una sola lectura secuencial de nuestra colección de textos podemos obtener el valor de todos los minhashes que deseemos para cada documento sin necesidad de espacio especial en memoria.
 
-Tenemos que mostrar ahora que el minhash calculado de esta manera es equivalente a la posición del primer uno en la columna de nuestra matriz de shingles y documentos para probar que sigue siendo válido que la probabilidad de coincidencia entre dos minhash sigue siendo igual a la semejanza de Jaccard entre los documentos.
+Tenemos que mostrar ahora que el minhash calculado de esta manera es equivalente a la posición del primer uno en la columna de nuestra matriz de shingles y documentos, para probar que sigue siendo válido que la probabilidad de coincidencia entre dos minhash es igual a la semejanza de Jaccard entre los documentos.
 
-La intuición para demostrar esto es muy simple: el valor que nos devuelve la función de hashing para un shingle lo podemos considerar igual al número de fila en la cual aparecería dicho shingle en una permutación al azar de la matriz. Por lo tanto el valor mínimo de minhash es equivalente al número de fila en el cual aparecería el primer uno de la matriz. Notar que los shingles que NO aparecen en un documento directamente no se hashean.De esto se desprende que el espacio de direcciones de las funciones de hashing a usar para los minhash es igual o mayor a la cantidad total de shingles en nuestra colección.
+La intuición para demostrar esto es muy simple: el valor que nos devuelve la función de hashing para un shingle lo podemos considerar igual al número de fila en la cual aparecería dicho shingle en una permutación al azar de la matriz. Por lo tanto, el valor mínimo de minhash es equivalente al número de fila en el cual aparecería el primer uno de la matriz. Notar que los shingles que NO aparecen en un documento directamente no se hashean. De esto se desprende que el espacio de direcciones de las funciones de hashing a usar para los minhash es igual o mayor a la cantidad total de shingles en nuestra colección.
 
 Hemos presentado entonces un algoritmo muy simple para calcular cualquier cantidad de minhash a partir de una colección de documentos y hemos demostrado que la probabilidad de que dos minhash coincidan es igual a la semejanza de Jaccard entre los documentos.
-\
 
 \section{Minhash para la distancia angular}
 
-Una métrica muy popular especialmente para textos y strings representados como vectores es distancia angular, la distancia que nos interesa aquí es el ángulo entre los vectores, el coseno entre los vectores sirve entonces como medida de semejanza, dos vectores que tienen igual dirección tienen distancia angular 0 y coseno igual a 1 mientras que vectores que apuntan en direcciones opuestas tienen distancia angular 180 grados y coseno=-1. El coseno entre dos vectores se calcula como:
+Una métrica muy popular especialmente para textos y strings representados como vectores es la distancia angular. La distancia que nos interesa aquí es el ángulo entre los vectores. El coseno entre los vectores sirve entonces como medida de semejanza. Dos vectores que tienen igual dirección tienen distancia angular 0 y coseno igual a 1, mientras que vectores que apuntan en direcciones opuestas tienen distancia angular 180 grados y coseno igual a -1. El coseno entre dos vectores se calcula como:
 
 $$\cos(\theta)=\frac{\dot{XY}}{|X||Y|}$$
 
-A efectos de simplificar podemos normalizar todos los vectores de forma tal que tengan norma 1 por lo que el problema se reduce a la distancia angular sobre la hiper-esfera unitaria.
+A efectos de simplificar podemos normalizar todos los vectores de forma tal que tengan norma 1, por lo que el problema se reduce a la distancia angular sobre la hiper-esfera unitaria.
 
 $$\cos(\theta)=\dot{XY}$$
 
-Notemos que en este caso la distancia angular en la hiper-esfera unitaria es equivalente a la distancia euclideana en el intervalo (0,2). En la práctica muchos métodos LSH basados en la distancia angular funcionan bien para la distancia euclideana, esto no tiene ninguna justificación teórica sino que simplemente funciona(!) es por esto que los minhashes para la distancia angular son de particular importancia.
+Notemos que en este caso la distancia angular en la hiper-esfera unitaria es equivalente a la distancia euclideana en el intervalo (0,2). En la práctica muchos métodos LSH basados en la distancia angular funcionan bien para la distancia euclideana. Esto no tiene ninguna justificación teórica sino que simplemente funciona(!). Es por esto que los minhashes para la distancia angular son de particular importancia.
 
 Para aproximar la distancia angular usando LSH existen varios minhashes posibles que desarrollaremos a continuación.
 
 \subsection{El método de los hiperplanos}
 
-Para generar un minhash válido para la distancia angular vamos a calcular el producto interno entre nuestro vector y un vector aleatorio que puede estar formado simplemente por valores +1 y -1 ya que estos son suficientes para definir un hiperplano aleatorio. El valor del minhash va a ser 1 si el resultado del producto interno es positivo y -1 si el resultado es negativo.
+Para generar un minhash válido para la distancia angular vamos a calcular el producto interno entre nuestro vector y un vector aleatorio. Este vector aleatorio puede estar formado simplemente por valores +1 y -1, ya que estos son suficientes para definir un hiperplano aleatorio. El valor del minhash va a ser 1 si el resultado del producto interno es positivo y -1 si el resultado es negativo.
 
-Por ejemplo si nuestro vector es $(3,-2,3,4)$ generamos un vector al azar tipo $(1,-1,-1,1)$ y el producto interno entre los vectores es 9 por lo tanto el valor del minhash es +1. 
+Por ejemplo, si nuestro vector es $(3,-2,3,4)$, generamos un vector al azar $(1,-1,-1,1)$ y el producto interno entre los vectores es 9. Por lo tanto, el valor del minhash es +1. 
 
-Interpretemos ahora el significado del minhash. La probabilidad de que dos vectores proyectados al azar sobre un hiperplano tengan diferente signo es igual al ángulo entre ellos dividido sobre 180: $\theta/180$ ya que cuanto mas chico es el ángulo mas probable es que las proyecciones tengan igual sentido. Por lo tanto la probabilidad de que los minhashes coincidan para dos vectores es:
+Interpretemos ahora el significado del minhash. La probabilidad de que dos vectores proyectados al azar sobre un hiperplano tengan diferente signo es igual al ángulo entre ellos dividido 180. $\theta/180$ ya que cuanto más chico es el ángulo más probable es que las proyecciones tengan igual sentido. Por lo tanto, la probabilidad de que los minhashes coincidan para dos vectores es:
 
 $$1-\theta/180$$
 
@@ -7696,9 +7700,9 @@ $$(d_1,d_2,1-d_1/\pi,1-d_2/\pi)$$
 
 En donde d1 y d2 son las distancias angulares entre los vectores. 
 
-En la práctica como cada minhash nos define un valor $\pm1$ podemos decir que cada minhash nos define un bit y calcular un hashmin de $k-bits$ usando $k$ hiperplanos aleatorios. De esta forma tenemos un minhash que puede devolvernos valores entre $0$ y $2^k$, siendo este el valor de cada una de las $b$ tablas de hash que vamos a usar. Notemos que a mayor valor de $k$ aumentan los falsos negativos ya que necesitamos que los puntos estén del mismo lado de los $k$ hiperplanos usados para que el valor del minhash coincida.
+En la práctica como cada minhash nos define un valor $\pm1$ podemos decir que cada minhash nos define un bit y calculamos un hashmin de $k-bits$ usando $k$ hiperplanos aleatorios. De esta forma tenemos un minhash que puede devolvernos valores entre $0$ y $2^k$, siendo este el valor de cada una de las $b$ tablas de hash que vamos a usar. Notemos que a mayor valor de $k$ aumentan los falsos negativos ya que necesitamos que los puntos estén del mismo lado de los $k$ hiperplanos usados para que el valor del minhash coincida.
 
-La distancia angular se puede estimar en función de la cantidad de minhash que coinciden. Por ejemplo si usamos 4 minhash tenemos 4 posibles casos:
+La distancia angular se puede estimar en función de la cantidad de minhash que coinciden. Por ejemplo, si usamos 4 minhash, tenemos 4 posibles casos:
 
 \begin{table}[!hbt]
 \center{
@@ -7719,21 +7723,21 @@ En realidad ni el ángulo ni el coseno realmente importan ya que lo que usaremos
 
 \subsection{Voronoi Hashing}
 
-En Voronoi hashing vamos a usar un conjunto de $T$ vectores aleatorios en donde los elementos de estos vectores surgen de una distribución normal, es decir $T$ vectores gaussianos. Vamos a calcular el producto interno entre cada uno de estos vectors y nuestro vector query y nos vamos a quedar con el índice del vector que nos da el máximo producto interno como valor del minhash.
+En Voronoi hashing vamos a usar un conjunto de $T$ vectores aleatorios en donde los elementos de estos vectores surgen de una distribución normal, es decir $T$ vectores gaussianos. Vamos a calcular el producto interno entre cada uno de estos vectors y nuestro vector query, y nos vamos a quedar con el índice del vector que nos da el máximo producto interno como valor del minhash.
 
 $$
 h(x) = \arg \max <G_i,x>
 $$
 
-Notemos que lo que este método está haciendo geometricamente es distribuyendo $T$ puntos al azar sobre la hiper-esfera unitaria y luego comparando cuál es el punto mas cercano al punto hasheado.
+Notemos que lo que este método está haciendo geometricamente es distribuyendo $T$ puntos al azar sobre la hiper-esfera unitaria y luego comparando cuál es el punto más cercano al punto hasheado.
 
-Es interesante destacar que si usamos solo 2 hiperplanos $T=2$ el método de Voronoi es idéntico al de los hiperplanos usando como hiperplano al que bisecte los dos puntos elegidos al azar por Voronoi. En general Voronoi con $T=2^k$ gaussianos es igual al método de los hiperplanos con $k$ hiperplanos.
+Es interesante destacar que si usamos solo 2 hiperplanos $T=2$, el método de Voronoi es idéntico al de los hiperplanos usando como hiperplano al que bisecte los dos puntos elegidos al azar por Voronoi. En general Voronoi con $T=2^k$ gaussianos es igual al método de los hiperplanos con $k$ hiperplanos.
 
 \subsection{El Método de los Polítopos}
 
-En este método si nuestros puntos están en $d$ dimensiones primero aplicamos a nuestro punto una rotación al azar de $d$ a $d'$ dimensiones, es decir que multiplicamos al punto que queremos hashear por una matrix aleatoria de $dxd'$. Una vez que hicimos esto buscamos cuál es el vértice del polítopo de $d'$ dimensiones mas cercano y ese es el valor del minhash.
+En este método, si nuestros puntos están en $d$ dimensiones, primero aplicamos a nuestro punto una rotación al azar de $d$ a $d'$ dimensiones. Es decir, multiplicamos el punto que queremos hashear por una matrix aleatoria de $dxd'$. Una vez que hicimos esto buscamos cuál es el vértice del polítopo de $d'$ dimensiones más cercano y ese es el valor del minhash.
 
-Un polítopo está delimitado por los vectores de la base unitaria con y sin signo. En 2d la base unitaria es \{(1,0),(0,1)\} por lo tanto el polítopo es \{(0,1),(0,-1),(1,0),(-1,0)\} es decir un cuadrado rotado. Numerando los vértices por ejemplo 0,1,2,3 si el resultado de aplicar una rotación al azar a nuestro vector fuera (0.25,-12) entonces el vértice mas cercano del polítopo en 2d es (0,-1) y el valor del minhash es por lo tanto 1 (el vértice cuyo número de orden es 1).Notemos que en $d$ dimensiones el polítopo tiene siempre $2d$ vértices. En 3d el polítopo es un octahedro que tiene 6 vértices y 8 caras y que es el dual del cubo que tiene 8 vértices y 6 caras.
+Un polítopo está delimitado por los vectores de la base unitaria con y sin signo. En 2d la base unitaria es \{(1,0),(0,1)\}, por lo tanto el polítopo es \{(0,1),(0,-1),(1,0),(-1,0)\}, es decir, un cuadrado rotado. Numerando los vértices, por ejemplo, 0, 1, 2, 3, si el resultado de aplicar una rotación al azar a nuestro vector fuera (0.25,-12), entonces el vértice más cercano del polítopo en 2d es (0,-1) y el valor del minhash es por lo tanto 1 (el vértice cuyo número de orden es 1). Notemos que en $d$ dimensiones el polítopo tiene siempre $2d$ vértices. En 3d el polítopo es un octahedro que tiene 6 vértices y 8 caras y que es el dual del cubo que tiene 8 vértices y 6 caras.
 
 Ejemplo: Sea el siguiente punto en 2d $x=(12,-7)$, generamos una matriz de rotación al azar de 2d:
 
@@ -7746,23 +7750,23 @@ $$
 
 Calculamos $R_1 * x = (-0.0612,-4.2223) $
 
-Si los vértices son: \{0:(0,1); 1:(0,-1); 2:(1,0); 3:(-1,0)\} entonces el mas cercano es (0,-1) y el valor del minhash es 1. Podemos generar tantos minhashes como necesitemos generando mas rotaciones al azar. Luego podemos amplificar con los métodos que ya hemos visto agrupando minhashes.
+Si los vértices son: \{0:(0,1); 1:(0,-1); 2:(1,0); 3:(-1,0)\} entonces el más cercano es (0,-1) y el valor del minhash es 1. Podemos generar tantos minhashes como necesitemos generando más rotaciones al azar. Luego podemos amplificar con los métodos vistos, agrupando minhashes.
 
-Para hacer mas eficiente este método en lugar de generar una matriz aleatoria de $kxk$ para realizar la rotación los autores \cite{Andoni} proponen usar la matriz: $H*D1*H*D2*H*D3$ en donde $H$ es la transformación de Hadamard y $Di$ es una matriz diagonal con +/-1 al azar. La transformación de Hadamard se puede calcular en $O(k \log k)$ y esto es mas rápido que el producto por una matriz aleatoria de $kxk$ que es $O(k^2)$. Empíricamente se observa que el resultado de aplicar $H*D1*H*D2*H*D3$ a un punto es equivalente a realizar una rotación aleatoria aunque nadie ha podido demostrar esto en la práctica.
+Para hacer más eficiente este método en lugar de generar una matriz aleatoria de $kxk$ para realizar la rotación, los autores \cite{Andoni} proponen usar la matriz: $H*D1*H*D2*H*D3$ en donde $H$ es la transformación de Hadamard y $Di$ es una matriz diagonal con +/-1 al azar. La transformación de Hadamard se puede calcular en $O(k \log k)$ y esto es más rápido que el producto por una matriz aleatoria de $kxk$ que es $O(k^2)$. Empíricamente se observa que el resultado de aplicar $H*D1*H*D2*H*D3$ a un punto es equivalente a realizar una rotación aleatoria aunque nadie ha podido demostrar esto en la práctica.
 
-Otra variante sugerida en \cite{Kennedy} es aplicar en primer lugar una reducción de dimensiones usando Johnson-Lindenstrauss para llevar los datos de $d$ a $m$ dimensiones ($m<<d$). Y luego aplicar una rotación que al mismo tiempo aumente la dimensionalidad de los datos mediante una matriz aleatoria de $mxd'$. Siendo $d'$ la dimensionalidad sobre la cual comparamos contra el polítopo mas cercano.
+Otra variante sugerida en \cite{Kennedy} es aplicar en primer lugar una reducción de dimensiones usando Johnson-Lindenstrauss para llevar los datos de $d$ a $m$ dimensiones ($m<<d$). Y luego aplicar una rotación que al mismo tiempo aumente la dimensionalidad de los datos mediante una matriz aleatoria de $mxd'$. Siendo $d'$ la dimensionalidad sobre la cual comparamos contra el polítopo más cercano.
 
 El método del polítopo es equivalente al método de Voronoi si en lugar de tomar el producto interno máximo tomamos el máximo valor absoluto y el signo como minhash. Es decir que con $T$ gaussianos en el método de Voronoi generamos un número entre $0$ y $2T$ ya que ahora además del índice del gaussiano el signo es parte del minhash. En general el método de los polítopos en $d'$ dimensiones es igual al método de Voronoi con $2d'$ gaussianos \footnote{El único detalle es aceptar un gaussiano como una pseudo-rotación lo cual en la práctica es exactamente equivalente}.
 
 \section{LSH para la distancia euclideana}
 
-La distancia euclideana es sin dudas una de las métricas mas usadas, en esta sección vamos a explicar mecanismos para aproximar la distancia euclideana usando LSH, algunos de estos mecanismos también sirven para la distancia Manhattan o norma L1. 
+La distancia euclideana es sin dudas una de las métricas más usadas. En esta sección vamos a explicar mecanismos para aproximar la distancia euclideana usando LSH. Algunos de estos mecanismos también sirven para la distancia Manhattan o norma L1. 
 
 Vamos a ver un método similar al que vimos para la distancia angular basado en proyecciones aleatorias y luego otro método basado en el algoritmo de clustering K-Means.
 
 \subsection{El Método de las Proyecciones Aleatorias}
 
-La idea es similar a la usada para la distancia angular, vamos a usar proyecciones aleatorias, en este caso los hiperplanos aleatorios surgirán de una distribución p-estable, una distribución normal funciona perfectamente. Cada vector entonces lo vamos a multiplicar por un hiperplano aleatorio para obtener un número. Y el número obtenido lo vamos a discretizar a un número de bucket dividiendo por un cierto parámetro $w$. El resultado es el número de bucket o minhash para la distancia euclideana.
+La idea es similar a la usada para la distancia angular. Vamos a usar proyecciones aleatorias, en este caso los hiperplanos aleatorios surgirán de una distribución p-estable, una distribución normal funciona perfectamente. Cada vector lo vamos a multiplicar por un hiperplano aleatorio para obtener un número. Y el número obtenido lo vamos a discretizar a un número de bucket dividiendo por un cierto parámetro $w$. El resultado es el número de bucket o minhash para la distancia euclideana.
 
 \begin{figure}[!htb]
 \centering
@@ -7777,7 +7781,7 @@ $$mh_i(x) = \left \lfloor{\frac{x * v_i + a}{w}}\right \rfloor $$
 
 Donde $w$ es un hiper-parámetro que depende de los datos, $a$ es un número entre 0 y $w-1$ y $v_i$ es un vector aleatorio de igual dimensionalidad que nuestros puntos.
 
-Cada proyección aleatoria implica un particionamiento del espacio en el cual estamos trabajando, diferentes proyecciones generan diferentes particiones:
+Cada proyección aleatoria implica un particionamiento del espacio en el cual estamos trabajando. Diferentes proyecciones generan diferentes particiones:
 
 \begin{figure}[!htb]
 \centering
@@ -7786,7 +7790,7 @@ Cada proyección aleatoria implica un particionamiento del espacio en el cual es
 
 \end{figure}
 
-En cada proyección los puntos que están en una misma franja son considerados similares.El parámetro $w$ regula el ancho de las bandas y la forma de discretizar y es dependiente de los datos, es decir que tenemos que calcularlo para nuestro set de datos específicamente.
+En cada proyección los puntos que están en una misma franja son considerados similares. El parámetro $w$ regula el ancho de las bandas y la forma de discretizar. Es dependiente de los datos, es decir que tenemos que calcularlo para nuestro set de datos específicamente.
 
 Analizaremos ahora la probabilidad de que dos documentos sean similares de acuerdo a la forma en que hemos definido los minhashes para la distancia euclideana.
 
@@ -7797,46 +7801,48 @@ Analizaremos ahora la probabilidad de que dos documentos sean similares de acuer
 
 \end{figure}
 
-Cuando la distancia entre dos puntos es menor a $w/2$ la probabilidad de que caigan en el mismo bucket es $1/2 $. Esto se puede demostrar fácilmente de forma geométrica ya que si los puntos están a distancia $w/2$ o inferior la única forma de que caigan en diferentes buckets es que uno de los puntos caiga fuera del bucket y el otro dentro del mismo y como el segmento nunca mide mas de $w/2$ en promedio la probabilidad de que esto ocurra nunca puede ser mayor a $1/2$
+Cuando la distancia entre dos puntos es menor a $w/2$ la probabilidad de que caigan en el mismo bucket es $1/2 $. Esto se puede demostrar fácilmente de forma geométrica ya que si los puntos están a distancia $w/2$ o inferior la única forma de que caigan en diferentes buckets es que uno de los puntos caiga fuera del bucket y el otro dentro del mismo. Como el segmento nunca mide más de $w/2$ en promedio, la probabilidad de que esto ocurra nunca puede ser mayor a $1/2$.
 
-Cuando la distancia es mayor a $2w$ los puntos solo caen dentro del bucket si su ángulo es cercano a 90 grados. En concreto si el ángulo es menor a 60 grados los puntos nunca pueden estar dentro del mismo bucket y por lo tanto podemos decir que la probabilidad es $1/3$ ya que esto ocurre en $1/3$ de los ángulos posibles. 
+Cuando la distancia es mayor a $2w$ los puntos solo caen dentro del bucket si su ángulo es cercano a 90 grados. En concreto, si el ángulo es menor a 60 grados, los puntos nunca pueden estar dentro del mismo bucket. Por lo tanto, podemos decir que la probabilidad es $1/3$, ya que esto ocurre en $1/3$ de los ángulos posibles. 
 
 Por lo tanto nuestra familia LSH es de la forma:
 
 $$LSH(w/2,2w,p\geq1/2,p\leq1/3)$$
 
-Pese a que esta familia tiene una definición no muy precisa igual podemos aplicar la misma amplificación que vimos en las secciones anteriores usando varios minhashes agrupándolos de la forma que nos resulte mas conveniente. Cuando usamos $r=1$ y $b=n$ que es el caso mas popular lo que estamos haciendo es devolviendo como similares a los documentos que están en la misma franja en alguna de las $n$ proyecciones aleatorias que usamos.
+Pese a que esta familia tiene una definición no muy precisa igual podemos aplicar la misma amplificación que vimos en las secciones anteriores usando varios minhashes y agrupándolos de la forma que nos resulte más conveniente. Cuando usamos $r=1$ y $b=n$, el caso más popular, lo que estamos haciendo es devolviendo como similares a los documentos que están en la misma franja en alguna de las $n$ proyecciones aleatorias que usamos.
 
 \subsection{Métodos basados en K-Means: KLSH}
 
-K-Means es un algoritmo de clustering que veremos mas adelante, para un conjunto de $m$ puntos en $d$ dimensiones y una cierta cantidad de clusters $k$ que el usuario debe especificar K-Means genera $k$ clusters y devuelve cuales son los $k$ centroides correspondientes a cada cluster y a que centroide queda asignado cada uno de los $m$ puntos. El algoritmo lo vamos a desarrollar cuando veamos clustering, lo tomaremos aquí como un modelo de caja negra que nos genera $k$ centroides.
+K-Means es un algoritmo de clustering que veremos más adelante. Dado un conjunto de $m$ puntos en $d$ dimensiones y una cierta cantidad de clusters $k$, que el usuario debe especificar, K-Means genera $k$ clusters. Devuelve cuales son los $k$ centroides correspondientes a cada cluster y a que centroide queda asignado cada uno de los $m$ puntos. El algoritmo lo vamos a desarrollar cuando veamos clustering, lo tomaremos aquí como un modelo de caja negra que nos genera $k$ centroides.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=4.3in]{figures/klsh.png}
 
-\caption{Ejemplo KLSH. El punto query es $q$ y nos interesa encontrar su vecino mas cercano. Podemos ver que en la segunda versión de K-Means el query queda dentro del mismo cluster que su vecino mas cercano por lo que accediendo al mismo vamos a poder encontrarlo, en los otros casos encontramos otros puntos pero no el mas cercano. Este es un ejemplo de usar $r=1$ y $b=4$ lo cual nos da muy buena precisión pero notar que cualquier punto dentro del mismo cluster que el query debe ser comparado contra el mismo para poder encontrar el verdadero vecino mas cerano.}
+\caption{Ejemplo KLSH.}
 \label{fig:klsh}
 \end{figure}
 
-El centroide al cual queda asignado cada punto es un número entre 1 y $k$ y nos sirve como minhash. Para generar varios minhashes podemos usar K-Means $n$ veces con diferentes inicializaciones, como el algoritmo converge a un mínimo local que es dependiente de la inicialización tendremos valores diferentes en cada caso. 
+El punto circular es nuestro query y nos interesa encontrar su vecino más cercano (el punto cuadrado). Podemos ver que en la segunda clusterización de K-Means el query queda dentro del mismo cluster que su vecino más cercano, por lo que accediendo al mismo vamos a poder encontrarlo. En los otros casos encontramos otros puntos pero no el más cercano. Este es un ejemplo de usar $r=1$ y $b=4$ lo cual nos da muy buena precisión. Notar que cualquier punto dentro del mismo cluster que el query debe ser comparado para poder encontrar el verdadero vecino más cerano.
+
+El centroide al cual queda asignado cada punto es un número entre 1 y $k$ y nos sirve como minhash. Para generar varios minhashes podemos usar K-Means $n$ veces con diferentes inicializaciones. Como el algoritmo converge a un mínimo local que es dependiente de la inicialización tendremos valores diferentes en cada caso. 
 
 Con estos minhashes podemos proceder exactamente como lo hacíamos antes, generando $b$ tablas de hash y usando $r$ minhashes por cada tabla en donde el valor de cada minhash es el número de cluster (centroide) al cual fue asignado el punto. 
 
-Cuando queremos buscar los vecinos mas cercanos a un query $q$ simplemente buscamos el centroide mas cercano de cada corrida de K-Means y eso nos da el minhash correspondiente al query. Luego procedemos como siempre.
+Cuando queremos buscar los vecinos más cercanos a un query $q$ simplemente buscamos el centroide más cercano de cada corrida de K-Means y eso nos da el minhash correspondiente al query. Luego procedemos como siempre.
 
 \subsection{Métodos basados en K-Means: K-Means jerárquico}
 
-Es posible aplicar K-Means de forma jerárquica a nuestro set de datos, por ejemplo a partir de $m$ puntos corremos K-Means con $k=\sqrt{m}$ centroides, esto nos da, teoricamente, un promedio de $\sqrt{m}$ puntos por centroide. Para los puntos asignados a cada centroide podemos repetir el proceso aplicando K-Means nuevamente, esto nos permite crear un árbol de K-Means. Cuando queremos resolver los vecinos mas cercanos a un query $q$ empezamos por encontrar el centroide mas cercano en el primer nivel y luego bajamos a los puntos asignados a dicho centroide en donde buscamos el centroide mas cercano nuevamente y así recursivamente. Este método es eficiente para casos en los cuales tenemos billones de puntos. Para mejorar la precisión del método podemos usar multi-probin que desarrollaremos mas abajo.
+Es posible aplicar K-Means de forma jerárquica a nuestro set de datos. Por ejemplo, a partir de $m$ puntos corremos K-Means con $k=\sqrt{m}$ centroides. Esto nos da, teoricamente, un promedio de $\sqrt{m}$ puntos por centroide. Para los puntos asignados a cada centroide podemos repetir el proceso aplicando K-Means nuevamente. Esto nos permite crear un árbol de K-Means. Cuando queremos resolver los vecinos más cercanos a un query $q$ empezamos por encontrar el centroide más cercano en el primer nivel. Luego bajamos a los puntos asignados a dicho centroide en donde buscamos el centroide más cercano nuevamente y así recursivamente. Este método es eficiente para casos en los cuales tenemos billones de puntos. Para mejorar la precisión del método podemos usar multi-probin que desarrollaremos mas abajo.
 
 Este método lo vamos a volver a desarrollar al ver K-Means.
 
 \section{LSH para la distancia Hamming}
 
 La distancia de Hamming indica simplemente el número de dimensiones en las cuales dos vectores difieren. Es igual a la norma $l0$.
-Por ejemplo la distancia de Hamming entre $(2,3,4,1)$ y $(2,5,0,1)$ es 2.
+Por ejemplo, la distancia de Hamming entre $(2,3,4,1)$ y $(2,5,0,1)$ es 2.
 
-Para la distancia de Hamming existe una forma inmediata de obtener un minhash, simplemente seleccionamos al azar alguna de las dimensiones del vector. La probabilidad de que los minhashes no coincidan es igual a la distancia de Hamming entre los vectores dividido por su longitud.Por lo tanto la probabilidad de que dos minhashes coincidan es:
+Para la distancia de Hamming existe una forma inmediata de obtener un minhash. Simplemente seleccionamos al azar alguna de las dimensiones del vector. La probabilidad de que los minhashes no coincidan es igual a la distancia de Hamming entre los vectores dividido por su longitud. Por lo tanto, la probabilidad de que dos minhashes coincidan es:
 
 $$p = 1-\frac{H(x,y)}{len(x)}$$
 
@@ -7848,80 +7854,80 @@ Podemos ahora simplemente amplificar esta familia usando la técnica que ya hemo
 
 \section{Multi-Probe LSH}
 
-Hasta el momento todas las funciones LSH que hemos visto se basan en la construcción de minhashes y luego en la búsqueda de vecinos en una cantidad de tablas de hash $b$ en donde por cada tabla accedemos a un número de bucket hasheando $r$ minhashes, esto equivale a decir que un punto es candidato a ser vecino de otro si en alguna de las $b$ tablas sus $r$ minhashes coinciden. 
+Hasta el momento todas las funciones LSH que hemos visto se basan en la construcción de minhashes y luego en la búsqueda de vecinos en una cantidad de tablas de hash $b$, en donde por cada tabla accedemos a un número de bucket hasheando $r$ minhashes. Esto equivale a decir que un punto es candidato a ser vecino de otro si en alguna de las $b$ tablas sus $r$ minhashes coinciden. 
 
-Para mayor precisión es decir que no haya falsos negativos es necesario usar un valor de $b$ grande, en general en el orden de entre 100 o 1000, pero esto queda limitado por el tamaño de la memoria, el método de multi-probe intenta aumentar la precisión de una función LSH sin necesitar una cantidad de tablas de hash muy grande.
+Para mayor precisión, es decir que no haya falsos negativos, es necesario usar un valor de $b$ grande. En general el tamaño de $b$ estará en el orden de entre 100 o 1000, pero esto queda limitado por el tamaño de la memoria. El método de multi-probe intenta aumentar la precisión de una función LSH sin necesitar una cantidad de tablas de hash muy grande.
 
 La idea es no acceder a un solo bucket por tabla sino a varios, siendo la probabilidad de acceder a un bucket proporcional a la distancia entre el query y los puntos del bucket, distancia que por supuesto desconocemos.
 
-El objetivo es entonces dado un query $q$ determinar cuáles son los buckets en donde hay mayor probabilidad de encontrar vecinos cercanos y acceder a una cierta cantidad $T$ de estos buckets. El bucket mas probable sabemos encontrarlo simplemente aplicando una función de hashing a los $r$ minhashes de $q$, el problema es como determinar cuáles son los mejores buckets a probar además de éste.
+El objetivo es entonces dado un query $q$ determinar cuáles son los buckets en donde hay mayor probabilidad de encontrar vecinos cercanos y acceder a una cierta cantidad $T$ de estos buckets. El bucket más probable sabemos encontrarlo simplemente aplicando una función de hashing a los $r$ minhashes de $q$. El problema es cómo determinar cuáles son los mejores buckets a probar además de éste.
 
-La respuesta depende, por supuesto, de la métrica empleada, a continuación veremos como podemos hacer multi-probing según el tipo de minhash generado.
+La respuesta depende, por supuesto, de la métrica empleada. A continuación veremos cómo podemos hacer multi-probing según el tipo de minhash generado.
 
 \subsection{Multi-Probing para la distancia euclideana, método de proyecciones aleatorias}
 
-En este caso el minhash surge de la división por $w$, por lo tanto los valores que nos interesan son los vecinos al resultado del minhash, es decir que si el minhash es (4) nos interesa el bucket 4 y luego el 3 y 5, luego el 2 y el 6, etc. Si usamos $r$ minhashes podemos entonces generar buckets candidatos modificando +/- 1 el valor de cada minhash. Por ejemplo si tenemos (3,12,9) podemos probar los buckets (3,12,9), (2,12,9), (4,12,9),(3,13,9),(3,11,9),(3,12,8),(3,12,10),etc.
+En este caso el minhash surge de la división por $w$, por lo tanto los valores que nos interesan son los vecinos al resultado del minhash. Es decir que si el minhash es (4) nos interesa el bucket 4 y luego el 3 y 5, luego el 2 y el 6, etc. Si usamos $r$ minhashes podemos entonces generar buckets candidatos modificando +/- 1 el valor de cada minhash. Por ejemplo, si tenemos (3,12,9) podemos probar los buckets (3,12,9), (2,12,9), (4,12,9) (3,13,9), (3,11,9), (3,12,8), (3,12,10), etc.
 
 \subsection{Multi-Probing para la distancia euclideana, métodos basados en K-Means}
 
-En este caso el esquema es muy simple ya que calculamos la distancia entre el query y cada centroide para saber el valor del minhash que es el centroide que está a menor distancia. Por lo tanto los minhashes alternativos son los números de centroides que siguen ordenados por distancia decreciente.
+En este caso, el esquema es muy simple ya que calculamos la distancia entre el query y cada centroide para saber el valor del minhash (que es el centroide que está a menor distancia). Por lo tanto, los minhashes alternativos son los números de centroides que siguen ordenados por distancia decreciente.
 
 En todos los métodos basados en K-Means podemos implementar Multi-Probing de forma sencilla accediendo a $T$ centroides en lugar de uno solo.
 
 \subsection{Multi-Probing para la distancia angular, método de proyecciones aleatorias}
 
-En este caso el minhash solo puede tomar dos valores: +1 o -1, supongamos que tenemos el caso (+1,-1,+1) usando 3 minhashes por tabla, si queremos aplicar multi-probing lo que podemos hacer es modificar alguno de los minhashes cambiando el signo y acceder a dicho bucket. 
+En este caso el minhash solo puede tomar dos valores: +1 o -1. Supongamos que tenemos el caso (+1,-1,+1) usando 3 minhashes por tabla. Si queremos aplicar multi-probing, lo que podemos hacer es modificar alguno de los minhashes cambiando el signo y acceder a dicho bucket. 
 
 \subsection{Multi-Probing para la distancia angular, método de los polítopos}
 
-En el método de los polítopos podemos aplicar multi-probing accediendo a los $T$ vértices mas cercanos en lugar del mas cercano, este es un procedimiento sencillo y que no cuesta nada ya que para determinar el vértice mas cercano es necesario calcular la distancia entre cada vértice y la rotación aleatoria del punto original, por lo tanto simplemente en lugar de un vértice usamos $T$.
+En el método de los polítopos podemos aplicar multi-probing accediendo a los $T$ vértices más cercanos en lugar de acceder unicamente al más cercano. Este es un procedimiento sencillo y que no cuesta nada, ya que para determinar el vértice más cercano es necesario calcular la distancia entre cada vértice y la rotación aleatoria del punto original. Por lo tanto, simplemente en lugar de un vértice usamos $T$.
 
 \subsection{Multi-Probing para la distancia de Jaccard}
 
-En la distancia Jaccard la cuestión no es simple, una posible variante es realizar alguna perturbación en el string (texto) query y ver cuales serían los minhashes para el mismo. Por ejemplo reemplazando alguna palabra por su sinónimo, cambiando de singular a plural etc. Cada perturbación nos da un string "similar" al que estamos buscando y por eso tiene sentido acceder a los buckets apuntados por dichos strings para buscar textos similares al que nos interesa. El método de perturbar el dato original para generar otros minhashes es genérico y podría usarse en cualquier esquema de LSH si fuera necesario.2s
+En la distancia Jaccard la cuestión no es simple. Una posible variante es realizar alguna perturbación en el string (texto) query y ver cuales serían los minhashes para el mismo. Por ejemplo, reemplazando alguna palabra por su sinónimo, cambiando de singular a plural, etc. Cada perturbación nos da un string "similar" al que estamos buscando y por eso tiene sentido acceder a los buckets apuntados por dichos strings para buscar textos similares al que nos interesa. El método de perturbar el dato original para generar otros minhashes es genérico y podría usarse en cualquier esquema de LSH si fuera necesario.
 
-Multi-Probing nos permite ganar precisión sacrificando tiempo. Al buscar en mayor cantidad de buckets disminuye la probabilidad de falsos negativos pero agregamos tiempo al tener que acceder a mas buckets, recuperar mas puntos y tener que calcular las distancias entre el query y estos puntos. La técnica es muy interesante porque permite ganar precisión sin sacrificar memoria.
+Multi-Probing nos permite ganar precisión sacrificando tiempo. Al buscar en mayor cantidad de buckets disminuye la probabilidad de falsos negativos pero agregamos tiempo al tener que acceder a más buckets, recuperar más puntos y tener que calcular las distancias entre el query y estos puntos. La técnica es muy interesante porque permite ganar precisión sin sacrificar memoria.
 
 \section{LSH Conclusiones}
 
 Es hora de cerrar esta parte del capítulo haciendo un resumen de lo visto hasta ahora.
 
-LSH tiene como objetivo resolver el problema de los $k$ vecinos mas cercanos de forma eficiente, idealmente en O(1) o similar usando la menor cantidad de espacio posible, en muchos casos esto implica una aproximación al problema ya que la solución que devolvemos puede no ser exacta. Esta inexactitud puede deberse a la presencia de puntos superfluos (falsos positivos) o la ausencia de puntos relevantes (falsos negativos).
-xnzsmdmdmcmfg 
-Un falso-positivo es un pun3wsto que no es cercano al que estamos buscando pero que LSH devuelve como similar. Los falsos-positivos se filtran facilmente simplemente calculando la distancia real entre el punto query $q$ y los puntos candidatos a ser similares devueltos por LSH, estas distancias siempre las tenemos que calcuar para saber cuales son los $k$ vecinos mas cercanos. El problema de los falsos-positivos es entonces de performance, si tenemos muchos falsos positivos tenderemos muchos puntos irrelevantes cuya distancia contra el query tenemos que calcular.
+LSH tiene como objetivo resolver el problema de los $k$ vecinos más cercanos de forma eficiente, idealmente en O(1) o similar usando la menor cantidad de espacio posible. En muchos casos esto implica una aproximación al problema ya que la solución que devolvemos puede no ser exacta. Esta inexactitud puede deberse a la presencia de puntos superfluos (falsos positivos) o la ausencia de puntos relevantes (falsos negativos).
 
-Un falso-negativo es un punto que es cercano al query pero que LSH no puede encontrar. Esto afecta la \textit{precisión} del método. Los falsos-negativos no tienen solución ya que la única forma de buscarlos sería recorrer todos los datos y si hacemos eso entonces estamos en KNN por fuerza bruta y no necesitamos LSH. 
+Un falso-positivo es un punto que no es cercano al que estamos buscando pero que LSH devuelve como similar. Los falsos-positivos se filtran facilmente simplemente calculando la distancia real entre el punto query $q$ y los puntos candidatos a ser similares devueltos por LSH. Estas distancias siempre las tenemos que calcuar para saber cuales son los $k$ vecinos más cercanos. El problema de los falsos-positivos es entonces de performance. Si tenemos muchos falsos positivos tendremos muchos puntos irrelevantes cuya distancia contra el query tenemos que calcular.
+
+Un falso-negativo es un punto que es cercano al query pero que LSH no puede encontrar. Esto afecta la \textit{precisión} del método. Los falsos-negativos no tienen solución ya que la única forma de buscarlos sería recorrer todos los datos y, si hacemos eso, entonces estamos en KNN por fuerza bruta y no necesitamos LSH. 
 
 En general todas las funciones LSH que definimos se caracterizan por tener una forma de calcular un minhash a partir del dato y luego definir los siguientes parámetros:
 
 \begin{itemize}
-\item $b$ que es la cantidad de tablas de hash a usar
-\item $r$ que es la cantidad de minhash a usar por tabla
-\item $T$ que es la cantidad de buckets a probar en cada tabla (multi-probing)
+\item $b$: la cantidad de tablas de hash a usar
+\item $r$: la cantidad de minhash a usar por tabla
+\item $T$: la cantidad de buckets a probar en cada tabla (multi-probing)
 \end{itemize}
 
-Si queremos disminuir los falsos negativos, es decir ganar precisión, podemos aumentar $b$ sacrificando memoria o aumentar $T$ sacrificando velocidad.
+Si queremos disminuir los falsos negativos, es decir, ganar precisión, podemos aumentar $b$ sacrificando memoria o aumentar $T$ sacrificando velocidad.
 
-En general vamos a definir $b$ en función de la memoria que tengamos disponible, cuanto mayor es $b$ mayor precisión va a tener el algoritmo. Luego una vez fijado $b$ tenemos que definir $r$ y $T$ en función de la cantidad de falsos positivos y falsos negativos que podamos manejar y la performance (velocidad) de las consultas.
+En general vamos a definir $b$ en función de la memoria que tengamos disponible. Cuanto mayor es $b$, mayor precisión va a tener el algoritmo. Luego una vez fijado $b$ tenemos que definir $r$ y $T$ en función de la cantidad de falsos positivos y falsos negativos que podamos manejar y la performance (velocidad) de las consultas.
 
-Para un $b$ fijo aumentar $r$ disminuye los falsos positivos y también disminuye la preicisión. Aumentar $T$ mejora la precisión pero disminuye la performance.
+Para un $b$ fijo aumentar $r$ disminuye los falsos positivos y también disminuye la precisión. Aumentar $T$ mejora la precisión pero disminuye la performance.
 
 \section{LSH Para Máxima semejanza}
 
-En líneas generales LSH es muy eficiente para recuperar elementos similares cuando usamos distancias relativamente amplias pero si queremos encontrar los elementos iguales o casi iguales a otros es decir con una semejanza muy grande puede resultar ineficiente en comparación con otros algoritmos. En esta sección exploramos algunas alternativas usando como base la distancia de Jaccard entre documentos.
+En líneas generales, LSH es muy eficiente para recuperar elementos similares cuando usamos distancias relativamente amplias. Pero si queremos encontrar los elementos iguales o casi iguales a otros, es decir, con una semejanza muy grande, puede resultar ineficiente en comparación con otros algoritmos. En esta sección exploramos algunas alternativas usando como base la distancia de Jaccard entre documentos.
 
-Dado un documento podemos extraer del mismo un conjunto de shingles que pertenecen al conjunto de shingles totales de nuestra colección. Si ordenamos todos los shingles en la colección podemos asociar a cada shingle un número, por ejemplo "HIS T" = 1094. Podemos representar entonces un documento como un conjunto de números que son los shingles que representan al documento ordenándolos de menor a mayor. En general el mejor orden para los shingles es por frecuencia descendente, de esta forma el shingle 23 es mucho mas raro que el shingle 193283. Para simplificar la explicación que sigue supongamos que solo existen 26 shingles posibles entonces podemos asociar cada uno con una letra del abecedario y cada documento nos queda representado por un string. Por ejemplo "acfj" es un documento que tiene el shingle 0, el 2, el 5 y el 9. Podemos entonces encarar la semejanza entre documentos como si fuera un problema de semejanza entre strings.
+Dado un documento podemos extraer del mismo un conjunto de shingles que pertenecen al conjunto de shingles totales de nuestra colección. Si ordenamos todos los shingles en la colección podemos asociar a cada shingle un número, por ejemplo "HIS T" = 1094. Podemos representar entonces un documento como un conjunto de números que son los shingles que representan al documento, ordenándolos de menor a mayor. En general el mejor orden para los shingles es por frecuencia descendente, de esta forma el shingle 23 es mucho más raro que el shingle 193283. Para simplificar la explicación que sigue supongamos que solo existen 26 shingles posibles. Podemos asociar cada uno con una letra del abecedario y cada documento nos queda representado por un string. Por ejemplo "acfj" es un documento que tiene el shingle 0, el 2, el 5 y el 9. Podemos entonces encarar la semejanza entre documentos como si fuera un problema de semejanza entre strings.
 
 \subsection{Usando la Longitud}
 
-Supongamos que queremos recuperar documentos que tengan semejanza de Jaccard 0.9 o superior con respecto a un cierto documento query. Según la longitud del documento query es decir la cantidad de shingles que tiene sabemos que longitudes pueden tener los documentos que pueden ser similares. Por ejemplo si nuestro documento tiene longitud $L_s=10$ entonces un documento con $L_s=9$,$L_s=10$ o con $L_s=11$ shingles puede ser similar pero un documento con 8 o 12 shingles no ya que a lo sumo tendremos 8/10 o 10/12 shingles en común y $8/10<0.9$ y $10/12<0.9$
+Supongamos que queremos recuperar documentos que tengan semejanza de Jaccard 0.9 o superior con respecto a un cierto documento query. Según la longitud del documento query, es decir, la cantidad de shingles que tiene, sabemos qué longitudes pueden tener los documentos que pueden ser similares. Por ejemplo, si nuestro documento tiene longitud $L_s=10$ entonces un documento con $L_s=9$, $L_s=10$ o con $L_s=11$ shingles puede ser similar pero un documento con 8 o 12 shingles no, ya que, a lo sumo, tendremos 8/10 o 10/12 shingles en común y $8/10<0.9$ y $10/12<0.9$.
 
 Como primera solución podemos entonces indexar cada documento en un bucket de acuerdo a su longitud y luego comparar el documento query únicamente contra aquellos documentos que están en los buckets cuya longitud puede satisfacer la consulta. Estos documentos pueden ser muchos, incluso millones.
 
 \subsection{Usando Prefijos}
 
-Sigamos pensando que queremos documentos cuya semejanza con un cierto documento query es 0.9 o mayor llamemos a este número $J$ ya que es la semejanza de Jaccard. Supongamos que nuestro documento tiene 10 shingles. Queremos mostrar que para que un documento sea similar éste debe tener alguno de los dos primeros shingles. Si no tuviera ninguno de los dos primeros shingles entonces solo podría tener 8 shingles en común y la semejanza de Jaccard sería a lo sumo $8/10$ que es menor a $J$. Por lo tanto si $J=0.9$ y nuestro texto tiene 10 shingles alcanzaría con indexar los primeros 2 shingles del mismo.
-Con textos mayores es necesario indexar mayor cantidad de shingles, consideremos un texto que tiene 50 shingles, para que la semejanza sea mayor o gual a $J=0.9$ contra algún documento query desconocido necesitamos que al menos 45 de los 50 shingles estén en la intersección por lo tanto necesitamos indexar los primeros 6 símbolos del documento. En concreto la cantidad de símbolos a indexar es:
+Sigamos pensando que queremos documentos cuya semejanza con un cierto documento query es 0.9 o mayor. Llamemos a este número $J$ ya que es la semejanza de Jaccard. Supongamos que nuestro documento tiene 10 shingles. Queremos mostrar que para que un documento sea similar éste debe tener alguno de los dos primeros shingles. Si no tuviera ninguno de los dos primeros shingles entonces solo podría tener 8 shingles en común y la semejanza de Jaccard sería a lo sumo $8/10$, que es menor a $J$. Por lo tanto si $J=0.9$ y nuestro texto tiene 10 shingles, alcanzaría con indexar los primeros 2 shingles del mismo.
+Con textos mayores es necesario indexar mayor cantidad de shingles. Consideremos un texto que tiene 50 shingles. Para que la semejanza sea mayor o igual a $J=0.9$ contra algún documento query desconocido necesitamos que al menos 45 de los 50 shingles estén en la intersección. Por lo tanto, necesitamos indexar los primeros 6 símbolos del documento. En concreto, la cantidad de símbolos a indexar es:
 
 $$p=\left \lfloor{(1-J)L_s}\right \rfloor +1 $$
 
@@ -7931,15 +7937,15 @@ Con este método vamos entonces a crear un bucket por cada shingle que haya que 
 
 \subsection{Prefijos y Posiciones}
 
-Consideremos los strings: s = acdefghijk  y t = bcdefghijk, usando $J=0.9$ como tienen longitud 10 ambos serían indexados por sus dos primeros shingles (representados por a,c y b,c respectivamente). Por lo tanto como coincidiríamos en el bucket de "c" los documentos serían candidatos a similares. Sin embargo la semejanza de Jaccard entre s y t es $9/11=0.81$ que es menor que $J=0.9$ 
+Consideremos los strings: s = acdefghijk  y t = bcdefghijk, usando $J=0.9$. Como ambos tienen longitud 10 serían indexados por sus dos primeros shingles (representados por a,c y b,c respectivamente). Como coincidiríamos en el bucket de "c" los documentos serían candidatos a similares. Sin embargo la semejanza de Jaccard entre s y t es $9/11=0.81$, que es menor que $J=0.9$ 
 
-Supongamos que construimos nuestro índice en base al par ordenado (Shingle,posición) es decir que para s usaríamos (a,0) y (c,1) mientras que para t usaríamos (b,0) y (c,1). Analicemos ahora como se haría una consulta. Empecemos con nuestro string s = acdefghijk , queremos encontrar strings que sean similares en $J=0.9$ o mas. Sabemos que como $L_s=10$ entonces $p=2$ por lo que solo consideramos los dos primeros caracteres (shingles) en nuestro string: a y c. Tenemos potencialmente que buscar en 4 buckets: (a,1) (a,2) (c,1) y (c,2) para encontrar documentos candidatos pero en realidad de esas 4 combinaciones hay una que no es posible que es (c,2). Si ya evaluamos (a,1)(a,2) y (c,1) sin encontrar candidatos entonces sabemos que no hay documentos que comiencen con el mismo shingle "a" que s, ya que buscamos (a,1) sin éxito. También sabemos que no hay documentos que comiencen con el segundo shingle de s que es "c" ya que buscamos (c,1) sin éxito y sabemos que no hay documentos que tengan el primer shingle de s en la segunda posición pues hemos buscado (a,2) por lo tanto un documento que tenga a "c" en la segunda posición no puede tener "a" en la primera es decir que vamos a tener al menos 11 shingles en la unión y de estos 11 shingles solo pueden coincidir 9 por lo tanto el documento no puede ser similar con $J=0.9$ un ejemplo es: x=bcdefghijk.
+Supongamos que construimos nuestro índice en base al par ordenado (Shingle,posición). Es decir que para s usaríamos (a,0) y (c,1), mientras que para t usaríamos (b,0) y (c,1). Analicemos ahora cómo se haría una consulta. Empecemos con nuestro string s = acdefghijk. Queremos encontrar strings que sean similares en $J=0.9$ o más. Sabemos que como $L_s=10$ entonces $p=2$, por lo que solo consideramos los dos primeros caracteres (shingles) en nuestro string: a y c. Tenemos potencialmente que buscar en 4 buckets: (a,1) (a,2) (c,1) y (c,2) para encontrar documentos candidatos. Pero en realidad, de esas 4 combinaciones, hay una que no es posible. Esta es (c,2). Si ya evaluamos (a,1), (a,2) y (c,1), sin encontrar candidatos, entonces sabemos que no hay documentos que comiencen con el mismo shingle "a" que s, ya que buscamos (a,1) sin éxito. También sabemos que no hay documentos que comiencen con el segundo shingle de s que es "c", ya que buscamos (c,1) sin éxito. Y sabemos que no hay documentos que tengan el primer shingle de s en la segunda posición pues hemos buscado (a,2), por lo tanto un documento que tenga a "c" en la segunda posición no puede tener "a" en la primera, es decir que vamos a tener al menos 11 shingles en la unión y de estos 11 shingles solo pueden coincidir 9. Por lo tanto, el documento no puede ser similar con $J=0.9$. Un ejemplo es: x=bcdefghijk.
 
 Desarrollemos esto de forma teórica sea $L_s$ la longitud del documento (cantidad de shingles) $J$ la semejanza de Jaccard que buscamos como mínimo, $i$ la posición del shingle en el documento query. Queremos hallar $j$ que es la posición máxima que puede tener el shingle $i$ en un documento candidato a ser similar. 
 
-Para calcular la cota superior para $j$ supongamos que $t$ es un documento cuyos primeros $j-1$ símbolos no matchearon nada en $s$ pero el $i$-esimo símbolo de $s$ es igual al $j$-ésimo símbolo de $t$ la semejanza máxima entre $s$ y $t$ se da cuando todos los símbolos a partir de $i$ y $j$ respectivamente son idénticos.
-Por ejemplo si s=ad* y t=bfd* entonces $i=2$ , $j=3$ y para que la semejanza sea máxima lo que sigue luego de d en ambos strings debería coincidir.
-El tamaño de la intersección es entonces: $L_s-i+1$  y la unión es $L_s+j-1$ Esto es porque $s$ contribuye su longitud $L_s$ a la unión y además hay $j-1$ símbolos que no están en $s$	 por lo tanto la semejanza máxima de Jaccard es:
+Para calcular la cota superior para $j$ supongamos que $t$ es un documento cuyos primeros $j-1$ símbolos no matchearon nada en $s$ pero el $i$-esimo símbolo de $s$ es igual al $j$-ésimo símbolo de $t$. La semejanza máxima entre $s$ y $t$ se da cuando todos los símbolos a partir de $i$ y $j$ respectivamente son idénticos.
+Por ejemplo, si s=ad* y t=bfd* entonces $i=2$ , $j=3$. Para que la semejanza sea máxima lo que sigue luego de d en ambos strings debería coincidir.
+El tamaño de la intersección es entonces: $L_s-i+1$  y la unión es $L_s+j-1$ Esto es porque $s$ contribuye su longitud $L_s$ a la unión y además hay $j-1$ símbolos que no están en $s$. Por lo tanto, la semejanza máxima de Jaccard es:
 
 $$J\leq \frac{L_s-i+1}{L_s+j-1}$$
 
@@ -7949,8 +7955,8 @@ $$j \leq (L_s(1-J)-i+1+J)/J$$
 
 Reemplacemos para verificar que funciona bien en nuestro ejemplo con s= acdefghijk. $L_s=10, J=0.9$
 
-Si $i=1$ entonces $j \leq (10(0.1) - 1 + 1 + 0.9)/0.9$ entonces $j \leq 2.11$ por lo que tenemos que analizar (a,1) y (a,2).
-Si $i=2$ entonces $j \leq (10(0.1) - 2 + 1 + 0.9)/0.9$ entonces $j \leq 1$ por lo que tenemos que analizar (c,1) únicamente.
+Si $i=1$ entonces $j \leq (10(0.1) - 1 + 1 + 0.9)/0.9$ entonces $j \leq 2.11$, por lo que tenemos que analizar (a,1) y (a,2).
+Si $i=2$ entonces $j \leq (10(0.1) - 2 + 1 + 0.9)/0.9$ entonces $j \leq 1$, por lo que tenemos que analizar (c,1) únicamente.
 
 \subsection{Prefijos, Posiciones y Longitud}
 
@@ -7966,26 +7972,26 @@ La cantidad máxima de shingles en la intersección es:
 
 $$L_s-i+1-(p-q)$$
 
-Ya que $L_s=i+p$  la intersección es entonces $q+1$. La unión como mínimo es $L_s+j-1$ igual que antes por lo tanto:
+Ya que $L_s=i+p$ la intersección es entonces $q+1$. La unión como mínimo es $L_s+j-1$, igual que antes. Por lo tanto:
 
 $$J\leq \frac{q+1}{L_s+j-1}$$
 
 \subsubsection{Segundo caso: $p < q$}
 
-Ahora la intersección tiene como máximo $L_s-i+1$ tal y como calculamos cuando no considerábamos los shingles siguientes. Pero la unión ahora cambia y es $K_s+j-1+q-p$. Si usamos de nuevo $L_s = i+p$ podemos reemplazar$L_s-p$ por $i$ y nos queda $i+j-1+q$ por lo tanto:
+Ahora la intersección tiene como máximo $L_s-i+1$ tal y como calculamos cuando no considerábamos los shingles siguientes. Pero la unión ahora cambia y es $K_s+j-1+q-p$. Si usamos de nuevo $L_s = i+p$ podemos reemplazar $L_s-p$ por $i$ y nos queda $i+j-1+q$. Por lo tanto:
 
 $$J\leq \frac{L_s-i+1}{i+j-1+q}$$
 
-Ejemplo: Sea s=acdefghijk y usemos $J=0.8$. Sabemos que $L_s=10$ calculamos la cantidad de shingles a indexar que es igual a 3 por lo que debemos considerar $i=1,2,3$ es decir los shingles a,c,d. Supongamos primero que $p \geq q$
+Ejemplo: Sea s=acdefghijk y usemos $J=0.8$. Sabemos que $L_s=10$, calculamos la cantidad de shingles a indexar que es igual a 3, por lo que debemos considerar $i=1,2,3$, es decir los shingles a,c,d. Supongamos primero que $p \geq q$
 
-Sea $i=1$ entonces $p=9$ por lo tanto $q=9$
+Sea $i=1$ entonces $p=9$, por lo tanto $q=9$
 
 si $q=9$ entonces $10/(9+j)\geq 0.8$ entonces j=1,2,3.
 si $q=8$ entonces $9/(9+j) \geq 0.8$ entonces j=1,2
 si $q=7$ entonces $8/(9+j) \geq 0.9$ entonces j=1
 si $q=6$ no hay valor de j
 
-Por lo tanto aquí deberíamos buscar en los buckets (a,1,9) (a,2,9) (a,3,9) (a,1,8) (a,2,8) (a,1,7)
+Finalmente deberíamos buscar en los buckets (a,1,9) (a,2,9) (a,3,9) (a,1,8) (a,2,8) (a,1,7).
 
 Sea $i=2$ entonces $p=9$ por lo tanto $q\geq 8$. Dado $(q+1)/(9+j)\geq 0.8$ podemos usar el mismo análisis pero excluyendo $q=9$ entonces:
 
@@ -8000,14 +8006,14 @@ Agregamos (d,1,7)
 
 Ahora consideremos $p<q$
 
-si $i=1$ entonces $p=9$ y $q\geq 10$ con $10/(q+j) \geq 0.8$ los posibles valores de $q$ y $j$ son:
+Si $i=1$ entonces $p=9$ y $q\geq 10$ con $10/(q+j) \geq 0.8$. Los posibles valores de $q$ y $j$ son:
 
 $q=10$ y $j=1,2$
 $q=11$ y $j=1$
 
 Agregamos entonces: (a,1,10) (a,2,10) (a,1,11)
 
-Si $i=2$ la única opción es $q=9$ y $j=1$ que ya hemos investigado
+Si $i=2$ la única opción es $q=9$ y $j=1$, que ya hemos investigado
 
 Si $i=3$ entonces no hay soluciones.
 
@@ -8016,18 +8022,18 @@ Si $i=3$ entonces no hay soluciones.
 \includegraphics[width=3in]{figures/lsh-fig-14.png}
 
 \caption{LSH para distancias muy pequeñas}
-\label{fig:lshdists}
+\label{fig:lsh_distspeq}
 \end{figure}
 
-La figura ~\ref{fig:lshdists} muestra el total de buckets a buscar que son 14. 
+La figura ~\ref{fig:lsh_distspeq} muestra el total de buckets a buscar que son 14. 
 
-Con este método la cantidad de falsos positivos encontrados en cada bucket disminuye sensiblemente, el contrapunto es la cantidad de espacio necesario ya que usamos una cantidad de buckets mucho mayor al usar 3 dimensiones para indexar los mismos.
+Con este método la cantidad de falsos positivos encontrados en cada bucket disminuye sensiblemente. El contrapunto es la cantidad de espacio necesario ya que usamos una cantidad de buckets mucho mayor al usar 3 dimensiones para indexar los mismos.
 
-Notemos que el método descripto en todas sus variantes puede tener falsos positivos pero nunca falsos negativos lo cual es una condición muy deseable.
+Notemos que el método descripto en todas sus variantes puede tener falsos positivos pero nunca falsos negativos, lo cual es una condición muy deseable.
 
 \section{LSH forests}
 
-Presentamos ahora una idea reciente \cite{Bawa} en la cual usamos LSH para construir un árbol binario de búsqueda. La idea consiste en convertir cada minhash en un 0 o 1, por ejemplo según sea par o impar e ir insertando los datos en un árbol binario de búsqueda, para cada dato generamos tantos minhashes como sean necesarios para que la concatenación de todos sus minhashes sea una cadena única es decir que le corresponda una hoja del árbol. Eventualmente puede ser necesario generar muchísimos minhashes por lo que es conveniente fijar una longitud máxima para la cantidad de minhashes que puede tener un dato, en este caso puede ocurrir que una hoja del árbol tenga mas de un dato pero en general serán muy pocos.
+Presentamos ahora una idea reciente \cite{Bawa} en la cual usamos LSH para construir un árbol binario de búsqueda. La idea consiste en convertir cada minhash en un 0 o 1, por ejemplo, según sea par o impar, e ir insertando los datos en un árbol binario de búsqueda. Para cada dato generamos tantos minhashes como sean necesarios para que la concatenación de todos sus minhashes sea una cadena única, es decir que le corresponda una hoja del árbol. Eventualmente puede ser necesario generar muchísimos minhashes por lo que es conveniente fijar una longitud máxima para la cantidad de minhashes que puede tener un dato. En este caso puede ocurrir que una hoja del árbol tenga más de un dato, pero en general serán muy pocos.
 
 \begin{figure}[!htb]
 \centering
@@ -8040,7 +8046,7 @@ Al igual que en LSH tradicional es conveniente crear no uno sino varios árboles
 
 A la hora de buscar resultados en base a un cierto query vamos aplicando los minhashes al dato y navegando en paralelo todos los árboles de nuestro forest hasta llegar en cada uno a la hoja que comparte el prefijo de mayor longitud con nuestro dato. Una vez que llegamos hasta la hoja correspondiente en cada forest podemos recuperar el o los datos que se encuentren en dicha hoja y luego hacer backtracking hacia arriba en cada árbol para ir recuperando otros datos hasta tener una cantidad suficiente de acuerdo a lo que estemos haciendo.
 
-Esta es una estructura bastante eficiente en el cual organizamos cada tabla de hash como un árbol binario de búsqueda, como contrapunto necesitamos generar una cantidad de minhashes muy superior a los que necesitamos en LSH tradicional.
+Esta es una estructura bastante eficiente en el cual organizamos cada tabla de hash como un árbol binario de búsqueda. Como contrapunto necesitamos generar una cantidad de minhashes muy superior a los que necesitamos en LSH tradicional.
 
 \chapter{Reducción de Dimensiones}
 
@@ -14528,8 +14534,8 @@ La figura \ref{fig:nmf_mnist} muestra las partes de los trazos a partir de las c
 
 Un sistema de recomendaciones tiene como objetivo descubrir contenidos que puedan ser
 interesantes para el usuario. Estos contenidos pueden ser de cualquier tipo: películas, música,
-libros, noticias, productos, etc. En el apunte usaremos películas como contenido por
-conveniencia pero todos los temas que veremos se aplican de la misma forma a cualquier otro
+libros, noticias, productos, etc. A modo de ejemplo, en este apunte usaremos películas como contenido por
+conveniencia. Sin embargo, todos los temas que veremos se aplican de la misma forma a cualquier otro
 tipo de contenidos.
 
 Los sistemas de recomendaciones en general tienen el enorme objetivo de transformar la forma
@@ -14537,17 +14543,17 @@ en la que los usuarios utilizan internet cambiando un modelo basado en “búsqu
 modelo basado en “descubrimiento”.
 
 En un modelo basado en búsquedas los usuarios usan motores de búsqueda como Google o
-Bing(?) para encontrar contenidos de interés, en un modelo basado en descubrimiento un
+Bing(?) para encontrar contenidos de interés. En un modelo basado en descubrimiento un
 sistema de recomendaciones descubre contenidos que pueden ser de interés para el usuario y
-se los acerca. Es decir que en lugar de hacer que el usuario busque los contenidos hacemos
-que los contenidos lleguen al usuario. El cambio filosófico es fundamental.
+se los presenta: En lugar de hacer que el usuario busque los contenidos hacemos
+que estos lleguen al usuario. El cambio filosófico es fundamental.
 
 Una diferencia fundamental entre un modelo de búsqueda y un modelo de descubrimiento es
-que en una búsqueda los usuarios deben saber que es lo que quieren encontrar, en cambio en
+que en una búsqueda los usuarios deben saber que es lo que quieren encontrar. En cambio en
 un modelo de descubrimiento el usuario encuentra cosas que no sabía que existían. Este tema
 es muy importante ya que sin un sistema de recomendaciones adecuado los usuarios no
-podrían acceder a los contenidos que no conocen y como veremos más adelante en general
-hay muchos más contenidos desconocidos que conocidos.
+podrían acceder a los contenidos que no conocen, quedando limitados solamente a lo conocido.
+Como veremos más adelante en general hay muchos más contenidos desconocidos que pueden ser de interés o relevancia para el usuario que los conocidos.
 
 \section{Características de un Sistema de Recomendaciones}
 
@@ -14562,26 +14568,27 @@ listamos a continuación:
 
 \subsection{Precisión}
 
-La precisión apunta a recomendarle al usuario contenidos que sea de su interés. Un buen
+La precisión apunta a recomendarle al usuario contenidos que sean de su interés. Un buen
 sistema de recomendaciones no debe recomendar al usuario cosas que al mismo no van a
-interesarle, el efecto de ésto puede ser catastrófico ya que el usuario deja de confiar en el
-sistema e ignora los productos recomendados.
+interesarle. El efecto de ésto puede ser catastrófico ya que el usuario deja de confiar en el
+sistema e ignora los productos o contenidos recomendados.
 
 La mayoría de los sistemas de recomendación se enfocan fuertemente en lograr una alta
-precisión, ésto es muy importante pero, como veremos, no es lo único que debemos
+precisión. Mas alla de que ésto es muy importante como veremos, no es lo único que debemos
 considerar.
 
 
 \subsection{Serendipity}
 
 El concepto de “serendipity” puede resumirse brevemente cómo: “no mostrarle al usuario
-contenidos que el usuario ya conoce o que puede descubrir fácilmente por sus propios medios”.
+contenidos que ya conoce o que puede descubrir fácilmente por sus propios medios”.
 
 Esto es equivalente a decir que el sistema debe ser capaz de recomendarle al usuario
 contenidos que no son muy populares en general.
-Este principio, que es de gran importancia, está asociado a la forma en la cuál se distribuye la
-popularidad de los contenidos en todos los sistemas de recomendaciones. Se verifica como ley
-que existen unos pocos contenidos que son muy populares y una enorme cantidad de
+
+Este principio, de gran importancia, está asociado a la forma en la cuál se distribuye la
+popularidad de los contenidos en todos los sistemas de recomendaciones. 
+Se verifica como ley que existen unos pocos contenidos que son muy populares y una enorme cantidad de
 contenidos que tienen baja popularidad. Esto se conoce como el principio del “Long Tail”.
 
 Si graficamos la cantidad de ítems en el eje “x” y la popularidad de los mismos en el eje “y”
@@ -14594,17 +14601,14 @@ independientemente del tipo contenido obtenemos algo de la siguiente forma:
 
 \end{figure}
 
-La distribución tiene la forma de un “power law” es decir y = x que no debemos confundir
+La distribución tiene la forma de un “power law” es decir y = x. Es importante no confundirla
 con una distribución exponencial.
 
 El “long tail” hace referencia a la enorme cantidad de productos que no son muy populares y es
-a estos productos a donde debe apuntar un sistema de recomendaciones. Los motivos son
-varios. En primer lugar los productos populares son conocidos y el usuario o bien ya los conoce
-o bien puede encontrarlos fácilmente. En segundo lugar la cantidad de contenidos poco
-populares es muy grande por lo que recomendándolos de forma eficiente podemos incrementar
-mucho la utilidad de nuestro sistema. Finalmente hay que destacar que estos productos poco
-populares son el diferencial entre las ventas online y las ventas tradicionales, ya que los
-negocios tradicionales no suelen tener la enorme variedad que tienen los sistemas online
+a estos donde debe apuntar sus sugerencias un sistema de recomendaciones. 
+Los motivos son diversos. En primer lugar los productos populares son conocidos, presentandose dos situacionesÑ el usuario o bien ya los conoce o puede encontrarlos fácilmente. 
+En segundo lugar la cantidad de contenidos poco populares es muy grande por lo que recomendándolos de forma eficiente podemos incrementar mucho la utilidad de nuestro sistema. 
+Finalmente hay que destacar que estos productos poco populares son el diferencial entre las ventas online y las ventas tradicionales, ya que los negocios tradicionales no suelen tener la enorme variedad que tienen los sistemas online.
 
 \begin{figure}[!htb]
 \centering
@@ -14613,19 +14617,19 @@ negocios tradicionales no suelen tener la enorme variedad que tienen los sistema
 
 \end{figure}
 
-En este ejemplo podemos ver que la música de “Britney Spears” es muy popular (el mundo
-está perdido), a los usuarios a quienes les gusta Britney suele gustarles Pink, pero recomendar
+En el ejemplo de la imagen podemos ver que la música de “Britney Spears” es muy popular (el mundo
+está perdido). A los usuarios a quienes les gusta Britney suele gustarles Pink. Sin embargo, recomendar
 música de Pink no tiene un gran atractivo porque Pink es una cantante muy popular y casi
 todos los usuarios la conocen. En cambio es más interesante recomendar temas de “No Doubt”
-o aun mejor de “The Selecter”. Si en éste preciso instante están buscando algún tema de “The
+o aun mejor de “The Selecter”. Si al momento de leer esto están buscando algún tema de “The
 Selecter” para ver de que se trata entonces habrán comprendido completamente el principio de
 “the long tail” y la importancia del principio de “serendipity” en un sistema de recomendaciones.
 
 \subsection{Diversidad}
 
 La diversidad apunta a no mostrarle al usuario contenidos que son exclusivamente de un
-mismo tipo. Si nuestros contenidos pudieran dividirse, de alguna forma, en categorías no es
-una buena idea recomendarle al usuario productos de una única y exclusiva categoría. Por
+mismo tipo. Si nuestros contenidos pudieran dividirse de alguna forma, por ejemplo en categorías, no es
+una buena idea recomendarle al usuario productos de una única y exclusiva. Por
 ejemplo no sería bueno recomendarle al usuario únicamente películas bélicas.
 
 \begin{figure}[!htb]
@@ -14649,7 +14653,7 @@ podemos sacar sobre ésto?. Tal vez el usuario se ha hartado de la ciencia ficci
 ahora leer sobre arte en cuyo caso deberíamos recomendarle libros sobre arte. O tal vez el
 usuario es simplemente un fan de la ciencia ficción que tuvo que leer algunos libros sobre
 historia del arte para una materia que está estudiando en la facultad. En cuyo caso deberíamos
-seguir recomendando libros de ciencia ficción. Como vemos éste problema es de difícil
+seguir recomendando libros de ciencia ficción. Éste problema es de difícil
 resolución porque en escenarios idénticos la mejor acción puede ser totalmente opuesta para
 dos usuarios.
 
@@ -14665,9 +14669,8 @@ años puede o no que siga pensando lo mismo pero sin dudas el peso de esta calif
 tan relevante hoy en día como lo fue hace dos años.
 
 Por otro lado se puede verificar que cuando una película es nueva sus calificaciones tienden a
-ser al principio más altas. Esto es fácil de explicar porque los usuarios consideran a que la
-película es una novedad como parte de la calificación. Una película que es muy esperada por
-los usuarios y que es muy mala tendrá al principio calificaciones mucho más altas que luego de
+ser al principio más altas. Esto es fácil de explicar porque los usuarios consideran a la novedad de la misma como parte de la calificación. Una película que es muy esperada por
+los usuarios y que es muy mala tendrá al principio calificaciones mucho más altas que las que tendrá luego de
 un tiempo simplemente por el factor de ansiedad. Los usuarios tardan un cierto tiempo en darse
 cuenta que aquello por lo que tanto esperaron en realidad es muy malo.
 
@@ -14679,7 +14682,7 @@ El famoso caso de “voy a ver una película mala para reírme un rato”. Model
 comportamiento en un sistema de recomendaciones es algo que, como podrán imaginar,
 resulta terriblemente difícil.
 
-\subsubsection{Lo que el usuario califica vs lo que el usuario ve}
+\subsubsection{Lo que el usuario califica vs. lo que el usuario ve}
 
 En los sitios en los cuáles el usuario puede calificar los contenidos se da a veces, en algunos
 usuarios (por suerte no en todos) un comportamiento muy particular. El usuario consume
@@ -14687,8 +14690,8 @@ contenido de un determinado tipo y sistemáticamente lo califica con bajos punta
 ejemplo el usuario ve en su mayoría comedias románticas pero les suele poner una o dos
 estrellitas. ¿Por qué pasa esto?
 
-Lo que ocurre es que el usuario piensa que el sistema de recomendaciones es para realizar
-una crítica artística de las películas y no para decir su opinión personal sobre las mismas. “A mi
+En esta situación el usuario piensa que el sistema de recomendaciones es para realizar
+una crítica artística de las películas y no para brindar su opinión personal sobre las mismas. “A mi
 esta película me gusta, pero como creo que no es muy buena le pongo 2 estrellitas”.
 
 Esto puede modelarse comparando lo que el usuario consume con las calificaciones del mismo
@@ -14699,27 +14702,31 @@ sistemas de recomendaciones.
 
 \section{Sistemas No Personalizados}
 
-Una primera aproximación a un sistema de recomendaciones consiste en recomendarle a todos los usuarios las mismas cosas, es decir suponer que la opinión de los usuarios como grupo es suficiente para recomendarle ítems a cualquiera de ellos. Un buen ejemplo de esto son sistemas del estilo de Tripadvisor en donde las recomendaciones dependen exclusivamente del promedio de calificaciones que todos los usuarios hicieron de cada ítem, a todos los usuarios se les muestra luego las mismas recomendaciones.
+Una primera aproximación a un sistema de recomendaciones consiste en recomendarle a todos los usuarios las mismas cosas, es decir suponer que la opinión de los usuarios como grupo es suficiente para recomendarle ítems a cualquiera de ellos. Un buen ejemplo de esto son sistemas del estilo de Tripadvisor. En ellos las recomendaciones dependen exclusivamente del promedio de calificaciones que todos los usuarios hicieron de cada ítem, luego mostrándole a todos los usuarios las mismas recomendaciones.
 
-Vamos a usar como ejemplo de un sistema no-personalizado a Reddit en donde es necesario ordenar tanto los comentarios de las noticias como las noticias que van a aparecer en la página principal. Recomendar noticias es mas complejo que recomendar comentarios porque las noticias envejecen, es decir son afectadas por el factor tiempo mientras que los comentarios son atemporales, queremos mostrar los mejores comentarios primero independientemente del momento en que fueron realizados.
+Vamos a usar como ejemplo de un sistema no-personalizado a Reddit en donde es necesario ordenar tanto los comentarios de las noticias como las noticias que van a aparecer en la página principal. Recomendar noticias es mas complejo que recomendar comentarios porque las noticias envejecen. Estas son afectadas por el factor tiempo mientras que los comentarios son atemporales: Queremos mostrar los mejores comentarios primero independientemente del momento en que fueron realizados.
 
 \subsection{Recomendando Comentarios en Reddit}
 
-En Reddit los usuarios pueden comentar noticias y además pueden votar a favor (upvote) o en contra (downvote) de cada comentario realizado, este sistema de upvotes y downvotes aplica en muchas situaciones por lo que es interesante estudiarlo. El objetivo es muy simple: mostrar los comentarios ordenados desde el mejor al peor, vamos a ver que esta tarea aunque muy simple puede resultar compleja y para demostrar esto vamos a comenzar con algunas ideas simples que lamentablemente no funcionan.
+En Reddit los usuarios pueden comentar noticias y además pueden votar a favor (upvote) o en contra (downvote) de cada comentario realizado. Este sistema de upvotes y downvotes aplica en muchas situaciones por lo que es interesante estudiarlo. El objetivo es muy simple: mostrar los comentarios ordenados desde el mejor al peor. 
+Vamos a ver que esta tarea aunque muy simple puede resultar compleja y para demostrar esto vamos a comenzar con algunas ideas simples que, lamentablemente, no funcionan.
 
-\subsubsection{Primera Aproximación Diferencia entre Upvotes y Downvotes}
+\subsubsection{Primera Aproximación: Diferencia entre Upvotes y Downvotes}
 
-En este esquema le damos un puntaje a su comentario de la forma $\text{Upvotes}-\text{Downvotes}$ el problema de esta aproximación es bastante simple, supongamos que un comentario $X$ tiene 200 upvotes y 100 downvotes, es decir un total de $2/3$ de votos positivos mienstras que otro comentario $Y$ tiene 3500 comentarios positivos y 3300 comentarios negativos, es decir un total de 51.8\% de comentarios positivos. El primer comentario debería aparecer primero por tener mayor proporción de upvotes pero con nuestra fórmula el score del primero es 100 y el score del segundo es 200, es decir que un comentario que tiene menor proporción de votos positivos que otro tiene el doble de puntaje. Claramente esto no está bien. La forma intuitiva de corregir esto es calculando la proporción de votos positivos sobre el total.
+En este esquema le damos un puntaje a su comentario de la forma $\text{Upvotes}-\text{Downvotes}$ el problema de esta aproximación es bastante simple. Supongamos que un comentario $X$ tiene 200 upvotes y 100 downvotes, es decir un total de $2/3$ de votos positivos mientras que otro comentario $Y$ tiene 3500 comentarios positivos y 3300 comentarios negativos, es decir un total de 51.8\% de comentarios positivos. El primer comentario debería aparecer primero por tener mayor proporción de upvotes. Sin embargo con nuestra fórmula el score del primero es 100 y el del segundo 200, es decir que un comentario que tiene menor proporción de votos positivos que otro tiene el doble de puntaje. Claramente esto no está bien. La forma intuitiva de corregir esto es calculando la proporción de votos positivos sobre el total.
 
-\subsubsection{Seugunda Aproximación Proporción de Upvotes sobre el total}
+\subsubsection{Segunda Aproximación: Proporción de Upvotes sobre el total}
 
-Calcularemos el puntaje de cada comentario con la fórmula $\text{Upvotes}/\text{Upvotes}+\text{Downvotes}$ esto nos da la proporción de votos positivos sobre el total que aparentemente podemos usar para rankear los comentarios. Lamentablemente esta aproximación también está mal, supongamos que un comentario tiene 2 votos positivos y ningún voto negativo mientras que otro comentario tiene 100 votos positivos y un voto negativo. En nuestra fórmula el primero tiene 100\% de votos positivos y estaría adelante del segundo que tiene "sólo" un 99\% de votos positivos. 
+Calcularemos el puntaje de cada comentario con la fórmula $\text{Upvotes}/\text{Upvotes}+\text{Downvotes}$ esto nos da la proporción de votos positivos sobre el total que aparentemente podemos usar para rankear los comentarios. Lamentablemente, esta aproximación también está mal. Supongamos que un comentario tiene 2 votos positivos y ningún voto negativo mientras que otro comentario tiene 100 votos positivos y un voto negativo. En nuestra fórmula el primero tiene 100\% de votos positivos y estaría adelante del segundo que tiene "sólo" un 99\% de votos positivos. 
 
-Estamos siendo víctimas de la ecuación mas peligrosa de la historia, que hace nuevamente una aparición para complicar las cosas. Los comentarios con pocos votos van a ser tanto los peores como los mejores porque tienen muy pocos votos pero mucha varianza. Una posible solución es filtrar los comentarios con pocos votos pero esto no es posible en Reddit porque no podemos hacer que los comentarios simplemente desaparezcan(!). Necesitamos entonces una fórmula que corrija el score de los comentarios de acuerdo a la variabilidad de los mismos. Y la solución para esto no es precisamente del todo simple....
+Una vez mas, estamos siendo víctimas de la ecuación mas peligrosa de la historia, que nuevamente hace su aparición para complicar las cosas. Los comentarios con pocos votos van a ser tanto los peores como los mejores porque tienen muy pocos votos pero mucha varianza. Una posible solución es filtrar los comentarios con pocos votos pero esto no es posible en Reddit porque no podemos hacer que los comentarios simplemente desaparezcan(!). Necesitamos entonces una fórmula que corrija el score de los comentarios de acuerdo a la variabilidad de los mismos. Y la solución para esto no es precisamente del todo simple....
 
 \subsection{Intervalos de Confianza}
 
-La pregunta que nos queremos hacer es de la forma: "Dados los upvotes y downvotes que tenemos, queremos saber con una confianza del 95\% cual es el límite inferior para la probabilidad de que el comentario sea positivo." Esto es equivalente a determinar si una moneda está desbalanceada en base a la cantidad de caras y secas que obtenemos. Si vemos 100 caras y 1 seca pensaremos que la moneda no es legal mientras que 2 caras y 0 secas no nos dan tanta confianza. El problema se reduce entonces al cálculo del intervalo de confianza para un proceso de tipo Bernoulli, tema que se puede solucionar de forma sencilla con la fórmula de Wilson para el cálculo de intervalos de confianza en una distribución Bernoulli.
+La pregunta que nos queremos hacer es de la forma: "Dados los upvotes y downvotes que tenemos, queremos saber con una confianza del 95\% cual es el límite inferior para la probabilidad de que el comentario sea positivo.".
+Esto es equivalente a determinar si una moneda está desbalanceada en base a la cantidad de caras y secas que obtenemos. Por ejemplo luego experimentar con la moneda, si vemos 100 caras y 1 seca pensaremos que la moneda no es legal. Por otro lado si solamente tiraramos la moneda 2 veces y vieramos 2 caras, y ninguna secas, no tendriamos tanta confianza en decir que la moneda esta cargada. 
+
+El problema se reduce entonces al cálculo del intervalo de confianza para un proceso de tipo Bernoulli. Esto se puede solucionar de forma sencilla con la fórmula de Wilson para el cálculo de intervalos de confianza en una distribución Bernoulli.
 
 Vamos a definir a $p = U / U+D$ como la proporción de upvotes. Y $n=U+D$ como el total de votos. La fórmula de Wilson es entonces:
 
@@ -14754,14 +14761,17 @@ Usando esta fórmula podemos calcular la probabilidad de que un comentario sea p
 }
 \end{table}
 
-En la tabla podemos ver que la probabilidad de que el comentario sea positivo es el valor que podemos usar para ordenar los comentarios que mostramos al usuario. Este es el sistema usado por Reddit para evitar caer en la ecuación mas peligrosa de la historia. El mismo sistema puede aplicarse en todos los casos en los cuales tengamos un sistema con votos a favor y en contra o positivos y negativos, es decir cualquier proceso tipo Bernoulli. Por ejemplo si votamos si un Tweet es interesante o no podemos ordenar Tweets de acuerdo a la probabilidad de que sean interesantes, o estimar la probabilidad de que un texto sea Spam o no en base a la opinión de los usuarios, etc.
+En la tabla podemos ver que la probabilidad de que el comentario sea positivo es el valor que podemos usar para ordenar los comentarios que mostramos al usuario. Este es el sistema usado por Reddit para evitar caer en la ecuación mas peligrosa de la historia. 
+
+El mismo sistema puede aplicarse en todos los casos en los cuales tengamos un sistema con votos a favor y en contra o positivos y negativos, es decir cualquier proceso tipo Bernoulli. Por ejemplo si votamos si un Tweet es interesante o no podemos ordenar Tweets de acuerdo a la probabilidad de que sean interesantes, o estimar la probabilidad de que un texto sea Spam o no en base a la opinión de los usuarios, etc.
+
 La belleza del sistema radica en que las probabilidades nos dan un ordenamiento independientemente del volumen de votos que haya en el sistema y de que haya ítems con muchos mas votos que otros debido a su popularidad.
 
 \subsection{Ordenando las noticias en Reddit}
 
-El homepage de Reddit es una pieza crítica para el éxito del sitio, la idea es mostrar las noticias ordenadas por importancia, esto es claramente un sistema de recomendaciones no-personalizado ya que estamos recomendando noticias a los usuarios pero a todos los usuarios les recomendamos las mismas noticias.
+El homepage de Reddit es una pieza crítica para el éxito del sitio: la idea de la misma es mostrar las noticias ordenadas por importancia. Esto es un sistema de recomendaciones no-personalizado ya que estamos recomendando noticias a los usuarios pero a todos los usuarios les recomendamos las mismas noticias.
 
-Los factores ue influyen en la dificultad del sistema radican en la edad de las noticias. Si basamos el score de cada noticia en la misma fórmula que usamos para los comentarios entonces las noticias nuevas son penalizadas por no tener muchos votos. Por otro lado a medida que pasa el tiempo queremos que el score de las noticias disminuya ya que las noticias van perdiendo relevancia a medida que pasa el tiempo. Estas diferencias hacen que, para ordenar las noticias, necesitemos una fórmula completamente diferente a la que usamos en los comentarios.
+Los factores que influyen en la dificultad del sistema radican en la edad de las noticias. Si basamos el score de cada noticia en la misma fórmula que usamos para los comentarios entonces las noticias nuevas son penalizadas por no tener muchos votos. Por otro lado, a medida que pasa el tiempo queremos que el score de las noticias disminuya. Esto se debe a que las noticias irán perdiendo relevancia a medida que pasa el tiempo. Estas diferencias hacen que, para ordenar las noticias, necesitemos una fórmula completamente diferente a la que usamos en los comentarios.
 
 \begin{figure}[!htb]
 \centering
@@ -14796,7 +14806,7 @@ p = \frac{U+1}{U+D+2}
 
 Esta es una estimación bayesiana generada a partir de una distribución beta con parámetros 1 y 2 (ver capítulo 1). 
 
-Para $q$ que es la probabilidad de que una noticia sea nueva podemos usar la suposición que hicimos acerca de las visitas de los usuarios al sitio, si los usuarios visitan Reddit cada $S$ segundos tenemos un proceso de tipo Poisson con una tasa de arribo de $\lambda = 1/S$. La probabilidad de que hayan pasado al menos $S$ segundos desde la última visita es entonces $q$ y se calcula como:
+Para $q$ que es la probabilidad de que una noticia sea nueva podemos usar la suposición que hicimos acerca de las visitas de los usuarios al sitio. Si los usuarios visitan Reddit cada $S$ segundos tenemos un proceso de tipo Poisson con una tasa de arribo de $\lambda = 1/S$. La probabilidad de que hayan pasado al menos $S$ segundos desde la última visita es entonces $q$ y se calcula como:
 
 \begin{myequation}
 q = e^{-\lambda t}
@@ -14814,7 +14824,7 @@ Podemos asumir que para las noticias viejas no obtenemos ninguna ganancia (c=d=0
 u(U,D,t) = \frac{U+1}{U+D+2} e^{-\lambda t} - \frac{D+1}{U+D+2} e^{-\lambda t}
 \end{myequation}
 
-Simplificanding...
+Simplificando...
 
 \begin{myequation}
 u(U,D,t) = \frac{U-D}{U+D+2} e^{-\lambda t}
@@ -14839,7 +14849,8 @@ Podemos demostrar que la fórmula de Reddit corresponde a la fórmula de utilida
 \section{Sistemas Basados en Contenidos (Content Based)}
 
 En un sistema de recomendaciones basado en contenidos el objetivo es recomendarle al usuario ítems similares a aquellos que le han gustado.
-Por cada ítem es necesario construir un \text{it} profile que es un vector que representa las características del ítem. Imaginemos que este vector es binario es decir que cada feature puede ser 1 o 0. Podemos usar como features cosas del estilo "película es de acción", "dirigida por Q. Tarantino","duración menor a 120 minutos", "año de estreno 2014", etc. El vector puede tener realmente muchas dimensiones a veces miles.
+
+Por cada ítem es necesario construir un \text{it} profile, un vector que representa las características del ítem. Imaginemos que este vector es binario es decir que cada feature puede ser 1 o 0. Podemos usar como features cosas del estilo "película es de acción", "dirigida por Q. Tarantino","duración menor a 120 minutos", "año de estreno 2014", etc. El vector puede tener realmente muchas dimensiones a veces miles.
 
 Por cada usuario podemos también construir un profile que es un vector de igual cantidad de dimensiones, luego cuando un usuario califica una película sumamos el puntaje a aquellas dimensiones para las cuales la película tiene un "1" en su feature. Por ejemplo si el usuario califica con un "5" a "Pulp Fiction" vamos a sumar 5 a la dimension que corresponde a "película de acción", "dirigida por Q. Tarantino", "con Bruce Willis", etc. 
 
@@ -14849,25 +14860,25 @@ Teniendo el profile de cada ítem y de cada usuario podemos estimar la calificac
 cos \theta = \frac{xy}{||x|| ||y||}
 \end{myequation}
 
-Eventualmente hay que hacer algunas cuentas, por ejemplo podemos normalizar a todos los vectores para que tengan norma = 1 y entonces el resultado del coseno es una semejanza entre 0 y 1, si la semejanza va de 0 a 1 podemos multiplicar por la calificación máxima para estimar una calificación.
+Eventualmente hay que hacer algunas cuentas: Podemos normalizar a todos los vectores para que tengan norma = 1 y entonces el resultado del coseno es una semejanza entre 0 y 1. Si la semejanza va de 0 a 1 podemos multiplicar por la calificación máxima para estimar una calificación.
 
 
-Los sistemas basados en contenido tienen varias ventajas: 
+Los sistemas basados en contenido poseen varias ventajas: 
 
 \begin{itemize}
-\item Solo necesitan la información del usuario para realizarle recomendaciones, es decir puede haber un único usuario y el sistema funciona. 
+\item Solo necesitan la información del usuario para realizarle recomendaciones, es decir que puede haber un único usuario y el sistema funciona. 
 \item Tienen la habilidad de detectar los gustos particulares de los usuarios. 
 \item Pueden recomendar ítems que sean nuevos o que no sean populares, solo se necesita tener el profile del ítem.
-\item Pueden explicar el motivo de sus recomendaciones, listando cuales son los features que hicieron que el ítem sea recomendado
+\item Pueden explicar el motivo de sus recomendaciones, listando cuales son los features que hicieron que el ítem sea recomendado.
 \end{itemize}
 
 Entre las desventajas podemos encontrar:
 
 \begin{itemize}
-\item Encontrar los features necesarios para construir los profiles es algo realmente difícil
-\item No puede recomendar nada a los usuarios nuevos ya que estos no tienen profile
-\item No pueden recomendar ítems que no estén dentro de los gustos del usuario, son sistemas que pueden quedar sobre-especializados
-\item No tienen la posibilidad de usar la opinión de otros usuarios sobre los ítems
+\item Encontrar los features necesarios para construir los profiles es algo realmente difícil.
+\item No puede recomendar nada a los usuarios nuevos ya que estos no tienen profile.
+\item No pueden recomendar ítems que no estén dentro de los gustos del usuario de forma que son sistemas que pueden quedar sobre-especializados.
+\item No tienen la posibilidad de usar la opinión de otros usuarios sobre los ítems.
 \end{itemize}
 
 Los sistemas basados en contenidos pueden funcionar muy bien pero son bastante difíciles de crear y mantener principalmente por la necesidad de seleccionar todos los features necesarios para construir un profile. En general no son tan populares como los sistemas basados en collaborative filtering.
@@ -14876,7 +14887,7 @@ Los sistemas basados en contenidos pueden funcionar muy bien pero son bastante d
 \section{Collaborative Filtering}
 
 Sean “n” usuarios y “m” ítems. Los usuarios califican los ítems con un número de 1 a 5.
-Podemos representar esto en una matriz de nxm que denominaremos “matriz de utilidad"
+Podemos representar esto en una matriz de $$nxm$$ que denominaremos “matriz de utilidad"
 
 \begin{figure}[!htb]
 \centering
@@ -14885,12 +14896,12 @@ Podemos representar esto en una matriz de nxm que denominaremos “matriz de uti
 
 \end{figure}
 
-Notemos que la matriz tiene muchos “huecos” porque de todas las calificaciones posibles solo
+Notemos que la matriz tiene muchos “huecos”. Esto se debe a que de todas las calificaciones posibles solo
 existen algunas pocas. Esto es en cierta forma similar a decir que la matriz es dispersa pero no
-es exactamente lo mismo ya que los elementos que faltan no son ceros sino que son números
-desconocidos.
+es exactamente lo mismo: Los elementos que faltan \textbf{no son ceros sino que son números
+desconocidos}.
 
-El objetivo de Collaborative Filtering es estimar las calificaciones que nos faltan en la matriz de
+El objetivo de Collaborative Filtering (CF) es estimar las calificaciones que nos faltan en la matriz de
 utilidad.
 
 CF tiene dos formas de estimar las calificaciones que faltan:
@@ -14900,10 +14911,10 @@ CF tiene dos formas de estimar las calificaciones que faltan:
 \item Semejanza entre ítems
 \end{itemize}
 
-\subsection{Semejanza User User}
+\subsection{Semejanza entre usuarios (User User)}
 
 Supongamos que queremos estimar las calificaciones que le faltan al usuario “i”. Lo que
-hacemos es buscar los usuarios mas similares a “i” y luego estimar las calificaciones que faltan
+hacemos es buscar los usuarios mas similares a “i” y luego estimar las calificaciones faltantes
 en base a un promedio ponderado de las calificaciones de los demás usuarios ponderadas de
 acuerdo a la semejanza que tengan con nuestro usuario “i”.
 
@@ -14933,11 +14944,13 @@ $ x = (2,NA,2,4,5,NA) \rightarrow \mu = 3.25 \rightarrow (1.25,NA,1.25,0.75,1.75
 Para un usuario dado, por ejemplo el u5 en nuestra matriz podemos calcular la semejanza con
 todos los demás usuarios usando el coseno, luego de restar el promedio a cada calificación.
 
-sim(5,1) = 0.27
-sim(5,2) = 0.72
-sim(5,3) = 0.5
-sim(5,4) = 0.13
-sim(5,6) = NA
+\begin{verbatim}
+  sim(5,1) = 0.27
+  sim(5,2) = 0.72
+  sim(5,3) = 0.5
+  sim(5,4) = 0.13
+  sim(5,6) = NA
+\end{verbatim}
 
 (suponer que estas cuentas están bien)
 
@@ -14947,25 +14960,25 @@ Ahora podemos calcular cada calificación faltante usando la siguiente fórmula:
 r_{xi} = \frac{\sum_{y \in N} s_{xy} r_{yi}}{\sum_{y \in N} s_{xy}}
 \end{myequation}
 
-En donde $N$ es el conjunto de los  $N$ usuarios más similares al que queremos estimar y $r_{yi}$ es el
+En donde $N$ es el conjunto de los $N$ usuarios más similares al que queremos estimar y $r_{yi}$ es el
 rating del usuario “y” para la película “i”.
 
-Por ejemplo podemos usar $N=2$ para tomar los dos usuarios mós similares al que nos interesa.
+Por ejemplo podemos usar $N=2$ para tomar los dos usuarios más similares al que nos interesa.
 
 En el caso de la primera película del usuario 5 tenemos que el único usuario que la ha
 calificado y que tiene semejanza positiva con nuestro usuario es el 2. Por lo tanto la cuenta es:
 $(5*0.72)/0.72 = 5$
 
 Es decir que estimamos que al usuario 5 le va a gustar mucho Sherlock porque Sherlock le ha
-gustado mucho al usuario 2 que es similar al 1. 
+gustado mucho al usuario 2 que es similar al 5. 
 
 Nota de implementación: Para tomar los “N” usuarios más parecidos al usuario al cuál le
 queremos recomendar podemos usar LSH que como sabemos implica tiempo sublineal.
 
-\subsection{Semejanza Item Item}
+\subsection{Semejanza entre ítems (Item Item)}
 
 En esta variante lo que vamos a hacer para estimar la calificación de un usuario para un ítem
-es buscar los ítems mas parecidos al que queremos estimar y que haya calificado el usuario.
+es buscar los ítems mas parecidos al que queremos estimar y que haya sido calificados por el usuario.
 Luego estimamos la calificación haciendo un promedio ponderado entre las calificaciones del
 usuario para estos ítems y la semejanza que tienen con el ítem que queremos estimar.
 
@@ -14992,7 +15005,7 @@ modelo ítem-ítem vamos a restar el promedio del ítem (película).
 
 \end{figure}
 
-Usando N=2 tomamos que las dos películas más similares a la 1 son la 6 con semejanza 0.59
+Usando $N=2$ tomamos que las dos películas más similares a la 1 son la 6 con semejanza 0.59
 y la 3 con semejanza 0.41. Por lo tanto estimamos la calificación del usuario 5 para la película 1
 calculando el promedio ponderado por la semejanza:
 
@@ -15013,12 +15026,12 @@ usando LSH en tiempo sublineal.
 En general el modelo ítem-ítem da mejores resultados que el modelo user-user. Esto puede
 explicarse pensando que los usuarios tienen gustos muy diversos y que incluso cambian con el
 tiempo mientras que la semejanza entre películas es algo mucho más estable para un número
-de calificaciones lo suficientemente grande. Aplica la ley de los grandes números!
+de calificaciones lo suficientemente grande. ¡Aplica la ley de los grandes números!
 
 
 \subsection{Collaborative Filtering en base a Desviaciones}
 
-A continuación describimos la forma en la cual suele implementarse collaborative filtering en un
+A continuación describimos la forma en la cual suele implementarse CF en un
 sistema de recomendaciones real.
 
 Vamos a estimar la calificación del usuario “i” a la película “j” de la siguiente forma:
@@ -15103,9 +15116,9 @@ Por lo tanto podemos estimar la calificación del usuario 5 película 1 como:
 $3.17+0.33+0.43-0.5=3.43$
 
 Observemos que esto es igual (o muy parecido) a lo que nos daba la estimación usando
-únicamente la semejanza ítem-ítem pero agregando la desviación del usuario y la desviación de
-la película. Es un usuario que suele calificar por encima del promedio y es una película que es
-mejor que el promedio por eso tiene sentido que hayamos pasado de 2.6 a 3.43 como
+únicamente la semejanza ítem-ítem pero \textbf{agregando la desviación del usuario y la desviación de
+la película}. Dado que es un usuario que suele calificar por encima del promedio y es una película que es
+mejor que el promedio, tiene sentido que hayamos pasado de 2.6 a 3.43 como
 estimación.
 
 Hemos presentado el algoritmo de collaborative filtering que estima las calificaciones de los
@@ -15115,11 +15128,11 @@ usuario con ese ítem y que se calcula en base a la semejanza ítem-ítem o usua
 
 \section{Evaluación de Sistemas de Recomendación}
 
-Evaluar un sistema de recomendación es una tarea compleja. En definitiva queremos saber si lo que recomendamos es realmente útil para el usuario lo cual es algo netamente subjetivo, es difícil construir métricas que sirvan para evaluar y comparar un sistema de recomendaciones. 
+Evaluar un sistema de recomendación es una tarea compleja. En definitiva queremos saber si lo que recomendamos es realmente útil para el usuario, lo cual es algo netamente subjetivo. Por esta razón es difícil construir métricas que sirvan para evaluar y comparar un sistema de recomendaciones. 
 
-Una paradoja interesante es la siguiente: Evaluamos un sistema de recomendación en base a las calificaciones que los usuarios hicieron de ciertos ítems, esto supone que los usuarios son "perfectos", pero si los usuarios son perfectos entonces ya consumieron todos los ítems que les resultaban interesantes y no necesitamos recomendarles cosas nuevas. Visto de otra forma, evaluamos los sistemas de recomendaciones en base a lo que los usuarios hicieron en el pasado suponiendo que un buen sistema es aquel que es capaz de predecir lo que el usuario consumió, esto tiene una falla fatal, a lo mejor los usuarios hubieran consumido otras cosas si se las hubiéramos recomendado. Como podemos ver el tema no es nada sencillo y hay que tomar con extremo cuidado el resultado de cualquier métrica.
+Una paradoja interesante es la siguiente: Evaluamos un sistema de recomendación en base a las calificaciones que los usuarios hicieron de ciertos ítems, esto supone que los usuarios son "perfectos". Pero si los usuarios son perfectos entonces ya consumieron todos los ítems que les resultaban interesantes y no necesitamos recomendarles cosas nuevas. Visto de otra forma, evaluamos los sistemas de recomendaciones en base a lo que los usuarios hicieron en el pasado suponiendo que un buen sistema es aquel que es capaz de predecir lo que el usuario consumió. Esto tiene una falla fatal dado que a lo mejor los usuarios hubieran consumido otras cosas si se las hubiéramos recomendado. Como podemos ver el tema no es nada sencillo y hay que tomar con extremo cuidado el resultado de cualquier métrica.
 
-En esta sección veremos algunas de las métricas populares.
+En esta sección veremos algunas de las métricas populares para intentar hacerlo.
 
 \subsection{Evaluación basada en las predicciones}
 
@@ -15142,18 +15155,19 @@ podemos calcular la efectividad del sistema mediante un simple cálculo:
 J=\sqrt{\frac{1}{N} \sum_{ij}(\hat{r}_{ij} - r_{ij})^2}
 \end{myequation}
 
-A esta métrica se la denomina RMSE (root mean squared error), también puede calcularse sin
+A esta métrica se la denomina RMSE (root mean squared error). También puede calcularse sin
 la raíz en cuyo caso se denomina MSE. El cuadrado cumple la función de hacer que el error
 sea mayor a medida que la diferencia entre la predicción y el valor conocido para el rating aumenta. 
 
-Gracias a esta métrica podemos probar diferentes algoritmos y diferentes parámetros para
-nuestros algoritmos de forma tal de encontrar el algoritmo que minimice el error total. Es
-recomendable realizar varios tests tomando cada vez un 80\% y 20\% al azar de las
+Gracias a esta métrica podemos probar diferentes algoritmos y parámetros para
+nuestros algoritmos de forma tal de encontrar el algoritmo que minimice el error total. 
+
+Es recomendable realizar varios tests tomando cada vez un 80\% y 20\% al azar de las
 calificaciones y calcular el promedio de error de todas las pruebas. De esta forma evitamos que
 un cierto muestreo de las calificaciones sea muy influyente en cuanto al rendimiento del
 sistema. A esta técnica en aprendizaje automático se la llama “cross validation”
 
-La principal crítica a las métricas basadas en RMSE o MSE es que ciertos errores no son tan importantes como otros, por ejemplo si un usuario le dio 5 estrellas a una película y el sistema predice 4 tenemos un error igual a 1, que es el mismo error entre darle 2.5 o 3.5 estrellas a una película, sin embargo el primero es bastante mas importante que el segundo ya que a la hora de recomendar queremos encontrar las películas de 5 estrellas. En definitiva cometer errores con las películas que mas le gustaron al usuario es mas grave que cometer errores sobre las películas que no le han gustado o con calificaciones intermedias. Las métricas basadas en el orden intentan atacar este problema.
+La principal crítica a las métricas basadas en RMSE o MSE es que ciertos errores no son tan importantes como otros, por ejemplo si un usuario le dio 5 estrellas a una película y el sistema predice 4 tenemos un error igual a 1, que es el mismo error entre darle 2.5 o 3.5 estrellas a una película. Sin embargo el primero es bastante mas importante que el segundo ya que a la hora de recomendar queremos encontrar las películas de 5 estrellas. En definitiva cometer errores con las películas que mas le gustaron al usuario es mas grave que cometer errores sobre las películas que no le han gustado o con calificaciones intermedias. Las métricas basadas en el orden intentan atacar este problema.
 
 \subsection{Evaluación basada en el orden de las recomendaciones}
 
@@ -15193,7 +15207,7 @@ MAP(O,U)=\frac{1}{n} \sum_{u \in U} AP(O(u))
 
 \subsubsection{Correlación de Spearman}
 
-En Collaborative Filtering hemos usado el coeficiente de correlación de Pearson para decidir la semejanza entre usuarios o ítems, el coeficiente de Pearson compara los valores de los ratings, el coeficiente de Spearman es similar pero en lugar de los valores de los ratings comparamos la posición o ranking de los valores. Es decir que si un vector es (5,3,4) lo convertimos en (1,3,2) que son las posiciones que tendrían 5,3 y 4 en el vector ordenado de mayor a menor. Los empates obtienen el promedio de las posiciones es decir que el vector (5,2,2) se convierte en (1,2.5,2.5) ya que para "2" promediamos las posiciones 2 y 3. Una vez transformados los valores en posiciones calculamos la correlación igual que lo hacíamos con la fórmula de Pearson. 
+En Collaborative Filtering hemos usado el coeficiente de correlación de Pearson para decidir la semejanza entre usuarios o ítems, comparando los valores de los ratings. El coeficiente de Spearman es similar pero en lugar de los valores de los ratings comparamos la posición o ranking de los valores. Es decir que si un vector es (5,3,4) lo convertimos en (1,3,2) que son las posiciones que tendrían 5,3 y 4 en el vector ordenado de mayor a menor. Los empates obtienen el promedio de las posiciones es decir que el vector (5,2,2) se convierte en (1,2.5,2.5) ya que para "2" promediamos las posiciones 2 y 3. Una vez transformados los valores en posiciones calculamos la correlación igual que lo hacíamos con la fórmula de Pearson. 
 
 El principal problema de la fórmula de Spearman es que castiga todos los errores de la misma forma. Si un sistema se equivoca en el orden de los ítems 1 a 3 el error debería ser mayor que equivocarse en el orden de los ítems 11 a 13. En general queremos que un error en el ordenamiento de los ítems recomendados sea mas grave cuanto mas chico es el ranking del ítem. Lo cual nos lleva a nuestra última métrica.
 
@@ -15223,7 +15237,7 @@ C 0
 Perfect DCG = 5/1 + 4/1 + 3/log(3) + 0/log(4) = 10.9
 \end{verbatim}
 
-Y simplemente calculamos DCG/Perfect DCG para obtener nDCG es decir nDCG = 9.5/10.9 = 0.872. Luego simplemente promediamos el nDCG para todos los usuarios para obtener un promedio para el sistema de recomendaciones. 
+Y simplemente calculamos DCG/Perfect DCG para obtener nDCG, es decir nDCG = 9.5/10.9 = 0.872. Luego simplemente promediamos el nDCG para todos los usuarios para obtener un promedio para el sistema de recomendaciones. 
 
 
 \section{Modelos Latentes}
@@ -15237,15 +15251,15 @@ tipo de películas.
 El algoritmo de collaborative filtering se limita únicamente a calcular semejanzas entre películas
 pero no es capaz de darse cuenta que un grupo de películas similares expresa la actitud del
 usuario hacia las películas de dicho tipo. A este tipo de modelización la llamamos “modelo
-latente” porque nos permite inferir preferencias de los usuarios que no están explícitas en la
-matriz de utilidad.
+latente” porque nos permite inferir \textbf{preferencias de los usuarios que no están explícitas en la
+matriz de utilidad}.
 
 Hay dos métodos que funcionan muy bien para obtener la información latente de la matriz de
 utilidad: RBMs o SVD++
 
 \subsection{SVD++}
 
-El algoritmo SVD++ \cite{Koren} fue presentado informalmente durante la competencia del premio Netflix por un millón de dólares. Este algoritmo representó un importante salto en la mejora de los sistemas de recomendaciones, hoy en día se usa extensamente. Está basado en el simple concepto de factorizar la matriz de utilidad para descubrir los modelos latentes. 
+El algoritmo SVD++ \cite{Koren} fue presentado informalmente durante la competencia del premio Netflix por un millón de dólares. Este algoritmo representó un importante salto en la mejora de los sistemas de recomendaciones y hoy en día se usa extensamente. Está basado en el simple concepto de factorizar la matriz de utilidad para descubrir los modelos latentes. 
 
 El principio aquí es muy simple: descomponer la matriz de utilidad en el producto de dos
 matrices: Q y P. En donde Q tendrá tantas filas como ítems y tantas columnas como factores
@@ -15256,7 +15270,7 @@ U_{mxn} = Q_{mxr} P^t_{nxr}
 \end{myequation}
 
 La cantidad de factores “r” es un parámetro que debemos fijar. Al descomponer la matriz $Q$ nos
-dará la relación entre los ítems y los factores y $P$ nos dará la relación entre los ítems y los
+dará la relación entre los ítems y los factores. $P$ nos dará la relación entre los ítems y los
 factores. Es decir que en $Q$ vamos a poder observar que tipo de factores están asociados a
 cada película y en $P$ tendremos las preferencias de los usuarios con respecto a los factores.
 
@@ -15280,15 +15294,15 @@ Por ejemplo en nuestro caso si queremos estimar la calificación del usuario 5 p
 Hacemos $q_2 = (-0.5,0.6,0.5)$ y  $p_5=(-2,0.3,2.4)$
 $q_2 * p_5^t = 2.4$
 
-Es decir que estimamos una calificación de 2.4
+Es decir que estimamos una calificación de 2.4.
 
 Tenemos que ahora que analizar de que forma hallar las matrices $Q$ y $P$.
 
 Notamos que el problema es muy similar a la indexación semántica latente en donde usamos la
 descomposición SVD para reducir las dimensiones de una matriz y obtener un modelo latente.
 Desafortunadamente no podemos usar SVD para nuestro sistema de recomendaciones porque
-la matriz de utilidad no está completa, tiene muchos “huecos” SVD no funciona si no tenemos
-todos los datos de la matriz original. Necesitamos por lo tanto un algoritmo similar a SVD pero
+la matriz de utilidad no está completa, tiene muchos “huecos”. Lamentablemente SVD no funciona si no tenemos
+todos los datos de la matriz original es por eso que necesitamos un algoritmo similar a SVD pero
 que funcione con matrices incompletas. Algo así como una SVD parcial.
 
 Podemos escribir el siguiente problema de optimización:
@@ -15359,7 +15373,7 @@ ejemplo podemos probar con lambda = \{0.005, 0.05, 0.5, 0, 0.5, 1,2\} y entonces
 combinaciones a probar para nuestros dos valores de lambda. Corremos el algoritmo de
 optimización SGD para cada valor y nos quedamos con los lambda que minimicen el error.
 
-Agregando las desviaciones del usuario y de la película.
+\subsubsection{Agregando las desviaciones del usuario y de la película.}
 
 Podemos volver a pensar que es conveniente modelar la recomendación en base a
 desviaciones a partir del promedio de calificaciones global:
@@ -15382,7 +15396,6 @@ $$
 Y lo resolvemos por SGD pero ahora ademas de actualizar $Q$ y $P$ tenemos también que ir
 actualizando $b_x$ y $b_i$ en cada paso. Lo cual no representa ningún problema pues solo implica
 hacer un par de actualizaciones mas en el código.
-
 
 \section{Factores Temporales}
 
@@ -15416,7 +15429,7 @@ $$
 \hat{y} = w_0 + w_1 \text{userid} + w_2 \text{movieid}
 $$
 
-Por supuesto que esto no funcionaría ya que no tiene sentido usar el userid y movieid como variables numéricas en una regresión lineal, que el userid sea 10 o 20000 no debería afectar el coeficiente para estimar la calificación del ítem. La solución a este problema es convertir el userid y movieid en "n" y "m" variables binarias mediante "one-hot encoding" si tenemos 4 usuarios el usuario 2 quedaría codificado como (0,1,0,0) y si tenemos 5 películas la película 3 quedaría (0,0,1,0,0) y entonces podríamos tener vectores de la forma: (0,1,0,0,0,0,1,0,0,4) indicando que el usuario 2 de 4 calificó con 4 la película 3 de 5.
+Por supuesto que esto no funcionaría ya que no tiene sentido usar el userid y movieid como variables numéricas en una regresión lineal. Que el userid sea 10 o 20000 no debería afectar el coeficiente para estimar la calificación del ítem. La solución a este problema es convertir el userid y movieid en "n" y "m" variables binarias mediante "one-hot encoding". Si tenemos 4 usuarios el usuario 2 quedaría codificado como (0,1,0,0) y si tenemos 5 películas la película 3 quedaría (0,0,1,0,0) y entonces podríamos tener vectores de la forma: (0,1,0,0,0,0,1,0,0,4) indicando que el usuario 2 de 4 calificó con 4 la película 3 de 5.
 
 Esto nos lleva a un modelo de regresión lineal de la forma:
 
@@ -15442,7 +15455,7 @@ $$
 \hat{y} = w_0 + \sum\limits_{i=1}^{n} w_i * x_i + \sum\limits_{i=1}^{n}\sum\limits_{j=i+1}^{n} w_{ij} * x_i * x_j
 $$
 
-Este modelo es muy completo pero tiene como problema que la cantidad de coeficientes sufre de un problema de explosión combinatoria, teniendo millones de usuarios y millones de películas no hay forma de manejar todas las interacciones posibles entre las variables del modelo. Este es el punto en el cuál el algoritmo de Factorization Machines aporta una solución muy ingeniosa y elegante. 
+Este modelo es muy completo pero tiene como problema que la cantidad de coeficientes sufre de un problema de explosión combinatoria. Teniendo millones de usuarios y millones de películas no hay forma de manejar todas las interacciones posibles entre las variables del modelo. Este es el punto en el cuál el algoritmo de Factorization Machines aporta una solución muy ingeniosa y elegante. 
 
 La idea es representar a cada variable (columna) de nuestro modelo mediante un vector de "k" elementos siendo "k" la cantidad de factores latentes que queremos usar. Si hacemos esto entonces podemos re-escribir nuestro modelo de regresión de la forma:
 
@@ -15492,7 +15505,7 @@ La implementación de referencia de FMs es LibFM y es muy simple de usar desde c
 
 \subsection{LibFM}
 
-El formato de LibFM es casi igual al de LibSVM, cada línea contiene un vector de nuestro set de datos, por cada vector indicamos primero el label (clase o rating) y luego pares de tipo columna:valor ya que los vectores son siempre muy dispersos. LibFM entrena en base a un archivo de entrenamiento en este formato y luego predice los valores para un archivo de test que tiene igual formato pero para el cual los labels se ignoran (pueden ser todos ceros).
+El formato de LibFM es casi igual al de LibSVM. Cada línea contiene un vector de nuestro set de datos, por cada vector indicamos primero el label (clase o rating) y luego pares de tipo columna:valor ya que los vectores son siempre muy dispersos. LibFM entrena en base a un archivo de entrenamiento en este formato y luego predice los valores para un archivo de test que tiene igual formato pero para el cual los labels se ignoran (pueden ser todos ceros).
 
 A modo de ejemplo usaremos 4 películas (dimensiones 0 a 3) y 5 usuarios (dimensiones 4 a 8), las películas 0 y 1 son de una misma hipotética categoría y las películas 2 y 3 también. Usaremos entonces 2 factores latentes ($k=2$).
 
@@ -15546,22 +15559,22 @@ El algoritmo Factorization Machines es uno de los mas poderosos para sistemas de
 
 \section{El Problema del Cold-Start: Multi-Armed Bandits}
 
-Uno de los problemas mas difíciles en un sistema de recomendaciones es como incorporar nuevos ítems al sistema, para los ítems que son populares podemos no hacer nada y eventualmente estos van a tener suficientes rankings como para ser recomendados, pero esto es algo que a un sistema de recomendaciones no le importa porque los ítems populares siempre van a ser consumidos, lo importante en un sistema de recomendaciones es poder recomendar ítems que no sean populares y que puedan ser del agrado de los usuarios, esto maximiza el uso del "long tail". Los ítems que son nuevos y no son populares (masivos) nunca son recomendados y por lo tanto nunca reciben rankings lo cual da genera un círculo vicioso que conocemos como \textit{cold start problem}
+Uno de los problemas mas difíciles en un sistema de recomendaciones es como incorporar nuevos ítems al sistema. Para los ítems que son populares podemos no hacer nada y eventualmente estos van a tener suficientes rankings como para ser recomendados. Esto es algo que a un sistema de recomendaciones no le importa porque los ítems populares siempre van a ser consumidos. Lo importante en un sistema de recomendaciones es poder recomendar ítems que no sean populares y que puedan ser del agrado de los usuarios maximizando el uso del "long tail". Los ítems que son nuevos y no son populares (masivos) nunca son recomendados y por lo tanto nunca reciben rankings lo cual da genera un círculo vicioso que conocemos como \textit{cold start problem}
 
 
-El objetivo es entonces desarrollar un algoritmo que nos permita recomendar ítems nuevos a los usuarios sin que estos sean populares. Algunos de estos ítems van a ser buenos y otros no, incluso pueden ser muy malos. El problema es similar a jugar con máquinas tragamonedas en donde sabemos que alguna máquina da mas premios que las otras pero no sabemos cual, tenemos que descubrir esto mediante experimentación, es por esto que los algoritmos que se encargan de este tipo de cuestiones se denominan \textit{"multi-armed bandits"}
+El objetivo es entonces desarrollar un algoritmo que nos permita recomendar ítems nuevos a los usuarios sin que estos sean populares. Algunos de estos ítems van a ser buenos y otros no, incluso pueden ser muy malos. El problema es similar a jugar con máquinas tragamonedas en donde sabemos que alguna máquina da mas premios que las otras pero no sabemos cual. Tenemos que descubrir esto mediante experimentación, es por esto que los algoritmos que se encargan de este tipo de cuestiones se denominan \textit{"multi-armed bandits"}
 
 \subsection{Multi-Armed Bandits}
 
-Supongamos que medimos si a un usuario le gustó o no una recomendación mediante un 1 o 0, supongamos que tenemos varios ítems y decidimos usar un algoritmo greedy es decir recomendar el ítem que tiene mejores resultados hasta ahora. Ofrecemos el ítem $k_1$ a un usuario cualquiera y al usuario no le gusta $x_1=0$ ofrecemos el ítem $k_2$ a algún usuario y al usuario le gusta $x_2=1$, a partir de aquí el ítem $k_1$ no va a volver a ser recomendado nunca mas ya que tien resultado =0 y el ítem $k_2$ en el peor de los casos será $1/N>0$. Greedy no funciona, porque abandona rápidamente a los ítems que no fueron exitosos en su primer intento.
+Supongamos que medimos si a un usuario le gustó o no una recomendación mediante un 1 o 0, supongamos que tenemos varios ítems y decidimos usar un algoritmo greedy es decir recomendar el ítem que tiene mejores resultados hasta ahora. Ofrecemos el ítem $k_1$ a un usuario cualquiera y al usuario no le gusta $x_1=0$ ofrecemos el ítem $k_2$ a algún usuario y al usuario le gusta $x_2=1$, a partir de aquí el ítem $k_1$ no va a volver a ser recomendado nunca mas ya que tiene resultado igual a 0 y el ítem $k_2$ en el peor de los casos será $1/N>0$. Greedy no funciona, porque abandona rápidamente a los ítems que no fueron exitosos en su primer intento.
 
-La clave consiste en combinar \textit{exploración} y \textit{explotación}. La explotación consiste en recomendar la mejor alternativa en base a los resultados observados. La exploración consiste en ofrecer nuevas alternativas. El algoritmo greedy explota pero no explora.
+La clave consiste en combinar \textit{exploración} y \textit{explotación}. La exploración consiste en ofrecer nuevas alternativas. La explotación consiste en recomendar la mejor alternativa en base a los resultados observados. El algoritmo greedy explota pero no explora.
 
 \subsection{Algoritmo Epsilon}
 
 En este algoritmo en cada instante con probabilidad $\epsilon$ elegimos el ítem con mejor promedio hasta ahora y con probabilidad $1-\epsilon$ elegimos un ítem cualquiera al azar (de los ítems que son nuevos obviamente).
 
-El hiper-parámetro $\epsilon$ controla el balance entre exploración y explotación y el valor óptimo depende de los datos. Uno de los problemas del algoritmo epsilon es que la exploración no tiene criterio, es completamente aleatoria.
+El hiper-parámetro $\epsilon$ controla el balance entre exploración y explotación, dependiendo el valor óptimo de los datos. Uno de los problemas del algoritmo epsilon es que la exploración no tiene criterio, es completamente aleatoria.
 
 
 \subsection{Algoritmo UCB1}
@@ -15578,7 +15591,7 @@ El promedio de cada ítem se puede estimar mediante algún algoritmo de Machine 
 
 Los algoritmos que vimos en esta sección no solo se aplican al problema del cold-start en sistemas de recomendaciones sino a muchos otros casos, como por ejemplo colocación de avisos en páginas web en base a su CTR (click through rate), posición de los artículos en un sitio de noticias, etc.
 
-Y a propósito si alguien quiere hacerle daño a una empresa que publicita en la web lo peor que podemos hacerles es clickear en sus avisos, esto no solo hace que se les cobre sino que genera un aumento en la probabilidad de que estos avisos sean mostrados generando un gasto todavía mayor.
+A propósito, si alguien quiere hacerle daño a una empresa que publicita en la web lo peor que podemos hacerles es clickear en sus avisos. Esto no solo hace que se les cobre sino que genera un aumento en la probabilidad de que estos avisos sean mostrados generando un gasto todavía mayor.
 
 \section{Diversidad: Optimización Submodular}
 
@@ -15591,7 +15604,7 @@ Uno de los puntos importantes en un sistema de recomendaciones es realizar suger
 
 \end{figure}
 
-Vamos a suponer que tenemos una cierta cantidad de ítems que podemos recomendar y que cada ítem pertenece a una o varias categorías. El objetivo es que los ítems que vamos a recomendar cubran la mayor cantidad de temas posibles. Este problema es conocido, se llama \textit{set-cover} y lamentablemente es NP-completo es decir que no existe una solución en tiempo polinómico. Vamos a suponer que la cantidad de ítems que vamos a recomendar es $k$
+Vamos a suponer que tenemos una cierta cantidad de ítems que podemos recomendar y que cada ítem pertenece a una o varias categorías. El objetivo es que los ítems que vamos a recomendar cubran la mayor cantidad de temas posibles. Este problema es conocido, se llama \textit{set-cover} y lamentablemente es NP-completo, es decir que no existe una solución en tiempo polinómico. Vamos a suponer que la cantidad de ítems que vamos a recomendar es $k$
 
 Una aproximación es usar un algoritmo greedy:
 
@@ -15606,7 +15619,7 @@ $A_0 = \{\}$\\
 
 Es fácil probar que greedy no es óptimo: Sea $S_1=\{1,2,3,4,5\}, S_2=\{1,2,3,7\},S_3=\{4,5,6,8\}$. Greedy toma en primer lugar a $S_1$ que nos agrega 5 categorías, luego tomamos a $S_3$ que nos agrega dos categorías (6 y 8) contra $S_2$ que solo agregaría 7. Finalmente agregamos $S_2$. Como podemos ver esto cubre todas las categorías usando 3 ítems (tres conjuntos) pero en realidad los conjuntos correspondientes a los ítems 2 y 3 ($S_2$ y $S_3$) cubrirían todas las categorías por lo que sería una mejor solución.
 
-Se puede demostrar que Greedy aproxima al menos un 63\% la solución óptima cuando la función a optimizar es submodular. Esto ya lo hemos usado en redes sociales para maximizar influencia.
+Se puede demostrar que Greedy aproxima al menos un 63\% la solución óptima cuando la función a optimizar es submodular. Esto lo utilizaremos en redes sociales para maximizar influencia.
 
 Recordemos que una función $F(S)$ es submodular si agregar un elemento al conjunto $S$ nos da una ganancia en $F$ que es peor o igual a agregar ese mismo elemento a un subconjunto de $S$
 
@@ -15619,7 +15632,7 @@ F(A\cup d) - F(A) \geq F(B \cup d) - F(B)
 
 Intuición: Si agregamos un mismo conjunto nuevo a un subconjunto de S seguramente la ganancia es mayor a agregarlo a S (porque S cubre mas cosas que cualquiera de sus subconjuntos)
 
-La submodularidad es la versión discreta de la concavidad!
+¡La submodularidad es la versión discreta de la concavidad!
 
 \begin{figure}[!htb]
 \centering
@@ -15707,7 +15720,7 @@ Si el feedback es positivo entonces multiplicamos $W_i$ por $\beta$ si el feedba
 
 \section{Learning to Rank}
 
-El paso final de todo sistema de recomendaciones es decidir en que orden presentar las recomendaciones al usuario. Las calificaciones que hemos pronosticado nos ayudan a saber qué ítems recomendar pero entre un ítem para el cual pronosticamos 4.64 y otro para el cual pronosticamos 4.63 no queda muy claro en que orden deberíamos mostrarlos. Los dos son prácticamente iguales en cuanto a la probabilidad de que al usuario le interese el ítem.
+El paso final de todo sistema de recomendaciones es decidir en que orden presentar las recomendaciones al usuario. Las calificaciones que hemos pronosticado nos ayudan a saber qué ítems recomendar. Sin embargo entre un ítem para el cual pronosticamos 4.64 y otro para el cual pronosticamos 4.63 no queda muy claro en que orden deberíamos mostrarlos. Los dos son prácticamente iguales en cuanto a la probabilidad de que al usuario le interese el ítem.
 
 La solución es usar algoritmos de \textit{Learning to Rank} como los que hemos visto en el capítulo 7 para aprender automáticamente el orden en el que debemos presentar los ítems a los usuarios. 
 
@@ -15727,25 +15740,27 @@ Hay muchos detalles mas que son particulares de cada sistema, estos sistemas son
 
 \epigraph{The final end of Eternity, and the beginning of Infinity}{- Isaac Asimov}
 
-Un stream es un flujo de datos que no tiene fin. Los streams son muy comunes hoy en día, los paquetes de una red son un claro ejemplo, los posts en Twitter o Faebook, los comentarios en un foro, las ventas en sitios como Amazon o Ebay, todos estos casos representan flujos de datos continuos.
+Un stream es un flujo de datos que no tiene fin. Los streams son muy comunes hoy en día: Los paquetes de una red, las publicaciones en redes sociales como Twitter o Facebook, los comentarios en un foro, las ventas en sitios como Amazon o Ebay, todos estos casos representan flujos de datos continuos.
 
-Los algoritmos tradicionales tienen graves problemas al procesar streams. En primer lugar es muy difícil calcular estadísticas, rankings y otros datos interesantes si los datos cambian constantemente, cuando calculamos un cierto valor ya ha perdido actualidad. Por otro lado prácticamente ningún algoritmo puede procesar una cantidad de datos infinitos. Los algoritmos de streaming están diseñados para solucionar estos problemas, son algoritmos que trabajan en memoria y procesan los datos a medida que estos ocurren actualizando constantemente su resultado. Esto permite obtener en tiempo real datos sobre un determinado stream.
+Los algoritmos tradicionales tienen graves problemas al procesar streams. En primer lugar es muy difícil calcular estadísticas, rankings y otras métricas interesantes si los datos cambian constantemente. Esto se debe a cuando calculamos un cierto valor este ya ha perdido actualidad por la cantidad de nueva información reciba. Por otro lado prácticamente ningún algoritmo puede procesar una cantidad de datos infinitos.
 
-Imaginemos que somos Amazon, la cantidad de estadísticas y datos que pueden interesarnos son enormes. Por ejemplo: ¿Cuáles son los productos mas vendidos en las últimas horas? ¿Cuántos productos diferentes se han vendido? ¿Hay algún producto que se esté vendiendo mas de lo habitual?, ¿Cuántos Iphones vendimos en las últimas 24 horaS?, etc. Todas estas preguntas son prácticamente imposibles de resolver sin usar algoritmos de streaming por el simple hecho de que en 2015 Amazon generaba U\$S 120.000 en ventas cada... 5 segundos(!)
+Los algoritmos de streaming están diseñados para solucionar estos problemas, son algoritmos que trabajan en memoria y procesan los datos a medida que estos ocurren actualizando constantemente su resultado. Esto permite obtener en tiempo real datos sobre un determinado stream, permitiendonos saber que esta ocurriendo y dejándonos tomar decisiones.
+
+Imaginemos por un momento que somos Amazon, la cantidad de estadísticas y datos que pueden interesarnos son enormes. Por ejemplo: ¿Cuáles son los productos mas vendidos en las últimas horas? ¿Cuántos productos diferentes se han vendido? ¿Hay algún producto que se esté vendiendo mas de lo habitual?, ¿Cuántos Iphones vendimos en las últimas 24 horas?, etc. Todas estas preguntas son prácticamente imposibles de resolver sin usar algoritmos de streaming por el simple hecho de que en 2015 Amazon generaba U\$S 120.000 en ventas cada... 5 segundos(!)
 
 \section{Reservoir Sampling}
 
-Nuestro primer algoritmo es muy importante porque permite convertir un stream infinito en un conjunto de datos finito, la idea es tener en cada momento una muestra (\textit{sample}) del stream en memoria y calcular los datos y estadísticas que nos interesen sobre el stream a partir de la muestra usando algoritmos tradicionales. El algoritmo necesita, entonces, mantener en memoria una cantidad fija de elementos $k$, para que las estadísticas tengan sentido debemos garantizar que la probabilidad de que un dato del stream esté en la muestra sea igual a:
+Nuestro primer algoritmo es muy importante porque permite convertir un stream infinito en un conjunto de datos finito. La idea es tener en cada momento una muestra (\textit{sample}) del stream en memoria. Luego podemos calcular los datos y estadísticas que nos interesen sobre el stream a partir de la muestra usando algoritmos tradicionales. El algoritmo necesita mantener en memoria una cantidad fija de elementos $k$. Para que las estadísticas tengan sentido debemos garantizar que la probabilidad de que un dato del stream esté en la muestra sea igual a:
 
 \begin{myequation}
 P(X_i \in \textit{sample}) = \frac{k}{N}
 \end{myequation}
 
-Donde $N$ es la cantidad de elementos del stream hasta el momento. Notemos que la probabilidad es dinámica es decir que a medida que observamos mas datos la probabilidad de que un dato esté en la muestra debe ser menor y, lo que es mas importante, la probabilidad de todos los elementos independientemente de cuando los observamos tiene que ser igual.
+Donde $N$ es la cantidad de elementos del stream hasta el momento. Notemos que la probabilidad es dinámica es decir que a medida que observamos más datos la probabilidad de que un dato esté en la muestra debe ser menor. A su vez también es importante entender que la probabilidad de todos los elementos independientemente de cuando los observamos debe ser igual.
 
-El algoritmo funciona de la siguiente manera: por cada dato que genera nuestro stream calculamos $p=k/n$ que es la probabilidad de que el dato ingrese a la muestra, luego generamos un número random y de acuerdo a p decidimos si el dato ingresa o no a la muestra, por ejemplo si $p=0.6$ generamos un random entre 0 y 1 y el dato ingresa a la muestra si el número es menor a 0.6. Si el dato no ingresa la muestra no cambia, si el dato ingresa entonces elegimos al azar un dato de la muestra y lo reemplazamos por nuestro dato.
+El algoritmo funciona de la siguiente manera: Por cada dato que genera nuestro stream calculamos $p=k/n$, la probabilidad de que el dato ingrese a la muestra. Luego generamos un número random y de acuerdo a $p$ decidimos si el dato ingresa o no a la muestra. Por ejemplo si resulta $p=0.6$, generamos un random entre $0$ y $1$ y el dato ingresará a la muestra si el número es menor a $0.6$. Si el dato no ingresa, la muestra no cambia. Si el dato ingresa entonces elegimos al azar un dato de la muestra y lo reemplazamos por nuestro dato.
 
-Consideremos el siguiente ejemplo: $k=3$ y nuestro stream consiste en números y observamos: 1,6,2,3. Los primeros $k$ (tres) números ingresan a la muestra, por lo que tendremos en la muestra 1,6,2. La probabilidad de que 3 ingrese es ahora 3/4. La probabilidad de que 1 siga en la muestra se puede calcular como la probabilidad de que 3 no ingrese (1/4) mas la probabilidad de que 3 ingrese pero 1 no sea reemplazado es decir (3/4*2/3=1/2). La probabilidad del 1 es entonces $1/4+1/2=3/4$, de esta forma vemos que con 4 elementos la probabilidad de cada uno de ellos es igual a 3/4 que es lo que queríamos. 
+Consideremos el siguiente ejemplo: $k=3$ y nuestro stream consiste en números y observamos: $1,6,2,3$. Los primeros $k$ (tres) números ingresan a la muestra, por lo que tendremos en la muestra $1,6,2$. La probabilidad de que $3$ ingrese es ahora $3/4$. La probabilidad de que $1$ siga en la muestra se puede calcular como la probabilidad de que $3$ no ingrese $(1/4)$ mas la probabilidad de que $3$ ingrese pero $1$ no sea reemplazado es decir $(3/4*2/3=1/2)$. Resulta entonces en la probabilidad del $1$ siga en la muestra es entonces $1/4+1/2=3/4$. Este mismo calculo se puede realizar de la misma forma para el resto de los elementos de la muestra (reformulando el evento: "1 siga en la muestra"). Por lo tanto que podemos ver que con 4 elementos la probabilidad de cada uno de ellos es igual a $3/4$ que es lo que queríamos.
 
 \begin{theorem}[Reservoir Sampling]
 Dado un stream de $n$ elementos la probabilidad de que un elemento esté en la muestra es $k/n$
@@ -15755,15 +15770,15 @@ Vamos a demostrar esto por inducción.
 
 Suponemos que luego de $n$ elemento la probabilidad es $k/n$ queremos ver que con $n+1$ elementos la probabilidad es $k/(n+1)$
 
-Caso base: si $n=k$ entonces la probabilidad de cada elemento es $k/k=1$.
+Caso base: Si $n=k$ entonces la probabilidad de cada elemento es $k/k=1$.
 
 Cuando el elemento $n+1$ es observado podemos calcular la probabilidad de que un elemento permanezca en la muestra como:
 
 probabilidad de que $n+1$ no ingrese + probabilidad de que $n+1$ ingrese por la probabilidad de que el elemento no sea eliminado.
 
-probabilidad de que $n+1$ no ingrese = 1-(k/(n+1))
-probabilidad de que n+1 ingrese  = k/(n+1)
-probabilidad de que el elemento sea reemplazado: k-(1/k)
+probabilidad de que $n+1$ no ingrese = $1-(k/(n+1))$
+probabilidad de que n+1 ingrese  = $k/(n+1)$
+probabilidad de que el elemento sea reemplazado: $k-(1/k)$
 
 
 $$1-(\frac{k}{n+1}) + (\frac{k}{n+1})(k-\frac{1}{k}) = \frac{n}{(n+1)}$$
@@ -15776,21 +15791,23 @@ $$(\frac{k}{n}) (\frac{n}{n+1}) = \frac{k}{n+1}$$
 
 Que es lo que queríamos demostrar.
 
-El algoritmo de Reservoir sampling es interesante porque nos da una forma práctica de resolver el problema de los datos infinitos usando una muestra de tamaño finita representativa de los mismos. 
+El algoritmo de Reservoir sampling es interesante porque nos da una forma práctica de resolver el problema de los datos infinitos usando una muestra de tamaño finita representativa de los mismos. En ese aspecto si tenemos implementaciones inciales para calcular esas métricas nos permitiria poder utilizarlas sobre un stream a partir de un muestreo del mismo.
 
 \section{Momentos de un Stream}
 
-Un stream es una colección de elementos, llamemos $M_i$ a la cantidad de veces que el elemento $i$ ocurrió en el stream. Por ejemplo si el stream es 1,2,3,2,4 entonces $M_1=1, M_2=2,M_3=1 y M_4=1$, observemos que el dato no necesariamente tiene que ser un número, el stream podría ser a,b,c,b,d y los valores serían los mismos: $M_a=1,M_b=2,M_c=1,M_d=1$. Vamos a definir el momento de orden $k$ de un stream como:
+Un stream es una colección de elementos, llamemos $M_i$ a la cantidad de veces que el elemento $i$ ocurrió en el stream. Por ejemplo si el stream es 1,2,3,2,4 entonces $M_1=1, M_2=2,M_3=1 y M_4=1$. Observemos que el dato no necesariamente tiene que ser un número, el stream podría ser a,b,c,b,d y los valores serían los mismos: $M_a=1,M_b=2,M_c=1,M_d=1$. Vamos a definir el momento de orden $k$ de un stream como:
 
 \begin{myequation}
 M^k(S) = \sum_{i \in S} M_i^k
 \end{myequation}
 
-El momento de orden 0 implica elevar la cantidad de veces que cada elemento distinto del stream aparece a la cero por lo que vamos a contar 1 por cada elemento diferente del stream. Por lo tanto el momento de orden 0 es la cantidad de elementos distintos en el stream. Calcular el momento de orden 0 no es sencillo ya por cada elemento del stream necesitamos saber si es nuevo o repetido porque solo los elementos nuevos suman, pero no podemos tener todos los elementos distintos que hemos observado en memoria y comparar porque estos podrían ser miles de millones y comparar cada elemento contra miles de millones es ineficiente.
+A partir de esta definición calculemos algunos de los momentos de interés al analizar un stream.
 
-El momento de orden 1 es simplemente la cantidad de elementos en total en el stream, es decir $n$, para calcular este momento no hace falta ningún algoritmo especial ya que simplemente sumamos 1 cada vez que observamos un dato del stream.
+El momento de orden 0 implica elevar la cantidad de veces que cada elemento distinto del stream aparece a la cero. Esto es equivalente a contar 1 por cada elemento diferente del stream. Por lo tanto, el momento de orden 0 es la cantidad de elementos distintos en el stream. Calcular el momento de orden 0 no es sencillo ya por cada elemento del stream necesitamos saber si es nuevo o ha sido previamente observado dado que solo los elementos nuevos suman. Sin embargo, no podemos tener todos los elementos distintos que hemos observado en memoria y comparar; estos podrían ser miles de millones y comparar cada elemento contra ellos es ineficiente.
 
-El momento de orden 2 del stream, es un poco mas difícil de interpretar y se lo conoce como \textit{número sorpresa} del stream. Es un indicador de si los datos del stream se distribuyen de forma pareja o de si hay un elemento que predomina sobre los demás.
+El momento de orden 1 es simplemente la cantidad de elementos en total en el stream, es decir $n$. Para calcular este momento no hace falta ningún algoritmo especial, simplemente sumamos 1 cada vez que observamos un dato del stream a un contador.
+
+El momento de orden 2 del stream, es un poco mas difícil de interpretar y se lo conoce como \textit{número sorpresa} del stream. Es un indicador de si los datos del stream se distribuyen de forma pareja o de si hay un elemento que predomina sobre los demás. Esto es de valor para detectar variaciones al irlo recalculando para el mismo stream a medida que se va recibiendo nueva información sobre el stream.
 
 Por ejemplo sea $S_1 = (1,2,3,4,5,6,7,8,9,1)$, $S_2=(1,1,2,3,1,1,4,5,1,7)$
 
@@ -15800,18 +15817,18 @@ $M^2(S_1) = 12$
 
 $M^0(S_2) = 6$
 $M^1(S_2) = 10$
-$M^2(S_3) = 30$
+$M^2(S_2) = 30$
 
 Para calcular el momento de orden 0 de un stream veremos el algoritmo de Flajolet-Martin y un derivado del mismo conocido como HyperLogLog.
 
-\section{Flajolet-Martin y el HyperLogLog}
+\section{Flajolet-Martin e HyperLogLog}
 
 \subsection{Flajolet-Martin}
 
 El algoritmo de Flajolet-Martin\cite{FlajoletMartin} es sumamente simple y sorprendente, implica solamente el uso de una función de hashing y un contador en memoria. 
 Por cada dato que observamos en nuestro stream aplicamos la función de hashing y contamos la cantidad de 0s consecutivos en la misma a partir del bit 0. En memoria llevaremos un contador $r$ con la cantidad máxima de ceros que hemos observado al comienzo de cualquier resultado de la función de hashing.
 
-El momento de orden 0 del stream se estima como:
+El momento de orden $0$ del stream se estima como:
 
 \begin{myequation}
 M^0(S) \approx 2^r
@@ -15833,11 +15850,21 @@ h(d) = 01010011 r=2
 Mo = 2^2 =  4
 \end{verbatim}
 
-La intución detrás del algoritmo es la siguiente. Si la función de hashing es buena entonces un 50\% de los hashes comienzan con 0, un 25\% de los hashes comienzan con 00, un 12.5\% de los hashes comienzan con 000, por lo tanto calcular $2^r$ aproxima a la cantidad de elementos que vimos en nuestro stream. Visto de otra forma si hemos visto $2^r$ elementos diferentes en el stream entonces alguno de ellos tiene que comenzar con $r$ ceros (si no hay colisiones).
+La intución detrás del algoritmo es la siguiente. Si la función de hashing es buena entonces:
 
-Como en el mundo real las colisiones existen el algoritmo no es perfecto y es muy sensible a los valores de la función de hashing. Por ejemplo si para algún dato la función de hashing nos diera 0 entonces todo el algoritmo dejaría de funcionar. Una forma de solucionar esto es usando $k$ funciones de hashing al mismo tiempo y llevando $k$ contadores $r_i$ en memoria.  
+\begin{itemize}
+  \item un 50\% de los hashes comienzan con 0.
+  \item un 25\% de los hashes comienzan con 00.
+  \item un 12.5\% de los hashes comienzan con 000.
+  \item y asi sucesivamente...
+\end{itemize}
 
-Si tenemos $k$ estimadores debemos notar que el promedio no es una buena estimación porque es muy sensible a valores extremos en alguno de los estimadores. La mediana es mas adecuada. El problema de la mediana es que siempre será una potencia de 2 y esto no es bueno ya que solo podríamos estimar potencias de 2 como resultado del algoritmo.
+Por lo tanto calcular $2^r$ aproxima a la cantidad de elementos que vimos en nuestro stream.
+Visto de otra forma, si hemos visto $2^r$ elementos diferentes en el stream entonces alguno de ellos tiene que comenzar con $r$ ceros (si no hay colisiones).
+
+Como en el mundo real las colisiones existen el algoritmo no es perfecto, siendo sensible a los valores de la función de hashing. Por ejemplo, si para algún dato la función de hashing nos diera $0$ entonces todo el algoritmo dejaría de funcionar. Una forma de solucionar esto es usando $k$ funciones de hashing al mismo tiempo y llevando $k$ contadores $r_i$ en memoria.
+
+Si tenemos $k$ estimadores debemos notar que el promedio no es una buena estimación porque es muy sensible a valores extremos en alguno de los estimadores. La mediana es mas adecuada, pero presenta el problema que siempre será una potencia de 2. Esto no es bueno ya que solo podríamos estimar potencias de 2 como resultado del algoritmo.
 
 La solución en el algoritmo de Flajolet-Martin pasa por dividir los $k$ estimadores en $b$ grupos de $m$ estimadores cada uno y calcular como resultado final el promedio de las medias de cada grupo.
 
@@ -15850,19 +15877,21 @@ $r_4 = 3$
 $r_5 = 3$
 $r_6 = 4$
 
-Si usamos 2 grupos de 3 estimadores cada uno entonces en el primer grupo tenemos 4,32,2 y la mediana es 4. En el segundo grupo tenemos 8,8 y 16 y la mediana es 8. Por lo tanto nuestra estimación es el promedio entre 8 y 4 es decir 6. Vamos a estimar que nuestro stream tiene 6 elementos distintos.
+Si usamos 2 grupos de 3 estimadores cada uno entonces en el primer grupo tenemos $4,32,2$ y la mediana es $4$. En el segundo grupo tenemos $8, 8, 16$ y la mediana es 8. Por lo tanto nuestra estimación es el promedio entre 8 y 4 es decir 6. Vamos a estimar que nuestro stream tiene 6 elementos distintos.
 
 \subsection{HyperLogLog}
 
-HyperLogLog (HLL) \cite{Flajolet} es una versión mejorada de los mismos autores y que es la que hoy en día mas se usa para estimar la cantidad de elementos distintos en un stream. HLL usa una única función de hashing, por ejemplo Jenkins y sobre la misma construye varios estimadores, calculando el resultado final como el promedio armónico de los estimadores. Eso es todo!
+HyperLogLog (HLL) \cite{Flajolet} es una versión mejorada de los mismos autores y que es la que hoy en día mas se usa para estimar la cantidad de elementos distintos en un stream.
 
-La función de hashing nos genera un número de 64 bits, los primeros $k$ bits los vamos a usar para el número de estimador. Por ejemplo si queremos 32 estimadores usamos los primeros 5 bits para calcular el número de estimador. De los restantes bits contamos como siempre la cantidad de ceros al comienzo de los mismos y actualizamos el estimador si esta cantidad es mayor a la anterior.
+HLL usa una única función de hashing, por ejemplo Jenkins y sobre la misma construye varios estimadores, calculando el resultado final como el promedio armónico de los estimadores. ¡Eso es todo!
+
+La función de hashing nos genera un número de 64 bits, los primeros $k$ bits los vamos a usar para el número de estimador. Por ejemplo, si queremos 32 estimadores usamos los primeros 5 bits para calcular el número de estimador, que usaremos para identificar el número de estimador que corresponde. De los restantes bits contamos como siempre la cantidad de ceros al comienzo de los mismos y actualizamos el contador del estimador correspondiente si esta cantidad es mayor a la anterior.
 
 \begin{myequation}
 M^0(S) \approx    \frac{n}{\sum_{j=1}^{n} 2^{-R_j}}
 \end{myequation}
 
-Por ejemplo si tenemos los siguientes estimadores: 3,5,2,2,3 el promedio es $(8+32+4+4+8)/5 = 11.2$ mientras que el promedio armónico es $5/(1/8+1/32+1/4+1/4+1/8)=6.4$. El promedio armónico mitiga el efecto de valores muy grandes en el promedio y aumenta el efecto de valores pequeños lo cual es ideal para el algoritmo HLL.
+Por ejemplo si tenemos los siguientes estimadores: $3,5,2,2,3$ el promedio es $(8+32+4+4+8)/5 = 11.2$ mientras que el promedio armónico es $5/(1/8+1/32+1/4+1/4+1/8)=6.4$. El uso del promedio armónico de debe a que este mitiga el efecto de valores muy grandes en el promedio y aumenta el efecto de valores pequeños; siendo esto ideal para el algoritmo HLL.
 
 \section{AMS}
 
