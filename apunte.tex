@@ -10112,37 +10112,37 @@ Existen algoritmos específicos para rankear como por ejemplo SVMs que veremos m
 
 \epigraph{All models are wrong, but some are useful}{- George E.P. Box}
 
-Llamamos \textit{Machine Learning} a la rama de la computación que se encarga de construir algoritmos que aprenden a hacer algo útil a partir de los datos. Un ejemplo clásico de ML es el proyecto "Deep mind" de Google en donde un algoritmo procesó durante días videos de Youtube y aprendió a reconocer gatitos. Los algoritmos de ML hoy en día se usan en todo tipo de aplicaciones: por ejemplo en Amazon para recomendarnos que productos comprar, en Twitter para recomendarnos que usuarios seguir, en Google para predecir que páginas son las mas relevantes para una consulta, en un teléfono celular para poder reconocer la voz del usuario, en Facebook para reconocer que fotos contienen rostros de personas, en el mercado inmobiliario para predecir los precios de las propiedades, en el mercado de valores para predecir el precio de una acción. Son tantas las aplicaciones de ML en la industria que se ha producido una verdadera explosión del tema en los últimos años.
+Llamamos \textit{Machine Learning} a la rama de la computación que se encarga de construir algoritmos que aprenden a hacer algo útil a partir de los datos. Un ejemplo clásico de ML es el proyecto "Deep mind" de Google, en donde un algoritmo procesó durante días videos de Youtube y aprendió a reconocer gatitos. Los algoritmos de ML hoy en día se usan en todo tipo de aplicaciones: en Amazon para recomendarnos qué productos comprar, en Twitter para recomendarnos qué usuarios seguir, en Google para predecir qué páginas son las más relevantes para una consulta, en un teléfono celular para poder reconocer la voz del usuario, en Facebook para reconocer qué fotos contienen rostros de personas, en el mercado inmobiliario para predecir los precios de las propiedades, en el mercado de valores para predecir el precio de una acción. Son tantas las aplicaciones de ML en la industria que se ha producido una verdadera explosión del tema en los últimos años.
 
-Un ejemplo actual y sorprendente de ML es su aplicación a las citas online. En el pasado los sitios que pretendían encontrar la pareja ideal para los usuarios estaban basados en algoritmos que simplemente no funcionaban y su principal objetivo era cobrar el dinero correspondiente a los banners publicitarios y tener el mayor tráfico posible sin preocuparse por la calidad de los resultados obtenidos. Hoy en día sitios como match.com o okcupid usan algoritmos de ML que realmente funcionan y han generado un importante volumen del total de casamientos que se producen por encuentros online. 
+Un ejemplo actual y sorprendente de ML es su aplicación a las citas online. En el pasado los sitios que pretendían encontrar la pareja ideal para los usuarios estaban basados en algoritmos que simplemente no funcionaban. Su principal objetivo era cobrar el dinero correspondiente a los banners publicitarios y tener el mayor tráfico posible, sin preocuparse por la calidad de los resultados obtenidos. Hoy en día sitios como match.com o okcupid usan algoritmos de ML que realmente funcionan y han generado un importante incremento en la cantidad de casamientos que se producen por encuentros online. 
 
-En el capítulo 1 vimos una introducción a este tema y aprendimos que los algoritmos de ML se dividen en dos grandes ramas: aprendizaje supervisado y aprendizaje no-supervisado. El ejemplo clásico del primero es la clasificación automática mientras que el segundo se caracteriza por los problemas de clustering. Esta clasificación hace al tipo de problema de ML que queremos resolver, la \textit{forma} en la cual decidimos resolver el problema depende de qué filosofía elegimos y esta depende de a que tribu de la comunidad de ML decidimos confiarle nuestro problema.
+En el capítulo 1 vimos una introducción a este tema y aprendimos que los algoritmos de ML se dividen en dos grandes ramas: aprendizaje supervisado y aprendizaje no-supervisado. El ejemplo clásico del primero es la clasificación automática, mientras que el segundo se caracteriza por los problemas de clustering. Esta clasificación hace al tipo de problema de ML que queremos resolver, la \textit{forma} en la cual decidimos resolver el problema depende de qué filosofía elegimos y esta depende de a qué tribu de la comunidad de ML decidimos confiarle nuestro problema.
 
 \section{Evaluación de Algoritmos de ML}
 
-Casi todos los algoritmos de ML se basan en la construcción de un \textit{modelo} a partir de los datos de forma tal de luego poder usar dicho modelo para predecir datos nuevos. Cada modelo tiene un conjunto de \textit{parámetros} e \textit{hiper-parámetros} que necesita para funcionar. Los parámetros los descubre el algoritmo a partir de los datos, los hiper-parámetros, en cambio, son datos que debemos pasarle al algoritmo para funcionar. Un ejemplo de hiper-parámetro es el $k$ en KNN. 
+Casi todos los algoritmos de ML se basan en la construcción de un \textit{modelo} a partir de los datos, de forma tal de luego poder usar dicho modelo para predecir datos nuevos. Cada modelo tiene un conjunto de \textit{parámetros} e \textit{hiper-parámetros} que necesita para funcionar. Los parámetros los descubre el algoritmo a partir de los datos. Los hiper-parámetros, en cambio, son datos que debemos pasarle al algoritmo para funcionar. Un ejemplo de hiper-parámetro es el $k$ en KNN. 
 
-El problema es cómo encontrar los hiper-parámetros óptimos es decir aquellos que mejor funcionan para nuestro set de datos. Veamos primero un simple esquema basado en el concepto de \textit{validación} del modelo generado.
+El problema es cómo encontrar los hiper-parámetros óptimos, es decir, aquellos que mejor funcionan para nuestro set de datos. Veamos primero un simple esquema basado en el concepto de \textit{validación} del modelo generado.
 
-En general trabajaremos con un \textit{set de entrenamiento} y un \textit{set de test}, la idea es que entrenaremos a nuestro algoritmo con el set de entrenamiento y luego lo aplicaremos al set de test. De esta forma los datos para los cuales queremos probar el algoritmo nunca fueron vistos por el mismo lo cual permite saber si el modelo fue capaz de generalizar correctamente. Para poder validar el modelo necesitamos dividir el set de entrenamiento original en dos: un set de entrenamiento y un set de validación. La idea es entrenar el modelo con el set de entrenamiento y luego probarlo con el set de validación a efectos de encontrar los mejores hiper-parámetros. El set de validación en general es un 20-30\% del set de entrenamiento. 
+En general trabajaremos con un \textit{set de entrenamiento} y un \textit{set de test}. La idea es que entrenaremos a nuestro algoritmo con el set de entrenamiento y luego lo aplicaremos al set de test. De esta forma, los datos para los cuales queremos probar el algoritmo nunca fueron vistos por el mismo, lo cual permite saber si el modelo fue capaz de generalizar correctamente. Para poder validar el modelo necesitamos dividir el set de entrenamiento original en dos: un set de entrenamiento y un set de validación. La idea es entrenar el modelo con el set de entrenamiento y luego probarlo con el set de validación a efectos de encontrar los mejores hiper-parámetros. El set de validación en general es un 20-30\% del set de entrenamiento. 
 
-Este procedimiento permite probar distintos valores de hiper parámetros mediante grid-search o random-search y elegir los hiper-parámetros que mejor resultado nos den en el set de validación, luego aplicamos el modelo con los hiper parámetros que encontramos al set de test.  Es incorrecto usar el set de test como set de validación ya que el algoritmo nunca debe considerar los datos de test para encontrar los valores óptimos para sus hiper-parámetros.
+Este procedimiento permite probar distintos valores de hiper parámetros mediante grid-search o random-search y elegir los hiper-parámetros que mejor resultado nos den en el set de validación. Luego aplicamos al set de test el modelo con los hiper parámetros que encontramos. Es incorrecto usar el set de test como set de validación, ya que el algoritmo nunca debe considerar los datos de test para encontrar los valores óptimos para sus hiper-parámetros.
 
-El único problema de este esquema es que siendo el set de validación siempre el mismo podemos caer en el problema de que los hiper-parámetros que encontremos solo sean óptimos para un pequeño conjunto de nuestros datos. Para evitar esto usamos el método de cross-validation que es prácticamente universal para optimizar algoritmos de ML.
+El único problema de este esquema es que siendo el set de validación siempre el mismo podemos caer en el problema de que los hiper-parámetros que encontremos solo sean óptimos para un pequeño conjunto de nuestros datos. Para evitar esto usamos el método de cross-validation, el cual es prácticamente universal para optimizar algoritmos de ML.
 
 \subsection{Cross Validation}
 
-El proceso de \textit{K-fold Cross Validation} comienza particionando el set de entrenamiento en $k$ bloques, luego vamos a realizar varias iteraciones en las cuales entrenamos nuestro algoritmo con $k-1$ bloques y lo validamos con el restante. Este proceso se repite $k$ veces para que todos los datos hayan participado alguna vez del set de validación, el resultado es el promedio de las $k$ iteraciones del algoritmo. Esto hay que hacerlo por cada valor posible para nuestros hiper-parámetros por lo que dependiendo de los datos puede resultar un proceso costoso. 
+El proceso de \textit{K-fold Cross Validation} comienza particionando el set de entrenamiento en $k$ bloques. Luego vamos a realizar varias iteraciones en las cuales entrenamos nuestro algoritmo con $k-1$ bloques y lo validamos con el restante. Este proceso se repite $k$ veces para que todos los datos hayan participado alguna vez del set de validación. El resultado es el promedio de las $k$ iteraciones del algoritmo. Esto hay que hacerlo por cada valor posible para nuestros hiper-parámetros, por lo que, dependiendo de los datos, puede resultar un proceso costoso. 
 
-Un caso extremo de Cross Validation es cuando usamos un único dato como set de validación, en este caso tenemos que hacer $n$ iteraciones del algoritmo, tantas como registros tiene nuestro set de datos. Los resultados son mucho mas precisos pero el proceso es, por supuesto, muy costoso y solo tiene sentido con sets de datos reducidos. 
+Un caso extremo de Cross Validation es cuando usamos un único dato como set de validación. En este caso tenemos que hacer $n$ iteraciones del algoritmo, tantas como registros tiene nuestro set de datos. Los resultados son mucho más precisos pero el proceso es, por supuesto, muy costoso y solo tiene sentido con sets de datos reducidos. 
 
 \section{Los Problemas de ML: Overfitting y Underfitting}
 
-En esta sección vamos a estudiar los conceptos mas importantes en ML: overfitting y underfitting y análogamente bias y variance. Vamos a empezar por intentar explicar la diferencia entre overfitting y underfitting.
+En esta sección vamos a estudiar los conceptos más importantes en ML: overfitting y underfitting, y, análogamente, bias y variance. Vamos a empezar por intentar explicar la diferencia entre overfitting y underfitting.
 
-El caso mas espectacular de overfitting es el caso en el cual usamos KNN con $k=1$, para el set de entrenamiento KNN es simplemente perfecto porque dado un registro cualquiera el mas parecido es el registro mismo y por lo tanto vamos a tener 100\% de precisión para el set de entrenamiento. Sin embargo esto no quiere decir que el algoritmo generalice bien y para el set de validación los resultados pueden ser catastróficos. 
+El caso más espectacular de overfitting es el caso en el cual usamos KNN con $k=1$. Para el set de entrenamiento KNN es simplemente perfecto porque dado un registro cualquiera, el más parecido es el registro mismo y, por lo tanto, vamos a tener 100\% de precisión para el set de entrenamiento. Sin embargo esto no quiere decir que el algoritmo generalice bien y para el set de validación los resultados pueden ser catastróficos. 
 
-Otro ejemplo es el ajuste de una función polinómica a un set de datos, si tenemos $n$ puntos en nuestro set de entrenamiento existe un polinomio de grado $n-1$ que pasa por todos los puntos, sin embargo esto no quiere decir que dicho polinomio sea un buen predictor para puntos nuevos que no estaban en el set de entrenamiento.
+Otro ejemplo es el ajuste de una función polinómica a un set de datos. Si tenemos $n$ puntos en nuestro set de entrenamiento existe un polinomio de grado $n-1$ que pasa por todos los puntos. Sin embargo, esto no quiere decir que dicho polinomio sea un buen predictor para puntos nuevos que no estaban en el set de entrenamiento.
 
 \begin{figure}[!htb]
 \centering
@@ -10151,9 +10151,9 @@ Otro ejemplo es el ajuste de una función polinómica a un set de datos, si tene
 
 \end{figure}
 
-Es decir que el concepto de overfitting está asociado a la complejidad del modelo. Un modelo excesivamente complejo puede ajustar tan bien como querramos al set de entrenamiento pero funcionar muy bien para el set de test. 
+Es decir que el concepto de overfitting está asociado a la complejidad del modelo. Un modelo excesivamente complejo puede ajustar tan bien como querramos al set de entrenamiento pero funcionar muy mal para el set de test. 
 
-El concepto de underfitting es el opuesto y se produce cuando el modelo es demasiado simple. Si nuestros puntos están distribuidos en forma curva un modelo lineal es demasiado simple, no tiene el poder expresivo necesario para representar correctamente el set de entrenamiento.  Por lo tanto podemos decir que el modelo óptimo es aquel que tiene la complejidad necesaria para capturar lo que los datos expresan pero no mas.
+El concepto de underfitting es el opuesto. Se produce cuando el modelo es demasiado simple. Si nuestros puntos están distribuidos en forma curva, un modelo lineal es demasiado simple, no tiene el poder expresivo necesario para representar correctamente el set de entrenamiento. Por lo tanto, podemos decir que el modelo óptimo es aquel que tiene la complejidad necesaria para capturar lo que los datos expresan pero no más.
 
 \begin{figure}[!htb]
 \centering
@@ -10162,7 +10162,7 @@ El concepto de underfitting es el opuesto y se produce cuando el modelo es demas
 
 \end{figure}
 
-Los conceptos de \textit{bias} y \textit{variance} nos servirán para entender cuándo tenemos overfitting y cuándo overfitting. Podemos asociar el bias al error que tenemos en el set de entrenamiento y variance al error que tenemos en el set de test (o validación). A medida que aumenta la complejidad del modelo el error del set de entrenamiento disminuye, este es el bias que es siempre decreciente. Por otro lado a medida que aumentamos la complejidad el error del set de test aumenta. El óptimo está en algún punto medio. Cuando el modelo no es óptimo porque le falta complejidad tenemos alto bias, baja varianza y underfitting, cuando el modelo no es óptimo porque es demasiado complejo tenemos bajo bias, alta varianza y overfitting.
+Los conceptos de \textit{bias} y \textit{variance} nos servirán para entender cuándo tenemos overfitting y cuándo underfitting. Podemos asociar el bias al error que tenemos en el set de entrenamiento y variance al error que tenemos en el set de test (o validación). A medida que aumenta la complejidad del modelo, el error del set de entrenamiento disminuye. Este es el bias, el cual es siempre decreciente. Por otro lado, a medida que aumentamos la complejidad, el error del set de test aumenta. El óptimo está en algún punto medio. Cuando el modelo no es óptimo porque le falta complejidad tenemos alto bias, baja varianza y underfitting. Cuando el modelo no es óptimo porque es demasiado complejo tenemos bajo bias, alta varianza y overfitting.
 
 \begin{figure}[!htb]
 \centering
@@ -10171,7 +10171,7 @@ Los conceptos de \textit{bias} y \textit{variance} nos servirán para entender c
 
 \end{figure}
 
-El bias puede asociarse al poder de \textit{representación} del modelo y la varianza a la variabilidad del mismo. Cuando tenemos baja varianza y alto bias tenemos underfitting, el modelo no representa bien los datos pero tiene poca variabilidad. Cuando tenemos alta varianza y alto bias el modelo es un desastre, no entiende los datos y además tiene demasiada variabilidad. Si tenemos poco bias y poca varianza el modelo es el óptimo ajusta bien a los datos y generaliza bien. Finalmente si tenemos bajo bias y alta varianza tenemos un caso de overfitting.
+El bias puede asociarse al poder de \textit{representación} del modelo y la varianza a la variabilidad del mismo. Cuando tenemos baja varianza y alto bias tenemos underfitting. El modelo no representa bien los datos pero tiene poca variabilidad. Cuando tenemos alta varianza y alto bias el modelo es un desastre. No entiende los datos y además tiene demasiada variabilidad. Si tenemos poco bias y poca varianza, el modelo es el óptimo. Ajusta bien a los datos y generaliza bien. Finalmente, si tenemos bajo bias y alta varianza, tenemos un caso de overfitting.
 
 En la práctica podemos identificar si tenemos un problema de bias o varianza ploteando el error del set de entrenamiento y del set de test en función de la cantidad de datos en el set de entrenamiento.
 
@@ -10182,7 +10182,7 @@ En la práctica podemos identificar si tenemos un problema de bias o varianza pl
 
 \end{figure}
 
-Cuando tenemos un problema de alto bias (underfitting) veremos que las curvas de error nunca se aproximan, esta distancia entre el error de test y de entrenamiento es reflejo de un modelo que no tiene la complejidad necesaria para entender los datos.
+Cuando tenemos un problema de alto bias (underfitting) veremos que las curvas de error nunca se aproximan. Esta distancia entre el error de test y de entrenamiento es reflejo de un modelo que no tiene la complejidad necesaria para entender los datos.
 
 \begin{figure}[!htb]
 \centering
@@ -10191,9 +10191,9 @@ Cuando tenemos un problema de alto bias (underfitting) veremos que las curvas de
 
 \end{figure}
 
-Cuando el problema es la alta varianza tenemos que las curvas se aproximan pero el error total es demasiado alto, esto es un caso de overfitting, el modelo es demasiado complejo y generaliza mal.
+Cuando el problema es la alta varianza tenemos que las curvas se aproximan pero el error total es demasiado alto. Esto es un caso de overfitting, el modelo es demasiado complejo y generaliza mal.
 
-En el caso de KNN el único hiper-parámetro que manejamos (además de la métrica usada para la distancia) es $k$ cuando $k$ es un número muy grande KNN considera demasiados puntos para clasificar un punto nuevo, este es un caso de underfitting, nuestro algoritmo tiene \textit{visión borrosa} por estar mirando demasiados puntos las fronteras entre nuestras clases se vuelven difusas y el poder expresivo del algoritmo es pobre. Por otro lado cuando $k$ es muy bajo el algoritmo toma muy pocos puntos para clasificar, es un caso de overfitting, el modelo clasifica los puntos nuevos en base a muy poca evidencia, nuestro algoritmo alucina, las fronteras se vuelven muy complejas, demasiado complejas para el set de datos que tenemos. En KNN como el algoritmo no tiene entrenamiento no hace falta usar cross-validation y podemos probar diferentes valores de $k$ directamente con el set de entrenamiento mismo curiosamente el mejor $k$ no necesariamente es el que menor error nos de ya que sabemos que con $k=1$ no tenemos errores. Queremos buscar el $k$ mas grande con un error tan chico como los menores errores que vimos para todos los valores de $k$, este valor será en general el óptimo.
+En el caso de KNN el único hiper-parámetro que manejamos (además de la métrica usada para la distancia) es $k$. Cuando $k$ es un número muy grande, KNN considera demasiados puntos para clasificar un punto nuevo. Este es un caso de underfitting, nuestro algoritmo tiene \textit{visión borrosa} por estar mirando demasiados puntos, las fronteras entre nuestras clases se vuelven difusas y el poder expresivo del algoritmo es pobre. Por otro lado, cuando $k$ es muy bajo, el algoritmo toma muy pocos puntos para clasificar. Es un caso de overfitting. El modelo clasifica los puntos nuevos en base a muy poca evidencia. Nuestro algoritmo alucina, las fronteras se vuelven muy complejas, demasiado complejas para el set de datos que tenemos. En KNN, como el algoritmo no tiene entrenamiento, no hace falta usar cross-validation y podemos probar diferentes valores de $k$ directamente con el set de entrenamiento mismo. Curiosamente, el mejor $k$ no necesariamente es el que menor error nos de, ya que sabemos que con $k=1$ no tenemos errores. Queremos buscar el $k$ más grande con un error tan chico como los menores errores que vimos para todos los valores de $k$. Este valor será, en general, el óptimo.
 
 \section{El Teorema de No Free Lunch}
 
@@ -10203,13 +10203,13 @@ Este teorema publicado por Wolpert\cite{Wolpert} en el año 1997 es fuente de to
 Dos algoritmos de optimización cualesquiera son equivalentes si los promediamos sobre el set de todos los problemas posibles.
 \end{theorem}
 
-No vamos a demostrar el teorema aquí, para eso está el trabajo de Wolpert lo que si vamos a hacer es partiendo de que el teorema es cierto derivar un corolario muy interesante:
+No vamos a demostrar el teorema aquí, para eso está el trabajo de Wolpert. Lo que sí vamos a hacer es, partiendo de que el teorema es cierto, derivar un corolario muy interesante:
 
 \begin{theorem}[No Free Lunch]
-Dado un problema de optimización si un algoritmo funciona muy bien entonces existe un problema en el cual el algoritmo funciona igual de mal.
+Dado un problema de optimización, si un algoritmo funciona muy bien, entonces existe un problema en el cual el algoritmo funciona igual de mal.
 \end{theorem}
 
-Esto es fácil de demostrar, supongamos que, para un problema de clasificación binaria (1s y 0s), tenemos un set de entrenamiento y test, entrenamos a un algoritmo con el set de entrenamiento y obtenemos un 99\% de precisión para el set de test. Si ahora cambiamos los labels del set de test invirtiendo 0s por 1s y 1s por 0s el mismo algoritmo tiene una efectividad del 1\%.
+Esto es fácil de demostrar. Supongamos que, para un problema de clasificación binaria (1s y 0s), tenemos un set de entrenamiento y test. Entrenamos a un algoritmo con el set de entrenamiento y obtenemos un 99\% de precisión para el set de test. Si ahora cambiamos los labels del set de test, invirtiendo 0s por 1s y 1s por 0s, el mismo algoritmo tiene una efectividad del 1\%.
 
 Un corolario del corolario es:
 
@@ -10217,7 +10217,7 @@ Un corolario del corolario es:
 No existe un algoritmo que sea óptimo para cualquier problema de optimización.
 \end{theorem}
 
-Hasta aquí vamos bien pero es posible que ya hayamos cometido un error fatal. Cuando nosotros pensamos en "cualquier problema posible" estamos pensando en problemas de ML que podemos querer resolver pero estos no son \textit{todos} los problemas posibles. Todos los problemas posibles incluye el conjunto de problemas de ML que podemos querer resolver y el conjunto de todos los problemas que no tienen sentido y que nunca vamos a querer resolver. Visto de otra forma los problemas de ML que tienen sentido son solo un pequeño subespacio dentro del gigantesco espacio de todos los problemas posibles. Antes de terminar con un dolor de cabeza veamos un ejemplo sencillo:
+Hasta aquí vamos bien pero es posible que ya hayamos cometido un error fatal. Cuando nosotros pensamos en "cualquier problema posible" estamos pensando en problemas de ML que podemos querer resolver, pero estos no son \textit{todos} los problemas posibles. Todos los problemas posibles incluye el conjunto de problemas de ML que podemos querer resolver y el conjunto de todos los problemas que no tienen sentido y que nunca vamos a querer resolver. Visto de otra forma, los problemas de ML que tienen sentido son solo un pequeño subespacio dentro del gigantesco espacio de todos los problemas posibles. Antes de terminar con un dolor de cabeza veamos un ejemplo sencillo:
 
 Tenemos el siguiente set de entrenamiento en donde queremos predecir si nos va a gustar el capítulo 4 de una película basado en los 3 episodios anteriores:
 
@@ -10230,7 +10230,11 @@ Tenemos el siguiente set de entrenamiento en donde queremos predecir si nos va a
 (1,1,1) -> 1
 \end{verbatim}
 
-Es sencillo derivar un modelo predictor: si nos gustaron 2 o mas películas anteriores nos va a gustar la 4, si nos gustó solo una o ninguna entonces no.
+Es sencillo derivar un modelo predictor: 
+\begin{itemize}
+	\item Si nos gustaron 2 o más películas anteriores entonces nos va a gustar la 4. 
+	\item Si nos gustó solo una o ninguna entonces no nos va a gustar la 4.
+\end{itemize}
 
 Nuestro set de test es:
 
@@ -10239,7 +10243,7 @@ Nuestro set de test es:
 (1,1,0) -> 1
 \end{verbatim}
 
-Supongamos que nuestro algoritmo predice 0 y 1 es decir que tiene un 100\% de efectividad. Si ahora cambiamos los labels del set de test:
+Supongamos que nuestro algoritmo predice 0 y 1, es decir que tiene un 100\% de efectividad. Si ahora cambiamos los labels del set de test:
 
 \begin{verbatim}
 (0,0,1) -> 1
@@ -10248,46 +10252,46 @@ Supongamos que nuestro algoritmo predice 0 y 1 es decir que tiene un 100\% de ef
 
 Nuestro algoritmo va a tener 0\% de efectividad. Recordemos que el set de test no participa del entrenamiento por lo que el modelo será exactamente el mismo y las predicciones idénticas. 
 
-Nuestro primer problema es un problema lógico de ML, el segundo problema también es un problema de ML pero no tiene ningún sentido. Es como entrenar al modelo para aprender que si nos gustan dos o mas películas nos gustará la 4 y predecir exactamente lo contrario. Imaginemos en el caso de MNIST un algoritmo que aprenda a no-reconocer ningún dígito, es decir que dado un dígito de MNIST prediga cualquier número excepto el número representado. Esos problemas forman parte del espacio de todos los problemas posibles pero, claramente, no son problemas del mundo real. El teorema de Wolpert no aplica al mundo real sino al universo de todos los problemas, es importante desde el punto de vista teórico pero carece de funcionalidad en la práctica.
+Nuestro primer problema es un problema lógico de ML. El segundo problema también es un problema de ML pero no tiene ningún sentido. Es como entrenar al modelo para aprender que si nos gustan dos o más películas nos gustará la 4 y predecir exactamente lo contrario. Imaginemos en el caso de MNIST un algoritmo que aprenda a no-reconocer ningún dígito, es decir, que dado un dígito de MNIST prediga cualquier número excepto el número representado. Esos problemas forman parte del espacio de todos los problemas posibles pero, claramente, no son problemas del mundo real. El teorema de Wolpert no aplica al mundo real sino al universo de todos los problemas. Es importante desde el punto de vista teórico pero carece de funcionalidad en la práctica.
 
-Hay una poderosa analogía entre el teorema NFL y el teorema fundamental de la compresión de datos. Ningún algoritmo de compresión puede comprimir cualquier archivo y ningún algoritmo de optimización puede optimizar cualquier problema. Sin embargo no queremos comprimir cualquier archivo ni optimizar cualquier problema. La mayoría de los archivos son random y no nos interesa comprimirlos. La mayoría de los problemas son random y no nos interesa optimizarlos!. 
+Hay una poderosa analogía entre el teorema NFL y el teorema fundamental de la compresión de datos. Ningún algoritmo de compresión puede comprimir cualquier archivo y ningún algoritmo de optimización puede optimizar cualquier problema. Sin embargo, no queremos comprimir cualquier archivo ni optimizar cualquier problema. La mayoría de los archivos son random y no nos interesa comprimirlos. La mayoría de los problemas son random y no nos interesa optimizarlos! 
 
-En definitiva es posible que UN algoritmo funcione mejor para cualquier problema de optimización que tenga sentido de la misma forma que hay UN algoritmo de compresión que suele ser el mejor en general (ej: PAQ). Es fundamental distinguir el concepto teórico del teorema NFL con el concepto fundamental, necesario y poderoso de que así como los archivos que comprimimos no son random los problemas de ML con los que trabajamos tampoco lo son.
+En definitiva, es posible que UN algoritmo funcione mejor para cualquier problema de optimización que tenga sentido, de la misma forma que hay UN algoritmo de compresión que suele ser el mejor en general (ej: PAQ). Es fundamental distinguir el concepto teórico del teorema NFL con el concepto fundamental, necesario y poderoso de que así como los archivos que comprimimos no son random los problemas de ML con los que trabajamos tampoco lo son.
 
 Esta no es la primera ni la última vez que vamos a tener que distinguir entre el significado teórico de un teorema y su aplicación en la práctica, la clave es siempre la misma: \textbf{los datos no son random}
 
 \section{La Unión hace la fuerza: Ensambles}
 
-Los mejores algoritmos de ML suelen surgir de la combinación de varios algoritmos. Es muy raro que un solo algoritmo de ML logre mejores resultados que un ensamble. Esto puede verse en la mayoría de las competencias de ML en donde invariablemente los primeros resultados surgen de un ensamble. Esto no quiere decir que en la práctica siempre sea buena idea usar un ensamble, en algunos casos agregamos complejidad a cambio de una mejora muy pequeña en los resultados, en una competencia cualquier mejora es crítica pero en la vida real usar un algoritmo para tener una precisión del 80.55\% o usar un ensamble de 200 algoritmos para una precisión de 80.71\% probablemente sean resultados equivalentes y el segundo es muchísimo mas complejo.
+Los mejores algoritmos de ML suelen surgir de la combinación de varios algoritmos. Es muy raro que un solo algoritmo de ML logre mejores resultados que un ensamble. Esto puede verse en la mayoría de las competencias de ML en donde invariablemente los primeros resultados surgen de un ensamble. Esto no quiere decir que en la práctica siempre sea buena idea usar un ensamble. En algunos casos agregamos complejidad a cambio de una mejora muy pequeña en los resultados. En una competencia cualquier mejora es crítica pero en la vida real usar un algoritmo para tener una precisión del 80.55\% o usar un ensamble de 200 algoritmos para una precisión de 80.71\% probablemente sean resultados equivalentes y el segundo es muchísimo más complejo.
 
 En esta sección vamos a ver de forma abstracta los métodos teóricos para combinar algoritmos de ML que luego desarrollaremos en mayor detalle cuando veamos los algoritmos que los utilizan.
 
 \subsection{Bagging}
 
-Bagging en general implica aplicar el mismo clasificador $n$ veces y luego promediar sus resultados para el resultado final. El problema es que aplicar el mismo clasificador $n$ veces al mismo set de datos nos daría $n$ veces el mismo resultado. Es por esto que \textit{bagging} siempre se usa en conjunto con \textit{bootstrapping}. 
+Bagging en general implica aplicar el mismo clasificador $n$ veces y luego promediar sus resultados para el obtener el resultado final. El problema es que aplicar el mismo clasificador $n$ veces al mismo set de datos nos daría $n$ veces el mismo resultado. Es por esto que \textit{bagging} siempre se usa en conjunto con \textit{bootstrapping}. 
 
-\textit{Bootstrapping} consiste en tomar una muestra del set de entrenamiento del mismo tamaño del set de entrenamiento pero con reemplazo. Es decir que un dato puede estar varias veces en la muestra. Por ejemplo si tenemos los datos: $\text{Train}=0,1,2,3,4,5,6,7,8,9$ y tomamos muestras con reemplazo de tamaño 10 algunas muestras posibles son: $B1={4,7,2,3,4,2,7,8,7,9}$ o $B2={2,6,5,5,4,9,9,7,2,6}$. Podemos entonces entrenar nuestro clasificador con los bootstraps y obtener $n$ clasificadores distintos. Luego podemos aplicar estos $n$ clasificadores al set de datos original y promediar los resultados para obtener el resultado final, esto sirve tanto en problemas de regresión como de clasificación.
+\textit{Bootstrapping} consiste en tomar una muestra del set de entrenamiento del mismo tamaño del set de entrenamiento pero con reemplazo. Es decir que un dato puede estar varias veces en la muestra. Por ejemplo, si tenemos los datos: $\text{Train}=0,1,2,3,4,5,6,7,8,9$ y tomamos muestras con reemplazo de tamaño 10, algunas muestras posibles son: $B1={4,7,2,3,4,2,7,8,7,9}$ o $B2={2,6,5,5,4,9,9,7,2,6}$. Podemos entonces entrenar nuestro clasificador con los bootstraps y obtener $n$ clasificadores distintos. Luego podemos aplicar estos $n$ clasificadores al set de datos original y promediar los resultados para obtener el resultado final. Esto sirve tanto en problemas de regresión como de clasificación.
 
 Como cada clasificador no ve el total de registros del set de entrenamiento la técnica de bagging disminuye notablemente las posibilidades de caer en overfitting, ya que ninguno de los $n$ clasificadores individuales puede sobre-ajustar al set de entrenamiento completo.
 
-Para cada clasificador existe un set de registros que queda afuera, por ejemplo en $B1$ los registros 0,1,5 y 6 no forman parte del bootstrap, a estos los llamamos registros \textit{out of bag (OOB)}. La precisión de un clasificador que usa bagging se puede obtener mediante la clasificación de los registros OOB con el clasificador mismo, como si los registros OOB sirvieran como set de validación de cada clasificador individual. 
+Para cada clasificador existe un set de registros que queda afuera. Por ejemplo, en $B1$, los registros 0,1,5 y 6 no forman parte del bootstrap. A estos los llamamos registros \textit{out of bag (OOB)}. La precisión de un clasificador que usa bagging se puede obtener mediante la clasificación de los registros OOB con el clasificador mismo, como si los registros OOB sirvieran como set de validación de cada clasificador individual. 
 
-Veamos el siguiente ejemplo: tenemos tres clasificadores y un set de entrenamiento de 10 registros para hacer clasificación binaria y marcamos en negrita los datos que forman parte del bootstrap para cada clasificador.
+Veamos el siguiente ejemplo: tenemos tres clasificadores y un set de entrenamiento de 10 registros para hacer clasificación binaria. Marcamos en negrita los datos que forman parte del bootstrap para cada clasificador.
 
 \begin{table}[!hbt]
 \center{
 \begin{tabular}{|c|c|c|c|c|c|}\hline
 \textbf{Reg}&\textbf{Class}&\textbf{c1}&\textbf{c2}&\textbf{c3}&\textbf{Ave}\\ \hline \hline
-0 & 0& 0 & 0 &0 & 0 \\ \hline
-1&1&0&0&0&0 \\ \hline
-2&0&0&0&0&0 \\ \hline
-3&1&1&1&0&1 \\ \hline
-4&0&1&0&0&1 \\ \hline
+0 & 0&\textbf{0}&\textbf{0}&\textbf{0} & 0 \\ \hline
+1&1&0&\textbf{0}&0&0 \\ \hline
+2&0&0&\textbf{0}&\textbf{0}&0 \\ \hline
+3&1&\textbf{1}&1&0&1 \\ \hline
+4&0&1&0&\textbf{0}&1 \\ \hline
 5&1&1&0&0&1 \\ \hline
-6&0&1 & 1 & 0 & 1 \\  \hline
-7&0&0&0&0&0 \\ \hline
-8&1&1&1&1&1 \\ \hline
-9&1&1&1&0&1 \\ \hline \hline
+6&0&\textbf{1}&\textbf{1}&\textbf{0}& 1 \\  \hline
+7&0&\textbf{0}&\textbf{0}&\textbf{0}&0 \\ \hline
+8&1&\textbf{1}&\textbf{1}&\textbf{1}&1 \\ \hline
+9&1&\textbf{1}&1&\textbf{0}&1 \\ \hline \hline
 P& &7/10&7/10&6/10&8/10 \\ \hline
 OOB & &$2/4$&$3/4$&$0/3$&0.42 \\ \hline
 \end{tabular}
@@ -10296,28 +10300,28 @@ OOB & &$2/4$&$3/4$&$0/3$&0.42 \\ \hline
 \caption{Ejemplo Bagging.}
 \end{table}
 
-El promedio de precisión para los registros OOB se puede usar para analizar la precisión del ensamble entero, de esta forma buscaremos los hiper-parámetros que nos den mejor promedio de precisión OOB, esto evita que la búsqueda de hiper-parámetros haga overfit. 
+El promedio de precisión para los registros OOB se puede usar para analizar la precisión del ensamble entero. De esta forma buscaremos los hiper-parámetros que nos den mejor promedio de precisión OOB. Esto evita que la búsqueda de hiper-parámetros haga overfit. 
 
-Bagging puede usarse con cualquier algoritmo de clasificación o regresión pero es muy popular con árboles de decisión en donde da origen al algoritmo de \textit{Random Forests} que veremos mas adelante.
+Bagging puede usarse con cualquier algoritmo de clasificación o regresión pero es muy popular con árboles de decisión, en donde da origen al algoritmo de \textit{Random Forests} que veremos más adelante.
 
 \subsection{Boosting}
 
-El método de boosting consiste en construir un algoritmo muy preciso a partir de un conjunto de algoritmos muy simples y que pueden funcionar bastante mal. 
-El método consiste en entrenar un algoritmo simple, analizar sus resultados y luego entrenar otro algoritmo simple en donde se le da mayor peso a los resultados para los cuáles el anterior tuvo peor performance. Cada algoritmo tiene a su vez un peso proporcional a la cantidad de aciertos que tuvo para el set de entrenamiento. El resultado final del algoritmo se construye mediante un promedio ponderado de todos los algoritmos usados con sus respectivos pesos. 
+El método de boosting consiste en construir un algoritmo muy preciso a partir de un conjunto de algoritmos muy simples, los cuales por separado pueden funcionar bastante mal. 
+El método consiste en entrenar un algoritmo simple, analizar sus resultados y luego entrenar otro algoritmo simple, en donde se le da mayor peso a los resultados para los cuáles el anterior tuvo peor performance. Cada algoritmo tiene a su vez un peso proporcional a la cantidad de aciertos que tuvo para el set de entrenamiento. El resultado final del algoritmo se construye mediante un promedio ponderado de todos los algoritmos usados con sus respectivos pesos. 
 
-El caso mas popular de boosting es el algoritmo Adaboost en donde se usar como algoritmo de clasificación a un simple separador del set de entrenamiento en 2, combinando y ponderando muchos de estos clasificadores se puede lograr un resultado bastante bueno. 
+El caso más popular de boosting es el algoritmo Adaboost, en donde se usa como algoritmo de clasificación a un simple separador del set de entrenamiento en 2. Combinando y ponderando muchos de estos clasificadores se puede lograr un resultado bastante bueno. 
 
-Actualmente la técnica de boosting se ha vuelto mas importante en los algoritmos de tipo \textit{gradient boosting} como GBM o XGBoost, que suelen estar en el top-5 entre los mejores algoritmos de clasificación y regresión.  
+Actualmente la técnica de boosting se ha vuelto más importante en los algoritmos de tipo \textit{gradient boosting}, como GBM o XGBoost, que suelen estar en el top-5 entre los mejores algoritmos de clasificación y regresión.  
 
 \subsection{Combinando Algoritmos Diferentes}
 
-En esta sección veremos formas de combinar el resultado de diferentes algoritmos de ML para obtener un resultado final, estos procesos suelen ser la clave para obtener un mejor resultado ya que permiten aprovechar el poder expresivo de varios modelos completamente diferentes para obtener un resultado común.Para evitar confusiones vamos a concentrarnos en problemas de clasificación, con la aclaración.
+En esta sección veremos formas de combinar el resultado de diferentes algoritmos de ML para obtener un resultado final. Estos procesos suelen ser la clave para obtener un mejor resultado, ya que permiten aprovechar el poder expresivo de varios modelos completamente diferentes para obtener un resultado común. Para evitar confusiones, vamos a concentrarnos en problemas de clasificación.
 
 \subsubsection{Majority Voting}
 
-Empecemos por el caso mas simple: Tenemos varios clasificadores distintos para un cierto problema, cada uno de ellos produce un resultado y queremos obtener un resultado final. Una aproximación simple es ver cual es la clase que tiene mayoría entre todos los clasificadores. Este tipo de ensamble tiene sentido cuando la predicción es directamente la clase, si la predicción es la probabilidad de cada clase entonces otros métodos funcionan mejor. Hasta aquí todo parece muy simple pero hay algunos detalles a considerar.
+Empecemos por el caso más simple. Tenemos varios clasificadores distintos para un cierto problema, cada uno de ellos produce un resultado y queremos obtener un resultado final. Una aproximación simple es ver cual es la clase que tiene mayoría entre todos los clasificadores. Este tipo de ensamble tiene sentido cuando la predicción es directamente la clase. Si la predicción es la probabilidad de cada clase entonces otros métodos funcionan mejor. Hasta aquí todo parece muy simple pero hay algunos detalles a considerar.
 
-El resultado del voto por mayoría mejora notablemente si se usan resultados que tengan poca correlación entre sí. Veamos un ejemplo, suponemos que todos los datos tienen clase real 1 y mostramos el resultado de 3 clasificadores para nuestro set de test.
+El resultado del voto por mayoría mejora notablemente si se usan resultados que tengan poca correlación entre sí. Veamos un ejemplo. Suponemos que todos los datos tienen clase real 1 y mostramos el resultado de 3 clasificadores para nuestro set de test.
 
 \begin{verbatim}
 1111111100 = 80\%
@@ -10337,13 +10341,13 @@ Usando tres clasificadores cuyas predicciones están muy correlacionadas es dif�
 1111111101 = 90\%
 \end{verbatim}
 
-Cuando la correlación entre los modelos es baja el resultado del ensamble en general mejora notablemente el resultado de cada modelo individual. Una primera conclusión es que dados muchos clasificadores es conveniente elegir un conjunto que tenga buenos resultados y que estén muy poco correlacionados. Este será luego el set de clasificadores que usaremos para el ensamble.
+Cuando la correlación entre los modelos es baja el resultado del ensamble, en general, mejora notablemente el resultado de cada modelo individual. Una primera conclusión es que dados muchos clasificadores es conveniente elegir un conjunto que tenga buenos resultados y que estén muy poco correlacionados. Este será luego el set de clasificadores que usaremos para el ensamble.
 
-Los modelos del ensamble pueden tener diferentes niveles de precisión, es lógico pensar que el modelo que mejor está funcionando es el que en general tiene mayor cantidad de aciertos y por lo tanto solo queremos cambiar sus predicciones si muchos de los demás clasificadores mas débiles opinan lo contrario. Esto es simplemente darle un \textit{peso} a cada modelo. Un esquema simple es darle $n$ votos al mejor clasificador, $n-1$ votos al siguiente, etc. Luego simplemente aplicamos majority voting pero el mejor clasificador aparece varias veces en la votación y por lo tanto su opinión será mas importante.
+Los modelos del ensamble pueden tener diferentes niveles de precisión. Es lógico pensar que el modelo que mejor está funcionando es el que en general tiene mayor cantidad de aciertos y, por lo tanto, solo queremos cambiar sus predicciones si muchos de los demás clasificadores más débiles opinan lo contrario. Esto es simplemente darle un \textit{peso} a cada modelo. Un esquema simple es darle $n$ votos al mejor clasificador, $n-1$ votos al siguiente, etc. Luego simplemente aplicamos majority voting, pero el mejor clasificador aparece varias veces en la votación y, por lo tanto, su opinión será más importante.
 
 \subsubsection{Averaging}
 
-Promediar el resultado de varios clasificadores es un método muy popular que funciona en muchos problemas distintos: regresión, clasificación ya sea para predecir clases o probabilidades, etc.  La idea principal es reducir el overfitting. En general una separación suave entre las clases es mejor que una separación muy irregular y promediar clasificadores logra esto.
+Promediar el resultado de varios clasificadores es un método muy popular que funciona en muchos problemas distintos: regresión, clasificación (ya sea para predecir clases o probabilidades), etc.  La idea principal es reducir el overfitting. En general, una separación suave entre las clases es mejor que una separación muy irregular y promediar clasificadores logra esto.
 
 \begin{figure}[!htb]
 \centering
@@ -10352,11 +10356,9 @@ Promediar el resultado de varios clasificadores es un método muy popular que fu
 
 \end{figure}
 
-La línea negra es una separación mejor que la verde, promediando muchas separaciones verdes deberíamos lograr una separación similar a la línea negra. 
+La línea negra es una separación mejor que la verde. Promediando muchas separaciones verdes deberíamos lograr una separación similar a la línea negra. 
 
-Cuando promediamos clasificadores que predicen la probabilidad de las clases hay que tener cuidado porque cada clasificador individual puede tener una calibración completamente diferente, uno puede dar probabilidades muy cercanas a 1s y 0s mientras que otro a lo mejor se mantiene dentro de un cierto rango. Una solución para esto es convertir cada probabilidad de un rango entre $1$ y $n$ siendo $n$ el total de registros. El registro con mayor probabilidad tiene 1, el segundo 2 y el de menor probabilidad $n$ sin importar el valor de las probabilidades. Si hacemos esto para todos los clasificadores podemos luego promediar los rangos y convertir estos promedios en un número entre 0 y 1 para la probabilidad final.
-
-Ejemplo:
+Cuando promediamos clasificadores que predicen la probabilidad de las clases hay que tener cuidado porque cada clasificador individual puede tener una calibración completamente diferente. Uno puede dar probabilidades muy cercanas a 1s y 0s mientras que otro, a lo mejor, se mantiene dentro de un cierto rango. Una solución para esto es convertir cada probabilidad de un rango entre $1$ y $n$, siendo $n$ el total de registros. El registro con mayor probabilidad tiene 1, el segundo 2, etc, y el de menor probabilidad, $n$, sin importar el valor de las probabilidades. Si hacemos esto para todos los clasificadores podemos luego promediar los rangos y convertir estos promedios en un número entre 0 y 1 para la probabilidad final.
 
 \begin{table}[!hbt]
 \center{
@@ -10378,40 +10380,40 @@ Para calcular la probabilidad final simplemente normalizamos $prob = \frac{x-min
 
 El proceso de \textit{blending} es uno de los que mejores resultados da en la creación de ensambles a partir de clasificadores diferentes. La idea es entrenar varios clasificadores diferentes y armar un set de datos con sus predicciones para luego entrenar otro clasificador que realice las predicciones finales en base a la combinación de los clasificadores. Esto puede sonar un poco confuso así que vamos a entrar en algunos detalles.
 
-Para realizar el blending vamos a separar una pequeña parte del set de entrenamiento (10\%), lo que resta lo vamos a usar para entrenar a los $n$ clasificadores diferentes, notar que el set separado no debe usarse para validación, para validar hay que hacer un split de lo que quedó del set de entrenamiento como hacíamos habitualmente. Una vez entrenados los clasificadores los vamos a usar para predecir sobre el set que separamos (10\%), el resultado es un nuevo dataset en donde tenemos un 10\% de los registros y $n$ predicciones para los mismos. 
+Para realizar el blending vamos a separar una pequeña parte del set de entrenamiento (10\%). Lo que resta lo vamos a usar para entrenar a los $n$ clasificadores diferentes. Notar que el set separado no debe usarse para validación. Para validar hay que hacer un split de lo que quedó del set de entrenamiento, como hacíamos habitualmente. Una vez entrenados los clasificadores los vamos a usar para predecir sobre el set que separamos (10\%). El resultado es un nuevo dataset en donde tenemos un 10\% de los registros y $n$ predicciones para los mismos. 
 
-Para estos registros conocemos cuál es su verdadera clase porque formaban parte del set de entrenamiento original. Lo que vamos a hacer entonces es entrenar un nuevo modelo sobre estas predicciones para que el modelo aprenda como combinar los resultados de los clasificadores de forma tal que estos nos den la predicción final. Este modelo en general es simple, puede usarse logistic regression o gbm. 
+Para estos registros conocemos cuál es su verdadera clase porque formaban parte del set de entrenamiento original. Lo que vamos a hacer entonces es entrenar un nuevo modelo sobre estas predicciones para que el modelo aprenda cómo combinar los resultados de los clasificadores, de forma tal que estos nos den la predicción final. Este modelo en general es simple, puede usarse logistic regression o gbm. 
 
-El proceso de blending funciona mejor cuanto mas grande es el set de entrenamiento original porque permite que el set usado par entrenar el blender sea mayor, en estos casos podríamos usar un modelo aún mas complejo para realizar el blend, es decir un modelo no-lineal.
+El proceso de blending funciona mejor cuanto más grande es el set de entrenamiento original porque permite que el set usado para entrenar el blender sea mayor. En estos casos podríamos usar un modelo aún más complejo para realizar el blend, es decir, un modelo no-lineal.
 
-Una vez que entrenamos el blender lo que hacemos es re-entrenar los clasificadores con el set de entrenamiento completo (mas datos siempre dan mejores resultados) y luego aplicar esos modelos al set de test para finalmente aplicar el blender para obtener las predicciones finales. 
+Una vez que entrenamos el blender, re-entrenamos los clasificadores con el set de entrenamiento completo (más datos siempre dan mejores resultados) y luego aplicamos esos modelos al set de test, para finalmente aplicar el blender y obtener las predicciones finales. 
 
-Algo que puede hacerse y que suele traer buenos resultados es una vez que tenemos las predicciones para el set de test combinar los sets de entrenamiento y test en un nuevo set de entrenamiento y repetir el proceso completo con este nuevo súper-set de entrenamiento. Es decir separamos un 10\% de los registros, entrenamos los modelos, entrenamos al blender en base a las predicciones del 10\% que separamos, re-entrenamos los modelos con el súper-set completo, aplicamos los modelos para predecir el set de test y luego aplicamos el blender para las predicciones finales. La conclusión final es que todo esto toma tiempo!
+Algo que puede hacerse y que suele traer buenos resultados es, una vez que tenemos las predicciones para el set de test, combinar los sets de entrenamiento y test en un nuevo set de entrenamiento y repetir el proceso completo con este nuevo súper-set de entrenamiento. Es decir, separamos un 10\% de los registros, entrenamos los modelos, entrenamos al blender en base a las predicciones del 10\% que separamos, re-entrenamos los modelos con el súper-set completo, aplicamos los modelos para predecir el set de test y luego aplicamos el blender para las predicciones finales. La conclusión final es que todo esto toma tiempo!
 
 \paragraph{Blending}
 \begin{enumerate}
-\item Separar un 10\% del set de entrenamiento
-\item Entrenar $n$ clasificadores diferentes con el 90\% del set de entrenamiento (separando este 90\% en sets de entrenamiento y validación para optimizar cada modelo)
+\item Separar un 10\% del set de entrenamiento.
+\item Entrenar $n$ clasificadores diferentes con el 90\% del set de entrenamiento (separando este 90\% en sets de entrenamiento y validación para optimizar cada modelo).
 \item Realizar $n$ predicciones para el 10\% que separamos usando cada uno de los $n$ clasificadores que entrenamos.
-\item Entrenar un modelo \textit{blender} que use las predicciones aprendidas para realizar la clasificación final
-\item Entrenar los $n$ modelos con el se de entrenamiento completo 
-\item Realizar predicciones con estos modelos para el set de test
-\item Combinar las predicciones para el set de test usando el modelo blender
+\item Entrenar un modelo \textit{blender} que use las predicciones aprendidas para realizar la clasificación final.
+\item Entrenar los $n$ modelos con el set de entrenamiento completo.
+\item Realizar predicciones con estos modelos para el set de test.
+\item Combinar las predicciones para el set de test usando el modelo blender.
 \item Combinar los sets de entrenamiento y test en un nuevo súper-set de entrenamiento en donde los labels para lo que era el set de test son los que predijo el blender.
-\item Separar un 10\% del súper-set 
-\item Entrenar los $n$ modelos en el 90\% restante del súper-set
-\item Predecir los resultados para el 10\% que separamos usando cada modelo
-\item Entrenar un blender para combinar estas predicciones en la predicción final
-\item Entrenar los $n$ modelos usando el súper-set completo
-\item Aplicar los modelos aprendidos al set de test
-\item Aplicar el súper-blender al set de test
+\item Separar un 10\% del súper-set. 
+\item Entrenar los $n$ modelos en el 90\% restante del súper-set.
+\item Predecir los resultados para el 10\% que separamos usando cada modelo.
+\item Entrenar un blender para combinar estas predicciones en la predicción final.
+\item Entrenar los $n$ modelos usando el súper-set completo.
+\item Aplicar los modelos aprendidos al set de test.
+\item Aplicar el súper-blender al set de test.
 \end{enumerate}
 
 \section{Teoría de Machine Learning}
 
 En esta sección vamos a formalizar un poco la teoría de Machine Learning. Los conceptos que veremos fueron enunciados por primera vez en 1984 por Leslie Valiant \cite{Valiant}.
 
-El objetivo es presentar algunas definiciones y teoremas que son útiles para comprender conceptos que luego son fundamentales en la práctica como \textit{bias} y \textit{variance}. Curiosamente esta sección podría estudiarse antes o después del resto de los temas del capítulo. Aquellos que lean esta sección primero tendrán una base teórica que les va a permitir entender los conceptos que explicaremos mas adelante sin necesidad de "creer" en ellos. Los que lean la sección al final tendrán una explicación de cosas que fueron aprendiendo, es decir una forma de develar varios misterios. Dejamos la decisión a consideración de cada lector. Por si están pensando en decidir en base al lanzamiento de una moneda vamos a empezar con un concepto de probabilidades que vamos a necesitar luego. 
+El objetivo es presentar algunas definiciones y teoremas que son útiles para comprender conceptos que luego son fundamentales en la práctica como \textit{bias} y \textit{variance}. Curiosamente esta sección podría estudiarse antes o después del resto de los temas del capítulo. Aquellos que lean esta sección primero tendrán una base teórica que les va a permitir entender los conceptos que explicaremos más adelante sin necesidad de "creer" en ellos. Los que lean la sección al final tendrán una explicación de cosas que fueron aprendiendo, es decir una forma de develar varios misterios. Dejamos la decisión a consideración de cada lector. Por si están pensando en decidir en base al lanzamiento de una moneda, vamos a empezar con un concepto de probabilidades que necesitaremos luego. 
 
 \subsection{Desigualdad de Hoeffding}
 
@@ -10421,9 +10423,9 @@ Sean $Z_1,...,Z_m$ $m$ variables aleatorias independientes que responden, todas 
 P(|\phi-\hat{\phi}|>\gamma) \leq \exp(-2\gamma^2m)
 \end{myequation}
 
-Esta definición a la cuál se la llama también \textit{Chernoff bound} dice que si tomamos el promedio de $m$ variables de tipo Bernoulli, entonces la probabilidad de que el promedio sea diferente del valor real $\phi$ es pequeña para un $m$ grande. Esto es simplemente una conclusión de la ley de los grandes números, si tenemos una moneda cargada, podemos estimar su $\phi$ lanzándola una cantidad $m$ de veces grande y calculando el promedio de veces que salió 1.
+Esta definición a la cuál se la llama también \textit{Chernoff bound} dice que si tomamos el promedio de $m$ variables de tipo Bernoulli, entonces la probabilidad de que el promedio sea diferente del valor real $\phi$ es pequeña para un $m$ grande. Esto es simplemente una conclusión de la ley de los grandes números. Si tenemos una moneda cargada, podemos estimar su $\phi$ lanzándola una cantidad $m$ de veces grande y calculando el promedio de veces que salió 1.
 
-Esta desigualdad es parte fundamental de la teoría de Machine Learning cosa que, por supuesto, veremos mas adelante.
+Esta desigualdad es parte fundamental de la teoría de Machine Learning, cosa que, por supuesto, veremos mas adelante.
 
 \subsection{Error de Entrenamiento}
 
@@ -10437,7 +10439,7 @@ Al resultado del algoritmo que entrenemos lo vamos a llamar nuestra \textit{hip�
 \hat{\epsilon}(h) = \frac{1}{m} 1 \{h(x_i)\neq y_i\}
 \end{myequation}
 
-Esto no es ni mas ni menos que la fracción de registros que clasificamos mal, es decir que si tenemos 100 datos y clasificamos mal a 12 de ellos entonces el error de entrenamiento es 0.12. 
+Esto no es ni más ni menos que la fracción de registros que clasificamos mal. Es decir que si tenemos 100 datos y clasificamos mal a 12 de ellos entonces el error de entrenamiento es 0.12. 
 
 \subsection{Error de Generalización}
 
@@ -10451,7 +10453,7 @@ Es decir que si tomamos un dato cualquiera de nuestra distribución $\mathcal{D}
 
 \subsection{Overfitting y Underfitting}
 
-Vamos a definir como \textit{underfitting} al caso en cual nuestra hipótesis tiene un error de entrenamiento $\hat{\epsilon}$ alto.
+Vamos a definir como \textit{underfitting} al caso en el cual nuestra hipótesis tiene un error de entrenamiento $\hat{\epsilon}$ alto.
 
 Vamos a definir como \textit{overfitting} al caso en el cual nuestra hipótesis tiene un error de entrenamiento $\hat{\epsilon}$ bajo pero un error de generalización $\epsilon$ alto.
 
@@ -10463,7 +10465,7 @@ El objetivo de un algoritmo es encontrar los parámetros $\theta$ asociados a la
 \hat{\theta} = \text{arg} \min\limits_{\theta} \hat{\epsilon}(h_\theta)
 \end{myequation}
 
-A esto lo llamamos \textit{minimización empírica del riesgo} (ERM) por sus siglas en inglés. La hipótesis que resulta es $h=h_\theta$. ERM es la forma mas básica de definir un algoritmo de entrenamiento y es la que vamos a usar en el resto de la sección. Todos los algoritmos pueden aproximarse a un problema ERM por lo que no perdemos generalidad. 
+A esto lo llamamos \textit{minimización empírica del riesgo} (ERM) por sus siglas en inglés. La hipótesis que resulta es $h=h_\theta$. ERM es la forma más básica de definir un algoritmo de entrenamiento y es la que vamos a usar en el resto de la sección. Todos los algoritmos pueden aproximarse a un problema ERM por lo que no perdemos generalidad. 
 
 \subsection{El Espacio de Hipótesis}
 
@@ -10483,7 +10485,7 @@ Consideremos primero el caso en el cual la cantidad de hipótesis posibles es un
 
 Queremos derivar cual es la relación que existe entre el error de entrenamiento $\hat{h}$ y el error de generalización $h$. 
 
-Consideremos una hipótesis cualquiera fija $h_i \in \mathcal{H}$. Tomemos un dato cualquiera que no pertenezca al set de entrenamiento de nuestra distribución $(x,y)~\mathcal{D}$. Definimos ahora $Z=1\{h_i(x)\neq y\}$ es decir que $Z$ vale 1 si clasificamos mal el dato y vale 0 si lo clasificamos bien. Este $Z$ es el error de generalización y puede tomar valores 0 o 1 por lo que podemos decir que es una distribución de tipo Bernoulli.
+Consideremos una hipótesis cualquiera fija $h_i \in \mathcal{H}$. Tomemos un dato cualquiera que no pertenezca al set de entrenamiento de nuestra distribución $(x,y)~\mathcal{D}$. Definimos ahora $Z=1\{h_i(x)\neq y\}$ es decir que $Z$ vale 1 si clasificamos mal el dato y vale 0 si lo clasificamos bien. Este $Z$ es el error de generalización y puede tomar valores 0 o 1, por lo que podemos decir que es una distribución de tipo Bernoulli.
 
 Por otro lado podemos aplicar la hipótesis $h_i$ a cualquier punto $x_i \in S$ de nuestro set de entrenamiento. Y definir $Z_j = 1\{h_i(x_j) \neq y_j\}$. Esta es otra distribución Bernoulli.
 
@@ -10527,7 +10529,7 @@ Por lo tanto con probabilidad igual al menos a $1-2k\exp(-2\gamma^2 m)$ tenemos 
 
 En el desarrollo anterior usamos tres constantes: $\gamma$, $m$ y la probabilidad del error. Podemos expresar cualquiera de ellas en función de las otras dos. 
 
-Por ejemplo supongamos que dado un cierto $\gamma$ y $\delta > 0$ queremos saber que tan grande tiene que ser el set de entrenamiento $m$ de forma tal que podamos garantizar que con probabilidad $1-\delta$ el error de entrenamiento va a estar a lo sumo a $\gamma$ del error de generalización. 
+Por ejemplo supongamos que dado un cierto $\gamma$ y $\delta > 0$ queremos saber qué tan grande tiene que ser el set de entrenamiento $m$ de forma tal que podamos garantizar que con probabilidad $1-\delta$ el error de entrenamiento va a estar a lo sumo a $\gamma$ del error de generalización. 
 
 Aplicamos entonces $\delta = 2l\exp(-2\gamma^2 m)$ y despejamos $m$ para encontrar:
 
@@ -10539,17 +10541,17 @@ Por lo tanto con probabilidad al menos $1-\delta$ tenemos que $|\epsilon(h)-\hat
 
 Esta cota nos da una idea de cuantos datos necesitamos en el set de entrenamiento. Al valor de $m$ que necesitamos para que un algoritmo alcance una cierta cota de error con respecto al error de generalización lo llamamos \textit{complejidad de la muestra} (sample complexity).
 
-La clave de la cota que hemos calculado es que la cantidad de datos en el set de entrenamiento crece de forma \textbf{logarítmica} con respecto a $k$ es decir a la cantidad de hipótesis. 
+La clave de la cota que hemos calculado es que la cantidad de datos en el set de entrenamiento crece de forma \textbf{logarítmica} con respecto a $k$, es decir, a la cantidad de hipótesis. 
 
-De la misma forma podemos partir de valores de $m$ y $\delta$ fijos y resolver $\gamma$ esto nos sirve para mostrar que con probabilidad $1-delta$ para cualquier hipótesis $h \in \mathcal{H}$:
+De la misma forma podemos partir de valores de $m$ y $\delta$ fijos y resolver $\gamma$. Esto nos sirve para mostrar que con probabilidad $1-delta$ para cualquier hipótesis $h \in \mathcal{H}$:
 
 \begin{myequation}
 |\hat{\epsilon}(h) - \epsilon(h)| \leq \sqrt{\frac{1}{2m}\log \frac{2k}{\delta}}
 \end{myequation}
 
-Suponiendo que la convergencia uniforme es cierta es decir que $|\epsilon(h)-\hat{\epsilon}(h)|\leq \gamma$ para todo $h \in \mathcal{H}$. ¿Qué podemos saber sobre el error de generalización del algoritmo que elige $\hat{h} = \text{arg} \min_{h \in \mathcal{H}} \hat{\epsilon}(h)$
+Suponiendo que la convergencia uniforme es cierta, es decir que $|\epsilon(h)-\hat{\epsilon}(h)|\leq \gamma$ para todo $h \in \mathcal{H}$. ¿Qué podemos saber sobre el error de generalización del algoritmo que elige $\hat{h} = \text{arg} \min_{h \in \mathcal{H}} \hat{\epsilon}(h)$
 
-Definimos a nuestra mejor hipótesis como $h^*$ es decir $h^*=\text{arg} \min_{h \in \mathcal{H}} \epsilon(h)$. Notemos que estamos definiendo a nuestra mejor hipótesis como aquella que minimiza el error de generalización. 
+Definimos a nuestra mejor hipótesis como $h^*$, es decir $h^*=\text{arg} \min_{h \in \mathcal{H}} \epsilon(h)$. Notemos que estamos definiendo a nuestra mejor hipótesis como aquella que minimiza el error de generalización. 
 
 \begin{myequation}
 \epsilon(\hat{h}) \leq \hat{\epsilon}(\hat{h}) + \gamma
@@ -10563,7 +10565,7 @@ Luego:
 \epsilon(\hat{h}) \leq \hat{\epsilon}(h^*) + \gamma
 \end{myequation}
 
-Porque $h$ minimiza $\hat{\epsilon}(h)$ y $\hat{\epsilon}(\hat{h})\leq \hat{\epsilon}(h)$ para todo $h$, por lo tanto en particular $\hat{\epsilon}(h)\leq \hat{\epsilon}(h^*)$. Es decir que el error de entrenamiento de $h^*$ no puede ser mejor que el de $\hat{h}$ que es la hipótesis que minimiza el error de entrenamiento.
+Porque $h$ minimiza $\hat{\epsilon}(h)$ y $\hat{\epsilon}(\hat{h})\leq \hat{\epsilon}(h)$ para todo $h$, por lo tanto en particular $\hat{\epsilon}(h)\leq \hat{\epsilon}(h^*)$. Es decir que el error de entrenamiento de $h^*$ no puede ser mejor que el de $\hat{h}$, que es la hipótesis que minimiza el error de entrenamiento.
 
 Finalmente:
 
@@ -10575,7 +10577,7 @@ Aquí usamos nuevamente la convergencia uniforme para mostrar que $\hat{\epsilon
 
 Lo que hemos demostrado es que si se da la convergencia uniforme entonces el error de generalización de $\hat{h}$ es a lo sumo $2\gamma$ peor que la mejor hipótesis posible de $\mathcal{H}$ (!)
 
-Este es quizás el resultado mas importante que hemos obtenido hasta ahora y es de tremenda significancia porque lisa y llanamente decimos que si tenemos un set de entrenamiento lo suficientemente grande entonces el resultado de un cierto algoritmo sobre ese set de entrenamiento está muy cerca del mejor resultado posible que el algoritmo nos pueda dar. En otras palabras el entrenamiento del algoritmo justifica que podamos usarlo para generalizar a cualquier otro dato (!)
+Este es quizás el resultado más importante que hemos obtenido hasta ahora y es de tremenda significancia porque lisa y llanamente decimos que si tenemos un set de entrenamiento lo suficientemente grande entonces el resultado de un cierto algoritmo sobre ese set de entrenamiento está muy cerca del mejor resultado posible que el algoritmo nos pueda dar. En otras palabras, el entrenamiento del algoritmo justifica que podamos usarlo para generalizar a cualquier otro dato (!)
 
 Es hora de poner todo esto en un teorema:
 
@@ -10589,14 +10591,14 @@ Sea $|\mathcal{H}|=k$ y sean $m,\delta$ constantes. Entonces con probabilidad al
 
 Esto se demuestra facilmente haciendo que $\gamma$ sea igual al término de la raíz cuadrada, usando la presunción de que la convergencia uniforme ocurre con probabilidad al menos $1-\delta$ y teniendo en cuenta que la convergencia uniforme implica que $\epsilon(h)$ es a lo sumo $2\gamma$ mayor que $\epsilon(h^*)=\min_{h \in \mathcal{H}} \epsilon(h)$ (lo cual ya demostramos).
 
-El teorema de la generalización cuantifica el concepto de bias y variance. Por ejemplo supongamos que tenemos un algoritmo que tiene una familia de hipótesis $\mathcal{H}$ y que consideramos cambiar a otro algoritmo cuya familia de hipótesis es $\mathcal{H}'$ con $\mathcal{H} \subseteq \mathcal{H}'$. Es decir que nuestro nuevo algoritmo tiene mayor cantidad de hipótesis posibles, es decir que es un algoritmo mas complejo.
+El teorema de la generalización cuantifica el concepto de bias y variance. Por ejemplo, supongamos que tenemos un algoritmo que tiene una familia de hipótesis $\mathcal{H}$ y que consideramos cambiar a otro algoritmo cuya familia de hipótesis es $\mathcal{H}'$ con $\mathcal{H} \subseteq \mathcal{H}'$. Es decir que nuestro nuevo algoritmo tiene mayor cantidad de hipótesis posibles, es decir que es un algoritmo más complejo.
 
-El primer término de ~\ref{eq:gen} ($\min_{h}\epsilon(h))$) solo puede disminuir porque estamos tomando el mínimo sobre una cantidad de funciones mayor. Por lo tanto al aprender de un algoritmo mas complejo el \textit{bias} solo puede disminuir. Sin embargo si $k$ aumenta el segundo término ($2\sqrt{}$) también aumenta. Este incremento es lo que llamamos \textit{varianza} aumentando cuando nuestro algoritmo es mas complejo. 
+El primer término de ~\ref{eq:gen} ($\min_{h}\epsilon(h))$) solo puede disminuir porque estamos tomando el mínimo sobre una cantidad de funciones mayor. Por lo tanto al aprender de un algoritmo más complejo el \textit{bias} solo puede disminuir. Sin embargo si $k$ aumenta el segundo término ($2\sqrt{}$) también aumenta. Este incremento es lo que llamamos \textit{varianza} aumentando cuando nuestro algoritmo es más complejo. 
 
 Si mantenemos $\gamma$ y $\delta$ constantes y despejamos $m$ como hicimos antes podemos obtener la siguiente cota a la complejidad muestral:
 
 \begin{theorem}[Corolario al teorema de generalización]
-Sea $|\mathcal{H}|=k$ y sean $\delta,\gamma$ constantes. Entoncs para que valga $\epsilon(\hat{h}) \leq \min_{h \in mathcal{H}} \epsilon(h) + 2 \gamma$ con probabilidad al menos $1-\delta$ es condición suficiente que:
+Sea $|\mathcal{H}|=k$ y sean $\delta,\gamma$ constantes. Entonces para que valga $\epsilon(\hat{h}) \leq \min_{h \in mathcal{H}} \epsilon(h) + 2 \gamma$ con probabilidad al menos $1-\delta$ es condición suficiente que:
 
 \begin{myequation} \label{eq:corogene}
 \begin{aligned}
@@ -10616,7 +10618,7 @@ Sea $\mathcal{H}$ una familia de hipótesis parametrizada por un conjunto de $d$
 
 Aplicando el corolario del teorema de generalización (~\ref{eq:corogene}) si queremos garantizar que $\epsilon(\hat{h}) \leq \epsilon(h^*) + 2\gamma$ con probabilidad $1-delta$ entonces es suficiente con garantizar que $m \geq O(\frac{1}{\gamma^2} \log \frac{2^{64d}}{\delta}) = O(\frac{d}{\gamma^2} \log {1}{\delta}) = O(d)$. Por lo tanto la cantidad de datos en el set de entrenamiento que necesitamos crece de forma lineal a la cantidad de parámetros del modelo. Este es otro resultado sumamente importante. 
 
-Uno de los detalles que no hemos considerado hasta el momento es el de la parametrización de de $\mathcal{H}$ hemos asumido que un clasificador lineal necesita $n+1$ parámetros, es decir una dimensión mas que el set de entrenamiento debido al término independiente. Esto asume que la hipótesis es de tipo $h_\theta(x) = \theta_0 + \theta_1 x1 + \theta_2 x2 + ... \theta_n xn$ pero esa no es la única parametrización posible de una recta, podríamos escribir por ejemplo $h_{u,v}(x) = (u_0^2 - v_0^2) + (u_1^2 - v_1^2) x1 + ... + (u_n^2 - v_n^2) xn$ que también es una recta pero en lugar de $n+1$ parámetros tiene $2n+2$. Vamos entonces a usar un concepto llamaod la dimensión VC (Vapnik-Chervonenkis) para formalizar la parametrización de un algoritmo de clasificación.
+Uno de los detalles que no hemos considerado hasta el momento es el de la parametrización de $\mathcal{H}$. Hemos asumido que un clasificador lineal necesita $n+1$ parámetros, es decir una dimensión más que el set de entrenamiento debido al término independiente. Esto asume que la hipótesis es de tipo $h_\theta(x) = \theta_0 + \theta_1 x1 + \theta_2 x2 + ... \theta_n xn$ pero esa no es la única parametrización posible de una recta. Podríamos escribir por ejemplo $h_{u,v}(x) = (u_0^2 - v_0^2) + (u_1^2 - v_1^2) x1 + ... + (u_n^2 - v_n^2) xn$ que también es una recta pero en lugar de $n+1$ parámetros tiene $2n+2$. Vamos entonces a usar un concepto llamado la dimensión VC (Vapnik-Chervonenkis) para formalizar la parametrización de un algoritmo de clasificación.
 
 Dada una familia de hipótesis $\mathcal{H}$ definimos la dimensión de Vapnik-Chervonenkis de $\mathcal{H}$ denotada $\text{VC}(\mathcal{H})$ como la cardinalidad máxima de un set de puntos que la hipótesis pueda clasificar para cualquier repartición de los labels. Si el algoritmo puede separar cualquier cantidad de puntos entonces $\text{VC}(\mathcal{H})=\infty$
 
@@ -10640,7 +10642,7 @@ Podemos probar que sea cual fuera la distribución de los labels de esos tres pu
 \label{fig:vcdim2}
 \end{figure}
 
-Notemos que algunos conjuntos de 3 puntos en el plano no pueden separarse con una recta, por ejemplo los de la figura ~\ref{fig:vcdim3}, pero esto no impide que $\text{VC}(\mathcal{H})$ sea 3, alcanza con encontrar \textbf{una} configuración de $m$ puntos en $n$ dimensiones que podamos separar independientemente de como rotulemos a cada punto para que $\text{VC}(\mathcal{H})=m$
+Notemos que algunos conjuntos de 3 puntos en el plano no pueden separarse con una recta, por ejemplo los de la figura ~\ref{fig:vcdim3}, pero esto no impide que $\text{VC}(\mathcal{H})$ sea 3, alcanza con encontrar \textbf{una} configuración de $m$ puntos en $n$ dimensiones que podamos separar independientemente de cómo rotulemos a cada punto para que $\text{VC}(\mathcal{H})=m$
 
 \begin{figure}[!htb]
 \centering
@@ -10650,7 +10652,7 @@ Notemos que algunos conjuntos de 3 puntos en el plano no pueden separarse con un
 \label{fig:vcdim3}
 \end{figure}
 
-Es posible mostrar que no existe \textbf{ninguna} configuración de cuatro puntos en el plano de forma tal que una recta pueda separarlos independientemente de como rotulemos a cada punto. Por ejemplo si ponemos los cuatro puntos en los vértices de un cuadrado rotulando con "x" y "o" las esquinas opuestas tenemos el famoso problema del XOR que es imposible de separar mediante un plano. Por lo tanto en nuestro caso para la familia de hipótesis de los clasificadores lineales en $\Re^2$ tenemos $\text{VC}(\mathcal{H})=3$. Repasando llegamos a 3 porque existe una configuración de 3 puntos tales que siempre son separables independientemente de como estén rotulados y no existe una configuración de 4 puntos que cumpla lo mismo.
+Es posible mostrar que no existe \textbf{ninguna} configuración de cuatro puntos en el plano de forma tal que una recta pueda separarlos, independientemente de cómo rotulemos a cada punto. Por ejemplo si ponemos los cuatro puntos en los vértices de un cuadrado rotulando con "x" y "o" las esquinas opuestas tenemos el famoso problema del XOR que es imposible de separar mediante un plano. Por lo tanto en nuestro caso para la familia de hipótesis de los clasificadores lineales en $\Re^2$ tenemos $\text{VC}(\mathcal{H})=3$. Repasando llegamos a 3 porque existe una configuración de 3 puntos tales que siempre son separables independientemente de cómo estén rotulados y no existe una configuración de 4 puntos que cumpla lo mismo.
 
 Esto nos lleva a sacar algunas conclusiones interesantes sobre la dimensionalidad y la capacidad de un algoritmo de clasificar:
 
@@ -10666,9 +10668,9 @@ Otro teorema útil relacionado es el siguiente:
 Dado un conjunto de $m$ puntos en $d$ dimensiones. Existe, con una alta probabilidad, una transformación que proyecta a los puntos en $k>>d$ dimensiones de forma tal que los puntos sean linealmente separables.
 \end{theorem}
 
-Este teorema se puede demostrar fácilmente, si tenemos $m$ puntos podemos proyectarlos al símplice de $m-1$ dimensiones de forma tal que cada punto ocupe una esquina del mismo. Por ejemplo 4 puntos en las esquinas de un tetraedro. Si hacemos esto para cualquier asignación de dos labels a estos puntos tenemos un hiperplano separador. Es decir que si asignamos 1 o 0 a cada una de las 4 esquinas de un tetraedro siempre podemos encontrar un hiperplano que separe los 1s de los 0s.
+Este teorema se puede demostrar fácilmente. Si tenemos $m$ puntos podemos proyectarlos al símplice de $m-1$ dimensiones de forma tal que cada punto ocupe una esquina del mismo. Por ejemplo 4 puntos en las esquinas de un tetraedro. Si hacemos esto para cualquier asignación de dos labels a estos puntos tenemos un hiperplano separador. Es decir que si asignamos 1 o 0 a cada una de las 4 esquinas de un tetraedro siempre podemos encontrar un hiperplano que separe los 1s de los 0s.
 
-El teorema de Cover es la justificación a todos los métodos basados en el uso de Kernels, en concreto cuando proyectamos a los puntos a un espacio de muchas dimensiones es muy probable que podamos encontrar una separación lineal para los mismos.
+El teorema de Cover es la justificación a todos los métodos basados en el uso de Kernels. En concreto cuando proyectamos a los puntos a un espacio de muchas dimensiones es muy probable que podamos encontrar una separación lineal para los mismos.
 
 Habiendo estudiado la dimensión VC podemos enunciar ahora el siguiente teorema:
 
@@ -10695,23 +10697,23 @@ Para que valga $|\epsilon(h)-\hat{\epsilon}(h)|\leq \gamma$ para todo $h \in \ma
 
 Es decir que la cantidad de datos en el set de entrenamiento para aprender "bien" usando $\mathcal{H}$ es lineal en la dimensión VC de $\mathcal{H}$. En general y asumiendo una parametrización razonable esto es también lineal a la cantidad de parámetros. Poniendo todo en contexto podemos concluir que para que un algoritmo funcione bien necesitamos tener al menos una cantidad de datos que sea lineal de acuerdo a la cantidad de parámetros del mismo.
 
-El teorema de Vapnik junto con su corolario es la pieza mas importante de toda la teoría de Machine Learning, ya que nos demuestra que un algoritmo puede aprender a partir del set de entrenamiento y generalizar con un error acotado al error de entrenamiento siempre y cuando la cantidad de datos del set de entrenamiento sea lineal a la dimensión VC del algoritmo.
+El teorema de Vapnik junto con su corolario es la pieza más importante de toda la teoría de Machine Learning, ya que nos demuestra que un algoritmo puede aprender a partir del set de entrenamiento y generalizar con un error acotado al error de entrenamiento, siempre y cuando la cantidad de datos del set de entrenamiento sea lineal a la dimensión VC del algoritmo.
 
 Beautiful.
 
 \subsection{El Principio de la Mínima Descripción}
 
-El principio de la mínima descripción (MDL) por sus siglas en inglés \cite{Rissanen}\cite{Grumwald} es una forma de interpretar los algoritmos de Machine Learning desde el punto de vista de la compresión de datos. La idea es muy simple: cuanto mas se puede comprimir un set de datos mas se puede aprender del mismo.
+El principio de la mínima descripción, (MDL) por sus siglas en inglés, \cite{Rissanen}\cite{Grumwald} es una forma de interpretar los algoritmos de Machine Learning desde el punto de vista de la compresión de datos. La idea es muy simple: cuanto más se puede comprimir un set de datos, más se puede aprender del mismo.
 
-De acuerdo a MDL hay dos cosas para representar: los datos y el modelo. El modelo ideal, es decir el mejor algoritmo, es aquel que minimiza la sumatoria de la longitud necesaria en bits para representar los datos y la longitud para representar el modelo.
+De acuerdo a MDL hay dos cosas para representar: los datos y el modelo. El modelo ideal, es decir, el mejor algoritmo, es aquel que minimiza la sumatoria de la longitud necesaria en bits para representar los datos y la longitud para representar el modelo.
 
 \begin{myequation}
 MDL = \text{arg} \min L(X) + L(\theta)
 \end{myequation}
 
-En MDL buscamos un algoritmo que tenga un bajo error de entrenamiento y que al mismo tiempo sea simple. Por cada dato de nuestro set de datos un algoritmo de ML realiza una cierta predicción, en base a la predicción podemos calcular la probabilidad del dato y en base a la probabilidad del dato podemos calcular la longitud ideal en bits del mismo como $\log_2(P)$. 
+En MDL buscamos un algoritmo que tenga un bajo error de entrenamiento y que al mismo tiempo sea simple. Por cada dato de nuestro set de datos un algoritmo de ML realiza una cierta predicción. En base a la predicción podemos calcular la probabilidad del dato y en base a la probabilidad del dato podemos calcular la longitud ideal en bits del mismo como $\log_2(P)$. 
 
-Consideremos por ejemplo un simple problema de regresión en donde tenemos un conjunto de puntos $(x,y)$ y queremos encontrar un algoritmo que dado $x$ nos permita aproximar $y$. Un algoritmo de regresión va a recibir un punto $x$ y va a devolver una estimación para el valor de $y$, podemos convertir esta estimación en una probabilidad si suponemos que los residuos se distribuyen de forma normal:
+Consideremos por ejemplo un simple problema de regresión en donde tenemos un conjunto de puntos $(x,y)$ y queremos encontrar un algoritmo que dado $x$ nos permita aproximar $y$. Un algoritmo de regresión va a recibir un punto $x$ y va a devolver una estimación para el valor de $y$. Podemos convertir esta estimación en una probabilidad si suponemos que los residuos se distribuyen de forma normal:
 
 \begin{myequation}
 P(\epsilon_i) = \frac{1}{\sqrt{2 \pi \sigma}}\exp(-\frac{\epsilon_i^2}{2\sigma^2})
@@ -10723,9 +10725,9 @@ Esto nos lleva a:
 P(y_i|x_i) = \frac{1}{\sqrt{2\pi \sigma}} \exp(-\frac{(y_i - \theta x_i)^2}{2\sigma^2})
 \end{myequation}
 
-Notemos que minimizar el error es equivalente a maximizar la productoria de todas estas probabilidades (likelihood) o lo que es lo mismo la sumatoria del logaritmo de estas probabilidades (log-likelihood)
+Notemos que minimizar el error es equivalente a maximizar la productoria de todas estas probabilidades (likelihood) o, lo que es lo mismo, la sumatoria del logaritmo de estas probabilidades (log-likelihood).
 
-A modo de ejemplo consideremos que probamos para un cierto problema de regresión con un modelo lineal y modelos polinómicos de grado $n$. A medida que aumentamos el grado de los polinomios vamos a ajustar mejor a los puntos pero tal vez el modelo sea demasiado complejo y estemos cayendo en un caso de overfitting.
+A modo de ejemplo, consideremos que probamos, para un cierto problema de regresión, un modelo lineal y modelos polinómicos de grado $n$. A medida que aumentamos el grado de los polinomios vamos a ajustar mejor a los puntos pero tal vez el modelo sea demasiado complejo y estemos cayendo en un caso de overfitting.
 
 \begin{figure}[!htb]
 \centering
@@ -10749,25 +10751,25 @@ La figura ~\ref{fig:mdl1} muestra el resultado de ajustar una recta, un polinomi
 \caption{Cantidad de bits para tres modelos diferentes}
 \end{table}
 
-Como podemos ver a medida que el grado del polinomio es mas alto mejor ajustamos a los puntos y por lo tanto tenemos mayores probabilidades para cada predicción y menor cantidad de bits para representarlas. Pero al mismo tiempo la complejidad del modelo aumenta, si consideramos que hay que representar a cada polinomio como un flotante de 64 bits entonces tenemos 128 bits para el modelo lineal, 384 bits para el modelo de grado 2 y 896 bits para el polinomio de grado 6. Esto quiere decir que para que el modelo de grado 6 sea mas conveniente que el lineal necesitamos que el acumulado de las diferencias en bits para las predicciones de los puntos sea de al menos 768 bits. 
+Como podemos ver, a medida que el grado del polinomio es más alto, mejor ajustamos a los puntos y, por lo tanto, tenemos mayores probabilidades para cada predicción y menor cantidad de bits para representarlas. Pero al mismo tiempo la complejidad del modelo aumenta. Si consideramos que hay que representar a cada polinomio como un flotante de 64 bits entonces tenemos 128 bits para el modelo lineal, 384 bits para el modelo de grado 2 y 896 bits para el polinomio de grado 6. Esto quiere decir que para que el modelo de grado 6 sea más conveniente que el lineal necesitamos que el acumulado de las diferencias en bits para las predicciones de los puntos sea de al menos 768 bits. 
 
-Observemos que cuantos mas puntos tenemos mas atractivo resulta un modelo mas complejo ya que lo que ganamos en la representación de los puntos compensa la diferencia en complejidad entre los modelos que no depende de la cantidad de puntos. Esto coincide con lo que sabemos sobre overfitting, a mayor cantidad de datos menor es la probabilidad de overfitting. El modelo MDL nos explica el motivo desde el punto de vista de la compresión de datos!
+Observemos que cuantos más puntos tenemos más atractivo resulta un modelo más complejo, ya que lo que ganamos en la representación de los puntos compensa la diferencia en complejidad entre los modelos que no depende de la cantidad de puntos. Esto coincide con lo que sabemos sobre overfitting. A mayor cantidad de datos menor es la probabilidad de overfitting. El modelo MDL nos explica el motivo desde el punto de vista de la compresión de datos!
 
 \subsection{Clasificación con Algoritmos de Compresión}
 
-Es posible usar algoritmos de compresión en problemas de ML \cite{KnolldeFreitas}, la distancia normalizada de compresión puede usarse como distancia para un algoritmo de clustering como K-Means. Y podemos también aplicarla a problemas de clasificación. Consideremos por ejemplo que queremos clasificar textos en 2 clases (clasificación binaria). Podemos entonces concatenar todos los textos con label "1" del set de entrenamiento y comprimirlos. Luego concatenar todos los textos con label "0" y comprimirlos. Para clasificar podemos usar el modelo de compresión construido en cada caso y probar comprimir el nuevo texto con uno u otro modelo, el modelo que mejor comprima al texto es entonces el que usamos para predecir el label. Algo interesante es que la diferencia de compresión nos da una idea de la certeza que tenemos y podemos calcular la probabilidad de cada clase simplemente normalizando.
+Es posible usar algoritmos de compresión en problemas de ML \cite{KnolldeFreitas}. La distancia normalizada de compresión puede usarse como distancia para un algoritmo de clustering como K-Means. Y podemos también aplicarla a problemas de clasificación. Consideremos, por ejemplo, que queremos clasificar textos en 2 clases (clasificación binaria). Podemos entonces concatenar todos los textos con label "1" del set de entrenamiento y comprimirlos. Luego concatenar todos los textos con label "0" y comprimirlos. Para clasificar podemos usar el modelo de compresión construido en cada caso y probar comprimir el nuevo texto con uno u otro modelo. El modelo que mejor comprima al texto es entonces el que usamos para predecir el label. Algo interesante es que la diferencia de compresión nos da una idea de la certeza que tenemos y podemos calcular la probabilidad de cada clase simplemente normalizando.
 
 Existen diferentes modelos que podemos usar al aplicar un algoritmo de compresión a un problema de clasificación:
 
 \subsubsection{SMDL: Standard Minimum Description Length}
 
-SMDL es el método que vimos. Creamos un modelo de compresión por cada clase y luego clasificamos en base al modelo que mejor comprime los datos nuevos. Es muy interesante reflexionar sobre la habilidad de generalizar de un modelo de compresión a partir de los datos de entrenamiento. Si los datos son muy pocos el modelo puede especializarse demasiado en ellos y luego no comprimir tan bien a nuevos datos es decir que los compresores de datos también pueden caer en overfitting y la mejor solución para evitarlo es contar con muchos datos. En este modelo el modelo de compresión no se actualiza al clasificar datos que no están en el set de entrenamiento. 
+SMDL es el método que vimos. Creamos un modelo de compresión por cada clase y luego clasificamos en base al modelo que mejor comprime los datos nuevos. Es muy interesante reflexionar sobre la habilidad de generalizar de un modelo de compresión a partir de los datos de entrenamiento. Si los datos son muy pocos, el modelo puede especializarse demasiado en ellos y luego no comprimir tan bien a nuevos datos. Es decir que los compresores de datos también pueden caer en overfitting y la mejor solución para evitarlo es contar con muchos datos. En este modelo, el modelo de compresión no se actualiza al clasificar datos que no están en el set de entrenamiento. 
 
 \subsubsection{AMDL: Approximate Minimum Description Length}
 
-En AMDL concatenamos al nuevo dato con su set de entrenamiento y luego calculamos la diferencia que existe entre comprimir el set de entrnamiento y el set de entrenamiento concatenado con el nuevo dato. AMDL es bastante mas lento que SMDL pero tiene como ventaja que podemos usar cualquier compresor standard ya que solo necesitamos poder comprimir archivos con el mismo mientras que en SMDL necesitamos poder modificar el código del compresor para que almacene el modelo de compresión y poder comprimir un archivo en base al modelo almacenado.
+En AMDL concatenamos al nuevo dato con su set de entrenamiento y luego calculamos la diferencia que existe entre comprimir el set de entrenamiento y el set de entrenamiento concatenado con el nuevo dato. AMDL es bastante más lento que SMDL pero tiene como ventaja que podemos usar cualquier compresor standard, ya que solo necesitamos poder comprimir archivos con el mismo. En cambio, en SMDL necesitamos poder modificar el código del compresor para que almacene el modelo de compresión y poder comprimir un archivo en base al modelo almacenado.
 
-Los compresores de datos funcionan bien como clasificadores en cualquier tipo de dato que sea de tipo secuencia temporal, los archivos de texto son un buen ejemplo pero también pueden servir para series temporales y otros datos que tengan estas características. La clave es que los compresores intentan predecir en base al contenido anterior, por eso es que es importante que los datos exhiban esta propiedad. Cuando los datos no son del tipo adecuado para un compresor es posible diseñar un compresor ad-hoc y usar el mismo con alguno de los modelos vistos, por ejemplo SMDL, para clasificar.
+Los compresores de datos funcionan bien como clasificadores en cualquier tipo de dato que sea de tipo secuencia temporal. Los archivos de texto son un buen ejemplo pero también pueden servir para series temporales y otros datos que tengan estas características. La clave es que los compresores intentan predecir en base al contenido anterior, por eso es que es importante que los datos exhiban esta propiedad. Cuando los datos no son del tipo adecuado para un compresor, es posible diseñar un compresor ad-hoc y usar el mismo con alguno de los modelos vistos, por ejemplo SMDL, para clasificar.
 
 La dualidad entre la compresión de datos y Machine Learning demuestra que comprimir implica aprender y que la capacidad de aprender está directamente relacionada con la complejidad de los datos.
 
