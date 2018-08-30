@@ -16,6 +16,7 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{defn}{Definition}[chapter]
 \usepackage{environ}
+\usepackage[depth=section]{bookmark}
 \NewEnviron{myequation}{%
 \begin{equation}
 \scalebox{1.5}{$\BODY$}
@@ -819,7 +820,7 @@ Este gráfico es muy difícil de interpretar, la verdadera aparición de la ley 
 \label{fig:zipf2}
 \end{figure}
 
-En la figura ~\ref{fig:zipf2} vemos el mismo plot en escala logarítmica como podemos ver el gráfico es ahora una recta, con algo de ruido en la parte final. Esta es la marca característica de lo que llamamos una \textit{ley de potencias} (power-law) y que, como vremos, es sinónimo de una distribución que obedece la ley de Zipf.
+En la figura ~\ref{fig:zipf2} vemos el mismo plot en escala logarítmica como podemos ver el gráfico es ahora una recta, con algo de ruido en la parte final. Esta es la marca característica de lo que llamamos una \textit{ley de potencias} (power-law) y que, como veremos, es sinónimo de una distribución que obedece la ley de Zipf.
 
 Cada vez que un plot en escala logarítmica presenta una recta existe la confusión de si estamos viendo una ley de potencias, la ley de zipf o la distribución de Pareto. En realidad son tres formas diferentes de interpretar el mismo tipo de distribución, a continuación explicamos cuáles son sus definiciones y equivalencias para dejar en claro estos conceptos que son muy importantes.
 
@@ -1024,7 +1025,7 @@ Notemos que 100.000 hoteles con capacidad para 100 personas cada uno implica que
 
 Calculemos primero la probabilidad de que dos personas visiten un hotel es $0.01^2=0.0001$ para que visiten el mismo hotel hay que dividir por la cantidad de hoteles es decir 100.000 por lo tanto la probabilidad de que dos personas cualesquiera visiten el mismo hotel el mismo día es $10^{-9}$. Para que esto ocurra dos veces es decir en dos días diferentes elevamos esta probabilidad al cuadrado y nos da $10^{-18}$. 
 
-Ahora tenemos que considerar la cantidad total de eventos posibles. La cantidad total de pares de personas es $\binom{10^9}{2}= 5*10^{17}$. El número total de pares de días es $\binom{1000}{2}=5*10^5$. Estamos aproximando $\binom{n}{2} \approx n^2/2$ lo cual es válido cuando n es un n'{u}mero grande.
+Ahora tenemos que considerar la cantidad total de eventos posibles. La cantidad total de pares de personas es $\binom{10^9}{2}= 5*10^{17}$. El número total de pares de días es $\binom{1000}{2}=5*10^5$. Estamos aproximando $\binom{n}{2} \approx n^2/2$ lo cual es válido cuando n es un número grande.
 
 Por lo tanto el número total de sucesos es igual a la cantidad de pares de personas por la cantidad de pares de días por la probabilidad de que un par de personas visiten el mismo hotel en dos días diferentes es decir: 
 $$5*10^{17} * 5 * 10^5 * 10^{-18} = 250000$$
