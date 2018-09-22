@@ -3248,7 +3248,7 @@ La fase de Reduce se encarga de las operaciones que necesiten mas de un registro
 
 \subsubsection{Reduce propiamente dicho}
 
-En esta forma reduce funciona realizando operaciones que deben ser asociativas y conmutativas entre registros del archivo donde el resultado de un reduce pasa a ser parte del input de la siguiente operación. Supongamos que tenemos un archivo formado por números de la forma [1,3,4,-2,5]. Si hacemos un reduce con la operación "+" lo que haremos es tomar primero "1" y "3" aplicar "+", el resultado nos da "4". A este resultado le aplicamos "+" con -2 y nos da 2. Por ultimo al resultado obtenido le aplicamos "+" con 5 y nos da el resultado final que es 7.
+En esta forma reduce funciona realizando operaciones que deben ser asociativas y conmutativas entre registros del archivo donde el resultado de un reduce pasa a ser parte del input de la siguiente operación. Supongamos que tenemos un archivo formado por números de la forma [1,3,4,-2,5]. Si hacemos un reduce con la operación "+" lo que haremos es tomar primero "1" y "3" aplicar "+", el resultado nos da "4". A este resultado le aplicamos "+" con 4 y nos da 8. Nuevamente aplicamos "+" al 8 con el -2 y nos da 6. Por ultimo al resultado obtenido le aplicamos "+" con 5 y nos da el resultado final que es 11.   
 
 Podemos definir reduce de la forma:
 
