@@ -4020,7 +4020,7 @@ El tercer string es mas interesante, a primera vista podría parecer random pero
 De los ejemplos anteriores, se deduce lo siguiente:
 
 \begin{itemize}
-	\item Puede ser muy difícil darse cuenta de la complejidad que posee cierto conjunto de datos. Por ejemplo, un programa tendría que darse cuenta que "x2" contiene ciertos dígitos de $\pi$ para luego encontrar la forma mínima de representarlo
+	\item Puede ser muy difícil darse cuenta de la complejidad que posee cierto conjunto de datos. Por ejemplo, un programa tendría que darse cuenta que "x3" contiene ciertos dígitos de $\pi$ para luego encontrar la forma mínima de representarlo
 	\item El lenguaje de programación a usar, el compilador y demás influyen en la longitud del programa mínimo que estamos buscando pero en general es algo que podemos ignorar ya que a medida que los strings son lo suficientemente grandes el overhead introducido por el programa tiende a cero (el ejemplo "x1" ejemplifica muy bien este escenario)
 \end{itemize}
 
@@ -4078,7 +4078,7 @@ $$NKD(x,y) = \frac{K(xy)-\min\{K(x),K(y)\}}{\max\{K(x),K(y)\}}$$
 
 
 Esta última definición es equivalente a entender, dado un programa que genera $x$ o $y$, cuántos bits hay que agregarle para generar la concatenación de x e y.
-Para que esta distancia sirve como métrica tiene que cumplir las tres propiedades que cumplen las distancias:
+Para que esta distancia sirva como métrica tiene que cumplir las tres propiedades que cumplen las distancias:
 
 \begin{enumerate}
 \item $KD(x,y) \geq 0 $
@@ -4743,7 +4743,7 @@ Un compresor dinámico de orden 1 no necesitaría la tabla de frecuencias pero d
 
 Para introducir a este problema se puede analizar el siguiente ejemplo: al utilizar un modelo de orden 1 como el Huffman estático, cada caracter se codifica en función del anterior. Si el caracter anterior fuera una Q entonces es muy probable que el próximo sea una U. La primera vez que se da esta situación la probabilidad de la U será 1/256. Suponiendo que siempre luego de Q viene otra U, la segunda vez que aparezca una U su probabilidad será 2/257, luego 3/258, 4/259, etc. Dicho esto, se quiere remarcar que el compresor puede tardar mucho tiempo en aprender que la U tiene una alta probabilidad de ocurriencia en el contexto de la Q. A este problema se lo conoce como el \textit{problema de frecuencia cero} ya que su origen se debe a que en el contexto Q no se puede tener caracteres con frecuencia 0 ya que si estos ocurrieran no se podrían representar. Al inicializar todo en frecuencia 1, el compresor necesitaría de un archivo muy grande para tener tiempo de aprender y comprimir eficientemente. Es decir que tanto los métodos estáticos como los dinámicos necesitan de archivos cada vez mas grandes para funcionar con un orden cada vez mayor. 
 
-El hecho de aumentar el orden que se utiliza a la hora de comprimir puede tener efectovs negativos. Por ejemplo, cuando los compresores estáticos son muy eficientes en cuanto a la cantidad de bits generados por cada caracter pero a medida que aumenta el orden las tablas de frecuencias las mismas dejan de ser insignificantes y se vuelven un factor importante. En un modelo de orden 0 hace falta una única tabla de 256 caracteres que se puede volver despreciable en un archivo grande. En un modelo de orden 1 necesita 256 tablas de 256 caracteres cada uno lo cual está en el orden de los 64K. En un modelo de orden 2 está en el orden de los 16Mb y para orden 3 ya sería necesario almacenar tablas de 4Gb. Esto quiere decir que para que tenga sentido comprimir un archivo con un compresor estático de orden 3 necesitamos que el archivo sea tan grande que los 4Gb necesarios para almacenar las tablas de frecuencias sean despreciables. La conclusión es que a partir de orden 2 es necesario que el compresor sea dinámico ya que de lo contrario el peso de las tablas de frecuencias domina sobre el nivel de compresión que pueda alcanzar el método.
+El hecho de aumentar el orden que se utiliza a la hora de comprimir puede tener efectos negativos. Por ejemplo, cuando los compresores estáticos son muy eficientes en cuanto a la cantidad de bits generados por cada caracter pero a medida que aumenta el orden las tablas de frecuencias las mismas dejan de ser insignificantes y se vuelven un factor importante. En un modelo de orden 0 hace falta una única tabla de 256 caracteres que se puede volver despreciable en un archivo grande. En un modelo de orden 1 necesita 256 tablas de 256 caracteres cada uno lo cual está en el orden de los 64K. En un modelo de orden 2 está en el orden de los 16Mb y para orden 3 ya sería necesario almacenar tablas de 4Gb. Esto quiere decir que para que tenga sentido comprimir un archivo con un compresor estático de orden 3 necesitamos que el archivo sea tan grande que los 4Gb necesarios para almacenar las tablas de frecuencias sean despreciables. La conclusión es que a partir de orden 2 es necesario que el compresor sea dinámico ya que de lo contrario el peso de las tablas de frecuencias domina sobre el nivel de compresión que pueda alcanzar el método.
 
 El problema de frecuencia cero se puede resolver en compresores dinámicos de la forma en que lo hace el algoritmo PPMC que se verá más adelante luego de introducir el concepto de compresión aritmética.
 
@@ -4872,7 +4872,7 @@ En PPMC la frecuencia del escape siempre es igual a la cantidad de caracteres qu
 
 El próximo caracter en el archivo es B en un contexto de A. Al tener un solo caracter de contexto, se utiliza el modelo de orden 1. En este modelo no existe el contexto A por lo tanto se emite un escape de probabilidad 1 sin afectar el intervalo y se intenta comprimir con el modelo de orden 0.
 
-En el modelo de orden 0 se encuentra A y ESC por lo tanto se emite nuevamente un ESC. Será entonces necesario comprimir a B en el modeo -1, pero antes es necesario actualizar el intervalo teniendo en cuenta que esta vez se emitió un ESC con una probabilidad menor que 1. Para hacerlo, se toma el intervalo actual $[0,0.25)$ y se lo divide de acuerdo a las probabilidades del modelo que son 1/2 tanto para A como para ESC tal como se muestra en la tabla \ref{table:ppmc_example-m0a}:
+En el modelo de orden 0 se encuentra A y ESC por lo tanto se emite nuevamente un ESC. Será entonces necesario comprimir a B en el modelo -1, pero antes es necesario actualizar el intervalo teniendo en cuenta que esta vez se emitió un ESC con una probabilidad menor que 1. Para hacerlo, se toma el intervalo actual $[0,0.25)$ y se lo divide de acuerdo a las probabilidades del modelo que son 1/2 tanto para A como para ESC tal como se muestra en la tabla \ref{table:ppmc_example-m0a}:
 
 \begin{table}[!hbt]
 \center{
@@ -5552,7 +5552,7 @@ Para descomprimir, se lee inicialmente un código de 9 bits que corresponde a A 
 Luego se lee el código que corresponde a la B y se emite B. El código 256 será AB y el 257 tendrá la forma B?.
 Luego se lee C así que se completa 257=BC y se agrega 258=C? además de emitir C.
 Luego se lee el código 256 que es A así que se completa 258=CA. Notar que solo nos interesa el primer caracter, y se agrega 259=AB? además de emitir AB.
-Finalmente se lee 258 emtiendo CA. Se podría también completar 259=ABC y agregar 260=CA? pero esto ya no es necesario.
+Finalmente se lee 258 emitiendo CA. Se podría también completar 259=ABC y agregar 260=CA? pero esto ya no es necesario.
 
 Debería ser evidente ahora la diferencia en sincronización entre el compresor y el descompresor. El compresor agrega a la tabla un nuevo símbolo luego de comprimir un caracter, el descompresor sin embargo solo sabe cual es el símbolo agregado por el compresor al leer el siguiente. Esto es particularmente perturbador pero no impide que se pueda comprimir y descomprimir pero nos lleva a un caso muy curioso con el cual hay que tener un terrible cuidado.
 
@@ -5835,7 +5835,7 @@ El resultado de la transformación es la última columna de la matriz ordenada j
 PANQUEQUE => PUUAEENQQ + 4 
 \end{verbatim}
 
-Notar como el archivo, aun en un caso tan pequeño, ha quedado localizado. Todas las U juntas tanto así como las E y las Q. Esto se puede explicar si se interpreta que la última columna representa el caracter anterior al que está en la primer columna. Cuando se ordenan las rotaciones al quedar todas las U juntas en la primer columna entonces quedan todas las Q juntas en la última columna. En cierta forma la transformación de BW se basa en la intuición de que no todos los caracteres pueden aparecer antes que otro para construir un archivo en donde dichos caracteres quedan localizados dentro de una misma zona del archivo.
+Notar como el archivo, aun en un caso tan pequeño, ha quedado localizado. Todas las U juntas tanto así como las E y las Q. Esto se puede explicar si se interpreta que la última columna representa el caracter anterior al que está en la primera columna. Cuando se ordenan las rotaciones al quedar todas las U juntas en la primera columna entonces quedan todas las Q juntas en la última columna. En cierta forma la transformación de BW se basa en la intuición de que no todos los caracteres pueden aparecer antes que otro para construir un archivo en donde dichos caracteres quedan localizados dentro de una misma zona del archivo.
 
 Para revertir la transformación de Burrows y Wheeler lo que se hace en primer lugar es ordenar los caracteres:
 
