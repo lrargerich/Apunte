@@ -2500,7 +2500,7 @@ El filtrado puede hacerse por varias condiciones:
 \item Por una máscara de acuerdo a una condición lógica
 \end{itemize}
 
-La operación de filtrado mas interesante es la que usa una máscada de acuerdo a alguna condición lógica. Por ejemplo podemos filtrar aquellos registros que tengan algún registro nulo usando como máscara la condición isnull() o similar. Podemos filtrar los vuelos que tengan mas de 200 pasajeros usando como máscara la condición "Pasajeros>200". Una máscara es una función que, aplicada a un registro, devuelve True o False. Al aplicar la máscara a una columna obtenemos un vector booleano de igual tamaño que la columna. Las máscaras se pueden combinar usando operaciones lógicas. Por ejemplo podemos seleccionar los vuelos de Aeroflot, que no atterizaron en moscú y que tuvieron mas de 300 pasajeros.
+La operación de filtrado más interesante es la que usa una máscada de acuerdo a alguna condición lógica. Por ejemplo podemos filtrar aquellos registros que tengan algún registro nulo usando como máscara la condición isnull() o similar. Podemos filtrar los vuelos que tengan mas de 200 pasajeros usando como máscara la condición "Pasajeros $>$ 200". Una máscara es una función que, aplicada a un registro, devuelve True o False. Al aplicar la máscara a una columna obtenemos un vector booleano de igual tamaño que la columna. Las máscaras se pueden combinar usando operaciones lógicas. Por ejemplo podemos seleccionar los vuelos de Aeroflot, que no atterizaron en moscú y que tuvieron mas de 300 pasajeros.
 
 \subsection{Sort}
 
@@ -2648,7 +2648,7 @@ Nuestro capítulo sobre análisis exploratorio fue breve y muy abstracto, es pos
 
 \section{Ejemplo: IMDB Movies DataSet}
 
-A modo de ejemplo vamos a realizar un análisi exploratorio del set de datos IMDB 5000. Este set de datos tiene una gran cantidad de columnas, vamos a suponer que ya hemos realizado el proceso de depuración del set de datos para llegar a un dataframe con las siguientes columnas (fig ~\ref{fig:movies1})
+A modo de ejemplo vamos a realizar un análisis exploratorio del set de datos IMDB 5000. Este set de datos tiene una gran cantidad de columnas, vamos a suponer que ya hemos realizado el proceso de depuración del set de datos para llegar a un dataframe con las siguientes columnas (fig ~\ref{fig:movies1})
 
 \begin{figure}[!htb]
 \centering
@@ -2723,7 +2723,7 @@ Para eso primero hacemos un filtro dejando unicamente a las películas que tenga
 \label{fig:movies3}
 \end{figure}
 
-Aparentemente hubo un bache entre 1998 y 2003 que fue malo para Hollywoord, luego la industria se recuperó y aparentemente la tendencia es en alza aunque la variabilidad es bastante grande.
+Aparentemente hubo un bache entre 1998 y 2003 que fue malo para Hollywood, luego la industria se recuperó y aparentemente la tendencia es en alza aunque la variabilidad es bastante grande.
 
 \subsection{Duración de las Películas a lo largo del tiempo}
 
@@ -2760,7 +2760,7 @@ movie & title & year &  duration \\ \hline
 
 \subsection{Histograma de Ratings}
 
-Un histograma de ratins es un plot útil para entender la distribución de las calificaciones.
+Un histograma de ratings es un plot útil para entender la distribución de las calificaciones.
 
 \begin{figure}[!htb]
 \centering
@@ -2794,7 +2794,7 @@ Algunas correlaciones son interesantes. Por ejemplo entre el número de votos (n
 
 \subsection{Las Mejores Parejas de Actores}
 
-Queremos averiguar que duplas de actores son las mejores. Para eso tenemos el campo actor1name y actor2name, para resolver esto agrupamos por "actor1name" y "actor2name" y luego agregamos el score calculando el promedio y la cantidad de películas en las que participaron juntos. Liego podemos filtrar la s parejas que actuaron juntas en 2 o mas películas para evitar parejas de solo una película y ordenar por el promedio de calificaciones. El resultado es:
+Queremos averiguar que duplas de actores son las mejores. Para eso tenemos el campo actor1name y actor2name, para resolver esto agrupamos por "actor1name" y "actor2name" y luego agregamos el score calculando el promedio y la cantidad de películas en las que participaron juntos. Luego podemos filtrar las parejas que actuaron juntas en 2 o mas películas para evitar parejas de solo una película y ordenar por el promedio de calificaciones. El resultado es:
 
 \begin{table}[!hbt]
 \centering
@@ -2851,7 +2851,7 @@ Pete Docter       &    5.0 &  1.038810 \\ \hline
 \caption{Los directores que hacen mejores a sus actores.}
 \end{table}
 
-Aparentemente ser dirigido por Christpher Nolan o Quentin Tarantino hace que los actores actuen mucho mejor que su promedio, subiendo mas de un punto su calificación promedio.
+Aparentemente ser dirigido por Christopher Nolan o Quentin Tarantino hace que los actores actuen mucho mejor que su promedio, subiendo más de un punto su calificación promedio.
 De la misma forma podríamos obtener quienes hacen peores a los actores.
 
 \begin{table}[!hbt]
