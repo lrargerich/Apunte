@@ -7683,7 +7683,7 @@ Para aproximar la distancia angular usando LSH existen varios minhashes posibles
 
 Para generar un minhash válido para la distancia angular vamos a calcular el producto interno entre nuestro vector y un vector aleatorio. Este vector aleatorio puede estar formado simplemente por valores +1 y -1, ya que estos son suficientes para definir un hiperplano aleatorio. El valor del minhash va a ser 1 si el resultado del producto interno es positivo y -1 si el resultado es negativo.
 
-Por ejemplo, si nuestro vector es $(3,-2,3,4)$, generamos un vector al azar $(1,-1,-1,1)$ y el producto interno entre los vectores es 9. Por lo tanto, el valor del minhash es +1. 
+Por ejemplo, si nuestro vector es $(3,-2,3,4)$, generamos un vector al azar $(1,-1,-1,1)$ y el producto interno entre los vectores es 6. Por lo tanto, el valor del minhash es +1. 
 
 Interpretemos ahora el significado del minhash. La probabilidad de que dos vectores proyectados al azar sobre un hiperplano tengan diferente signo es igual al ángulo entre ellos dividido 180. $\theta/180$ ya que cuanto más chico es el ángulo más probable es que las proyecciones tengan igual sentido. Por lo tanto, la probabilidad de que los minhashes coincidan para dos vectores es:
 
@@ -7724,7 +7724,7 @@ En realidad ni el ángulo ni el coseno realmente importan ya que lo que usaremos
 
 \subsection{Voronoi Hashing}
 
-En Voronoi hashing vamos a usar un conjunto de $T$ vectores aleatorios en donde los elementos de estos vectores surgen de una distribución normal, es decir $T$ vectores gaussianos. Vamos a calcular el producto interno entre cada uno de estos vectors y nuestro vector query, y nos vamos a quedar con el índice del vector que nos da el máximo producto interno como valor del minhash.
+En Voronoi hashing vamos a usar un conjunto de $T$ vectores aleatorios en donde los elementos de estos vectores surgen de una distribución normal, es decir $T$ vectores gaussianos. Vamos a calcular el producto interno entre cada uno de estos vectores y nuestro vector query, y nos vamos a quedar con el índice del vector que nos da el máximo producto interno como valor del minhash.
 
 $$
 h(x) = \arg \max <G_i,x>
