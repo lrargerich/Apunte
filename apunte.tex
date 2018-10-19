@@ -3372,7 +3372,7 @@ Vamos a trabajar ahora con una simple versión de KNN (K-Nearest Neighbors): Sup
 
 \subsection{NN}
 
-NN es la versión de KNN con $k=1$ donde vamos a tener un cierto punto como query o input y vamos a buscar en nuestro set de datos el punto mas cercano al mismo usando alguna métrica como distancia. En este caso vamos a usar la distancia euclideana pero podría usarse cualquier otra distancia. Rrecordemos que determinar la métrica óptima es muy importante para el correcto funcionamiento de KNN.
+NN es la versión de KNN con $k=1$ donde vamos a tener un cierto punto como query o input y vamos a buscar en nuestro set de datos el punto mas cercano al mismo usando alguna métrica como distancia. En este caso vamos a usar la distancia euclideana pero podría usarse cualquier otra distancia. Recordemos que determinar la métrica óptima es muy importante para el correcto funcionamiento de KNN.
 
 El procedimiento es muy simple: Calculamos la distancia entre cada punto y nuestro query generando un registro de tipo (distancia,(clase,vector)). Luego realizamos un reduce donde simplemente nos quedamos con el registro que tenga menor distancia comparando de a dos y conservando siempre el menor.
 
