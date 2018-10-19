@@ -1640,7 +1640,7 @@ Las visualizaciones deben orientarse a los siguientes objetivos:
 
 \begin{itemize}
 \item Focalizar en el contenido
-\item Comparción en lugar de descripción
+\item Comparación en lugar de descripción
 \item Integridad
 \item Alta resolución
 \item Uso de diseños y conceptos clásicos 
@@ -2041,7 +2041,7 @@ El plot nos muestra que el rendimiento (mpg) es mayor para los autos de 4 cilind
 
 La "caja" del boxplot va desde el primer al tercer cuantil, es decir que el 25\% de los datos están por debajo de la caja y el 25\% de los datos están por encima de la caja. La caja concentra entonces el 50\% de los datos y la línea dentro de la caja muestra la media. Las líneas que salen de la caja van desde el primer cuantil hasta el valor mínimo y máximo, los puntos son valores anómalos (outliers).
 
-Regresando al boxplot que hicimos vemos que para 4 cilindros vemos que hay mas autos desde la mediana al tercer cuantil que desde la mediana al primer cuantil es decir que hay menor variabilidad en el consumo por debajo de la mediana que por encima.Esto indica una variable con un leve left skew.  Para los autos de 8 cilindros vemos que hay valores anómalos, hay un auto que tiene un consumo excesivo y otro que tiene un consumo muy bueno para ser un auto de 8 cilindros. Vemos también que para los autos de 6 cilindros la distribución es muy pareja, prácticamente normal. 
+Regresando al boxplot que hicimos vemos que para 4 cilindros vemos que hay mas autos desde la mediana al tercer cuantil que desde la mediana al primer cuantil es decir que hay menor variabilidad en el consumo por debajo de la mediana que por encima. Esto indica una variable con un leve left skew.  Para los autos de 8 cilindros vemos que hay valores anómalos, hay un auto que tiene un consumo excesivo y otro que tiene un consumo muy bueno para ser un auto de 8 cilindros. Vemos también que para los autos de 6 cilindros la distribución es muy pareja, prácticamente normal. 
 
 \begin{figure}[!htb]
 \centering
@@ -2101,7 +2101,7 @@ ggplot(data=diamonds,aes(x=clarity,y=price,color=clarity))+
     ggtitle("Diamond Price vs Clarity")
 \end{lstlisting}
 
-En el scatter plot (usando jittering) vemos la confirmación de lo que se deduce en el boxplot, para todas las claridades la mayoría de los diamantes tiene u precio bajo pero con varios valores altos. 
+En el scatter plot (usando jittering) vemos la confirmación de lo que se deduce en el boxplot, para todas las claridades la mayoría de los diamantes tiene un precio bajo pero con varios valores altos. 
 
 Vemos también que el efecto es menor en "I1" que en el boxplot vemos que tiene menos outliers. El caso de la claridad "IF" en donde el boxplot nos mostró menor variabilidad queda ahora mas claro, hay menos cantidad de diamantes "IF" y la mayoría de ellos tiene un precio bajo. Es curioso e interesante ver que para todas las claridades excepto I1 hay una zona de precios bajos con una cantidad importante de diamantes. Como curiosidad vemos también una cierta separación en el rango de precios entre los diamantes que están en el rango mas bajo y todos los demás, esto podría deberse a la existencia de algún tipo de convención de precios para los diamantes mas económicos. 
 
@@ -2275,7 +2275,7 @@ ggplot(mtypes,aes(x=year,y=total,fill=category))+
     ggtitle("Movie Categories Across Time")
 \end{lstlisting}
 
-Este plot pierde la información sobre el total de películas en cada año, pero favorece la comparación del porcentaje de películas de cada categoría. Podemos ver que efectivamente hay mas documentales en los úlrimos años y podemos ver el auge de las películas de animación entre 1935 y 1960 aproximadamente en esos años las películas animadas eran muchas mas que las de acción. 
+Este plot pierde la información sobre el total de películas en cada año, pero favorece la comparación del porcentaje de películas de cada categoría. Podemos ver que efectivamente hay mas documentales en los últimos años y podemos ver el auge de las películas de animación entre 1935 y 1960 aproximadamente en esos años las películas animadas eran muchas mas que las de acción. 
 
 \section{Heatmaps}
 
@@ -2351,11 +2351,11 @@ Un plot de coordenadas paralelas también sirve para representar datos en muchas
 
 Este plot sirve para ver tendencias globales en los datos como por ejemplo que los autos que tienen poca potencia tienen valores de aceleración malos, esto lo vemos entre las columnas 4 y 5. También vemos la relación entre la aceleración y el consumo que es un poco menos clara pero muestra que los autos rápidos suelen consumir mas.
 
-En un plot de coordenadas paralelas es importante decidir en que orden vamos a mostrar las diferentes dimensiones de forma tal que las dimensiones para las cuales la forma en que fluyen los datos nos interesa queden como vecinas. Podemos usar el color de la línea para representar una variable categórica por ejemplo en azul los autos manuales y en rojo los automáticos. Así vemos que los autos automáticos tienden a ser mas livianos y tener menos potencia que los manuales. Pero en cuanto al a\~{o} de fabricación los automáticos son mas nuevos por lo que marcarían una tendencia.
+En un plot de coordenadas paralelas es importante decidir en que orden vamos a mostrar las diferentes dimensiones de forma tal que las dimensiones para las cuales la forma en que fluyen los datos nos interesa queden como vecinas. Podemos usar el color de la línea para representar una variable categórica por ejemplo en azul los autos manuales y en rojo los automáticos. Así vemos que los autos automáticos tienden a ser mas livianos y tener menos potencia que los manuales. Pero en cuanto al año de fabricación los automáticos son mas nuevos por lo que marcarían una tendencia.
 
 \section{Treemaps}
 
-Un \textit{treemap} sirve para representar información jerárquica, en general comenzamos con un rectángulo que dividimos en sub-rectángulos cuya área es proporcional al valor de una cierta variable, cada uno de estos puede luego sub dividirse de acuerdo a otra variable y así sucesivamente. Puede agregarse una dimensión extra a los treemaps mediant el color de los rectángulos.
+Un \textit{treemap} sirve para representar información jerárquica, en general comenzamos con un rectángulo que dividimos en sub-rectángulos cuya área es proporcional al valor de una cierta variable, cada uno de estos puede luego sub dividirse de acuerdo a otra variable y así sucesivamente. Puede agregarse una dimensión extra a los treemaps mediante el color de los rectángulos.
 
 \begin{figure}[!htb]
 \centering
