@@ -271,7 +271,7 @@ Para la carga de datos de diversas fuentes es necesario contar con un buen conju
 La depuración de datos es frecuentemente la parte que insume mayor tiempo en todo proceso de Data Science, suele ser una tarea bastante tediosa y extensa que prácticamente nadie quiere hacer pero es imprescindible ya que de la calidad de los datos va a depender el éxito de nuestra tarea.
 Depurar los datos implica dejarle a nuestros programas datos que son correctos sintáctica y semánticamente. Los errores a corregir son de todo tipo como por ejemplo: formateo de fechas y formatos numéricos, corrección de caracteres inválidos en strings, conversión de tipos, identificación y solución de valores nulos o faltantes, etc.
 
-Mas allá de la corrección del \textit{valor} de cada dato es necesario también asegurarse que los datos estén \textit{Bien Formados},es decir que cada "fila" sea una observación y que cada "columna" sea un atributo. Frecuentemente los datos llegan en formatos que no están bien formados y es necesario realizar algunas manipulaciones para transformarlos.
+Mas allá de la corrección del \textit{valor} de cada dato es necesario también asegurarse que los datos estén \textit{Bien Formados}, es decir que cada "fila" sea una observación y que cada "columna" sea un atributo. Frecuentemente los datos llegan en formatos que no están bien formados y es necesario realizar algunas manipulaciones para transformarlos.
 
 Veamos algunos ejemplos de datos que no están bien formados y la forma de corregirlos.
 
@@ -493,7 +493,7 @@ En esta sección vamos a comentar y analizar brevemente formatos de datos que so
 
 \subsection{Data Frames}
 
-El \textit{Data Frame} es la estructura de datos más común e importante en un proceso de Data Science, es equivalente a una tabla en donde tenemos cada dato/observación como una fila y cada atributo como una columna.Cada columna tiene un tipo de dato, no es válido tener en una misma columna datos de diferente tipo. 
+El \textit{Data Frame} es la estructura de datos más común e importante en un proceso de Data Science, es equivalente a una tabla en donde tenemos cada dato/observación como una fila y cada atributo como una columna. Cada columna tiene un tipo de dato, no es válido tener en una misma columna datos de diferente tipo. 
 
 \begin{figure}[!htb]
 \centering
@@ -502,7 +502,7 @@ El \textit{Data Frame} es la estructura de datos más común e importante en un 
 
 \end{figure}
 
-Hay dos forma de ver a un data-frame: como un conjunto de filas o como un conjunto de columnas.Si pensamos en un data-frame como un conjunto de columnas entonces el data-frame es una lista de vectores en donde cada vector representa a un atributo (columna). Desde el punto de vista de la semántica de las estructuras de datos vamos a considerar que todos los datos en un vector deben ser del mismo tipo mientras que los datos dentro de una lista pueden ser de diferente tipo. 
+Hay dos forma de ver a un data-frame: como un conjunto de filas o como un conjunto de columnas. Si pensamos en un data-frame como un conjunto de columnas entonces el data-frame es una lista de vectores en donde cada vector representa a un atributo (columna). Desde el punto de vista de la semántica de las estructuras de datos vamos a considerar que todos los datos en un vector deben ser del mismo tipo mientras que los datos dentro de una lista pueden ser de diferente tipo. 
 Si consideramos a un data-frame como un conjunto de filas entonces el data-frame es un vector de diccionarios en donde cada diccionario representa los datos de cada una de nuestras observaciones o datos. 
 
 Cada columna de un dataset puede ser de los siguientes tipos de datos:
@@ -646,7 +646,7 @@ UserId & URL & AdId N+ & AdId N- & Referer & Click \\ \hline
 \caption{Count encoding.}
 \end{table}
 
-A este método lo denominamos \textbf{count-encoding} y lo podemos aplicar a todas las columnas de nuestro set de datos. Podemos agregar también una columna que exprese el logarimo de la relación entre N+ y N-, por ejemplo $\log(N+ - N-)$, de esta forma cada columna categórica de nuestro Datset queda representada  como una cantidad muy pequeña de nuevas columnas y la cantidad de columnas a crear no depende de la cantida de valores posibles del atributo categórico.
+A este método lo denominamos \textbf{count-encoding} y lo podemos aplicar a todas las columnas de nuestro set de datos. Podemos agregar también una columna que exprese el logaritmo de la relación entre N+ y N-, por ejemplo $\log(N+ - N-)$, de esta forma cada columna categórica de nuestro Dataset queda representada  como una cantidad muy pequeña de nuevas columnas y la cantidad de columnas a crear no depende de la cantida de valores posibles del atributo categórico.
 
 Para aplicar count-encoding hay que tener cuidado con una cuestión muy importante: si usamos el set de entrenamiento para obtener los contadores y luego codificamos el mismo set hay una enorme posibilidad de que el algoritmo sea capaz de deducir el label de un dato en función de los contadores lo cual es muy perjudicial para construir algoritmos predictores.
 
