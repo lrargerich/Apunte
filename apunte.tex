@@ -8895,7 +8895,7 @@ Vamos a definir el dominio de un sistema de information retrieval como un conjun
 
 Una consulta puntual consiste en recuperar todos los documentos que contienen una determinada palabra. Por ejemplo queremos todos los textos que tienen la palabra "Singapur". La aproximación por fuerza bruta consiste en buscar la palabra "Singapur" en cada documento de nuestra colección y luego simplemente devolver los ids de los documentos que matchearon la consulta. Este proceso implica recorrer cada palabra de cada documento en la colección por lo que solo sirve para colecciones realmente muy pequeñas. Para colecciones de un tama~{n}o mediano a grande necesitamos alguna estructura de tipo índice que nos permita resolver la consulta sin recorrer todos los documentos. La estructura mas popular para este tipo de consultas son los llamados \textit{índices invertidos}
 
-\section{índices Invertidos}
+\section{Índices Invertidos}
 
 Un índice invertido (II) contiene por cada palabra una lista de los documentos en los cuáles aparece dicha palabra. Por ejemplo sea la siguiente colección de tres documentos y su correspondiente II:
 
@@ -9308,19 +9308,19 @@ Los paréntesis contienen la lista de posiciones en donde aparecen los términos
 
 Si buscamos la frase "la historia" tenemos entonces que resolver la consulta puntual "la", luego la consulta puntual "historia" y recuperar las listas de posiciones para los documentos en la intersección verificando si existen documentos en los cuales la posición de "historia" es igual a la posición de "la" mas 1.
 
-En cuanto al almacenamiento de la información las posiciones se pueden representar mediante una lista de distancias. Por ejemplo si un término ocurre en el documento 1 en las posiciones (1,3 y 4) y el el documento 3 en las posiciones (2,3,5 y 6) su lista de punteros es algo de la forma: 1,3,1,2,1,2,2,4,2,1,2,1. Analicemos esta lista con cuidado. 
+En cuanto al almacenamiento de la información las posiciones se pueden representar mediante una lista de distancias. Por ejemplo si un término ocurre en el documento 1 en las posiciones (1,3 y 4) y en el documento 3 en las posiciones (2,3,5 y 6) su lista de punteros es algo de la forma: 1,3,1,2,1,2,4,2,1,2,1. Analicemos esta lista con cuidado. 
 
-\textbf{1},3,1,2,1,2,2,4,2,1,2,1 indica que el primer documento en donde aparece el término es el 1
+\textbf{1}3,1,2,1,2,4,2,1,2,1 indica que el primer documento en donde aparece el término es el 1
 
-1,\textbf{3},1,2,1,2,2,4,2,1,2,1 es la frecuencia del término en D1 es decir que aparece 3 veces si que leemos los 3 códigos siguientes
+1,\textbf{3},1,2,1,2,4,2,1,2,1 es la frecuencia del término en D1 es decir que aparece 3 veces si que leemos los 3 códigos siguientes
 
-1,3,\textbf{1,2,1},2,2,4,2,1,2,1 significa que el término aparece en D1 en las posiciones 1,3 y 4
+1,3,\textbf{1,2,1},2,4,2,1,2,1 significa que el término aparece en D1 en las posiciones 1,3 y 4
 
-1,3,1,2,1,\textbf{2},2,4,2,1,2,1 el próximo documento es el 3 (2 es la distancia respecto del anterior: 1)
+1,3,1,2,1,\textbf{2},4,2,1,2,1 el próximo documento es el 3 (2 es la distancia respecto del anterior: 1)
 
-1,3,1,2,1,2,2,\textbf{4},2,1,2,1 el término aparece 4 veces en el documento 3
+1,3,1,2,1,2,\textbf{4},2,1,2,1 el término aparece 4 veces en el documento 3
 
-1,3,1,2,1,2,2,4,\textbf{2,1,2,1} las posiciones del término en el documento 3 son 2,3,5 y 6 
+1,3,1,2,1,2,4,\textbf{2,1,2,1} las posiciones del término en el documento 3 son 2,3,5 y 6 
 
 La información posicional hace que nuestro índice crezca en tamaño notablemente por lo que podría ser conveniente usar códigos gamma o delta para las listas de punteros ya que el tamaño de las mismas podría ser muy grande usando VBcodes.
 
@@ -9391,7 +9391,7 @@ respira&0&0&1&1&0 \\ \hline
 \end{table}
 
 Los bitmaps son excepcionalmente cómodos cuando se los utiliza para resolver consultas,
-por ejemplo para las consultas booleanas basta con operar haciendo Ors y ANDs de los bitmaps
+por ejemplo para las consultas booleanas basta con operar haciendo ORs y ANDs de los bitmaps
 de los términos buscados para obtener los documentos que son resultado de la consulta. El
 problema es que son un tanto extravagantes en cuanto al espacio que consumen, para TREC por
 ejemplo un bitmap ocuparía unos 40 giga-bytes, aproximadamente 20 veces mas que el texto que
