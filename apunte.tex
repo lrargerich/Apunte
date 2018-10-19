@@ -6342,7 +6342,7 @@ Veamos un ejemplo:
 
 En nuestro ejemplo m=21, k=4 y las posiciones en gris están ocupadas. Analizamos el caso de h(x)=6. Observamos que las posiciones 6,7,8 y 9 están ocupadas por lo que buscamos hacia adelante hasta encontrar la posición libre 13. Buscamos hacia atrás y vemos que h(d)=11 por lo que podemos mover "d" a la posición 13 liberando la posición 11, luego vemos que h(c)=9 por lo que podemos mover "c" a la posición 11 que ahora está libre. Finalmente podemos almacenar a "x" en la posición 9 que hemos liberado. 
 
-En el caso que no se pueda liberar un espacio en las k posiciones donde puede almacenarse el dato, se debe cambiar el tamaño de la tabla y rehubicar a los datos de la misma.
+En el caso que no se pueda liberar un espacio en las k posiciones donde puede almacenarse el dato, se debe cambiar el tamaño de la tabla y reubicar a los datos de la misma.
 
 Notemos que usando Hopscotch una búsqueda es siempre de tipo O(k)=O(1) ya que el dato, si existe, solo puede estar almacenado en alguna de las k posiciones alternativas para el mismo. 
 
@@ -6391,8 +6391,8 @@ La función de Jenkins fue publicada por primera vez por Dr Dobbs en 1997. Se ba
  \KwData{s: string}
  \KwResult{hash: integer}
  \caption{Jenkins Hashing}
-\For {hash=i=0;i<len;i++} {
-hash += key[i]\\
+\For {hash=i=0;i$<$len;i++} {
+hash += s[i]\\
 hash += (hash $<<$  10);\\
 hash xor= (hash $>>$  6);\\
 }
