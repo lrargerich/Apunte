@@ -271,7 +271,7 @@ Para la carga de datos de diversas fuentes es necesario contar con un buen conju
 La depuración de datos es frecuentemente la parte que insume mayor tiempo en todo proceso de Data Science, suele ser una tarea bastante tediosa y extensa que prácticamente nadie quiere hacer pero es imprescindible ya que de la calidad de los datos va a depender el éxito de nuestra tarea.
 Depurar los datos implica dejarle a nuestros programas datos que son correctos sintáctica y semánticamente. Los errores a corregir son de todo tipo como por ejemplo: formateo de fechas y formatos numéricos, corrección de caracteres inválidos en strings, conversión de tipos, identificación y solución de valores nulos o faltantes, etc.
 
-Mas allá de la corrección del \textit{valor} de cada dato es necesario también asegurarse que los datos estén \textit{Bien Formados},es decir que cada "fila" sea una observación y que cada "columna" sea un atributo. Frecuentemente los datos llegan en formatos que no están bien formados y es necesario realizar algunas manipulaciones para transformarlos.
+Mas allá de la corrección del \textit{valor} de cada dato es necesario también asegurarse que los datos estén \textit{Bien Formados}, es decir que cada "fila" sea una observación y que cada "columna" sea un atributo. Frecuentemente los datos llegan en formatos que no están bien formados y es necesario realizar algunas manipulaciones para transformarlos.
 
 Veamos algunos ejemplos de datos que no están bien formados y la forma de corregirlos.
 
@@ -493,7 +493,7 @@ En esta sección vamos a comentar y analizar brevemente formatos de datos que so
 
 \subsection{Data Frames}
 
-El \textit{Data Frame} es la estructura de datos más común e importante en un proceso de Data Science, es equivalente a una tabla en donde tenemos cada dato/observación como una fila y cada atributo como una columna.Cada columna tiene un tipo de dato, no es válido tener en una misma columna datos de diferente tipo. 
+El \textit{Data Frame} es la estructura de datos más común e importante en un proceso de Data Science, es equivalente a una tabla en donde tenemos cada dato/observación como una fila y cada atributo como una columna. Cada columna tiene un tipo de dato, no es válido tener en una misma columna datos de diferente tipo. 
 
 \begin{figure}[!htb]
 \centering
@@ -502,7 +502,7 @@ El \textit{Data Frame} es la estructura de datos más común e importante en un 
 
 \end{figure}
 
-Hay dos forma de ver a un data-frame: como un conjunto de filas o como un conjunto de columnas.Si pensamos en un data-frame como un conjunto de columnas entonces el data-frame es una lista de vectores en donde cada vector representa a un atributo (columna). Desde el punto de vista de la semántica de las estructuras de datos vamos a considerar que todos los datos en un vector deben ser del mismo tipo mientras que los datos dentro de una lista pueden ser de diferente tipo. 
+Hay dos forma de ver a un data-frame: como un conjunto de filas o como un conjunto de columnas. Si pensamos en un data-frame como un conjunto de columnas entonces el data-frame es una lista de vectores en donde cada vector representa a un atributo (columna). Desde el punto de vista de la semántica de las estructuras de datos vamos a considerar que todos los datos en un vector deben ser del mismo tipo mientras que los datos dentro de una lista pueden ser de diferente tipo. 
 Si consideramos a un data-frame como un conjunto de filas entonces el data-frame es un vector de diccionarios en donde cada diccionario representa los datos de cada una de nuestras observaciones o datos. 
 
 Cada columna de un dataset puede ser de los siguientes tipos de datos:
@@ -646,7 +646,7 @@ UserId & URL & AdId N+ & AdId N- & Referer & Click \\ \hline
 \caption{Count encoding.}
 \end{table}
 
-A este método lo denominamos \textbf{count-encoding} y lo podemos aplicar a todas las columnas de nuestro set de datos. Podemos agregar también una columna que exprese el logarimo de la relación entre N+ y N-, por ejemplo $\log(N+ - N-)$, de esta forma cada columna categórica de nuestro Datset queda representada  como una cantidad muy pequeña de nuevas columnas y la cantidad de columnas a crear no depende de la cantida de valores posibles del atributo categórico.
+A este método lo denominamos \textbf{count-encoding} y lo podemos aplicar a todas las columnas de nuestro set de datos. Podemos agregar también una columna que exprese el logaritmo de la relación entre N+ y N-, por ejemplo $\log(N+ - N-)$, de esta forma cada columna categórica de nuestro Dataset queda representada  como una cantidad muy pequeña de nuevas columnas y la cantidad de columnas a crear no depende de la cantida de valores posibles del atributo categórico.
 
 Para aplicar count-encoding hay que tener cuidado con una cuestión muy importante: si usamos el set de entrenamiento para obtener los contadores y luego codificamos el mismo set hay una enorme posibilidad de que el algoritmo sea capaz de deducir el label de un dato en función de los contadores lo cual es muy perjudicial para construir algoritmos predictores.
 
@@ -1640,7 +1640,7 @@ Las visualizaciones deben orientarse a los siguientes objetivos:
 
 \begin{itemize}
 \item Focalizar en el contenido
-\item Comparción en lugar de descripción
+\item Comparación en lugar de descripción
 \item Integridad
 \item Alta resolución
 \item Uso de diseños y conceptos clásicos 
@@ -2041,7 +2041,7 @@ El plot nos muestra que el rendimiento (mpg) es mayor para los autos de 4 cilind
 
 La "caja" del boxplot va desde el primer al tercer cuantil, es decir que el 25\% de los datos están por debajo de la caja y el 25\% de los datos están por encima de la caja. La caja concentra entonces el 50\% de los datos y la línea dentro de la caja muestra la media. Las líneas que salen de la caja van desde el primer cuantil hasta el valor mínimo y máximo, los puntos son valores anómalos (outliers).
 
-Regresando al boxplot que hicimos vemos que para 4 cilindros vemos que hay mas autos desde la mediana al tercer cuantil que desde la mediana al primer cuantil es decir que hay menor variabilidad en el consumo por debajo de la mediana que por encima.Esto indica una variable con un leve left skew.  Para los autos de 8 cilindros vemos que hay valores anómalos, hay un auto que tiene un consumo excesivo y otro que tiene un consumo muy bueno para ser un auto de 8 cilindros. Vemos también que para los autos de 6 cilindros la distribución es muy pareja, prácticamente normal. 
+Regresando al boxplot que hicimos vemos que para 4 cilindros vemos que hay mas autos desde la mediana al tercer cuantil que desde la mediana al primer cuantil es decir que hay menor variabilidad en el consumo por debajo de la mediana que por encima. Esto indica una variable con un leve left skew.  Para los autos de 8 cilindros vemos que hay valores anómalos, hay un auto que tiene un consumo excesivo y otro que tiene un consumo muy bueno para ser un auto de 8 cilindros. Vemos también que para los autos de 6 cilindros la distribución es muy pareja, prácticamente normal. 
 
 \begin{figure}[!htb]
 \centering
@@ -2101,7 +2101,7 @@ ggplot(data=diamonds,aes(x=clarity,y=price,color=clarity))+
     ggtitle("Diamond Price vs Clarity")
 \end{lstlisting}
 
-En el scatter plot (usando jittering) vemos la confirmación de lo que se deduce en el boxplot, para todas las claridades la mayoría de los diamantes tiene u precio bajo pero con varios valores altos. 
+En el scatter plot (usando jittering) vemos la confirmación de lo que se deduce en el boxplot, para todas las claridades la mayoría de los diamantes tiene un precio bajo pero con varios valores altos. 
 
 Vemos también que el efecto es menor en "I1" que en el boxplot vemos que tiene menos outliers. El caso de la claridad "IF" en donde el boxplot nos mostró menor variabilidad queda ahora mas claro, hay menos cantidad de diamantes "IF" y la mayoría de ellos tiene un precio bajo. Es curioso e interesante ver que para todas las claridades excepto I1 hay una zona de precios bajos con una cantidad importante de diamantes. Como curiosidad vemos también una cierta separación en el rango de precios entre los diamantes que están en el rango mas bajo y todos los demás, esto podría deberse a la existencia de algún tipo de convención de precios para los diamantes mas económicos. 
 
@@ -2275,7 +2275,7 @@ ggplot(mtypes,aes(x=year,y=total,fill=category))+
     ggtitle("Movie Categories Across Time")
 \end{lstlisting}
 
-Este plot pierde la información sobre el total de películas en cada año, pero favorece la comparación del porcentaje de películas de cada categoría. Podemos ver que efectivamente hay mas documentales en los úlrimos años y podemos ver el auge de las películas de animación entre 1935 y 1960 aproximadamente en esos años las películas animadas eran muchas mas que las de acción. 
+Este plot pierde la información sobre el total de películas en cada año, pero favorece la comparación del porcentaje de películas de cada categoría. Podemos ver que efectivamente hay mas documentales en los últimos años y podemos ver el auge de las películas de animación entre 1935 y 1960 aproximadamente en esos años las películas animadas eran muchas mas que las de acción. 
 
 \section{Heatmaps}
 
@@ -2351,11 +2351,11 @@ Un plot de coordenadas paralelas también sirve para representar datos en muchas
 
 Este plot sirve para ver tendencias globales en los datos como por ejemplo que los autos que tienen poca potencia tienen valores de aceleración malos, esto lo vemos entre las columnas 4 y 5. También vemos la relación entre la aceleración y el consumo que es un poco menos clara pero muestra que los autos rápidos suelen consumir mas.
 
-En un plot de coordenadas paralelas es importante decidir en que orden vamos a mostrar las diferentes dimensiones de forma tal que las dimensiones para las cuales la forma en que fluyen los datos nos interesa queden como vecinas. Podemos usar el color de la línea para representar una variable categórica por ejemplo en azul los autos manuales y en rojo los automáticos. Así vemos que los autos automáticos tienden a ser mas livianos y tener menos potencia que los manuales. Pero en cuanto al a\~{o} de fabricación los automáticos son mas nuevos por lo que marcarían una tendencia.
+En un plot de coordenadas paralelas es importante decidir en que orden vamos a mostrar las diferentes dimensiones de forma tal que las dimensiones para las cuales la forma en que fluyen los datos nos interesa queden como vecinas. Podemos usar el color de la línea para representar una variable categórica por ejemplo en azul los autos manuales y en rojo los automáticos. Así vemos que los autos automáticos tienden a ser mas livianos y tener menos potencia que los manuales. Pero en cuanto al año de fabricación los automáticos son mas nuevos por lo que marcarían una tendencia.
 
 \section{Treemaps}
 
-Un \textit{treemap} sirve para representar información jerárquica, en general comenzamos con un rectángulo que dividimos en sub-rectángulos cuya área es proporcional al valor de una cierta variable, cada uno de estos puede luego sub dividirse de acuerdo a otra variable y así sucesivamente. Puede agregarse una dimensión extra a los treemaps mediant el color de los rectángulos.
+Un \textit{treemap} sirve para representar información jerárquica, en general comenzamos con un rectángulo que dividimos en sub-rectángulos cuya área es proporcional al valor de una cierta variable, cada uno de estos puede luego sub dividirse de acuerdo a otra variable y así sucesivamente. Puede agregarse una dimensión extra a los treemaps mediante el color de los rectángulos.
 
 \begin{figure}[!htb]
 \centering
@@ -2500,7 +2500,7 @@ El filtrado puede hacerse por varias condiciones:
 \item Por una máscara de acuerdo a una condición lógica
 \end{itemize}
 
-La operación de filtrado mas interesante es la que usa una máscada de acuerdo a alguna condición lógica. Por ejemplo podemos filtrar aquellos registros que tengan algún registro nulo usando como máscara la condición isnull() o similar. Podemos filtrar los vuelos que tengan mas de 200 pasajeros usando como máscara la condición "Pasajeros>200". Una máscara es una función que, aplicada a un registro, devuelve True o False. Al aplicar la máscara a una columna obtenemos un vector booleano de igual tamaño que la columna. Las máscaras se pueden combinar usando operaciones lógicas. Por ejemplo podemos seleccionar los vuelos de Aeroflot, que no atterizaron en moscú y que tuvieron mas de 300 pasajeros.
+La operación de filtrado más interesante es la que usa una máscada de acuerdo a alguna condición lógica. Por ejemplo podemos filtrar aquellos registros que tengan algún registro nulo usando como máscara la condición isnull() o similar. Podemos filtrar los vuelos que tengan mas de 200 pasajeros usando como máscara la condición "Pasajeros $>$ 200". Una máscara es una función que, aplicada a un registro, devuelve True o False. Al aplicar la máscara a una columna obtenemos un vector booleano de igual tamaño que la columna. Las máscaras se pueden combinar usando operaciones lógicas. Por ejemplo podemos seleccionar los vuelos de Aeroflot, que no atterizaron en moscú y que tuvieron mas de 300 pasajeros.
 
 \subsection{Sort}
 
@@ -2648,7 +2648,7 @@ Nuestro capítulo sobre análisis exploratorio fue breve y muy abstracto, es pos
 
 \section{Ejemplo: IMDB Movies DataSet}
 
-A modo de ejemplo vamos a realizar un análisi exploratorio del set de datos IMDB 5000. Este set de datos tiene una gran cantidad de columnas, vamos a suponer que ya hemos realizado el proceso de depuración del set de datos para llegar a un dataframe con las siguientes columnas (fig ~\ref{fig:movies1})
+A modo de ejemplo vamos a realizar un análisis exploratorio del set de datos IMDB 5000. Este set de datos tiene una gran cantidad de columnas, vamos a suponer que ya hemos realizado el proceso de depuración del set de datos para llegar a un dataframe con las siguientes columnas (fig ~\ref{fig:movies1})
 
 \begin{figure}[!htb]
 \centering
@@ -2723,7 +2723,7 @@ Para eso primero hacemos un filtro dejando unicamente a las películas que tenga
 \label{fig:movies3}
 \end{figure}
 
-Aparentemente hubo un bache entre 1998 y 2003 que fue malo para Hollywoord, luego la industria se recuperó y aparentemente la tendencia es en alza aunque la variabilidad es bastante grande.
+Aparentemente hubo un bache entre 1998 y 2003 que fue malo para Hollywood, luego la industria se recuperó y aparentemente la tendencia es en alza aunque la variabilidad es bastante grande.
 
 \subsection{Duración de las Películas a lo largo del tiempo}
 
@@ -2760,7 +2760,7 @@ movie & title & year &  duration \\ \hline
 
 \subsection{Histograma de Ratings}
 
-Un histograma de ratins es un plot útil para entender la distribución de las calificaciones.
+Un histograma de ratings es un plot útil para entender la distribución de las calificaciones.
 
 \begin{figure}[!htb]
 \centering
@@ -2794,7 +2794,7 @@ Algunas correlaciones son interesantes. Por ejemplo entre el número de votos (n
 
 \subsection{Las Mejores Parejas de Actores}
 
-Queremos averiguar que duplas de actores son las mejores. Para eso tenemos el campo actor1name y actor2name, para resolver esto agrupamos por "actor1name" y "actor2name" y luego agregamos el score calculando el promedio y la cantidad de películas en las que participaron juntos. Liego podemos filtrar la s parejas que actuaron juntas en 2 o mas películas para evitar parejas de solo una película y ordenar por el promedio de calificaciones. El resultado es:
+Queremos averiguar que duplas de actores son las mejores. Para eso tenemos el campo actor1name y actor2name, para resolver esto agrupamos por "actor1name" y "actor2name" y luego agregamos el score calculando el promedio y la cantidad de películas en las que participaron juntos. Luego podemos filtrar las parejas que actuaron juntas en 2 o mas películas para evitar parejas de solo una película y ordenar por el promedio de calificaciones. El resultado es:
 
 \begin{table}[!hbt]
 \centering
@@ -2851,7 +2851,7 @@ Pete Docter       &    5.0 &  1.038810 \\ \hline
 \caption{Los directores que hacen mejores a sus actores.}
 \end{table}
 
-Aparentemente ser dirigido por Christpher Nolan o Quentin Tarantino hace que los actores actuen mucho mejor que su promedio, subiendo mas de un punto su calificación promedio.
+Aparentemente ser dirigido por Christopher Nolan o Quentin Tarantino hace que los actores actuen mucho mejor que su promedio, subiendo más de un punto su calificación promedio.
 De la misma forma podríamos obtener quienes hacen peores a los actores.
 
 \begin{table}[!hbt]
@@ -3372,7 +3372,7 @@ Vamos a trabajar ahora con una simple versión de KNN (K-Nearest Neighbors): Sup
 
 \subsection{NN}
 
-NN es la versión de KNN con $k=1$ donde vamos a tener un cierto punto como query o input y vamos a buscar en nuestro set de datos el punto mas cercano al mismo usando alguna métrica como distancia. En este caso vamos a usar la distancia euclideana pero podría usarse cualquier otra distancia. Rrecordemos que determinar la métrica óptima es muy importante para el correcto funcionamiento de KNN.
+NN es la versión de KNN con $k=1$ donde vamos a tener un cierto punto como query o input y vamos a buscar en nuestro set de datos el punto mas cercano al mismo usando alguna métrica como distancia. En este caso vamos a usar la distancia euclideana pero podría usarse cualquier otra distancia. Recordemos que determinar la métrica óptima es muy importante para el correcto funcionamiento de KNN.
 
 El procedimiento es muy simple: Calculamos la distancia entre cada punto y nuestro query generando un registro de tipo (distancia,(clase,vector)). Luego realizamos un reduce donde simplemente nos quedamos con el registro que tenga menor distancia comparando de a dos y conservando siempre el menor.
 
@@ -4020,7 +4020,7 @@ El tercer string es mas interesante, a primera vista podría parecer random pero
 De los ejemplos anteriores, se deduce lo siguiente:
 
 \begin{itemize}
-	\item Puede ser muy difícil darse cuenta de la complejidad que posee cierto conjunto de datos. Por ejemplo, un programa tendría que darse cuenta que "x2" contiene ciertos dígitos de $\pi$ para luego encontrar la forma mínima de representarlo
+	\item Puede ser muy difícil darse cuenta de la complejidad que posee cierto conjunto de datos. Por ejemplo, un programa tendría que darse cuenta que "x3" contiene ciertos dígitos de $\pi$ para luego encontrar la forma mínima de representarlo
 	\item El lenguaje de programación a usar, el compilador y demás influyen en la longitud del programa mínimo que estamos buscando pero en general es algo que podemos ignorar ya que a medida que los strings son lo suficientemente grandes el overhead introducido por el programa tiende a cero (el ejemplo "x1" ejemplifica muy bien este escenario)
 \end{itemize}
 
@@ -4078,7 +4078,7 @@ $$NKD(x,y) = \frac{K(xy)-\min\{K(x),K(y)\}}{\max\{K(x),K(y)\}}$$
 
 
 Esta última definición es equivalente a entender, dado un programa que genera $x$ o $y$, cuántos bits hay que agregarle para generar la concatenación de x e y.
-Para que esta distancia sirve como métrica tiene que cumplir las tres propiedades que cumplen las distancias:
+Para que esta distancia sirva como métrica tiene que cumplir las tres propiedades que cumplen las distancias:
 
 \begin{enumerate}
 \item $KD(x,y) \geq 0 $
@@ -4743,7 +4743,7 @@ Un compresor dinámico de orden 1 no necesitaría la tabla de frecuencias pero d
 
 Para introducir a este problema se puede analizar el siguiente ejemplo: al utilizar un modelo de orden 1 como el Huffman estático, cada caracter se codifica en función del anterior. Si el caracter anterior fuera una Q entonces es muy probable que el próximo sea una U. La primera vez que se da esta situación la probabilidad de la U será 1/256. Suponiendo que siempre luego de Q viene otra U, la segunda vez que aparezca una U su probabilidad será 2/257, luego 3/258, 4/259, etc. Dicho esto, se quiere remarcar que el compresor puede tardar mucho tiempo en aprender que la U tiene una alta probabilidad de ocurriencia en el contexto de la Q. A este problema se lo conoce como el \textit{problema de frecuencia cero} ya que su origen se debe a que en el contexto Q no se puede tener caracteres con frecuencia 0 ya que si estos ocurrieran no se podrían representar. Al inicializar todo en frecuencia 1, el compresor necesitaría de un archivo muy grande para tener tiempo de aprender y comprimir eficientemente. Es decir que tanto los métodos estáticos como los dinámicos necesitan de archivos cada vez mas grandes para funcionar con un orden cada vez mayor. 
 
-El hecho de aumentar el orden que se utiliza a la hora de comprimir puede tener efectovs negativos. Por ejemplo, cuando los compresores estáticos son muy eficientes en cuanto a la cantidad de bits generados por cada caracter pero a medida que aumenta el orden las tablas de frecuencias las mismas dejan de ser insignificantes y se vuelven un factor importante. En un modelo de orden 0 hace falta una única tabla de 256 caracteres que se puede volver despreciable en un archivo grande. En un modelo de orden 1 necesita 256 tablas de 256 caracteres cada uno lo cual está en el orden de los 64K. En un modelo de orden 2 está en el orden de los 16Mb y para orden 3 ya sería necesario almacenar tablas de 4Gb. Esto quiere decir que para que tenga sentido comprimir un archivo con un compresor estático de orden 3 necesitamos que el archivo sea tan grande que los 4Gb necesarios para almacenar las tablas de frecuencias sean despreciables. La conclusión es que a partir de orden 2 es necesario que el compresor sea dinámico ya que de lo contrario el peso de las tablas de frecuencias domina sobre el nivel de compresión que pueda alcanzar el método.
+El hecho de aumentar el orden que se utiliza a la hora de comprimir puede tener efectos negativos. Por ejemplo, cuando los compresores estáticos son muy eficientes en cuanto a la cantidad de bits generados por cada caracter pero a medida que aumenta el orden las tablas de frecuencias las mismas dejan de ser insignificantes y se vuelven un factor importante. En un modelo de orden 0 hace falta una única tabla de 256 caracteres que se puede volver despreciable en un archivo grande. En un modelo de orden 1 necesita 256 tablas de 256 caracteres cada uno lo cual está en el orden de los 64K. En un modelo de orden 2 está en el orden de los 16Mb y para orden 3 ya sería necesario almacenar tablas de 4Gb. Esto quiere decir que para que tenga sentido comprimir un archivo con un compresor estático de orden 3 necesitamos que el archivo sea tan grande que los 4Gb necesarios para almacenar las tablas de frecuencias sean despreciables. La conclusión es que a partir de orden 2 es necesario que el compresor sea dinámico ya que de lo contrario el peso de las tablas de frecuencias domina sobre el nivel de compresión que pueda alcanzar el método.
 
 El problema de frecuencia cero se puede resolver en compresores dinámicos de la forma en que lo hace el algoritmo PPMC que se verá más adelante luego de introducir el concepto de compresión aritmética.
 
@@ -4872,7 +4872,7 @@ En PPMC la frecuencia del escape siempre es igual a la cantidad de caracteres qu
 
 El próximo caracter en el archivo es B en un contexto de A. Al tener un solo caracter de contexto, se utiliza el modelo de orden 1. En este modelo no existe el contexto A por lo tanto se emite un escape de probabilidad 1 sin afectar el intervalo y se intenta comprimir con el modelo de orden 0.
 
-En el modelo de orden 0 se encuentra A y ESC por lo tanto se emite nuevamente un ESC. Será entonces necesario comprimir a B en el modeo -1, pero antes es necesario actualizar el intervalo teniendo en cuenta que esta vez se emitió un ESC con una probabilidad menor que 1. Para hacerlo, se toma el intervalo actual $[0,0.25)$ y se lo divide de acuerdo a las probabilidades del modelo que son 1/2 tanto para A como para ESC tal como se muestra en la tabla \ref{table:ppmc_example-m0a}:
+En el modelo de orden 0 se encuentra A y ESC por lo tanto se emite nuevamente un ESC. Será entonces necesario comprimir a B en el modelo -1, pero antes es necesario actualizar el intervalo teniendo en cuenta que esta vez se emitió un ESC con una probabilidad menor que 1. Para hacerlo, se toma el intervalo actual $[0,0.25)$ y se lo divide de acuerdo a las probabilidades del modelo que son 1/2 tanto para A como para ESC tal como se muestra en la tabla \ref{table:ppmc_example-m0a}:
 
 \begin{table}[!hbt]
 \center{
@@ -5552,7 +5552,7 @@ Para descomprimir, se lee inicialmente un código de 9 bits que corresponde a A 
 Luego se lee el código que corresponde a la B y se emite B. El código 256 será AB y el 257 tendrá la forma B?.
 Luego se lee C así que se completa 257=BC y se agrega 258=C? además de emitir C.
 Luego se lee el código 256 que es A así que se completa 258=CA. Notar que solo nos interesa el primer caracter, y se agrega 259=AB? además de emitir AB.
-Finalmente se lee 258 emtiendo CA. Se podría también completar 259=ABC y agregar 260=CA? pero esto ya no es necesario.
+Finalmente se lee 258 emitiendo CA. Se podría también completar 259=ABC y agregar 260=CA? pero esto ya no es necesario.
 
 Debería ser evidente ahora la diferencia en sincronización entre el compresor y el descompresor. El compresor agrega a la tabla un nuevo símbolo luego de comprimir un caracter, el descompresor sin embargo solo sabe cual es el símbolo agregado por el compresor al leer el siguiente. Esto es particularmente perturbador pero no impide que se pueda comprimir y descomprimir pero nos lleva a un caso muy curioso con el cual hay que tener un terrible cuidado.
 
@@ -5835,7 +5835,7 @@ El resultado de la transformación es la última columna de la matriz ordenada j
 PANQUEQUE => PUUAEENQQ + 4 
 \end{verbatim}
 
-Notar como el archivo, aun en un caso tan pequeño, ha quedado localizado. Todas las U juntas tanto así como las E y las Q. Esto se puede explicar si se interpreta que la última columna representa el caracter anterior al que está en la primer columna. Cuando se ordenan las rotaciones al quedar todas las U juntas en la primer columna entonces quedan todas las Q juntas en la última columna. En cierta forma la transformación de BW se basa en la intuición de que no todos los caracteres pueden aparecer antes que otro para construir un archivo en donde dichos caracteres quedan localizados dentro de una misma zona del archivo.
+Notar como el archivo, aun en un caso tan pequeño, ha quedado localizado. Todas las U juntas tanto así como las E y las Q. Esto se puede explicar si se interpreta que la última columna representa el caracter anterior al que está en la primera columna. Cuando se ordenan las rotaciones al quedar todas las U juntas en la primera columna entonces quedan todas las Q juntas en la última columna. En cierta forma la transformación de BW se basa en la intuición de que no todos los caracteres pueden aparecer antes que otro para construir un archivo en donde dichos caracteres quedan localizados dentro de una misma zona del archivo.
 
 Para revertir la transformación de Burrows y Wheeler lo que se hace en primer lugar es ordenar los caracteres:
 
@@ -6342,7 +6342,7 @@ Veamos un ejemplo:
 
 En nuestro ejemplo m=21, k=4 y las posiciones en gris están ocupadas. Analizamos el caso de h(x)=6. Observamos que las posiciones 6,7,8 y 9 están ocupadas por lo que buscamos hacia adelante hasta encontrar la posición libre 13. Buscamos hacia atrás y vemos que h(d)=11 por lo que podemos mover "d" a la posición 13 liberando la posición 11, luego vemos que h(c)=9 por lo que podemos mover "c" a la posición 11 que ahora está libre. Finalmente podemos almacenar a "x" en la posición 9 que hemos liberado. 
 
-En el caso que no se pueda liberar un espacio en las k posiciones donde puede almacenarse el dato, se debe cambiar el tamaño de la tabla y rehubicar a los datos de la misma.
+En el caso que no se pueda liberar un espacio en las k posiciones donde puede almacenarse el dato, se debe cambiar el tamaño de la tabla y reubicar a los datos de la misma.
 
 Notemos que usando Hopscotch una búsqueda es siempre de tipo O(k)=O(1) ya que el dato, si existe, solo puede estar almacenado en alguna de las k posiciones alternativas para el mismo. 
 
@@ -6391,8 +6391,8 @@ La función de Jenkins fue publicada por primera vez por Dr Dobbs en 1997. Se ba
  \KwData{s: string}
  \KwResult{hash: integer}
  \caption{Jenkins Hashing}
-\For {hash=i=0;i<len;i++} {
-hash += key[i]\\
+\For {hash=i=0;i$<$len;i++} {
+hash += s[i]\\
 hash += (hash $<<$  10);\\
 hash xor= (hash $>>$  6);\\
 }
@@ -7683,7 +7683,7 @@ Para aproximar la distancia angular usando LSH existen varios minhashes posibles
 
 Para generar un minhash válido para la distancia angular vamos a calcular el producto interno entre nuestro vector y un vector aleatorio. Este vector aleatorio puede estar formado simplemente por valores +1 y -1, ya que estos son suficientes para definir un hiperplano aleatorio. El valor del minhash va a ser 1 si el resultado del producto interno es positivo y -1 si el resultado es negativo.
 
-Por ejemplo, si nuestro vector es $(3,-2,3,4)$, generamos un vector al azar $(1,-1,-1,1)$ y el producto interno entre los vectores es 9. Por lo tanto, el valor del minhash es +1. 
+Por ejemplo, si nuestro vector es $(3,-2,3,4)$, generamos un vector al azar $(1,-1,-1,1)$ y el producto interno entre los vectores es 6. Por lo tanto, el valor del minhash es +1. 
 
 Interpretemos ahora el significado del minhash. La probabilidad de que dos vectores proyectados al azar sobre un hiperplano tengan diferente signo es igual al ángulo entre ellos dividido 180. $\theta/180$ ya que cuanto más chico es el ángulo más probable es que las proyecciones tengan igual sentido. Por lo tanto, la probabilidad de que los minhashes coincidan para dos vectores es:
 
@@ -7724,7 +7724,7 @@ En realidad ni el ángulo ni el coseno realmente importan ya que lo que usaremos
 
 \subsection{Voronoi Hashing}
 
-En Voronoi hashing vamos a usar un conjunto de $T$ vectores aleatorios en donde los elementos de estos vectores surgen de una distribución normal, es decir $T$ vectores gaussianos. Vamos a calcular el producto interno entre cada uno de estos vectors y nuestro vector query, y nos vamos a quedar con el índice del vector que nos da el máximo producto interno como valor del minhash.
+En Voronoi hashing vamos a usar un conjunto de $T$ vectores aleatorios en donde los elementos de estos vectores surgen de una distribución normal, es decir $T$ vectores gaussianos. Vamos a calcular el producto interno entre cada uno de estos vectores y nuestro vector query, y nos vamos a quedar con el índice del vector que nos da el máximo producto interno como valor del minhash.
 
 $$
 h(x) = \arg \max <G_i,x>
@@ -8288,7 +8288,7 @@ $$A_2 =
 0.5201 & 0.5919   \\
 0.6275 & -0.7350 \\
 \end{pmatrix}$$
-$$A_3=
+$$A_2=
 \begin{pmatrix}
 3.51&1.87&3.73&3.84\\
 0.93&0.01&0.03&3.01\\
@@ -8311,7 +8311,7 @@ $$A_1 =
 0.5201    \\
 0.6275  \\
 \end{pmatrix}$$
-$$A_3=
+$$A_1=
 \begin{pmatrix}
 3.45&1.73&3.46&4.18\\
 1.24&0.62&1.25&1.5\\
@@ -8421,7 +8421,7 @@ Para ver qué efecto tiene una aproximación de rango $k$ a la hora de comprimir
 \caption{Andrómeda via SVD}
 \end{figure}
 
-Cuando se utiliza $k=50$, los cálculos indican que es necesario almacenar 23850 píxeles, es decir un53\% de la imagen original. Se puede notar que con este valor de $k$ se obtiene una muy buena representación de la imagen original. En cambio, cuando $k=2$ se obtiene una imagen muy distorsionada.
+Cuando se utiliza $k=50$, los cálculos indican que es necesario almacenar 23850 píxeles, es decir un 53\% de la imagen original. Se puede notar que con este valor de $k$ se obtiene una muy buena representación de la imagen original. En cambio, cuando $k=2$ se obtiene una imagen muy distorsionada.
 La SVD no es un mecanismo adecuado para comprimir imágenes ya que existen algoritmos específicos para imágenes mucho mejores como JPG. Sin embargo, aplicar SVD a imágenes permite llegar a una descomposición muy interesante de las mismas e ilustra el funcionamiento del algoritmo para aproximar datos en dimensiones reducidas.
 
 \subsection{Reducción de ruido}
@@ -8895,7 +8895,7 @@ Vamos a definir el dominio de un sistema de information retrieval como un conjun
 
 Una consulta puntual consiste en recuperar todos los documentos que contienen una determinada palabra. Por ejemplo queremos todos los textos que tienen la palabra "Singapur". La aproximación por fuerza bruta consiste en buscar la palabra "Singapur" en cada documento de nuestra colección y luego simplemente devolver los ids de los documentos que matchearon la consulta. Este proceso implica recorrer cada palabra de cada documento en la colección por lo que solo sirve para colecciones realmente muy pequeñas. Para colecciones de un tama~{n}o mediano a grande necesitamos alguna estructura de tipo índice que nos permita resolver la consulta sin recorrer todos los documentos. La estructura mas popular para este tipo de consultas son los llamados \textit{índices invertidos}
 
-\section{índices Invertidos}
+\section{Índices Invertidos}
 
 Un índice invertido (II) contiene por cada palabra una lista de los documentos en los cuáles aparece dicha palabra. Por ejemplo sea la siguiente colección de tres documentos y su correspondiente II:
 
@@ -9308,19 +9308,19 @@ Los paréntesis contienen la lista de posiciones en donde aparecen los términos
 
 Si buscamos la frase "la historia" tenemos entonces que resolver la consulta puntual "la", luego la consulta puntual "historia" y recuperar las listas de posiciones para los documentos en la intersección verificando si existen documentos en los cuales la posición de "historia" es igual a la posición de "la" mas 1.
 
-En cuanto al almacenamiento de la información las posiciones se pueden representar mediante una lista de distancias. Por ejemplo si un término ocurre en el documento 1 en las posiciones (1,3 y 4) y el el documento 3 en las posiciones (2,3,5 y 6) su lista de punteros es algo de la forma: 1,3,1,2,1,2,2,4,2,1,2,1. Analicemos esta lista con cuidado. 
+En cuanto al almacenamiento de la información las posiciones se pueden representar mediante una lista de distancias. Por ejemplo si un término ocurre en el documento 1 en las posiciones (1,3 y 4) y en el documento 3 en las posiciones (2,3,5 y 6) su lista de punteros es algo de la forma: 1,3,1,2,1,2,4,2,1,2,1. Analicemos esta lista con cuidado. 
 
-\textbf{1},3,1,2,1,2,2,4,2,1,2,1 indica que el primer documento en donde aparece el término es el 1
+\textbf{1}3,1,2,1,2,4,2,1,2,1 indica que el primer documento en donde aparece el término es el 1
 
-1,\textbf{3},1,2,1,2,2,4,2,1,2,1 es la frecuencia del término en D1 es decir que aparece 3 veces si que leemos los 3 códigos siguientes
+1,\textbf{3},1,2,1,2,4,2,1,2,1 es la frecuencia del término en D1 es decir que aparece 3 veces si que leemos los 3 códigos siguientes
 
-1,3,\textbf{1,2,1},2,2,4,2,1,2,1 significa que el término aparece en D1 en las posiciones 1,3 y 4
+1,3,\textbf{1,2,1},2,4,2,1,2,1 significa que el término aparece en D1 en las posiciones 1,3 y 4
 
-1,3,1,2,1,\textbf{2},2,4,2,1,2,1 el próximo documento es el 3 (2 es la distancia respecto del anterior: 1)
+1,3,1,2,1,\textbf{2},4,2,1,2,1 el próximo documento es el 3 (2 es la distancia respecto del anterior: 1)
 
-1,3,1,2,1,2,2,\textbf{4},2,1,2,1 el término aparece 4 veces en el documento 3
+1,3,1,2,1,2,\textbf{4},2,1,2,1 el término aparece 4 veces en el documento 3
 
-1,3,1,2,1,2,2,4,\textbf{2,1,2,1} las posiciones del término en el documento 3 son 2,3,5 y 6 
+1,3,1,2,1,2,4,\textbf{2,1,2,1} las posiciones del término en el documento 3 son 2,3,5 y 6 
 
 La información posicional hace que nuestro índice crezca en tamaño notablemente por lo que podría ser conveniente usar códigos gamma o delta para las listas de punteros ya que el tamaño de las mismas podría ser muy grande usando VBcodes.
 
@@ -9391,7 +9391,7 @@ respira&0&0&1&1&0 \\ \hline
 \end{table}
 
 Los bitmaps son excepcionalmente cómodos cuando se los utiliza para resolver consultas,
-por ejemplo para las consultas booleanas basta con operar haciendo Ors y ANDs de los bitmaps
+por ejemplo para las consultas booleanas basta con operar haciendo ORs y ANDs de los bitmaps
 de los términos buscados para obtener los documentos que son resultado de la consulta. El
 problema es que son un tanto extravagantes en cuanto al espacio que consumen, para TREC por
 ejemplo un bitmap ocuparía unos 40 giga-bytes, aproximadamente 20 veces mas que el texto que
