@@ -14933,26 +14933,25 @@ Pearson:
 Donde $\overline{r_x}$ es el promedio de calificaciones del usuario $x$.
 
 Notemos que si los promedios de calificaciones fueran cero entonces la función de correlación
-de Pearson es el coseno entre $x$ e $y$. En muchos casos se empieza entonces por centrar todas
+de Pearson es el coseno entre $x$ e $y$ (dividido la productoria de sus normas). En muchos casos se empieza entonces por centrar todas
 las calificaciones de los usuarios en cero, es decir restarle a cada calificación el promedio del
 usuario.
 
 Para nuestro primer usuario quedaría:
 
-$ x = (2,NA,2,4,5,NA) \rightarrow \mu = 3.25 \rightarrow (1.25,NA,1.25,0.75,1.75,NA)$
+$ x = (2,NA,2,4,5,NA) \rightarrow \mu = 3.25 \rightarrow (-1.25,NA,-1.25,0.75,1.75,NA)$
 
 Para un usuario dado, por ejemplo el u5 en nuestra matriz podemos calcular la semejanza con
 todos los demás usuarios usando el coseno, luego de restar el promedio a cada calificación.
 
 \begin{verbatim}
-  sim(5,1) = 0.27
+  sim(5,1) = -0.34
   sim(5,2) = 0.72
-  sim(5,3) = 0.5
-  sim(5,4) = 0.13
+  sim(5,3) = 0.50
+  sim(5,4) = -0.16
+  sim(5,5) = 1
   sim(5,6) = NA
 \end{verbatim}
-
-(suponer que estas cuentas están bien)
 
 Ahora podemos calcular cada calificación faltante usando la siguiente fórmula:
 
@@ -14965,9 +14964,9 @@ rating del usuario “y” para la película “i”.
 
 Por ejemplo podemos usar $N=2$ para tomar los dos usuarios más similares al que nos interesa.
 
-En el caso de la primera película del usuario 5 tenemos que el único usuario que la ha
-calificado y que tiene semejanza positiva con nuestro usuario es el 2. Por lo tanto la cuenta es:
-$(5*0.72)/0.72 = 5$
+En el caso de la primera película del usuario 5 tenemos que los dos usuarios más similares al 5 son el usuario 2 y el usuario 3. Como el usuario 3 no califico a la película 1 lo descartamos de la cuenta. Por lo tanto la cuenta es:
+
+$(5 * 0.72)/0.72 = 5$
 
 Es decir que estimamos que al usuario 5 le va a gustar mucho Sherlock porque Sherlock le ha
 gustado mucho al usuario 2 que es similar al 5. 
@@ -15074,43 +15073,49 @@ En primer lugar calculamos $\mu$ el promedio global de todas las películas: $11
 
 La desviación del usuario 5 es una medida de que tan severo es el usuario 5 y se calcula
 como la diferencia entre el promedio de calificaciones del usuario 5 y el promedio global.
-El promedio del usuario 5 es: $2+5+4+3 / 4 = 3.5$
+
+El promedio del usuario 5 es: $(2+5+4+3) / 4 = 3.5$
+
 Por lo tanto la desviación con respecto al promedio global es: $+0.33$
 
 Ahora calculamos la desviación de la película 1 que mide que tan buena o mala es la película
 con respecto al promedio global:
-El promedio de la película 1 es: $1+3+5+5+4 /5 = 3.6$
+
+El promedio de la película 1 es: $(1+3+5+5+4) /5 = 3.6$
+
 Es decir que la desviación de la película 1 es: $+0.43$
 
 Y ahora podemos calcular la desviación del usuario 5 con respecto a la película 1 usando la
 semejanza ítem-ítem pero computando el promedio ponderado de las desviaciones en lugar de
 las calificaciones:
+
 Habíamos calculado las 2 películas más semejantes y eran la 3 y la 6.
-Analicemos la desviación de la calificación del usuario 5 para la película 2.
 
-Promedio global = 3.17
+Analicemos la desviación de la calificación del usuario 5 para la película 3.
 
-Desviación del usuario 5: $+0.33$
-
-Desviación de la película 4: $-0.17$
+\begin{itemize}
+\item Promedio global = $3.17$
+\item Desviación del usuario 5: $+0.33$
+\item Desviación de la película 3: $-0.17$
+\end{itemize}
 
 Por lo tanto la desviación de la calificación “2” del usuario 5 a la película 3 es:
-$2-(3.17+0.33-0.17)=-1.33$
+$2-(3.17+0.33-0.17) = -1.33$
 
 Y para el usuario 5 y la película 6 tenemos:
-
-Promedio global = 3.17
-
-Desviación del usuario 5: $+0.33$
-
-Desviación de la película 6:$-0.57$
+\begin{itemize}
+\item Promedio global = $3.17$
+\item Desviación del usuario 5: $+0.33$
+\item Desviación de la película 6:$-0.57$
+\end{itemize}
 
 Por lo tanto la desviación de la calificación “3” del usuario 5 a la película 6 es:
-$3-(3.17+0.33-0.57) =0.07$
+$3-(3.17+0.33-0.57) = 0.07$
 
 Ahora calculamos el promedio ponderado de estas desviaciones de acuerdo a la semejanza
-íitem-ítema:
-$((0.41*-1.33)+(0.59*0.07))/(0.41+0.59)=-0.5$
+ítem-ítem:
+
+$\frac{0.41*(-1.33) + 0.59*0.07}{0.41+0.59} = -0.5$
 
 Por lo tanto podemos estimar la calificación del usuario 5 película 1 como:
 $3.17+0.33+0.43-0.5=3.43$
