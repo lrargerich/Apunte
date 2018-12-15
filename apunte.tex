@@ -10325,21 +10325,21 @@ Empecemos por el caso más simple. Tenemos varios clasificadores distintos para 
 El resultado del voto por mayoría mejora notablemente si se usan resultados que tengan poca correlación entre sí. Veamos un ejemplo. Suponemos que todos los datos tienen clase real 1 y mostramos el resultado de 3 clasificadores para nuestro set de test.
 
 \begin{verbatim}
-1111111100 = 80\%
-1111111100 = 80\%
-1011111100 = 70\%
-------------------------
-1111111100 = 80\%
+1111111100 = 80%
+1111111100 = 80%
+1011111100 = 70%
+-----------------------
+1111111100 = 80%
 \end{verbatim}
 
 Usando tres clasificadores cuyas predicciones están muy correlacionadas es difícil obtener una nueva predicción mejor que las anteriores. Veamos ahora qué pasa cuando los modelos no están tan de acuerdo entre sí.
 
 \begin{verbatim}
-1111111100 = 80\%
-0111011101 = 70\%
-1000101111 = 60\%
-------------------------
-1111111101 = 90\%
+1111111100 = 80%
+0111011101 = 70%
+1000101111 = 60%
+-----------------------
+1111111101 = 90%
 \end{verbatim}
 
 Cuando la correlación entre los modelos es baja el resultado del ensamble, en general, mejora notablemente el resultado de cada modelo individual. Una primera conclusión es que dados muchos clasificadores es conveniente elegir un conjunto que tenga buenos resultados y que estén muy poco correlacionados. Este será luego el set de clasificadores que usaremos para el ensamble.
@@ -11102,7 +11102,7 @@ $best\_precision = 0$, $best\_k=0$,$ best\_metric=none$\;
  \caption{Grid Search for KNN}
 \end{algorithm}
 
-Cuando la cantidad de hiper-parámetros es realmente muy grande la combinatoria a realizar puede resultar muy ineficiente, en estos casos puede recurrirse al método de Random-Search. En un Random-Search controlamos cuantas iteraciones realizamos de nuestro algoritmo y por cada iteración seleccionamos los valores de los hiper-parámetros al azar dentro de un rango pre-establecido. Este método no es tan preciso como un grid-search pero es mucho mas rápido.Random-Search es nuestro primer ejemplo de algoritmo aleatorizado una rama de los algoritmos que usaremos extensamente en el curso.
+Cuando la cantidad de hiper-parámetros es realmente muy grande la combinatoria a realizar puede resultar muy ineficiente, en estos casos puede recurrirse al método de Random-Search. En un Random-Search controlamos cuantas iteraciones realizamos de nuestro algoritmo y por cada iteración seleccionamos los valores de los hiper-parámetros al azar dentro de un rango pre-establecido. Este método no es tan preciso como un grid-search pero es mucho mas rápido. Random-Search es nuestro primer ejemplo de algoritmo aleatorizado una rama de los algoritmos que usaremos extensamente en el curso.
 
 \section{Sensibilidad a valores fuera de escala}
 
@@ -11662,7 +11662,7 @@ En este capítulo vamos a estudiar distintos algoritmos de clasificación en tod
 
 El objetivo de un algoritmo de clasificación es usando el set de entrenamiento construir un modelo que permita predecir la clase de datos que no pertenecen al set de entrenamiento, es decir datos nuevos. 
 
-\section{árboles de decisión}
+\section{Árboles de decisión}
 
 Un árbol de decisión es un árbol binario en donde en cada nodo dividimos el set de datos en dos de acuerdo a un cierto criterio. El objetivo es llegar a nodos hoja en los cuáles podamos clasificar correctamente nuestros datos. Vamos a usar el siguiente set de datos para la construcción del árbol.
 
@@ -11690,7 +11690,7 @@ Nuestro primer algoritmo es ID3 (iterative dichotomiser tree) creado por Ross Qu
 
 La ganancia de información está relacionada directamente con el concepto de entropía y veremos como funciona a partir de nuestro ejemplo.
 
-Inicialmente tenemos un total de 8 datos de los cuales 5 son contratados y tres no. Es decir que la entropía de nuestro set de datos es $H[5/8;1/8]= 0.9544$ recordemos que esto se calcula con la fórmula: $-\sum_i P_i * \log_2 P_i$
+Inicialmente tenemos un total de 8 datos de los cuales 5 son contratados y tres no. Es decir que la entropía de nuestro set de datos es $H[5/8;3/8]= 0.9544$ recordemos que esto se calcula con la fórmula: $-\sum_i P_i * \log_2 P_i$
 
 Consideremos ahora nuestro primer atributo: \textbf{presencia}, este atributo tiene tres valores posibles: buena,mala, regular. 
 
@@ -12326,7 +12326,7 @@ A continuación mostramos algunas funciones de activación típicas que pueden u
 f(x) = \text{sign}(x)
 \end{myequation}
 
-La función signo es la mas simple de todas, simplemente devuelve 1 si $X>0$ o -1 s i$ X<0$ o 0 si $X=0$
+La función signo es la mas simple de todas, simplemente devuelve 1 si $X>0$ o -1 si $ X<0$ o 0 si $X=0$
 La función signo tiene derivada 0 en todos los puntos excepto en el 0 en donde no es diferenciable. 
 
 \subsubsection{Sigmoid}
@@ -12342,7 +12342,7 @@ La función signo tiene derivada 0 en todos los puntos excepto en el 0 en donde 
 f(x) = \frac{1}{1+e^{-x}}
 \end{myequation}
 
-La función sigmoidea es muy usada para convertir valores a un número entre 0 y 1. Todos los valores menores a 0 generan un n\'{iu}mero cercano a 0 y todos los valores mayores a 0 generan un número cercano a 1. Cuanto mas chico $x$ mas parecido a 0 el resultado y cuanto mas grande $x$ mas parecido a 1 el resultado. 
+La función sigmoidea es muy usada para convertir valores a un número entre 0 y 1. Todos los valores menores a 0 generan un número cercano a 0 y todos los valores mayores a 0 generan un número cercano a 1. Cuanto mas chico $x$ mas parecido a 0 el resultado y cuanto mas grande $x$ mas parecido a 1 el resultado. 
 
 El resultado de la función sigmoidea al ser un número entre 0 y 1 puede considerarse una probabilidad. Por ejemplo la probabilidad de que un cierto punto pertenezca a una clase. 
 
@@ -12418,7 +12418,7 @@ En SVM el mejor hiperplano es aquel que maximiza el margen entre las clases. Es 
 
 En un alarde de imaginación vamos a empezar por el principio estableciendo la notación que vamos a usar que es parecida pero no exactamente igual a la notación que hemos usado con los algoritmos anteriores, una verdadera maldad.
 
-Tenemos $m$ datos en $n$ dimensiones representados en una matriz de $mxn$. Cada punto lo identificamos como $x_i$ 
+Tenemos $m$ datos en $n$ dimensiones representados en una matriz de $mxn$. Cada punto lo identificamos como $x_i$. 
 Tenemos 2 clases que vamos a representar con -1 y 1.
 El vector $y$ de longitud $m$ tiene la clase a la que pertenece cada punto. 
 
@@ -12957,7 +12957,7 @@ Esta matriz es muy parecida a la matriz de productos internos que podemos pre-ca
 \section{Teorema de Mercer}
 
 \begin{theorem}[Mercer]
-Sea $K:\mathbb{R}^n \rightarrow \mathbb{R}^n$ una función. Decimos que $K$ es un kernel válido sí y solo sí para cualquier conjunto de punots ${x_1,x_2,...,x_m} \in \mathbb{R}^n$ la matriz asociada a $K$ es simétrica y positiva semi-definida.
+Sea $K:\mathbb{R}^n \rightarrow \mathbb{R}^n$ una función. Decimos que $K$ es un kernel válido sí y solo sí para cualquier conjunto de puntos ${x_1,x_2,...,x_m} \in \mathbb{R}^n$ la matriz asociada a $K$ es simétrica y positiva semi-definida.
 \end{theorem}
 
 Una matriz $K$ es positiva y semi-definida sí y solo sí para cualquier $z$ se verifica que $zKz^{(t)} \geq 0$. Es condición necesaria y suficiente que la matriz no tenga autovalores negativos.
@@ -13150,7 +13150,7 @@ SVM es un pariente cercano de KNN porque se basa en la semejanza (kernel) entre 
 
 \epigraph{Figures don't lie but liers do figure.}{- Mark Twain}
 
-El proceso que se conoce como \textit{clustering} es el ejemplo mas claro de aprendizaje no supervisado\footnote{En el aprendizaje supervisado, los datos no requieren ser etiquetados. Es decir, no se necesita ningún conocimiento a priori como sí se necesita por ejemplo en tareas de clasificación}. Dado un set de datos se quiere agrupar los datos en \textit{clusters} de forma tal que todos los datos dentro de un mismo cluster sean similares entre sí pero diferentes a los de cualquier otro cluster. Algunos estudios sugieren que esta es una forma de aprendizaje universal y que es la forma principal de aprendizaje del cerebro humano puesto que mediante la asociación de objetos se puede aprender su significado de la misma forma que un niño es capaz de determinar qué cosas se pueden comer y qué cosas sirven para jugar aun al verlas por primera vez. 
+El proceso que se conoce como \textit{clustering} es el ejemplo mas claro de aprendizaje no supervisado\footnote{En el aprendizaje no supervisado, los datos no requieren ser etiquetados. Es decir, no se necesita ningún conocimiento a priori como sí se necesita por ejemplo en tareas de clasificación}. Dado un set de datos se quiere agrupar los datos en \textit{clusters} de forma tal que todos los datos dentro de un mismo cluster sean similares entre sí pero diferentes a los de cualquier otro cluster. Algunos estudios sugieren que esta es una forma de aprendizaje universal y que es la forma principal de aprendizaje del cerebro humano puesto que mediante la asociación de objetos se puede aprender su significado de la misma forma que un niño es capaz de determinar qué cosas se pueden comer y qué cosas sirven para jugar aun al verlas por primera vez. 
 
 Los algoritmos de clustering son importantes en todo tipo de aplicaciones. Por ejemplo, un supermercado o tienda online puede agrupar productos que se suelen vender juntos o enviarnos recomendaciones de productos similares a los que compramos. Podemos agrupar música y luego encontrar temas similares a los que nos gustan analizando de qué clusters provienen esos temas. Podemos reconocer imágenes u objetos, entre otras cosas. 
 
@@ -15146,7 +15146,7 @@ La primer familia de métricas se basa en realizar predicciones para los ítems 
 \end{figure}
 
 La solución a este problema es bastante simple y consiste en separar un cierto porcentaje de
-calificaciones al azar, por ejemplo un 20\% del total. Con el 80% restante construimos nuestro
+calificaciones al azar, por ejemplo un 20\% del total. Con el 80\% restante construimos nuestro
 sistema de recomendaciones y luego lo probamos realizando predicciones para las
 calificaciones que hemos removido. Como conocemos el valor real de estas calificaciones
 podemos calcular la efectividad del sistema mediante un simple cálculo:
@@ -15997,7 +15997,7 @@ Stream: [1]0[1]00
 [pos=4 bits=1] [pos=2 bits=1]
 Stream: [1]0[1]00[1]
 [pos=5 bits=1] [pos=3 bits=1] [pos=0 bits=1]
-Aqui tenemos 3 sub-ventas con 1 bit, combinamos las dos mas viejas
+Aqui tenemos 3 sub-ventanas con 1 bit, combinamos las dos mas viejas
 Stream: [101]00[1]
 [pos=3 bits=2] [pos=0 bits=1]
 Stream: [101]00[1][1]
@@ -16027,7 +16027,7 @@ Ejemplo si tenemos la salida de nuestro seguimiento:
 [pos=5 bits=4] [pos=2 bits=2] [pos=0 bits=1]
 \end{verbatim}
 
-Y queremos saber cuantos 1s hay en los últimos 6 bits del stream notamos que las ventanas de pos=3 y pos=0 quedan dentro de estos 6 bits y la ventana de pos=11 parcialmente. Entonces estimamos $1+2+4/2 =$ 5 bits
+Y queremos saber cuantos 1s hay en los últimos 6 bits del stream notamos que las ventanas de pos=2 y pos=0 quedan dentro de estos 6 bits y la ventana de pos=5 parcialmente. Entonces estimamos $1+2+4/2 =$ 5 bits
 
 Si recordamos el stream: 101001101101
 
@@ -16036,7 +16036,7 @@ Vemos que la cantidad real de 1s en los ultimos 6 bits era 4, la estimación es 
 Sin embargo para este caso particular como sabemos que buscamos 6 bits y la tercer sub-ventana justo comienza en el sexto bit podemos saber que ese bit es un uno pues todas las ventanas comienzan con 1. Por lo tanto podemos calcular $1+2+1$ = 4 bits. (es un caso particular).
 
 DGIM necesita en promedio $\log(2M)$ sub-ventanas y por cada sub-ventana necesita $\log N$ bits para la
-posición y $\log \log N$ bits para la cantidad de 1s. Es decir que el espacio en memoria siempre está
+posición y $\log (\log N)$ bits para la cantidad de 1s. Es decir que el espacio en memoria siempre está
 acotado al logarimo del tamaño de la ventana y esto es perfectamente manejable.
 
 El error de DGIM es de aproximadamente un 50\%, esto es bastante alto. Para reducirlo lo que
@@ -16066,7 +16066,7 @@ Otra forma de analizar el problema de contar cuantos 1s aparecen en los últimos
 consiste en aplicar una función que vaya decayendo el peso de cada bit en 1 ya observado a medida
 que procesamos el stream.
 
-Si nos interesan los últimos "n" bits del stream entonces usamos una constante $c = 10^-n$, llevamos
+Si nos interesan los últimos "n" bits del stream entonces usamos una constante $c = 10^{-n}$, llevamos
 un contador que comienza en 0 y por cada bit del stream multiplicamos el contador por $1-c$ y luego
 sumamos el bit (1 o 0).
 Ejemplo:
@@ -16084,7 +16084,7 @@ Sea c=0.1 (1-c=0.9)
 etc..
 \end{verbatim}
 
-En general se usan valores del orden de $10^-n$ con $n$ grande.
+En general se usan valores del orden de $10^{-n}$ con $n$ grande.
 
 Supongamos ahora que tenemos un stream de URLs clickeadas por usuarios y queremos saber
 cuáles son las URLs mas populares en los últimos "n" clicks. Podemos implementar esto con el
@@ -16305,7 +16305,7 @@ En general $b=4$ y $f=6$ y $m$ depende de la cantidad de claves que se quieran i
 
 \section{Count-Min}
 
-El algortimo \textit{Count-Min Sketch} \cite{Muthukrishnan-Cormode} es uno de los algoritmos de streaming mas importantes porque permite para cualquier dato de un stream estimar cuántas veces ocurrió el mismo hasta el momento. Esto permite responder todo tipo de problemas siendo uno de los mas frecuentes el denominado \textit{Heavy Hitters Problem} por lo que empezamos esta sección con un análisis teórico de este problema.
+El algortimo \textit{Count-Min Sketch} \cite{MuthukrishnanCormode} es uno de los algoritmos de streaming mas importantes porque permite para cualquier dato de un stream estimar cuántas veces ocurrió el mismo hasta el momento. Esto permite responder todo tipo de problemas siendo uno de los mas frecuentes el denominado \textit{Heavy Hitters Problem} por lo que empezamos esta sección con un análisis teórico de este problema.
 
 \subsection{The Heavy Hitters Problem}
 
@@ -17011,7 +17011,7 @@ El resultado es A=0.2897, B=0.2056, C=0.2804, D=0.2243. El PageRank de A no nos 
 
 \subsection{Sim Rank via Montecarlo}
 
-EL problema del algoritmo SimRank es que no podemos calcular el SimRank de cada página, esto tomaría un total de $N$ ejecuciones de SimRank lo cual, en general, no es aceptable. Además no es algo que tenga sentido hacer ya que no siempre necesitamos todas las semejanzas sino solo algunas pocas. 
+El problema del algoritmo SimRank es que no podemos calcular el SimRank de cada página, esto tomaría un total de $N$ ejecuciones de SimRank lo cual, en general, no es aceptable. Además no es algo que tenga sentido hacer ya que no siempre necesitamos todas las semejanzas sino solo algunas pocas. 
 
 La solución pasa por no calcular el SimRank sino por simularlo mediante el método Montecarlo. Cuando queremos obtener las páginas mas similares a alguna hacemos una simulación de random walks comenzando en la página y con un cierto $\beta$ donde $1-\beta$ es la probabilidad de re-iniciar el random walk. A medida que realizamos los random walks registramos por que páginas pasamos y cuántas veces visitamos cada una. Luego de simular una buena cantidad de random walks, lo cual puede hacerse muy rápidamente, tenemos una muy buena aproximación al SimRank de la página simplemente listando las demás en orden decreciente por cantidad de visitas.
 
@@ -17230,7 +17230,7 @@ Otro valor asociado al diámetro es el camino mínimo promedio que surge del pro
 El coeficiente de clustering mide qué tan conectados están los vecinos de un nodo. Sea $k_i$ el grado del nodo entonces sus $k_i$ vecinos pueden tener a lo sumo $1/2 k_i(k_i-1)$ aristas. Llamando $e_i$ a la cantidad de aristas entre los vecinos de $i$, el coeficiente de clustering para el nodo $i$ es:
 
 \begin{myequation}
-	c_i = \frac{2e_i}{k_i(k-1)}
+	c_i = \frac{2e_i}{k_i(k_i-1)}
 \end{myequation}
 
 \begin{figure}[!htb]
@@ -17483,7 +17483,7 @@ Pero por supuesto no se puede pretender elevar una matriz que ni siquiera podemo
 \frac{1}{6} \sum_{i=1}^n \lambda_i^3
 \end{myequation}
 
-Los autvalores de la matriz se pueden obtener de forma muy eficiente con el método de Lanczos y ni siquiera hacen falta todos porque se puede estimar la cantidad de triángulos a partir de los $k$ autovalores de mayor valor absoluto de la matriz con un error muy pequeño. El método de Lanczos está basado en el power method con el que se calcula PageRank (Recordar que el power method da el autovalor principal de la matriz).
+Los autovalores de la matriz se pueden obtener de forma muy eficiente con el método de Lanczos y ni siquiera hacen falta todos porque se puede estimar la cantidad de triángulos a partir de los $k$ autovalores de mayor valor absoluto de la matriz con un error muy pequeño. El método de Lanczos está basado en el power method con el que se calcula PageRank (Recordar que el power method da el autovalor principal de la matriz).
 
 Como un múltiplo de un autovector también es un autovector se va a normalizar el vector resultado de cada iteración del power method de forma tal que tenga norma 1. De esta forma se puede obtener el autovector asociado al autovalor principal cuya norma es 1. El autovalor asociado se puede calcular simplemente mediante: 
 
@@ -17732,7 +17732,7 @@ Se pueden caracterizar las aristas de una red según la \textit{fuerza} de su un
 \label{fig:soft_union_example}
 \end{figure}
 
-En la figura \ref{fig:soft_union_example} se ve que la arista A-B e sun puente local ya que A y B no tienen vecinos en común y el span de esta arista es 4 ya que si se remueve la arista entonces el camino mínimo entre A y B será 4.
+En la figura \ref{fig:soft_union_example} se ve que la arista A-B es un puente local ya que A y B no tienen vecinos en común y el span de esta arista es 4 ya que si se remueve la arista entonces el camino mínimo entre A y B será 4.
 
 Un estudio realizado por Granovetter comprobó que las uniones débiles son muy importantes en las Redes ya que son aquellas que permiten "descubrir" cosas. Por ejemplo, si una persona está buscando un trabajo, aquellas amistades que lo conectan con grupos de interés diferentes al círculo cercano de la persona son los que mayor probabilidad tienen de referenciar a la persona para un nuevo trabajo.
 
