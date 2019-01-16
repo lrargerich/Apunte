@@ -2392,16 +2392,16 @@ En un choropleth es muy importante determinar la granularidad de la información
 
 \section{Introducción al Análisis Exploratorio de Datos}
 
-El análisis exploratorio de datos comprende todas las tareas que van desde que se formula una pregunta interesante y se reunen los datos hasta que se desarrolla el proceso necesario para responder la pregunta. En general el objetivo del análisis exploratorio es entender los datos, ver que características tienen los mismos, detectar irregularidades, obtener valores estadísticos de los mismos y realizar visualizaciones rápidas que ayuden al proceso de exploración. El resultado suele ser un reporte o notebook que reune código y visualizaciones para llegar a algunas conclusiones o \textit{insights} sobre los datos. En cierta forma el análisis exploratorio se puede ver como un proceso iterativo de preguntas y respuestas, realizamos preguntas simples sobre los datos y generamos el código o visualización necesario para responderlas. 
+El análisis exploratorio de datos comprende todas las tareas que van desde que se formula una pregunta interesante y se reúnen los datos hasta que se desarrolla el proceso necesario para responder la pregunta. En general, el objetivo del análisis exploratorio es entender los datos, ver qué características tienen los mismos, detectar irregularidades, obtener valores estadísticos de los mismos y realizar visualizaciones rápidas que ayuden al proceso de exploración. El resultado suele ser un reporte o notebook que reúne código y visualizaciones para llegar a algunas conclusiones o \textit{insights} sobre los datos. En cierta forma, el análisis exploratorio se puede ver como un proceso iterativo de preguntas y respuestas: realizamos preguntas simples sobre los datos y generamos el código o visualización necesario para responderlas, y esto puede llevar a nuevas y mejores preguntas. 
 
 
 \section{Introducción a Dataframes}
 
-En general realizaremos la exploración sobre un \textit{Dataframe} que no es ni mas ni menos que un conjunto de datos en forma matricial (tabla) en donde cada fila corresponde a una observación (dato) y cada columna es un atributo correspondiente al dato (feature). En muchos casos es necesario realizar un proceso de limpieza antes de llegar a los datos en este formado prolijo a partir del cual podemos realizar el análisis exploratorio.
+En general, realizaremos la exploración sobre un \textit{dataframe} que no es ni más ni menos que un conjunto de datos en forma matricial (tabla). Cada fila corresponde a una observación (dato) y cada columna es un atributo correspondiente al dato (feature o dimensión). En muchos casos, es necesario realizar un proceso de limpieza antes de llegar a los datos en este formato prolijo a partir del cual podemos realizar el análisis exploratorio.
 
-Un Dataframe puede verse como un conjunto de columnas o un conjunto de filas, en general cualquier operacion que podamos aplicar sobre filas se puede aplicar sobre columnas y vice-versa ya que podemos simplemente transponer el Detaframe.
+Un dataframe puede verse como un conjunto de columnas o un conjunto de filas, en general cualquier operacion que podamos aplicar sobre filas se puede aplicar sobre columnas y vice-versa ya que podemos simplemente transponer el dataframe.
 
-En este capítulo vamos a explicar las operaciones que podemos realizar sobre un dataframe como parte del análisis exploratorio de datos desde un punto de vista lógico, es decir independiente de cualquier implementación. Sugerimos en la práctica usar R o Python-Pandas para poner estos conceptos teóricos a funcionar.
+En este capítulo vamos a explicar las operaciones que podemos realizar sobre un dataframe como parte del análisis exploratorio de datos desde un punto de vista lógico, es decir, independiente de cualquier implementación. Sugerimos en la práctica usar R o Python-Pandas para poner estos conceptos teóricos a funcionar.
 
 \section{Columnas}
 
@@ -2413,7 +2413,7 @@ Una columna es un vector de tamaño fijo de elementos de un mismo tipo acompaña
 2: "Estocolmo"
 \end{verbatim}
 
-Notar que si no se explicita el índice es simplemente el número de orden (fila) de cada valor de la columna, si el índice se explicita podemos tener algo de tipo:
+Notar que si no se explicita, el índice es simplemente el número de orden (fila) de cada valor de la columna, si el índice se explicita podemos tener algo como:
 
 \begin{verbatim}
 "Inglaterra": "Londres"
@@ -2433,10 +2433,10 @@ Una columna es entonces similar a un diccionario con la salvedad de que en una c
 
 \subsection{Operaciones con Columnas}
 
-Es posible realizar muchas operaciones interesantes sobre una columna. Por ejemplo operaciones matemáticas o estadísticas sobre vectores como la sumatoria, promedio, mediana, varianza, desviación standard, etc. Es posible también obtener un histograma de valores que nos devuelve los valores distintos de la columna y cuantas veces aparece cada valor. Es posible aplicar una función a cada elemento de la columna (Map) o aplicar una función a la columna entera (Apply) en donde recibimos un vector (representando la columna) y podemos devolver un valor o vector. Esto permite transformar dataframes de la forma en que deseemos simplemente aplicando la misma función a cada una de sus columnas. 
+Es posible realizar muchas operaciones sobre una columna. Por ejemplo, operaciones matemáticas o estadísticas sobre vectores como la sumatoria, promedio, mediana, varianza, desviación estándar, etc. Es posible también obtener un histograma de valores que nos devuelve los valores distintos de la columna y cuántas veces aparece cada valor. Se puede aplicar una función a cada elemento de la columna (\textit{map}) o aplicar una función a la columna entera (\textit{apply}) en donde recibimos un vector (la columna) y podemos devolver un valor o vector. Esto permite transformar dataframes de la forma en que deseemos simplemente aplicando la misma función a cada una de sus columnas. 
 
 \subsubsection{map (columnas)}
-Map es una función que recibe dos parámetros: una columna y una función. Map aplica la función a cada elemento de la columna y devuelve como resulado una nueva columna de igual tamaño que la columna original.
+Map es una función que recibe dos parámetros: una columna y una función. Map aplica la función a cada elemento de la columna y devuelve como resultado una nueva columna de igual tamaño que la original.
 
 $$\text{col}.\text{map}(f)\rightarrow \text{col}$$
 
@@ -2462,13 +2462,13 @@ columna.apply(normalizar)
 
 Notemos que nuestra función primero calcula el promedio usando la función estadística "mean" y luego usa map para restarle a cada elemento de la columna el promedio antes calculado.
 
-Apply es una funciń muy genérica, puede usarse para transformar una columna de cualquier forma que necesitemos.
+Apply es una función muy genérica, puede usarse para transformar una columna de cualquier forma que necesitemos.
 
 \section{Operaciones con Dataframes}
 
-Como mencionamos un Dataframe puede verse como un conjunto de columnas, features, atributos o bien como un conjunto de filas. Vamos a estudiar un conjunto de operaciones básicas que permiten manipular dataframes para realizar análisis exploratorio.
+Como mencionamos, un dataframe puede verse como un conjunto de columnas, features, atributos o bien como un conjunto de filas. Vamos a estudiar un conjunto de operaciones básicas que permiten manipular dataframes para realizar análisis exploratorio.
 
-Al igual que las columnas los dataframes están indexados por un cierto índice, que es una o varias columnas que actuan como clave para los registros del dataframe. Estas claves no tienen porque ser únicas y pueden ser compuestas. Por ejemplo podemos tener un dataframe con información sobre vuelos indexado por aerolínea y aeropuerto de partida. Cuando extraemos una columna de un dataframe la columna queda automáticamente indexada por el mismo índice que el dataframe. Si no se explicita el índice es simplemente el número de registro. Aprenderemos mas al estudiar las operaciones sobre indices.
+Al igual que las columnas, los dataframes están indexados por un cierto índice, que es una o varias columnas que actúan como clave para los registros del dataframe. Estas claves no tienen por qué ser únicas y pueden ser compuestas. Por ejemplo, podemos tener un dataframe con información sobre vuelos indexado por aerolínea y aeropuerto de partida. Cuando extraemos una columna de un dataframe la columna queda automáticamente indexada por el mismo índice que el dataframe. Si no se explicita el índice, es simplemente el número de registro.  
 
 \subsection{Proyección}
 
@@ -2489,7 +2489,7 @@ KLM & Manila & Amsterdam & 275 & 14:00 & 07:05 & Boeing 747-400\\ \hline
 
 En nuestro dataframe ejemplo podríamos realizar una operación de proyección para quedarnos unicamente con las columnas "Aerolinea" y "Avion"
 
-\subsection{Subsetting,Filtering o Selección}
+\subsection{Subsetting, Filtrado o Selección}
 
 En las operaciones de Subsetting, Filtrado o Selección el objetivo es seleccionar (filtrar) filas de un dataframe de acuerdo a una cierta condición. 
 El filtrado puede hacerse por varias condiciones:
@@ -2500,11 +2500,11 @@ El filtrado puede hacerse por varias condiciones:
 \item Por una máscara de acuerdo a una condición lógica
 \end{itemize}
 
-La operación de filtrado más interesante es la que usa una máscada de acuerdo a alguna condición lógica. Por ejemplo podemos filtrar aquellos registros que tengan algún registro nulo usando como máscara la condición isnull() o similar. Podemos filtrar los vuelos que tengan mas de 200 pasajeros usando como máscara la condición "Pasajeros $>$ 200". Una máscara es una función que, aplicada a un registro, devuelve True o False. Al aplicar la máscara a una columna obtenemos un vector booleano de igual tamaño que la columna. Las máscaras se pueden combinar usando operaciones lógicas. Por ejemplo podemos seleccionar los vuelos de Aeroflot, que no atterizaron en moscú y que tuvieron mas de 300 pasajeros.
+La operación de filtrado más interesante es la última. Por ejemplo, podemos filtrar aquellos registros que tengan algún valor nulo usando como máscara la condición isnull() o similar. Podemos filtrar los vuelos que tengan más de 200 pasajeros usando como máscara la condición "Pasajeros $>$ 200". Una máscara entonces es una función que, aplicada a un valor, devuelve True o False. Al aplicar la máscara a una columna obtenemos un vector booleano de igual tamaño que la columna. Las máscaras se pueden combinar usando operaciones lógicas. Por ejemplo, podemos seleccionar los vuelos de Aeroflot, que no atterizaron en Moscú y que tuvieron más de 300 pasajeros.
 
 \subsection{Sort}
 
-La operación de sort es muy simple y permite ordenar un dataframe, es necesario indicar cual o cuales son las columnas por las cuales queremos ordenar y si el orden es ascendente o descendente.
+La operación de sort es muy simple y permite ordenar un dataframe, es necesario indicar cuál o cuáles son las columnas por las que queremos ordenar y si el orden es ascendente o descendente.
 
 \subsection{Applymap}
 
@@ -2514,15 +2514,15 @@ Applymap es la versión de "map" para Dataframes. Applymap recibe como parámetr
 
 Apply es la misma función que vimos para columnas. Al aplicar Apply a un dataframe se aplica la función a cada columna del dataframe. Por ejemplo podemos hacer apply sobre un dataframe para normalizar todas sus columnas restando el promedio de la columna a cada valor de las mismas.
 
-\subsection{Manejo de Indices}
+\subsection{Manejo de Índices}
 
-Hemos mencionado que el índice es un conjunto de una o mas columnas que sirve para acceder a las filas de un dataframe. Por ejemplo podemos tener nuestro dataframe indexado por aerolinea o bien por aerolinea y aeropuerto o no tener indice en cuyo caso el número de fila hace las veces de índice.
+Hemos mencionado que el índice es un conjunto de una o más columnas que sirve para acceder a las filas de un dataframe. Por ejemplo podemos tener nuestro dataframe indexado por aerolinea o bien por aerolinea \textit{y} aeropuerto o no tener indice en cuyo caso el número de fila es el índice.
 
-Las operaciones básicas que podemos realizar entonces son reindexar un dataframe indicando que columnas usar como índices o bien resetear el índice de forma tal que cada fila quede identificada solamente por su número.
+Las operaciones básicas que podemos realizar entonces son: reindexar un dataframe indicando qué columnas usar como índices, o bien resetear el índice de forma tal que cada fila quede identificada solamente por su número.
 
 \subsection{Operaciones de Pivoteo}
 
-A partir de cualquier dataframe es posible convertir los datos a un formato "largo" mediante una operación que llamaremos "melt". Esta operación convierte cualquier dataframe en un dataframe de tres columnas: "clave", "atributo" y "valor". Suponiendo que tenemos nuestro dataframe indexado por aerolinea si hacemos un melt, el mismo quedaría de la siguiente forma:
+A partir de cualquier dataframe es posible convertir los datos a un formato "largo" mediante una operación que llamaremos "melt". Esta operación convierte cualquier dataframe en un dataframe de tres columnas: "clave", "atributo" y "valor". Suponiendo que tenemos nuestro dataframe indexado por aerolinea, si hacemos un melt, el mismo quedaría de la siguiente forma:
 
 \begin{table}[!hbt]
 \center{
@@ -2542,16 +2542,16 @@ LATAM & Partida & Buenos Aires \\
 \caption{Ejemplo Dataframe en formato largo.}
 \end{table}
 
-Notemos que como no teníamos una clave que identifique univocamente a los vuelos la realizar el melt hemos perdido la consistencia de nuestros datos. Por ejemplo si hubiera varios vuelos de Aeroflot sería imposible saber de donde despegó un vuelo que tuvo 250 pasajeros ya que hemos perdido la conexión entre las distintas columnas de cada registro del dataframe original. Es por este motivo que antes de realizar un "melt" es conveniente asegurarse que la clave por la cual está indexado nuestro dataframe sea únivoca.
+Notemos que como no teníamos una clave que identifique unívocamente a los vuelos la realizar el melt hemos perdido la consistencia de nuestros datos. Por ejemplo, si hubiera varios vuelos de Aeroflot sería imposible saber de donde despegó un vuelo que tuvo 250 pasajeros ya que hemos perdido la conexión entre las distintas columnas de cada registro del dataframe original. Es por este motivo que antes de realizar un "melt" es conveniente asegurarse que la clave por la cual está indexado nuestro dataframe no se repita entre registros.
 
 Sobre cualquier dataframe es posible re-organizar las columnas del mismo mediante la operación "pivot", esta operación recibe tres parámetros obligatorios: "index", "columns", "values" y un parámetro opcional que es una función de agregación.
-Indice es para indicar que columna queremos como índice en el dataframe final, "column" indica que columna queremos para los valores de las columnas y "value" indica de donde sale el valor para dichas columnas.
-La operación de agregación solo es necesaria en los casos en los cuales pueda existir mas de un valor para la misma combinación de index y column.
+Indice es para indicar qué columna queremos como índice en el dataframe final, "column" indica qué columna queremos para los nombres de las columnas nuevas y "value" indica de dónde sale el valor para dichas columnas.
+La operación de agregación sólo es necesaria en los casos en los cuales pueda existir mas de un valor para la misma combinación de index y column.
 
 Por ejemplo si tomamos nuestro dataframe original y hacemos algo del estilo:
 
 \begin{verbatim}
-flights.pivo(index="Aerolinea,columns="Avion",values="Pasajeros",agg="mean")
+flights.pivot(index="Aerolinea",columns="Avion",values="Pasajeros",agg="mean")
 \end{verbatim}
 
 Lo que obtendríamos es un dataframe en donde el índice es el nombre de la aerolínea, cada columna es un tipo de avión diferente y el valor es el promedio de pasajeros para cada aerolínea y avión.
@@ -2572,17 +2572,17 @@ Las operaciones de pivoteo son muy flexibles y en muchos casos son necesarias pa
 
 \subsection{El Paradigma Split, Apply, Combine}
 
-El paradigma Split-Apply-Combine es la herramienta mas poderosa para el análisis de datos a partir de un dataframe, en general usando un poco de imaginación practicamente cualquier operación que se nos ocurra hacer sobre un dataframe puede aplicarse mediante este paradigma.
+El paradigma Split-Apply-Combine es la herramienta más poderosa para el análisis de datos a partir de un dataframe. En general, usando un poco de imaginación, prácticamente cualquier operación que se nos ocurra hacer sobre un dataframe puede aplicarse mediante este paradigma.
 
-El primer paso del paradigma split-apply-combine es "split" que es una operación que divide a un dataframe en grupos de acuerdo a un cierto conjunto de columnas. Para esto se usa la operación groupby.
+El primer paso del paradigma split-apply-combine es "split" que es una operación que divide a un dataframe en grupos de acuerdo a un cierto conjunto de columnas. Para esto se usa la operación \textit{groupby}.
 
-En general groupby recibe como parámetro un conjunto de columnas y entonces divide al dataframe en grupos de acuerdo a los distintos valores que pueden tomar dichas columnas. Si hacemos un groupby("Aerolínea") para nuestro dataframe obtendremos un grupo para cada aerolínea, es decir un grupo con todos los registros de Aeroflot, otro con todos los registros de KLM, etc.
+En general groupby recibe como parámetro un conjunto de columnas y divide al dataframe en grupos de acuerdo a los distintos valores que pueden tomar dichas columnas. Si hacemos un groupby("Aerolínea") para nuestro dataframe obtendremos un grupo para cada aerolínea, es decir un grupo con todos los registros de Aeroflot, otro con todos los registros de KLM, etc.
 
 En algunos casos es posible realizar el groupby no por nombre de columna sino por alguna condición arbitraria, en los sistemas que no permiten pasar una función a groupby siempre es posible crear primero una columna con el resultado que necesitemos y luego hacer un groupby de acuerdo a esta columna. Es decir que mediante la creación arbitaria de una columna o conjunto de columnas y la aplicación de un groupby podemos dividir un dataframe en grupos de forma arbitraria lo cual permite realizar muchos procedimientos bastante creativos sobre un dataframe.
 
-Luego de usar groupby para dividir el dataframe en grupos la siguiente operacion es "apply" que, como su nombre lo indica, consiste en aplicar alguna función a cada grupo. En general es muy común aplicar funciones de agregación. Por ejemplo el promedio de pasajeros, o la suma, o cualquier otra función estadística. Podemos aplicar una o varias funciones estadísticas. En estos casos el resultado de apply es exactamente una fila por cada grupo en donde apliamos a cada columna de cada grupo las funciones estadísticas deseadas. 
+Luego de usar groupby para dividir el dataframe en grupos, la siguiente operacion es "apply" que, como su nombre lo indica, consiste en aplicar alguna función a cada grupo. En general es muy común aplicar funciones de agregación. Por ejemplo el promedio de pasajeros, o la suma, o cualquier otra función estadística. Se pueden aplicar varias funciones a la vez. En estos casos el resultado de apply es exactamente una fila por cada grupo en donde aplicamos a cada columna de cada grupo las funciones estadísticas deseadas. 
 
-No siempre es necesario u obligatorio aplicar una función estadística o de agregación a cada grupo, podemos aplicar cualquier transformación de forma arbitraria. Por ejemplo podríamos normalizar la cantidad de pasajeros de cada registro restando el promedio de pasajeros correspondiente a la aerol{inea.
+No siempre es necesario u obligatorio aplicar una función estadística o de agregación a cada grupo, podemos aplicar cualquier transformación de forma arbitraria. Por ejemplo podríamos normalizar la cantidad de pasajeros de cada registro restando el promedio de pasajeros correspondiente a la aerolínea.
 
 El paso final consiste en simplemente unir los grupos nuevamente con lo cual se genera un nuevo dataframe.
 
@@ -2591,7 +2591,7 @@ El paso final consiste en simplemente unir los grupos nuevamente con lo cual se 
 Supongamos el siguiente dataframe.
 
 \begin{verbatim}
-first  secon    value
+first  second    value
 bar    one      -0.575247
 bar    two       0.254161
 baz    one      -1.143704
@@ -2648,7 +2648,7 @@ Nuestro capítulo sobre análisis exploratorio fue breve y muy abstracto, es pos
 
 \section{Ejemplo: IMDB Movies DataSet}
 
-A modo de ejemplo vamos a realizar un análisis exploratorio del set de datos IMDB 5000. Este set de datos tiene una gran cantidad de columnas, vamos a suponer que ya hemos realizado el proceso de depuración del set de datos para llegar a un dataframe con las siguientes columnas (fig ~\ref{fig:movies1})
+A modo de ejemplo, vamos a realizar un análisis exploratorio del set de datos IMDB 5000. Este set de datos tiene una gran cantidad de columnas, vamos a suponer que ya hemos realizado el proceso de depuración del set de datos para llegar a un dataframe con las siguientes columnas (fig ~\ref{fig:movies1})
 
 \begin{figure}[!htb]
 \centering
@@ -2675,9 +2675,9 @@ actor_2_name       3756 non-null object
 
 La única columna que tiene un formato especial es "genres" que tiene una lista de géneros para las películas separados por barras verticales. 
 
-\subsection{¿Las Películas mas largas son mejores?}
+\subsection{¿Las películas más largas son mejores?}
 
-Queremos averiguar si hay uan relación entre el largo de las películas y su calificación. Podemos observar esto mediante un scatter-plot.
+Queremos averiguar si hay una relación entre el largo de las películas y su calificación. Podemos observar esto mediante un scatter-plot.
 
 \begin{figure}[!htb]
 \centering
@@ -2686,11 +2686,11 @@ Queremos averiguar si hay uan relación entre el largo de las películas y su ca
 \label{fig:movies2}
 \end{figure}
 
-El plot es inconcluso, no parece haber una relación directa entre la calificación y la duración. Sin embargo las películas muy largas suelen tener buenas calificaciones, mientras que las películas muy malas duran todas entre 90 y 120 minutos aproximadamente. En concreto las películas de menos de 100 minutos parecen tener mayor potencial de ser realmente muy malas.
+El plot es inconcluso, no parece haber una relación directa entre la calificación y la duración. Sin embargo, las películas muy largas suelen tener buenas calificaciones, mientras que las películas muy malas duran todas entre 90 y 120 minutos aproximadamente. En concreto las películas de menos de 100 minutos parecen tener mayor potencial de ser realmente muy malas.
 
-\subsection{Los Mejores Directores}
+\subsection{Los mejores directores}
 
-Nos interesa saber cuales son los mejores directores. Para eso vamos a agrupar el set de datos por la columna "directorname", una vez agrupado vamos a agregar calculando el promedio de "imdbscore" y también la cantidad de registros por grupo "size". 
+Nos interesa saber cuáles son los mejores directores. Para eso vamos a agrupar el set de datos por la columna "directorname", una vez agrupado vamos a agregar calculando el promedio de "imdbscore" y también la cantidad de registros por grupo "size". 
 
 Una vez que terminamos de hacer el split-apply-combine nos queda un dataframe indexado por director con los campos "mean" y "size" indicando el promedio y cantidad de calificaciones de cada director. El "size" lo vamos a usar para filtrar los directores que tienen mas de 5 películas, de esta forma evitamos directores que tienen solo 1 o 2 películas con muy buen score. Esto es, por supuesto, un caso directo de la ecuación mas peligrosa de la historia.
 
@@ -2758,9 +2758,9 @@ movie & title & year &  duration \\ \hline
 \caption{Películas mas largas.}
 \end{table}
 
-\subsection{Histograma de Ratings}
+\subsection{Histograma de ratings}
 
-Un histograma de ratings es un plot útil para entender la distribución de las calificaciones.
+Un histograma de ratings es un gráfico útil para entender la distribución de las calificaciones.
 
 \begin{figure}[!htb]
 \centering
@@ -2771,7 +2771,7 @@ Un histograma de ratings es un plot útil para entender la distribución de las 
 
 El histograma está volcado hacia la derecha, con una cola a izquierda. Este es un histograma de la calificación de cada película por lo que nos muestra que en general la mayoría de las películas están entre 6 y 8 puntos.
 
-\subsection{Correlación Entre Columnnas}
+\subsection{Correlación entre columnas}
 
 Siempre es interesante analizar el grado de correlación estadística entre las columnas de un dataframe. El resultado se puede representar numéricamente en una tabla o visualmente mediante un heatmap.
 
@@ -2790,11 +2790,11 @@ imdbscore      &   -0.134982 &  0.366221 &         0.482430 &  0.029190 &  0.214
 \caption{Correlación entre columnas.}
 \end{table}
 
-Algunas correlaciones son interesantes. Por ejemplo entre el número de votos (numvotedusers) y el ingreso bruto (gross), esto es lógico ya que las películas mas taquilleras son las que suelen tener mayor audiencia y por lo tanto calificaciones. Si analizamos que factor influye mas en el score vemos que la duración de la película tiene una correlación positiva, lo cual confirma nuestra sospecha acerca de que las películas cortas pueden resultar muy malas, el número de votos también tiene una fuerte correlación positiva, cuanto mas taquillera la película mejor son sus calificaciones. De este cuadro pueden extraerse muchas conclusiones muy interesantes por lo que siempre resulta atractivo usarlo en la mayoría de las exploraciones que se hacen sobre un set de datos.
+Algunas correlaciones son interesantes. Por ejemplo entre el número de votos (numvotedusers) y el ingreso bruto (gross), esto es lógico ya que las películas más taquilleras son las que suelen tener mayor audiencia y por lo tanto calificaciones. Si analizamos qué factor influye más en el score vemos que la duración de la película tiene una correlación positiva, lo cual confirma nuestra sospecha acerca de que las películas cortas pueden resultar muy malas, el número de votos también tiene una fuerte correlación positiva, cuanto más taquillera la película mejor son sus calificaciones. De este cuadro pueden extraerse muchas otras conclusiones interesantes.
 
-\subsection{Las Mejores Parejas de Actores}
+\subsection{Las mejores parejas de actores}
 
-Queremos averiguar que duplas de actores son las mejores. Para eso tenemos el campo actor1name y actor2name, para resolver esto agrupamos por "actor1name" y "actor2name" y luego agregamos el score calculando el promedio y la cantidad de películas en las que participaron juntos. Luego podemos filtrar las parejas que actuaron juntas en 2 o mas películas para evitar parejas de solo una película y ordenar por el promedio de calificaciones. El resultado es:
+Queremos averiguar qué duplas de actores son las mejores, usando los campos actor1name y actor2name, para resolver esto agrupamos por "actor1name" y "actor2name" y luego agregamos el score calculando el promedio y la cantidad de películas en las que participaron juntos. Luego podemos filtrar las parejas que actuaron juntas en 2 o más películas para evitar parejas de solo una película y ordenar por el promedio de calificaciones. El resultado es:
 
 \begin{table}[!hbt]
 \centering
@@ -2810,9 +2810,9 @@ Tom Hanks &  John Ratzenberger &  8.166667 &   9.0 \\ \hline
 \caption{Las mejores duplas de actores.}
 \end{table}
 
-\subsection{Mejores Duplas Director-Actor}
+\subsection{Mejores duplas director-actor}
 
-Nos interesa saber cuales son las combinaciones mas exitosas de Director y Actor. Para hacer esto debemos notar que el actor puede figurar en el campo actor1 o actor2. Empezamos separando el dataframe en 2, uno con columnas "director,actor1,score" y otro con columnas "director, actor2, score". Esto se hace simplemente proyectando el dataframe original dos veces.
+Nos interesa saber cuáles son las combinaciones más exitosas de director y actor. Para hacer esto debemos notar que el actor puede figurar en el campo actor1 o actor2. Empezamos separando el dataframe en dos, uno con columnas "director,actor1,score" y otro con columnas "director, actor2, score". Esto se hace simplemente proyectando el dataframe original dos veces.
 
 Una vez que tenemos ambos dataframes hacemos un full join (outer join) usando como claves "director,actor1" y "director,actor2". Luego de esto realizamos un apply en donde si el campo actor1 es nulo lo reemplazamos por actor2. Finalmente agrupamos por "director,actor1" y agregamos el score calculando el promedio. 
 
@@ -2831,11 +2831,11 @@ Una vez que tenemos ambos dataframes hacemos un full join (outer join) usando co
 \end{table}
 
 
-\subsection{¿Qué Directores Hacen que los Actores Actuen Mejor?}
+\subsection{¿Qué directores hacen que los actores actúen mejor?}
 
-Una pregunta interesante que podemos hacernos es si los directores hacen que los actores actuen mejor. Es decir comparar el promedio de calificaciones del actor contra el promedio de calificaciones del actor con cada director y luego realizar la diferencia. El resultado es un coeficiente de cuanto mejora o empeora cada director a cada actor.
+Una pregunta interesante que podemos hacernos es si los directores hacen que los actores actúen mejor. Esto es decir, comparar el promedio de calificaciones del actor contra el promedio de calificaciones del actor con cada director y luego realizar la diferencia. El resultado es un coeficiente de cuánto mejora o empeora cada director a cada actor.
 
-Partimos de un dataframe generado en el paso anterior con "director, actor, scorepromedio" y le hacemos un join con un dataframe que tenga "actor, calificacionpromedio" usando el campo actor como clave y un inner join. Luego realizamos la resta del primer promedio y el segundo. Agrupamos por "director" y agregamos el promedio de la diferencia y la cantidad, para eliminar a aquellos directores que no dirigieron a mas de 5 actores diferentes. El resultado es el siguiente:
+Partimos de un dataframe generado en el paso anterior con "director, actor, scorepromedio" y le hacemos un join con un dataframe que tenga "actor, calificacionpromedio" usando el campo actor como clave y un inner join. Luego realizamos la resta del primer promedio y el segundo. Agrupamos por "director" y agregamos el promedio de la diferencia y la cantidad, para eliminar a aquellos directores que no dirigieron a más de 5 actores diferentes. El resultado es el siguiente:
 
 \begin{table}[!hbt]
 \centering
@@ -2851,8 +2851,8 @@ Pete Docter       &    5.0 &  1.038810 \\ \hline
 \caption{Los directores que hacen mejores a sus actores.}
 \end{table}
 
-Aparentemente ser dirigido por Christopher Nolan o Quentin Tarantino hace que los actores actuen mucho mejor que su promedio, subiendo más de un punto su calificación promedio.
-De la misma forma podríamos obtener quienes hacen peores a los actores.
+Aparentemente ser dirigido por Christopher Nolan o Quentin Tarantino hace que los actores actúen mucho mejor que su promedio, subiendo más de un punto su calificación promedio.
+De la misma forma podríamos obtener quiénes hacen peores a los actores:
 
 \begin{table}[!hbt]
 \centering
@@ -2868,11 +2868,11 @@ Peter Hyams     &   10.0 & -0.968000 \\ \hline
 \caption{Los directores que hacen peores a sus actores.}
 \end{table}
 
-Una posible explicación a esta tabla sería investigar si estos directores se caracterizan por dirigir películas en general malas en las cuales actuan actores de renombre. Del estilo "Scary Movie" o "Epic Movie". 
+Una posible explicación a esta tabla sería investigar si estos directores se caracterizan por dirigir películas en general malas en las cuales actúan actores de renombre (e.g. "Scary Movie", "Epic Movie")
 
 En este ejemplo hemos visto algunas preguntas interesantes que podemos responder en el análisis exploratorio del set de datos IMDB5000, podríamos completar cientos de páginas extras del apunte con otros plots, rankins, listados y respuestas a preguntas que puedan ser interesantes. Lo que nos importa es que hemos visto como aplicando las operaciones básicas que hemos visto para dataframes podemos resolver todo tipo de problemas.
 
-\section{Manejo Interno de DataFrames}
+\section{Manejo interno de Dataframes}
 
 En esta sección analizaremos algunos algoritmos que suelen ser efectivos para el manejo interno de Dataframes en memoria. 
 
