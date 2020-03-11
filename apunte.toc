@@ -1,751 +1,762 @@
-\contentsline {part}{I\hspace {1em}Data Science}{1}
-\contentsline {chapter}{\numberline {1}Fundamentos}{3}
-\contentsline {section}{\numberline {1.1}Introducci\IeC {\'o}n}{3}
-\contentsline {subsection}{\numberline {1.1.1}Hacer una pregunta interesante}{4}
-\contentsline {subsubsection}{Regresi\IeC {\'o}n}{4}
-\contentsline {subsubsection}{Clasificaci\IeC {\'o}n}{5}
-\contentsline {subsubsection}{Clustering}{6}
-\contentsline {subsubsection}{Recomendaciones}{8}
-\contentsline {subsubsection}{Sistemas de Consulta}{9}
-\contentsline {subsubsection}{Identificaci\IeC {\'o}n de Patrones}{9}
-\contentsline {subsection}{\numberline {1.1.2}Conseguir los datos necesarios}{10}
-\contentsline {subsubsection}{Obtener los Datos}{10}
-\contentsline {subsubsection}{Depurar los Datos}{11}
-\contentsline {subsubsection}{Detectar y eliminar Anomal\IeC {\'\i }as}{12}
-\contentsline {subsubsection}{Valores Faltantes}{13}
-\contentsline {subsection}{\numberline {1.1.3}Explorar los datos}{14}
-\contentsline {subsubsection}{Analizar la estructura de los datos}{14}
-\contentsline {subsubsection}{Navegar los datos}{14}
-\contentsline {subsubsection}{Resumen estad\IeC {\'\i }stico}{15}
-\contentsline {subsubsection}{Visualizar los datos}{15}
-\contentsline {subsection}{\numberline {1.1.4}Aplicar a los datos el algoritmo necesario}{18}
-\contentsline {subsection}{\numberline {1.1.5}Comunicar los resultados}{18}
-\contentsline {section}{\numberline {1.2}Formatos de Datos}{18}
-\contentsline {subsection}{\numberline {1.2.1}Data Frames}{18}
-\contentsline {subsubsection}{Codificaci\IeC {\'o}n de Atributos Categ\IeC {\'o}ricos}{20}
-\contentsline {subsubsection}{Codificaci\IeC {\'o}n de atributos categ\IeC {\'o}ricos en gran escala}{22}
-\contentsline {subsection}{\numberline {1.2.2}Texto}{24}
-\contentsline {subsubsection}{Bag of Words (BOW)}{24}
-\contentsline {subsection}{\numberline {1.2.3}Datos Matriciales}{25}
-\contentsline {subsubsection}{Matrices Dispersas}{25}
-\contentsline {subsubsection}{CRS (Compressed Row Storage)}{26}
-\contentsline {subsection}{\numberline {1.2.4}Im\IeC {\'a}genes}{26}
-\contentsline {section}{\numberline {1.3}Niveles de Almacenamiento}{26}
-\contentsline {subsection}{\numberline {1.3.1}Datos en Memoria}{27}
-\contentsline {subsection}{\numberline {1.3.2}Datos en Disco}{27}
-\contentsline {subsection}{\numberline {1.3.3}Datos en un Cluster}{28}
-\contentsline {section}{\numberline {1.4}La Ley de Zipf y las Leyes de Potencias}{28}
-\contentsline {subsection}{\numberline {1.4.1}Pareto, Zipf y Power-Laws}{29}
-\contentsline {subsection}{\numberline {1.4.2}Leyes de Potencias}{33}
-\contentsline {subsection}{\numberline {1.4.3}Propiedades de las Leyes de Potencias}{34}
-\contentsline {subsubsection}{Necesidad de un valor m\IeC {\'\i }nimo}{35}
-\contentsline {subsubsection}{Diferencias con una exponencial}{35}
-\contentsline {subsubsection}{Dependencia de los eventos}{35}
-\contentsline {subsubsection}{Invariancia a la escala}{36}
-\contentsline {subsubsection}{Promedio y varianza}{36}
-\contentsline {subsubsection}{Fen\IeC {\'o}meno del Cisne Negro}{36}
-\contentsline {subsection}{\numberline {1.4.4}Origen de las leyes de potencias}{36}
-\contentsline {subsection}{\numberline {1.4.5}Resumen}{36}
-\contentsline {section}{\numberline {1.5}Algunos Elementos de Probabilidad y Estad\IeC {\'\i }stica}{37}
-\contentsline {subsection}{\numberline {1.5.1}El Principio de Bonferroni}{37}
-\contentsline {subsection}{\numberline {1.5.2}La Ecuaci\IeC {\'o}n mas peligrosa de la historia}{39}
-\contentsline {subsection}{\numberline {1.5.3}Frecuentistas vs Bayesianos}{41}
-\contentsline {subsubsection}{Estimaci\IeC {\'o}n Bayesiana con la Distribuci\IeC {\'o}n Beta}{43}
-\contentsline {subsection}{\numberline {1.5.4}La \IeC {\'U}nica Ley sin Explicaci\IeC {\'o}n}{46}
-\contentsline {subsection}{\numberline {1.5.5}Skewness}{47}
-\contentsline {section}{\numberline {1.6}Algoritmos Aleatorizados}{48}
-\contentsline {paragraph}{Algoritmos tipo Montecarlo}{48}
-\contentsline {paragraph}{Algoritmos tipo Las Vegas}{48}
-\contentsline {subsection}{\numberline {1.6.1}Algoritmo de Fermat}{49}
-\contentsline {subsection}{\numberline {1.6.2}Algoritmo de Miller-Rabin}{50}
-\contentsline {subsection}{\numberline {1.6.3}Random Walks}{50}
-\contentsline {subsection}{\numberline {1.6.4}Markov Chains}{51}
-\contentsline {subsubsection}{Modelando Lenguajes como Procesos de Markov}{52}
-\contentsline {subsection}{\numberline {1.6.5}Hill Climbing}{54}
-\contentsline {subsection}{\numberline {1.6.6}El Algoritmo Metr\IeC {\'o}polis-Hastings}{54}
-\contentsline {subsection}{\numberline {1.6.7}Simulated Annealing}{54}
-\contentsline {section}{\numberline {1.7}MCMC}{56}
-\contentsline {section}{\numberline {1.8}Gibbs Sampling}{59}
-\contentsline {section}{\numberline {1.9}La Uni\IeC {\'o}n hace la fuerza: Ensambles}{59}
-\contentsline {chapter}{\numberline {2}KNN}{61}
-\contentsline {section}{\numberline {2.1}La M\IeC {\'e}trica a emplear}{62}
-\contentsline {subsection}{\numberline {2.1.1}Distancia Minkowsky}{63}
-\contentsline {subsection}{\numberline {2.1.2}Distancia Manhattan}{63}
-\contentsline {subsection}{\numberline {2.1.3}Distancia de Hamming o Norma $l_0$}{63}
-\contentsline {subsection}{\numberline {2.1.4}Norma $l_{\infty }$}{63}
-\contentsline {subsection}{\numberline {2.1.5}Distancia de Mahalanobis}{64}
-\contentsline {subsection}{\numberline {2.1.6}Distancia Coseno}{65}
-\contentsline {subsection}{\numberline {2.1.7}Distancia de Edici\IeC {\'o}n o Levenshtein}{66}
-\contentsline {subsection}{\numberline {2.1.8}Distancia de Jaccard}{67}
-\contentsline {subsection}{\numberline {2.1.9}Distancia Geod\IeC {\'e}sica}{67}
-\contentsline {subsection}{\numberline {2.1.10}Distancia entre Grafos}{68}
-\contentsline {subsection}{\numberline {2.1.11}Distancia para atributos categ\IeC {\'o}ricos: VDM}{68}
-\contentsline {subsection}{\numberline {2.1.12}Distancias Especiales}{69}
-\contentsline {subsection}{\numberline {2.1.13}Aprendiendo la Distancia}{70}
-\contentsline {section}{\numberline {2.2}Determinando la Distancia a usar en KNN}{70}
-\contentsline {section}{\numberline {2.3}Determinar el valor de K}{71}
-\contentsline {subsection}{\numberline {2.3.1}Grid Search y Random Search en KNN}{73}
-\contentsline {section}{\numberline {2.4}Sensibilidad a valores fuera de escala}{74}
-\contentsline {section}{\numberline {2.5}Sensibilidad a atributos an\IeC {\'o}malos}{75}
-\contentsline {subsection}{\numberline {2.5.1}Forward Selection}{75}
-\contentsline {subsection}{\numberline {2.5.2}Backward Selection}{75}
-\contentsline {section}{\numberline {2.6}Aproximaciones para KNN}{75}
-\contentsline {subsection}{\numberline {2.6.1}Orden del algoritmo y eficiencia}{75}
-\contentsline {subsection}{\numberline {2.6.2}Indices Espaciales: KD-Trees}{77}
-\contentsline {subsection}{\numberline {2.6.3}Indices Espaciales: VP-Trees}{78}
-\contentsline {subsection}{\numberline {2.6.4}L\IeC {\'\i }deres y seguidores}{81}
-\contentsline {subsection}{\numberline {2.6.5}Aproximaci\IeC {\'o}n con K-Means}{82}
-\contentsline {subsection}{\numberline {2.6.6}Editing}{82}
-\contentsline {subsection}{\numberline {2.6.7}NN v\IeC {\'\i }a Grafos}{84}
-\contentsline {subsection}{\numberline {2.6.8}LSH}{85}
-\contentsline {section}{\numberline {2.7}Teor\IeC {\'\i }a de KNN}{85}
-\contentsline {subsection}{\numberline {2.7.1}Teorema de Cover-Hart}{85}
-\contentsline {section}{\numberline {2.8}Parzen Windows}{87}
-\contentsline {section}{\numberline {2.9}KNN con pesos}{87}
-\contentsline {section}{\numberline {2.10}Evitando Overfitting en KNN}{89}
-\contentsline {section}{\numberline {2.11}RKNN: Ensambles basados en KNN}{89}
-\contentsline {section}{\numberline {2.12}Algunas conclusiones y comentarios}{90}
-\contentsline {section}{\numberline {2.13}Dimensionalidad}{90}
-\contentsline {subsection}{\numberline {2.13.1}Manifolds}{91}
-\contentsline {subsection}{\numberline {2.13.2}Los Datos No son Random y Siempre Tienen Pocas Dimensiones}{92}
-\contentsline {subsection}{\numberline {2.13.3}Manifold Learning y Cambios de Dimensiones}{93}
-\contentsline {subsection}{\numberline {2.13.4}La Maldici\IeC {\'o}n de la dimensionalidad}{94}
-\contentsline {subsubsection}{El problema del muestreo}{94}
-\contentsline {subsection}{\numberline {2.13.5}El Efecto de la Dimensionalidad sobre las Distancias}{95}
-\contentsline {subsubsection}{El problema de los KD-Trees}{96}
-\contentsline {subsubsection}{Shared Neighbors}{98}
-\contentsline {chapter}{\numberline {3}Visualizaci\IeC {\'o}n}{99}
-\contentsline {section}{\numberline {3.1}Principios B\IeC {\'a}sicos}{100}
-\contentsline {subsection}{\numberline {3.1.1}No usar tres dimensiones de forma injustificada}{100}
-\contentsline {subsection}{\numberline {3.1.2}El uso del plano}{100}
-\contentsline {subsection}{\numberline {3.1.3}Oclusi\IeC {\'o}n de Informaci\IeC {\'o}n}{100}
-\contentsline {subsection}{\numberline {3.1.4}Mal uso del Plano}{100}
-\contentsline {subsection}{\numberline {3.1.5}Capacidad de Retenci\IeC {\'o}n}{101}
-\contentsline {subsection}{\numberline {3.1.6}Ceguera al cambio}{101}
-\contentsline {subsection}{\numberline {3.1.7}Uso del Color}{101}
-\contentsline {subsection}{\numberline {3.1.8}Foco en la Funcionalidad}{101}
-\contentsline {section}{\numberline {3.2}Principios de Visualizaci\IeC {\'o}n de Tufte}{102}
-\contentsline {subsection}{\numberline {3.2.1}Excelencia}{102}
-\contentsline {subsection}{\numberline {3.2.2}Principios}{103}
-\contentsline {section}{\numberline {3.3}Scatter Plots}{103}
-\contentsline {section}{\numberline {3.4}Gr\IeC {\'a}ficos de Barras}{111}
-\contentsline {section}{\numberline {3.5}Histogramas y Plots de Densidad}{115}
-\contentsline {section}{\numberline {3.6}Boxplots}{119}
-\contentsline {section}{\numberline {3.7}Gr\IeC {\'a}ficos de L\IeC {\'\i }neas}{126}
-\contentsline {section}{\numberline {3.8}Gr\IeC {\'a}ficos de \IeC {\'a}rea}{129}
-\contentsline {section}{\numberline {3.9}Heatmaps}{132}
-\contentsline {section}{\numberline {3.10}Radar Charts}{134}
-\contentsline {section}{\numberline {3.11}Coordenadas Paralelas}{135}
-\contentsline {section}{\numberline {3.12}Treemaps}{136}
-\contentsline {section}{\numberline {3.13}Mapas y Choropleths}{137}
-\contentsline {chapter}{\numberline {4}Dataframes y An\IeC {\'a}lisis Exploratorio de Datos}{139}
-\contentsline {section}{\numberline {4.1}Introducci\IeC {\'o}n al An\IeC {\'a}lisis Exploratorio de Datos}{139}
-\contentsline {section}{\numberline {4.2}Introducci\IeC {\'o}n a Dataframes}{139}
-\contentsline {section}{\numberline {4.3}Columnas}{140}
-\contentsline {subsection}{\numberline {4.3.1}Operaciones con Columnas}{140}
-\contentsline {subsubsection}{map (columnas)}{141}
-\contentsline {subsubsection}{apply (columnas)}{141}
-\contentsline {section}{\numberline {4.4}Operaciones con Dataframes}{142}
-\contentsline {subsection}{\numberline {4.4.1}Proyecci\IeC {\'o}n}{142}
-\contentsline {subsection}{\numberline {4.4.2}Subsetting,Filtering o Selecci\IeC {\'o}n}{142}
-\contentsline {subsection}{\numberline {4.4.3}Sort}{143}
-\contentsline {subsection}{\numberline {4.4.4}Applymap}{143}
-\contentsline {subsection}{\numberline {4.4.5}Apply (Dataframes)}{143}
-\contentsline {subsection}{\numberline {4.4.6}Manejo de Indices}{143}
-\contentsline {subsection}{\numberline {4.4.7}Operaciones de Pivoteo}{143}
-\contentsline {subsection}{\numberline {4.4.8}El Paradigma Split, Apply, Combine}{145}
-\contentsline {subsubsection}{Ejemplos}{145}
-\contentsline {subsection}{\numberline {4.4.9}Join}{146}
-\contentsline {subsubsection}{Inner Join}{146}
-\contentsline {subsubsection}{Left Join}{146}
-\contentsline {subsubsection}{Right Join}{147}
-\contentsline {subsubsection}{Full Join}{147}
-\contentsline {section}{\numberline {4.5}Ejemplo: IMDB Movies DataSet}{147}
-\contentsline {subsection}{\numberline {4.5.1}\IeC {\textquestiondown }Las Pel\IeC {\'\i }culas mas largas son mejores?}{148}
-\contentsline {subsection}{\numberline {4.5.2}Los Mejores Directores}{148}
-\contentsline {subsection}{\numberline {4.5.3}\IeC {\textquestiondown }Las pel\IeC {\'\i }culas est\IeC {\'a}n mejorando?}{149}
-\contentsline {subsection}{\numberline {4.5.4}Duraci\IeC {\'o}n de las Pel\IeC {\'\i }culas a lo largo del tiempo}{150}
-\contentsline {subsection}{\numberline {4.5.5}Histograma de Ratings}{151}
-\contentsline {subsection}{\numberline {4.5.6}Correlaci\IeC {\'o}n Entre Columnnas}{151}
-\contentsline {subsection}{\numberline {4.5.7}Las Mejores Parejas de Actores}{152}
-\contentsline {subsection}{\numberline {4.5.8}Mejores Duplas Director-Actor}{152}
-\contentsline {subsection}{\numberline {4.5.9}\IeC {\textquestiondown }Qu\IeC {\'e} Directores Hacen que los Actores Actuen Mejor?}{153}
-\contentsline {section}{\numberline {4.6}Manejo Interno de DataFrames}{154}
-\contentsline {subsection}{\numberline {4.6.1}Valores \IeC {\'U}nicos}{154}
-\contentsline {subsection}{\numberline {4.6.2}Factorize}{154}
-\contentsline {subsection}{\numberline {4.6.3}Counting Sort}{155}
-\contentsline {subsection}{\numberline {4.6.4}Algoritmos para Group By}{157}
-\contentsline {chapter}{\numberline {5}Big Data y Almacenamiento Distribuido}{159}
-\contentsline {section}{\numberline {5.1}Big Data}{159}
-\contentsline {subsection}{\numberline {5.1.1}Volumen}{160}
-\contentsline {subsection}{\numberline {5.1.2}Velocidad}{160}
-\contentsline {subsection}{\numberline {5.1.3}Variedad}{160}
-\contentsline {subsection}{\numberline {5.1.4}Veracidad}{160}
-\contentsline {subsection}{\numberline {5.1.5}Valencia}{161}
-\contentsline {section}{\numberline {5.2}Almacenamiento Distribuido}{161}
-\contentsline {section}{\numberline {5.3}El Ecosistema Hadoop}{162}
-\contentsline {section}{\numberline {5.4}Map Reduce}{163}
-\contentsline {subsection}{\numberline {5.4.1}Fase de Map}{163}
-\contentsline {subsection}{\numberline {5.4.2}Map Partitions}{164}
-\contentsline {subsection}{\numberline {5.4.3}Fase de Reduce}{165}
-\contentsline {subsubsection}{Reduce propiamente dicho}{165}
-\contentsline {subsubsection}{Reduce by Key}{165}
-\contentsline {subsection}{\numberline {5.4.4}Fase de Shuffle \& Sort}{166}
-\contentsline {section}{\numberline {5.5}Normalizaci\IeC {\'o}n}{166}
-\contentsline {section}{\numberline {5.6}KNN}{168}
-\contentsline {subsection}{\numberline {5.6.1}NN}{168}
-\contentsline {subsection}{\numberline {5.6.2}KNN}{169}
-\contentsline {section}{\numberline {5.7}Procesamiento de Textos}{170}
-\contentsline {subsection}{\numberline {5.7.1}Wordcount}{170}
-\contentsline {subsection}{\numberline {5.7.2}N-gramas}{171}
-\contentsline {section}{\numberline {5.8}Join}{173}
-\contentsline {subsection}{\numberline {5.8.1}Producto Cartesiano}{173}
-\contentsline {subsection}{\numberline {5.8.2}Inner Join y Outer Join}{174}
-\contentsline {section}{\numberline {5.9}Operaciones con Matrices}{175}
-\contentsline {subsection}{\numberline {5.9.1}Multiplicaci\IeC {\'o}n matriz-vector}{175}
-\contentsline {subsection}{\numberline {5.9.2}Multiplicaci\IeC {\'o}n matriz-matriz}{177}
-\contentsline {section}{\numberline {5.10}Redes Sociales}{179}
-\contentsline {subsection}{\numberline {5.10.1}Relaciones no correspondidas}{179}
-\contentsline {subsection}{\numberline {5.10.2}Contando Tri\IeC {\'a}ngulos en una Red Social}{180}
-\contentsline {chapter}{\numberline {6}Complejidad, Compresi\IeC {\'o}n y Teor\IeC {\'\i }a de la Informaci\IeC {\'o}n}{183}
-\contentsline {section}{\numberline {6.1}Complejidad}{183}
-\contentsline {subsection}{\numberline {6.1.1}Complejidad de Kolmogorov}{183}
-\contentsline {subsection}{\numberline {6.1.2}Propiedades de K(x)}{184}
-\contentsline {subsection}{\numberline {6.1.3}Intractabilidad de K(x)}{187}
-\contentsline {subsection}{\numberline {6.1.4}Distancia Normalizada de Compresi\IeC {\'o}n (NCD)}{187}
-\contentsline {section}{\numberline {6.2}Teor\IeC {\'\i }a de la Informaci\IeC {\'o}n}{188}
-\contentsline {subsection}{\numberline {6.2.1}Mensajes y Alfabetos}{188}
-\contentsline {subsection}{\numberline {6.2.2}Fuente}{188}
-\contentsline {subsection}{\numberline {6.2.3}C\IeC {\'o}digos}{189}
-\contentsline {subsubsection}{C\IeC {\'o}digos prefijos}{189}
-\contentsline {subsubsection}{Desigualdad de Kraft}{190}
-\contentsline {subsection}{\numberline {6.2.4}Entrop\'i{a}}{190}
-\contentsline {subsection}{\numberline {6.2.5}Entrop\IeC {\'\i }a Conjunta}{193}
-\contentsline {subsection}{\numberline {6.2.6}Entrop\IeC {\'\i }a Condicional}{194}
-\contentsline {subsection}{\numberline {6.2.7}Informaci\IeC {\'o}n Mutua}{196}
-\contentsline {subsection}{\numberline {6.2.8}Ejemplo}{197}
-\contentsline {subsection}{\numberline {6.2.9}Entrop\IeC {\'\i }a Relativa}{198}
-\contentsline {subsection}{\numberline {6.2.10}Entrop\IeC {\'\i }a Cruzada}{199}
-\contentsline {section}{\numberline {6.3}Teor\IeC {\'\i }a de la Compresi\IeC {\'o}n de Datos}{199}
-\contentsline {subsection}{\numberline {6.3.1}Modelar los Datos}{200}
-\contentsline {subsection}{\numberline {6.3.2}Codificar los Datos}{200}
-\contentsline {subsection}{\numberline {6.3.3}No Existe un Compresor que Pueda Comprimir Cualquier Archivo}{200}
-\contentsline {section}{\numberline {6.4}C\IeC {\'o}digos de Huffman}{201}
-\contentsline {subsection}{\numberline {6.4.1}Huffman Est\IeC {\'a}tico}{201}
-\contentsline {subsection}{\numberline {6.4.2}Huffman Din\IeC {\'a}mico}{203}
-\contentsline {subsection}{\numberline {6.4.3}Modelos de Orden Superior}{204}
-\contentsline {subsubsection}{El problema de frecuencia cero}{206}
-\contentsline {section}{\numberline {6.5}Compresi\IeC {\'o}n Aritm\IeC {\'e}tica}{207}
-\contentsline {subsection}{\numberline {6.5.1}Implementaci\IeC {\'o}n y Renormalizaci\IeC {\'o}n}{208}
-\contentsline {section}{\numberline {6.6}PPMC}{209}
-\contentsline {subsection}{\numberline {6.6.1}Ejemplo PPMC}{210}
-\contentsline {subsubsection}{Comprimir A}{210}
-\contentsline {subsubsection}{Comprimir (A)B}{211}
-\contentsline {subsubsection}{Comprimir (AB)C}{212}
-\contentsline {subsubsection}{Comprimir A(BC)C}{213}
-\contentsline {subsubsection}{Comprimir AB(CC)C}{214}
-\contentsline {subsubsection}{Comprimir ABC(CC)C}{215}
-\contentsline {subsubsection}{Comprimir ABCC(CC)}{215}
-\contentsline {subsection}{\numberline {6.6.2}PPMC Aspectos claves}{217}
-\contentsline {subsection}{\numberline {6.6.3}Descompresi\IeC {\'o}n}{218}
-\contentsline {subsection}{\numberline {6.6.4}Orden M\IeC {\'a}ximo para PPMC}{218}
-\contentsline {subsection}{\numberline {6.6.5}Variantes de PPMC}{219}
-\contentsline {subsection}{\numberline {6.6.6}PPMQ y SSE}{219}
-\contentsline {subsection}{\numberline {6.6.7}Modelos Generativos Basados en PPMC}{220}
-\contentsline {subsection}{\numberline {6.6.8}PPMC conclusiones}{222}
-\contentsline {section}{\numberline {6.7}DMC: Dynamic Markov Compression}{222}
-\contentsline {subsection}{\numberline {6.7.1}Clonaci\IeC {\'o}n}{223}
-\contentsline {section}{\numberline {6.8}La Familia LZ de Compresores}{224}
-\contentsline {subsection}{\numberline {6.8.1}RLE}{225}
-\contentsline {subsection}{\numberline {6.8.2}LZSS}{225}
-\contentsline {subsubsection}{Parsing en LZSS}{227}
-\contentsline {subsection}{\numberline {6.8.3}DEFLATE (LzHuf)}{228}
-\contentsline {subsection}{\numberline {6.8.4}LZW}{228}
-\contentsline {subsubsection}{El Descompresor LZW}{232}
-\contentsline {subsubsection}{Los Dragones de LZW}{233}
-\contentsline {subsubsection}{Mecanismo de Clearing}{233}
-\contentsline {subsubsection}{Suboptimalidad de la codificaci\IeC {\'o}n en LZW}{234}
-\contentsline {subsubsection}{Complejidad LZ}{234}
-\contentsline {subsection}{\numberline {6.8.5}Snappy}{235}
-\contentsline {subsubsection}{Literales}{235}
-\contentsline {subsubsection}{Matches}{236}
-\contentsline {subsection}{\numberline {6.8.6}LZMA}{236}
-\contentsline {subsubsection}{Tipos de C\IeC {\'o}digos}{237}
-\contentsline {subsubsection}{Codificaci\IeC {\'o}n Aritm\IeC {\'e}tica}{238}
-\contentsline {subsubsection}{Tama\IeC {\~n}o de la Ventana y Optimal Parsing}{239}
-\contentsline {subsubsection}{Uso de Exclusi\IeC {\'o}n}{239}
-\contentsline {section}{\numberline {6.9}Block Sorting}{239}
-\contentsline {subsection}{\numberline {6.9.1}Archivos localizados y MTF}{239}
-\contentsline {subsection}{\numberline {6.9.2}La Transformaci\IeC {\'o}n de Burrows y Wheeler}{241}
-\contentsline {section}{\numberline {6.10}\IeC {\'I}ndices FM}{242}
-\contentsline {subsection}{\numberline {6.10.1}\IeC {\'I}ndices de Sufijos}{243}
-\contentsline {subsection}{\numberline {6.10.2}Mapeo LF}{243}
-\contentsline {section}{\numberline {6.11}Comprimiendo el \IeC {\'I}ndice FM}{245}
-\contentsline {section}{\numberline {6.12}Estructura Final del \IeC {\'I}ndice FM}{246}
-\contentsline {section}{\numberline {6.13}PAQ}{247}
-\contentsline {subsection}{\numberline {6.13.1}Modelos de PAQ}{248}
-\contentsline {subsection}{\numberline {6.13.2}SSE}{248}
-\contentsline {chapter}{\numberline {7}Hashing}{251}
-\contentsline {section}{\numberline {7.1}Introducci\IeC {\'o}n}{251}
-\contentsline {subsection}{\numberline {7.1.1}Funciones de Hashing Elementales}{251}
-\contentsline {subsubsection}{El espacio de claves es mayor al espacio de direcciones}{252}
-\contentsline {subsubsection}{El espacio de direcciones es mayor al espacio de claves}{252}
-\contentsline {subsection}{\numberline {7.1.2}Tablas de Hash Elementales}{252}
-\contentsline {subsection}{\numberline {7.1.3}Resoluci\IeC {\'o}n de Colisiones}{253}
-\contentsline {subsubsection}{B\IeC {\'u}squeda lineal (direccionamiento abierto o hashing cerrado)}{253}
-\contentsline {subsubsection}{Encadenamiento de Sin\IeC {\'o}nimos (direccionamiento cerrado o hashing abierto)}{253}
-\contentsline {section}{\numberline {7.2}Implementaci\IeC {\'o}n de Diccionarios con Hash Tables}{254}
-\contentsline {section}{\numberline {7.3}Hopscotch Hashing}{256}
-\contentsline {section}{\numberline {7.4}Funciones de Hashing}{257}
-\contentsline {subsection}{\numberline {7.4.1}FNV}{258}
-\contentsline {subsection}{\numberline {7.4.2}Jenkins}{258}
-\contentsline {subsection}{\numberline {7.4.3}Pearson}{259}
-\contentsline {subsection}{\numberline {7.4.4}Funciones criptogr\IeC {\'a}ficas}{260}
-\contentsline {subsubsection}{Construcci\IeC {\'o}n de Merkle-Damgard}{260}
-\contentsline {subsubsection}{Construcci\IeC {\'o}n de Davis-Meyer}{261}
-\contentsline {section}{\numberline {7.5}Hashing Universal}{262}
-\contentsline {subsection}{\numberline {7.5.1}Definici\IeC {\'o}n de Hashing Universal}{262}
-\contentsline {subsection}{\numberline {7.5.2}Hashing Universal para valores at\IeC {\'o}micos (num\IeC {\'e}ricos)}{262}
-\contentsline {subsection}{\numberline {7.5.3}Hashing Universal para claves de longitud fija}{263}
-\contentsline {subsection}{\numberline {7.5.4}Hashing Universal para claves de longitud variable}{264}
-\contentsline {section}{\numberline {7.6}Cuckoo Hashing}{265}
-\contentsline {subsection}{\numberline {7.6.1}Cuckoo Hashing With a Stash}{268}
-\contentsline {subsection}{\numberline {7.6.2}Estructuras de Datos basadas en Cuckoo Hashing}{268}
-\contentsline {section}{\numberline {7.7}Balls \& Bins}{270}
-\contentsline {section}{\numberline {7.8}Hashing Perfecto}{271}
-\contentsline {subsection}{\numberline {7.8.1}Esquema FKS}{271}
-\contentsline {subsection}{\numberline {7.8.2}Hashing Perfecto Din\IeC {\'a}mico}{273}
-\contentsline {subsection}{\numberline {7.8.3}Hashing Perfecto y M\IeC {\'\i }nimo: Hash and Displace}{273}
-\contentsline {subsection}{\numberline {7.8.4}Hashing Perfecto y M\IeC {\'\i }nimo: Algoritmo II}{276}
-\contentsline {section}{\numberline {7.9}Hashing Consistente}{279}
-\contentsline {section}{\numberline {7.10}The Hashing Trick}{281}
-\contentsline {subsection}{\numberline {7.10.1}M\IeC {\'e}todo de Weinberger y Hash Kernels}{282}
-\contentsline {subsection}{\numberline {7.10.2}Filtros de Spam Personalizados}{283}
-\contentsline {section}{\numberline {7.11}El Teorema de Johnson y Lindenstrauss}{284}
-\contentsline {subsection}{\numberline {7.11.1}Primera Proyecci\IeC {\'o}n}{284}
-\contentsline {subsection}{\numberline {7.11.2}Segunda Proyecci\IeC {\'o}n}{285}
-\contentsline {subsection}{\numberline {7.11.3}Tercera Proyecci\IeC {\'o}n}{285}
-\contentsline {subsection}{\numberline {7.11.4}Por qu\IeC {\'e} funciona el Teorema de JL}{286}
-\contentsline {subsection}{\numberline {7.11.5}The Hashing Trick y el Teorema de Johnson Lindenstrauss}{289}
-\contentsline {chapter}{\numberline {8}LSH}{293}
-\contentsline {section}{\numberline {8.1}Minhashes}{294}
-\contentsline {section}{\numberline {8.2}Amplificaci\IeC {\'o}n de Familias LSH}{296}
-\contentsline {subsection}{\numberline {8.2.1}Reducci\IeC {\'o}n de Falsos Positivos}{296}
-\contentsline {subsection}{\numberline {8.2.2}Reducci\IeC {\'o}n de Falsos Negativos}{297}
-\contentsline {subsection}{\numberline {8.2.3}Combinando los dos m\IeC {\'e}todos}{298}
-\contentsline {subsection}{\numberline {8.2.4}Encontrando los valores de $b$ y $r$}{299}
-\contentsline {section}{\numberline {8.3}LSH para la distancia de Jaccard}{300}
-\contentsline {section}{\numberline {8.4}Minhash para la distancia angular}{303}
-\contentsline {subsection}{\numberline {8.4.1}El m\IeC {\'e}todo de los hiperplanos}{304}
-\contentsline {subsection}{\numberline {8.4.2}Voronoi Hashing}{305}
-\contentsline {subsection}{\numberline {8.4.3}El M\IeC {\'e}todo de los Pol\IeC {\'\i }topos}{306}
-\contentsline {section}{\numberline {8.5}LSH para la distancia euclideana}{307}
-\contentsline {subsection}{\numberline {8.5.1}El M\IeC {\'e}todo de las Proyecciones Aleatorias}{307}
-\contentsline {subsection}{\numberline {8.5.2}M\IeC {\'e}todos basados en K-Means: KLSH}{309}
-\contentsline {subsection}{\numberline {8.5.3}M\IeC {\'e}todos basados en K-Means: K-Means jer\IeC {\'a}rquico}{310}
-\contentsline {section}{\numberline {8.6}LSH para la distancia Hamming}{310}
-\contentsline {section}{\numberline {8.7}Multi-Probe LSH}{310}
-\contentsline {subsection}{\numberline {8.7.1}Multi-Probing para la distancia euclideana, m\IeC {\'e}todo de proyecciones aleatorias}{311}
-\contentsline {subsection}{\numberline {8.7.2}Multi-Probing para la distancia euclideana, m\IeC {\'e}todos basados en K-Means}{311}
-\contentsline {subsection}{\numberline {8.7.3}Multi-Probing para la distancia angular, m\IeC {\'e}todo de proyecciones aleatorias}{311}
-\contentsline {subsection}{\numberline {8.7.4}Multi-Probing para la distancia angular, m\IeC {\'e}todo de los pol\IeC {\'\i }topos}{312}
-\contentsline {subsection}{\numberline {8.7.5}Multi-Probing para la distancia de Jaccard}{312}
-\contentsline {section}{\numberline {8.8}LSH Conclusiones}{312}
-\contentsline {section}{\numberline {8.9}LSH Para M\IeC {\'a}xima semejanza}{313}
-\contentsline {subsection}{\numberline {8.9.1}Usando la Longitud}{313}
-\contentsline {subsection}{\numberline {8.9.2}Usando Prefijos}{314}
-\contentsline {subsection}{\numberline {8.9.3}Prefijos y Posiciones}{314}
-\contentsline {subsection}{\numberline {8.9.4}Prefijos, Posiciones y Longitud}{315}
-\contentsline {subsubsection}{Primer caso: $p \geq q$}{316}
-\contentsline {subsubsection}{Segundo caso: $p < q$}{316}
-\contentsline {section}{\numberline {8.10}LSH forests}{317}
-\contentsline {chapter}{\numberline {9}Reducci\IeC {\'o}n de Dimensiones}{319}
-\contentsline {section}{\numberline {9.1}Introducci\IeC {\'o}n}{319}
-\contentsline {subsection}{\numberline {9.1.1}Para Combatir la Maldici\IeC {\'o}n de la Dimensionalidad}{319}
-\contentsline {subsection}{\numberline {9.1.2}Por motivos de performance}{319}
-\contentsline {subsection}{\numberline {9.1.3}Como un mecanismo de Feature Engineering}{320}
-\contentsline {subsection}{\numberline {9.1.4}Para visualizar los datos}{320}
-\contentsline {section}{\numberline {9.2}SVD}{320}
-\contentsline {subsection}{\numberline {9.2.1}Interpretaci\IeC {\'o}n algebraica de la SVD (muy importante!)}{323}
-\contentsline {subsection}{\numberline {9.2.2}Aproximaci\IeC {\'o}n de Rango $k$}{323}
-\contentsline {subsection}{\numberline {9.2.3}Usando la SVD para aproximar la dimensionalidad intr\IeC {\'\i }nseca de los datos}{326}
-\contentsline {subsection}{\numberline {9.2.4}Reducci\IeC {\'o}n de dimensiones usando la SVD}{327}
-\contentsline {subsection}{\numberline {9.2.5}Compresi\IeC {\'o}n de Im\IeC {\'a}genes usando la SVD}{327}
-\contentsline {subsection}{\numberline {9.2.6}Eigenfaces}{329}
-\contentsline {subsection}{\numberline {9.2.7}SVD en la pr\IeC {\'a}ctica}{331}
-\contentsline {subsection}{\numberline {9.2.8}Agregando nuevos datos en el nuevo espacio}{331}
-\contentsline {section}{\numberline {9.3}PCA: Principal Component Analysis}{332}
-\contentsline {subsection}{\numberline {9.3.1}PCA=SVD}{334}
-\contentsline {subsection}{\numberline {9.3.2}Conclusi\IeC {\'o}n}{335}
-\contentsline {section}{\numberline {9.4}MDS: Multidimensional Scaling}{335}
-\contentsline {subsection}{\numberline {9.4.1}Perceptual Mapping}{339}
-\contentsline {section}{\numberline {9.5}ISOMAP}{339}
-\contentsline {subsection}{\numberline {9.5.1}Construcci\IeC {\'o}n del Grafo}{339}
-\contentsline {subsection}{\numberline {9.5.2}C\IeC {\'a}lculo de Distancias}{339}
-\contentsline {subsection}{\numberline {9.5.3}MDS}{340}
-\contentsline {section}{\numberline {9.6}Laplacian Eigenmaps}{340}
-\contentsline {subsection}{\numberline {9.6.1}Creaci\IeC {\'o}n del Grafo}{341}
-\contentsline {subsection}{\numberline {9.6.2}Construcci\IeC {\'o}n del Laplaciano}{341}
-\contentsline {subsection}{\numberline {9.6.3}Descomposici\IeC {\'o}n Espectral del Laplaciano}{342}
-\contentsline {subsection}{\numberline {9.6.4}Teor\IeC {\'\i }a de la descomposici\IeC {\'o}n espectral}{342}
-\contentsline {subsection}{\numberline {9.6.5}Ejemplos}{344}
-\contentsline {section}{\numberline {9.7}TSNE}{346}
-\contentsline {section}{\numberline {9.8}Teorema Fundamental de la Dimensionalidad}{348}
-\contentsline {chapter}{\numberline {10}Information Retrieval}{349}
-\contentsline {section}{\numberline {10.1}Consultas Puntuales y el Dominio de Trabajo}{350}
-\contentsline {section}{\numberline {10.2}\IeC {\'\i }ndices Invertidos}{350}
-\contentsline {subsection}{\numberline {10.2.1}Estructura de un \IeC {\'\i }ndice Invertido}{351}
-\contentsline {subsection}{\numberline {10.2.2}Almacenamiento del L\IeC {\'e}xico}{351}
-\contentsline {subsubsection}{L\IeC {\'e}xico Concatenado}{351}
-\contentsline {subsubsection}{Front Coding}{352}
-\contentsline {subsubsection}{Mucha memoria = Mejor Performance}{353}
-\contentsline {subsection}{\numberline {10.2.3}Almacenamiento de Punteros}{353}
-\contentsline {subsection}{\numberline {10.2.4}Estructura General del \IeC {\'\i }ndice}{354}
-\contentsline {subsection}{\numberline {10.2.5}Almacenamiento de Punteros -Avanzado-}{355}
-\contentsline {subsubsection}{C\IeC {\'o}digo Unario}{355}
-\contentsline {subsubsection}{C\IeC {\'o}digos Gamma}{355}
-\contentsline {subsubsection}{C\IeC {\'o}digos Delta}{356}
-\contentsline {subsubsection}{Modelo Local de Tipo Bernoulli}{356}
-\contentsline {subsection}{\numberline {10.2.6}Construcci\IeC {\'o}n del \IeC {\'\i }ndice Invertido}{359}
-\contentsline {subsection}{\numberline {10.2.7}Qu\IeC {\'e} Indexar}{360}
-\contentsline {subsubsection}{Parsing}{360}
-\contentsline {subsubsection}{Case Folding}{361}
-\contentsline {subsubsection}{Stop Words}{361}
-\contentsline {subsubsection}{Stemming}{361}
-\contentsline {section}{\numberline {10.3}Consultas de Frases y Proximidad}{361}
-\contentsline {section}{\numberline {10.4}Signature Files}{363}
-\contentsline {subsection}{\numberline {10.4.1}Consultas}{363}
-\contentsline {section}{\numberline {10.5}Bitmaps}{364}
-\contentsline {subsection}{\numberline {10.5.1}Compresi\IeC {\'o}n de Bitmaps}{365}
-\contentsline {subsection}{\numberline {10.5.2}Roaring Bitmaps}{366}
-\contentsline {section}{\numberline {10.6}Consultas Ranqueadas}{367}
-\contentsline {subsection}{\numberline {10.6.1}BOW y Productos Internos}{367}
-\contentsline {subsection}{\numberline {10.6.2}TF-IDF}{368}
-\contentsline {subsubsection}{BM25}{370}
-\contentsline {subsubsection}{Normalizaci\IeC {\'o}n de la Longitud de los documentos}{370}
-\contentsline {section}{\numberline {10.7}Indexaci\IeC {\'o}n Sem\IeC {\'a}ntica Latente}{371}
-\contentsline {section}{\numberline {10.8}Evaluaci\IeC {\'o}n de Consultas}{372}
-\contentsline {section}{\numberline {10.9}Consultas Probabil\IeC {\'\i }sticas}{374}
-\contentsline {section}{\numberline {10.10}Procesamiento de Lenguaje Natural}{374}
-\contentsline {subsection}{\numberline {10.10.1}Modelo de N-Gramas}{375}
-\contentsline {subsection}{\numberline {10.10.2}Calculando Probabilidades en el modelo de N-Gramas}{376}
-\contentsline {subsection}{\numberline {10.10.3}Maximum Likelihood (M\IeC {\'a}xima semejanza)}{377}
-\contentsline {subsection}{\numberline {10.10.4}El Problema de las Probabilidades Nulas}{378}
-\contentsline {subsection}{\numberline {10.10.5}Smoothing: Correcci\IeC {\'o}n de Laplace}{378}
-\contentsline {subsection}{\numberline {10.10.6}Interpolaci\IeC {\'o}n y Backoff}{379}
-\contentsline {subsubsection}{Stupid Backoff}{380}
-\contentsline {subsection}{\numberline {10.10.7}Good Turing Smoothing}{380}
-\contentsline {subsection}{\numberline {10.10.8}Algoritmo de Kneser-Ney}{381}
-\contentsline {section}{\numberline {10.11}Learning to Rank}{384}
-\contentsline {subsection}{\numberline {10.11.1}Algoritmos Pointwise}{384}
-\contentsline {subsection}{\numberline {10.11.2}Algoritmos Pairwise y Listwise}{387}
-\contentsline {chapter}{\numberline {11}Introducci\IeC {\'o}n a Machine Learning}{389}
-\contentsline {section}{\numberline {11.1}Evaluaci\IeC {\'o}n de Algoritmos de ML}{390}
-\contentsline {subsection}{\numberline {11.1.1}Cross Validation}{390}
-\contentsline {section}{\numberline {11.2}Los Problemas de ML: Overfitting y Underfitting}{391}
-\contentsline {section}{\numberline {11.3}El Teorema de No Free Lunch}{394}
-\contentsline {section}{\numberline {11.4}La Uni\IeC {\'o}n hace la fuerza: Ensambles}{396}
-\contentsline {subsection}{\numberline {11.4.1}Bagging}{396}
-\contentsline {subsection}{\numberline {11.4.2}Boosting}{398}
-\contentsline {subsection}{\numberline {11.4.3}Combinando Algoritmos Diferentes}{398}
-\contentsline {subsubsection}{Majority Voting}{398}
-\contentsline {subsubsection}{Averaging}{399}
-\contentsline {subsubsection}{Blending}{400}
-\contentsline {paragraph}{Blending}{401}
-\contentsline {section}{\numberline {11.5}Teor\IeC {\'\i }a de Machine Learning}{402}
-\contentsline {subsection}{\numberline {11.5.1}Desigualdad de Hoeffding}{402}
-\contentsline {subsection}{\numberline {11.5.2}Error de Entrenamiento}{402}
-\contentsline {subsection}{\numberline {11.5.3}Error de Generalizaci\IeC {\'o}n}{403}
-\contentsline {subsection}{\numberline {11.5.4}Overfitting y Underfitting}{403}
-\contentsline {subsection}{\numberline {11.5.5}El Problema de Clasificaci\IeC {\'o}n}{403}
-\contentsline {subsection}{\numberline {11.5.6}El Espacio de Hip\IeC {\'o}tesis}{404}
-\contentsline {subsection}{\numberline {11.5.7}Minimizaci\IeC {\'o}n Emp\IeC {\'\i }rica del Riesgo en $\mathcal {H}$}{404}
-\contentsline {subsection}{\numberline {11.5.8}Cuando $|\mathcal {H}|$ es finito}{404}
-\contentsline {subsection}{\numberline {11.5.9}Cuando $|\mathcal {H}|$ es infinito}{408}
-\contentsline {subsection}{\numberline {11.5.10}El Principio de la M\IeC {\'\i }nima Descripci\IeC {\'o}n}{411}
-\contentsline {subsection}{\numberline {11.5.11}Clasificaci\IeC {\'o}n con Algoritmos de Compresi\IeC {\'o}n}{413}
-\contentsline {subsubsection}{SMDL: Standard Minimum Description Length}{413}
-\contentsline {subsubsection}{AMDL: Approximate Minimum Description Length}{414}
-\contentsline {subsubsection}{BCN: Best Compression Neighbor}{414}
-\contentsline {chapter}{\numberline {12}Clasificaci\IeC {\'o}n}{415}
-\contentsline {section}{\numberline {12.1}\IeC {\'a}rboles de decisi\IeC {\'o}n}{415}
-\contentsline {subsection}{\numberline {12.1.1}ID3}{415}
-\contentsline {subsection}{\numberline {12.1.2}C4.5}{418}
-\contentsline {section}{\numberline {12.2}Random Forests}{419}
-\contentsline {subsection}{\numberline {12.2.1}Distancia RF}{420}
-\contentsline {section}{\numberline {12.3}XGBoost}{421}
-\contentsline {subsection}{\numberline {12.3.1}Boosting Trees}{421}
-\contentsline {subsection}{\numberline {12.3.2}Complejidad de un \IeC {\'a}rbol}{423}
-\contentsline {subsection}{\numberline {12.3.3}Optimizando la funci\IeC {\'o}n objetivo}{424}
-\contentsline {subsection}{\numberline {12.3.4}Calculando el Score de una Estructura}{425}
-\contentsline {subsection}{\numberline {12.3.5}Buscando la Estructura del \IeC {\'a}rbol}{425}
-\contentsline {subsection}{\numberline {12.3.6}XGBoost en la pr\IeC {\'a}ctica}{426}
-\contentsline {section}{\numberline {12.4}Na\"{i}ve Bayes}{427}
-\contentsline {subsection}{\numberline {12.4.1}El Problema de las probabilidades cero}{428}
-\contentsline {subsection}{\numberline {12.4.2}Bayes en acci\IeC {\'o}n}{429}
-\contentsline {section}{\numberline {12.5}Perceptr\IeC {\'o}n}{429}
-\contentsline {subsection}{\numberline {12.5.1}Algoritmo Base}{430}
-\contentsline {subsection}{\numberline {12.5.2}Algoritmo Mejorado}{431}
-\contentsline {subsection}{\numberline {12.5.3}Normalizaci\IeC {\'o}n Online}{432}
-\contentsline {subsection}{\numberline {12.5.4}Predicciones}{432}
-\contentsline {subsection}{\numberline {12.5.5}Convergencia}{432}
-\contentsline {subsection}{\numberline {12.5.6}Funciones de Activaci\IeC {\'o}n}{434}
-\contentsline {subsubsection}{Signo}{434}
-\contentsline {subsubsection}{Sigmoid}{434}
-\contentsline {subsubsection}{Tanh}{435}
-\contentsline {subsection}{\numberline {12.5.7}Perceptr\IeC {\'o}n Multiclase}{436}
-\contentsline {subsubsection}{One vs All}{436}
-\contentsline {subsubsection}{One vs One}{436}
-\contentsline {subsection}{\numberline {12.5.8}Conclusiones}{437}
-\contentsline {section}{\numberline {12.6}SVM}{437}
-\contentsline {subsection}{\numberline {12.6.1}Margen Funcional}{439}
-\contentsline {subsection}{\numberline {12.6.2}Margen Geom\IeC {\'e}trico}{439}
-\contentsline {subsection}{\numberline {12.6.3}Support Vectors}{441}
-\contentsline {subsection}{\numberline {12.6.4}El Problema Dual}{444}
-\contentsline {subsection}{\numberline {12.6.5}Algoritmo SMO (Sequential Minimal Optimization) [opcional]}{446}
-\contentsline {subsection}{\numberline {12.6.6}Soft Margin}{448}
-\contentsline {subsection}{\numberline {12.6.7}SMO (Soft Marging)}{450}
-\contentsline {section}{\numberline {12.7}The Kernel Trick}{451}
-\contentsline {subsection}{\numberline {12.7.1}Kernel Polin\IeC {\'o}mico}{455}
-\contentsline {section}{\numberline {12.8}Teorema de Mercer}{455}
-\contentsline {subsection}{\numberline {12.8.1}Kernel Gaussiano (RBF)}{456}
-\contentsline {section}{\numberline {12.9}Aproximaci\IeC {\'o}n de Nystrom}{458}
-\contentsline {section}{\numberline {12.10}Kernel SVM}{459}
-\contentsline {subsection}{\numberline {12.10.1}El efecto de C y $\sigma $}{460}
-\contentsline {section}{\numberline {12.11}SVM Transductivo}{461}
-\contentsline {section}{\numberline {12.12}SVM Ordinal}{463}
-\contentsline {section}{\numberline {12.13}Conclusiones}{463}
-\contentsline {chapter}{\numberline {13}Clustering}{465}
-\contentsline {section}{\numberline {13.1}Clustering Jer\IeC {\'a}rquico}{466}
-\contentsline {subsection}{\numberline {13.1.1}Distancia Entre Clusters}{466}
-\contentsline {subsection}{\numberline {13.1.2}Encontrando la Cantidad de Clusters}{467}
-\contentsline {subsection}{\numberline {13.1.3}Dendrogramas}{468}
-\contentsline {subsection}{\numberline {13.1.4}Performance}{470}
-\contentsline {section}{\numberline {13.2}K-Means}{470}
-\contentsline {subsection}{\numberline {13.2.1}El Problema General}{471}
-\contentsline {subsection}{\numberline {13.2.2}El Algoritmo de Lloyd (conocido como K-Means)}{472}
-\contentsline {subsection}{\numberline {13.2.3}K-Means++}{475}
-\contentsline {subsection}{\numberline {13.2.4}Como buscar K}{477}
-\contentsline {subsection}{\numberline {13.2.5}Diagramas de Voronoi}{478}
-\contentsline {subsection}{\numberline {13.2.6}Kmeans Online}{479}
-\contentsline {subsubsection}{Teor\IeC {\'\i }a de K-Means Online}{481}
-\contentsline {subsection}{\numberline {13.2.7}Soft K-Means}{482}
-\contentsline {subsubsection}{Versi\IeC {\'o}n Online}{484}
-\contentsline {subsection}{\numberline {13.2.8}La base de Kmeans y sus aplicaciones}{485}
-\contentsline {subsection}{\numberline {13.2.9}Reducci\IeC {\'o}n de Dimensiones con K-Means}{488}
-\contentsline {subsection}{\numberline {13.2.10}Kmeans Esf\IeC {\'e}rico}{489}
-\contentsline {subsubsection}{Versi\IeC {\'o}n Online}{491}
-\contentsline {subsubsection}{Voronoi Esf\IeC {\'e}rico}{491}
-\contentsline {subsection}{\numberline {13.2.11}Kernel K-Means}{491}
-\contentsline {subsection}{\numberline {13.2.12}K-Modes}{494}
-\contentsline {subsection}{\numberline {13.2.13}K-Means y el Problema de los Vecinos Mas Cercanos}{494}
-\contentsline {subsubsection}{Datos Masivos, realmente masivos}{495}
-\contentsline {subsection}{\numberline {13.2.14}The Inverted Multi-Index}{496}
-\contentsline {subsubsection}{K-means Trees}{498}
-\contentsline {section}{\numberline {13.3}Clustering Espectral}{498}
-\contentsline {subsection}{\numberline {13.3.1}Primer paso: construir la matriz de afinidad}{498}
-\contentsline {subsection}{\numberline {13.3.2}Segundo paso: construir la matriz Laplaciana}{499}
-\contentsline {subsection}{\numberline {13.3.3}Tercer paso: Autovalores y Autovectores de la matriz Laplaciana}{500}
-\contentsline {subsection}{\numberline {13.3.4}Selecci\IeC {\'o}n de Hiper-Par\IeC {\'a}metros}{502}
-\contentsline {subsection}{\numberline {13.3.5}Aproximaciones: KASP}{503}
-\contentsline {section}{\numberline {13.4}CURE}{504}
-\contentsline {section}{\numberline {13.5}DBScan}{505}
-\contentsline {section}{\numberline {13.6}HDBScan}{507}
-\contentsline {subsection}{\numberline {13.6.1}La Distancia MRD}{508}
-\contentsline {subsection}{\numberline {13.6.2}El \IeC {\'a}rbol Generador M\IeC {\'\i }nimo}{508}
-\contentsline {subsection}{\numberline {13.6.3}Clustering Jer\IeC {\'a}rquico}{509}
-\contentsline {subsection}{\numberline {13.6.4}Extraer los Clusters}{510}
-\contentsline {section}{\numberline {13.7}Biclustering}{513}
-\contentsline {subsection}{\numberline {13.7.1}Co-clustering Espectral}{514}
-\contentsline {subsection}{\numberline {13.7.2}LSI Co-clustering}{516}
-\contentsline {section}{\numberline {13.8}NMF: Non-negative matrix factorization}{517}
-\contentsline {subsection}{\numberline {13.8.1}Algoritmo Multiplicativo}{518}
-\contentsline {subsection}{\numberline {13.8.2}La Base de NMF}{519}
-\contentsline {chapter}{\numberline {14}Sistemas de Recomendaciones}{523}
-\contentsline {section}{\numberline {14.1}Introducci\IeC {\'o}n: El modelo de descubrimiento}{523}
-\contentsline {section}{\numberline {14.2}Caracter\IeC {\'\i }sticas de un Sistema de Recomendaciones}{524}
-\contentsline {subsection}{\numberline {14.2.1}Precisi\IeC {\'o}n}{524}
-\contentsline {subsection}{\numberline {14.2.2}Serendipity}{524}
-\contentsline {subsection}{\numberline {14.2.3}Diversidad}{526}
-\contentsline {subsection}{\numberline {14.2.4}Otros desaf\IeC {\'\i }os para un sistema de recomendaciones}{526}
-\contentsline {subsubsection}{Los gustos de los usuarios pueden cambiar}{526}
-\contentsline {subsubsection}{La influencia del tiempo}{527}
-\contentsline {subsubsection}{El usuario a veces quiere ver cosas que no le gustan}{527}
-\contentsline {subsubsection}{Lo que el usuario califica vs lo que el usuario ve}{527}
-\contentsline {section}{\numberline {14.3}Sistemas No Personalizados}{528}
-\contentsline {subsection}{\numberline {14.3.1}Recomendando Comentarios en Reddit}{528}
-\contentsline {subsubsection}{Primera Aproximaci\IeC {\'o}n Diferencia entre Upvotes y Downvotes}{528}
-\contentsline {subsubsection}{Seugunda Aproximaci\IeC {\'o}n Proporci\IeC {\'o}n de Upvotes sobre el total}{528}
-\contentsline {subsection}{\numberline {14.3.2}Intervalos de Confianza}{529}
-\contentsline {subsection}{\numberline {14.3.3}Ordenando las noticias en Reddit}{530}
-\contentsline {section}{\numberline {14.4}Sistemas Basados en Contenidos (Content Based)}{532}
-\contentsline {section}{\numberline {14.5}Collaborative Filtering}{533}
-\contentsline {subsection}{\numberline {14.5.1}Semejanza User User}{534}
-\contentsline {subsection}{\numberline {14.5.2}Semejanza Item Item}{535}
-\contentsline {subsection}{\numberline {14.5.3}Collaborative Filtering en base a Desviaciones}{537}
-\contentsline {section}{\numberline {14.6}Evaluaci\IeC {\'o}n de Sistemas de Recomendaci\IeC {\'o}n}{539}
-\contentsline {subsection}{\numberline {14.6.1}Evaluaci\IeC {\'o}n basada en las predicciones}{540}
-\contentsline {subsection}{\numberline {14.6.2}Evaluaci\IeC {\'o}n basada en el orden de las recomendaciones}{541}
-\contentsline {subsubsection}{MPR: Mean Reciprocal Rank}{541}
-\contentsline {subsubsection}{MAP: Mean Average Precision}{542}
-\contentsline {subsubsection}{Correlaci\IeC {\'o}n de Spearman}{542}
-\contentsline {subsubsection}{Normalized Discounted Cumulative Gain}{542}
-\contentsline {section}{\numberline {14.7}Modelos Latentes}{543}
-\contentsline {subsection}{\numberline {14.7.1}SVD++}{543}
-\contentsline {subsubsection}{Algoritmo de Gradient Descent para calcular $Q$ y $P$}{545}
-\contentsline {section}{\numberline {14.8}Factores Temporales}{546}
-\contentsline {section}{\numberline {14.9}Factorization Machines}{547}
-\contentsline {subsection}{\numberline {14.9.1}Expresividad de FM}{549}
-\contentsline {subsection}{\numberline {14.9.2}Como funcionan los par\IeC {\'a}metros de una FM}{549}
-\contentsline {subsection}{\numberline {14.9.3}Algoritmos basados en FMs}{549}
-\contentsline {subsection}{\numberline {14.9.4}Aprendizaje de FMs}{550}
-\contentsline {subsection}{\numberline {14.9.5}LibFM}{550}
-\contentsline {section}{\numberline {14.10}El Problema del Cold-Start: Multi-Armed Bandits}{551}
-\contentsline {subsection}{\numberline {14.10.1}Multi-Armed Bandits}{552}
-\contentsline {subsection}{\numberline {14.10.2}Algoritmo Epsilon}{552}
-\contentsline {subsection}{\numberline {14.10.3}Algoritmo UCB1}{552}
-\contentsline {section}{\numberline {14.11}Diversidad: Optimizaci\IeC {\'o}n Submodular}{553}
-\contentsline {subsection}{\numberline {14.11.1}Recomendaciones Personalizadas}{556}
-\contentsline {section}{\numberline {14.12}Learning to Rank}{556}
-\contentsline {section}{\numberline {14.13}El Sistema Completo}{557}
-\contentsline {chapter}{\numberline {15}Streaming}{559}
-\contentsline {section}{\numberline {15.1}Reservoir Sampling}{559}
-\contentsline {section}{\numberline {15.2}Momentos de un Stream}{561}
-\contentsline {section}{\numberline {15.3}Flajolet-Martin y el HyperLogLog}{562}
-\contentsline {subsection}{\numberline {15.3.1}Flajolet-Martin}{562}
-\contentsline {subsection}{\numberline {15.3.2}HyperLogLog}{563}
-\contentsline {section}{\numberline {15.4}AMS}{563}
-\contentsline {section}{\numberline {15.5}DGIM}{564}
-\contentsline {subsection}{\numberline {15.5.1}Extensi\IeC {\'o}n para valores enteros}{567}
-\contentsline {section}{\numberline {15.6}Decaying Windows}{567}
-\contentsline {section}{\numberline {15.7}Filtros de Bloom}{568}
-\contentsline {subsection}{\numberline {15.7.1}Extensi\IeC {\'o}n para admitir borrado}{570}
-\contentsline {section}{\numberline {15.8}Cuckoo Filters}{570}
-\contentsline {section}{\numberline {15.9}Count-Min}{573}
-\contentsline {subsection}{\numberline {15.9.1}The Heavy Hitters Problem}{573}
-\contentsline {subsubsection}{El problema de los HH aproximado}{574}
-\contentsline {subsection}{\numberline {15.9.2}The Count-Min Sketch}{575}
-\contentsline {subsection}{\numberline {15.9.3}Claves Transistorias: Bit-Marking}{576}
-\contentsline {subsection}{\numberline {15.9.4}Teor\IeC {\'\i }a de Count-Min}{576}
-\contentsline {subsubsection}{Conclusiones obtenidas}{580}
-\contentsline {chapter}{\numberline {16}PageRank y sus Derivados}{581}
-\contentsline {section}{\numberline {16.1}Random Surfers}{582}
-\contentsline {section}{\numberline {16.2}Convergencia}{584}
-\contentsline {section}{\numberline {16.3}Dead Ends}{586}
-\contentsline {section}{\numberline {16.4}Spider Traps y Teletransportaci\IeC {\'o}n}{587}
-\contentsline {subsubsection}{Interpretando $\beta $}{589}
-\contentsline {section}{\numberline {16.5}Page Rank en la pr\IeC {\'a}ctica}{589}
-\contentsline {subsection}{\numberline {16.5.1}PageRank via Map Reduce}{590}
-\contentsline {section}{\numberline {16.6}TopicRank}{591}
-\contentsline {section}{\numberline {16.7}TrustRank}{592}
-\contentsline {section}{\numberline {16.8}SimRank}{593}
-\contentsline {subsection}{\numberline {16.8.1}Sim Rank via Montecarlo}{594}
-\contentsline {subsection}{\numberline {16.8.2}Panther}{595}
-\contentsline {section}{\numberline {16.9}VisualRank}{595}
-\contentsline {section}{\numberline {16.10}TextRank}{597}
-\contentsline {section}{\numberline {16.11}HITS}{598}
-\contentsline {chapter}{\numberline {17}Redes Sociales}{603}
-\contentsline {section}{\numberline {17.1}Propiedades de los Grafos}{603}
-\contentsline {subsection}{\numberline {17.1.1}Propiedades B\IeC {\'a}sicas}{603}
-\contentsline {subsection}{\numberline {17.1.2}Almacenamiento del Grafo}{604}
-\contentsline {subsection}{\numberline {17.1.3}Componentes Conexos}{604}
-\contentsline {subsection}{\numberline {17.1.4}Di\IeC {\'a}metro}{605}
-\contentsline {subsection}{\numberline {17.1.5}Coeficiente de Clustering}{605}
-\contentsline {subsection}{\numberline {17.1.6}Distribuci\IeC {\'o}n del Grado}{606}
-\contentsline {section}{\numberline {17.2}Propiedades del Grafo de una Red Social}{606}
-\contentsline {subsection}{\numberline {17.2.1}Componente Conexo}{606}
-\contentsline {subsection}{\numberline {17.2.2}Distribuci\IeC {\'o}n del Grado}{606}
-\contentsline {subsection}{\numberline {17.2.3}Di\IeC {\'a}metro y Camino M\IeC {\'\i }nimo Promedio}{607}
-\contentsline {subsection}{\numberline {17.2.4}Coeficiente de Clustering}{608}
-\contentsline {section}{\numberline {17.3}Modelos de Grafos}{608}
-\contentsline {subsection}{\numberline {17.3.1}Modelo de Erd\"{o}s-Renyi}{609}
-\contentsline {subsubsection}{Di\IeC {\'a}metro}{609}
-\contentsline {subsubsection}{Distribuci\IeC {\'o}n del Grado}{609}
-\contentsline {subsubsection}{Coeficiente de Clustering}{610}
-\contentsline {subsection}{\numberline {17.3.2}Modelo de Barabasi-Albert}{610}
-\contentsline {subsection}{\numberline {17.3.3}Modelo de Jackson-Rodgers}{611}
-\contentsline {section}{\numberline {17.4}El Mundo Peque\IeC {\~n}o}{611}
-\contentsline {subsection}{\numberline {17.4.1}Modelo de Watts Strogratz}{612}
-\contentsline {section}{\numberline {17.5}La Clausura Triangular}{613}
-\contentsline {subsection}{\numberline {17.5.1}Contando Tri\IeC {\'a}ngulos en un Grafo}{613}
-\contentsline {subsection}{\numberline {17.5.2}Tri\IeC {\'a}ngulos Locales}{616}
-\contentsline {subsection}{\numberline {17.5.3}EE Eigenplots}{617}
-\contentsline {section}{\numberline {17.6}Centralidad}{618}
-\contentsline {subsection}{\numberline {17.6.1}Grado}{619}
-\contentsline {subsection}{\numberline {17.6.2}Betweenness}{619}
-\contentsline {subsection}{\numberline {17.6.3}Closeness}{621}
-\contentsline {subsection}{\numberline {17.6.4}Eigenvector Centrality y PageRank}{622}
-\contentsline {subsection}{\numberline {17.6.5}Centralidad de Bonacich}{623}
-\contentsline {subsection}{\numberline {17.6.6}Centralidad de la Red (Freeman)}{623}
-\contentsline {section}{\numberline {17.7}Detecci\IeC {\'o}n de Comunidades}{624}
-\contentsline {subsection}{\numberline {17.7.1}Uniones Fuertes y D\IeC {\'e}biles}{624}
-\contentsline {subsection}{\numberline {17.7.2}Modularidad}{625}
-\contentsline {subsubsection}{Algoritmo de Louvain}{625}
-\contentsline {subsection}{\numberline {17.7.3}Algoritmo de Girwan-Newman}{627}
-\contentsline {subsection}{\numberline {17.7.4}Clustering Espectral}{628}
-\contentsline {subsection}{\numberline {17.7.5}Infomap}{628}
-\contentsline {subsection}{\numberline {17.7.6}Comunidades con Solapamiento: Big Clam}{632}
-\contentsline {section}{\numberline {17.8}An\IeC {\'a}lisis de comunidades en Redes Sociales}{634}
-\contentsline {section}{\numberline {17.9}Cascadas en Redes Sociales}{636}
-\contentsline {subsection}{\numberline {17.9.1}Cascadas}{636}
-\contentsline {subsection}{\numberline {17.9.2}Maximizaci\IeC {\'o}n de Influencia}{639}
-\contentsline {section}{\numberline {17.10}Redes Sociales con Signo}{640}
-\contentsline {section}{\numberline {17.11}Motifs}{643}
-\contentsline {section}{\numberline {17.12}El Lenguaje en las Redes Sociales}{645}
-\contentsline {section}{\numberline {17.13}Evoluci\IeC {\'o}n de una Red Social}{646}
-\contentsline {subsection}{\numberline {17.13.1}Cantidad de Nodos y Aristas}{646}
-\contentsline {subsection}{\numberline {17.13.2}Di\IeC {\'a}metro}{648}
-\contentsline {section}{\numberline {17.14}Grafos de Kronecker}{649}
-\contentsline {subsection}{\numberline {17.14.1}Propiedades}{650}
-\contentsline {subsection}{\numberline {17.14.2}Grafos de Kronecker Estoc\IeC {\'a}sticos}{651}
-\contentsline {subsection}{\numberline {17.14.3}Estimaci\IeC {\'o}n de la matriz generadora}{651}
-\contentsline {subsection}{\numberline {17.14.4}Generando Redes Sociales con Grafos de Kronecker}{652}
-\contentsline {chapter}{\numberline {18}An\IeC {\'a}lisis Topol\IeC {\'o}gico de Datos}{655}
-\contentsline {section}{\numberline {18.1}Propiedades del An\IeC {\'a}lisis Topol\IeC {\'o}gico}{656}
-\contentsline {section}{\numberline {18.2}Los Datos como un Grafo}{657}
-\contentsline {subsection}{\numberline {18.2.1}Complejo Vietoris-Rips}{657}
-\contentsline {subsection}{\numberline {18.2.2}Complejo de Cech}{659}
-\contentsline {section}{\numberline {18.3}Homolog\IeC {\'\i }a Persistente}{660}
-\contentsline {subsection}{\numberline {18.3.1}N\IeC {\'u}meros de Betti y Barcodes}{661}
-\contentsline {subsection}{\numberline {18.3.2}BarCodes}{662}
-\contentsline {subsection}{\numberline {18.3.3}Otros puntos de An\IeC {\'a}lisis}{662}
-\contentsline {section}{\numberline {18.4}Algoritmo Mapper}{663}
-\contentsline {subsection}{\numberline {18.4.1}Lentes Topol\IeC {\'o}gicos Comunes}{664}
-\contentsline {subsection}{\numberline {18.4.2}Cubriendo los Datos}{665}
-\contentsline {subsection}{\numberline {18.4.3}Fase de Clustering}{667}
-\contentsline {subsection}{\numberline {18.4.4}Construcci\IeC {\'o}n del Grafo}{667}
-\contentsline {subsection}{\numberline {18.4.5}Ejemplo}{668}
-\contentsline {subsection}{\numberline {18.4.6}Ejemplo}{671}
-\contentsline {section}{\numberline {18.5}Conclusiones}{674}
-\contentsline {part}{II\hspace {1em}Temas Adicionales}{677}
-\contentsline {chapter}{\numberline {19}Patrones Frecuentes}{679}
-\contentsline {section}{\numberline {19.1}A-Priori}{680}
-\contentsline {subsection}{\numberline {19.1.1}Generaci\IeC {\'o}n de Candidatos Intermedia}{682}
-\contentsline {section}{\numberline {19.2}PCY}{683}
-\contentsline {section}{\numberline {19.3}Algoritmos Aleatorizados}{683}
-\contentsline {subsection}{\numberline {19.3.1}Muestreo Aleatorio}{684}
-\contentsline {subsection}{\numberline {19.3.2}Algoritmo SON}{684}
-\contentsline {subsubsection}{SON en Map-Reduce}{685}
-\contentsline {subsection}{\numberline {19.3.3}Algoritmo de Toivonen}{688}
-\contentsline {section}{\numberline {19.4}Reglas de Asociaci\IeC {\'o}n}{689}
-\contentsline {subsection}{\numberline {19.4.1}Soporte y Confianza en Reglas de Asociaci\IeC {\'o}n}{690}
-\contentsline {subsubsection}{Soporte Alto, Confianza Alta}{690}
-\contentsline {subsubsection}{Soporte Alto, Baja Confianza}{690}
-\contentsline {subsubsection}{Soporte Bajo, Confianza Baja}{690}
-\contentsline {subsubsection}{Soporte Bajo, Confianza Alta}{690}
-\contentsline {subsection}{\numberline {19.4.2}Limitaciones del Soporte y Confianza para encontrar asociaciones interesantes}{690}
-\contentsline {subsection}{\numberline {19.4.3}Lift}{691}
-\contentsline {subsection}{\numberline {19.4.4}M\IeC {\'e}tricas invariantes a los valores nulos}{692}
-\contentsline {chapter}{\numberline {20}Metadatos}{693}
-\contentsline {section}{\numberline {20.1}Dublin Core}{694}
-\contentsline {section}{\numberline {20.2}RDF}{695}
-\contentsline {subsection}{\numberline {20.2.1}El Modelo RDF}{695}
-\contentsline {subsection}{\numberline {20.2.2}RDF mediante Grafos}{696}
-\contentsline {subsection}{\numberline {20.2.3}Recursos An\IeC {\'o}nimos}{696}
-\contentsline {section}{\numberline {20.3}Turtle}{697}
-\contentsline {section}{\numberline {20.4}Ontolog\IeC {\'\i }as}{698}
-\contentsline {subsection}{\numberline {20.4.1}RDF-Schema (RDFs)}{698}
-\contentsline {subsubsection}{Clases}{698}
-\contentsline {subsubsection}{Domain y Range}{699}
-\contentsline {subsection}{\numberline {20.4.2}Otros elementos de RDFs}{700}
-\contentsline {section}{\numberline {20.5}SPARQL}{700}
+\contentsline {part}{I\hspace {1em}Data Science}{1}{part.1}%
+\contentsline {chapter}{\numberline {1}Fundamentos}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Introducción}{3}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Hacer una pregunta interesante}{4}{subsection.1.1.1}%
+\contentsline {subsubsection}{Regresión}{4}{section*.2}%
+\contentsline {subsubsection}{Clasificación}{5}{section*.3}%
+\contentsline {subsubsection}{Clustering}{6}{section*.4}%
+\contentsline {subsubsection}{Recomendaciones}{8}{section*.5}%
+\contentsline {subsubsection}{Sistemas de Consulta}{9}{section*.6}%
+\contentsline {subsubsection}{Identificación de Patrones}{9}{section*.7}%
+\contentsline {subsection}{\numberline {1.1.2}Conseguir los datos necesarios}{10}{subsection.1.1.2}%
+\contentsline {subsubsection}{Obtener los Datos}{10}{section*.8}%
+\contentsline {subsubsection}{Depurar los Datos}{11}{section*.9}%
+\contentsline {subsubsection}{Detectar y eliminar Anomalías}{13}{section*.10}%
+\contentsline {subsubsection}{Valores Faltantes}{13}{section*.11}%
+\contentsline {subsection}{\numberline {1.1.3}Explorar los datos}{14}{subsection.1.1.3}%
+\contentsline {subsubsection}{Analizar la estructura de los datos}{14}{section*.12}%
+\contentsline {subsubsection}{Navegar los datos}{15}{section*.13}%
+\contentsline {subsubsection}{Resumen estadístico}{15}{section*.14}%
+\contentsline {subsubsection}{Visualizar los datos}{15}{section*.15}%
+\contentsline {subsection}{\numberline {1.1.4}Aplicar a los datos el algoritmo necesario}{18}{subsection.1.1.4}%
+\contentsline {subsection}{\numberline {1.1.5}Comunicar los resultados}{18}{subsection.1.1.5}%
+\contentsline {section}{\numberline {1.2}Formatos de Datos}{18}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Data Frames}{18}{subsection.1.2.1}%
+\contentsline {subsubsection}{Codificación de Atributos Categóricos}{20}{section*.16}%
+\contentsline {subsubsection}{Codificación de atributos categóricos en gran escala}{22}{section*.17}%
+\contentsline {subsection}{\numberline {1.2.2}Texto}{24}{subsection.1.2.2}%
+\contentsline {subsubsection}{Bag of Words (BOW)}{24}{section*.18}%
+\contentsline {subsection}{\numberline {1.2.3}Datos Matriciales}{25}{subsection.1.2.3}%
+\contentsline {subsubsection}{Matrices Dispersas}{25}{section*.19}%
+\contentsline {subsubsection}{CRS (Compressed Row Storage)}{26}{section*.20}%
+\contentsline {subsection}{\numberline {1.2.4}Imágenes}{26}{subsection.1.2.4}%
+\contentsline {section}{\numberline {1.3}Niveles de Almacenamiento}{27}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Datos en Memoria}{27}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Datos en Disco}{27}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Datos en un Cluster}{28}{subsection.1.3.3}%
+\contentsline {section}{\numberline {1.4}La Ley de Zipf y las Leyes de Potencias}{28}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Pareto, Zipf y Power-Laws}{30}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Leyes de Potencias}{33}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}Propiedades de las Leyes de Potencias}{34}{subsection.1.4.3}%
+\contentsline {subsubsection}{Necesidad de un valor mínimo}{35}{section*.21}%
+\contentsline {subsubsection}{Diferencias con una exponencial}{35}{section*.22}%
+\contentsline {subsubsection}{Dependencia de los eventos}{35}{section*.23}%
+\contentsline {subsubsection}{Invariancia a la escala}{36}{section*.24}%
+\contentsline {subsubsection}{Promedio y varianza}{36}{section*.25}%
+\contentsline {subsubsection}{Fenómeno del Cisne Negro}{36}{section*.26}%
+\contentsline {subsection}{\numberline {1.4.4}Origen de las leyes de potencias}{36}{subsection.1.4.4}%
+\contentsline {subsection}{\numberline {1.4.5}Resumen}{37}{subsection.1.4.5}%
+\contentsline {section}{\numberline {1.5}Algunos Elementos de Probabilidad y Estadística}{37}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}El Principio de Bonferroni}{37}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}La Ecuación mas peligrosa de la historia}{39}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {1.5.3}Frecuentistas vs Bayesianos}{41}{subsection.1.5.3}%
+\contentsline {subsubsection}{Estimación Bayesiana con la Distribución Beta}{43}{section*.27}%
+\contentsline {subsection}{\numberline {1.5.4}La Única Ley sin Explicación}{46}{subsection.1.5.4}%
+\contentsline {subsection}{\numberline {1.5.5}Skewness}{47}{subsection.1.5.5}%
+\contentsline {section}{\numberline {1.6}Algoritmos Aleatorizados}{48}{section.1.6}%
+\contentsline {paragraph}{Algoritmos tipo Montecarlo}{48}{section*.28}%
+\contentsline {paragraph}{Algoritmos tipo Las Vegas}{48}{section*.29}%
+\contentsline {subsection}{\numberline {1.6.1}Algoritmo de Fermat}{49}{subsection.1.6.1}%
+\contentsline {subsection}{\numberline {1.6.2}Algoritmo de Miller-Rabin}{50}{subsection.1.6.2}%
+\contentsline {subsection}{\numberline {1.6.3}Random Walks}{50}{subsection.1.6.3}%
+\contentsline {subsection}{\numberline {1.6.4}Markov Chains}{51}{subsection.1.6.4}%
+\contentsline {subsubsection}{Modelando Lenguajes como Procesos de Markov}{52}{section*.30}%
+\contentsline {subsection}{\numberline {1.6.5}Hill Climbing}{54}{subsection.1.6.5}%
+\contentsline {subsection}{\numberline {1.6.6}El Algoritmo Metrópolis-Hastings}{54}{subsection.1.6.6}%
+\contentsline {subsection}{\numberline {1.6.7}Simulated Annealing}{54}{subsection.1.6.7}%
+\contentsline {section}{\numberline {1.7}MCMC}{56}{section.1.7}%
+\contentsline {section}{\numberline {1.8}Gibbs Sampling}{59}{section.1.8}%
+\contentsline {section}{\numberline {1.9}La Unión hace la fuerza: Ensambles}{59}{section.1.9}%
+\contentsline {chapter}{\numberline {2}Visualización}{61}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Principios Básicos}{62}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}No usar tres dimensiones de forma injustificada}{62}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}El uso del plano}{62}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Oclusión de Información}{62}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Mal uso del Plano}{62}{subsection.2.1.4}%
+\contentsline {subsection}{\numberline {2.1.5}Capacidad de Retención}{63}{subsection.2.1.5}%
+\contentsline {subsection}{\numberline {2.1.6}Ceguera al cambio}{63}{subsection.2.1.6}%
+\contentsline {subsection}{\numberline {2.1.7}Uso del Color}{63}{subsection.2.1.7}%
+\contentsline {subsection}{\numberline {2.1.8}Foco en la Funcionalidad}{63}{subsection.2.1.8}%
+\contentsline {section}{\numberline {2.2}Principios de Visualización de Tufte}{64}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Excelencia}{64}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Principios}{65}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Scatter Plots}{65}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Gráficos de Barras}{73}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Histogramas y Plots de Densidad}{77}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Boxplots}{81}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Gráficos de Líneas}{88}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Gráficos de área}{91}{section.2.8}%
+\contentsline {section}{\numberline {2.9}Heatmaps}{94}{section.2.9}%
+\contentsline {section}{\numberline {2.10}Radar Charts}{96}{section.2.10}%
+\contentsline {section}{\numberline {2.11}Coordenadas Paralelas}{97}{section.2.11}%
+\contentsline {section}{\numberline {2.12}Treemaps}{98}{section.2.12}%
+\contentsline {section}{\numberline {2.13}Mapas y Choropleths}{99}{section.2.13}%
+\contentsline {chapter}{\numberline {3}Dataframes y Análisis Exploratorio de Datos}{101}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Introducción al Análisis Exploratorio de Datos}{101}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Introducción a Dataframes}{101}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Columnas}{102}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Operaciones con Columnas}{102}{subsection.3.3.1}%
+\contentsline {subsubsection}{map (columnas)}{103}{section*.31}%
+\contentsline {subsubsection}{apply (columnas)}{103}{section*.32}%
+\contentsline {section}{\numberline {3.4}Operaciones con Dataframes}{104}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Proyección}{104}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Subsetting, Filtrado o Selección}{104}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Sort}{105}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Applymap}{105}{subsection.3.4.4}%
+\contentsline {subsection}{\numberline {3.4.5}Apply (Dataframes)}{105}{subsection.3.4.5}%
+\contentsline {subsection}{\numberline {3.4.6}Manejo de Índices}{105}{subsection.3.4.6}%
+\contentsline {subsection}{\numberline {3.4.7}Operaciones de Pivoteo}{105}{subsection.3.4.7}%
+\contentsline {subsection}{\numberline {3.4.8}El Paradigma Split, Apply, Combine}{107}{subsection.3.4.8}%
+\contentsline {subsubsection}{Ejemplos}{107}{section*.33}%
+\contentsline {subsection}{\numberline {3.4.9}Join}{108}{subsection.3.4.9}%
+\contentsline {subsubsection}{Inner Join}{108}{section*.34}%
+\contentsline {subsubsection}{Left Join}{108}{section*.35}%
+\contentsline {subsubsection}{Right Join}{109}{section*.36}%
+\contentsline {subsubsection}{Full Join}{109}{section*.37}%
+\contentsline {section}{\numberline {3.5}Ejemplo: IMDB Movies DataSet}{109}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}¿Las películas más largas son mejores?}{110}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Los mejores directores}{110}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}¿Las películas están mejorando?}{111}{subsection.3.5.3}%
+\contentsline {subsection}{\numberline {3.5.4}Duración de las Películas a lo largo del tiempo}{112}{subsection.3.5.4}%
+\contentsline {subsection}{\numberline {3.5.5}Histograma de ratings}{113}{subsection.3.5.5}%
+\contentsline {subsection}{\numberline {3.5.6}Correlación entre columnas}{113}{subsection.3.5.6}%
+\contentsline {subsection}{\numberline {3.5.7}Las mejores parejas de actores}{114}{subsection.3.5.7}%
+\contentsline {subsection}{\numberline {3.5.8}Mejores duplas director-actor}{114}{subsection.3.5.8}%
+\contentsline {subsection}{\numberline {3.5.9}¿Qué directores hacen que los actores actúen mejor?}{114}{subsection.3.5.9}%
+\contentsline {section}{\numberline {3.6}Manejo interno de Dataframes}{116}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Valores Únicos}{116}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Factorize}{116}{subsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.6.3}Counting Sort}{116}{subsection.3.6.3}%
+\contentsline {subsection}{\numberline {3.6.4}Algoritmos para Group By}{119}{subsection.3.6.4}%
+\contentsline {chapter}{\numberline {4}Big Data y Almacenamiento Distribuido}{121}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Big Data}{121}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Volumen}{121}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Velocidad}{122}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Variedad}{122}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}Veracidad}{122}{subsection.4.1.4}%
+\contentsline {subsection}{\numberline {4.1.5}Valencia}{123}{subsection.4.1.5}%
+\contentsline {section}{\numberline {4.2}Almacenamiento Distribuido}{123}{section.4.2}%
+\contentsline {section}{\numberline {4.3}El Ecosistema Hadoop}{124}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Map Reduce}{125}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Fase de Map}{125}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Map Partitions}{126}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Fase de Reduce}{127}{subsection.4.4.3}%
+\contentsline {subsubsection}{Reduce propiamente dicho}{127}{section*.38}%
+\contentsline {subsubsection}{Reduce by Key}{128}{section*.39}%
+\contentsline {subsection}{\numberline {4.4.4}Fase de Shuffle \& Sort}{128}{subsection.4.4.4}%
+\contentsline {section}{\numberline {4.5}Normalización}{128}{section.4.5}%
+\contentsline {section}{\numberline {4.6}KNN}{130}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}NN}{131}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}KNN}{131}{subsection.4.6.2}%
+\contentsline {section}{\numberline {4.7}Procesamiento de Textos}{132}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}Wordcount}{132}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}N-gramas}{133}{subsection.4.7.2}%
+\contentsline {section}{\numberline {4.8}Join}{135}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}Producto Cartesiano}{135}{subsection.4.8.1}%
+\contentsline {subsection}{\numberline {4.8.2}Inner Join y Outer Join}{136}{subsection.4.8.2}%
+\contentsline {section}{\numberline {4.9}Operaciones con Matrices}{137}{section.4.9}%
+\contentsline {subsection}{\numberline {4.9.1}Multiplicación matriz-vector}{138}{subsection.4.9.1}%
+\contentsline {subsection}{\numberline {4.9.2}Multiplicación matriz-matriz}{139}{subsection.4.9.2}%
+\contentsline {section}{\numberline {4.10}Redes Sociales}{142}{section.4.10}%
+\contentsline {subsection}{\numberline {4.10.1}Relaciones no correspondidas}{142}{subsection.4.10.1}%
+\contentsline {subsection}{\numberline {4.10.2}Contando Triángulos en una Red Social}{142}{subsection.4.10.2}%
+\contentsline {chapter}{\numberline {5}Complejidad, Compresión y Teoría de la Información}{147}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Complejidad}{147}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Complejidad de Kolmogorov}{147}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Propiedades de K(x)}{148}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Intractabilidad de K(x)}{151}{subsection.5.1.3}%
+\contentsline {subsection}{\numberline {5.1.4}Distancia Normalizada de Compresión (NCD)}{151}{subsection.5.1.4}%
+\contentsline {section}{\numberline {5.2}Teoría de la Información}{152}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Mensajes y Alfabetos}{152}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Fuentes y códigos}{153}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Extensiones y decodificación}{153}{subsection.5.2.3}%
+\contentsline {subsubsection}{Códigos prefijos}{154}{section*.40}%
+\contentsline {subsubsection}{Desigualdad de Kraft y McMillan}{155}{section*.41}%
+\contentsline {subsection}{\numberline {5.2.4}Entrop\'i{a}}{155}{subsection.5.2.4}%
+\contentsline {subsection}{\numberline {5.2.5}Entropía Conjunta}{158}{subsection.5.2.5}%
+\contentsline {subsection}{\numberline {5.2.6}Entropía Condicional}{159}{subsection.5.2.6}%
+\contentsline {subsection}{\numberline {5.2.7}Información Mutua}{161}{subsection.5.2.7}%
+\contentsline {subsection}{\numberline {5.2.8}Entropía Relativa}{163}{subsection.5.2.8}%
+\contentsline {subsection}{\numberline {5.2.9}Entropía Cruzada}{164}{subsection.5.2.9}%
+\contentsline {section}{\numberline {5.3}Teoría de la Compresión de Datos}{164}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Modelar los Datos}{164}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Codificar los Datos}{165}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}No Existe un Compresor que Pueda Comprimir Cualquier Archivo}{165}{subsection.5.3.3}%
+\contentsline {section}{\numberline {5.4}Códigos de Huffman}{165}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Huffman Estático}{166}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Huffman Dinámico}{168}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Modelos de Orden Superior}{169}{subsection.5.4.3}%
+\contentsline {subsubsection}{El problema de frecuencia cero}{171}{section*.42}%
+\contentsline {section}{\numberline {5.5}Compresión Aritmética}{171}{section.5.5}%
+\contentsline {section}{\numberline {5.6}PPMC}{173}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}Ejemplo PPMC}{173}{subsection.5.6.1}%
+\contentsline {subsubsection}{Comprimir A}{174}{section*.43}%
+\contentsline {subsubsection}{Comprimir (A)B}{175}{section*.44}%
+\contentsline {subsubsection}{Comprimir (AB)C}{176}{section*.45}%
+\contentsline {subsubsection}{Comprimir A(BC)C}{177}{section*.46}%
+\contentsline {subsubsection}{Comprimir AB(CC)C}{178}{section*.47}%
+\contentsline {subsubsection}{Comprimir ABC(CC)C}{178}{section*.48}%
+\contentsline {subsubsection}{Comprimir ABCC(CC)}{178}{section*.49}%
+\contentsline {subsection}{\numberline {5.6.2}PPMC Aspectos claves}{180}{subsection.5.6.2}%
+\contentsline {subsection}{\numberline {5.6.3}Descompresión}{181}{subsection.5.6.3}%
+\contentsline {subsection}{\numberline {5.6.4}Orden Máximo para PPMC}{181}{subsection.5.6.4}%
+\contentsline {subsection}{\numberline {5.6.5}Variantes de PPMC}{182}{subsection.5.6.5}%
+\contentsline {subsection}{\numberline {5.6.6}PPMQ y SSE}{183}{subsection.5.6.6}%
+\contentsline {section}{\numberline {5.7}DMC: Dynamic Markov Compression}{184}{section.5.7}%
+\contentsline {subsection}{\numberline {5.7.1}Clonación}{184}{subsection.5.7.1}%
+\contentsline {section}{\numberline {5.8}La Familia LZ de Compresores}{186}{section.5.8}%
+\contentsline {subsection}{\numberline {5.8.1}RLE}{186}{subsection.5.8.1}%
+\contentsline {subsection}{\numberline {5.8.2}LZSS}{187}{subsection.5.8.2}%
+\contentsline {subsubsection}{Parsing en LZSS}{189}{section*.50}%
+\contentsline {subsection}{\numberline {5.8.3}DEFLATE (LzHuf)}{190}{subsection.5.8.3}%
+\contentsline {subsection}{\numberline {5.8.4}LZW}{190}{subsection.5.8.4}%
+\contentsline {subsubsection}{El Descompresor LZW}{193}{section*.51}%
+\contentsline {subsubsection}{Mecanismo de Clearing}{194}{section*.52}%
+\contentsline {subsubsection}{Suboptimalidad de la codificación en LZW}{195}{section*.53}%
+\contentsline {subsubsection}{Complejidad LZ}{195}{section*.54}%
+\contentsline {subsection}{\numberline {5.8.5}Snappy}{196}{subsection.5.8.5}%
+\contentsline {subsubsection}{Literales}{196}{section*.55}%
+\contentsline {subsubsection}{Matches}{196}{section*.56}%
+\contentsline {subsection}{\numberline {5.8.6}LZMA}{197}{subsection.5.8.6}%
+\contentsline {subsubsection}{Tipos de Códigos}{197}{section*.57}%
+\contentsline {subsubsection}{Codificación Aritmética}{198}{section*.58}%
+\contentsline {subsubsection}{Tamaño de la Ventana y Optimal Parsing}{199}{section*.59}%
+\contentsline {subsubsection}{Uso de Exclusión}{199}{section*.60}%
+\contentsline {section}{\numberline {5.9}Block Sorting}{200}{section.5.9}%
+\contentsline {subsection}{\numberline {5.9.1}Archivos localizados y MTF}{200}{subsection.5.9.1}%
+\contentsline {subsection}{\numberline {5.9.2}La Transformación de Burrows y Wheeler}{201}{subsection.5.9.2}%
+\contentsline {section}{\numberline {5.10}Índices FM}{203}{section.5.10}%
+\contentsline {subsection}{\numberline {5.10.1}Índices de Sufijos}{203}{subsection.5.10.1}%
+\contentsline {subsection}{\numberline {5.10.2}Mapeo LF}{204}{subsection.5.10.2}%
+\contentsline {section}{\numberline {5.11}Comprimiendo el Índice FM}{205}{section.5.11}%
+\contentsline {section}{\numberline {5.12}Estructura Final del Índice FM}{207}{section.5.12}%
+\contentsline {section}{\numberline {5.13}PAQ}{207}{section.5.13}%
+\contentsline {subsection}{\numberline {5.13.1}Modelos de PAQ}{208}{subsection.5.13.1}%
+\contentsline {subsection}{\numberline {5.13.2}SSE}{209}{subsection.5.13.2}%
+\contentsline {section}{\numberline {5.14}Compresión de datos en modelos generativos}{209}{section.5.14}%
+\contentsline {subsection}{\numberline {5.14.1}Modelos Generativos Basados en PPMC}{210}{subsection.5.14.1}%
+\contentsline {subsection}{\numberline {5.14.2}Modelos Generativos Basados en PAQ}{212}{subsection.5.14.2}%
+\contentsline {subsection}{\numberline {5.14.3}Análisis de sentimientos basados en algoritmos de compresión}{213}{subsection.5.14.3}%
+\contentsline {chapter}{\numberline {6}Hashing}{215}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Introducción}{215}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Funciones de Hashing Elementales}{215}{subsection.6.1.1}%
+\contentsline {subsubsection}{El espacio de claves es mayor al espacio de direcciones}{216}{section*.61}%
+\contentsline {subsubsection}{El espacio de direcciones es mayor al espacio de claves}{216}{section*.62}%
+\contentsline {subsubsection}{Construcción de la función de hashing}{216}{section*.63}%
+\contentsline {subsection}{\numberline {6.1.2}Tablas de Hash Elementales}{216}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Resolución de Colisiones}{217}{subsection.6.1.3}%
+\contentsline {subsubsection}{Búsqueda lineal (direccionamiento abierto o hashing cerrado)}{217}{section*.64}%
+\contentsline {subsubsection}{Encadenamiento de Sinónimos (direccionamiento cerrado o hashing abierto)}{217}{section*.65}%
+\contentsline {section}{\numberline {6.2}Implementación de Diccionarios con Hash Tables}{218}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Hopscotch Hashing}{220}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Funciones de Hashing}{222}{section.6.4}%
+\contentsline {subsubsection}{Propiedades de una función de hashing}{222}{section*.66}%
+\contentsline {subsection}{\numberline {6.4.1}FNV}{222}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Jenkins}{223}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}Pearson}{223}{subsection.6.4.3}%
+\contentsline {subsection}{\numberline {6.4.4}Funciones criptográficas}{224}{subsection.6.4.4}%
+\contentsline {subsubsection}{Construcción de Merkle-Damgard}{224}{section*.67}%
+\contentsline {subsubsection}{Construcción de Davis-Meyer}{225}{section*.68}%
+\contentsline {section}{\numberline {6.5}Hashing Universal}{225}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Definición de Hashing Universal}{226}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Hashing Universal para valores atómicos (numéricos)}{226}{subsection.6.5.2}%
+\contentsline {subsection}{\numberline {6.5.3}Hashing Universal para claves de longitud fija}{227}{subsection.6.5.3}%
+\contentsline {subsection}{\numberline {6.5.4}Hashing Universal para claves de longitud variable}{228}{subsection.6.5.4}%
+\contentsline {section}{\numberline {6.6}Cuckoo Hashing}{230}{section.6.6}%
+\contentsline {subsection}{\numberline {6.6.1}Cuckoo Hashing With a Stash}{232}{subsection.6.6.1}%
+\contentsline {subsection}{\numberline {6.6.2}Estructuras de Datos basadas en Cuckoo Hashing}{232}{subsection.6.6.2}%
+\contentsline {section}{\numberline {6.7}Balls \& Bins}{234}{section.6.7}%
+\contentsline {section}{\numberline {6.8}Hashing Perfecto}{235}{section.6.8}%
+\contentsline {subsection}{\numberline {6.8.1}Esquema FKS}{235}{subsection.6.8.1}%
+\contentsline {subsection}{\numberline {6.8.2}Hashing Perfecto Dinámico}{237}{subsection.6.8.2}%
+\contentsline {subsection}{\numberline {6.8.3}Hashing Perfecto y Mínimo: Hash and Displace}{237}{subsection.6.8.3}%
+\contentsline {subsection}{\numberline {6.8.4}Hashing Perfecto y Mínimo: Algoritmo II}{240}{subsection.6.8.4}%
+\contentsline {section}{\numberline {6.9}Hashing Consistente}{244}{section.6.9}%
+\contentsline {section}{\numberline {6.10}The Hashing Trick}{245}{section.6.10}%
+\contentsline {subsection}{\numberline {6.10.1}Método de Weinberger y Hash Kernels}{247}{subsection.6.10.1}%
+\contentsline {subsection}{\numberline {6.10.2}Filtros de Spam Personalizados}{247}{subsection.6.10.2}%
+\contentsline {section}{\numberline {6.11}El Teorema de Johnson y Lindenstrauss}{248}{section.6.11}%
+\contentsline {subsection}{\numberline {6.11.1}Primera Proyección}{249}{subsection.6.11.1}%
+\contentsline {subsection}{\numberline {6.11.2}Segunda Proyección}{249}{subsection.6.11.2}%
+\contentsline {subsection}{\numberline {6.11.3}Tercera Proyección}{250}{subsection.6.11.3}%
+\contentsline {subsection}{\numberline {6.11.4}Por qué funciona el Teorema de JL}{250}{subsection.6.11.4}%
+\contentsline {subsection}{\numberline {6.11.5}The Hashing Trick y el Teorema de Johnson Lindenstrauss}{253}{subsection.6.11.5}%
+\contentsline {chapter}{\numberline {7}LSH}{257}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Minhashes}{258}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Amplificación de Familias LSH}{260}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Reducción de Falsos Positivos}{260}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Reducción de Falsos Negativos}{261}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Combinando los dos métodos}{262}{subsection.7.2.3}%
+\contentsline {subsection}{\numberline {7.2.4}Encontrando los valores de $b$ y $r$}{262}{subsection.7.2.4}%
+\contentsline {section}{\numberline {7.3}LSH para la distancia de Jaccard}{264}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Minhash para la distancia angular}{267}{section.7.4}%
+\contentsline {subsection}{\numberline {7.4.1}El método de los hiperplanos}{268}{subsection.7.4.1}%
+\contentsline {subsection}{\numberline {7.4.2}Voronoi Hashing}{269}{subsection.7.4.2}%
+\contentsline {subsection}{\numberline {7.4.3}El Método de los Polítopos}{270}{subsection.7.4.3}%
+\contentsline {section}{\numberline {7.5}LSH para la distancia euclideana}{271}{section.7.5}%
+\contentsline {subsection}{\numberline {7.5.1}El Método de las Proyecciones Aleatorias}{271}{subsection.7.5.1}%
+\contentsline {subsection}{\numberline {7.5.2}Métodos basados en K-Means: KLSH}{273}{subsection.7.5.2}%
+\contentsline {subsection}{\numberline {7.5.3}Métodos basados en K-Means: K-Means jerárquico}{274}{subsection.7.5.3}%
+\contentsline {section}{\numberline {7.6}LSH para la distancia Hamming}{274}{section.7.6}%
+\contentsline {section}{\numberline {7.7}Multi-Probe LSH}{274}{section.7.7}%
+\contentsline {subsection}{\numberline {7.7.1}Multi-Probing para la distancia euclideana, método de proyecciones aleatorias}{275}{subsection.7.7.1}%
+\contentsline {subsection}{\numberline {7.7.2}Multi-Probing para la distancia euclideana, métodos basados en K-Means}{275}{subsection.7.7.2}%
+\contentsline {subsection}{\numberline {7.7.3}Multi-Probing para la distancia angular, método de proyecciones aleatorias}{275}{subsection.7.7.3}%
+\contentsline {subsection}{\numberline {7.7.4}Multi-Probing para la distancia angular, método de los polítopos}{276}{subsection.7.7.4}%
+\contentsline {subsection}{\numberline {7.7.5}Multi-Probing para la distancia de Jaccard}{276}{subsection.7.7.5}%
+\contentsline {section}{\numberline {7.8}LSH Conclusiones}{276}{section.7.8}%
+\contentsline {section}{\numberline {7.9}LSH Para Máxima semejanza}{277}{section.7.9}%
+\contentsline {subsection}{\numberline {7.9.1}Usando la Longitud}{278}{subsection.7.9.1}%
+\contentsline {subsection}{\numberline {7.9.2}Usando Prefijos}{278}{subsection.7.9.2}%
+\contentsline {subsection}{\numberline {7.9.3}Prefijos y Posiciones}{278}{subsection.7.9.3}%
+\contentsline {subsection}{\numberline {7.9.4}Prefijos, Posiciones y Longitud}{280}{subsection.7.9.4}%
+\contentsline {subsubsection}{Primer caso: $p \geq q$}{280}{section*.69}%
+\contentsline {subsubsection}{Segundo caso: $p < q$}{280}{section*.70}%
+\contentsline {section}{\numberline {7.10}LSH forests}{281}{section.7.10}%
+\contentsline {chapter}{\numberline {8}Reducción de Dimensiones}{283}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Introducción}{283}{section.8.1}%
+\contentsline {section}{\numberline {8.2}SVD}{286}{section.8.2}%
+\contentsline {subsection}{\numberline {8.2.1}SVD reducida}{288}{subsection.8.2.1}%
+\contentsline {subsection}{\numberline {8.2.2}Aproximación de Rango $k$}{288}{subsection.8.2.2}%
+\contentsline {subsection}{\numberline {8.2.3}Compresión de Imágenes}{292}{subsection.8.2.3}%
+\contentsline {subsection}{\numberline {8.2.4}Reducción de ruido}{293}{subsection.8.2.4}%
+\contentsline {subsection}{\numberline {8.2.5}Eigenfaces}{294}{subsection.8.2.5}%
+\contentsline {subsection}{\numberline {8.2.6}Agregar nuevos datos}{295}{subsection.8.2.6}%
+\contentsline {section}{\numberline {8.3}PCA: Principal Component Analysis}{296}{section.8.3}%
+\contentsline {subsection}{\numberline {8.3.1}Equivalencia entre PCA y SVD}{299}{subsection.8.3.1}%
+\contentsline {subsection}{\numberline {8.3.2}Conclusión}{300}{subsection.8.3.2}%
+\contentsline {section}{\numberline {8.4}MDS: Multidimensional Scaling}{300}{section.8.4}%
+\contentsline {subsection}{\numberline {8.4.1}Perceptual Mapping}{301}{subsection.8.4.1}%
+\contentsline {section}{\numberline {8.5}ISOMAP}{302}{section.8.5}%
+\contentsline {subsection}{\numberline {8.5.1}Construcción del Grafo}{303}{subsection.8.5.1}%
+\contentsline {subsection}{\numberline {8.5.2}Cálculo de Distancias}{303}{subsection.8.5.2}%
+\contentsline {subsection}{\numberline {8.5.3}Aplicación de MDS}{303}{subsection.8.5.3}%
+\contentsline {section}{\numberline {8.6}Laplacian Eigenmaps}{303}{section.8.6}%
+\contentsline {subsection}{\numberline {8.6.1}Construcción del Grafo}{303}{subsection.8.6.1}%
+\contentsline {subsection}{\numberline {8.6.2}Construcción del Laplaciano}{305}{subsection.8.6.2}%
+\contentsline {subsection}{\numberline {8.6.3}Descomposición Espectral del Laplaciano}{305}{subsection.8.6.3}%
+\contentsline {subsection}{\numberline {8.6.4}Teoría de la descomposición espectral}{305}{subsection.8.6.4}%
+\contentsline {subsection}{\numberline {8.6.5}Ejemplo del algoritmo}{307}{subsection.8.6.5}%
+\contentsline {section}{\numberline {8.7}TSNE}{310}{section.8.7}%
+\contentsline {section}{\numberline {8.8}Teorema Fundamental de la Dimensionalidad}{311}{section.8.8}%
+\contentsline {chapter}{\numberline {9}Information Retrieval}{313}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Consultas Puntuales y el Dominio de Trabajo}{314}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Índices Invertidos}{314}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}Estructura de un índice Invertido}{315}{subsection.9.2.1}%
+\contentsline {subsection}{\numberline {9.2.2}Almacenamiento del Léxico}{315}{subsection.9.2.2}%
+\contentsline {subsubsection}{Léxico Concatenado}{315}{section*.76}%
+\contentsline {subsubsection}{Front Coding}{316}{section*.77}%
+\contentsline {subsubsection}{Mucha memoria = Mejor Performance}{317}{section*.78}%
+\contentsline {subsection}{\numberline {9.2.3}Almacenamiento de Punteros}{317}{subsection.9.2.3}%
+\contentsline {subsection}{\numberline {9.2.4}Estructura General del índice}{318}{subsection.9.2.4}%
+\contentsline {subsection}{\numberline {9.2.5}Almacenamiento de Punteros -Avanzado-}{319}{subsection.9.2.5}%
+\contentsline {subsubsection}{Código Unario}{319}{section*.79}%
+\contentsline {subsubsection}{Códigos Gamma}{319}{section*.80}%
+\contentsline {subsubsection}{Códigos Delta}{320}{section*.81}%
+\contentsline {subsubsection}{Modelo Local de Tipo Bernoulli}{320}{section*.82}%
+\contentsline {subsection}{\numberline {9.2.6}Construcción del índice Invertido}{323}{subsection.9.2.6}%
+\contentsline {subsection}{\numberline {9.2.7}Qué Indexar}{324}{subsection.9.2.7}%
+\contentsline {subsubsection}{Parsing}{324}{section*.83}%
+\contentsline {subsubsection}{Case Folding}{325}{section*.84}%
+\contentsline {subsubsection}{Stop Words}{325}{section*.85}%
+\contentsline {subsubsection}{Stemming}{325}{section*.86}%
+\contentsline {section}{\numberline {9.3}Consultas de Frases y Proximidad}{325}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Signature Files}{327}{section.9.4}%
+\contentsline {subsection}{\numberline {9.4.1}Consultas}{327}{subsection.9.4.1}%
+\contentsline {section}{\numberline {9.5}Bitmaps}{328}{section.9.5}%
+\contentsline {subsection}{\numberline {9.5.1}Compresión de Bitmaps}{329}{subsection.9.5.1}%
+\contentsline {subsection}{\numberline {9.5.2}Roaring Bitmaps}{330}{subsection.9.5.2}%
+\contentsline {section}{\numberline {9.6}Consultas Ranqueadas}{331}{section.9.6}%
+\contentsline {subsection}{\numberline {9.6.1}BOW y Productos Internos}{331}{subsection.9.6.1}%
+\contentsline {subsection}{\numberline {9.6.2}TF-IDF}{332}{subsection.9.6.2}%
+\contentsline {subsubsection}{BM25}{333}{section*.87}%
+\contentsline {subsubsection}{Normalización de la Longitud de los documentos}{334}{section*.88}%
+\contentsline {section}{\numberline {9.7}Indexación Semántica Latente}{335}{section.9.7}%
+\contentsline {section}{\numberline {9.8}Evaluación de Consultas}{336}{section.9.8}%
+\contentsline {section}{\numberline {9.9}Consultas Probabilísticas}{338}{section.9.9}%
+\contentsline {section}{\numberline {9.10}Procesamiento de Lenguaje Natural}{338}{section.9.10}%
+\contentsline {subsection}{\numberline {9.10.1}Modelo de N-Gramas}{338}{subsection.9.10.1}%
+\contentsline {subsection}{\numberline {9.10.2}Calculando Probabilidades en el modelo de N-Gramas}{340}{subsection.9.10.2}%
+\contentsline {subsection}{\numberline {9.10.3}Maximum Likelihood (Máxima semejanza)}{340}{subsection.9.10.3}%
+\contentsline {subsection}{\numberline {9.10.4}El Problema de las Probabilidades Nulas}{342}{subsection.9.10.4}%
+\contentsline {subsection}{\numberline {9.10.5}Smoothing: Corrección de Laplace}{342}{subsection.9.10.5}%
+\contentsline {subsection}{\numberline {9.10.6}Interpolación y Backoff}{343}{subsection.9.10.6}%
+\contentsline {subsubsection}{Stupid Backoff}{343}{section*.89}%
+\contentsline {subsection}{\numberline {9.10.7}Good Turing Smoothing}{344}{subsection.9.10.7}%
+\contentsline {subsection}{\numberline {9.10.8}Algoritmo de Kneser-Ney}{345}{subsection.9.10.8}%
+\contentsline {section}{\numberline {9.11}Learning to Rank}{347}{section.9.11}%
+\contentsline {subsection}{\numberline {9.11.1}Algoritmos Pointwise}{348}{subsection.9.11.1}%
+\contentsline {subsection}{\numberline {9.11.2}Algoritmos Pairwise y Listwise}{350}{subsection.9.11.2}%
+\contentsline {chapter}{\numberline {10}Introducción a Machine Learning}{351}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Evaluación de Algoritmos de ML}{352}{section.10.1}%
+\contentsline {subsection}{\numberline {10.1.1}Cross Validation}{352}{subsection.10.1.1}%
+\contentsline {section}{\numberline {10.2}Los Problemas de ML: Overfitting y Underfitting}{353}{section.10.2}%
+\contentsline {section}{\numberline {10.3}El Teorema de No Free Lunch}{356}{section.10.3}%
+\contentsline {section}{\numberline {10.4}La Unión hace la fuerza: Ensambles}{358}{section.10.4}%
+\contentsline {subsection}{\numberline {10.4.1}Bagging}{359}{subsection.10.4.1}%
+\contentsline {subsection}{\numberline {10.4.2}Boosting}{360}{subsection.10.4.2}%
+\contentsline {subsection}{\numberline {10.4.3}Combinando Algoritmos Diferentes}{360}{subsection.10.4.3}%
+\contentsline {subsubsection}{Majority Voting}{360}{section*.90}%
+\contentsline {subsubsection}{Averaging}{361}{section*.91}%
+\contentsline {subsubsection}{Blending}{362}{section*.92}%
+\contentsline {paragraph}{Blending}{363}{section*.93}%
+\contentsline {section}{\numberline {10.5}Teoría de Machine Learning}{364}{section.10.5}%
+\contentsline {subsection}{\numberline {10.5.1}Desigualdad de Hoeffding}{364}{subsection.10.5.1}%
+\contentsline {subsection}{\numberline {10.5.2}Error de Entrenamiento}{365}{subsection.10.5.2}%
+\contentsline {subsection}{\numberline {10.5.3}Error de Generalización}{365}{subsection.10.5.3}%
+\contentsline {subsection}{\numberline {10.5.4}Overfitting y Underfitting}{365}{subsection.10.5.4}%
+\contentsline {subsection}{\numberline {10.5.5}El Problema de Clasificación}{365}{subsection.10.5.5}%
+\contentsline {subsection}{\numberline {10.5.6}El Espacio de Hipótesis}{366}{subsection.10.5.6}%
+\contentsline {subsection}{\numberline {10.5.7}Minimización Empírica del Riesgo en $\mathcal {H}$}{366}{subsection.10.5.7}%
+\contentsline {subsection}{\numberline {10.5.8}Cuando $|\mathcal {H}|$ es finito}{366}{subsection.10.5.8}%
+\contentsline {subsection}{\numberline {10.5.9}Cuando $|\mathcal {H}|$ es infinito}{370}{subsection.10.5.9}%
+\contentsline {subsection}{\numberline {10.5.10}El Principio de la Mínima Descripción}{373}{subsection.10.5.10}%
+\contentsline {subsection}{\numberline {10.5.11}Clasificación con Algoritmos de Compresión}{375}{subsection.10.5.11}%
+\contentsline {subsubsection}{SMDL: Standard Minimum Description Length}{376}{section*.94}%
+\contentsline {subsubsection}{AMDL: Approximate Minimum Description Length}{376}{section*.95}%
+\contentsline {subsubsection}{BCN: Best Compression Neighbor}{376}{section*.96}%
+\contentsline {chapter}{\numberline {11}KNN}{377}{chapter.11}%
+\contentsline {section}{\numberline {11.1}La Métrica a emplear}{378}{section.11.1}%
+\contentsline {subsection}{\numberline {11.1.1}Distancia Minkowsky}{379}{subsection.11.1.1}%
+\contentsline {subsection}{\numberline {11.1.2}Distancia Manhattan}{379}{subsection.11.1.2}%
+\contentsline {subsection}{\numberline {11.1.3}Distancia de Hamming o Norma $l_0$}{379}{subsection.11.1.3}%
+\contentsline {subsection}{\numberline {11.1.4}Norma $l_{\infty }$}{379}{subsection.11.1.4}%
+\contentsline {subsection}{\numberline {11.1.5}Distancia de Mahalanobis}{380}{subsection.11.1.5}%
+\contentsline {subsection}{\numberline {11.1.6}Distancia Coseno}{381}{subsection.11.1.6}%
+\contentsline {subsection}{\numberline {11.1.7}Distancia de Edición o Levenshtein}{382}{subsection.11.1.7}%
+\contentsline {subsection}{\numberline {11.1.8}Distancia de Jaccard}{383}{subsection.11.1.8}%
+\contentsline {subsection}{\numberline {11.1.9}Distancia Geodésica}{383}{subsection.11.1.9}%
+\contentsline {subsection}{\numberline {11.1.10}Distancia entre Grafos}{384}{subsection.11.1.10}%
+\contentsline {subsection}{\numberline {11.1.11}Distancia para atributos categóricos: VDM}{384}{subsection.11.1.11}%
+\contentsline {subsection}{\numberline {11.1.12}Distancias Especiales}{385}{subsection.11.1.12}%
+\contentsline {subsection}{\numberline {11.1.13}Aprendiendo la Distancia}{386}{subsection.11.1.13}%
+\contentsline {section}{\numberline {11.2}Determinando la Distancia a usar en KNN}{386}{section.11.2}%
+\contentsline {section}{\numberline {11.3}Determinar el valor de K}{387}{section.11.3}%
+\contentsline {subsection}{\numberline {11.3.1}Grid Search y Random Search en KNN}{389}{subsection.11.3.1}%
+\contentsline {section}{\numberline {11.4}Sensibilidad a valores fuera de escala}{390}{section.11.4}%
+\contentsline {section}{\numberline {11.5}Sensibilidad a atributos anómalos}{391}{section.11.5}%
+\contentsline {subsection}{\numberline {11.5.1}Forward Selection}{391}{subsection.11.5.1}%
+\contentsline {subsection}{\numberline {11.5.2}Backward Selection}{391}{subsection.11.5.2}%
+\contentsline {section}{\numberline {11.6}Aproximaciones para KNN}{391}{section.11.6}%
+\contentsline {subsection}{\numberline {11.6.1}Orden del algoritmo y eficiencia}{391}{subsection.11.6.1}%
+\contentsline {subsection}{\numberline {11.6.2}Indices Espaciales: KD-Trees}{393}{subsection.11.6.2}%
+\contentsline {subsection}{\numberline {11.6.3}Indices Espaciales: VP-Trees}{394}{subsection.11.6.3}%
+\contentsline {subsection}{\numberline {11.6.4}Líderes y seguidores}{397}{subsection.11.6.4}%
+\contentsline {subsection}{\numberline {11.6.5}Aproximación con K-Means}{398}{subsection.11.6.5}%
+\contentsline {subsection}{\numberline {11.6.6}Editing}{398}{subsection.11.6.6}%
+\contentsline {subsection}{\numberline {11.6.7}NN vía Grafos}{400}{subsection.11.6.7}%
+\contentsline {subsection}{\numberline {11.6.8}LSH}{401}{subsection.11.6.8}%
+\contentsline {section}{\numberline {11.7}Teoría de KNN}{401}{section.11.7}%
+\contentsline {subsection}{\numberline {11.7.1}Teorema de Cover-Hart}{401}{subsection.11.7.1}%
+\contentsline {section}{\numberline {11.8}Parzen Windows}{403}{section.11.8}%
+\contentsline {section}{\numberline {11.9}KNN con pesos}{403}{section.11.9}%
+\contentsline {section}{\numberline {11.10}Evitando Overfitting en KNN}{405}{section.11.10}%
+\contentsline {section}{\numberline {11.11}RKNN: Ensambles basados en KNN}{405}{section.11.11}%
+\contentsline {section}{\numberline {11.12}Algunas conclusiones y comentarios}{406}{section.11.12}%
+\contentsline {section}{\numberline {11.13}Dimensionalidad}{406}{section.11.13}%
+\contentsline {subsection}{\numberline {11.13.1}Manifolds}{407}{subsection.11.13.1}%
+\contentsline {subsection}{\numberline {11.13.2}Los Datos No son Random y Siempre Tienen Pocas Dimensiones}{408}{subsection.11.13.2}%
+\contentsline {subsection}{\numberline {11.13.3}Manifold Learning y Cambios de Dimensiones}{409}{subsection.11.13.3}%
+\contentsline {subsection}{\numberline {11.13.4}La Maldición de la dimensionalidad}{410}{subsection.11.13.4}%
+\contentsline {subsubsection}{El problema del muestreo}{410}{section*.97}%
+\contentsline {subsection}{\numberline {11.13.5}El Efecto de la Dimensionalidad sobre las Distancias}{411}{subsection.11.13.5}%
+\contentsline {subsubsection}{El problema de los KD-Trees}{412}{section*.98}%
+\contentsline {subsubsection}{Shared Neighbors}{414}{section*.99}%
+\contentsline {chapter}{\numberline {12}Clasificación}{415}{chapter.12}%
+\contentsline {section}{\numberline {12.1}Árboles de decisión}{415}{section.12.1}%
+\contentsline {subsection}{\numberline {12.1.1}ID3}{415}{subsection.12.1.1}%
+\contentsline {subsection}{\numberline {12.1.2}C4.5}{418}{subsection.12.1.2}%
+\contentsline {section}{\numberline {12.2}Random Forests}{419}{section.12.2}%
+\contentsline {subsection}{\numberline {12.2.1}Distancia RF}{420}{subsection.12.2.1}%
+\contentsline {section}{\numberline {12.3}XGBoost}{421}{section.12.3}%
+\contentsline {subsection}{\numberline {12.3.1}Boosting Trees}{421}{subsection.12.3.1}%
+\contentsline {subsection}{\numberline {12.3.2}Complejidad de un árbol}{423}{subsection.12.3.2}%
+\contentsline {subsection}{\numberline {12.3.3}Optimizando la función objetivo}{424}{subsection.12.3.3}%
+\contentsline {subsection}{\numberline {12.3.4}Calculando el Score de una Estructura}{425}{subsection.12.3.4}%
+\contentsline {subsection}{\numberline {12.3.5}Buscando la Estructura del árbol}{425}{subsection.12.3.5}%
+\contentsline {subsection}{\numberline {12.3.6}XGBoost en la práctica}{426}{subsection.12.3.6}%
+\contentsline {section}{\numberline {12.4}Na\"{i}ve Bayes}{427}{section.12.4}%
+\contentsline {subsection}{\numberline {12.4.1}El Problema de las probabilidades cero}{428}{subsection.12.4.1}%
+\contentsline {subsection}{\numberline {12.4.2}Bayes en acción}{429}{subsection.12.4.2}%
+\contentsline {section}{\numberline {12.5}Perceptrón}{429}{section.12.5}%
+\contentsline {subsection}{\numberline {12.5.1}Algoritmo Base}{430}{subsection.12.5.1}%
+\contentsline {subsection}{\numberline {12.5.2}Algoritmo Mejorado}{431}{subsection.12.5.2}%
+\contentsline {subsection}{\numberline {12.5.3}Normalización Online}{432}{subsection.12.5.3}%
+\contentsline {subsection}{\numberline {12.5.4}Predicciones}{432}{subsection.12.5.4}%
+\contentsline {subsection}{\numberline {12.5.5}Convergencia}{432}{subsection.12.5.5}%
+\contentsline {subsection}{\numberline {12.5.6}Funciones de Activación}{434}{subsection.12.5.6}%
+\contentsline {subsubsection}{Signo}{434}{section*.100}%
+\contentsline {subsubsection}{Sigmoid}{434}{section*.101}%
+\contentsline {subsubsection}{Tanh}{435}{section*.102}%
+\contentsline {subsection}{\numberline {12.5.7}Perceptrón Multiclase}{436}{subsection.12.5.7}%
+\contentsline {subsubsection}{One vs All}{436}{section*.103}%
+\contentsline {subsubsection}{One vs One}{436}{section*.104}%
+\contentsline {subsection}{\numberline {12.5.8}Conclusiones}{437}{subsection.12.5.8}%
+\contentsline {section}{\numberline {12.6}SVM}{437}{section.12.6}%
+\contentsline {subsection}{\numberline {12.6.1}Margen Funcional}{439}{subsection.12.6.1}%
+\contentsline {subsection}{\numberline {12.6.2}Margen Geométrico}{439}{subsection.12.6.2}%
+\contentsline {subsection}{\numberline {12.6.3}Support Vectors}{441}{subsection.12.6.3}%
+\contentsline {subsection}{\numberline {12.6.4}El Problema Dual}{444}{subsection.12.6.4}%
+\contentsline {subsection}{\numberline {12.6.5}Algoritmo SMO (Sequential Minimal Optimization) [opcional]}{446}{subsection.12.6.5}%
+\contentsline {subsection}{\numberline {12.6.6}Soft Margin}{448}{subsection.12.6.6}%
+\contentsline {subsection}{\numberline {12.6.7}SMO (Soft Marging)}{450}{subsection.12.6.7}%
+\contentsline {section}{\numberline {12.7}The Kernel Trick}{451}{section.12.7}%
+\contentsline {subsection}{\numberline {12.7.1}Kernel Polinómico}{455}{subsection.12.7.1}%
+\contentsline {section}{\numberline {12.8}Teorema de Mercer}{455}{section.12.8}%
+\contentsline {subsection}{\numberline {12.8.1}Kernel Gaussiano (RBF)}{456}{subsection.12.8.1}%
+\contentsline {section}{\numberline {12.9}Aproximación de Nystrom}{458}{section.12.9}%
+\contentsline {section}{\numberline {12.10}Kernel SVM}{459}{section.12.10}%
+\contentsline {subsection}{\numberline {12.10.1}El efecto de C y $\sigma $}{459}{subsection.12.10.1}%
+\contentsline {section}{\numberline {12.11}SVM Transductivo}{461}{section.12.11}%
+\contentsline {section}{\numberline {12.12}SVM Ordinal}{463}{section.12.12}%
+\contentsline {section}{\numberline {12.13}Conclusiones}{463}{section.12.13}%
+\contentsline {chapter}{\numberline {13}Clustering}{465}{chapter.13}%
+\contentsline {section}{\numberline {13.1}Clustering Jerárquico}{466}{section.13.1}%
+\contentsline {subsection}{\numberline {13.1.1}Distancia Entre Clusters}{466}{subsection.13.1.1}%
+\contentsline {subsection}{\numberline {13.1.2}Encontrando la cantidad de Clusters}{467}{subsection.13.1.2}%
+\contentsline {subsection}{\numberline {13.1.3}Dendrogramas}{469}{subsection.13.1.3}%
+\contentsline {subsection}{\numberline {13.1.4}Performance}{470}{subsection.13.1.4}%
+\contentsline {section}{\numberline {13.2}K-Means}{470}{section.13.2}%
+\contentsline {subsection}{\numberline {13.2.1}El Problema general}{471}{subsection.13.2.1}%
+\contentsline {subsection}{\numberline {13.2.2}El Algoritmo de Lloyd}{472}{subsection.13.2.2}%
+\contentsline {subsection}{\numberline {13.2.3}K-Means++}{475}{subsection.13.2.3}%
+\contentsline {subsection}{\numberline {13.2.4}El valor K a utilizar}{476}{subsection.13.2.4}%
+\contentsline {subsection}{\numberline {13.2.5}Diagramas de Voronoi}{477}{subsection.13.2.5}%
+\contentsline {subsection}{\numberline {13.2.6}Kmeans online}{479}{subsection.13.2.6}%
+\contentsline {subsubsection}{Teoría de K-Means Online}{481}{section*.105}%
+\contentsline {subsection}{\numberline {13.2.7}Soft K-Means}{482}{subsection.13.2.7}%
+\contentsline {subsubsection}{Versión Online}{484}{section*.106}%
+\contentsline {subsection}{\numberline {13.2.8}La base de Kmeans y sus aplicaciones}{485}{subsection.13.2.8}%
+\contentsline {subsection}{\numberline {13.2.9}Reducción de Dimensiones con K-Means}{487}{subsection.13.2.9}%
+\contentsline {subsection}{\numberline {13.2.10}Kmeans Esférico}{489}{subsection.13.2.10}%
+\contentsline {subsubsection}{Versión Online}{490}{section*.107}%
+\contentsline {subsubsection}{Voronoi Esférico}{490}{section*.108}%
+\contentsline {subsection}{\numberline {13.2.11}Kernel K-Means}{491}{subsection.13.2.11}%
+\contentsline {subsection}{\numberline {13.2.12}K-Modes}{493}{subsection.13.2.12}%
+\contentsline {subsection}{\numberline {13.2.13}K-Means y el Problema de los Vecinos Mas Cercanos}{493}{subsection.13.2.13}%
+\contentsline {subsubsection}{Datos Masivos, realmente masivos}{495}{section*.109}%
+\contentsline {subsection}{\numberline {13.2.14}The Inverted Multi-Index}{496}{subsection.13.2.14}%
+\contentsline {subsubsection}{K-means Trees}{497}{section*.110}%
+\contentsline {section}{\numberline {13.3}Clustering Espectral}{497}{section.13.3}%
+\contentsline {subsection}{\numberline {13.3.1}Primer paso: construir la matriz de afinidad}{497}{subsection.13.3.1}%
+\contentsline {subsection}{\numberline {13.3.2}Segundo paso: construir la matriz Laplaciana}{498}{subsection.13.3.2}%
+\contentsline {subsection}{\numberline {13.3.3}Tercer paso: Autovalores y Autovectores de la matriz Laplaciana}{499}{subsection.13.3.3}%
+\contentsline {subsection}{\numberline {13.3.4}Selección de Hiper-Parámetros}{501}{subsection.13.3.4}%
+\contentsline {subsection}{\numberline {13.3.5}Aproximaciones: KASP}{502}{subsection.13.3.5}%
+\contentsline {section}{\numberline {13.4}CURE}{502}{section.13.4}%
+\contentsline {section}{\numberline {13.5}DBScan}{504}{section.13.5}%
+\contentsline {section}{\numberline {13.6}HDBScan}{506}{section.13.6}%
+\contentsline {subsection}{\numberline {13.6.1}La Distancia MRD}{506}{subsection.13.6.1}%
+\contentsline {subsection}{\numberline {13.6.2}El árbol Generador Mínimo}{507}{subsection.13.6.2}%
+\contentsline {subsection}{\numberline {13.6.3}Clustering Jerárquico}{507}{subsection.13.6.3}%
+\contentsline {subsection}{\numberline {13.6.4}Extraer los clusters}{509}{subsection.13.6.4}%
+\contentsline {section}{\numberline {13.7}Biclustering}{511}{section.13.7}%
+\contentsline {subsection}{\numberline {13.7.1}Co-clustering Espectral}{512}{subsection.13.7.1}%
+\contentsline {subsection}{\numberline {13.7.2}LSI Co-clustering}{514}{subsection.13.7.2}%
+\contentsline {section}{\numberline {13.8}NMF: Non-negative matrix factorization}{516}{section.13.8}%
+\contentsline {subsection}{\numberline {13.8.1}Algoritmo Multiplicativo}{516}{subsection.13.8.1}%
+\contentsline {subsection}{\numberline {13.8.2}La Base de NMF}{517}{subsection.13.8.2}%
+\contentsline {chapter}{\numberline {14}Sistemas de Recomendaciones}{521}{chapter.14}%
+\contentsline {section}{\numberline {14.1}Introducción: El modelo de descubrimiento}{521}{section.14.1}%
+\contentsline {section}{\numberline {14.2}Características de un Sistema de Recomendaciones}{522}{section.14.2}%
+\contentsline {subsection}{\numberline {14.2.1}Precisión}{522}{subsection.14.2.1}%
+\contentsline {subsection}{\numberline {14.2.2}Serendipity}{522}{subsection.14.2.2}%
+\contentsline {subsection}{\numberline {14.2.3}Diversidad}{524}{subsection.14.2.3}%
+\contentsline {subsection}{\numberline {14.2.4}Otros desafíos para un sistema de recomendaciones}{524}{subsection.14.2.4}%
+\contentsline {subsubsection}{Los gustos de los usuarios pueden cambiar}{524}{section*.111}%
+\contentsline {subsubsection}{La influencia del tiempo}{525}{section*.112}%
+\contentsline {subsubsection}{El usuario a veces quiere ver cosas que no le gustan}{525}{section*.113}%
+\contentsline {subsubsection}{Lo que el usuario califica vs. lo que el usuario ve}{525}{section*.114}%
+\contentsline {section}{\numberline {14.3}Sistemas No Personalizados}{526}{section.14.3}%
+\contentsline {subsection}{\numberline {14.3.1}Recomendando Comentarios en Reddit}{526}{subsection.14.3.1}%
+\contentsline {subsubsection}{Primera Aproximación: Diferencia entre Upvotes y Downvotes}{526}{section*.115}%
+\contentsline {subsubsection}{Segunda Aproximación: Proporción de Upvotes sobre el total}{526}{section*.116}%
+\contentsline {subsection}{\numberline {14.3.2}Intervalos de Confianza}{527}{subsection.14.3.2}%
+\contentsline {subsection}{\numberline {14.3.3}Ordenando las noticias en Reddit}{528}{subsection.14.3.3}%
+\contentsline {section}{\numberline {14.4}Sistemas Basados en Contenidos (Content Based)}{530}{section.14.4}%
+\contentsline {section}{\numberline {14.5}Collaborative Filtering}{532}{section.14.5}%
+\contentsline {subsection}{\numberline {14.5.1}Semejanza entre usuarios (User User)}{533}{subsection.14.5.1}%
+\contentsline {subsection}{\numberline {14.5.2}Semejanza entre ítems (Item Item)}{534}{subsection.14.5.2}%
+\contentsline {subsection}{\numberline {14.5.3}Collaborative Filtering en base a Desviaciones}{535}{subsection.14.5.3}%
+\contentsline {section}{\numberline {14.6}Evaluación de Sistemas de Recomendación}{538}{section.14.6}%
+\contentsline {subsection}{\numberline {14.6.1}Evaluación basada en las predicciones}{538}{subsection.14.6.1}%
+\contentsline {subsection}{\numberline {14.6.2}Evaluación basada en el orden de las recomendaciones}{540}{subsection.14.6.2}%
+\contentsline {subsubsection}{MPR: Mean Reciprocal Rank}{540}{section*.117}%
+\contentsline {subsubsection}{MAP: Mean Average Precision}{540}{section*.118}%
+\contentsline {subsubsection}{Correlación de Spearman}{541}{section*.119}%
+\contentsline {subsubsection}{Normalized Discounted Cumulative Gain}{541}{section*.120}%
+\contentsline {section}{\numberline {14.7}Modelos Latentes}{542}{section.14.7}%
+\contentsline {subsection}{\numberline {14.7.1}SVD++}{542}{subsection.14.7.1}%
+\contentsline {subsubsection}{Algoritmo de Gradient Descent para calcular $Q$ y $P$}{544}{section*.121}%
+\contentsline {subsubsection}{Agregando las desviaciones del usuario y de la película.}{544}{section*.122}%
+\contentsline {section}{\numberline {14.8}Factores Temporales}{545}{section.14.8}%
+\contentsline {section}{\numberline {14.9}Factorization Machines}{545}{section.14.9}%
+\contentsline {subsection}{\numberline {14.9.1}Expresividad de FM}{547}{subsection.14.9.1}%
+\contentsline {subsection}{\numberline {14.9.2}Como funcionan los parámetros de una FM}{547}{subsection.14.9.2}%
+\contentsline {subsection}{\numberline {14.9.3}Algoritmos basados en FMs}{548}{subsection.14.9.3}%
+\contentsline {subsection}{\numberline {14.9.4}Aprendizaje de FMs}{548}{subsection.14.9.4}%
+\contentsline {subsection}{\numberline {14.9.5}LibFM}{548}{subsection.14.9.5}%
+\contentsline {section}{\numberline {14.10}El Problema del Cold-Start: Multi-Armed Bandits}{550}{section.14.10}%
+\contentsline {subsection}{\numberline {14.10.1}Multi-Armed Bandits}{550}{subsection.14.10.1}%
+\contentsline {subsection}{\numberline {14.10.2}Algoritmo Epsilon}{551}{subsection.14.10.2}%
+\contentsline {subsection}{\numberline {14.10.3}Algoritmo UCB1}{551}{subsection.14.10.3}%
+\contentsline {section}{\numberline {14.11}Diversidad: Optimización Submodular}{551}{section.14.11}%
+\contentsline {subsection}{\numberline {14.11.1}Recomendaciones Personalizadas}{555}{subsection.14.11.1}%
+\contentsline {section}{\numberline {14.12}Learning to Rank}{555}{section.14.12}%
+\contentsline {section}{\numberline {14.13}El Sistema Completo}{555}{section.14.13}%
+\contentsline {chapter}{\numberline {15}Streaming}{557}{chapter.15}%
+\contentsline {section}{\numberline {15.1}Reservoir Sampling}{558}{section.15.1}%
+\contentsline {section}{\numberline {15.2}Momentos de un Stream}{559}{section.15.2}%
+\contentsline {section}{\numberline {15.3}Flajolet-Martin e HyperLogLog}{560}{section.15.3}%
+\contentsline {subsection}{\numberline {15.3.1}Flajolet-Martin}{560}{subsection.15.3.1}%
+\contentsline {subsection}{\numberline {15.3.2}HyperLogLog}{561}{subsection.15.3.2}%
+\contentsline {section}{\numberline {15.4}AMS}{562}{section.15.4}%
+\contentsline {section}{\numberline {15.5}DGIM}{563}{section.15.5}%
+\contentsline {subsection}{\numberline {15.5.1}Extensión para valores enteros}{565}{subsection.15.5.1}%
+\contentsline {section}{\numberline {15.6}Decaying Windows}{566}{section.15.6}%
+\contentsline {section}{\numberline {15.7}Filtros de Bloom}{566}{section.15.7}%
+\contentsline {subsection}{\numberline {15.7.1}Extensión para admitir borrado}{569}{subsection.15.7.1}%
+\contentsline {section}{\numberline {15.8}Cuckoo Filters}{569}{section.15.8}%
+\contentsline {section}{\numberline {15.9}Count-Min}{572}{section.15.9}%
+\contentsline {subsection}{\numberline {15.9.1}The Heavy Hitters Problem}{572}{subsection.15.9.1}%
+\contentsline {subsubsection}{El problema de los HH aproximado}{573}{section*.123}%
+\contentsline {subsection}{\numberline {15.9.2}The Count-Min Sketch}{573}{subsection.15.9.2}%
+\contentsline {subsection}{\numberline {15.9.3}Claves Transistorias: Bit-Marking}{574}{subsection.15.9.3}%
+\contentsline {subsection}{\numberline {15.9.4}Teoría de Count-Min}{576}{subsection.15.9.4}%
+\contentsline {subsubsection}{Conclusiones obtenidas}{579}{section*.124}%
+\contentsline {chapter}{\numberline {16}PageRank y sus Derivados}{581}{chapter.16}%
+\contentsline {section}{\numberline {16.1}Random Surfers}{582}{section.16.1}%
+\contentsline {section}{\numberline {16.2}Convergencia}{584}{section.16.2}%
+\contentsline {section}{\numberline {16.3}Dead Ends}{586}{section.16.3}%
+\contentsline {section}{\numberline {16.4}Spider Traps y Teletransportación}{587}{section.16.4}%
+\contentsline {subsubsection}{Interpretando $\beta $}{590}{section*.125}%
+\contentsline {section}{\numberline {16.5}Page Rank en la práctica}{590}{section.16.5}%
+\contentsline {subsection}{\numberline {16.5.1}PageRank via Map Reduce}{591}{subsection.16.5.1}%
+\contentsline {section}{\numberline {16.6}TopicRank}{592}{section.16.6}%
+\contentsline {section}{\numberline {16.7}TrustRank}{593}{section.16.7}%
+\contentsline {section}{\numberline {16.8}SimRank}{594}{section.16.8}%
+\contentsline {subsection}{\numberline {16.8.1}Sim Rank via Montecarlo}{595}{subsection.16.8.1}%
+\contentsline {subsection}{\numberline {16.8.2}Panther}{596}{subsection.16.8.2}%
+\contentsline {section}{\numberline {16.9}VisualRank}{596}{section.16.9}%
+\contentsline {section}{\numberline {16.10}TextRank}{598}{section.16.10}%
+\contentsline {section}{\numberline {16.11}HITS}{599}{section.16.11}%
+\contentsline {chapter}{\numberline {17}Redes Sociales}{605}{chapter.17}%
+\contentsline {section}{\numberline {17.1}Propiedades de los Grafos}{605}{section.17.1}%
+\contentsline {subsection}{\numberline {17.1.1}Propiedades Básicas}{605}{subsection.17.1.1}%
+\contentsline {subsection}{\numberline {17.1.2}Almacenamiento del Grafo}{606}{subsection.17.1.2}%
+\contentsline {subsection}{\numberline {17.1.3}Componentes Conexos}{606}{subsection.17.1.3}%
+\contentsline {subsection}{\numberline {17.1.4}Diámetro}{607}{subsection.17.1.4}%
+\contentsline {subsection}{\numberline {17.1.5}Coeficiente de Clustering}{607}{subsection.17.1.5}%
+\contentsline {subsection}{\numberline {17.1.6}Distribución del Grado}{608}{subsection.17.1.6}%
+\contentsline {section}{\numberline {17.2}Propiedades del Grafo de una Red Social}{608}{section.17.2}%
+\contentsline {subsection}{\numberline {17.2.1}Componente Conexo}{608}{subsection.17.2.1}%
+\contentsline {subsection}{\numberline {17.2.2}Distribución del Grado}{608}{subsection.17.2.2}%
+\contentsline {subsection}{\numberline {17.2.3}Diámetro y Camino Mínimo Promedio}{608}{subsection.17.2.3}%
+\contentsline {subsection}{\numberline {17.2.4}Coeficiente de Clustering}{610}{subsection.17.2.4}%
+\contentsline {section}{\numberline {17.3}Modelos de Grafos}{610}{section.17.3}%
+\contentsline {subsection}{\numberline {17.3.1}Modelo de Erd\"{o}s-Renyi}{611}{subsection.17.3.1}%
+\contentsline {subsubsection}{Diámetro}{611}{section*.126}%
+\contentsline {subsubsection}{Distribución del Grado}{611}{section*.127}%
+\contentsline {subsubsection}{Coeficiente de Clustering}{612}{section*.128}%
+\contentsline {subsection}{\numberline {17.3.2}Modelo de Barabasi-Albert}{612}{subsection.17.3.2}%
+\contentsline {subsection}{\numberline {17.3.3}Modelo de Jackson-Rodgers}{613}{subsection.17.3.3}%
+\contentsline {section}{\numberline {17.4}El Mundo Pequeño}{613}{section.17.4}%
+\contentsline {subsection}{\numberline {17.4.1}Modelo de Watts Strogratz}{614}{subsection.17.4.1}%
+\contentsline {section}{\numberline {17.5}La Clausura Triangular}{615}{section.17.5}%
+\contentsline {subsection}{\numberline {17.5.1}Contando triángulos en un grafo}{615}{subsection.17.5.1}%
+\contentsline {subsection}{\numberline {17.5.2}Triángulos Locales}{618}{subsection.17.5.2}%
+\contentsline {subsection}{\numberline {17.5.3}EE Eigenplots}{619}{subsection.17.5.3}%
+\contentsline {section}{\numberline {17.6}Centralidad}{620}{section.17.6}%
+\contentsline {subsection}{\numberline {17.6.1}Grado}{621}{subsection.17.6.1}%
+\contentsline {subsection}{\numberline {17.6.2}Betweenness}{621}{subsection.17.6.2}%
+\contentsline {subsection}{\numberline {17.6.3}Closeness}{623}{subsection.17.6.3}%
+\contentsline {subsection}{\numberline {17.6.4}Eigenvector Centrality y PageRank}{624}{subsection.17.6.4}%
+\contentsline {subsection}{\numberline {17.6.5}Centralidad de Bonacich}{624}{subsection.17.6.5}%
+\contentsline {subsection}{\numberline {17.6.6}Centralidad de la Red (Freeman)}{625}{subsection.17.6.6}%
+\contentsline {section}{\numberline {17.7}Detección de Comunidades}{626}{section.17.7}%
+\contentsline {subsection}{\numberline {17.7.1}Uniones Fuertes y Débiles}{626}{subsection.17.7.1}%
+\contentsline {subsection}{\numberline {17.7.2}Modularidad}{627}{subsection.17.7.2}%
+\contentsline {subsubsection}{Algoritmo de Louvain}{627}{section*.129}%
+\contentsline {subsection}{\numberline {17.7.3}Algoritmo de Girwan-Newman}{629}{subsection.17.7.3}%
+\contentsline {subsection}{\numberline {17.7.4}Clustering Espectral}{630}{subsection.17.7.4}%
+\contentsline {subsection}{\numberline {17.7.5}Infomap}{630}{subsection.17.7.5}%
+\contentsline {subsection}{\numberline {17.7.6}Comunidades con Solapamiento: Big Clam}{634}{subsection.17.7.6}%
+\contentsline {section}{\numberline {17.8}Análisis de comunidades en Redes Sociales}{636}{section.17.8}%
+\contentsline {section}{\numberline {17.9}Cascadas en Redes Sociales}{638}{section.17.9}%
+\contentsline {subsection}{\numberline {17.9.1}Cascadas}{638}{subsection.17.9.1}%
+\contentsline {subsection}{\numberline {17.9.2}Maximización de Influencia}{641}{subsection.17.9.2}%
+\contentsline {section}{\numberline {17.10}Redes Sociales con Signo}{642}{section.17.10}%
+\contentsline {section}{\numberline {17.11}Motifs}{645}{section.17.11}%
+\contentsline {section}{\numberline {17.12}El Lenguaje en las Redes Sociales}{647}{section.17.12}%
+\contentsline {section}{\numberline {17.13}Evolución de una Red Social}{648}{section.17.13}%
+\contentsline {subsection}{\numberline {17.13.1}Cantidad de Nodos y Aristas}{648}{subsection.17.13.1}%
+\contentsline {subsection}{\numberline {17.13.2}Diámetro}{650}{subsection.17.13.2}%
+\contentsline {section}{\numberline {17.14}Grafos de Kronecker}{651}{section.17.14}%
+\contentsline {subsection}{\numberline {17.14.1}Propiedades}{652}{subsection.17.14.1}%
+\contentsline {subsection}{\numberline {17.14.2}Grafos de Kronecker estocásticos}{652}{subsection.17.14.2}%
+\contentsline {subsection}{\numberline {17.14.3}Estimación de la matriz generadora}{653}{subsection.17.14.3}%
+\contentsline {subsection}{\numberline {17.14.4}Generando Redes Sociales con Grafos de Kronecker}{654}{subsection.17.14.4}%
+\contentsline {chapter}{\numberline {18}Análisis Topológico de Datos}{657}{chapter.18}%
+\contentsline {section}{\numberline {18.1}Propiedades del Análisis Topológico}{658}{section.18.1}%
+\contentsline {section}{\numberline {18.2}Los Datos como un Grafo}{659}{section.18.2}%
+\contentsline {subsection}{\numberline {18.2.1}Complejo Vietoris-Rips}{659}{subsection.18.2.1}%
+\contentsline {subsection}{\numberline {18.2.2}Complejo de Cech}{662}{subsection.18.2.2}%
+\contentsline {section}{\numberline {18.3}Homología Persistente}{662}{section.18.3}%
+\contentsline {subsection}{\numberline {18.3.1}Números de Betti y Barcodes}{663}{subsection.18.3.1}%
+\contentsline {subsection}{\numberline {18.3.2}BarCodes}{664}{subsection.18.3.2}%
+\contentsline {subsection}{\numberline {18.3.3}Otros puntos de Análisis}{665}{subsection.18.3.3}%
+\contentsline {section}{\numberline {18.4}Algoritmo Mapper}{666}{section.18.4}%
+\contentsline {subsection}{\numberline {18.4.1}Lentes Topológicos Comunes}{666}{subsection.18.4.1}%
+\contentsline {subsection}{\numberline {18.4.2}Cubriendo los Datos}{667}{subsection.18.4.2}%
+\contentsline {subsection}{\numberline {18.4.3}Fase de Clustering}{669}{subsection.18.4.3}%
+\contentsline {subsection}{\numberline {18.4.4}Construcción del Grafo}{670}{subsection.18.4.4}%
+\contentsline {subsection}{\numberline {18.4.5}Ejemplo}{670}{subsection.18.4.5}%
+\contentsline {subsection}{\numberline {18.4.6}Ejemplo}{674}{subsection.18.4.6}%
+\contentsline {section}{\numberline {18.5}Conclusiones}{676}{section.18.5}%
+\contentsline {part}{II\hspace {1em}Temas Adicionales}{679}{part.2}%
+\contentsline {chapter}{\numberline {19}Patrones Frecuentes}{681}{chapter.19}%
+\contentsline {section}{\numberline {19.1}A-Priori}{682}{section.19.1}%
+\contentsline {subsection}{\numberline {19.1.1}Generación de Candidatos Intermedia}{684}{subsection.19.1.1}%
+\contentsline {section}{\numberline {19.2}PCY}{685}{section.19.2}%
+\contentsline {section}{\numberline {19.3}Algoritmos Aleatorizados}{685}{section.19.3}%
+\contentsline {subsection}{\numberline {19.3.1}Muestreo Aleatorio}{686}{subsection.19.3.1}%
+\contentsline {subsection}{\numberline {19.3.2}Algoritmo SON}{686}{subsection.19.3.2}%
+\contentsline {subsubsection}{SON en Map-Reduce}{687}{section*.130}%
+\contentsline {subsection}{\numberline {19.3.3}Algoritmo de Toivonen}{690}{subsection.19.3.3}%
+\contentsline {section}{\numberline {19.4}Reglas de Asociación}{691}{section.19.4}%
+\contentsline {subsection}{\numberline {19.4.1}Soporte y Confianza en Reglas de Asociación}{692}{subsection.19.4.1}%
+\contentsline {subsubsection}{Soporte Alto, Confianza Alta}{692}{section*.131}%
+\contentsline {subsubsection}{Soporte Alto, Baja Confianza}{692}{section*.132}%
+\contentsline {subsubsection}{Soporte Bajo, Confianza Baja}{692}{section*.133}%
+\contentsline {subsubsection}{Soporte Bajo, Confianza Alta}{692}{section*.134}%
+\contentsline {subsection}{\numberline {19.4.2}Limitaciones del Soporte y Confianza para encontrar asociaciones interesantes}{692}{subsection.19.4.2}%
+\contentsline {subsection}{\numberline {19.4.3}Lift}{693}{subsection.19.4.3}%
+\contentsline {subsection}{\numberline {19.4.4}Métricas invariantes a los valores nulos}{694}{subsection.19.4.4}%
+\contentsline {chapter}{\numberline {20}Metadatos}{695}{chapter.20}%
+\contentsline {section}{\numberline {20.1}Dublin Core}{696}{section.20.1}%
+\contentsline {section}{\numberline {20.2}RDF}{697}{section.20.2}%
+\contentsline {subsection}{\numberline {20.2.1}El Modelo RDF}{697}{subsection.20.2.1}%
+\contentsline {subsection}{\numberline {20.2.2}RDF mediante Grafos}{698}{subsection.20.2.2}%
+\contentsline {subsection}{\numberline {20.2.3}Recursos Anónimos}{698}{subsection.20.2.3}%
+\contentsline {section}{\numberline {20.3}Turtle}{699}{section.20.3}%
+\contentsline {section}{\numberline {20.4}Ontologías}{700}{section.20.4}%
+\contentsline {subsection}{\numberline {20.4.1}RDF-Schema (RDFs)}{700}{subsection.20.4.1}%
+\contentsline {subsubsection}{Clases}{701}{section*.135}%
+\contentsline {subsubsection}{Domain y Range}{701}{section*.136}%
+\contentsline {subsection}{\numberline {20.4.2}Otros elementos de RDFs}{702}{subsection.20.4.2}%
+\contentsline {section}{\numberline {20.5}SPARQL}{702}{section.20.5}%
+\contentsline {chapter}{\numberline {21}Apéndice A: Un caso de estudio de Machine Learning}{705}{chapter.21}%
+\contentsline {section}{\numberline {21.1}The Shoppers Problem}{705}{section.21.1}%
+\contentsline {section}{\numberline {21.2}Los Datos}{705}{section.21.2}%
+\contentsline {subsection}{\numberline {21.2.1}items}{706}{subsection.21.2.1}%
+\contentsline {subsection}{\numberline {21.2.2}item\_categories}{706}{subsection.21.2.2}%
+\contentsline {subsection}{\numberline {21.2.3}shops}{706}{subsection.21.2.3}%
+\contentsline {subsection}{\numberline {21.2.4}sales}{706}{subsection.21.2.4}%
+\contentsline {subsection}{\numberline {21.2.5}test}{707}{subsection.21.2.5}%
+\contentsline {section}{\numberline {21.3}Análisis Exploratorio}{707}{section.21.3}%
+\contentsline {section}{\numberline {21.4}Preparación del Dataset}{708}{section.21.4}%
+\contentsline {subsection}{\numberline {21.4.1}La Matriz de Datos Históricos}{708}{subsection.21.4.1}%
+\contentsline {section}{\numberline {21.5}Feature Engineering}{709}{section.21.5}%
+\contentsline {subsection}{\numberline {21.5.1}Pensando en el modelo}{709}{subsection.21.5.1}%
+\contentsline {subsection}{\numberline {21.5.2}Baselines}{710}{subsection.21.5.2}%
+\contentsline {section}{\numberline {21.6}Construcción de un Modelo de Machine Learning}{710}{section.21.6}%
